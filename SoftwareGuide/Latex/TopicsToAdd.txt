@@ -4,3 +4,67 @@ This is a list of topics to be added to the Software Guide.
 
 
 
+
+Chapter 1
+
+
+
+Add more on the "Data" section: expand it in order to mention
+
+
+  - IBSR repository: add a paragraph, how to get their data,
+      how to read it with ITK. And add a \ref{} to ImageIO 
+      chapter and MetaImages.
+
+
+
+  - BrainWeb repository: add a paragraph, how the get their data.
+      how to read it  using MetaImage.
+
+
+
+  - MIRC (RSNA).  www.rsna.org/mirc  add a paragraph about it.
+
+
+
+ Mention that the reader has to go to the ImageIO chapter in order 
+ to learn about all the fileformats in ITK.
+
+
+
+
+
+
+Chapter 2
+
+
+- Update list of compilers
+
+     
+      Intel (Linux, Windows),  7.1, 8.0
+      Sun native CC 5.6 
+      SGI 7.4 (??) check with Bill Lorensen
+      Mac GCC 3.3
+      Free VC++
+      Visual Studio  6.0 ,  7.0,   7.1
+      Borland 5.5
+      MinGW  gcc
+      Cygwin gcc 
+
+
+
+ - Configuration:
+
+     Add CMake screen shots for the Mac (from Jon).
+
+
+
+
+
+
+
+
+Chapter 3
+
+
+
