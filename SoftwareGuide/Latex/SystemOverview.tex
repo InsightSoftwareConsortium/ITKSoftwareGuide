@@ -71,7 +71,7 @@ cover these concepts in more detail.
 \section{Numerics}
 \label{sec:Numerics}
 
-The numerics library, vnl is intended to provide an environment for numerical
+The numerics library, \code{vnl} is intended to provide an environment for numerical
 programming which combines the ease of use of packages like Mathematica and
 Matlab with the speed of C and the elegance of C++. It provides a C++
 interface to the high-quality Fortran routines made available in the public
@@ -81,16 +81,16 @@ This release includes classes for
 
 Matrices and vectors. The library is based on the old TargetJr/IUE classes, which provide the standard operations without excessive overhead. 
 
-Specialized classes for matrices and vectors with particular properties. Class vnl_diagonal_matrix provides a fast and convenient diagonal matrix, while fixed size matrices and vectors allow "fast-as-C" computations (see vnl_matrix_fixed<T,n,m> and example subclasses vnl_double_3x3 and vnl_double_3). 
+Specialized classes for matrices and vectors with particular properties. Class \code{vnl\_diagonal\_matrix} provides a fast and convenient diagonal matrix, while fixed size matrices and vectors allow "fast-as-C" computations (see \code{vnl\_matrix\_fixed<T,n,m>} and example subclasses \code{vnl\_double\_3x3} and \code{vnl\_double\_3}). 
 
-Matrix decompositions. Classes vnl_svd<T>, vnl_symmetric_eigensystem<T> , vnl_generalized_eigensystem. 
+Matrix decompositions. Classes \code{vnl\_svd<T>}, \code{vnl\_symmetric\_eigensystem<T>} , \code{vnl\_generalized\_eigensystem}. 
 
-Real polynomials. Class vnl_real_polynomial stores the coefficients of a real polynomial, and provides methods of evaluation of the polynomial at any x, while class vnl_rpoly_roots provides a root finder. 
+Real polynomials. Class \code{vnl\_real\_polynomial} stores the coefficients of a real polynomial, and provides methods of evaluation of the polynomial at any x, while class \code{vnl\_rpoly\_roots} provides a root finder. 
 
-Optimization. Classes vnl_levenberg_marquardt, vnl_amoeba, vnl_lbfgs, vnl_conjugate_gradient allow optimization of user-supplied functions either with or without user-supplied derivatives. 
+Optimization. Classes \code{vnl\_levenberg\_marquardt}, \code{vnl\_amoeba}, \code{vnl\_lbfgs}, \code{vnl\_conjugate\_gradient} allow optimization of user-supplied functions either with or without user-supplied derivatives. 
 
-Standardized homes for commonly used functions and constants. Class vnl_math defines constants (pi, e, eps...) and simple functions (sqr, abs, rnd...). To quote the header "That's right, M_PI is nonstandard!" Class numeric_limits is from the ISO standard document, and provides a way to access basic limits of a type. E.g. numeric_limits<short>::max() returns the maximum value of a short. 
-Most routines are implemented as wrappers around the high-quality Fortran routines which have been developed by the numerical analysis community over the last forty years and placed in the public domain. The central repository for these programs is the "netlib" server http://www.netlib.org/. The National Institute of Standards and Technology (NIST) provides an excellent search interface to this repository in its Guide to Available Mathematical Software (GAMS) at http://gams.nist.gov, both as a decision tree and a text search. 
+Standardized homes for commonly used functions and constants. Class \code{vnl\_math} defines constants (pi, e, eps...) and simple functions (sqr, abs, rnd...). To quote the header "That's right, M\_PI is nonstandard!" Class numeric\_limits is from the ISO standard document, and provides a way to access basic limits of a type. E.g. numeric\_limits<short>::max() returns the maximum value of a short. 
+Most routines are implemented as wrappers around the high-quality Fortran routines which have been developed by the numerical analysis community over the last forty years and placed in the public domain. The central repository for these programs is the "netlib" server http://www.netlib.org/. The National Institute of Standards and Technology (NIST) provides an excellent search interface to this repository in its Guide to Available Mathematical Software (GAMS) at \url{http://gams.nist.gov}, both as a decision tree and a text search. 
 
 blah blah
 
