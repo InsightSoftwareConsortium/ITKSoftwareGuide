@@ -7,95 +7,95 @@ on a data pipeline architecture in which the output of one filter is passed as
 input to another filter.
 
 
-%\section{Thresholding}
-%\label{sec:ThresholdingFiltering}
-%
-%\subsection{Binary Thresholding}
-%\label{sec:BinaryThresholdingImageFilter}
-%
+\section{Thresholding}
+\label{sec:ThresholdingFiltering}
+
+\subsection{Binary Thresholding}
+\label{sec:BinaryThresholdingImageFilter}
+
 %\input BinaryThresholdImageFilter.tex
-%
-%\subsection{Thresholding}
-%\label{sec:ThresholdingImageFilter}
-%
+
+\subsection{Thresholding}
+\label{sec:ThresholdingImageFilter}
+
 %\input ThresholdImageFilter.tex
-%
-%
-%
-%\section{Casting}
-%\label{sec:CastingFiltering}
-%
+
+
+
+\section{Casting}
+\label{sec:CastingFiltering}
+
 %\input CastingImageFilters.tex
-%
-%
-%\section{Gradients}
-%\label{sec:GradientFiltering}
-%
-%Computation of gradients is a fairly common operation in image processing. The
-%term is sometimes loosely used to refer the gradient vectors or the magnitude
-%of this gradient. Insight filters attempt to reduce this ambiguity by including
-%the \emph{magnitude} term when appropriate. Insight provides filters for
-%computing both the image of gradient vectors and the image of magnitudes.
-%
-%\subsection{Gradient Magnitude}
-%\label{sec:GradientMagnitudeImageFilter}
-%
+
+
+\section{Gradients}
+\label{sec:GradientFiltering}
+
+Computation of gradients is a fairly common operation in image processing. The
+term is sometimes loosely used to refer the gradient vectors or the magnitude
+of this gradient. Insight filters attempt to reduce this ambiguity by including
+the \emph{magnitude} term when appropriate. Insight provides filters for
+computing both the image of gradient vectors and the image of magnitudes.
+
+\subsection{Gradient Magnitude}
+\label{sec:GradientMagnitudeImageFilter}
+
 %\input GradientMagnitudeImageFilter.tex
-%
-%\subsection{Gradient Magnitude With Smoothing}
-%\label{sec:GradientMagnitudeRecursiveGaussianImageFilter}
-%
+
+\subsection{Gradient Magnitude With Smoothing}
+\label{sec:GradientMagnitudeRecursiveGaussianImageFilter}
+
 %\input GradientMagnitudeRecursiveGaussianImageFilter.tex
-%
-%
-%
-%
-%\section{Neighborhood Filters}
-%\label{sec:NeighborhoodFilters}
-%
-%The concept locality is frequently encountered in image processing on the form
-%of filters that compute every output pixel using information from a reduced
-%region on the neighborhood of the input pixel. The classical form of this
-%filters are the $3 \times 3$ filters in 2D images. Convolution masks based on
-%these neighborhoods could perform diverse tasks ranging from noise reduction,
-%to differential operations, to mathematical morphology.
-%
-%The Insight toolkit implements an elegant approach for the computation of these
-%family of filters. The input image is visited by a special iterator called the
-%\code{SmartNeighborhoodIterator}. This iterator is capable of moving over all
-%the pixels in an image and for each position it can address the pixels in a
-%local neighborhood. Operators can be defined in order to specify what
-%algorithmic operation must be performed on the neighborhood of the input pixel
-%to compute the value of the output pixel. The following section describes some
-%of the commonly used filters that take advantage of this construction.  
-%
-%\subsection{Median Filter}
-%\label{sec:MedianFilter}
-%
+
+
+
+
+\section{Neighborhood Filters}
+\label{sec:NeighborhoodFilters}
+
+The concept locality is frequently encountered in image processing on the form
+of filters that compute every output pixel using information from a reduced
+region on the neighborhood of the input pixel. The classical form of this
+filters are the $3 \times 3$ filters in 2D images. Convolution masks based on
+these neighborhoods could perform diverse tasks ranging from noise reduction,
+to differential operations, to mathematical morphology.
+
+The Insight toolkit implements an elegant approach for the computation of these
+family of filters. The input image is visited by a special iterator called the
+\code{SmartNeighborhoodIterator}. This iterator is capable of moving over all
+the pixels in an image and for each position it can address the pixels in a
+local neighborhood. Operators can be defined in order to specify what
+algorithmic operation must be performed on the neighborhood of the input pixel
+to compute the value of the output pixel. The following section describes some
+of the commonly used filters that take advantage of this construction.  
+
+\subsection{Median Filter}
+\label{sec:MedianFilter}
+
 %\input MedianImageFilter.tex
-%
-%
-%\subsection{Mathematical Morphology}
-%\label{sec:MathematicalMorphology}
-%
-%Mathematical morphology has proved to be a a powerful resource for image
-%processing and analysis. Insight implements mathematical morphology filters
-%using the approach of NeighborhoodIterators and NeighborhoodOperators. Two
-%basic flavors of filters are available in the toolkit, the ones that operate on
-%binary images and the ones that operate on grayscale images. 
-%
-%\subsubsection{Binary Filters}
-%\label{sec:MathematicalMorphologyBinaryFilters}
-%
+
+
+\subsection{Mathematical Morphology}
+\label{sec:MathematicalMorphology}
+
+Mathematical morphology has proved to be a a powerful resource for image
+processing and analysis. Insight implements mathematical morphology filters
+using the approach of NeighborhoodIterators and NeighborhoodOperators. Two
+basic flavors of filters are available in the toolkit, the ones that operate on
+binary images and the ones that operate on grayscale images. 
+
+\subsubsection{Binary Filters}
+\label{sec:MathematicalMorphologyBinaryFilters}
+
 %\input MathematicalMorphologyBinaryFilters.tex
-%
-%
-%\subsubsection{Grayscale Filters}
-%\label{sec:MathematicalMorphologyGrayscaleFilters}
-%
+
+
+\subsubsection{Grayscale Filters}
+\label{sec:MathematicalMorphologyGrayscaleFilters}
+
 %\input MathematicalMorphologyGrayscaleFilters.tex
-%
-%
+
+
 
 
 \section{Smoothing Filters}
@@ -109,7 +109,7 @@ describes several methods that can be applied to reduce noise on images.
 \subsection{Blurring}
 \label{sec:BlurringFilters}
 
-Blurring is the traditional approach for removing noise from images. It it
+lurring is the traditional approach for removing noise from images. It it
 usally implemented in the form of a convolution with a kernel. The effect of
 this operation on the image spectrum is to attenuate high spatial frequencies.
 Different kernels attenuate frequencies in different ways. One of the most
@@ -118,35 +118,84 @@ smoothing are available in the toolkit. The first one is based on a traditional
 convolution while the other is based on the application of IIR filters that
 approximate the convolution with a Gaussian. 
 
-\subsection{Discrete Gaussian}
+\subsubsection{Discrete Gaussian}
 \label{sec:DiscreteGaussianImageFilter}
 
-\input DiscreteGaussianImageFilter.tex
+%\input DiscreteGaussianImageFilter.tex
 
 
-\subsection{Recursive Blurring}
-\label{sec:RecursiveGaussianSmoothingFilter}
+\subsubsection{Binomial Blurring}
+\label{sec:BinomialBlurImageFilter}
+
+%\input BinomialBlurImageFilter.tex
 
 
-\subsection{Edge Preserving}
-\label{sec:EdgePreservingFilters}
+
+\subsection{Edge Preserving Smoothing}
+\label{sec:EdgePreservingSmoothingFilters}
 
 
 \subsubsection{Curvature Flow}
 \label{sec:CurvatureFlowImageFilter}
 
-\input CurvatureFlowImageFilter.tex
+%\input CurvatureFlowImageFilter.tex
 
 
 \subsubsection{MinMaxCurvature Flow}
 \label{sec:MinMaxCurvatureFlowImageFilter}
 
-\input MinMaxCurvatureFlowImageFilter.tex
+%\input MinMaxCurvatureFlowImageFilter.tex
 
 
 
 \subsubsection{BinaryMinMaxCurvature Flow}
 \label{sec:BinaryMinMaxCurvatureFlowImageFilter}
 
-\input BinaryMinMaxCurvatureFlowImageFilter.tex
+%\input BinaryMinMaxCurvatureFlowImageFilter.tex
+
+
+\subsubsection{Gradient Anisotropic Diffusion}
+\label{sec:GradientAnisotropicDiffusionImageFilter}
+
+%\input GradientAnisotropicDiffusionImageFilter.tex
+
+
+
+\subsubsection{Curvature Anisotropic Diffusion}
+\label{sec:CurvatureAnisotropicDiffusionImageFilter}
+
+%\input CurvatureAnisotropicDiffusionImageFilter.tex
+
+
+
+\subsection{Edge Preserving Smoothing in Vector Images}
+\label{sec:VectorAnisotropicDiffusion}
+
+Anisotropic diffusion can also be applied to images whose pixels are vectors.
+In this case the diffusion is computed independently for each vector component.
+The following classes implement versions of anisotropic diffusion on vector images.
+
+
+\subsubsection{Vector Gradient Anisotropic Diffusion}
+\label{sec:VectorGradientAnisotropicDiffusionImageFilter}
+
+\input VectorGradientAnisotropicDiffusionImageFilter.tex
+
+
+
+
+
+\subsubsection{Vector Curvature Anisotropic Diffusion}
+\label{sec:VectorCurvatureAnisotropicDiffusionImageFilter}
+
+\input VectorCurvatureAnisotropicDiffusionImageFilter.tex
+
+
+
+\subsection{Edge Preserving Smoothing in Color Images}
+\label{sec:ColoAnisotropicDiffusion}
+
+\input RGBCurvatureAnisotropicDiffusionImageFilter.tex
+
+
 
