@@ -14,7 +14,6 @@ FIND_PROGRAM(FIG2DEV_EXECUTABLE
 )
 
 
-
 # 
 # Find ImageMagick tools
 # This is used to convert image formats
@@ -35,6 +34,12 @@ ENDIF(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
 
 
 ADD_CUSTOM_TARGET(SoftwareGuideArt  ALL echo)
+
+
+#
+#  At some point we should replace XFIG_FIGURES with the FILE GLOB expression.
+#
+FILE(GLOB XFIG_FIGURES2 *.fig)
 
 SET(XFIG_FIGURES
   BayesianPluginClassifier
