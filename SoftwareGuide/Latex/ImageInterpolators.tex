@@ -1,31 +1,47 @@
-\includegraphics{ImageOverlap.eps}
-
-An Image A is mapped over an image B by using a Transform
 
 
-\subsection{Iterator Walking over a Region}
+In the registration process, the metric typically compare intensity values 
+in the fixed image with the corresponding values in the transformed moving
+image. When a point is mapped from one space to another by a transform,
+it will in general be mapped to a non-grid position. Therefore, interpolation
+is required to evaluate the image intensity at the mapped position.
 
-\includegraphics{ImageOverlapIterator.eps} 
+\begin{figure}
+\center
+\includegraphics[height=6cm]{ImageOverlap.eps}
+\includegraphics[height=6cm]{ImageOverlapInterpolator.eps}
+\caption{ The moving image is mapped into the fixed image space under some spatial
+transformation. Grid positions of the fixed image maps to non-grid positions of the
+moving image. Interpolation is needed for estimating the intensity of the
+moving image at these non-grid positions.}
+\label{fig:ImageOverlapInterpolator}
+\end{figure}
 
-An Iterator walking over a region of
-B gets mapped on top of a blue region of A
+ITK currently offers three different interpolation schemes: nearest-neighbor,
+linear and B-Spline. In the context of registration, the interpolation method
+affects the smoothness of the optimization search space and the overall
+computation time. On the other hand, interpolations are executed thousands of
+times in a single optimization cycle. Hence, the user has to tradeoff the
+simplicity of computation with smoothness when selecting the interpolation 
+scheme.
 
-\subsection{Need for an Interpolator}
+ 
+\subsection{Nearest Neighbor Interpolation}
+\label{sec:NearestNeighborInterpolation}
+%Use the intensity of the nearest grid point
+%Cheap, piecewise constant with jump at grid points
 
-The positions of the iterator are mapped
-on non-grid positions in the image A 
+\subsection{Linear Interpolation}
+\label{sec:LinearInterpolation}
+%Assumes intensity varies linear between grid points.
+%More expensive than nearest neighbor, continuous intensity
+%by distcontinous gradient
 
-\includegraphics{ImageOverlapInterpolator.eps}
-
-An interpolation is needed for estimating
-the value of the image A at these non-grid positions.
-
-
-\subsection{Overlaped regions }
-
-\includegraphics{ImageOverlapedRegions.eps}
-
-Image metrics perform the computation over the intersection of a region in
-image A and the map of a region in image B.
+\subsection{B-Spline Interpolation}
+\label{sec:BSplineInterpolation}
+%Over and undershoots
+%Mirror boundary
+%Order 0 to 5
+%Smoothest, most computation
 
 
