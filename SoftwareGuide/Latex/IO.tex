@@ -8,12 +8,16 @@ writing images to files. Insight does not enforce any particular file format,
 instead, it provides a structure to facilitate the future addition of file
 formats without having to modify existing code. 
 
-Let's start with a example of the simplest case of moving images between files
+Let's start with some examples of the simplest cases of moving images between files
 and memory.
 
 \section{Basic Example}
 \label{sec:ImagReadWrite}
 \input ImageReadWrite.tex
+
+\section{Reading and Writing RGB Images}
+\label{sec:RGBImagReadWrite}
+\input RGBImageReadWrite.tex
 
 
 The following section describes the internals of the IO architecture provided
@@ -31,16 +35,16 @@ in the toolkit.
 
 
 The principle behind the input/output mechanism used in ITK is known as
-\emph{pluggable-factories}\cite{Gamma1995}. The concept is illustrated in the
-UML diagram in figure \ref{fig:ImageIOCollaborationDiagram}. From the user's
+\emph{pluggable-factories} \cite{Gamma1995}. The concept is illustrated in the
+UML diagram in Figure~\ref{fig:ImageIOCollaborationDiagram}. From the user's
 point of view the objects responsible for reading and writing files are the
 \code{itk::ImageFileReader} and \code{itk::ImageFileWriter} classes. These two
 classes, however, are not aware of the details involved in reading or writing
 particular file formats like PNG or DICOM.  What they do, is to dispatch the
 user's requests to a set of specific classes that are aware of the file formats
-intricacies. These classes are the ImageIO classes. The delegation mechanism
+intricacies. These classes are the \code{ImageIO} classes. The delegation mechanism
 allows to extend the number of supported file formats by just adding new
-classes to the ImageIO hierarchy.
+classes to the \code{ImageIO} hierarchy.
 
 \begin{figure}
 \center
@@ -51,22 +55,24 @@ classes to the ImageIO hierarchy.
 
 
 Each instance of \code{itk::ImageFileReader} and \code{itk::ImageFileWriter}
-has a pointer to an ImageIO object. If this pointer is empty, it will be
+has a pointer to an \code{ImageIO} object. If this pointer is empty, it will be
 impossible to read/write an image and any request for doing so will result in
 an exception being thrown. When a request for reading or writing a file is
-passed to any ImageFile object, it attempts to find an appropriate ImageIO
-object capable of doing the job. This is done basically by passing the filename
-to a centralized class, the \code{ImageIOFactory} and asking it if it knows of
-any ImageIO class capable of reading/writing this file. This is illustrated by
-the use cases on the right side of figure \ref{fig:ImageIOFactoriesUseCases}.
+passed to any ImageFile object, it attempts to find an appropriate
+\code{ImageIO} object capable of doing the job. This is done basically by
+passing the filename to a centralized class, the \code{ImageIOFactory} and
+asking it if it knows of any \code{ImageIO} class capable of reading/writing
+this file. This is illustrated by the use cases on the right side of
+Figure~\ref{fig:ImageIOFactoriesUseCases}.
 
-Each class derived from ImageIO should provide an associated factory class
-capable of producing an instance of the ImageIO class. For example, for PNG
-files, there is a PNGImageIO object that knows how to read this image files
-and there is a PNGImageIOFactory class capable of constructing a PNGImageIO
-object and returning its pointer. Each time a new file format is added, its
-factory should be implemented as a derived class of the \code{ImageIOFactory}
-class as illustrated in figure \ref{fig:ImageIOFactoriesClassDiagram}. 
+Each class derived from \code{itk::ImageIO} should provide an associated
+factory class capable of producing an instance of the \code{ImageIO} class. For
+example, for PNG files, there is a \code{itk::PNGImageIO} object that knows how
+to read this image files and there is a PNGImageIOFactory class capable of
+constructing a \code{PNGImageIO} object and returning its pointer. Each time a
+new file format is added, its factory should be implemented as a derived class
+of the \code{ImageIOFactory} class as illustrated in
+Figure~\ref{fig:ImageIOFactoriesClassDiagram}. 
 
 \begin{figure}
 \center
@@ -75,28 +81,21 @@ class as illustrated in figure \ref{fig:ImageIOFactoriesClassDiagram}.
 \label{fig:ImageIOFactoriesClassDiagram}
 \end{figure}
 
-In order to read PNG files, a PNGImageIOFactory should be created and
-registered with the central ImageIOFactory singleton\footnote{\emph{Singleton}
-means that there is only one instance of this class in a particular
-application} class as illustrated in the left side of figure
-\ref{fig:ImageIOFactoriesUseCases}. When the ImageFileReader asks the
-ImageIOFactory for an ImageIO capable of reading the file identified with
-\emph{filename} the ImageIOFactory will iterate over the list of registered
-factories and will ask each one of them is they know how to read the file. The
-factory that responds afirmatively will be used to create the specific ImageIO
-instance that will be returned to the \code{ImageFileReader}.
+In order to read PNG files, a \code{PNGImageIOFactory} should be created and
+registered with the central \code{ImageIOFactory}
+singleton\footnote{\emph{Singleton} means that there is only one instance of
+this class in a particular application} class as illustrated in the left side
+of Figure~\ref{fig:ImageIOFactoriesUseCases}. When the ImageFileReader asks the
+\code{ImageIOFactory} for an \code{ImageIO} capable of reading the file
+identified with \emph{filename} the ImageIOFactory will iterate over the list
+of registered factories and will ask each one of them is they know how to read
+the file. The factory that responds afirmatively will be used to create the
+specific \code{ImageIO} instance that will be returned to the \code{ImageFileReader}.
 
 In most cases the whole mechanism will be transparent to the user who will only
 interact with the \code{ImageFileReader} and \code{ImageFileWriter}. The following
 sections introduce specific examples of commonly used IO tasks. 
 
-The following sections present how to use the IO infrastructure for performing
-common tasks in reading and writing images.
-
-
-\section{Reading and Writing RGB Images}
-\label{sec:RGBImagReadWrite}
-\input RGBImageReadWrite.tex
 
 
 
