@@ -19,6 +19,8 @@ SET(JPEG_IMAGES
   BinaryThresholdImageFilterOutput
   BrainProtonDensitySlice
   GradientMagnitudeImageFilterOutput
+  GradientMagnitudeRecursiveGaussianImageFilterOutput3
+  GradientMagnitudeRecursiveGaussianImageFilterOutput5
   ThresholdImageFilterOutputAbove
   ThresholdImageFilterOutputBelow
   ThresholdImageFilterOutputOutside
