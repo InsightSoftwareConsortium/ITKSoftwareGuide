@@ -29,12 +29,25 @@ then to find the optimal combinations of the model parameters that will make
 this model fit as a good representation of the anatomical structure contained
 in an image. 
 
-For example, let's say that in the axial view of a brain image we can roughtly
+
+\begin{figure}
+\center
+\includegraphics[width=12cm]{ModelToImageRegistrationConcept.eps}
+\caption[Model to Image Registration Framework Concept]{Basic concept of
+Model-to-Image registration.  A simplified geometrical model (ellipse) is
+registered against an anatomical structure (skull)  by applying a spatial
+transform and modifying the model internal parameters.}
+\label{fig:ModelToImageRegistrationConcept}
+\end{figure}
+
+
+For example, let's say that in the axial view of a brain image we can roughly
 approximate the skull with an ellipse. The ellipse becomes our simplified
-geometrical model, and registration is the taks of finding the best center for
+geometrical model, and registration is the task of finding the best center for
 the ellipse, the measures of its axis lengths and its orientation on the plane.
-If we compare this aproach with the image to image registration problem, we can
-see that the main difference here is that in addition to mapping the spatial
+This is illustrated in Figure~\ref{fig:ModelToImageRegistrationConcept}.  If we
+compare this aproach with the Image-to-Image registration problem, we can see
+that the main difference here is that in addition to mapping the spatial
 position of the model, we can also customize internal parameters that change
 its shape.
 
