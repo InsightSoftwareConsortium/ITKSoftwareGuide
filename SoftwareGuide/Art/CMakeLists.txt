@@ -87,6 +87,7 @@ SET(JPEG_IMAGES
   BrainProtonDensitySlice2x3b
   BrainProtonDensitySliceBorder20
   BrainProtonDensitySliceShifted13x17y
+  BrainT1Slice
   BrainT1SliceBorder20
   ccmakeScreenShot
   CMakeSetupScreenShot
@@ -107,6 +108,7 @@ SET(JPEG_IMAGES
   GradientMagnitudeRecursiveGaussianImageFilterOutput3
   GradientMagnitudeRecursiveGaussianImageFilterOutput5
   GradientAnisotropicDiffusionImageFilterOutput
+  HybridSegmentationFuzzyVoronoiOutput
   ImageRegistration1Output
   ImageRegistration2Output
   ImageRegistration4Output
