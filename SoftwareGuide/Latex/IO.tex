@@ -13,7 +13,7 @@ and memory.
 
 \section{Basic Example}
 \label{sec:ImagReadWrite}
-\input ImageReadWrite.tex
+\input{ImageReadWrite.tex}
 
 
 \begin{figure}
@@ -39,15 +39,33 @@ and memory.
 
 \section{Reading and Writing RGB Images}
 \label{sec:RGBImagReadWrite}
-\input RGBImageReadWrite.tex
+\input{RGBImageReadWrite.tex}
 
 \section{Reading Casting and Writing Images}
 \label{sec:ImagReadCastWrite}
-\input ImageReadCastWrite.tex
+\input{ImageReadCastWrite.tex}
 
 \section{Extracting Regions}
 \label{sec:ImagReadExtractWrite}
-\input ImageReadExtractWrite.tex
+\input{ImageReadExtractWrite.tex}
+
+
+
+
+\section{Reading and Writing Vector Images}
+\label{sec:VectorImagReadWrite}
+
+\input{CovariantVectorImageWrite.tex}
+
+Let's now take the image that we just created and read it into another program.
+
+\input{CovariantVectorImageRead.tex}
+
+
+\section{Extracting Components from Vector Images}
+\label{sec:VectorImageExtractComponent}
+\input{CovariantVectorImageExtractComponent.tex}
+
 
 
 The following section describes the internals of the IO architecture provided
