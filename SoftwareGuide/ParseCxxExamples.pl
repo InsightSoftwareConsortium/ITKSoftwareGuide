@@ -28,6 +28,10 @@ sub ParseCxxFile {
   
   $outputfilename .= "/".$basefilename;
 
+  # truncate the initial part of the path
+  $inputfilename =~ /(Examples\/.*$)/;
+  my $examplefilename = $1;
+
   print "Processing $inputfilename into $outputfilename  ... \n";
 
   open(INFILE,    "$inputfilename"  )  or die "Can't open $inputfilename $!";
@@ -41,6 +45,14 @@ sub ParseCxxFile {
 
   my $dumpinglatex = 0;
   my $dumpingcode  = 0;
+
+  print OUTFILE "\% The following file is automatically generated\n";
+  print OUTFILE "\% by a perl script from the original cxx sources\n";
+  print OUTFILE "\% in the Insight/Examples directory\n";
+  print OUTFILE "\% $examplefilename\n";
+  print OUTFILE "\n\n";
+  print OUTFILE "The sources of this code can be found in the file\\\\\n";
+  print OUTFILE "\\texttt\{$examplefilename\}\n\n";
 
   while(<INFILE>) {
 
