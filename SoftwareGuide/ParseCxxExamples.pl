@@ -103,6 +103,7 @@ sub ParseCxxFile {
       $tagfound = 1;
       $dumpingcode = 0;
       print OUTFILE "\\end{verbatim}\n";
+      print OUTFILE "\\normalsize\n";
       }
     if( !$tagfound ) {
       if( $dumpinglatex ) {
