@@ -101,6 +101,8 @@ SET(XFIG_FIGURES
   ResampleImageFilterTransformComposition5
   ResampleImageFilterTransformComposition6
   SigmoidBase
+  SigmoidParametersAlpha
+  SigmoidParametersBeta
   ThresholdTransferFunctionAbove
   ThresholdTransferFunctionBelow
   ThresholdTransferFunctionOutside
