@@ -149,7 +149,7 @@ negative direction.  Only the prefix decrement operator is defined for ITK
 image iterators. 
 \end{itemize}
 
-Figure~{\ref{fig:WalkingIterator}} illustrates typical iterator movement over
+Figure~\ref{fig:WalkingIterator} illustrates typical iterator movement over
 an image region.  Most iterators increment and decrement in the direction of
 the fastest increasing image dimension, wrapping to the first position in the
 next higher dimension at region boundaries.  In other words, this means an
@@ -455,8 +455,124 @@ implicit geometric shape functions or connected component regions.
 \section{Neighborhood Iterators}
 \label{sec:NeighborhoodIterators}
 \index{Iterators!neighborhood|(}
-This section describes the ITK image iterators designed for working with
-neighborhoods of image pixels in an image. 
+
+It is common in image processing algorithms to compute  values at a pixel
+locations based on the values of pixels adjacent to those locations.  Finite
+difference operations, for example, compute a derivative at pixel location $i$
+based on the values at locations $i+1$ and $i-1$. Other examples include
+convolution filtering and morphological operations.  These types of
+computations are called \em{neighborhood} computations because they use a local
+neighborhood of values.  A neighborhood is loosely defined as a small set of pixels
+that are locally adjacent to one another in an image.  The size and shape
+(stencil) of neighborhoods may vary, and the connectivity among pixels in a
+neighborhood may also vary.
+
+This section describes a class of ITK image iterators that are designed for
+working with neighborhoods of image pixels. An ITK neighborhood iterator walks
+an image region just like a normal image iterator, but instead of referencing
+just one pixel at a time, it points to an entire ND neighborhood of pixels
+around each pixel. 
+
+Figure~\ref{fig:WalkingNeighborhoodIterator} illustrates the concept of the
+neighborhood iterator.
+%
+% DESCRIBE FIGURE HERE
+%
+
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{NeighborhoodIteratorFigure1.eps}
+\itkcaption[ITK image iteration]{Path of a neighborhood iterator through an image.  The
+iteration region is shown in a darker shade. An arrow denotes a single iterator
+step, the result of one \code{++} operation.  The }
+\protect\label{fig:WalkingNeighborhoodIterator}
+\end{figure}
+
+All of the standard operators defined for ... Additionally, neighborhood
+iterators are random access iterators, which means that they can be moved
+around an image in arbitrary sized steps.
+
+\index{NeighborhoodIterators!operator+=(itk::Offset)}
+\begin{itemize}
+\item \textbf{\code{operator+=(itk::Offset)}} Moves the iterator by an ND
+offset in the positive direction.
+
+\index{NeighborhoodIterators!operator-=(itk::Offset}
+\item \textbf{\code{operator-=(itk::Offset)}} Moves the iterator by an ND
+offset in the negative direction.
+\end{itemize}
+
+Figure~\ref{fig:OffsetNeighborhoodIterator} illustrates the random access
+functionality of the neighborhood iterator.  For efficiency reasons, random
+access iterations do not perform bounds checking.  It is therefore possible to
+move the iterator outside of its iteration region where dereferencing will
+produce undefined results.
+
+
+
+%start with a simple example in pseudocode
+
+The neighborhood iterator interface extends the normal ITK iterator interface
+for setting and getting pixel values.  neighborhood is stored like an array.
+alternately you can think of neighborhood as a set of offsets from the center
+pixel.  both methods of pixel access are supported.
+
+\index{NeighborhoodIterators!}
+\begin{itemize}
+\item \textbf{\code{PixelType GetCenterPixel()}} 
+\item \textbf{\code{void SetCenterPixel(PixelType p)}} 
+
+\item \textbf{\code{PixelType GetPixel(const unsigned int i}} 
+\item \textbf{\code{PixelType SetPixel(const unsigned int i, PixelType p}} 
+
+\item \textbf{\code{PixelType GetPixel(const itk::Offset &o}} 
+\item \textbf{\code{PixelType SetPixel(const itk::Offset &o, PixelType p}} 
+
+\end{itemize}
+
+You can also reference a pixel in the neighborhood by its adjacency to the
+center pixel.
+
+\index{NeighborhoodIterators!}
+\begin{itemize}
+\item \textbf{\code{PixelType GetNext(unsigned int d)}} 
+\item \textbf{\code{void SetNext(unsigned int d, PixelType p)}} 
+
+\item \textbf{\code{PixelType GetPrevious(unsigned int d)}} 
+\item \textbf{\code{void SetPrevious(unsigned int d, PixelType p)}} 
+
+\item \textbf{\code{PixelType GetNext(unsigned int d, unsigned int s)}} 
+\item \textbf{\code{void SetNext(unsigned int d, unsigned int s, PixelType p)}} 
+
+\item \textbf{\code{PixelType GetPrevious(unsigned int d, unsigned int s)}} 
+\item \textbf{\code{void SetPrevious(unsigned int d, unsigned int s, PixelType p)}} 
+
+\item \textbf{\code{itk::NeighborhoodType GetNeighborhood()}} 
+\item \textbf{\code{void SetNeighborhood(itk::Neighborhoodtype &N)}}
+\end{itemize}
+
+
+
+Several methods that return information about the neighborhood are also
+defined.
+
+\index{NeighborhoodIterators!}
+\begin{itemize}
+\item \textbf{\code{itk::IndexType GetIndex()}} 
+\item \textbf{\code{itk::ImageIndex GetIndex(itk::Offset o)}} 
+\item \textbf{\code{itk::ImageIndex GetIndex(unsigned int i)}} 
+\item \textbf{\code{OffsetType ComputeInternalIndex(unsigned int i)}} 
+\item \textbf{\code{const ImageType *GetImagePointer()}} 
+
+
+\end{itemize}
+
+%make note about the speed of these methods
+
+%NEED A FIGURE HERE TO DESCRIBE INDEXING OF PIXELS IN A NEIGHBORHOOD
+Figure.... describes the layout of a ...
+
+
 % -Designed to encapsulate common neighborhood management functionailty
 % -efficiently manage access to entire ND neighborhoods, making
 % localized image processing algorithms simple to write and to generalize to
@@ -464,11 +580,34 @@ neighborhoods of image pixels in an image.
 % - walk rectilinear regions
 % 
 
+%boundary conditions
+
+by default uses the boundary condition in the template parameter.
+
+you can override this by creating a boundary condition and passing it through
+Overrideboundarycondition.  be aware that the boundary condition object must be
+remain in scope until the neighborhood iterator is destroyed or its boundary
+ 
+
+\index{NeighborhoodIterators!}
+\begin{itemize}
+\item \textbf{\code{void NeedToUseBoundaryConditionOn()}} in general do not
+need to call these methods as this is calculated on initiializion, but allows
+explicit control
+\item \textbf{\code{void NeedToUseBoundaryConditionOff()}} 
+\item \textbf{\code{void OverrideBoundaryCondition(itk::BoundaryCondition *b}} 
+\item \textbf{\code{void ResetBoundaryCondition()}} 
+\end{itemize}
+
+describe behavior of set/get pixel methods.  introduce the setpixel with status
+\index{NeighborhoodIterators!}
+\begin{itemize}
+\item \textbf{\code{void itk::SetPixel(unsigned int i, PixelType p, bool status}} 
+\end{itemize}
+
 %Do not support image adaptors
 
 %[Be sure to reference Section: Neighborhood Filters]
-
-% Describe the common interface and other redefined methods
 
 \subsection{itk::NeighborhoodIterator}
 \label{sec:itkNeighborhoodIterator}
