@@ -12,9 +12,9 @@
 int main(int argc, char * argv[] )
 {
 
-  if( argc < 5 )
+  if( argc < 6 )
   {
-    std::cerr << "VWSegmentation  inputFile outputFile seedsFile multiplier" << std::endl;
+    std::cerr << "VWSegmentation  inputFile outputFile seedsFile multiplier numberOfIterations" << std::endl;
     return -1;
   }
   
@@ -56,7 +56,7 @@ int main(int argc, char * argv[] )
 
 
   confidenceFilter->SetReplaceValue( 255 );
-  confidenceFilter->SetNumberOfIterations( 2 );
+  confidenceFilter->SetNumberOfIterations( atoi( argv[5] ) );
   confidenceFilter->SetMultiplier( atof( argv[4] ) );
 
   std::ifstream seedsFile;
