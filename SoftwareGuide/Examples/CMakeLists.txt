@@ -43,6 +43,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellsIteration.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellVisitor.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellVisitor2.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/BilateralImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinaryThresholdImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinaryMinMaxCurvatureFlowImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinomialBlurImageFilter.cxx
@@ -90,6 +91,7 @@ SET( ITK_EXAMPLES_TEX_SRCS
   MeshCellVisitor.tex
   MeshCellVisitor2.tex
   MinMaxCurvatureFlowImageFilter.tex
+  BilateralImageFilter.tex
   BinaryThresholdImageFilter.tex
   BinaryMinMaxCurvatureFlowImageFilter.tex
   BinomialBlurImageFilter.tex
