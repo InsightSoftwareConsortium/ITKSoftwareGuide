@@ -122,11 +122,11 @@ J=\left[ \begin{array}{cccc}
 
 Where $\{p_i\}$ are the transform parameters and $\{x_i\}$ are the coordinates
 of the output point.  Within this framework, the Jacobian is represented by a
-\doxygen{Array2D}<double> and is obtained from the transform by method
+\doxygen{Array2D}\<double\> and is obtained from the transform by method
 \code{GetJacobian()}. The Jacobian can be interpreted as a matrix that
 indicates for a point in the input space how much its mapping on the output
 space will change as a response to a small variation in one of the transform
-parameters. Note the the values of the Jacobian matrix depend on the point in
+parameters. Note that the values of the Jacobian matrix depend on the point in
 the input space. So actually the Jacobian can be noted as $J(\bf{X})$. The use
 of transform Jacobians allows to compute metric derivatives in a very efficient
 way. When Jacobians are not available, metrics derivatives have to be computed
@@ -681,7 +681,7 @@ Only defined for three-dimensional input and output spaces. \\
 \end{center}
 
 This transform is a close variant of the \doxygen{QuaternionRigidTransform}. It
-can be seen as a the \doxygen{VersorTransform} plus a translation defined by a
+can be seen as an \doxygen{VersorTransform} plus a translation defined by a
 vector. It general terms it implements a rigid transform in $3D$.  The
 advantage of this class with respect to the \doxygen{QuaternionRigidTransform} is
 that it exposes only 6 parameters, three for the versor components and three
