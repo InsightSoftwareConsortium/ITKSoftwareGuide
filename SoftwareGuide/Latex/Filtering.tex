@@ -39,9 +39,8 @@ ITK.
 \label{sec:CastingImageFilters}
 
 The filters discussed in this section perform pixel-wise intensity mappings.
-Casting is used to convert one pixel type to another while intensity mappings
-take into account the fact that input and output pixel-types have in general
-different dynamic ranges.
+Casting is used to convert one pixel type to another, while intensity mappings
+also take into account the different intensity ranges of the pixel types.
 
 \subsection{Linear Mappings}
 \label{sec:IntensityLinearMapping}
@@ -65,12 +64,12 @@ non-linear form.
 \section{Gradients}
 \label{sec:GradientFiltering}
 
-Computation of gradients is a fairly common operation in image
-processing. The term is sometimes loosely used to refer the gradient vectors
-or the magnitude of the gradient vector. ITK filters attempt to reduce
-this ambiguity by including the \emph{magnitude} term when
-appropriate. ITK provides filters for computing both the image of
-gradient vectors and the image of magnitudes.
+Computation of gradients is a fairly common operation in image processing. The
+term ``gradient'' may refer in some contexts to the gradient vectors and in
+others to the magnitude of the gradient vectors. ITK filters attempt to
+reduce this ambiguity by including the \emph{magnitude} term when
+appropriate. ITK provides filters for computing both the image of gradient
+vectors and the image of magnitudes.
 
 \subsection{Gradient Magnitude}
 \label{sec:GradientMagnitudeImageFilter}
@@ -95,27 +94,25 @@ gradient vectors and the image of magnitudes.
 \fi
 
 
-
-
 \section{Neighborhood Filters}
 \label{sec:NeighborhoodFilters}
 
 The concept of locality is frequently encountered in image processing in the
-form of filters that compute every output pixel using information from a
-reduced region on the neighborhood of the input pixel. The classical form of
-this filters are the $3 \times 3$ filters in 2D images. Convolution masks
+form of filters that compute every output pixel using information from a small
+region in the neighborhood of the input pixel.  The classical form of
+these filters are the $3 \times 3$ filters in 2D images. Convolution masks
 based on these neighborhoods can perform diverse tasks ranging from noise
 reduction, to differential operations, to mathematical morphology.
 
-The Insight toolkit implements an elegant approach for the computation of
-these family of filters. The input image is visited by a special iterator
-called the \code{NeighborhoodIterator}. This iterator is capable of moving
-over all the pixels in an image and for each position it can address the
-pixels in a local neighborhood. Operators can be defined in order to specify
-what algorithmic operation must be performed on the neighborhood of the input
-pixel to compute the value of the output pixel. The following section
-describes some of the commonly used filters that take advantage of this
-construction. (See Chapter \ref{sec:ImageIteratorsChapter} on page
+The Insight toolkit implements an elegant approach to neighborhood-based image
+filtering.  The input image is processed using a special iterator called the
+\doxygen{NeighborhoodIterator}. This iterator is capable of moving over all the
+pixels in an image and, for each position, it can address the pixels in a local
+neighborhood. Operators are defined that apply an algorithmic operation in the
+neighborhood of the input pixel to produce a value for the output pixel.  The
+following section describes some of the more commonly used filters that take
+advantage of this construction. (See Chapter
+\ref{sec:ImageIteratorsChapter} on page
 \pageref{sec:ImageIteratorsChapter} for more information about iterators.)
 
 \subsection{Mean Filter}
@@ -138,10 +135,10 @@ construction. (See Chapter \ref{sec:ImageIteratorsChapter} on page
 
 Mathematical morphology has proved to be a powerful resource for image
 processing and analysis \cite{Serra1982}. ITK implements mathematical
-morphology filters using the approach of \code{NeighborhoodIterator}s and
-\code{NeighborhoodOperator}s. Two basic flavors of filters are available in the
-toolkit, the ones that operate on binary images and the ones that operate on
-grayscale images. 
+morphology filters using NeighborhoodIterators and
+\doxygen{NeighborhoodOperator}s.  The toolkit contains two types of image
+morphology algorithms, filters that operate on binary images and filters that
+operate on grayscale images.
 
 \subsubsection{Binary Filters}
 \label{sec:MathematicalMorphologyBinaryFilters}
@@ -164,17 +161,18 @@ grayscale images.
 \section{Smoothing Filters}
 \label{sec:SmoothingFilters}
 
-Real image data has a level of uncertainty that is manifested on the
-variability of measures assigned to pixels. This is usually interpreted as
-noise and considered an undesirable component of the image data. This section
-describes several methods that can be applied to reduce noise on images.
+Real image data has a level of uncertainty that is manifested in the
+variability of measures assigned to pixels. This uncertainty is usually
+interpreted as noise and considered an undesirable component of the image
+data. This section describes several methods that can be applied to reduce
+noise on images.
 
 \subsection{Blurring}
 \label{sec:BlurringFilters}
 
 Blurring is the traditional approach for removing noise from images. It is
 usually implemented in the form of a convolution with a kernel. The effect of
-this operation on the image spectrum is to attenuate high spatial
+blurring on the image spectrum is to attenuate high spatial
 frequencies.  Different kernels attenuate frequencies in different ways. One
 of the most commonly used kernels is the Gaussian. Two implementations of
 Gaussian smoothing are available in the toolkit. The first one is based on a
@@ -264,7 +262,6 @@ In this case the diffusion is computed independently for each vector
 component.  The following classes implement versions of anisotropic diffusion
 on vector images.
 
-
 \subsubsection{Vector Gradient Anisotropic Diffusion}
 \label{sec:VectorGradientAnisotropicDiffusionImageFilter}
 
@@ -340,5 +337,3 @@ on vector images.
 \ifitkFullVersion
 \input{ResampleImageFilter5.tex}
 \fi
-
-
