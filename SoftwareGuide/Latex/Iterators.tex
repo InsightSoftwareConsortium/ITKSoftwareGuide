@@ -1,3 +1,176 @@
 \chapter{Iterators}
 
-Using iterators in algorithms: image and mesh
+% Questions: do I talk about issues like image regions?  i.e. which regions to
+%  always work with?  Do I talk about issues with the neighborhoods such as how
+% to do convolution and other neighborhood framework objects ?
+
+%LOOKS LIKE WITH INDEX ITERATOR IS NOT NEEDED IN BINARY FUNCTOR IMAGE FILTER
+
+\section(Introduction)
+\label{sec:IteratorsIntroduction}
+
+This chapter introduces image iterators.  Image iterators are an important and
+powerful tool for image processing using ITK.  They are the preferred way to
+work with image pixels, can speed up algorithms, and help to generalize many
+common image operations to arbitrary dimensionality.
+
+An iterator is a generalization of a memory pointer.  Generic
+programming models decompose programming space into functionally orthogonal principle
+components, including algorithms and data containers.  Iterators provide the glue
+between algorithms and data containers.  They allow  algorithms to access values stored in
+data containers of any type that uses a common interface. [enable code reuse,
+generalize to higher dimensions]  iterator steps through the container one
+element at a time.
+
+[give an example of just a real-world, normal iterator]
+The simplest example of an iterator is a wrapper for a C memory pointer.  
+[check stroustrup for info here and possible example, also reference for STL?]
+[simple example of how a generic iterator, for 3 dimensions show a for loop and
+image access contrasted with a single image]
+
+
+[describe a standard ITK interface]
+Most ITK iterators define the following methods. [a bulleted definition list?]
+        GoToBegin()
+        GoToEnd()
+        IsAtEnd()
+        IsAtBegin()
+        Operator++
+        Opterator--
+
+[where traditional iterators overload the * operator, in ITK we have chosen to
+use Set Get]
+        Get
+        Set
+Set methods are only defined in const iterators.
+Some iterators also supply a Value() method to allow dereferencing and modifying a
+pixel value in a single step.  For example: [give example of how if you wanted
+to do something like *it++ you would have to write it as it.Set(it.Get() + 1),
+whereas it.Value()++ saves one dereference]
+
+[image adaptors]
+The use of Set, Get also supports image adaptors (section reference?)
+
+[three basic types of image iterators: single pixel access methods, single
+pixel methods which walk special paths, neighborhood access methods,]
+
+\section{Image Iterators}
+\label{sec:ImageIterators}
+
+
+
+\subsection{itk::ImageRegionIterator}
+\label{sec:itkImageRegionIterator}
+./Common/itkImageRegionConstIterator.h
+./Common/itkImageRegionIterator.h
+(./Common/itkImageConstIterator.h base class)
+(./Common/itkImageIterator.h base class)
+
+Describe typical use cases.
+
+Describe any special peculiarities of the interface and the guarantees of
+complexity, etc.  Guarantees: will walk a region in same order on two different
+images, no guarantees of what that order will be necessarily.
+
+Example code
+
+\subsection{itk::ImageRegionIteratorWithIndex}
+\label{sec:itkImageRegionIteratorWithIndex}
+./Common/itkImageRegionConstIteratorWithIndex.h
+./Common/itkImageRegionIteratorWithIndex.h
+(./Common/itkImageConstIteratorWithIndex.h  base class )
+(./Common/itkImageIteratorWithIndex.h  base class )
+
+\subsection{itk::ImageSliceIteratorWithIndex}
+\label{sec:itkImageSliceIteratorWithIndex}
+./Common/itkImageSliceConstIteratorWithIndex.
+./Common/itkImageSliceIteratorWithIndex.h
+
+\subsection{itk::ImageLinearIteratorWithIndex}
+\label{sec:itkImageLinearIteratorWithIndex}
+./Common/itkImageLinearConstIteratorWithIndex.h
+./Common/itkImageLinearIteratorWithIndex.h
+
+\subsection{itk::ImageRandomConstIteratorWithIndex}
+\label{sec:itkImageRandomConstIteratorWithIndex}
+./Common/itkImageRandomConstIteratorWithIndex.h
+./Common/itkImageRandomIteratorWithIndex.h
+
+
+\section{Conditional Iterators}
+\label{sec:ConditionalIterators}
+
+[Introduction and overview]
+
+./Common/itkConditionalConstIterator.h (BaseClass)
+./Common/itkConditionalIterator.h (BaseClass)
+./Common/itkFloodFilledFunctionConditionalConstIterator.h (BaseClass)
+./Common/itkFloodFilledFunctionConditionalIterator.h (BaseClass)
+
+
+%[ here are all classes where these filters are used:
+% ./BasicFilters/itkConfidenceConnectedImageFilter.txx (ImageFunction)
+% ./BasicFilters/itkConnectedThresholdImageFilter.txx (ImageFunction)
+% ./BasicFilters/itkIsolatedConnectedImageFilter.txx (ImageFunction)
+% ./BasicFilters/itkNeighborhoodConnectedImageFilter.txx (ImageFunction)
+%
+% ./Common/itkBinaryBallStructuringElement.txx (SpatialFunction)
+% ./Common/itkBloxCoreAtomImage.txx (SpatialFunction)
+% ./BasicFilters/itkBloxBoundaryPointToCoreAtomImageFilter.txx (SpatialFunction)
+% ./BasicFilters/itkBloxBoundaryPointImageToBloxBoundaryProfileImageFilter.txx (SpatialFunction)
+%]
+
+\subsection{itk::FloodFilledImageFunctionConditionalIterator}
+\label{itk::FloodFilledImageFunctionConditionalIterator}
+./Common/itkFloodFilledImageFunctionConditionalConstIterator.h
+./Common/itkFloodFilledImageFunctionConditionalIterator.h
+
+
+\subsection{itk::FloodFilledSpatialFunctionConditionalIterator}
+\label{itk::FloodFilledSpatialFunctionConditionalIterator}
+./Common/itkFloodFilledSpatialFunctionConditionalConstIterator.h
+./Common/itkFloodFilledSpatialFunctionConditionalIterator.h
+
+
+\section{Neighborhood Iterators}
+\label{sec:NeighborhoodIterators}
+
+[Introduction goes here]
+[Be sure to reference Section: Neighborhood Filters]
+
+% Example: derivative
+% Example: convolution filtering
+% Example: boundary conditions
+% Example: walking faces
+
+\subsection{itk::NeighborhoodIterator}
+\label{sec:itkNeighborhoodIterator}
+./Common/itkConstNeighborhoodIterator.h
+./Common/itkNeighborhoodIterator.h
+
+\subsection{itk::ShapedNeighborhoodIterator}
+\label{sec:itkShapedNeighborhoodIterator}
+./Common/itkConstShapedNeighborhoodIterator.h
+./Common/itkShapedNeighborhoodIterator.h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
