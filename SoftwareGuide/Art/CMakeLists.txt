@@ -115,7 +115,7 @@ ADD_CUSTOM_COMMAND(
   TARGET    SoftwareGuideArt
   OUTPUTS   ${SoftwareGuide_BINARY_DIR}/Art/${image}.eps
 )
-SET(DEPS ${DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${image}.eps)
+SET(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${image}.eps)
 ENDFOREACH(image)
 
 
@@ -123,11 +123,11 @@ FOREACH(figure ${XFIG_FIGURES})
 ADD_CUSTOM_COMMAND( 
   SOURCE    ${SoftwareGuide_SOURCE_DIR}/Art/${figure}.fig
   COMMAND   ${FIG2DEV_EXECUTABLE}
-  ARGS      -L eps ${SoftwareGuide_SOURCE_DIR}/Art/${figure}.fig ${figure}.eps
+  ARGS      -L eps ${SoftwareGuide_SOURCE_DIR}/Art/${figure}.fig ${SoftwareGuide_BINARY_DIR}/Art/${figure}.eps
   TARGET    SoftwareGuideArt
   OUTPUTS   ${SoftwareGuide_BINARY_DIR}/Art/${figure}.eps
 )
-SET(DEPS ${DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${figure}.eps)
+SET(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${figure}.eps)
 ENDFOREACH(figure)
 
 
@@ -135,7 +135,7 @@ ADD_CUSTOM_COMMAND(
   SOURCE SoftwareGuideArt
   COMMAND echo
   TARGET SoftwareGuideArt
-  DEPENDS ${DEPS}
+  DEPENDS ${EPS_DEPS}
 )
 
 
