@@ -1,0 +1,22 @@
+/** 
+
+\page DataRepresentationPointSetPage The PointSet class 
+
+The PointSet class is the base class for geometrical representation in ITK.
+
+Essentially the PointSet is a collection of points. These points are embebded
+in a N-Dimensional space. Every point can have a value associated with it.
+The type of this values is defined by a template parameter in the PointSet
+class
+   
+
+The following code illustrates the typical instantiation of a PointSet.
+
+
+\include DataRepresentation\Mesh\PointSet1.cxx
+
+
+\dontinclude DataRepresentation\Mesh\PointSet2.cxx
+
+
+*/

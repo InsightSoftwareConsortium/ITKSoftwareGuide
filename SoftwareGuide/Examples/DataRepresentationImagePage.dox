@@ -1,0 +1,53 @@
+/** 
+
+    \page DataRepresentationImagePage The Image class 
+
+    The image class is the essential information carrier in ITK.
+
+    \include DataRepresentation\Image\Image1.cxx
+
+
+    \par
+    Initialization of the image can be done using the SetRegions() method
+    
+    However in practice, an image will probably be loaded from a file or
+    acquired with a image grabber card
+
+    The following example illustrates how to load an image from a file
+
+    \include DataRepresentation\Image\Image2.cxx
+
+
+    Access to individual pixels in an image is granted by the 
+    GetPixel() and SetPixel() methods.
+
+    \dontinclude DataRepresentation\Image\Image3.cxx
+
+    \skip pixelIndex
+    \until GetPixel
+
+    \par
+    Given that Insight is primarily intended to be used with medical images 
+    it is quite important to keep track of the physical spacing between pixels
+    as well as the position of the image in space. This is done by using the 
+    Set/Get Spacing and Set/Get Orign methods. As illustrated in the following
+    piece of code.
+
+    \dontinclude DataRepresentation\Image\Image4.cxx
+
+    \skip spacing
+    \until SetOrigin
+
+    \par
+    Once the spacing and origin have been defined for an image it is possible
+    to map between pixel indices and world physical coordinates. This
+    functionality is particularly important during the image registration process.
+    The following code illustrates how to use the TransformPhysicalPointToIndex()
+    method in order to map from physical world space coordinate to 
+    a pixel index allowing to access the data directly
+
+    \skip PointType
+    \until GetPixel
+
+
+*/

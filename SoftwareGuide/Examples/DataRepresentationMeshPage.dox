@@ -1,0 +1,22 @@
+/** 
+
+    \page DataRepresentationMeshPage The Mesh class 
+
+    The mesh class is the essential object for geometrical representation in ITK.
+
+
+    \dontinclude DataRepresentation\Mesh\PointSet1.cxx
+
+
+    \dontinclude DataRepresentation\Mesh\PointSet2.cxx
+
+
+    \dontinclude DataRepresentation\Mesh\Mesh1.cxx
+
+
+    \dontinclude DataRepresentation\Mesh\Mesh2.cxx
+
+
+
+
+*/
