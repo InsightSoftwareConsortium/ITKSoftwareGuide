@@ -7,51 +7,45 @@
 \begin{figure}
 \center
 \includegraphics[width=0.8\textwidth]{ImageAdaptorConcept.eps}
-\itkcaption[ImageAdaptor concept]{ The difference between an
-\doxygen{CastImageFilter} and using an \doxygen{ImageAdaptor}.  ImageAdaptors
-convert pixel values when they are accessed by iterators.  Thus they do not
-produces an intermediate image as does CastImageFilter.  In the example
+\itkcaption[ImageAdaptor concept]{ The difference between using a
+CastImageFilter and an ImageAdaptor.  ImageAdaptors
+convert pixel values when they are accessed by iterators.  Thus, they do not
+produces an intermediate image.  In the example
 illustrated by this figure, the \emph{Image Y} is not created by the
 ImageAdaptor; instead, the image is simulated on the fly each time an
 iterator from the filter downstream attempts to access the image data.}
 \label{fig:ImageAdaptorConcept}
 \end{figure}
 
+The purpose of an \emph{image adaptors} is to make one image appear
+like another image, possibly of a different pixel type.  A typical
+example is to take an image of pixel type \code{unsigned char} and
+present it as an image of pixel type \code{float}. The motivation for
+using image adaptors in this case is to prevent the extra memory
+resource required by using a casting filter.  When we use the
+\doxygen{CastImageFilter} for the conversion, the filter creates a
+memory buffer to store the \code{float} image. The \code{float} image
+requires four times the memory compared to the original image and
+contains no useful additional information. Image adaptors, on
+the other hand, does not require the extra memory as pixels are
+converted only when they are read using image iterators 
+(see chapter~\ref{sec:ImageIteratorsChapter}).
 
-The purpose of an \emph{image adaptors} is to make an image of a particular
-pixel type appear like an image of a different pixel type. A typical example
-is to take an image of pixel type \code{unsigned char} and present it as an
-image of pixel type \code{float}. The motivation for using image adaptors is
-this case is to prevent the extra memory resource required by the casting
-filter.  When we use the \doxygen{CastImageFilter} for converting an
-\code{unsigned char} image into a \code{float} one, the filter creates a
-memory buffer to store the \code{float} image. Given that a \code{float}
-requires four times the memory as compared to an \code{unsigned char}, the
-memory consumption is actually multiplied by four.  An \doxygen{ImageAdaptor}
-prevents this memory replication by converting pixel values only when they
-are read using image iterators (see chapter~\ref{sec:ImageIteratorsChapter}).
+Image adaptors are particularly useful when there is infrequent pixel
+access, since the actual conversion occurs on the fly during pixel
+access. In such cases the use of image adaptors may reduce overall
+computation time as well as reduce memory usage. The use of image
+adaptors, however, can be disadvantageous in some situations. For
+example, when the downstream filter is executed multiple times, a
+CastImageFilter will cache its output after the first execution and
+will not re-execute when the filter downstream is updated. Conversely,
+an image adaptor will compute the cast every time.
 
-Image adaptors prevent the use of redundant memory allocation for
-representing the same information already available in the input image. This
-is done at the expense of some computational time. However, the use of
-ImageAdaptors can be disadvantageous as compared to
-CastImageFilter when the downstream filter is executed multiple
-times. In such a situation the CastImageFilter will cache its output
-after the first execution and will not re-execute when the filter downstream
-is updated. The ImageAdaptor, on the other hand, will compute the cast
-every time the filter downstream is executed.
-
-Image adators are especially useful when infrequent access to pixels is
-performed, since the actual conversion occurs on the fly during pixel
-access. That is, only the pixels that are queried are converted through the
-image adaptor. In such cases the use of image adaptors may reduce overall
-computation time as well as reduce memory usage. Image adaptors can replace
-any of the pixel-wise filters in the toolkit. They are defined for most of
-the basic single valued and single parameter functions like trigonometric,
-exponential and logarithmic functions.
-
-For example
-
+Another application for image adaptors is to perform lightweight
+pixel-wise operations replacing the need for a filter. In the toolkit,
+adaptors are defined for many single valued and single parameter
+functions such as trigonometric, exponential and logarithmic
+functions. For example,
 \begin{itemize}
 \item \doxygen{ExpImageAdaptor}
 \item \doxygen{SinImageAdaptor}
