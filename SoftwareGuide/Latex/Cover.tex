@@ -1,125 +1,111 @@
-\section*{About the cover}
+\section*{About the Cover Image}
 
-This section describes the cover of this book. The task of designing the cover
-was suppossed to be an easy one. However, finding an image that will honor the
-capabilities of the toolkit end up being a challenging one. Given that the
-origins of the Insight toolkit are rooted in the Visible Human Project it
-seemed appropriate to make the image in the cover an application of the toolkit
-to the segmentation and registration of the Visible Human data set. In fact the
-more recently acquired Visible Woman datasets were used for this cover.  Both
-the RGB cryosections and the CT scans were combined in the same scene.
+Creating a cover image demonstrating the capabilities of the toolkit was a
+challenging task. Given that the origins of ITK are with the Visible Human
+Project it seemed appropriate to create an image utilizing the VHP data sets,
+and it was decided to use the more recently acquired Visible Woman dataset.
+Both the RGB cryosections and the CT scans were combined in the same scene.
 
 \subsection*{Removing the Gel}
 
-During the freezing process the body of the Visible Woman was inmersed in a
-block of gel. This Gel appears as a blue substance in the cryogenic data.  In
-order to remove the Get, the joint histogram of RGB values in the data set was
-computed. This resulted in an 3D image of 256x256x256 pixels. The histogram
-image was visualized in VolView. The cluster corresponding to the statistical
-distribution of blue values was identified visually, and a separatrix plane was
-manually defined in RGB space.
+The body of the Visible Woman was inmersed in a block of gel during the
+freezing process. This gel appears as a blue material in the cryogenic data.
+To remove the gel, the joint histogram of RGB values was computed. This
+resulted in an 3D image of $256\times256\times256$ pixels. The histogram
+image was visualized in VolView.\footnote{VolView is a commerical product
+from Kitware. It supports ITK plug-ins and is available as a free viewer or
+may be licensed with advanced functionality.} The cluster corresponding to the
+statistical distribution of blue values was identified visually, and a
+separating plane was manually defined in RGB space.
 
-The equation of this plane was subsequently used for discriminating pixels in
-the gel from pixels in the anatomical structures of the body. The Gel pixels
-were set to null values and the RGB values on the body were preserved.
+The equation of this plane was subsequently used to discriminate pixels in
+the gel from pixels in the anatomical structures. The gel pixels were zeroed
+out and the RGB values on the body were preserved.
 
 \subsection*{The Skin}
 
-The skin was easy to segment once the Gel was removed. A simple region growing
-algorithm was used providing seed points in the region previously occupied by
-the Gel and now set to zero values. 
-
-An Antialiasing filter was applied in order to generate an image of pixel type
-float where the surface was represented by the zero set. This data set was
-exported to VTK where a contouring filter was used in order to extract a
-geometrical representation of the surface and introduce it in the VTK
+The skin was easy to segment once the gel was removed. A simple region
+growing algorithm was used by providing seed points in the region previously
+occupied by the gel and then set to zero values. An anti-aliasing filter was
+applied in order to generate an image of pixel type float where the surface
+was represented by the zero set. This data set was exported to VTK where a
+contouring filter was used to extract the surface and introduce it in the VTK
 visualization pipeline.
-
 
 \subsection*{The Brain}
 
 The visible part of the brain represents the surface of the gray matter.  The
-brain was segmented using the Vector version of the confidence connected image
-filter.  This filter implements a region growing algorithm that starting from a
-set of seed points add neighbor pixels subject to a condition of homogeneity.
+brain was segmented using the vector version of the confidence connected
+image filter.  This filter implements a region growing algorithm that starts
+from a set of seed points and adds neighboring pixels subject to a condition
+of homogeneity.
 
-The set of sparse points obtained from the region growin algorithm was passed
-through a mathematical morphology dilation in order to close holes and then
-through a binary median filter. The binary median filter has the outstanding
-characteristic of being very simple in implementation by applying a
-sophisticated effect on the image. Qualitatively it is equivalent to a
-curvature flow evolution of the iso-contouors. In fact the BinaryMedian filter
-as implemented in ITK is equivalent to the Majority Filter which belong to the
-family of Voting filter classified as a subset of the \emph{Larger than Life}
-cellular automata, 
+The set of sparse points obtained from the region growing algorithm was
+passed through a mathematical morphology dilation in order to close holes and
+then through a binary median filter. The binary median filter has the
+outstanding characteristic of being very simple in implementation by applying
+a sophisticated effect on the image. Qualitatively it is equivalent to a
+curvature flow evolution of the iso-contouors. In fact the binary median
+filter as implemented in ITK is equivalent to the majority filter that
+belongs to the family of voting filters classified as a subset of the
+\emph{Larger than Life} cellular automata. Finaly, the volume resulting from
+the median filter was passed through the anti-aliasing image filter. As
+before, VTK was used to extract the surface.
 
-Finaly, the volume resulting from the median filter was passed through the 
-antialiasin image filter.
+\subsection*{The Neck Musculature}
 
-
-\subsection*{The Neck Mucles}
-
-The neck muscles are not perfectly segmented. Indeed, the current surface is a
-fusion of muscles, blood vessels and other structures. The segmentation was
-performed using the VectorConfidenceConnected filter on the cryogenic dataset.
-A number of about 60 seed points were manually selected and then passed to this
-filter as input.
-
-The binary mask produced by the VectorConfidenceConnected was dilated with a 
-mathematical morphology filter and smoothed with the BinaryMedian filter. The 
-AntialiasImageFilter was used at the end to reduce the pixelization effects
-previos to the extraction of the iso-surface with the vtkContourFilter.  
-
-
+The neck musculature was not perfectly segmented. Indeed, the resulting
+surface is a fusion of muscles, blood vessels and other anatomical
+structures. The segmentation was performed by applying the
+VectorConfidenceConnectedImageFilter to the cryogenic dataset.  Approximately
+60 seed points were manually selected and then passed to the filter as
+input. The binary mask produced by the filter was dilated with a mathematical
+morphology filter and smoothed with the BinaryMedianImageFilter. The
+AntiAliasBinaryImageFilter was used at the end to reduce the pixelization
+effects prior to the extraction of the iso-surface with vtkContourFilter.
 
 \subsection*{The Skull}
 
-The Skull was segmented from the CT data set and registered to the cryogenic
+The skull was segmented from the CT data set and registered to the cryogenic
 data. The segmentation was performed by simple thresholding, which was good
-enough for producing an appealing surface for the cover. This means that most
-of the bone structures are actually fused together. This includes the jaw bone,
-and the cervical vertebrae.
+enough for the cover image. As a result, most of the bone structures are
+actually fused together. This includes the jaw bone and the cervical
+vertebrae.
 
 \subsection*{The Eye} 
 
-The eye was charged with symbolism in this image. In part because the
-motivation for the development of the toolkit was the analysis of the Visible
-Human data, and in part because the toolkit was named \emph{Insight}.
+The eye is charged with symbolism in this image. This is due in part because
+the motivation for the toolkit is the analysis of the Visible Human data,
+and in part because the name of the toolkit is \emph{Insight}.
 
-The first step in processing the Eye was to extract a sub-image of
-$60\times60\times60$ pixels centered around the eyeball from the RGB Cryogenic
-data set.
+The first step in processing the eye was to extract a sub-image of
+$60\times60\times60$ pixels centered around the eyeball from the RGB
+cryogenic data set. This small volume was then processed with the vector
+gradient anisotropic diffusion filter in order to increase the homogeneity of
+the pixels in the eyeball.
 
-This small volume was then processed with the Vector Gradient Anisotropic
-Diffusion filter in order to increase the homogeneity of the pixels in the 
-eyeball.
-
-The smoothed volume was segmented using the VectorConfidenceConnected filter
-and a number of 10 seed points. The resulting binary mask was dilated with 
-a mathematical morphology filter with a structuring element of radius one, then
-smoothed with a binary mean image filter which is equivalent to Majority voting
-cellular automata. Finally the mask was processed with the AntialiasImageFilter
-in order to generate a float image with the eyebal contour embebded as a zero
-set.
-
+The smoothed volume was segmented using the
+VectorConfidenceConnectedImageFilter using 10 seed points. The resulting
+binary mask was dilated with a mathematical morphology filter with a
+structuring element of radius one, then smoothed with a binary mean image
+filter (equivalent to majority voting cellular automata). Finally the mask
+was processed with the AntiAliasBinaryImageFilter in order to generate a
+float image with the eyeball contour embedded as a zero set.
 
 \subsection*{Visualization}
 
-The visualization of the segmentation was done by passing all the binary masks
-through the itkAntialiasImageFilter, generating iso-contours with VTK filters,
-and then setting up a VTK Tcl script.
-
-The skin surface was clipped using the ClippPolyDataFilter and a vtkCylinder
-as clipping function. The vtkWindowToImageFilter proved to be quite useful for
-generating the final high resolution rendering of the scene (3000x3000 pixels).
-
+The visualization of the segmentation was done by passing all the binary
+masks through the itkAntiAliasBinaryImageFilter, generating iso-contours with
+VTK filters, and then setting up a VTK Tcl script. The skin surface was
+clipped using the vtkClipPolyDataFilter using the implicit function
+vtkCylinder as the clipping function. The vtkWindowToImageFilter proved to be
+quite useful for generating the final high resolution rendering of the scene
+($3000\times3000$ pixels).
 
 \subsection*{Cosmetic Postprocessing}
 
-We have to confess that we used Adobe Photoshop in the cosmetic post-processing of
-the image. In particular, the background of the image was color-tunned using
-photoshop's color selection. No hard feelings about that...
-
-The overall composition of the cover was done with Photoshop and facilitated
-the production of a high quality rendering.
+We have to confess that we used Adobe Photoshop to post-process the image. In
+particular, the background of the image was adjusted using Photoshop's color
+selection. The overall composition of the image with the cover text and
+graphics was also performed using Photoshop.
 

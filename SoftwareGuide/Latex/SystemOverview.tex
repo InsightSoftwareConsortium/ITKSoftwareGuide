@@ -23,16 +23,16 @@ in the previous chapter two other modules---\code{InsightDocumentation} and
         event management using the command/observer design paradigm, and
         multithreading support.
 
+	\item[Numerics] ITK uses VXL's VNL numerics libraries. These are
+        easy-to-use C++ wrappers around the Netlib Fortran numerical 
+        analysis routines (\url{http://www.netlib.org}).
+
 	\item[Data Representation and Access.]  Two principle classes are
         used to represent data: the \doxygen{Image} and \doxygen{Mesh}
         classes.  In addition, various types of iterators and containers are
         used to hold and traverse the data. Other important but less popular
         classes are also used to represent data such as histograms and BLOX
         images.
-
-	\item[Numerics] ITK uses VXL's VNL numerics libraries. These are
-        easy-to-use C++ wrappers around the Netlib Fortran numerical 
-        analysis routines (\url{http://www.netlib.org}).
 
 	\item[Data Processing Pipeline.]  The data representation classes
         (known as \emph{data objects}) are operated on by \emph{filters} that
@@ -209,11 +209,13 @@ a variety of object types, or classes. When a particular class is
 instantiated to produce an instance of that class, memory allocation occurs
 so that the instance can store data attribute values and method pointers
 (i.e., the vtable). This object may then be referenced by other classes or
-data structures during normal operation of the program. At some
-point---certainly by the time the program is exiting---all references to that
-instance disappear. At this point, the instance must be deleted to recover
-the valuable memory resource that the instance no longer requires. This process
-of allocating and releasing memory is known as memory management.
+data structures during normal operation of the program. Typically during
+program execution all references to the instance may disappear at which point
+the instance must be deleted to recover memory resources. Knowing when to
+delete an instance, however, is diffuclt. Deleting the instance too soon
+results in program crashes; deleting it too late and memory leaks (or
+excessive memory consumption) will occur. This process of allocating and
+releasing memory is known as memory management.
 
 In ITK, memory management is implemented through reference counting. This
 compares to another popular approach---garbage collection---used by many
@@ -228,23 +230,23 @@ size). Reference counting deletes memory immediately (once all references to
 an object disappear).
 
 Reference counting is implemented through a \code{Register()}/\code{Delete()}
-member function interface.   All instances of an ITK object have a
-\code{Register()} method invoked on them by any other object that references an
-them. The \code{Register()} method increments the instances' reference
+member function interface.  All instances of an ITK object have a
+\code{Register()} method invoked on them by any other object that references
+an them. The \code{Register()} method increments the instances' reference
 count. When the reference to the instance disappears, a \code{Delete()}
-method is invoked on the instance that decrements the reference count---this is equivalent to an
-\code{UnRegister()} method. When the
-reference count returns to zero, the instance is destroyed.
+method is invoked on the instance that decrements the reference count---this
+is equivalent to an \code{UnRegister()} method. When the reference count
+returns to zero, the instance is destroyed.
 
 This protocol is greatly simplified by using a helper class called a
 \code{SmartPointer}. The smart pointer acts like a regular pointer
-(e.g. supports operators \code{->} and \code{*}) but automagically
-performs a \code{Register()} when referring to an instance, and an
-\code{UnRegister()} when it no longer points to the instance.  Unlike
-most other instances in ITK, \code{SmartPointer}s can be allocated
-on the program stack, and are automatically deleted when the scope
-that the \code{SmartPointer} was created is closed. As a result, you should
-\emph{rarely if ever call Register() or Delete()} in ITK. For example:
+(e.g. supports operators \code{->} and \code{*}) but automagically performs a
+\code{Register()} when referring to an instance, and an \code{UnRegister()}
+when it no longer points to the instance.  Unlike most other instances in
+ITK, \code{SmartPointer}s can be allocated on the program stack, and are
+automatically deleted when the scope that the \code{SmartPointer} was created
+is closed. As a result, you should \emph{rarely if ever call Register() or
+Delete()} in ITK. For example:
 
 \small
 \begin{verbatim}
@@ -263,8 +265,14 @@ In this example, reference counted objects are created (with the \code{New()}
 method) with a reference count of one. Assignment to the \code{SmartPointer}
 \code{interp} does not change the reference count. At the end of scope,
 \code{interp} is destroyed, the reference count of the actual interpolator
-object (referred to by \code{interp} is decremented, and if it reaches zero,
+object (referred to by \code{interp}) is decremented, and if it reaches zero,
 then the interpolator is also destroyed.
+
+Note that in ITK SmartPointer's are always used to refer to instances of
+classes derived from \doxygen{LightObject}. Method invocations and function
+calls often return ``real'' pointers to instances, but they are immediately
+assigned to a SmartPointer. Raw pointers are used for non-LightObject classes when
+the need for speed and/or memory demands a smaller, faster class.
 
 
 \subsection{Error Handling and Exceptions}
@@ -377,11 +385,13 @@ multiple threads, or to specify a method per thread. For example, in the
 method \code{itk::ImageSource} (a superclass for most image processing filters)
 the \code{GenerateData()} method uses the following methods:
 
+\small
 \begin{verbatim}
   multiThreader->SetNumberOfThreads(int);
   multiThreader->SetSingleMethod(ThreadFunctionType, void* data);
   multiThreader->SingleMethodExecute();
 \end{verbatim}
+\normalsize
 
 In this example each thread invokes the same method. The multithreaded filter
 takes care to divide the image into different regions that do not overlap for
@@ -391,12 +401,6 @@ The general philosophy in ITK regarding thread safety is that accessing
 different instances of a class (and its methods) is a thread-safe operation.
 Invoking methods on the same instance in different threads is to be avoided.
 
-
-%\section{Data Representation and Access}
-%\label{sec:DataRepresentationAndAccess}
-%
-%	mesh, image, iterators, various containers
-%
 
 \section{Numerics}
 \label{sec:Numerics}
@@ -462,11 +466,141 @@ are available. A large collection of statistics functions---not available from
 directory. In addition, a complete finite element (FEM) package is available,
 primarily to support the deformable registration in ITK.
 
-%\section{Data Processing Pipeline}
-%\label{sec:DataProcessingPipeline}
-%
-%filters, mappers, update
-%
+
+\section{Data Representation}
+\label{sec:DataRepresentationAndAccess}
+%	mesh, image, iterators, various containers
+
+\index{data object|textbf} 
+
+There are two principle types of data represented in ITK: images and
+meshes. This functionality is implemented in the classes 
+\code{itk:Image} and \code{itk::Mesh}, both of which are subclasses of
+\code{itk::DataObject}. In ITK, data objects are classes that are meant to
+be passed around the system and may participate in data flow pipelines
+(see Section \ref{sec:DataProcessingPipeline} on page 
+\pageref{sec:DataProcessingPipeline} for more information). 
+
+
+\index{itk::Image|textbf}
+
+\code{itk::Image} represents a \emph{n}-dimensional, regular sampling of
+data. The sampling direction is parallel to each of the coordinate axes, and
+the origin of the sampling, inter-pixel spacing, and the number of samples in
+each direction (i.e., image dimension) can be specified. The sample, or
+pixel, value in ITK is arbitrary---a template parameter \code{TPixel}
+specifies the type upon template instantiation. (The dimensionality of the
+image must also be specified when the image class is instantiated.) The key
+is that the pixel type must support certain operations (for example, addition
+or difference) if the code is to compile in all cases (for example, to be
+processed by a particular filter that uses these operations). In practice the
+ITK user will use a C++ simple type (e.g., int, float) or a pre-defined pixel
+type and will rarely create a new type of pixel class.
+
+One of the important ITK concepts regarding images is that rectangular,
+continuous pieces of the image are known as \emph{regions}. Regions are used
+to specify which part of an image to process, for example in multithreading,
+or which part to hold in memory. In ITK there are three common types of
+regions:
+\begin{enumerate}
+\item \code{LargestPossibleRegion}---the image in its entirety.
+\item \code{BufferedRegion}---the portion of the image retained in memory.
+\item \code{RequestedRegion}---the portion of the reqion requested by a 
+filter or other class when operating on the image.
+\end{enumerate}
+
+\index{itk::Mesh|textbf} 
+
+\code{itk::Mesh} represents a \emph{n}-dimensional, unstructured grid. The
+topology of the mesh is represented by a set of `cells defined by a type and
+connectivity list; the connectivity list in turn refer to points.  The
+geometry of the mesh is defined by the \emph{n}-dimensional points in
+combination with associated cell interpolation functions. \code{Mesh} is
+designed as an adaptive representational structure that changes depending on
+the operations performed on it. At a minimum, points and cells are required
+to represent a mesh; but it is possible to add additional topological
+information.  For example, links from the points to the cells that use each
+point can be added; this provides implicit neighborhood information assuming
+manifold topology. If the mesh is not manifold, or information is to be
+stored on the boundaries of cells, then explicit boundary entities (e.g.,
+edges and/or faces) can be created.
+
+The mesh is defined in terms of three template parameters: 1) a pixel type
+associated with the points, cells, and cell boundaries; 2) the dimension of
+the points (which in turn limits the maximum dimension of the cells); and 3)
+a ``mesh traits'' template parameter that specifies the types of the
+containers and identifiers used to access the points, cells, and/or
+boundaries. By using the mesh traits carefully, it is possible to create
+meshes better suited for editing, or those better suited for ``read-only''
+operations, allowing a trade-off between representation flexibility, memory,
+and speed.
+
+\code{itk::Mesh} is a subclass of \code{itk::PointSet}. The \code{PointSet}
+class can be used to represent point clouds or randomly distributed
+landmarks, etc. The \code{PointSet} class has no associated topology.
+
+
+\section{Data Processing Pipeline}
+\label{sec:DataProcessingPipeline}
+
+\index{data processing pipeline|textbf}
+
+\index{process object|textbf} 
+\index{source|textbf}
+\index{reader|textbf} 
+\index{filter|textbf} 
+\index{mapper|textbf} 
+
+While data objects (e.g., images and meshes) are used to represent data,
+\emph{process objects} are classes that operate on data objects and may
+produce new data objects. Known generally as \emph{filters}, process objects
+may be used to input data (i.e., \emph{source objects} such as a data
+\emph{reader}), may input one or more data objects and produce one or more
+data objects as output (i.e., \emph{filter objects}), or accept one or more
+data objects as input and either write the data to a file or exchange it with
+another system (i.e., a \emph{mappers}).
+
+\index{streaming|textbf}
+
+The data processing pipeline ties together data objects (e.g., images and
+meshes) and process objects. The pipeline supports an automatic updating
+mechanism that causes filters to execute if and only if their input 
+and/or the filter changes. Further, the data pipeline supports
+\emph{streaming}, the ability to automatically break data into smaller
+pieces, process the pieces one by one, and reassemble the processed data into
+a final result.
+
+Typically data objects and process objects are connected together using the
+\code{SetInput()} and \code{GetOutput()} methods as follows:
+
+\small
+\begin{verbatim}
+  typedef itk::Image<float,2> FloatImage2DType;
+
+  itk::RandomImageSource<FloatImage2DType>::Pointer random;
+  random = itk::RandomImageSource<FloatImage2DType>::New();
+  random->SetMin(0.0);
+  random->SetMax(1.0);
+
+  itk::ShrinkImageFilter<FloatImage2DType,FloatImage2DType>::Pointer shrink;
+  shrink = itk::ShrinkImageFilter<FloatImage2DType,FloatImage2DType>::New();
+  shrink->SetInput(random->GetOutput());
+  shrink->SetShrinkFactors(2);
+
+  itk::ImageFileWriter::Pointer<FloatImage2DType> writer;
+  writer = itk::ImageFileWriter::Pointer<FloatImage2DType>::New();
+  writer->SetInput (shrink->GetOutput());
+  writer->SetFileName( ``test.raw'' );
+  writer->Update();
+\end{verbatim}
+\normalsize 
+
+In this example the source object \code{itk::RandomImageSource} is connected
+to the \code{itk::ShrinkImageFilter}, and the shrink filter is connected to
+the mapper \code{itk::ImageFileWriter}. When the \code{Update()} method is
+invoked on the writer, the data processing pipeline causes each of these
+filters in order, culminating in writing the final data to a file on disk.
+
 %\section{Registration Framework}
 %\label{sec:RegistrationFramework}
 %
@@ -546,8 +680,94 @@ data or to register two hand segmentations of a liver.
 %
 %blah blah
 %
-%\section{Wrapping}
-%\label{sec:Wrapping}
+\section{Wrapping}
+\label{sec:Wrapping}
+
+While the core of ITK is implemented in C++, Tcl and Python bindings can be
+automatically generated and ITK programs can be created using these
+programming languages. This capability is under active development and is for
+the advanced user only. However, this brief description will give you an idea
+of what is possible and where to look if you are interested in this facility.
+
+The wrapping process in ITK is quite complex due to the use of generic
+programming (i.e., extensive use of C++ templates). Systems like VTK that use
+their own wrapping facility are non-templated and customized to the coding
+methodology found in the system. Even systems like SWIG that are designed
+for general wrapper generation have difficulty with ITK code because general
+C++ is difficult to parse. As a result, the ITK wrapper generator uses a
+combination of tools to produce language bindings.
+\begin{enumerate}
+  \item \code{gccxml} is a modified version of the GNU compiler gcc that
+    produces an XML description of an input C++ program.
+  \item  \code{CABLE} processes XML information from \code{gccxml} and produces
+    additional input to the next tool (i.e., \code{CSWIG} indicating what is
+    to be wrapped.
+  \item \code{CSWIG} is a modified version of SWIG that has has SWIG's usual
+    parser replaced with an XML parser (XML produced from \code{CABLE} and
+    \code{gccxml}.) \code{CSWIG} produces the appropriate language bindings
+    (either Tcl or Python). (Note: since \code{SWIG} is capable of producing
+    language bindings for eleven different interpreted languages including
+    Java, and Perl, it is expected that support for some of these languages
+    will be added in the future.)
+\end{enumerate}
+
+To learn more about the wrapping process, please read the file found in
+\code{Wrapping/CSwig/README}. Also note that there are some simple test
+scripts found in \code{Wrapping/CSwig/Tests}. Additional tests and examples
+are found in the {Testing/Code/*/} directories.
+
+The result of the wrapping process is a set of shared libraries/dll's that
+can be used by the interpreted languages. There is almost a direct
+translation from C++, with the differences being the
+particular syntactical requirements of each language. For example, in the
+directory \code{Testing/Code/Algorithms} directory, the test 
+\code{itkCurvatureFlowTestTcl.tcl} has a code fragment that appears as follows:
+\small
+\begin{verbatim}
+  set reader [itk::create ImageFileReaderF2]
+    $reader SetFileName "${ITK_TEST_INPUT}/cthead1.png"
+
+  set cf [itk::create CurvatureFlowImageFilterF2F2]
+    $cf SetInput [$reader GetOutput]
+    $cf SetTimeStep 0.25
+    $cf SetNumberOfIterations 10
+\end{verbatim}
+\normalsize
+The same code in C++ would appear as follows:
+
+\small
+\begin{verbatim}
+  itk::ImageFileReader<ImageType>::Pointer reader = itk::ImageFileReader<ImageType>::New();
+  reader->SetFileName("cthead1.png");
+
+  itk::CurvatureFlowImageFilter<ImageType,ImageType>::Pointer cf =
+      itk::CurvatureFlowImageFilter<ImageType,ImageType>::New();
+    cf->SetInput(reader->GetOutput());
+    cf->SetTimeStep(0.25);
+    cf->SetNumberOfIterations(10);
+\end{verbatim}
+\normalsize
+
+This example demonstrates an important difference between C++ and a wrapped
+language such as Tcl.  Templated classes must be instantiated prior to
+wrapping. That is, the template parameters must be specified as part of the
+wrapping process. In the example above, the
+\code{CurvatureFlowImageFilterF2F2} indicates that this filter has been
+instantiated using an output and output image type of two-dimensional float
+values (e.g., \code{F2}). Typically just a few common types are selected for
+the wrapping process to avoid an explosion of types and hence, library
+size. To add a new type requires rerunning the wrapping process to produce
+new libraries.
+
+The advantage of interpreted languages is that they do not require the
+lengthy compile/link cycle of a compiled language like C++. Moreover, they
+typically come with a suite of packages that provide useful
+functionality. For example, the Tk package (i.e., Tcl/Tk and Python/Tk)
+provides tools for creating sophisticated user interfaces. In the future it
+is likely that more applications and tests will be implemented in the various
+interpreted languages supported by ITK.
+
+
 %
 %blah blah
 %

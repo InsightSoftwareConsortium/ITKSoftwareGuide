@@ -7,6 +7,19 @@ This chapter introduces the basic classes that describe \doxygen{SpatialObjects}
 \section{Introduction}
 \label{Introduction}
 
+The ITK spatial object framework supports the philosophy that the task of
+image segmentation and registration is actually the task of object
+processing. The image is but one medium for representing objects of interest,
+and much processing and data analysis can and should occur at the object
+level and not based on the medium used to represent the object.
+
+ITK spatial objects provide a common interface for accessing the physical
+location and geometric properties of and the relationship between objects in
+a scene that is independent of the form used to represent those objects. That
+is, the internal representation maintained by a spatial object may be a list
+of points internal to an object, the surface mesh of the object, a continuous
+or parametric representation of the object's internal points or surfaces, and
+so forth.
 
 \section{Hierarchy}
 \label{sec:SpatialObjectHierarchy}
