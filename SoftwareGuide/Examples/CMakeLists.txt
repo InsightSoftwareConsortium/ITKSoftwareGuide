@@ -36,6 +36,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/Image2.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/Image3.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/Image4.cxx
+  ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/Image5.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/RGBImage.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/VectorImage.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/PointSet1.cxx

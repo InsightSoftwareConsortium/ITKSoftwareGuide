@@ -84,6 +84,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   Image2.tex
   Image3.tex
   Image4.tex
+  Image5.tex
   ImageReadWrite.tex
   ImageReadCastWrite.tex
   ImageReadExtractWrite.tex
