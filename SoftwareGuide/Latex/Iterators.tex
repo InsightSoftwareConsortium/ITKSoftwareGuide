@@ -1,6 +1,6 @@
 \chapter{Iterators}
 
-\index{Iterator!Concept}
+\index{Iterators!image|(}
 \index{Generic Programming}
 This chapter introduces the \emph{image iterator}, a fundamental and important
 generic programming construct for image processing in ITK.  An iterator is a
@@ -17,6 +17,8 @@ sections~\ref{sec:ImageIterators}--\ref{sec:NeighborhoodIterators}.
 \section{Introduction}
 \label{sec:IteratorsIntroduction}
 % Further define iterators in the context of generic programming.
+\index{generic programming}
+\index{Iterators!definition of}
 Generic programming models define functionally independent components called
 \emph{containers} and \emph{algorithms}.  Container objects store data and
 algorithms operate on that data.  To access data in containers, algorithms use
@@ -34,8 +36,7 @@ backward (decremented) through memory to sequentially reference elements of an
 array. Many iterator implementations have an interface similar to the
 C pointer interface. 
 
-% Define iterators in the context of ITK generic programming.   Differences
-% between ITK iterators and other toolkits
+\index{Iterators!advantages of}
 In ITK we use iterators to write generic image processing code for
 \code{itk::Image}s instantiated with different combinations of pixel type, pixel
 container type, and dimensionality.  Because ITK image iterators are
@@ -53,6 +54,7 @@ interest.
 \section{Programming Interface}
 \label{sec:IteratorsInterface}
 
+\index{Iterators!programming interface|(}
 %Creating iterators
 The section describes the programming interface for ITK image iterators.  Not
 all image iterators implement the full interface, and some define additional
@@ -61,9 +63,13 @@ interface, it is noted in that iterator's documentation.
 
 \subsection{Creating Iterators}
 \label{sec:CreatingIterators}
+
+\index{Iterators!construction of}
 All image iterators have at least one template parameter: the image type over
 which they iterate.  There is no restriction on the dimensionality of the image
 or on the pixel type of the image.
+
+\index{Iterators!and image regions}
 
 There are always at least two arguments to an ITK image iterator constructor.
 The first argument is a smart pointer to an \code{itk::Image}.  This is the
@@ -74,6 +80,8 @@ constrained within. Valid iteration regions are any subregions of the image
 wholly contained in the current \code{BufferedRegion}.  See
 section~\ref{sec:ImageSection} for more information on image regions. 
 
+
+\index{Iterators!const}
 Most ITK image iterators have a const and non-const version.  A non-const
 iterator cannot be instantiated with a const \code{itk::Image} smart pointer.
 Const versions of iterators do not allow modifying the image that they iterate
@@ -106,10 +114,16 @@ corresponding starting positions for iterators, the \emph{begin} position and
 the \emph{end} position.  An iterator can be moved directly to either of these
 two positions using the following methods.
 
+\index{forward iteration}
+\index{reverse iteration}
+\index{iteration region}
+\index{Iterators!GoToBegin()}
+
 \begin{itemize}
 \item \textbf{\code{GoToBegin()}} Points the iterator to the first valid
 data element in the region.
 
+\index{Iterators!GoToEnd()}
 \item \textbf{\code{GoToEnd()}} Points the iterator to \emph{one position past}
 the last valid element in the region.
 \end{itemize}
@@ -122,11 +136,13 @@ position will have undefined results.
 ITK iterators define forward and reverse movement through their regions by
 overloading the increment and decrement operators.
 
+\index{Iterators!operator++()}
 \begin{itemize}
 \item \textbf{\code{operator++()}} Increments the iterator one position in the
 positive direction.  Only the prefix increment operator is defined for ITK image
 iterators.
 
+\index{Iterators!operator--}
 \item \textbf{\code{operator--()}} Decrements the iterator one position in the
 negative direction.  Only the prefix decrement operator is defined for ITK
 image iterators. 
@@ -154,9 +170,11 @@ operators may not be optimized for speed and require some knowledge of the
 dimensionality of the image and the extent of the iteration region.  
 
 \begin{itemize}
+\index{Iterators!operator+=()}
 \item \textbf{\code{operator+=( Offset )}} Moves the iterator to the pixel
 position at the current index plus the specified ND \code{itk::Offset}. 
 
+\index{Iterators!operator-=()}
 \item \textbf{\code{operator-=( Offset )}} Moves the iterator to the pixel
 position at the current index minus the specified ND \code{itk::Offset}.
 \end{itemize}
@@ -165,6 +183,7 @@ One final method is also defined for most iterators to move an iterator to an
 absolute image index position.
 
 \begin{itemize}
+\index{Iterators!SetPosition()}
 \item \textbf{\code{SetPosition( Index )}} Moves the iterator to the given
 \code{itk::Index} position.
 \end{itemize}
@@ -186,9 +205,11 @@ beginning of its iteration region.  These methods are used as halting criteria
 for iteration loops.
 
 \begin{itemize}
+\index{Iterators!IsAtEnd()}
 \item \textbf{\code{bool IsAtEnd()}} True if the iterator points to \emph{one
 position past} the end of the iteration region.
 
+\index{Iterators!IsAtBegin()}
 \item \textbf{\code{bool IsAtBegin()}} True if the iterator points to the first
 position in the iteration region.  The method is typically used to test for the
 end of reverse iteration.
@@ -198,11 +219,13 @@ end of reverse iteration.
 An iterator can also report its current image index position.
 
 \begin{itemize}
+\index{Iterators!GetIndex()}
 \item \textbf{\code{ImageIndex GetIndex()}} Returns the \code{itk::ImageIndex}
 of the image pixel that the iterator currently points to.
 \end{itemize}
 
 % A note on bounds checking
+\index{Iterators!and bounds checking}
 For efficiency, most ITK image iterators do not perform bounds checking.  What
 this means is that it is possible to move an iterator to a location outside its
 valid iteration region.  Dereferencing the iterator at an out-of-bounds location
@@ -219,9 +242,11 @@ ITK image iterators define two basic methods for reading and writing pixel
 values.
 
 \begin{itemize}
+\index{Iterators!Get()}
 \item \textbf{\code{PixelType Get()}} Returns the value of the pixel at the
 iterator position.
 
+\index{Iterators!Set()}
 \item \textbf{\code{void Set( PixelType )}} Sets the value of the pixel at the
 iterator position.  Not defined for const versions of iterators.
 \end{itemize}
@@ -232,8 +257,9 @@ most cases, a call to one of these methods incurs no penalty over directly
 dereferencing the memory pointer in the underlying image memory buffer.
 \code{Get} and \code{Set} methods also support the use of image adaptors
 (section~\ref{sec:ImageAdaptors}).
+\index{Iterators!support of adaptors}
 
-There is one common case, however, where \code{Get} and \code{Set} do incur a
+There are some common cases, however, where \code{Get} and \code{Set} do incur a
 penalty. Consider the following code, which fetches, modifies, and then writes
 a value back to the same pixel location.
 
@@ -245,6 +271,7 @@ As written, this code requires one more memory dereference than necessary.  To
 handle this case, some iterators define a third data access method.
 
 \begin{itemize}
+\index{Iterators!Value()}
 \item \textbf{\code{PixelType \& Value()}} Returns a reference to the pixel at
 the iterator position.
 \end{itemize}
@@ -256,6 +283,10 @@ possible to rewrite our example code more efficiently.
 \begin{verbatim}
 it.Value()++;
 \end{verbatim}
+
+Consider using the \code{Value} method when a call to a pixel type's
+\code{operator=} method is non-trivial, for example, when working
+with multiple-component data such as vectors.
 
 The disadvantage of using \code{Value} over \code{Get} and \code{Set} is that
 is cannot support image adaptors. Whenever possible, use \code{Get} and
@@ -284,6 +315,7 @@ for (in.GoToBegin(), out.GoToBegin(); !in.IsAtEnd(); ++in, ++out)
 }
 \end{verbatim}
 
+\index{Iterators!and image regions}
 Notice that both the input and output iterators are initialized over the same
 region, the \code{RequestedRegion} of \code{input\_image}.  This is good
 practice because it ensures that the output iterator walks exactly the same set
@@ -293,6 +325,7 @@ contain the requested region of the input image, which will almost always be
 the case when writing ITK pipeline filter objects.  Another advantage is that
 only one test for the end of iteration is required in the \code{for} loop.
 
+\index{reverse iteration}
 Equivalent code can be written to iterate through the image in reverse.
 The syntax is slightly more awkward because the \emph{end} of the
 iteration region is not a valid position and we can only test whether the
@@ -311,13 +344,6 @@ while ( ! in.IsAtBegin() )
 }
 
 \end{verbatim}
-% Need a paragraph or two about other image methods like GetIndex(), etc.  Are
-%these universally defined?
-
-%\begin{itemize}
-%\item \textbf{\code{index GetIndex()}} 
-%\item \textbf{\code{SetIndex(index)}}
-%\end{itemize}
 
 %\begin{itemize}
 %\item \textbf{\code{operator==}}
@@ -333,7 +359,7 @@ while ( ! in.IsAtBegin() )
 
 % operator <, operator >, etc.
 
-
+\index{Iterators!programming interface|)}
 \section{Image Iterators}
 \label{sec:ImageIterators}
 %Introduction and overview
@@ -347,27 +373,37 @@ speed up or encapsulate common tasks.
 % Each of the iterators has a const and non-const version
 
 \subsection{itk::ImageRegionIterator}
+\index{itk::ImageRegionIterator|(}
 \label{sec:itkImageRegionIterator}
 \input{ImageRegionIterator.tex}
+\index{itk::ImageRegionIterator|)}
 
 \subsection{itk::ImageRegionIteratorWithIndex}
 \label{sec:itkImageRegionIteratorWithIndex}
+\index{itk::ImageRegionIteratorWithIndex|(}
 \input{ImageRegionIteratorWithIndex.tex}
+\index{itk::ImageRegionIteratorWithIndex|)}
 
 \subsection{itk::ImageLinearIteratorWithIndex}
 \label{sec:itkImageLinearIteratorWithIndex}
+\index{itk::ImageLinearIteratorWithIndex|(}
 \input{ImageLinearIteratorWithIndex.tex}
+\index{itk::ImageLinearIteratorWithIndex|)}
 
 \subsection{itk::ImageSliceIteratorWithIndex}
 \label{sec:itkImageSliceIteratorWithIndex}
+\index{itk::ImageSliceIteratorWithIndex|(}
 \input{ImageSliceIteratorWithIndex.tex}
+\index{itk::ImageSliceIteratorWithIndex|)}
 
 \subsection{itk::ImageRandomConstIteratorWithIndex}
 \label{sec:itkImageRandomConstIteratorWithIndex}
+\index{itk::ImageRandomConstIteratorWithIndex|(}
 \input{ImageRandomConstIteratorWithIndex}
-
+\index{itk::ImageRandomConstIteratorWithIndex|)}
 
 \section{Conditional Iterators}
+\index{Iterators!conditional|(}
 \label{sec:ConditionalIterators}
 This section describes iterators that walk only pixels in an image region whose
 values satisfy a specified condition.  The condition is usually based on some
@@ -396,18 +432,22 @@ implicit geometric shape functions or connected component regions.
 
 \subsection{itk::FloodFilledImageFunctionConditionalIterator}
 \label{itk::FloodFilledImageFunctionConditionalIterator}
+\index{itk::FloodFilledImageFunctionConditionalIterator|(}
 %./Common/itkFloodFilledImageFunctionConditionalConstIterator.h
 %./Common/itkFloodFilledImageFunctionConditionalIterator.h
-
+\index{itk::FloodFilledImageFunctionConditionalIterator|)}
 
 \subsection{itk::FloodFilledSpatialFunctionConditionalIterator}
 \label{itk::FloodFilledSpatialFunctionConditionalIterator}
+\index{itk::FloodFilledSpatialFunctionConditionalIterator|(}
 %./Common/itkFloodFilledSpatialFunctionConditionalConstIterator.h
 %./Common/itkFloodFilledSpatialFunctionConditionalIterator.h
-
+\index{itk::FloodFilledImageFunctionConditionalIterator|)}
+\index{Iterators!conditional|)}
 
 \section{Neighborhood Iterators}
 \label{sec:NeighborhoodIterators}
+\index{Iterators!neighborhood|(}
 This section describes the ITK image iterators designed for working with
 neighborhoods of image pixels in an image. 
 % -Designed to encapsulate common neighborhood management functionailty
@@ -435,13 +475,13 @@ neighborhoods of image pixels in an image.
 % Example: boundary conditions
 % Example: walking faces
 
-
-
 \subsection{itk::ShapedNeighborhoodIterator}
 \label{sec:itkShapedNeighborhoodIterator}
 ./Common/itkConstShapedNeighborhoodIterator.h
 ./Common/itkShapedNeighborhoodIterator.h
 
+\index{Iterators!neighborhood|)}
 
 % ADD A SECTION WITH TIPS, SUGGESTIONS ON USING ITERATORS?  EXTENDING ITERATORS?
 % USING ITERATORS FOR MULTITHREADING EXAMPLE?
+\index{Iterators!image|)}

@@ -117,9 +117,13 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   Image3.tex
   Image4.tex
   Image5.tex
+  ImageRandomConstIteratorWithIndex.tex
+  ImageLinearIteratorWithIndex.tex
   ImageReadWrite.tex
   ImageReadCastWrite.tex
   ImageReadExtractWrite.tex
+  ImageRegionIterator.tex
+  ImageRegionIteratorWithIndex.tex
   ImageRegistration1.tex
   ImageRegistration2.tex
   ImageRegistration3.tex
@@ -129,6 +133,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   ImageRegistration7.tex
   ImageRegistration8.tex
   ImageRegistration9.tex
+  ImageSliceIteratorWithIndex.tex
   IsolatedConnectedImageFilter.tex
   DeformableRegistration1.tex
   DeformableRegistration2.tex
