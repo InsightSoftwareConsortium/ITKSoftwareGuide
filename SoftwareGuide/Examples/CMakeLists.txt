@@ -45,12 +45,15 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellVisitor2.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinaryThresholdImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinaryMinMaxCurvatureFlowImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/BinomialBlurImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/ThresholdImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/CastingImageFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/CurvatureFlowImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/CurvatureAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/DiscreteGaussianImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientMagnitudeImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientMagnitudeRecursiveGaussianImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/GradientAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MathematicalMorphologyBinaryFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MathematicalMorphologyGrayscaleFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MedianImageFilter.cxx
@@ -84,12 +87,15 @@ SET( ITK_EXAMPLES_TEX_SRCS
   MinMaxCurvatureFlowImageFilter.tex
   BinaryThresholdImageFilter.tex
   BinaryMinMaxCurvatureFlowImageFilter.tex
+  BinomialBlurImageFilter.tex
   ThresholdImageFilter.tex
   CastingImageFilters.tex
   CurvatureFlowImageFilter.tex
+  CurvatureAnisotropicDiffusionImageFilter.tex
   DiscreteGaussianImageFilter.tex
   GradientMagnitudeImageFilter.tex
   GradientMagnitudeRecursiveGaussianImageFilter.tex
+  GradientAnisotropicDiffusionImageFilter.tex
   MathematicalMorphologyBinaryFilters.tex
   MathematicalMorphologyGrayscaleFilters.tex
   MedianImageFilter.tex
