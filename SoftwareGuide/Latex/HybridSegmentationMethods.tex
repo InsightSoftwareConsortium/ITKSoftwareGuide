@@ -11,49 +11,49 @@
 
 \subsection{Introduction}
 \label{sec:HybridSegmentationIntroduction}
-  This section introduces the use of hybrid methods for segmentation
-of radiological patient data and the Visible Human data. The hybrid
-segmentation approach integrates boundary-based and region-based
-segmentation methods that amplify the strength but reduce the
-weakness of both approaches. The advantage of this approach comes
-from combining region-based segmentation methods like the fuzzy
+  This section introduces the use of hybrid methods for segmentation
+of radiological patient data and the Visible Human data. The hybrid
+segmentation approach integrates boundary-based and region-based
+segmentation methods that amplify the strength but reduce the
+weakness of both approaches. The advantage of this approach comes
+from combining region-based segmentation methods like the fuzzy
 connectedness and Voronoi diagram classification with boundary-based
 deformable model segmentation. The synergy between fundamentally
-different methodologies tends to result in robustness and higher
-segmentation quality.  A hybrid segmentation engine can be built, as
+different methodologies tends to result in robustness and higher
+segmentation quality.  A hybrid segmentation engine can be built, as
 illustrated in
 Figure\ref{fig:ComponentsofaHybridSegmentationApproach}. It consists
-of modules representing segmentation methods (ITK filters). We can
-derive a variety of hybrid segmentation methods by exchanging the
-filter use in each module. It should be noted that under the fuzzy
-connectedness and deformable models modules, there are several
-different filters that can be used as components. Below, we describe
-two examples of hybrid segmentation methods, derived from the hybrid
-segmentation engine: integration of fuzzy connectedness and Voronoi
+of modules representing segmentation methods (ITK filters). We can
+derive a variety of hybrid segmentation methods by exchanging the
+filter use in each module. It should be noted that under the fuzzy
+connectedness and deformable models modules, there are several
+different filters that can be used as components. Below, we describe
+two examples of hybrid segmentation methods, derived from the hybrid
+segmentation engine: integration of fuzzy connectedness and Voronoi
 diagram classification (hybrid method 1), and integration of Gibbs
 prior and deformable models (hybrid method 2).  Details on the
-concepts behind these methods have been discussed in the literature
+concepts behind these methods have been discussed in the literature
 \cite{Angelini2002,Udupa2002,Jin2002,Imielinska2001,Imielinska2000a,Imielinska2000b}
 
 
 
 \subsection{FuzzyConectedness and VoronoiDiagramClassification}
 \label{sec:HybridMethod1}
- In this section, we present a hybrid segmentation method that
-requires minimal manual initialization, where we integrate the fuzzy
-connectedness Segmentation and Voronoi diagram Classification. We
-start with a fuzzy connectedness filter to generate a sample of
-tissue from a region to be segmented. From the sample, we
+ In this section, we present a hybrid segmentation method that
+requires minimal manual initialization, where we integrate the fuzzy
+connectedness Segmentation and Voronoi diagram Classification. We
+start with a fuzzy connectedness filter to generate a sample of
+tissue from a region to be segmented. From the sample, we
 automatically derive homogeneity statistics that constitute the
-homogeneity operator to be used in the next stage of the method. The
-output of the fuzzy  connectedness filter is used as a prior for the
-Voronoi diagram classification  filter that performs iterative
-subdivision and classification of the segmented image that results in
-an estimation of the boundary. The output of this filter is a 3D
+homogeneity operator to be used in the next stage of the method. The
+output of the fuzzy  connectedness filter is used as a prior for the
+Voronoi diagram classification  filter that performs iterative
+subdivision and classification of the segmented image that results in
+an estimation of the boundary. The output of this filter is a 3D
 binary image that can be used to display the 3D result of the
 segmentation, or passed to another filter (e.g. deformable model) for
-further improvement of the final segmentation. Details describing the
-concepts behind these methods  have been published in
+further improvement of the final segmentation. Details describing the
+concepts behind these methods  have been published in
 \cite{Angelini2002,Udupa2002,Jin2002,Imielinska2001,Imielinska2000a,Imielinska2000b}
 
 In Figure \ref{fig:UMLClassDiagramoftherFuzzyConnectednessFilter}, we describe 
@@ -104,15 +104,6 @@ depicted in Figure
  connectedness, Voronoi diagrams and deformable models, respectively.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  Here is an example of how to include diagram in a figure
-%
-%  The file HybridSegmentationDiagram1.fig should be in the "Art"
-%  directory. CMake will convert it to EPS before running latex. 
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{figure}
 \center
 \includegraphics[width=14cm]{HybridSegmentationEngine1.eps}
@@ -162,14 +153,17 @@ depicted in Figure
 \begin{figure}
 \center
 \includegraphics[width=14cm]{FuzzyVoronoiCollaborationDiagram1.eps}
-\caption{Integration of Fuzzy Connectedness with Voronoi Diagram Classification}
+\caption[Fuzzy Connectedness and Voronoi Diagram Classification]{Integration of
+Fuzzy Connectedness with Voronoi Diagram Classification}
 \label{fig:UMLHybridMethodDiagram1}
 \end{figure}
 
 \begin{figure}
 \center
 \includegraphics[width=14cm]{FuzzyVoronoiDeformableCollaborationDiagram1.eps}
-\caption{Integration of fuzzy connectedness, Voronoi diagram, and deformable models}
+\caption[Fuzzy Connectedness, Voronoi diagram, and Deformable
+Models]{Integration of Fuzzy Connectedness, Voronoi diagram, and Deformable
+Models}
 \label{fig:UMLHybridMethodDiagram2}
 \end{figure}
 
@@ -178,9 +172,9 @@ depicted in Figure
 \subsubsection{Example of a Hybrid Segmentation Method}
 \label{sec:HybridMethod1:Example}
 
-%\ifitkFullVersion
+\ifitkFullVersion
 \input{HybridSegmentationFuzzyVoronoi.tex}
-%\fi
+\fi
 
 
 
@@ -190,13 +184,13 @@ Another combination that can be used in a hybrid segmentation method is the
 set of Gibbs prior filters with deformable models.
 
 \subsubsection{deformable model}
-%\ifitkFullVersion
+\ifitkFullVersion
 \input{DeformableModel1.tex}
-%\fi
+\fi
 
 
 \subsubsection{Gibbs Prior Image Filter}
-%\ifitkFullVersion
+\ifitkFullVersion
 \input{GibbsPriorImageFilter1.tex}
-%\fi
+\fi
 
