@@ -18,15 +18,22 @@ originated from
 difficulties in getting third party libraries compiled and installed rather
 than with actual problems building ITK.
 
-ITK has been developed and tested across different combinations of operating
-systems, compilers, and hardware platforms including MS-Windows, Linux on
-Intel-compatible hardware, Solaris, IRIX and recently the Mac. Popular
-compilers like Visual Studio 6.0, Visual Studio 7.0, gcc 2.95.2, gcc 2.96,
-gcc 3.04, gcc 3.1, gcc 3.2, gcc 3.3, Borland 5.5 and SGI-CC 6.5 are currently
-supported. Given the advanced usage of C++ features in the toolkit, some
-compilers may have difficulties processing the code. If you are currently
-using an outdated compiler this may be an excellent excuse for upgrading this
-old piece of software!
+ITK has been developed and tested across different combinations of
+operating systems, compilers, and hardware platforms including
+MS-Windows, Linux on Intel-compatible hardware, Solaris, IRIX, Mac
+OSX, and Cygwin.  It is known to work with the following compilers:
+
+\begin{itemize}
+\item Visual Studio 6, .NET 2002, .NET 2003
+\item GCC 2.95.x, 2.96, 3.x
+\item SGI MIPSpro 7.3x
+\item Borland 5.5
+\end{itemize}
+
+Given the advanced usage of C++ features in the toolkit, some
+compilers may have difficulties processing the code. If you are
+currently using an outdated compiler this may be an excellent excuse
+for upgrading this old piece of software!
 
 \section{Configuring ITK}
 \label{sec:ConfiguringITK}
@@ -39,8 +46,7 @@ control the software compilation process using simple platform and compiler
 independent configuration files.  CMake generates native makefiles and
 workspaces that can be used in the compiler environment of your choice. CMake
 is quite sophisticated---it supports complex environments requiring system
-configuration, code pre-processing, code generation, and template
-instantiation.
+configuration, compiler feature testing, and code generation.
 
 CMake generates Makefiles under UNIX and Cygwin systems and generates Visual
 Studio workspaces under Windows (and appropriate build files for other
@@ -62,22 +68,22 @@ CMake can be downloaded at no cost from
   \url{http://www.cmake.org}
 \end{center}
 
-ITK require the latest release of CMake\footnote{The current version at the
-time of writing this document is CMake 1.8}. You can download binary
-versions for most of the popular platforms including Windows, Solaris, IRIX,
-HP, Mac and Linux. Alternatively you can download the source code and build
-CMake on your system. It is very important to avoid having several different
-versions of CMake simultaneously. The reason is that CMake searches your
-system in order to find its components, and mixing components from different
-versions will produce inconsistent executables. Follow the instructions in the
+ITK requires at least CMake version 1.6. You can download binary
+versions for most of the popular platforms including Windows, Solaris,
+IRIX, HP, Mac and Linux. Alternatively you can download the source
+code and build CMake on your system. Follow the instructions in the
 CMake Web page for downloading and installing the software.
 
-Running CMake initially requires that you provide two pieces of information:
-where the source code directory is located (ITK\_SOURCE\_DIR), and where the
-object code is to be produced (ITK\_BINARY\_DIR). These are referred to as the
-\emph{source directory} and the \emph{binary directory}. On Unix, the binary
-directory is created by the user and CMake is invoked with the path to the
-source directory. For example:
+Running CMake initially requires that you provide two pieces of
+information: where the source code directory is located
+(ITK\_SOURCE\_DIR), and where the object code is to be produced
+(ITK\_BINARY\_DIR). These are referred to as the \emph{source
+directory} and the \emph{binary directory}. We recommend setting the
+binary directory to be different than the source directory (an
+\emph{out-of-source} build), but ITK will still build if they are set
+to the same directory (an \emph{in-source} build).  On Unix, the
+binary directory is created by the user and CMake is invoked with the
+path to the source directory. For example:
 
 \small
 \begin{verbatim}
@@ -87,10 +93,8 @@ ccmake ../Insight
 \end{verbatim}
 \normalsize
 
-Note that the source directory and the build directory can be the
-same---this is known as an \emph{in-source} build. On Windows, the CMake 
-GUI is used to specify the source and build directories (Figure
-\ref{fig:CMakeGUI}).
+On Windows, the CMake GUI is used to specify the source and build
+directories (Figure \ref{fig:CMakeGUI}).
 
 CMake runs in an interactive mode in that you iteratively select options and
 configure according to these options. The iteration proceeds until no more
@@ -131,7 +135,7 @@ capabilities of ITK classes. Due to the large number of tests, enabling the
 testing option will considerably increase the build time.  It is not
 desirable to enable this option for a first build of the toolkit.
 
-An additional resource is available at the \code{InsightApplications} module,
+An additional resource is available in the \code{InsightApplications} module,
 which contains multiple applications incorporating GUIs and different levels
 of visualization.  However, due to the large number of applications and the
 fact that some of them rely on third party libraries, building this module
@@ -160,7 +164,7 @@ the .NET compiler) from the binary directory you specified in the CMake GUI.
 
 The build process will typically take anywhere from 15 to 30 minutes depending
 on the performance of your system. If you decide to enable testing as part of
-the normal build process, about 500 small test programs will be compiled. This
+the normal build process, about 600 small test programs will be compiled. This
 will verify that the basic components of ITK have been correctly built on your
 system.
 
@@ -178,7 +182,7 @@ are described in the following section.
 
 Once both files are in your directory you can run CMake in order to configure
 your project. Under UNIX, you can cd to your newly created directory
-and type ``\code{ccmake . }''. Note the ``.'' in the command line for indicating
+and type ``\code{ccmake .}''. Note the ``.'' in the command line for indicating
 that the \code{CMakeLists.txt} file is in the current directory. The
 curses interface will require you to provide the directory where ITK
 was built. This is the same path that you indicated for the
@@ -187,7 +191,7 @@ Windows you can run CMakeSetup and provide your newly created
 directory as being both the source directory and the binary directory for
 your new project (i.e., an in-source build). Then CMake will require you to
 provide the path to the binary directory where ITK was built. The ITK binary
-directory will contain a file named \code{UseITK.cmake} generated during the
+directory will contain a file named \code{ITKConfig.cmake} generated during the
 configuration process at the time ITK was built.  From this file, CMake will
 recover all the information required to configure your new ITK project.
 
@@ -225,7 +229,7 @@ provided in CMake for other commonly used libraries, all of them named
 \code{Find*.cmake}}. If the strategy for finding ITK fails, CMake will prompt
 you for the directory where ITK is installed in your system. In that case you
 will write this information in the \code{ITK\_BINARY\_DIR} variable. The line \code{
-INCLUDE(\${USE\_ITK\_FILE})} loads the \code{UseITK.cmake} file containing
+INCLUDE(\$\{USE\_ITK\_FILE\})} loads the \code{UseITK.cmake} file to set
 all the configuration information from ITK. The line \code{ADD\_EXECUTABLE}
 defines as its first argument the name of the executable that will be produced
 as result of this project. The remaining arguments of \code{ADD\_EXECUTABLE}
