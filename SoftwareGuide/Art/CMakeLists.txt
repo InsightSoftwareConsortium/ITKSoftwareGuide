@@ -249,6 +249,9 @@ SET(JPEG_IMAGES
   NeighborhoodIterators4b
   NeighborhoodIterators4c
   NeighborhoodIterators4d
+  NeighborhoodIterators6a
+  NeighborhoodIterators6b
+  NeighborhoodIterators6c
   ResampleImageFilterInput2x3
   ResampleImageFilterOutput1
   ResampleImageFilterOutput2
