@@ -1,0 +1,2 @@
+% Define where in the disk is the Insight source tree 
+\def\ITKSOURCEDIR{@ITK_SOURCE_DIR@}
