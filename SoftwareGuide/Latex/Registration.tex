@@ -53,6 +53,7 @@ First we begin with some simple registration examples.
 
 \section{Multi-Modality Registration}
 \label{sec:MultiModalityRegistration}
+
 \input{ImageRegistration2.tex}
 
 \section{Monitoring Registration}
@@ -62,13 +63,27 @@ First we begin with some simple registration examples.
 
 \section{Multi-Resolution Registration}
 \label{sec:MultiResolutionRegistration}
+Performing image registration using a multi-resolution approach is widely used
+to improve speed, accuracy and robustness. The basic idea is that registration
+is first performed at a coarse scale where the images have fewer pixels.
+The spatial mapping determined at the coarse level is the used to initialize
+registration at the next finer scale. This process is repeated until it
+reaches the finest possible scale. This coarse-to-fine stragtegy greatly
+increases the capture range of the registration and also increases robustness
+by eliminating local optima at coarser scales.
+
+The Insight toolkit offers a multi-resolution registration framework which
+is directly compatible with all the registration framework components. The
+multi-resolution registration framework has two additional components:
+two \emph{Image Pyramids} which are used to downsample the fixed and moving
+images according to some user defined schedule.
+ 
+We now present the main features of the multi-resolution framework by
+way of an example.
 \input{MultiResImageRegistration1.tex}
 
 \section{Image Pyramids}
 \label{sec:ImagePyramids}
-
-\section{Passage of parameters}
-\label{sec:MultiResolutionParametersPassing}
 
 Let's review now the main characteristics of the registration framework components. 
 
