@@ -305,6 +305,9 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Statistics/SampleToHistogramProjectionFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/Subsample.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/WeightedSampleStatistics.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/ScalarImageKmeansModelEstimator.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/ScalarImageKmeansClassifier.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/ScalarImageMarkovRandomField1.cxx
 )
 
 
