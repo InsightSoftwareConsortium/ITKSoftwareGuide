@@ -95,9 +95,12 @@ IF (BUILD_FIGURES)
   OPTION(ITK_FLIP_INPUTS_AND_THEIR_OUTPUTS "Flip the input images specified in CMakeLists and their corresponding outputs" ON)
   SET(ITK_FLIP_IMG
     BrainProtonDensitySlice
+    BrainT1Slice
     BrainProtonDensitySliceBorder20
     VisibleWomanEyeSlice
     VisibleWomanHeadSlice
+    FatMRISlice
+    BinaryImage
     VentricleModel
     FivePoints
     ThresholdSegmentationLevelSetImageFilterVentricle
