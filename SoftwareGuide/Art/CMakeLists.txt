@@ -40,6 +40,7 @@ SET(XFIG_FIGURES
   BinaryThresholdTransferFunction
   DiscreteGaussian
   GeometricalObjects
+  GeodesicActiveContoursCollaborationDiagram1
   FastMarchingCollaborationDiagram1
   FuzzyConnectednessClassDiagram1
   FuzzyConnectednessCollaborationDiagram1
