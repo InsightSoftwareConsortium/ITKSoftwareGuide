@@ -36,6 +36,10 @@ SET(JPEG_IMAGES
   ThresholdImageFilterOutputAbove
   ThresholdImageFilterOutputBelow
   ThresholdImageFilterOutputOutside
+  VectorGradientAnisotropicDiffusionImageFilterInput
+  VectorGradientAnisotropicDiffusionImageFilterOutput
+  VectorCurvatureAnisotropicDiffusionImageFilterInput
+  VectorCurvatureAnisotropicDiffusionImageFilterOutput
 )
 
 FOREACH(image ${JPEG_IMAGES})
