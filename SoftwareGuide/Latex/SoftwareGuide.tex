@@ -84,7 +84,9 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 
 \begin{document}
 
-\InputIfFileExists{PrintedPreamble.tex}
+%\ifitkPrintedVersion
+%\InputIfFileExists{PrintedPreamble.tex}
+%\fi
 
 \maketitle
 
@@ -122,9 +124,9 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 \input{Contributors.tex}
 \fi
 
-\ifitkPrintedVersion 
-\input{Cover.tex}
-\fi
+%\ifitkPrintedVersion 
+%\InputIfFileExists{Cover.tex}
+%\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -204,9 +206,8 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 
 \backmatter
 
-\ifitkPrintedVersion
-\InputIfFileExists{MarketingMaterial.tex}
-\fi
+%\InputIfFileExists{MarketingMaterial.tex}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
