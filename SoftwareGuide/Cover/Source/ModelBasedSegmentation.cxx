@@ -305,14 +305,14 @@ int main( int argc, char *argv[] )
   generator->Initialize(12345);
 
   optimizer->SetNormalVariateGenerator( generator );
-  optimizer->Initialize( 10 );
-  optimizer->SetMaximumIteration( 4000 );
+  optimizer->Initialize( 5 );
+  optimizer->SetMaximumIteration( 1000 );
 
  
   TransformType::ParametersType parametersScale;
   parametersScale.resize(Dimension);
 
-  parametersScale.Fill( 1.0 );
+  parametersScale.Fill( 2.0 );
 
   optimizer->SetScales( parametersScale );
 
@@ -333,9 +333,9 @@ int main( int argc, char *argv[] )
   typedef ImageType::IndexType IndexType;
   IndexType initialIndexPosition;
 
-  initialIndexPosition[0] = 28; 
-  initialIndexPosition[1] = 20;
-  initialIndexPosition[2] = 33;
+  initialIndexPosition[0] = 26; 
+  initialIndexPosition[1] = 18;
+  initialIndexPosition[2] = 30;
 
   TransformType::InputPointType initialPhysicalPosition;
 
