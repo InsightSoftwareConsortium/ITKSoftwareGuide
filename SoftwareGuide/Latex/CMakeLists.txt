@@ -6,6 +6,32 @@ INCLUDE (${CMAKE_ROOT}/Modules/FindLATEX.cmake)
 
 
 #
+# Verify that we found all the components we need
+#
+IF(NOT LATEX_COMPILER)
+  MESSAGE("Latex compiler was not found. Please pass to advanced mode and provide its full path")
+ENDIF(NOT LATEX_COMPILER)
+
+IF(NOT BIBTEX_COMPILER)
+  MESSAGE("BibTeX executable was not found. Please pass to advanced mode and provide its full path")
+ENDIF(NOT BIBTEX_COMPILER)
+
+IF(NOT DVIPS_CONVERTER)
+  MESSAGE("dvips executable was not found. Please pass to advanced mode and provide its full path")
+ENDIF(NOT DVIPS_CONVERTER)
+
+IF(NOT PS2PDF_CONVERTER)
+  MESSAGE("ps2pdf executable was not found. Please pass to advanced mode and provide its full path")
+ENDIF(NOT PS2PDF_CONVERTER)
+
+IF(NOT MAKEINDEX_COMPILER)
+  MESSAGE("makeindex executable was not found. Please pass to advanced mode and provide its full path")
+ENDIF(NOT MAKEINDEX_COMPILER)
+
+
+
+
+#
 # Options for PDF generation. 
 # resolution in dpi.  
 #
@@ -13,8 +39,8 @@ INCLUDE (${CMAKE_ROOT}/Modules/FindLATEX.cmake)
 #  /ebook    = medium resolution = Distiller "eBook"  
 #  /printer  = high   resolution = Distiller "Print" optimized  
 #
-SET(PS2PDF_COMPILE_OPTIONS "-dPDFSETTINGS=/screen" -r600)
-SET(DVIPS_COMPILE_OPTIONS  -D600)
+SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/screen" -r600)
+SET(DVIPS_CONVERTER_OPTIONS  -D600)
 
 #
 # File that defines the path to .cxx examples in ITK sources
@@ -142,7 +168,7 @@ ENDFOREACH( exampletexname )
 
 
 
-IF(LATEX_COMPILE)
+IF(LATEX_COMPILER)
 
   IF (WIN32)
     SET(ITK_TEXINPUTS ${SoftwareGuide_SOURCE_DIR}/../Latex;${SoftwareGuide_SOURCE_DIR};${SoftwareGuide_SOURCE_DIR}/Latex;${SoftwareGuide_SOURCE_DIR}/Art;${SoftwareGuide_BINARY_DIR};${SoftwareGuide_BINARY_DIR}/Examples;${SoftwareGuide_BINARY_DIR}/Art;${SoftwareGuide_BINARY_DIR}/Latex)
@@ -170,22 +196,22 @@ IF(LATEX_COMPILE)
     OUTPUTS   SoftwareGuide.dvi
   )
 
-  IF(DVIPS_COMPILE)
+  IF(DVIPS_CONVERTER)
     ADD_CUSTOM_COMMAND( 
       SOURCE    SoftwareGuide.dvi
-      COMMAND   ${DVIPS_COMPILE}
-      ARGS      SoftwareGuide.dvi ${DVIPS_COMPILE_OPTIONS} -o  SoftwareGuide.ps
+      COMMAND   ${DVIPS_CONVERTER}
+      ARGS      SoftwareGuide.dvi ${DVIPS_CONVERTER_OPTIONS} -o  SoftwareGuide.ps
       TARGET    SoftwareGuideLatex
       DEPENDS   SoftwareGuide.ind SoftwareGuide.bbl
       OUTPUTS   SoftwareGuide.ps
     )
-  ENDIF(DVIPS_COMPILE)
+  ENDIF(DVIPS_CONVERTER)
   
-  IF(PS2PDF_COMPILE)
+  IF(PS2PDF_CONVERTER)
     ADD_CUSTOM_COMMAND( 
       SOURCE    SoftwareGuide.ps
-      COMMAND   ${PS2PDF_COMPILE}
-      ARGS      ${PS2PDF_COMPILE_OPTIONS} SoftwareGuide.ps
+      COMMAND   ${PS2PDF_CONVERTER}
+      ARGS      ${PS2PDF_CONVERTER_OPTIONS} SoftwareGuide.ps
       TARGET    SoftwareGuideLatex
       OUTPUTS   SoftwareGuide.pdf
     )
@@ -195,9 +221,9 @@ IF(LATEX_COMPILE)
       TARGET    SoftwareGuideLatex
       DEPENDS   SoftwareGuide.pdf
     )
-  ENDIF(PS2PDF_COMPILE)
+  ENDIF(PS2PDF_CONVERTER)
 
-  IF(MAKEINDEX_COMPILE)
+  IF(MAKEINDEX_COMPILER)
     ADD_CUSTOM_COMMAND( 
       SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS} 
       COMMAND   ${LATEX_WRAPPER1}
@@ -208,26 +234,26 @@ IF(LATEX_COMPILE)
     )
     ADD_CUSTOM_COMMAND( 
       SOURCE    SoftwareGuide.idx
-      COMMAND   ${MAKEINDEX_COMPILE}
+      COMMAND   ${MAKEINDEX_COMPILER}
       ARGS      SoftwareGuide
       TARGET    SoftwareGuideLatex
       OUTPUTS   SoftwareGuide.ind
     )
 
-  ENDIF(MAKEINDEX_COMPILE)
+  ENDIF(MAKEINDEX_COMPILER)
 
-  IF(BIBTEX_COMPILE)
+  IF(BIBTEX_COMPILER)
     ADD_CUSTOM_COMMAND( 
       SOURCE    SoftwareGuide.aux
-      COMMAND   ${BIBTEX_COMPILE}
+      COMMAND   ${BIBTEX_COMPILER}
       ARGS      SoftwareGuide
       TARGET    SoftwareGuideLatex
       OUTPUTS   SoftwareGuide.bbl
     )
-  ENDIF(BIBTEX_COMPILE)
+  ENDIF(BIBTEX_COMPILER)
 
 
-ENDIF(LATEX_COMPILE)
+ENDIF(LATEX_COMPILER)
 
 
 
