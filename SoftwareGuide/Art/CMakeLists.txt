@@ -82,6 +82,7 @@ SET(XFIG_FIGURES
   ImageRegistration9TraceMetric
   ImageRegistration9TraceAngle
   ImageRegistration9TraceTranslations
+  LaplacianSegmentationLevelSetImageFilterCollaborationDiagram1
   LevelSetZeroSet
   LevelSetSegmentationFigure1
   MinMaxCurvatureFlowFunctionDiagram
@@ -217,6 +218,7 @@ SET(JPEG_IMAGES
   ImageSliceIteratorWithIndexOutput
   IsolatedConnectedImageFilterOutput0
   IsolatedConnectedImageFilterOutput1
+  LaplacianSegmentationLevelSetImageFilterVentricle
   MultiResImageRegistration1CheckerboardBefore
   MultiResImageRegistration1CheckerboardAfter
   MultiResImageRegistration1Output
