@@ -1,101 +1,97 @@
-Image Metrics are Algorithms designed to evaluate quantitatively the similarity
-between two images.
+In ITK, \code{itk::ImageToImageMetric} objects measures quantitively 
+how well the transformed moving image fits the fixed image by comparing 
+the grayscale intensity of the images. These metrics are very flexible
+and can work with any transform or interpolation method and does not
+require the reduction of the grayscale images to sparse extracted
+information such as edges.
 
+The metric component is perhaps the most critical element of the
+registration framework. The selection of which metric to use is highly
+dependent on the registration problem to be solved. For example, some metrics
+have a large capture range while others require initialization close to
+the optimal position; some metrics are only suitable for comparing 
+images obtained from the same imaging modality while others can handle
+inter-modality comparisions. Unfortunately, there are no clear-cut rules
+as to how to choose a metric.
 
-Image Metrics were introduced as components of the Registration Framework but
-they can have other uses outside this framework.
+The basic inputs to a metric are: the fixed and moving images, a
+transform and an interpolator. The method \code{GetValue} can
+then be used to evaluate the quantitive criterion at the transform
+parameters specified in the argument. Typically, the metric samples 
+points within a defined region of the fixed image. 
+For each point, the corresponding moving image position is
+computed using the transform with the specified parameters, 
+then the interpolator is used to compute the moving image intensity 
+at the mapped position.
 
+As well as the measure value, gradient-based optimization schemes also
+require derivatives of the measure with respect to each transform
+parameter. The methods \code{GetDerivatives} and 
+\code{GetValueAndDerivatives} can be used to obtained the gradient
+information.
 
-Metrics Currently Available in ITK
-
+Metrics currently available in ITK are:
 \begin{itemize}
 \item Mean Squares
 \item Normalized Correlation
 \item Mutual Information
 \item Pattern Intensity
 \end{itemize}
+In the following sections, we describe each metric type in detail. 
+For ease of notation, we will refer to the fixed image $f(\bf{X})$ 
+and transformed moving image $m \circ T(\bf{X})$ as images $A$ and $B$.
 
-\subsection{Mean Squares}
-
-
-Computes pixel-wise differences and sum their squares.
+\subsection{Mean Squares Metric}
+This metric computes the mean square pixel-wise difference in intensity
+between image $A$ and $B over a user defined region:
 
 \begin{equation}
 MS(A,B) = \frac{1}{N} \sum_i^N \left( A_i - B_i \right)^2
 \end{equation}
-
-\begin{center}
-$A_i$ is the i-th pixel of Image A 
-$B_i$ is the i-th pixel of Image B
-$N$ is the number of pixels considered
-\end{center}
-
-The sum is computed over a restricted region
-The optimal value is  Zero
-Poor matches are large values 
-
-
-Advantages
-
-\begin{itemize}
-\item Convenient for mathematical analysis 
-\item Simplicity
-\item Large capture radius
-\end{itemize}
-
-Disadvantages
-\begin{itemize}
-\item Limited to same image modality
-\item Linear changes in intensity result in poor matching values
-\end{itemize}
-
-
-Computes pixel-wise cross-correlation and normalize it
-by the square root of the autocorrelation of the images.
-
-\begin{equation}
-NC(A,B) = \frac{ \sum_i^N \left( A_i \cdot B_i \right) }
-         { \sqrt { \sum_i^N A_i^2  \cdot \sum_i^N B_i^2 } }
-\end{equation}
-
-
 \begin{center}
 $A_i$ is the i-th pixel of Image A\\ 
 $B_i$ is the i-th pixel of Image B\\
 $N$ is the number of pixels considered
 \end{center}
 
-The sum is computed over a restricted region
-The optimal value is  One
-Poor matches are small values 
+The optimal value of the metric is zero. Poor matches between images
+$A$ and $B$ results in large values of the metric. This metric is
+simple to compute and have a relatively large capture radius.
 
+This metric relies on the assumption that intensity representing
+the same homologous point must be the same in both images. Hence,
+its use is restricted to images of the same modality. Additionally,
+any linear changes in the intensity result in a poor match value.
 
-\subsection{Normalized Correlation}
+\subsection{Normalized Correlation Metric}
+This metric computes pixel-wise cross-correlation and normalize it
+by the square root of the autocorrelation of the images:
 
+\begin{equation}
+NC(A,B) = \frac{ \sum_i^N \left( A_i \cdot B_i \right) }
+         { \sqrt { \sum_i^N A_i^2  \cdot \sum_i^N B_i^2 } }
+\end{equation}
+\begin{center}
+$A_i$ is the i-th pixel of Image A\\ 
+$B_i$ is the i-th pixel of Image B\\
+$N$ is the number of pixels considered
+\end{center}
 
-Advantages
+The optimal value of the metric is one. Misalignment between the
+images results is small measure values. The use of this metric
+is limited to obtained using the same imaging modality. The metric
+is insenstive to multiplicative differences between the two
+images. This metric produces a cost function with sharp peaks and well
+defined maxima. On the other hand, it has a relatively smaller
+capture radius.
 
-\begin{itemize}
-\item Insensitive to multiplicative factors
-\item Profile is more pointy (high precision)
-\end{itemize}
-
-Disadvantages
-\begin{itemize}
-\item Limited to same image modality
-\item Reduced capture radius
-\end{itemize}
-
-
-\subsection{Pattern Intensity}
-
-Computes pixel-wise differences and add them after passing them through a
-bell-shaped function $\frac{1}{1+x^2}$
+\subsection{Pattern Intensity Metric}
+This metric computes pixel-wise differences and add them 
+after passing them through a bell-shaped function $\frac{1}{1+x^2}$:
 
 \begin{equation}
 PI(A,B) =  \sum_i^N \frac{ 1 }{ 1 + \lambda \left( A_i - B_i \right) ^ 2 }
 \end{equation}
-
 \begin{center}
 $A_i$ is the i-th pixel of Image A 
 $B_i$ is the i-th pixel of Image B
@@ -103,15 +99,10 @@ $N$ is the number of pixels considered
 $\lambda$ controls the capture radius
 \end{center}
 
-The sum is computed over a restricted region
-The  Optimal value is $N$
-Poor matches are small values 
-
-
-\subsection{Pattern Intensity}
+The optimal values is $N$ and poor matches results is small measure
+values.
 
 Advantages
-
 \begin{itemize}
 \item Produce poor values when few pixels are considered
 \item Capture radius can be controled
@@ -126,7 +117,43 @@ Disadvantages
 \end{itemize}
 
 
-\subsection{Mutual Information}
+\subsection{Mutual Information Metric}
+This metric computes the mutual information between image $A$ and image $B$.
+Mutual information (MI) measures how much information one random variable
+(image intensity in one image) tells about another random variable 
+(image intensity in the other image). The major advantage of using
+MI is that the actual form of the dependency does not have to be specified. 
+Therefore, complex mapping between two images can be modeled. 
+This flexibility makes MI well suited as a criterion of multi-modality
+registration.
+
+Mutual information is defined in terms of entropy. Let
+\begin{equation}
+H(A) = - \int p_A(a) \log p_A(a)\, da
+\end{equation}
+is the entropy of random variable $A$, $H(B)$ entropy of 
+random variable $B$ and 
+\begin{equation}
+H(A,B) = \int p_{AB}(a,b) \log p_{AB}(a,b)\,da\,db
+\end{equation}
+be the joint entropy of $A$ and $B$.
+
+If $A$ and $B$ are independent then
+\begin{equation}
+p_{AB}(a,b) = p_A(a) p_B{b}
+\end{equation}
+and
+\begin{equation}
+H(A,B) = H(A) + H(B).
+\end{equation}
+However, if there is any dependency then
+\begin{equation}
+H(A,B)<H(A)+H(B).
+\end{equation}
+The difference is called Mutual Information : \( I(A,B) \)
+\begin{equation}
+I(A,B)=H(A)+H(B)-H(A,B)
+\end{equation}
 
 
 Computes how much uncertainty about one image can be
@@ -195,7 +222,6 @@ the difference is called Mutual Information : \( I(A,B) \)
 \begin{equation}
 I(A,B)=H(A)+H(B)-H(A,B)
 \end{equation}
-
 
 
 \subsubsection{Parzen Windowing}
