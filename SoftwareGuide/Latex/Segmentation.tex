@@ -45,7 +45,6 @@ Insight toolkit. This section describes some of the most commonly used.
 %\input WatershedSegmentation.tex
 
 
-
 %% \section{Level Sets Segmentation}
 %% \label{sec:LevelSetsSegmentation}
 
@@ -53,5 +52,24 @@ Insight toolkit. This section describes some of the most commonly used.
 %% \subsection{Fast Marching Segmentation}
 %% \subsection{Shape Detection Segmentation}
 %% \subsection{Geodesic Contours Segmentation}
+
+
+\section{Hybrid Methods} 
+\label{sec:HybridSegmentationMethods}
+
+It is sometimes convenient to combine several segmentation strategies with the
+aim of taking advantage of their qualities an compensate their vulnerabilities.
+The synergy between fundamentally different methodologies tends to result in
+robustness and higher segmentation quality.  This section illustrates an hybrid
+approach for segmentation in which two different strategies are configured to
+work together. In this case, an input image is first processed by a filter
+based on the concept of region growing. The criterion of acceptance in the
+region is defined by a similarity measure that evaluates how homogeneous is the
+path between to pixels. The output of this filter is used as a prior for
+another filter that performs a full partition of the image space and then work
+joining and splitting regions in order to optimize an homogeneity measure.
+
+\input{HybridSegmentationFuzzyVoronoi.tex}
+
 
 
