@@ -78,7 +78,7 @@ in the previous chapter two other modules---\code{InsightDocumentation} and
 
 	\item[Wrapping.] ITK uses a unique, powerful system for producing
         interfaces (i.e., ``wrappers'') to interpreted languages such as Tcl
-        and Python. The GCC_XML tool is used to produce an XML description of
+        and Python. The GCC\_XML tool is used to produce an XML description of
         arbitrarily complex C++ code; CSWIG is then used to transform the XML
         description into wrappers using the SWIG package (ref here).
 
@@ -187,7 +187,7 @@ course, the class must provide the exact same API as the one it is
 replacing.) To do this, the user compiles her class (using the same compiler,
 build options, etc.) and inserts the object code into a shared library or
 DLL. The library is then placed in a directory referred to by the
-\code{ITK_AUTOLOAD_PATH} environment variable. On instantiation, the object
+\code{ITK\_AUTOLOAD\_PATH} environment variable. On instantiation, the object
 factory will locate the library, determine that it can create a class of a
 particular name with the factory, and use the factory to create the
 instance. (Note: if the \code{CreateInstance()} method cannot find a factory
@@ -198,7 +198,7 @@ In practice object factories are used mainly (and generally transparently) by
 the ITK input/output (IO) classes. For most users the greatest impact is on
 the use of the \code{New()} method to create a class. Generally the
 \code{New()} method is declared and implemented via the macro
-\code{itkNewMacro()} found in \code{Common\itkMacro.h}.
+\code{itkNewMacro()} found in \code{Common/itkMacro.h}.
 
 
 \subsection{Smart Pointers and Memory Management}
@@ -308,7 +308,7 @@ code snippet is taken from \code{itk::ByteSwapper}:
 Note that \code{ByteSwapperError} is a subclass of
 \code{itk::ExceptionObject}. (In fact in ITK all exceptions should be derived
 from \code{ExceptionObject}.) In this example a special constructor and C++
-preprocessor variables \code{__FILE__} and {__LINE__} are used to instantiate
+preprocessor variables \code{\_\_FILE\_\_} and \code{\_\_LINE\_\_} are used to instantiate
 the exception object and provide additional information to the user. You can
 choose to catch a particular exception and hence a specific ITK error, or you
 can trap \emph{any} ITK exception by catching \code{itk::ExceptionObject}.
