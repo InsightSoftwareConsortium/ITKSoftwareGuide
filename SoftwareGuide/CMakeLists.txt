@@ -3,11 +3,6 @@ PROJECT(SoftwareGuide)
 
 
 # 
-# Find Doxygen
-#
-INCLUDE (${CMAKE_ROOT}/Modules/FindDoxygen.cmake)
-
-# 
 # Find LaTeX
 #
 INCLUDE (${CMAKE_ROOT}/Modules/FindLATEX.cmake)
@@ -29,43 +24,8 @@ ${SoftwareGuide_BINARY_DIR}/SoftwareGuideConfiguration.tex
 )
 
 
-#
-# Configuration file for Doxygen
-#
-CONFIGURE_FILE(
-${SoftwareGuide_SOURCE_DIR}/doxygen.config.in
-${SoftwareGuide_BINARY_DIR}/doxygen.config
-)
 
-
-
-
-ADD_CUSTOM_TARGET(SoftwareGuideDoxygen  ALL ${DOXYGEN} ${SoftwareGuide_BINARY_DIR}/doxygen.config)
-
-
-SET( SoftwareGuide_Dox_SRCS 
-  ${SoftwareGuide_SOURCE_DIR}/Examples/DataRepresentationImagePage.dox
-  ${SoftwareGuide_SOURCE_DIR}/Examples/DataRepresentationMeshPage.dox
-  ${SoftwareGuide_SOURCE_DIR}/Examples/DataRepresentationPointSetPage.dox
-  ${SoftwareGuide_SOURCE_DIR}/Examples/FilteringImages.dox
-)
-
-SET( SoftwareGuide_DoxTex_SRCS 
-  ${SoftwareGuide_BINARY_DIR}/Examples/DataRepresentationImagePage.tex
-  ${SoftwareGuide_BINARY_DIR}/Examples/DataRepresentationMeshPage.tex
-  ${SoftwareGuide_BINARY_DIR}/Examples/DataRepresentationPointSetPage.tex
-  ${SoftwareGuide_BINARY_DIR}/Examples/FilteringImages.tex
-)
-
-
-ADD_CUSTOM_COMMAND( 
-    SOURCE    ${SoftwareGuide_BINARY_DIR}/doxygen.config
-    COMMAND   ${DOXYGEN}
-    ARGS      ${SoftwareGuide_BINARY_DIR}/doxygen.config
-    TARGET    SoftwareGuideDoxygen
-    DEPENDS   ${SoftwareGuide_Dox_SRCS}
-    OUTPUTS   ${SoftwareGuide_DoxTex_SRCS}
-  )
+SUBDIRS(Examples)
 
 
 
@@ -106,7 +66,7 @@ IF(LATEX_COMPILE)
     ARGS      ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh
               ${SoftwareGuide_SOURCE_DIR}/SoftwareGuide.tex
     TARGET    SoftwareGuide
-    DEPENDS   SoftwareGuideDoxygen ${SoftwareGuide_SRCS}
+    DEPENDS   ${SoftwareGuide_SRCS}
     OUTPUTS   ${SoftwareGuide_BINARY_DIR}/SoftwareGuide.dvi
   )
 
