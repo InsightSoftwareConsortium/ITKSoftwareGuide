@@ -26,15 +26,15 @@ changes such as merging and splitting are handled implicitly.
 
 Level sets can be used for image segmentation by using image-based features such
 as mean intensity, gradient and edges in the governering differential equation. 
-In a typical approach, a contour is initialized by a user and then is evolved 
-until it fits to the form of an anatomical structure in the image. 
+In a typical approach, a contour is initialized by a user and is then evolved 
+until it fits the form of an anatomical structure in the image. 
 Many different implementations and variants of this basic concept have been
 published in the literature. An overview of the field has been made by Sethian
 \cite{Sethian1996}. 
 
 The following sections introduce practical examples of some
 of the Level Set segmentation methods available in ITK.  The remainder of this
-section describes features common to all of these filters except
+section describes features common to all of these filters except the
 \code{FastMarchingImageFilter}, which is derived from a different code
 framework.  Understanding these features will aid in using the filters
 more effectively.
