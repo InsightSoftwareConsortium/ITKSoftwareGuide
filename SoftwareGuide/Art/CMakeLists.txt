@@ -103,6 +103,7 @@ SET(XFIG_FIGURES
   ParzenWindowing1
   ParzenWindowing2
   ParzenWindowing3
+  ParzenWindowing13
   PointSetWithVectors
   RegistrationComponentsDiagram
   ResampleImageFilterOutput1Analysis
