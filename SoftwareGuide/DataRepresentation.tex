@@ -1,27 +1,77 @@
 
 \chapter{DataRepresentation}
+\label{sec:DataRepresentation}
 
-Creating images and meshes, simple operations to load data
 
+This chapter introduces the basic classes responsible
+for carrying data in ITK. The most common classes are the
+itk::Image,  the itk::Mesh and the itk::PointSet.
+
+\section{Image}
+\label{sec:ImageSection}
+
+The Image class follows the spirit of Generic Programming where
+types are separated from the algorithmic behavior of the class.
+ITK supports images with any pixel type and any spatial dimension.
+
+\subsection{Creating an Image}\label{sec:CreatingAnImageSection}
 
 %
-% The following files are automatically generated
+% The following file is automatically generated
 % by a perl script from the original cxx sources
 % in the Insight/Examples directory
 %
-
 \input Image1.tex
 
-In practice it is rare to allocate an initialize an image directly.
+In practice it is rare to allocate and initialize an image directly.
 Typically the image is read from a source like a file or a data acquisition
 card. The following example illustrates how an image can be read from
 a file.
 
+
+
+
+\subsection{Reading an Image from a file}
+\label{sec:ReadingImageFromFile}
+%
+% The following file is automatically generated
+% by a perl script from the original cxx sources
+% in the Insight/Examples directory
+%
 \input Image2.tex
 
+
+
+
+
+\subsection{Accessing pixel data}
+\label{sec:AccessingImagePixelData}
+%
+% The following file is automatically generated
+% by a perl script from the original cxx sources
+% in the Insight/Examples directory
+%
 \input Image3.tex
 
+
+
+
+\subsection{Defining Origin and Spacing}
+\label{sec:DefiningImageOriginAndSpacing}
+%
+% The following file is automatically generated
+% by a perl script from the original cxx sources
+% in the Insight/Examples directory
+%
 \input Image4.tex
 
+
+
+\section{PointSet}\label{PointSetSection}
+
+
+
+
+\section{Mesh}\label{MeshSection}
 
 
