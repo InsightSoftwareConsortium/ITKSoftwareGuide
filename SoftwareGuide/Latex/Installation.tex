@@ -154,11 +154,12 @@ on UNIX, simply type \code{make} in the binary directory. Under Windows, load
 the workspace named \code{ITK.dsw} from the binary directory you specified
 in the CMake GUI.
 
-The build process will typically take anywhere from 30 minutes to one hour
-depending on the performance of your system. If you enabled testing as part of
-the normal built process, about 500 small test programs will be compiled
-greatly increasing the build time. These test programs will verify that the
-basic components of ITK compile and run correctly on your system.
+The build process will typically take anywhere from 15 to 30 minutes depending
+on the performance of your system. If you decide to enable testing as part of
+the normal built process, about 500 small test programs will be compiled. This
+will verify that the basic components of ITK have been correctly built on your
+system.
+
 
 \section{Getting Started With ITK }
 \label{sec:GettingStartedWithITK}
@@ -219,12 +220,13 @@ provided in CMake for other commonly used libraries, all of them named
 you for the directory where ITK is installed in your system. In that case you
 will write this information in the \code{ITK\_BINARY\_DIR} variable. The line \code{
 INCLUDE(\${USE\_ITK\_FILE})} loads the \code{UseITK.cmake} file containing
-all the configuration information from ITK. The \code{LINK\_LIBRARIES} line
-specify which ITK libraries will be linked against this project. Finally the
-line
-\code{ADD\_EXECUTABLE} defines as its first argument the name of the executable
-that will be produced as result of this project. The remaining arguments of
-\code{ADD\_EXECUTABLE} are the names of the source files to be compiled and linked.
+all the configuration information from ITK. The line \code{ADD\_EXECUTABLE}
+defines as its first argument the name of the executable that will be produced
+as result of this project. The remaining arguments of \code{ADD\_EXECUTABLE}
+are the names of the source files to be compiled and linked.  Finally, the
+\code{TARGET\_LINK\_LIBRARIES} line specifies which ITK libraries will be
+linked against this project.
+
 
 \input HelloWorld.tex
 
