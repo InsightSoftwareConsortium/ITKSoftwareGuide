@@ -125,14 +125,13 @@ This image metric has the advantage of producing poor values when few pixels
 are considered, this makes it consistent when its computation is subject the
 the size of the overlap region between the images. The capture radius of the
 metric can be regulated with the parameter $\lambda$.  The profile of this
-metric is very pointy. This characteristic makes it interesting for refining
-the final stages of a registration process.  The pointiness of the metric helps
-to measure spatial miss-registration with high precision.
+metric is very peaky. The sharp peaks of the metric helps
+to measure spatial misalginment with high precision.
 
 The metric is limited to be used with images of the same image modality.  The
 fact that its derivative is large at the central peak is a problem for some
 optimizers that rely on the derivative to decrease as the extrema are reached.
-This metric is also sensitive to linear changes in intensity
+This metric is also sensitive to linear changes in intensity.
 
 
 \subsection{Mutual Information Metric}
@@ -211,7 +210,7 @@ Typically, the optimal value of the smoothing parameter will
 depend on the data and the number of samples used.
 
 \subsubsection{Viola and Wells Implementation}
-ITK has two mutual information metric implementation. The first is 
+ITK has two mutual information metric implementations. The first is 
 \code{MutualInformationImageToImageMetric} which follows the method specified
 by Viola and Wells in \cite{Viola1997}.
 
@@ -240,7 +239,7 @@ standard deviation. Optimal choice will depend on the content of the images.
 In our experience with the toolkit, we have found that a standard deviation
 of 0.4 works well for images which have been normalized to have a mean
 of zero and standard deviation of 1.0. The standard deviation of the fixed image
-and moving image can be set separatedly using methods 
+and moving image kernel can be set separatedly using methods 
 \code{SetFixedImageStandardDeviation()} and \code{SetMovingImageStandardDeviation()}.
 
 \subsubsection{Mattes et al Implementation}
