@@ -44,6 +44,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellVisitor.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellVisitor2.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinaryThresholdImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/BinaryMinMaxCurvatureFlowImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/ThresholdImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/CastingImageFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/CurvatureFlowImageFilter.cxx
@@ -52,6 +53,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/MathematicalMorphologyBinaryFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MathematicalMorphologyGrayscaleFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MedianImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/MinMaxCurvatureFlowImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/RGBImageReadWrite.cxx
 )
 
@@ -78,7 +80,9 @@ SET( ITK_EXAMPLES_TEX_SRCS
   MeshCellsIteration.tex
   MeshCellVisitor.tex
   MeshCellVisitor2.tex
+  MinMaxCurvatureFlowImageFilter.tex
   BinaryThresholdImageFilter.tex
+  BinaryMinMaxCurvatureFlowImageFilter.tex
   ThresholdImageFilter.tex
   CastingImageFilters.tex
   CurvatureFlowImageFilter.tex
