@@ -15,6 +15,12 @@ ENDIF(ITK_FOUND)
 
 ADD_EXECUTABLE( VWHistogramRGB VWHistogramRGB.cxx )
 ADD_EXECUTABLE( VWHistogramHSV VWHistogramHSV.cxx )
+ADD_EXECUTABLE( VWColorSegmentation VWColorSegmentation.cxx )
+ADD_EXECUTABLE( VWBlueRemoval VWBlueRemoval.cxx )
+ADD_EXECUTABLE( ImageReadExtractWriteRGB ImageReadExtractWriteRGB.cxx )
 
 TARGET_LINK_LIBRARIES( VWHistogramRGB ITKIO ITKBasicFilters ITKCommon ITKStatistics )
 TARGET_LINK_LIBRARIES( VWHistogramHSV ITKIO ITKBasicFilters ITKCommon ITKStatistics )
+TARGET_LINK_LIBRARIES( VWColorSegmentation  ITKIO ITKBasicFilters ITKCommon ITKStatistics )
+TARGET_LINK_LIBRARIES( VWBlueRemoval  ITKIO ITKBasicFilters ITKCommon ITKStatistics )
+TARGET_LINK_LIBRARIES( ImageReadExtractWriteRGB  ITKIO ITKBasicFilters ITKCommon ITKStatistics )
