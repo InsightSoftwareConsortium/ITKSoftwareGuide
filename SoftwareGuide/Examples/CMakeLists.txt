@@ -9,7 +9,9 @@
 #
 FIND_PATH(ITK_SOURCE_DIR UseITK.cmake.in)
 
-
+IF( NOT ITK_SOURCE_DIR )
+  MESSAGE("The source directory for Insight has not been found, please provide this path")
+ENDIF( NOT ITK_SOURCE_DIR )
 
 #
 # Find Perl executable
