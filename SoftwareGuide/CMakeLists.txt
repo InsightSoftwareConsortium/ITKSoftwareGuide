@@ -1,3 +1,10 @@
+#####################################################
+#
+#   This is the root SoftwareGuide CMakeLists file.
+#
+#####################################################
+
+CMAKE_MINIMUM_REQUIRED(VERSION 1.6)
 
 PROJECT(SoftwareGuide)
 
