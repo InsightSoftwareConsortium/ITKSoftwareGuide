@@ -72,6 +72,7 @@ SET(JPEG_IMAGES
   BrainProtonDensitySlice2x3b
   BrainProtonDensitySliceBorder20
   BrainProtonDensitySliceShifted13x17y
+  BrainT1SliceBorder20
   ccmakeScreenShot
   CurvatureFlowImageFilterOutput
   CurvatureAnisotropicDiffusionImageFilterOutput
