@@ -46,7 +46,7 @@ The following is the list of Metrics currently available in ITK:
 \item Normalized Correlation
 \item Mutual Information by Viola and Wells
 \item Mutual Information by Mattes
-\item Pattern Intensity
+\item Mean Reciprocal Square Differences
 \end{itemize}
 
 In the following sections, we describe each metric type in detail. 
@@ -102,10 +102,10 @@ imaging modality.  The metric is insensitive to multiplicative factors between
 the two images.  This metric produces a cost function with sharp peaks and well
 defined minima.  On the other hand, it has a relatively small capture radius.
 
-\subsection{Pattern Intensity Metric}
-\label{sec:PatternIntensityMetric}
-\index{itk::PatternIntensityImageToImageMetric|textbf}
-\doxygen{PatternIntensityImageToImageMetric} computes pixel-wise differences and add them 
+\subsection{Mean Reciprocal Square Differences}
+\label{sec:MeanReciprocalSquareDifferenceMetric}
+\index{itk::MeanReciprocalSquareDifferenceImageToImageMetric|textbf}
+\doxygen{MeanReciprocalSquareDifferenceImageToImageMetric} computes pixel-wise differences and add them 
 after passing them through a bell-shaped function $\frac{1}{1+x^2}$:
 
 \begin{equation}
