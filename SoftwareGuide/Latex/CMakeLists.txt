@@ -89,7 +89,7 @@ IF(LATEX_COMPILE)
       COMMAND   ${DVIPDF_COMPILE}
       ARGS      ${DVIPDF_COMPILE_OPTIONS} SoftwareGuide.dvi
       TARGET    SoftwareGuideLatex
-      DEPENDS   SoftwareGuide.ind 
+      DEPENDS   SoftwareGuide.ind SoftwareGuide.bbl
       OUTPUTS   SoftwareGuide.pdf
     )
     ADD_CUSTOM_COMMAND( 
@@ -118,6 +118,17 @@ IF(LATEX_COMPILE)
     )
 
   ENDIF(MAKEINDEX_COMPILE)
+
+  IF(BIBTEX_COMPILE)
+    ADD_CUSTOM_COMMAND( 
+      SOURCE    SoftwareGuide.aux
+      COMMAND   ${BIBTEX_COMPILE}
+      ARGS      SoftwareGuide
+      TARGET    SoftwareGuideLatex
+      OUTPUTS   SoftwareGuide.bbl
+    )
+  ENDIF(BIBTEX_COMPILE)
+
 
 ENDIF(LATEX_COMPILE)
 
