@@ -66,7 +66,7 @@ SET(ITK_DATA_PATHS "${ITK_SOURCE_DIR}/Examples/Data" CACHE STRING "Where the ITK
 # Rebuild the Software Guide figures or not ?
 SET(BUILD_FIGURES ON CACHE BOOL "Build Software Guide figures")
 IF( BUILD_FIGURES )
-  SET(ITK_EXECUTABLES_DIR "/ITK/binaries/bin" CACHE PATH "Where the ITK examples executables are")
+  SET(ITK_EXECUTABLES_DIR "" CACHE PATH "Where the ITK examples executables are")
   SET(RUN_EXAMPLES_SCRIPT "${SoftwareGuide_SOURCE_DIR}/Examples/RunExamples.pl" CACHE FILEPATH "Where the RunExamples Script is")
 ENDIF( BUILD_FIGURES )
 
