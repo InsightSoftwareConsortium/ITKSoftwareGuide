@@ -40,19 +40,19 @@ information.
 
         \item A \textbf{data object} represents and provides access to
         data. In ITK, the data object (ITK class DataObject) is typically of
-        type itk::Image or itk::Mesh.
+        type \doxygen{Image} or \doxygen{Mesh}.
         \index{data object}
 
-        \item A \textbf{region} (ITK class itk::Region) represents a piece,
+        \item A \textbf{region} (ITK class \doxygen{Region}) represents a piece,
         or subset of the entire data set.
         \index{region}
 
-        \item An \textbf{image region} (ITK class itk::ImageRegion)
+        \item An \textbf{image region} (ITK class \doxygen{ImageRegion})
         represents a structured portion of data. ImageRegion is implemented
         using the Index and Size classes
         \index{image region}
 
-        \item A \textbf{mesh region} (ITK class itk::MeshRegion) represents
+        \item A \textbf{mesh region} (ITK class \doxygen{MeshRegion}) represents
         an unstructured portion of data.
         \index{mesh region}
 
@@ -77,7 +77,7 @@ information.
         \index{RequestedRegion}
 
         \item The \textbf{modified time} (represented by ITK class
-        itk::TimeStamp) is a monotonically increasing integer value that
+        \doxygen{TimeStamp}) is a monotonically increasing integer value that
         characterizes a point in time when an object was last modified.
         \index{modified time}
 
@@ -104,29 +104,35 @@ information.
 \label{sec:OverviewFilterCreation}
 \index{filter!overview of creation|textbf}
 
+\itkpiccaption[Relationship between DataObjects and ProcessObjects]
+{Relationship between \doxygen{DataObject} and \doxygen{ProcessObject}.
+\label{fig:DataPipeLineOneConnection}}
+\parpic(6cm,4cm)[r]{\includegraphics[width=5cm]{DataPipelineOneConnection.eps}}
+
+
 Filters are defined with respect to the type of data they input (if any), and
 the type of data they output (if any). The key to writing a ITK filter is to
 identify the number and types of input and output. Having done so, there are
 often superclasses that simplify this task via class derivation. For example,
 most filters in ITK take a single image as input, and produce a single image
-on output. The superclass itk::ImageToImageFilter is a convenience class that
+on output. The superclass \doxygen{ImageToImageFilter} is a convenience class that
 provide most of the functionality needed for such a filter.
 
-Once the appropriate superclass is identified, the filter writer implements
-the class defining the methods required by most all ITK objects: New(),
-PrintSelf, and protected constructor, copy constructor, delete, and
+Once the appropriate superclass is identified, the filter writer implements the
+class defining the methods required by most all ITK objects: \code{New()},
+\code{PrintSelf()}, and protected constructor, copy constructor, delete, and
 operator=, and so on (don't forget standard typedefs like Self, Superclass,
 Pointer, and ConstPointer). Then the filter writer can focus on the most
 important parts of the implementation: defining the API, data members, and
-other implementation details of the algorithm. In particular, the filter
-writer will have to implement either a GenerateData() (non-threaded) or
-ThreadedGenerateData() method. (See ``'' for more information.)
+other implementation details of the algorithm. In particular, the filter writer
+will have to implement either a \code{GenerateData()} (non-threaded) or
+\code{ThreadedGenerateData()} method. (See ``'' for more information.)
 
-An important note: the GenerateData() method is required to allocate memory
-for the output. The ThreadedGenerateData() method is not. In default
-implementation (see itk::ImageSource, a superclass of
-itk::ImageToImageFilter) GenerateData() allocates memory and then invokes 
-ThreadedGenerateData().
+An important note: the GenerateData() method is required to allocate memory for
+the output. The ThreadedGenerateData() method is not. In default implementation
+(see \doxygen{ImageSource}, a superclass of \doxygen{ImageToImageFilter})
+\code{GenerateData()} allocates memory and then invokes
+\code{ThreadedGenerateData()}.
 
 One of the most important decisions that the developer must make is whether
 the filter can stream data; that is, process just a portion of the input to
@@ -137,14 +143,7 @@ specialized superclass to derive from, or b) override one or more methods
 that control how the filter operates during pipeline execution. The next
 section describes these methods.
 
-\begin{figure}
-  \par\centering
-  \resizebox{5in}{!}{ \includegraphics{DataPipelineOneConnection.eps}} 
-  \itkcaption[Relationship between itk::DataObjects and itk::ProcessObjects]
-{Relationship between itk::DataObjects and itk::ProcessObjects }
-  \label{fig:DataPipeLineOneConnection}
-  \par
-\end{figure}
+
 
 \section{Streaming Large Data}
 \label{sec:StreamingLargeData}
@@ -249,14 +248,14 @@ particular size (i.e., region). It may be that the user asks to process a
 region of interest within a large image, or that memory limitations result in
 processing the data in several pieces. For example, an application may
 compute the memory required by a pipeline, and then use
-itk::StreamingImageFilter to break the data processing into several pieces.
+\doxygen{StreamingImageFilter} to break the data processing into several pieces.
 The data request is propagated through the pipeline in the upstream
 direction, and the negotiation process configures each filter to produce
 output data of a particular size.
 
 The secret to creating a streaming filter is to understand how this
 negotiation process works, and how to override its default behavior by using
-the appropriate virtual functions defined in itk::ProcessObject. The next
+the appropriate virtual functions defined in \doxygen{ProcessObject}. The next
 section describes the specifics of these methods, and when to override
 them. Examples are provided along the way to illustrate concepts.
 
@@ -266,58 +265,58 @@ them. Examples are provided along the way to illustrate concepts.
 \index{pipeline!execution details|textbf}
 
 Typically pipeline execution is initiated when a process object receives the
-ProcessObject::Update() method invocation. This method is simply delegated to
-the output of the filter, invoking the DataObject::Update() method. Note that
+\code{ProcessObject::Update()} method invocation. This method is simply delegated to
+the output of the filter, invoking the \code{DataObject::Update()} method. Note that
 this behavior is typical of the interaction between ProcessObject and
 DataObject: a method invoked on one is eventually delegated to the other. In
 this way the data request from the pipeline is propagated upstream,
 initiating data flow that returns downstream.
 
-The DataObject::Update() method in turn invokes three other methods:
+The \code{DataObject::Update()} method in turn invokes three other methods:
 
 \begin{itemize}
-        \item DataObject::UpdateOutputInformation()
-        \item DataObject::PropagateRequestedRegion()
-        \item DataObject::UpdateOutputData()
+        \item \code{DataObject::UpdateOutputInformation()}
+        \item \code{DataObject::PropagateRequestedRegion()}
+        \item \code{DataObject::UpdateOutputData()}
 \end{itemize}
 
 \subsubsection{UpdateOutputInformation()}
 \label{sec:UpdateOutputInformation}
 \index{pipeline!UpdateOutputInformation|textbf}
 
-The UpdateOutputInformation() method determines the pipeline modified
+The \code{UpdateOutputInformation()} method determines the pipeline modified
 time. It may set the RequestedRegion and the LargestPossibleRegion depending
 on how the filters are configured. (The RequestedRegion is set to process all
 the data, i.e., the LargestPossibleRegion, if it has not been set.) The
 UpdateOutputInformation() propagates upstream through the entire pipeline and
 terminates at the sources.
 
-During UpdateOutputInformation(), filters have a chance to override the
-ProcessObject::GenerateOutputInformation() method
-(GenerateOutputInformation() is invoked by UpdateOutputInformation()). This
-virtual method invokes DataObject::CopyInformation. The default behavior is
-for the GenerateOutputInformation() to copy the meta data describing the
-input to the output (via DataObject::CopyInformation()). Remember,
-information is metadata describing the output, such as (for an image) the
-origin, spacing, and LargestPossibleRegion (i.e., largest possible size) of
-the image.
+During \code{UpdateOutputInformation()}, filters have a chance to override the
+\code{ProcessObject::GenerateOutputInformation()} method
+(\code{GenerateOutputInformation()} is invoked by
+\code{UpdateOutputInformation()}). This virtual method invokes
+\code{DataObject::CopyInformation()}. The default behavior is for the
+\code{GenerateOutputInformation()} to copy the meta data describing the input
+to the output (via \code{DataObject::CopyInformation()}). Remember, information
+is metadata describing the output, such as (for an image) the origin, spacing,
+and LargestPossibleRegion (i.e., largest possible size) of the image.
 
-A good example of this behavior is itk::ShrinkImageFilter. This filter takes
-an input image and shrinks it by some integral value. The result is that the
-spacing and LargestPossibleRegion of the output change. Thus,
-GenerateOutputInformation() is overloaded.
+A good example of this behavior is \doxygen{ShrinkImageFilter}. This filter
+takes an input image and shrinks it by some integral value. The result is that
+the spacing and LargestPossibleRegion of the output change. Thus,
+\code{GenerateOutputInformation()} is overloaded.
 
 \subsubsection{PropagateRequestedRegion()}
 \label{sec:PropagateRequestedRegion}
 \index{pipeline!PropagateRequestedRegion|textbf}
 
-The PropagateRequestedRegion() propagates upstream to satisfy a data
+The \code{PropagateRequestedRegion()} propagates upstream to satisfy a data
 request. In typical application this data request is usually the
 LargestPossibleRegion, but if streaming is necessary, or the user is
 interested in updating just a portion of the data, the RequestedRegion may be
 any valid region within the LargestPossibleRegion.
 
-The function of PropagateRequestedRegion() is, given a request for data (the
+The function of \code{PropagateRequestedRegion()} is, given a request for data (the
 amount is specified by RequestedRegion), propagate upstream configuring the
 filter's input and output process object's to the correct size. Eventually,
 this means configuring the BufferedRegion, that is the amount of data
@@ -330,7 +329,7 @@ needs), then the upstream, generating filter produces the data to satisfy
 both consumers, that may mean it produces more data than one of the
 consumers needs.
 
-The ProcessObject::PropagateRequestedRegion() method invokes three methods
+The \code{ProcessObject::PropagateRequestedRegion()} method invokes three methods
 that the filter developer may choose to overload. 
 
 \begin{itemize}
@@ -355,22 +354,22 @@ that the filter developer may choose to overload.
         or other region boundary effects.
 \end{itemize}
 
-itk::GibbsPriorFilter is an example of a filter that needs to invoke
-EnlargeOutputRequestedRegion(). The designer of this filter decided that the
-filter should operate on all the data. Note that a subtle interplay between
-this method and GenerateInputRequestedRegion() is occurring here. The default
-behavior of GenerateInputRequestedRegion (at least for
-itk::ImageToImageFilter) is to set the input RequestedRegion to the output
-ReqestedRegion. Hence, by overriding the EnlargeOutputRequestedRegion() to
-set the output to the LargestPossibleRegion, the input to this filter is the
-LargestPossibleRegion (and probably is that all upstream filters process
-their LargestPossibleRegion as well. This means that the filter, and
-therefore the pipeline, does not stream. This could be fixed by
-reimplementing the filter with the notion of streaming built in to the
-algorithm.)
+\doxygen{GibbsPriorFilter} is an example of a filter that needs to invoke
+\code{EnlargeOutputRequestedRegion()}. The designer of this filter decided that
+the filter should operate on all the data. Note that a subtle interplay between
+this method and \code{GenerateInputRequestedRegion()} is occurring here. The
+default behavior of \code{GenerateInputRequestedRegion()} (at least for
+\doxygen{ImageToImageFilter}) is to set the input RequestedRegion to the output's
+ReqestedRegion. Hence, by overriding the method
+\code{EnlargeOutputRequestedRegion()} to set the output to the
+LargestPossibleRegion, the input to this filter is the LargestPossibleRegion
+(and probably is that all upstream filters process their LargestPossibleRegion
+as well. This means that the filter, and therefore the pipeline, does not
+stream. This could be fixed by reimplementing the filter with the notion of
+streaming built in to the algorithm.)
 
-itk::GradientMagnitudeImageFilter is an example of a filter that needs to
-invoke GenerateInputRequestedRegion(). It needs a larger input requested
+\doxygen{GradientMagnitudeImageFilter} is an example of a filter that needs to
+invoke \code{GenerateInputRequestedRegion()}. It needs a larger input requested
 region because a kernel is required to compute the gradient at a pixel. Hence
 the input needs to be ``padded out'' so the filter has enough data to compute
 the gradient at each output pixel.
@@ -379,33 +378,35 @@ the gradient at each output pixel.
 \label{sec:UpdateOutputData}
 \index{pipeline!UpdateOutputData|textbf}
 
-UpdateOutputData() is the third and final method as a result of the Update()
-method. The purpose of this method is to determine whether a particular
-filter needs to execute in order to bring its output up to date. (A filter
-executes when its GenerateData() method is invoked.) Filter execution occurs
-when a) the filter is modified as a result of modifying an instance variable;
-b) the input to the filter changes; c) the input data has been released; or
-d) an invalid RequestedRegion was set previously and the filter did not
-produce data. Filters execute in order in the downstream direction. Once a
-filter executes, all filters downstream of it must also execute.
+\code{UpdateOutputData()} is the third and final method as a result of the
+\code{Update()} method. The purpose of this method is to determine whether a
+particular filter needs to execute in order to bring its output up to date. (A
+filter executes when its \code{GenerateData()} method is invoked.) Filter
+execution occurs when a) the filter is modified as a result of modifying an
+instance variable; b) the input to the filter changes; c) the input data has
+been released; or d) an invalid RequestedRegion was set previously and the
+filter did not produce data. Filters execute in order in the downstream
+direction.  Once a filter executes, all filters downstream of it must also
+execute.
 
-DataObject::UpdateOutputData() is delegated to the DataObject's source (i.e.,
-the ProcessObject that generated it) only if the DataObject needs to be
+\code{DataObject::UpdateOutputData()} is delegated to the DataObject's source
+(i.e., the ProcessObject that generated it) only if the DataObject needs to be
 updated. A comparison of modified time, pipeline time, release data flag, and
 valid requested region is made. If any one of these conditions indicate that
 the data needs regeneration, then the source's
-ProcessObject::UpdateOutputData() is invoked. These calls are made
-recursively up the pipeline until a source filter object is encountered, or
-the pipeline is determined to be up to date and valid. At this point, the
-recursion unrolls, and the execution of the filter proceeds. (This means that
-the output data is initialized, StartEvent is invoked, the filters
-GenerateData() is called, EndEvent is invoked, and input data to this filter
-may be released, if requested. In addition, this filter's InformationTime is
-updated to the current time.)
+\code{ProcessObject::UpdateOutputData()} is invoked. These calls are made
+recursively up the pipeline until a source filter object is encountered, or the
+pipeline is determined to be up to date and valid. At this point, the recursion
+unrolls, and the execution of the filter proceeds. (This means that the output
+data is initialized, StartEvent is invoked, the filters \code{GenerateData()}
+is called, EndEvent is invoked, and input data to this filter may be released,
+if requested. In addition, this filter's InformationTime is updated to the
+current time.)
 
-The developer will never override UpdateOutputData(). The developer need only
-write the GenerateData() method (non-threaded) or ThreadedGenerateData()
-method. A discussion of threading follows in the next section.
+The developer will never override \code{UpdateOutputData()}. The developer need
+only write the \code{GenerateData()} method (non-threaded) or
+\code{ThreadedGenerateData()} method. A discussion of threading follows in the
+next section.
 
 
 \section{Threaded Filter Execution}
