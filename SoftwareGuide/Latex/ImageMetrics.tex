@@ -6,7 +6,7 @@
 
 \index{itk::ImageToImageMetric|textbf}
 
-In ITK, \code{itk::ImageToImageMetric} objects measure quantitatively how well
+In ITK, \doxygen{ImageToImageMetric} objects measure quantitatively how well
 the transformed moving image fits the fixed image by comparing the gray-scale
 intensity of the images. These metrics are very flexible and can work with any
 transform or interpolation method and do not require the reduction of the
@@ -56,7 +56,7 @@ and transformed moving image $m \circ T(\bf{X})$ as images $A$ and $B$.
 \subsection{Mean Squares Metric}
 \label{sec:MeanSquaresMetric}
 \index{itk::MeanSquaresImageToImageMetric|textbf}
-\code{MeanSquaresImageToImageMetric} computes the mean square pixel-wise difference in intensity
+\doxygen{MeanSquaresImageToImageMetric} computes the mean square pixel-wise difference in intensity
 between image $A$ and $B$ over a user defined region:
 
 \begin{equation}
@@ -80,7 +80,7 @@ intensity result in a poor match value.
 \subsection{Normalized Correlation Metric}
 \label{sec:NormalizedCorrelationMetric}
 \index{itk::NormalizedCorrelationImageToImageMetric|textbf}
-\code{NormalizedCorrelationImageToImageMetric} computes pixel-wise
+\doxygen{NormalizedCorrelationImageToImageMetric} computes pixel-wise
 cross-correlation and normalize it by the square root of the autocorrelation of
 the images:
 
@@ -104,7 +104,7 @@ capture radius.
 \subsection{Pattern Intensity Metric}
 \label{sec:PatternIntensityMetric}
 \index{itk::PatternIntensityImageToImageMetric|textbf}
-\code{PatternIntensityImageToImageMetric} computes pixel-wise differences and add them 
+\doxygen{PatternIntensityImageToImageMetric} computes pixel-wise differences and add them 
 after passing them through a bell-shaped function $\frac{1}{1+x^2}$:
 
 \begin{equation}
@@ -211,7 +211,7 @@ depend on the data and the number of samples used.
 
 \subsubsection{Viola and Wells Implementation}
 ITK has two mutual information metric implementations. The first is 
-\code{MutualInformationImageToImageMetric} which follows the method specified
+\doxygen{MutualInformationImageToImageMetric} which follows the method specified
 by Viola and Wells in \cite{Viola1997}.
 
 \index{itk::MutualInformationImageToImageMetric}
@@ -245,7 +245,7 @@ and moving image kernel can be set separately using methods
 \subsubsection{Mattes et al Implementation}
 The second form of mutual information metric available in the toolkit follows
 the method specified by Mattes et al in \cite{Mattes2001} and is implemented by
-the class  \code{MattesMutualInformationImageToImageMetric}.
+the class  \doxygen{MattesMutualInformationImageToImageMetric}.
 
 \index{itk::MattesMutualInformationImageToImageMetric}
 In this implementation, only one set of intensity samples is drawn from the image.

@@ -3,7 +3,7 @@
 
 \index{itk::Transform|textbf}
 
-In the toolkit, \code{itk::Transform} objects encapsulate the mapping of points
+In the toolkit, \doxygen{Transform} objects encapsulate the mapping of points
 and vectors from an input space to an output space.  If a transform is
 invertible, back transform methods are also provided.  Currently, ITK provides
 a variety of transforms from simple translation, rotation and scaling to
@@ -37,16 +37,16 @@ the following table.
 \textbf{Class} &
 \textbf{Geometrical concept} \\
 \hline\hline
-\code{itk::Point} & 
+\doxygen{Point} & 
 Position in space. In a $N$-Dimensional space it is represented by an array of
 $N$ numbers associated with space coordinates. \\
 \hline
-\code{itk::Vector} & 
+\doxygen{Vector} & 
 Relative position between two points. In a $N$-Dimensional space is represented
 by an array of $N$-numbers each one associated with the distance along a
 coordinate axis. Vectors do not have a position in space.\\
 \hline
-\code{itk::CovariantVector} & Orthogonal direction to a $(N-1)$-dimensional
+\doxygen{CovariantVector} & Orthogonal direction to a $(N-1)$-dimensional
 manifold in space. For example, in $3D$ it corresponds to the vector orthogonal
 to a surface. This is the appropriate class for representing gradients of
 functions. Covariant vectors do not have a position in space.\\
@@ -54,7 +54,7 @@ functions. Covariant vectors do not have a position in space.\\
 \end{tabular}
 \end{center}
 
-Additional uses of the \code{Point}, \code{Vector} and \code{CovariantVector}
+Additional uses of the \doxygen{Point}, \doxygen{Vector} and \doxygen{CovariantVector}
 classes have been discussed in Chapter \ref{sec:DataRepresentation}.  Each one
 of these classes behaves differently under spatial transformations. It is
 henceforth quite important to keep their distinction clear. Figure
@@ -66,7 +66,7 @@ these concepts.
 \index{itk::Transform!TransformVector()}
 \index{itk::Transform!TransformCovariantVector()}
 
-\code{itk::Transform} classes provide different methods for mapping each one of
+\doxygen{Transform} classes provide different methods for mapping each one of
 the basic space-representation objects.  Points, vectors and covariant vectors
 are transformed using the methods \code{TransformPoint()},
 \code{TransformVector()} and \code{TransformCovariantVector()} respectively.
@@ -76,11 +76,11 @@ are transformed using the methods \code{TransformPoint()},
 
 \index{itk::Transform!SetParameters()}
 Typically each transform class have several methods for setting its parameters.
-For example, \code{Euler2DTransform} provide methods for separately setting the
+For example, \doxygen{Euler2DTransform} provide methods for separately setting the
 offset, the angle, and the entire rotation matrix.  However, for use in the
 registration framework, the parameters must also be represented by a flat
-\code{Array<double>} to allow communication with generic optimizers. In the
-case of \code{Euler2DTransform}, the transform is also defined by three
+\doxygen{Array}<double> to allow communication with generic optimizers. In the
+case of \doxygen{Euler2DTransform}, the transform is also defined by three
 doubles: the first representing the angle and the last two the offset. The flat
 array of parameters is defined using \code{SetParameters()}. A description of
 the parameters and their ordering is documented in the following sections.
@@ -122,7 +122,7 @@ J=\left[ \begin{array}{cccc}
 
 Where $\{p_i\}$ are the transform parameters and $\{x_i\}$ are the coordinates
 of the output point.  Within this framework, the Jacobian is represented by a
-\code{Array2D<double>} and is obtained from the transform by method
+\doxygen{Array2D}<double> and is obtained from the transform by method
 \code{GetJacobian()}. The Jacobian can be interpreted as a matrix that
 indicates for a point in the input space how much its mapping on the output
 space will change as a response to a small variation in one of the transform
@@ -289,8 +289,8 @@ $(1.0+ \epsilon)$ is quite different from a scale variation of $(5.0+\epsilon)$.
 Registrations involving scale transforms require careful monitoring of the
 optimizer parameters in order to keep it running at an interesting yet stable
 pace. Note that some of the transforms discussed in following sections, for
-example the \code{AffineTransform}, have hidden scaling parameters and are henceforth
-subject to the same vulnerabilities of the \code{ScaleTransform}.
+example the \doxygen{AffineTransform}, have hidden scaling parameters and are henceforth
+subject to the same vulnerabilities of the \doxygen{ScaleTransform}.
 
 In cases involving misalignments with simultaneous translation, rotation
 and scaling components it may be desirable to solve for these components
@@ -404,9 +404,9 @@ Only defined for two-dimensional input and output spaces. \\
 \end{center}
 
 CenteredRigid2DTransform implements a rigid transformation in $2D$. The main
-difference between this transform and the \code{Euler2DTransform} is that here
+difference between this transform and the \doxygen{Euler2DTransform} is that here
 we can specify an arbitrary center of rotation, while the
-\code{Euler2DTransform} always use the origin of the coordinate system as
+\doxygen{Euler2DTransform} always use the origin of the coordinate system as
 rotation center. This distintion is quite important in image registration since
 ITK images usually have their origin in the corner of the image rather than the
 middle.  Rotational miss-registrations however usually exist as rotations
@@ -426,7 +426,7 @@ rotation to the origin of coordinates, rotating by the specified angle,
 translating back to the center of rotation and finally translate by the
 especified translation.
 
-As the \code{Euler2DTransform} this transform suffers from the difference in
+As the \doxygen{Euler2DTransform} this transform suffers from the difference in
 units used for rotations and translations. Rotations are measured in radians,
 hence their values are in the range $[-\pi,\pi]$. The center of rotation and
 the translations are measured in millimeters and their actual values vary
@@ -500,7 +500,7 @@ Only defined for two-dimensional input and output spaces. \\
 A similarity transform preserves angles. It can be seen as a rigid transform
 plus an isotropic scaling factor. In its $2D$ implementation, the four
 parameters of this transformation combine the characteristics of the
-\code{Scale} and \code{Euler2DTransform} concerning the non-linearity of the
+\doxygen{ScaleTransform} and \doxygen{Euler2DTransform} concerning the non-linearity of the
 parameter space and the non-uniformity of the measure units. Gradient-descent
 optimizers should be used with caution on such parameter spaces since the
 notion of gradient direction and step-length are ill-defined.
@@ -588,10 +588,10 @@ Only defined for three-dimensional input and output spaces. \\
 This class implements a rigid transformation in $3D$ space. The rotational part
 of the transform is represented using a quaternion while the translation is
 represented with a vector. Quaternions components do not form a vector space
-and hence raise the same concerns of the \code{Similarity2DTransform} when used
+and hence raise the same concerns of the \doxygen{Similarity2DTransform} when used
 with gradient-descent optimizers.
 
-As a solution, the \code{itk::QuaternionRigidTransformGradientDescentOptimizer}
+As a solution, the \doxygen{QuaternionRigidTransformGradientDescentOptimizer}
 was introduced in the toolkit.  This specialized optimizer implements a
 variation of a gradient-descent algorithm adapted for a quaternion space.  This
 class makes sure that after advancing in any direction on the parameter space
@@ -647,7 +647,7 @@ under optimization methods.
 The space formed by versor parameters is not a vector space. Standard
 gradient-descent algorithms are not appropriate for exploring this parameter
 space. An optimizer specialized for the versor space is available in the
-toolkit under the name of \code{itk::VersorTransformOptimizer}. This optimizer
+toolkit under the name of \doxygen{VersorTransformOptimizer}. This optimizer
 implements Versor derivatives as defined by original Hamilton
 \cite{Hamilton1866}.
 
@@ -680,14 +680,14 @@ Only defined for three-dimensional input and output spaces. \\
 \end{tabular}
 \end{center}
 
-This transform is a close variant of the \code{QuaternionRigidTransform}. It
-can be seen as a the \code{VersorTransform} plus a translation defined by a
+This transform is a close variant of the \doxygen{QuaternionRigidTransform}. It
+can be seen as a the \doxygen{VersorTransform} plus a translation defined by a
 vector. It general terms it implements a rigid transform in $3D$.  The
-advantage of this class with respect to the \code{QuaternionRigidTransform} is
+advantage of this class with respect to the \doxygen{QuaternionRigidTransform} is
 that it exposes only 6 parameters, three for the versor components and three
 for the translational components. This makes the search space for the optimizer
 to be reduced to dimension 6 instead of the dimension 7 used by
-\code{QuaternionRigidTransform}.
+\doxygen{QuaternionRigidTransform}.
 
 
 
@@ -716,7 +716,7 @@ Only defined when the input and output space have the same dimension. \\
 \end{center}
 
 
-The \code{AffineTransform} is one of the most popular transformations in image
+The \doxygen{AffineTransform} is one of the most popular transformations in image
 registration. Its main advantage comes from the fact of being represented as a
 linear transformation. The set of its coefficients can actually be represented
 in a vector space of dimensions $(N+1) \times N$. This makes it possible for
@@ -746,7 +746,7 @@ could rather be accomplished by a translation transform in a parameter space of
 size $N$ instead of the $(N+1) \times N$ associated with the affine transform.
 
 Tracking the evolution of a registration process that uses
-\code{AffineTransforms} can be a challenging task since it is difficult to
+\doxygen{AffineTransforms} can be a challenging task since it is difficult to
 represent the coefficients in a meaningful way.  The simple print out of the
 transform coefficients may not offer a clear picture of the current behavior
 and trend of the optimization.  An ergonomic implementation could rather use
