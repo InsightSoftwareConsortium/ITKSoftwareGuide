@@ -104,6 +104,7 @@ sub ParseCxxFile {
       $tagfound = 1;
       $dumpinglatex = 0;
       $dumpingcode  = 1;
+      print OUTFILE "\\small\n";
       print OUTFILE "\\begin{verbatim}\n";
       }
     elsif( /$endlatextag/ ) {
