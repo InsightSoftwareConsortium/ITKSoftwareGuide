@@ -5,6 +5,15 @@
 #
 
 
+#
+#  Find fig2dev : this program convert Xfig figures 
+#  to Encapsulated Postscript on the command line.
+#
+FIND_PROGRAM(FIG2DEV_EXECUTABLE
+  NAMES fig2dev
+)
+
+
 
 # 
 # Find ImageMagick tools
@@ -14,6 +23,37 @@ INCLUDE (${CMAKE_ROOT}/Modules/FindImageMagick.cmake)
 
 
 ADD_CUSTOM_TARGET(SoftwareGuideArt  ALL echo)
+
+SET(XFIG_FIGURES
+  BinaryThresholdTransferFunction
+  DiscreteGaussian
+  ImageIOCollaborationDiagram
+  ImageIOFactoriesClassDiagram
+  ImageIOFactoriesUseCases
+  ImageOverlapedRegions
+  ImageOverlap
+  ImageOverlapInterpolator
+  ImageOverlapIterator
+  ParzenWindowing1
+  ParzenWindowing2
+  ParzenWindowing3
+  PointSetWithVectors
+  ResampleImageFilterOutput1Analysis
+  ResampleImageFilterOutput2Analysis
+  ResampleImageFilterOutput3Analysis
+  ResampleImageFilterTransformComposition1
+  ResampleImageFilterTransformComposition2
+  ResampleImageFilterTransformComposition3
+  ResampleImageFilterTransformComposition4
+  ResampleImageFilterTransformComposition5
+  ResampleImageFilterTransformComposition6
+  ThresholdTransferFunctionAbove
+  ThresholdTransferFunctionBelow
+  ThresholdTransferFunctionOutside
+  WatershedCatchmentBasins
+  WatershedsHierarchy
+)
+
 
 SET(JPEG_IMAGES
   BilateralImageFilterOutput
@@ -65,6 +105,7 @@ SET(JPEG_IMAGES
   VisibleWomanEyeSlice
 )
 
+
 FOREACH(image ${JPEG_IMAGES})
 ADD_CUSTOM_COMMAND( 
   SOURCE    ${SoftwareGuide_SOURCE_DIR}/Art/${image}.jpg
@@ -76,6 +117,19 @@ ADD_CUSTOM_COMMAND(
 )
 SET(DEPS ${DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${image}.eps)
 ENDFOREACH(image)
+
+
+FOREACH(figure ${XFIG_FIGURES})
+ADD_CUSTOM_COMMAND( 
+  SOURCE    ${SoftwareGuide_SOURCE_DIR}/Art/${figure}.fig
+  COMMAND   ${FIG2DEV_EXECUTABLE}
+  ARGS      -L eps ${SoftwareGuide_SOURCE_DIR}/Art/${figure}.fig ${figure}.eps
+  TARGET    SoftwareGuideArt
+  OUTPUTS   ${SoftwareGuide_BINARY_DIR}/Art/${figure}.eps
+)
+SET(DEPS ${DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${figure}.eps)
+ENDFOREACH(figure)
+
 
 ADD_CUSTOM_COMMAND(
   SOURCE SoftwareGuideArt
