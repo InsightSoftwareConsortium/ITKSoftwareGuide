@@ -35,6 +35,8 @@ SET(XFIG_FIGURES
   ImageOverlapInterpolator
   ImageOverlapIterator
   ImageRegistrationConcept
+  ImageRegistration1TraceMetric
+  ImageRegistration1TraceTranslations
   ParzenWindowing1
   ParzenWindowing2
   ParzenWindowing3
@@ -67,6 +69,8 @@ SET(JPEG_IMAGES
   BrainProtonDensitySlice
   BrainProtonDensitySlice2x3
   BrainProtonDensitySlice2x3b
+  BrainProtonDensitySliceBorder20
+  BrainProtonDensitySliceShifted13x17y
   ccmakeScreenShot
   CurvatureFlowImageFilterOutput
   CurvatureAnisotropicDiffusionImageFilterOutput
@@ -80,6 +84,9 @@ SET(JPEG_IMAGES
   GradientMagnitudeRecursiveGaussianImageFilterOutput3
   GradientMagnitudeRecursiveGaussianImageFilterOutput5
   GradientAnisotropicDiffusionImageFilterOutput
+  ImageRegistration1Output
+  ImageRegistration1DifferenceBefore
+  ImageRegistration1DifferenceAfter
   MathematicalMorphologyBinaryErosionOutput
   MathematicalMorphologyBinaryDilationOutput
   MathematicalMorphologyGrayscaleErosionOutput
