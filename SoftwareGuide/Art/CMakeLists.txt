@@ -120,6 +120,7 @@ SET(XFIG_FIGURES
   SigmoidParameterAlpha
   SigmoidParameterBeta
   ShapeDetectionCollaborationDiagram1
+  SpatialObjectTransforms
   StatisticalClassificationFramework
   ThresholdSegmentationLevelSetImageFilterFigure1
   ThresholdSegmentationLevelSetImageFilterCollaborationDiagram1
@@ -264,7 +265,6 @@ SET(JPEG_IMAGES
   SmoothingRecursiveGaussianImageFilterOutput3
   SmoothingRecursiveGaussianImageFilterOutput5
   SigmoidImageFilterOutput
-  SpatialObjectTransforms
   ThresholdImageFilterOutputAbove
   ThresholdImageFilterOutputBelow
   ThresholdImageFilterOutputOutside
