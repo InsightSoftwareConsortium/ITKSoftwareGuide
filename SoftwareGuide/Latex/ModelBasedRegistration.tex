@@ -34,9 +34,11 @@ in an image.
 \center
 \includegraphics[width=12cm]{ModelToImageRegistrationConcept.eps}
 \caption[Model to Image Registration Framework Concept]{Basic concept of
-Model-to-Image registration.  A simplified geometrical model (ellipse) is
-registered against an anatomical structure (skull)  by applying a spatial
-transform and modifying the model internal parameters.}
+  Model-to-Image registration.  A simplified geometrical model (ellipse) is
+    registered against an anatomical structure (skull)  by applying a spatial
+    transform and modifying the model internal parameters. This image is not
+    the result of an actual registration, it is shown here only with the
+    purpose of illustrating the concept of model to image registration.}
 \label{fig:ModelToImageRegistrationConcept}
 \end{figure}
 
@@ -55,10 +57,10 @@ Figure~\ref{fig:ModelToImageRegistrationComponentsDiagram} illustrates the
 major components of the registration framework in ITK when a model base
 registration problem is configured. The basic input data for the registration
 is provided by pixel data in an \doxygen{Image} and by geometrical data stored
-in a \doxygen{SpatialObject}. A Metrics has to be defined in order to evaluate
+in a \doxygen{SpatialObject}. A Metric has to be defined in order to evaluate
 the fitness between the model and the image. This fitness value can be improved
 by introducing variations in the spatial positioning of the
-\doxygen{SpatialObject} and by changing its internal parameters. The search
+\doxygen{SpatialObject} and/or by changing its internal parameters. The search
 space for the optimizer is now the composition of the transform parameter and
 the shape internal parameters.
 
@@ -67,7 +69,7 @@ model has been optimally superimposed to the image we could label pixels
 according to their associations with specific parts of the model. The
 perpectives of model to image registration/segmentation are endless.  Probably
 the main advantage of this approach is that, as opposed to image-to-image
-registration, it actually provides \emph{Insigth} into the anatomical structure
+registration, it actually provides \emph{Insight} into the anatomical structure
 contained in the image. The adapted model becomes a condensed representation of
 the essential elements of the anatomical structure.
 
