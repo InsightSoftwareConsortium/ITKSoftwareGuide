@@ -166,6 +166,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   VectorCurvatureAnisotropicDiffusionImageFilter.tex
   VectorGradientAnisotropicDiffusionImageFilter.tex
   VectorImage.tex
+  WatershedSegmentation1.tex
   )
 
 FOREACH( exampletexname ${ITK_EXAMPLES_TEX_SRCS_NAMES})
