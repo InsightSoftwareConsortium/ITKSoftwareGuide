@@ -100,10 +100,11 @@ of the commonly used filters that take advantage of this construction.
 \label{sec:MathematicalMorphology}
 
 Mathematical morphology has proved to be a a powerful resource for image
-processing and analysis. Insight implements mathematical morphology filters
-using the approach of NeighborhoodIterators and NeighborhoodOperators. Two
-basic flavors of filters are available in the toolkit, the ones that operate on
-binary images and the ones that operate on grayscale images. 
+processing and analysis \cite{Serra1982}. Insight implements mathematical
+morphology filters using the approach of \code{NeighborhoodIterator}s and
+\code{NeighborhoodOperator}s. Two basic flavors of filters are available in the
+toolkit, the ones that operate on binary images and the ones that operate on
+grayscale images. 
 
 \subsubsection{Binary Filters}
 \label{sec:MathematicalMorphologyBinaryFilters}
@@ -141,7 +142,7 @@ Different kernels attenuate frequencies in different ways. One of the most
 commonly used kernels is the Gaussian. Two implementations of Gaussian
 smoothing are available in the toolkit. The first one is based on a traditional
 convolution while the other is based on the application of IIR filters that
-approximate the convolution with a Gaussian. 
+approximate the convolution with a Gaussian \cite{Deriche1990,Deriche1993}. 
 
 \subsubsection{Discrete Gaussian}
 \label{sec:DiscreteGaussianImageFilter}
