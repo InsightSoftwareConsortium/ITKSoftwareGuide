@@ -67,11 +67,12 @@ calculate the position of objects in space.
 
 \section{Hierarchy}
 
-The spatial objects can be combined to form a hierarchy as a tree.
-Each transform is stored within each object, therefore the hierarchy cannot
-be described as a Directed Acyclic Graph (DAG) but really as a tree.
-The user is responsible for mainting the hierarchy as a tree, no checking are done
-to ensure no cycle is present.
+Spatial objects can be combined to form a hierarchy as a tree. By design, a SpatialObject can
+have one parent and only one. Moreover, each transform is stored within each object, 
+therefore the hierarchy cannot
+be described as a Directed Acyclic Graph (DAG) but effectively as a tree.
+The user is responsible for maintaining the tree structure, no checking is done
+to ensure a cycle-free tree.
 
 \label{sec:SpatialObjectHierarchy}
 \ifitkFullVersion 
@@ -171,10 +172,10 @@ implemented in ITK.
 \subsection{TubeSpatialObject}
 
 \doxygen{TubeSpatialObject} represents a base class for the representation
-of tubular structures. \doxygen{VesselTubeSpatialObject} amd 
+of tubular structures using SpatialObjects. \doxygen{VesselTubeSpatialObject} and 
 \doxygen{DTITubeSpatialObject} are currently deriving from this base class.
 VesselTubeSpatialObject represents blood vessels extracted for an image and 
-DTITubeSpatialObject is used to represent fiber tracts.
+DTITubeSpatialObject is used to represent fiber tracts from diffusion tensor images.
 
 \label{sec:TubeSpatialObject}
 \ifitkFullVersion 
