@@ -57,6 +57,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/Mesh3.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshTraits.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshKComplex.cxx
+  ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshPolyLine.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellsIteration.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellVisitor.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellVisitor2.cxx
