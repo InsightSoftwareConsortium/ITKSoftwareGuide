@@ -74,16 +74,17 @@ are transformed using the methods \code{TransformPoint()},
 \subsection{Transform General Properties}
 \label{sec:TransformGeneralProperties}
 
-\index{itk::Transform!SetParameters()}
-Typically each transform class have several methods for setting its parameters.
-For example, \doxygen{Euler2DTransform} provide methods for separately setting the
-offset, the angle, and the entire rotation matrix.  However, for use in the
+\index{itk::Transform!SetParameters()} Typically each transform class have
+several methods for setting its parameters.  For example,
+\doxygen{Euler2DTransform} provide methods for separately setting the offset,
+the angle, and the entire rotation matrix.  However, for use in the
 registration framework, the parameters must also be represented by a flat
-\doxygen{Array}<double> to allow communication with generic optimizers. In the
-case of \doxygen{Euler2DTransform}, the transform is also defined by three
-doubles: the first representing the angle and the last two the offset. The flat
-array of parameters is defined using \code{SetParameters()}. A description of
-the parameters and their ordering is documented in the following sections.
+\doxygen{Array} of \code{double} to allow communication with generic
+optimizers. In the case of \doxygen{Euler2DTransform}, the transform is also
+defined by three doubles: the first representing the angle and the last two the
+offset. The flat array of parameters is defined using \code{SetParameters()}. A
+description of the parameters and their ordering is documented in the following
+sections.
  
 In the context of registration, the transform parameters define the search
 space for optimizers. That is, the goal of the optimization is to find the set
@@ -121,8 +122,8 @@ J=\left[ \begin{array}{cccc}
 \end{equation}
 
 Where $\{p_i\}$ are the transform parameters and $\{x_i\}$ are the coordinates
-of the output point.  Within this framework, the Jacobian is represented by a
-\doxygen{Array2D}\<double\> and is obtained from the transform by method
+of the output point.  Within this framework, the Jacobian is represented by an
+\doxygen{Array2D} of \code{double}s and is obtained from the transform by method
 \code{GetJacobian()}. The Jacobian can be interpreted as a matrix that
 indicates for a point in the input space how much its mapping on the output
 space will change as a response to a small variation in one of the transform
