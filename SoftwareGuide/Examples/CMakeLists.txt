@@ -50,6 +50,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/CastingImageFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/CurvatureFlowImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/CurvatureAnisotropicDiffusionImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/DanielssonDistanceMapImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/DiscreteGaussianImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientMagnitudeImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientMagnitudeRecursiveGaussianImageFilter.cxx
@@ -96,6 +97,7 @@ SET( ITK_EXAMPLES_TEX_SRCS
   CastingImageFilters.tex
   CurvatureFlowImageFilter.tex
   CurvatureAnisotropicDiffusionImageFilter.tex
+  DanielssonDistanceMapImageFilter.tex
   DiscreteGaussianImageFilter.tex
   GradientMagnitudeImageFilter.tex
   GradientMagnitudeRecursiveGaussianImageFilter.tex
