@@ -4,29 +4,66 @@
 
 \index{ImageAdaptors}
 
-The purpose of Image Adaptors is to make an image object of a particular type
-to look like another type of image. A typical example is to take an image of
-pixel type \code{unsigned char} and make it look like an image of pixel type
-\code{float}. The motivation for using Image Adaptors is to prevent the memory
-overload that normaly will be produced by a casting filter. If you use the
-\doxygen{CastImageFilter} for converting an \code{unsigned char} image into a
-\doxygen{float} one, the filter will duplicate the memory buffer required for
-storing the image, given that \code{float}s require four times more memory than
-\code{unsigned char}s, the memory consumption will actually be multiplied by
-four. An \doxygen{ImageAdaptor} will prevent this memory replication and will
-convert pixel values only when they are read using image iterators (see
+\begin{figure}
+\center
+\includegraphics[width=0.8\textwidth]{ImageAdaptorConcept.eps}
+\itkcaption[ImageAdaptor concept]{ Illustration of the difference between using
+a \doxygen{CastImageFilter} and using the \doxygen{ImageAdaptor} mechanism.
+ImageAdaptors only convert pixel values when they are accessed by iterators.
+Henceforth, they do not need to store the resulting image in a memory buffer.
+In the case illustrated in this figure, the \emph{Image Y} is not created by
+the ImageAdaptor; instead, the image is simulated on the fly each time an
+iterator from the filter downstream attempts to access the image data.}
+\label{fig:ImageAdaptorConcept}
+\end{figure}
+
+
+
+The purpose of \emph{Image Adaptors} is to make an image object of a particular
+pixel type to look like an image of a different pixel type. A typical example
+is to take an image of pixel type \code{unsigned char} and present it as an
+image of pixel type \code{float}. The motivation for using Image Adaptors is to
+prevent the memory overhead that is normaly produced by a casting filter.  When
+we use the \doxygen{CastImageFilter} for converting an \code{unsigned char}
+image into a \code{float} one, the filter duplicates the memory buffer required
+for storing the image, given that \code{float}s require four times more memory
+than \code{unsigned char}s, the memory consumption is actually multiplied by
+four.  An \doxygen{ImageAdaptor} prevents this memory replication by converting
+pixel values only when they are read using image iterators (see
 chapter~\ref{sec:ImageIteratorsChapter}).
 
-ImageAdaptors can replace any of the pixel-wise filters in the toolkit. They
-are defined for most of the basic single valued and single parameter functions
-like trigonometric functions, exponential and logarithms.
+ImageAdaptors prevent the use of redundant memory allocation for representing
+the same information already available in the input image. This is done at the
+expense of some computational time. However, the only case in which
+\code{ImageAdaptors} are disadvantageous with respect to the use of an
+\doxygen{CastImageFilter} or a processing filter, is when the filter downstream
+in the pipeline is executed multiple times. In such situation a
+\code{CastImageFilter} will cache its output after the first execution and will
+not re-execute when the filter downstream is updated. The ImageAdaptor, on the
+other hand, will compute the casting every time the filter downstream is
+updated.
+
+ImageAdators are especially interesting in cases when spare access to pixels is
+performed, since the actual conversion is only occurring on the fly during
+pixel access. That is, only the pixels that are queried get converted through
+the image adaptor.  ImageAdaptors can replace any of the pixel-wise filters in
+the toolkit. They are defined for most of the basic single valued and single
+parameter functions like trigonometric functions, exponential and logarithms.
+
+For example
+
+\begin{itemize}
+\item \doxygen{ExpImageAdaptor}
+\item \doxygen{SinImageAdaptor}
+\item \doxygen{CosImageAdaptor}
+\end{itemize}
 
 The following examples illustrate commonly used cases of ImageAdaptors.
 
 \section{Image Casting}
 \label{sec:ImageAdaptorForBasicCasting}
-\ifitkFullVersion
+%\ifitkFullVersion
 \input{ImageAdaptor1.tex}
-\fi
+%\fi
 
 
