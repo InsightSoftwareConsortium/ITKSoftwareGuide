@@ -456,16 +456,17 @@ implicit geometric shape functions or connected component regions.
 \label{sec:NeighborhoodIterators}
 \index{Iterators!neighborhood|(}
 In ITK, a pixel neighborhood is loosely defined as a small set of pixels that
-are locally adjacent to one another in an image.  The size and shape (stencil)
+are locally adjacent to one another in an image.  The size and shape
 of a neighborhood, as well the connectivity among pixels in a neighborhood,
 may vary with the application.
 
 Many image processing algorithms perform local, neighborhood-based
-calculations.  In other words, the result at an ND pixel index $i$ in the image
-is computed from the values of other pixels in the neighborhood of $i$. Finite
-difference operations, for example, may take the derivative at pixel index
-$i_x$ based on the values of $i_(x+1)$ and $i_(x-1)$. Other common examples of
-neighborhood operations include convolution filtering and image morphology.
+calculations.  In other words, the result at an ND pixel index $i$ is computed
+from the values of other pixels in the neighborhood of $i$. Consider finite
+difference operations in 2D.  A derivative at pixel index $i = \(j, k\)$, for
+example, is taken as a weighted difference between the values at $\(j+1, k\)$
+and $\(j-1, k\)$. Other common examples of neighborhood operations include
+convolution filtering and image morphology.
 
 This section describes a class of ITK image iterators that are designed for
 working with pixel neighborhoods. An ITK neighborhood iterator walks an image
@@ -480,7 +481,10 @@ section~\ref{sec:IteratorsInterface} are also valid for neighborhood iterators.
 Neighborhood iterators use the same forward, reverse, and random access
 iteration code as normal ITK iterators.
 Figure~\ref{fig:WalkingNeighborhoodIterator} illustrates the concept of the
-neighborhood iterator and shows its path through an iteration region.
+neighborhood iterator and shows its path through an iteration region.  Note
+that the \emph{center} of neighborhood iterator is always positioned over its
+current index, with all other neighborhood pixel indicies determined from that
+center position.
 
 \begin{figure}
 \centering
@@ -494,13 +498,13 @@ shade and the extent of the iterator is indicated by the hashing. }
 \index{Neighborhood iterators!construction of}
 In addition to the standard image pointer and iteration region
 (section~\ref{sec:IteratorsInterface}), neighborhood iterator constructors also
-need an argument that describes the extent of the neighborhood.  Neighborhood
+require an argument to describe the extent of the neighborhood.  Neighborhood
 extent is expressed as the symmetric distance from the center of the
-neighborhood in an ND array called the \emph{radius}. Each element $i$ of the
-radius, where $N$ is the dimensionality of the neighborhood and $0 < i < N$,
-gives the extent of the neighborhood in pixels for dimension $N$.  The length of
-each face of the resulting ND hypercube is $(i * 2) + 1$ pixels, a distance of
-$i$ on either side of the single pixel at the neighbor center.
+neighborhood in an ND array called the \emph{radius}. Each element $d$ of the
+radius, where $N$ is the dimensionality of the neighborhood and $0 < d < N$,
+gives the extent of the neighborhood in pixels for dimension $N$.  The length
+of each face of the resulting ND hypercube is $2d + 1$ pixels, a distance of
+$d$ on either side of the single pixel at the neighbor center.
 Figure~{\ref{fig:NeighborhoodIteratorRadius} illustrates these concepts for a
 2D iterator.
 
@@ -513,89 +517,168 @@ step, the result of one \code{++} operation.  }
 \protect\label{fig:WalkingNeighborhoodIterator}
 \end{figure}
 
-In addition to the standard interface, neighborhood iterators define methods
-for accessing neighbor pixels.  
-around an image in arbitrary sized steps.
+After construction, the radius of the neighborhood iterator is available
+through the \code{GetRadius} method.  A few other methods provide some useful
+information about the iterator and its underlying image.
 
-%start with a simple example in pseudocode
+\begin{itemize}
 
+\item \textbf{\code{const ImageType *GetImagePointer()}} Returns the pointer to
+the image referenced by the iterator.
 
+\item \textbf{\code{unsigned long Size()}} Returns the size in pixels of the
+neighborhood.
 
+\item \textbf{\code{itk::Size GetRadius()}} Returns the ND radius of the
+neighborhood.
+
+\end{itemize}
 
 
 The neighborhood iterator interface extends the normal ITK iterator interface
-for setting and getting pixel values.  neighborhood is stored like an array.
-alternately you can think of neighborhood as a set of offsets from the center
-pixel.  both methods of pixel access are supported.
+for setting and getting pixel values.  The iterator stores references to all of
+the neighborhood pixels in a linear array and pixels can be dereferenced
+directly using their array positions.  The \code{Size} method above returns the
+size of this array.  Array positions are incremented along the fastest
+increasing image dimension: first column, then row, then slice, and so on.  The
+center pixel is always at position $n/2$, where $n$ is the size of the array.
+Figure~\ref{fig:NeighborhoodArray}a illustrates this idea in several 2D
+examples.
 
-\index{NeighborhoodIterators!}
 \begin{itemize}
-\item \textbf{\code{PixelType GetCenterPixel()}} 
-\item \textbf{\code{void SetCenterPixel(PixelType p)}} 
 
-\item \textbf{\code{PixelType GetPixel(const unsigned int i}} 
-\item \textbf{\code{PixelType SetPixel(const unsigned int i, PixelType p}} 
+\item \textbf{\code{PixelType GetPixel(const unsigned int i}} Returns the value
+of the pixel at neighborhood position \code{i}.
 
-\item \textbf{\code{PixelType GetPixel(const itk::Offset \&o}} 
-\item \textbf{\code{PixelType SetPixel(const itk::Offset \&o, PixelType p}} 
+\item \textbf{\code{PixelType SetPixel(const unsigned int i, PixelType p}} Sets
+the value of the pixel at position \code{i} to \code{p}.
 
 \end{itemize}
 
-You can also reference a pixel in the neighborhood by its adjacency to the
-center pixel.
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{NeighborhoodIteratorFigure1.eps}
+\itkcaption[Memory layout and pixel access in a neighborhood iterator.]{Pixel references
+in a neighborhood iterator are stored in an array. The indicies of this array
+increase with the fastest increasing image dimension.}
+\protect\label{fig:NeighborhoodArray}
+\end{figure}
 
-\index{NeighborhoodIterators!}
+Another way to think about a pixel location in a neighborhood is as an ND
+offset from the neighborhood center.  The upper-left corner of a $3x3x3$
+neighborhood, for example, can be described by offset $\(-1, -1, -1\)$. The
+bottom-right corner of the same neighborhood is at offset $\(1, 1, 1)\)$.  
+Figure~\ref{fig:NeighborhoodArray}b illustrates several 2D examples.
+
 \begin{itemize}
-\item \textbf{\code{PixelType GetNext(unsigned int d)}} 
-\item \textbf{\code{void SetNext(unsigned int d, PixelType p)}} 
 
-\item \textbf{\code{PixelType GetPrevious(unsigned int d)}} 
-\item \textbf{\code{void SetPrevious(unsigned int d, PixelType p)}} 
+\item \textbf{\code{PixelType GetPixel(const itk::Offset \&o}} Get the value of
+the pixel at the position offset \code{o} from the neighborhood center.
 
-\item \textbf{\code{PixelType GetNext(unsigned int d, unsigned int s)}} 
-\item \textbf{\code{void SetNext(unsigned int d, unsigned int s, PixelType p)}} 
-
-\item \textbf{\code{PixelType GetPrevious(unsigned int d, unsigned int s)}} 
-\item \textbf{\code{void SetPrevious(unsigned int d, unsigned int s, PixelType p)}} 
-
-\item \textbf{\code{itk::NeighborhoodType GetNeighborhood()}} 
-\item \textbf{\code{void SetNeighborhood(itk::Neighborhoodtype \&N)}}
-\end{itemize}
-
-
-
-Several methods that return information about the neighborhood are also
-defined.
-
-\index{NeighborhoodIterators!}
-\begin{itemize}
-\item \textbf{\code{itk::IndexType GetIndex()}} 
-\item \textbf{\code{itk::ImageIndex GetIndex(itk::Offset o)}} 
-\item \textbf{\code{itk::ImageIndex GetIndex(unsigned int i)}} 
-
-\item \textbf{\code{itk::Offset GetOffset(unsigned int i)}} 
-\item \textbf{\code{unsigned long GetNeighborhoodIndex(itk::Offset)}} 
-
-\item \textbf{\code{std::slice GetSlice(unsigned int n)}} 
-
-\item \textbf{\code{const ImageType *GetImagePointer()}} 
-\item \textbf{\code{unsigned long GetSize()}}
-\item \textbf{\code{itk::Size GetRadius()}}
+\item \textbf{\code{PixelType SetPixel(const itk::Offset \&o, PixelType p}} Set
+the value at the position offset \code{o} from the neighborhood center to
+the value \code{p}.
 
 \end{itemize}
 
-%make note about the speed of these methods
+The neighborhood iterators also provide a shorthand for setting and getting the
+value at the center of the neighborhood.
 
-%NEED A FIGURE HERE TO DESCRIBE INDEXING OF PIXELS IN A NEIGHBORHOOD
-Figure.... describes the layout of a ...
+\index{NeighborhoodIterators!}
+\begin{itemize}
+
+\item \textbf{\code{PixelType GetCenterPixel()}} Gets the value at the center
+of the neighborhood.
+
+\item \textbf{\code{void SetCenterPixel(PixelType p)}} Sets the value at the
+center of the neighborhood to the value \code{p}
+
+\end{itemize}
+
+Another shorthand for setting and getting values can be used for pixels that
+lie some integer distance from the neighborhood center along one of the image axes.
+
+\index{NeighborhoodIterators!}
+\begin{itemize}
+
+\item \textbf{\code{PixelType GetNext(unsigned int d)}} Get the value
+immediately adjacent to the neighborhood center in the positive direction along
+the \code{d} axis.
+
+\item \textbf{\code{void SetNext(unsigned int d, PixelType p)}} Set the value
+immediately adjacent to the neighborhood center in the positive direction along
+the \code{d} axis to the value \code{p}.
+
+\item \textbf{\code{PixelType GetPrevious(unsigned int d)}} Get the value
+immediately adjacent to the neighborhood center in the negative direction along
+the \code{d} axis.
+
+\item \textbf{\code{void SetPrevious(unsigned int d, PixelType p)}} Set the value
+immediately adjacent to the neighborhood center in the negative direction along
+the \code{d} axis to the value \code{p}.
+
+\item \textbf{\code{PixelType GetNext(unsigned int d, unsigned int s)}} Get the
+value of the pixel located \code{s} pixels from the neighborhood center in the positive
+direction along the \code{d} axis.
+
+\item \textbf{\code{void SetNext(unsigned int d, unsigned int s, PixelType p)}}
+Set the value of the pixel located \code{s} pixels from the neighborhood center
+in the positive direction along the \code{d} axis to value \code{p}.
+
+\item \textbf{\code{PixelType GetPrevious(unsigned int d, unsigned int s)}} Get the
+value of the pixel located \code{s} pixels from the neighborhood center in the positive
+direction along the \code{d} axis.
+ 
+\item \textbf{\code{void SetPrevious(unsigned int d, unsigned int s, PixelType p)}}  
+Set the value of the pixel located \code{s} pixels from the neighborhood center
+in the positive direction along the \code{d} axis to value \code{p}.
+
+\end{itemize}
+
+It is also possible to extract or set all of the neighborhood values from an iterator
+at once using a regular ITK neighborhood object.  This may be useful in
+algorithms that perform a particularly large number of calculations in the
+neighborhood and would otherwise require multiple dereferences of the same pixels.
+
+\begin{itemize}
+
+\item \textbf{\code{itk::NeighborhoodType GetNeighborhood()}} Return a
+\code{itk::Neighborhood} of the same size and shape as the neighborhood
+iterator and contains all of the values at the iterator position.
+
+\item \textbf{\code{void SetNeighborhood(itk::Neighborhoodtype \&N)}} Set all
+of the values in the neighborhood at the iterator position to those contained
+in \code{itk::Neighborhood N}, which must be the same size and shape as the iterator.
+
+\end{itemize}
+
+Several additional methods are defined to provide information about the
+neighborhood and the pixel locations within it.
+
+\index{NeighborhoodIterators!}
+\begin{itemize}
+
+\item \textbf{\code{itk::IndexType GetIndex()}} Return the \code{itk::Image}
+index of the center pixel of the neighborhood iterator.
+
+\item \textbf{\code{itk::ImageIndex GetIndex(itk::Offset o)}} Return the
+\code{itk::Image} index of the pixel at offset \code{o} from the neighborhood center.
+
+\item \textbf{\code{itk::ImageIndex GetIndex(unsigned int i)}} Return the
+\code{itk::Image} index of the pixel at array position \code{i}.
+
+\item \textbf{\code{itk::Offset GetOffset(unsigned int i)}}  Return the offset
+from the neighborhood center of the pixel at array position \code{i}.
+
+\item \textbf{\code{unsigned long GetNeighborhoodIndex(itk::Offset o)}} Return
+the array position of the pixel at offset \code{o} from the neighborhood center.
+
+\item \textbf{\code{std::slice GetSlice(unsigned int n)}} Return a
+\code{std::slice} through the iterator neighborhood along axis \code{n}.
+
+\end{itemize}
 
 
-% -Designed to encapsulate common neighborhood management functionailty
-% -efficiently manage access to entire ND neighborhoods, making
-% localized image processing algorithms simple to write and to generalize to
-% higher dimensions. 
-% - walk rectilinear regions
-% 
 
 %boundary conditions
 
