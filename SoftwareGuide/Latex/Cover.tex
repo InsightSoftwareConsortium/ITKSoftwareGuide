@@ -1,10 +1,12 @@
-\section*{About the Cover Image}
+\section*{About the Cover}
 
-Creating a cover image demonstrating the capabilities of the toolkit was a
-challenging task. Given that the origins of ITK are with the Visible Human
-Project it seemed appropriate to create an image utilizing the VHP data sets,
-and it was decided to use the more recently acquired Visible Woman dataset.
-Both the RGB cryosections and the CT scans were combined in the same scene.
+Creating the cover image demonstrating the capabilities of the toolkit was a
+challenging task.\footnote{The source code for the cover is available from
+InsightDocuments/SoftwareGuide/Cover/Source/.} Given that the origins of ITK
+are with the Visible Human Project it seemed appropriate to create an image
+utilizing the VHP data sets, and it was decided to use the more recently
+acquired Visible Woman dataset.  Both the RGB cryosections and the CT scans
+were combined in the same scene.
 
 \subsection*{Removing the Gel}
 
@@ -14,18 +16,18 @@ To remove the gel, the joint histogram of RGB values was computed. This
 resulted in an 3D image of $256\times256\times256$ pixels. The histogram
 image was visualized in VolView.\footnote{VolView is a commerical product
 from Kitware. It supports ITK plug-ins and is available as a free viewer or
-may be licensed with advanced functionality.} The cluster corresponding to the
-statistical distribution of blue values was identified visually, and a
-separating plane was manually defined in RGB space.
-
-The equation of this plane was subsequently used to discriminate pixels in
-the gel from pixels in the anatomical structures. The gel pixels were zeroed
-out and the RGB values on the body were preserved.
+may be licensed with advanced functionality. See
+http://www.kitware.com/products/volview.html for information.} The cluster
+corresponding to the statistical distribution of blue values was identified
+visually, and a separating plane was manually defined in RGB space. The
+equation of this plane was subsequently used to discriminate pixels in the
+gel from pixels in the anatomical structures. The gel pixels were zeroed out
+and the RGB values on the body were preserved.
 
 \subsection*{The Skin}
 
 The skin was easy to segment once the gel was removed. A simple region
-growing algorithm was used by providing seed points in the region previously
+growing algorithm was used requiring seed points in the region previously
 occupied by the gel and then set to zero values. An anti-aliasing filter was
 applied in order to generate an image of pixel type float where the surface
 was represented by the zero set. This data set was exported to VTK where a
@@ -48,7 +50,7 @@ a sophisticated effect on the image. Qualitatively it is equivalent to a
 curvature flow evolution of the iso-contouors. In fact the binary median
 filter as implemented in ITK is equivalent to the majority filter that
 belongs to the family of voting filters classified as a subset of the
-\emph{Larger than Life} cellular automata. Finaly, the volume resulting from
+\emph{Larger than Life} cellular automata. Finally, the volume resulting from
 the median filter was passed through the anti-aliasing image filter. As
 before, VTK was used to extract the surface.
 
@@ -95,12 +97,12 @@ float image with the eyeball contour embedded as a zero set.
 \subsection*{Visualization}
 
 The visualization of the segmentation was done by passing all the binary
-masks through the itkAntiAliasBinaryImageFilter, generating iso-contours with
+masks through the AntiAliasBinaryImageFilter, generating iso-contours with
 VTK filters, and then setting up a VTK Tcl script. The skin surface was
 clipped using the vtkClipPolyDataFilter using the implicit function
-vtkCylinder as the clipping function. The vtkWindowToImageFilter proved to be
-quite useful for generating the final high resolution rendering of the scene
-($3000\times3000$ pixels).
+vtkCylinder. The vtkWindowToImageFilter proved to be quite useful for
+generating the final high resolution rendering of the scene ($3000\times3000$
+pixels).
 
 \subsection*{Cosmetic Postprocessing}
 
