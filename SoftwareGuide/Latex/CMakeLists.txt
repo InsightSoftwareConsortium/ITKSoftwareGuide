@@ -104,6 +104,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   DanielssonDistanceMapImageFilter.tex
   DiscreteGaussianImageFilter.tex
   FastMarchingImageFilter.tex
+  GeodesicActiveContourImageFilter.tex
   GradientAnisotropicDiffusionImageFilter.tex
   GradientMagnitudeImageFilter.tex
   GradientMagnitudeRecursiveGaussianImageFilter.tex
