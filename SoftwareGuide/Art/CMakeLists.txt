@@ -171,6 +171,13 @@ SET(JPEG_IMAGES
   ConnectedThresholdOutput1
   ConnectedThresholdOutput2
   ConnectedThresholdOutput3
+  CorpusCallosumMeanShape
+  CorpusCallosumModeMinus0
+  CorpusCallosumModeMinus1
+  CorpusCallosumModeMinus2
+  CorpusCallosumModePlus0
+  CorpusCallosumModePlus1
+  CorpusCallosumModePlus2
   CurvatureFlowImageFilterOutput
   CurvatureAnisotropicDiffusionImageFilterOutput
   DanielssonDistanceMapImageFilterOutput1
