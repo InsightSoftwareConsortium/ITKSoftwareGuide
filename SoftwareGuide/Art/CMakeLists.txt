@@ -140,6 +140,7 @@ SET(XFIG_FIGURES
 SET(JPEG_IMAGES
   itkLogo
   BilateralImageFilterOutput
+  BinaryImage
   BinaryThresholdImageFilterOutput
   BinaryMinMaxCurvatureFlowImageFilterOutput
   BinomialBlurImageFilterOutput
@@ -272,6 +273,10 @@ SET(JPEG_IMAGES
   ShapeDetectionLevelSetFilterOutput6
   ShapeDetectionLevelSetFilterOutput7
   ShapeDetectionLevelSetFilterOutput8
+  ShapedNeighborhoodIterators1a
+  ShapedNeighborhoodIterators1b
+  ShapedNeighborhoodIterators1c
+  ShapedNeighborhoodIterators1d
   SmoothingRecursiveGaussianImageFilterOutput3
   SmoothingRecursiveGaussianImageFilterOutput5
   SigmoidImageFilterOutput
