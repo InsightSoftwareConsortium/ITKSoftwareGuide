@@ -38,6 +38,7 @@ ADD_CUSTOM_TARGET(SoftwareGuideArt  ALL echo)
 
 SET(XFIG_FIGURES
   BinaryThresholdTransferFunction
+  CannySegmentationLevelSetImageFilterCollaborationDiagram1
   DiscreteGaussian
   DeformableModelCollaborationDiagram
   GeometricalObjects
@@ -145,6 +146,8 @@ SET(JPEG_IMAGES
   BrainT1Slice
   BrainT1SliceBorder20
   ccmakeScreenShot
+  CannySegmentationLevelSetImageFilterVentricle1
+  CannySegmentationLevelSetImageFilterVentricle2
   CMakeSetupScreenShot
   ConfidenceConnectedOutput1
   ConfidenceConnectedOutput2
