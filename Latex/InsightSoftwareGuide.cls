@@ -14,17 +14,13 @@
 \newcommand{\itk@ptsize}{10pt}
 
 % Increase printable page size (copied from fullpage.sty)
-\topmargin 0.25in
+\topmargin 0in
 \advance \topmargin by -\headheight
 \advance \topmargin by -\headsep
 
-\leftmargin   0.625in
-\rightmargin  0.625in
-\bottommargin 0.625in
-
-\oddsidemargin 20pt
-\evensidemargin -20pt
-\marginparwidth 0.5in
+\oddsidemargin   0.625in
+\evensidemargin -0.625in
+\marginparwidth  0.5in
 
 %  These set up the fonts for the documents.
 %
@@ -41,7 +37,7 @@
 
 
 % Change the options here to get a different set of basic options, but only
-% if you have to.  Paper and font size should be adjusted in itkpaper.sty.
+% if you have to.  
 %
 \LoadClass[\itk@paper,\itk@ptsize,twoside,openright]{book}
 
