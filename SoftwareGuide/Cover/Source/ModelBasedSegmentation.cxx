@@ -120,6 +120,7 @@ public:
   typedef typename Superclass::DerivativeType DerivativeType;
   typedef typename Superclass::MeasureType    MeasureType;
   typedef typename TFixedImage::IndexType     IndexType;
+  typedef typename TFixedImage::RegionType    RegionType;
 
   /** Method for creation through the object factory. */
   itkNewMacro(Self);
@@ -141,23 +142,29 @@ public:
     m_PointList.clear();
     typedef itk::ImageRegionConstIteratorWithIndex<TFixedImage> myIteratorType;
 
-    myIteratorType it(m_FixedImage,m_FixedImage->GetBufferedRegion());
+    RegionType region;
+    if( m_FixedImageRegionSetByUser )
+      {
+      region = m_FixedImageRegion;
+      }
+    else
+      {
+      region = m_FixedImage->GetBufferedRegion();
+      }
+
+    myIteratorType it(m_FixedImage,region);
 
     PointType point;
 
     while(!it.IsAtEnd())
-    {
-      for(unsigned int i=0;i<ObjectDimension;i++)
       {
-        point[i]=it.GetIndex()[i];
-      }
-      
+      m_FixedImage->TransformIndexToPhysicalPoint( it.GetIndex(), point );
       if(m_MovingSpatialObject->IsInside(point,99999))
-      { 
+        { 
         m_PointList.push_back(point);
-      }    
+        }    
       ++it;
-    }
+      }
 
     std::cout << "Number of points in the metric = " << static_cast<unsigned long>( m_PointList.size() ) << std::endl;
   }
@@ -172,7 +179,11 @@ public:
   }
 
 
-
+  void SetFixedImageRegion( const RegionType & region )
+    {
+    m_FixedImageRegionSetByUser = true;
+    m_FixedImageRegion = region;
+    }
 
   /** Get the Value for SingleValue Optimizers */
 
@@ -214,10 +225,19 @@ public:
     this->GetDerivative(parameters,Derivative);
   }
 
+protected:
+  SimpleImageToSpatialObjectMetric()
+    {
+    m_FixedImageRegionSetByUser = false;  
+    }
+  ~SimpleImageToSpatialObjectMetric() {}
+
 private:
 
-  PointListType m_PointList;
+  PointListType    m_PointList;
 
+  RegionType       m_FixedImageRegion;
+  bool             m_FixedImageRegionSetByUser;
 
 };
 
@@ -332,6 +352,29 @@ int main( int argc, char *argv[] )
   ellipse->GetObjectToParentTransform()->SetOffset(offset);
   ellipse->ComputeObjectToWorldTransform();
 
+
+  typedef ImageType::RegionType    RegionType;
+  typedef ImageType::IndexType     IndexType;
+  typedef ImageType::SizeType      SizeType;
+
+  RegionType fixedRegion;
+
+  IndexType  fixedRegionStart;
+  SizeType   fixedRegionSize;
+
+  fixedRegionStart[0] = 20;
+  fixedRegionStart[1] = 50;
+  fixedRegionStart[2] = 20;
+
+  fixedRegionSize[0] = 20;
+  fixedRegionSize[1] = 10;
+  fixedRegionSize[2] = 20;
+  
+  fixedRegion.SetSize(  fixedRegionSize  );
+  fixedRegion.SetIndex( fixedRegionStart );
+
+  metric->SetFixedImageRegion( fixedRegion );
+  
   
   registration->SetFixedImage( reader->GetOutput() );
   registration->SetMovingSpatialObject( ellipse );
