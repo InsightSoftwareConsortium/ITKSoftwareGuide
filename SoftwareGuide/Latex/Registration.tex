@@ -128,37 +128,6 @@ sections describe the main characteristics of such transforms.
 
 
 
-\subsection{FIXME}
-\label{sec:FIXME}
-\ifitkFullVersion
-\input{ImageRegistration10.tex}
-\fi
-
-
-\subsection{FIXME}
-\label{sec:FIXME}
-\ifitkFullVersion
-\input{ImageRegistration11.tex}
-\fi
-
-
-
-\subsection{FIXME}
-\label{sec:FIXME}
-\ifitkFullVersion
-\input{ImageRegistration12.tex}
-\fi
-
-
-
-\subsection{FIXME}
-\label{sec:FIXME}
-\ifitkFullVersion
-\input{ImageRegistration13.tex}
-\fi
-
-
-
 
 
 \section{Multi-Resolution Registration}
@@ -242,6 +211,36 @@ features of the components forming the registration framework.
 \input{Optimizers.tex}
 \fi
 
+
+
+\subsection{Registration using Match Cardinality metric}
+\label{sec:RegistrationMatchCardinality}
+\ifitkFullVersion
+\input{ImageRegistration10.tex}
+\fi
+
+
+\subsection{Registration using the One plus One Evolutionary Optimizer}
+\label{sec:RegistrationOnePlusOne}
+\ifitkFullVersion
+\input{ImageRegistration11.tex}
+\fi
+
+
+
+\subsection{Registration using masks constructed with Spatial objects}
+\label{sec:RegistrationSpatialObjects}
+\ifitkFullVersion
+\input{ImageRegistration12.tex}
+\fi
+
+
+
+\subsection{Rigid registrations incorporating prior knowledge}
+\label{sec:RegistrationCentered2DTransform}
+\ifitkFullVersion
+\input{ImageRegistration13.tex}
+\fi
 % the clearpage command helps to avoid orphans in the title of the next
 % section.
 \clearpage
@@ -271,6 +270,16 @@ features of the components forming the registration framework.
 \label{sec:DemonsDeformableRegistration}
 \ifitkFullVersion
 \input{DemonsRegistration.tex}
+\fi
+
+\section{Visualizing Deformation fields}
+\label{sec:VisualizingDeformationFields}
+\ifitkFullVersion
+\input{VisualizingDeformationFieldsUsingParaview.tex}
+\fi
+
+\ifitkFullVersion
+\input{DeformableRegistration4OnBrain.tex}
 \fi
 
 
