@@ -1,0 +1,62 @@
+% Complete documentation on the extended LaTeX markup used for Insight
+% documentation is available in ``Documenting Insight'', which is part
+% of the standard documentation for Insight.  It may be found online
+% at:
+%
+%     http://www.itk.org
+
+\documentclass{InsightManual}
+
+\usepackage[dvips]{graphicx}
+
+
+\title{The ITK Software Guide}
+
+\author{Luis Ib\'{a}\~{n}ez\\Will Schroeder\\Insight Consortium}
+
+\authoraddress{
+  http://www.itk.org\\
+	Email: \email{insight-users@public.kitware.com}
+}
+
+\date{\today}		
+
+
+\makeindex			% actually write the .idx file
+
+
+\setcounter{tocdepth}{3}
+
+\begin{document}
+
+\maketitle
+
+\input{Abstract.tex}
+
+\tableofcontents
+
+\input{SoftwareGuideConfiguration.tex}
+
+\input{Introduction.tex}
+\input{Installation.tex}
+\input{SystemOverview.tex}
+\input{DataRepresentation.tex}
+\input{Filtering.tex}
+\input{IO.tex}
+\input{Infrastructure.tex}
+\input{Iterators.tex}
+\input{Numerics.tex}
+\input{Segmentation.tex}
+\input{Registration.tex}
+\input{GUI.tex}
+\input{Wrapping.tex}
+\input{SoftwareProcess.tex}
+\input{Applications.tex}
+
+
+\bibliographystyle{plain}
+\bibliography{../../Latex/Insight}
+
+\input{SoftwareGuide.ind}  % insert the index file
+
+\end{document}
