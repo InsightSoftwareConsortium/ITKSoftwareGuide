@@ -28,7 +28,7 @@ SET(XFIG_FIGURES
   BinaryThresholdTransferFunction
   DiscreteGaussian
   GeometricalObjects
-  HybridSegmentationDiagram1
+  HybridSegmentationEngine1
   ImageIOCollaborationDiagram
   ImageIOFactoriesClassDiagram
   ImageIOFactoriesUseCases
