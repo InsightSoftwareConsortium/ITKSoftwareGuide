@@ -20,7 +20,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[dvips,
 pdftitle={ITK Software Guide},
-pdfauthor={Edited by Luis Ibanez and Will Schroeder},
+pdfauthor={Luis Ibanez and Will Schroeder},
 pdfsubject={Medical Image Segmentation and Registration Toolkit},
 pdfkeywords={Registration,Segmentation,Guide},
 pdfpagemode={UseOutlines},
@@ -102,7 +102,7 @@ and the \emph{Insight Software Consortium}}
 %  Page with Quote and ITK Logo
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
+\cleardoublepage
 
 \begin{minipage}[t][10cm][b]{\textwidth}
 \center
@@ -115,32 +115,48 @@ and the \emph{Insight Software Consortium}}
 \normalsize
 \end{minipage}
 
-\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% remove headings from the following material
+\pagestyle{plain}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
+%\ifitkPrintedVersion 
+%\input{Cover.tex}
+%\fi
 
 \ifitkFullVersion 
 \input{Abstract.tex}
 \input{Contributors.tex}
 \fi
 
-%\ifitkPrintedVersion 
-%\newpage
-%\InputIfFileExists{Cover.tex}
-%\fi
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Insert Table of Contents; List of Figures and Tables
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% enable headings from the following material
+\pagestyle{normal}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \small
 \tableofcontents
 \listoffigures
 \listoftables
 \normalsize
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -151,9 +167,9 @@ and the \emph{Insight Software Consortium}}
 
 \mainmatter
 
-\ifitkFullVersion
 \part{Introduction}
 
+\ifitkFullVersion
 \input{Introduction.tex}
 \input{Installation.tex}
 \input{SystemOverview.tex}
@@ -246,6 +262,7 @@ and the \emph{Insight Software Consortium}}
 
 
 %\ifitkPrintedVersion
+\cleardoublepage
 %\InputIfFileExists{MarketingMaterial.tex}
 %\fi
 
