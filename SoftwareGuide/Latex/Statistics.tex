@@ -2,7 +2,7 @@
 \label{sec:StaisticsFramework}
 
 This chapter introduces the statistics functionalities in Insight. The
-statistics subsystem's primary purpose is to provide general functionalities
+statistics subsystem's primary purpose is to provide general capabilities
 for statistical pattern classification. However, its use is not limited
 for classification. Users might want to use data containers and
 algorithms in the statistics subsystem to perform other statistical
@@ -15,19 +15,18 @@ chapter, we will discuss each major part in that order.
 \section{Data Containers}
 \label{sec:StatisticsDataContainer}
 
-An \subdoxygen{Statistics}{Sample} object is a data container of
-elements that we call ``measurement vectors''. A measurement vector is a
-vector of values (of the same type) measured on an object (In images, it
-can be a vector of the gray intensity value and/or the gradient value of
-a pixel). Strictly speaking from the design of the
-\subdoxygen{Statistics}{Sample} class, a measurement vector can be any
-class derived from \doxygen{FixedArray}, including \doxygen{FixedArray}
-itself.
+An \subdoxygen{Statistics}{Sample} object is a data container of elements
+that we call \emph{measurement vectors}. A measurement vector is an array of
+values (of the same type) measured on an object (In images, it can be a
+vector of the gray intensity value and/or the gradient value of a
+pixel). Strictly speaking from the design of the Sample class, a measurement
+vector can be any class derived from \doxygen{FixedArray}, including
+\doxygen{FixedArray} itself.
 
 \begin{figure}
   \centering
   \includegraphics[width=0.9\textwidth]{SampleInheritanceTree.eps}
-  \itkcaption[Sample class inheritance tree]{Sample class inheritance tree}
+  \itkcaption[Sample class inheritance tree]{Sample class inheritance diagram.}
   \protect\label{fig:SampleInheritanceTree}
 \end{figure}
 
@@ -41,10 +40,10 @@ itself.
 
 There are two adaptor classes that provide the common
 \subdoxygen{Statistics}{Sample} interfaces for \doxygen{Image} and
-\doxygen{PointSet}, two primary data container classes in Insight. The
-adaptor classes do not store any real data elements themselves. These
-data comes from the source data container plugged into them. First, we
-will describe how to create an
+\doxygen{PointSet}, two fundamental data container classes found in ITK. The
+adaptor classes do not store any real data elements themselves. These data
+comes from the source data container plugged into them. First, we will
+describe how to create an
 \subdoxygen{Statistics}{ImageToListAdaptor} and then an
 \subdoxygen{statistics}{PointSetToListAdaptor} object.
 
@@ -73,52 +72,49 @@ will describe how to create an
 
 \input{MembershipSample.tex}
 
-\subsection{k-d Tree}
+\subsection{K-d Tree}
 \label{sec:KdTree}
 
 \input{KdTree.tex}
 
-\section{Algorithms and functions}
+\section{Algorithms and Functions}
 \label{sec:StatisticsAlgorithmsFunctions}
 
-In the previous section, we discuss the data containers in the Insight
-statistics subsystem. We also need processing algorithms and
-statistical functions to conduct statistical analysis or statistical
-classification. An algorithm is an operation over a set of the
-measurement vectors in a sample. A function is an operation over
-individual measurement vectors. For example, if we implemented a class
-(\subdoxygen{Statistics}{EuclideanDistance}) that calculates the
-Euclidean distance two measurement vector, we call it a function,
-while if we implemented a class
-(\subdoxygen{Statistics}{MeanCalculator}) that calculates the sample
-mean of a sample, we call it an algorithm.
+In the previous section, we described the data containers in the ITK
+statistics subsystem. We also need data processing algorithms and statistical
+functions to conduct statistical analysis or statistical classification using
+these containers. Here we define an algorithm to be an operation over a set
+of measurement vectors in a sample. A function is an operation over
+individual measurement vectors. For example, if we implement a class
+(\subdoxygen{Statistics}{EuclideanDistance}) to calculate the Euclidean
+distance between two measurement vectors, we call it a function, while if we
+implemented a class (\subdoxygen{Statistics}{MeanCalculator}) to calculate
+the mean of a sample, we call it an algorithm.
 
-\subsection{Sample statistics}
+\subsection{Sample Statistics}
 \label{sec:SampleStatistics}
 
- We will show how to get sample statistics such as means and
- covariance from a sample (\subdoxygen{Statistics}{Sample})
- classes. Statistics can tells us characteristics of a sample. Such
- sample statistics are very important for statistical
- classification. When we know the form of the sample distributions and
- their parameters (statistics), we can conduct Bayesian
- classification. We have sample mean and covariance calculation
- algorithms implemented. Each algorithm also has its weighted version
- (see section \ref{sec:WeightedMeanCovariance}). The weighted versions
- are used in the expectation-maximization parameter estimation
- process.
+We will show how to get sample statistics such as means and covariance from
+the (\subdoxygen{Statistics}{Sample}) classes. Statistics can tells us
+characteristics of a sample. Such sample statistics are very important for
+statistical classification. When we know the form of the sample distributions
+and their parameters (statistics), we can conduct Bayesian classification. In
+ITK, sample mean and covariance calculation algorithms are implemented. Each
+algorithm also has its weighted version (see Section
+\ref{sec:WeightedMeanCovariance}). The weighted versions are used in the
+expectation-maximization parameter estimation process.
 
-\subsubsection{Mean and covariance}
+\subsubsection{Mean and Covariance}
 \label{sec:MeanCovariance}
 
 \input{SampleStatistics.tex}
 
-\subsubsection{Weighted mean and covariance}
+\subsubsection{Weighted Mean and Covariance}
 \label{sec:WeightedMeanCovariance}
 
 \input{WeightedSampleStatistics.tex}
 
-\subsection{Sample generation}
+\subsection{Sample Generation}
 \label{sec:SampleGeneration}
 
 \subsubsection{ListSampleToHistogramFilter}
@@ -141,83 +137,80 @@ mean of a sample, we call it an algorithm.
 
 \input{SampleToHistogramProjectionFilter.tex}
 
-\subsection{Sample sorting}
+\subsection{Sample Sorting}
 \label{sec:SampleSorting}
 
 \input{SampleSorting.tex}
 
-\subsection{Probability density functions}
+\subsection{Probability Density Functions}
 \label{sec:ProbabilityDensityFunctions}
 
-The probability density function (PDF) for a specific distribution returns the
-probability density for a measurement vector. To get the probability
+The probability density function (PDF) for a specific distribution returns
+the probability density for a measurement vector. To get the probability
 density from a PDF, we use the \code{Evaluate(input)} method. PDFs for
 different distributions require different sets of distribution
-parameters. Before calling the \code{Evaluate} method, make sure to set
-the proper values for the distribution parameters.
+parameters. Before calling the \code{Evaluate()} method, make sure to set the
+proper values for the distribution parameters.
 
-\subsubsection{Gaussian distribution}
+\subsubsection{Gaussian Distribution}
 \label{sec:GaussianDensityFunction}
 
 \input{GaussianDensityFunction.tex}
 
-\subsection{Distance metric}
+\subsection{Distance Metric}
 \label{sec:DistanceMetric}
 
-\subsubsection{Euclidean distance}
+\subsubsection{Euclidean Distance}
 \label{sec:EuclideanDistance}
 
 \input{EuclideanDistance.tex}
 
-\subsection{Decision rules}
+\subsection{Decision Rules}
 \label{sec:DecisionRules}
 
-A Decision rule is a function that returns the index of one data
-element in a vector of data elements. It depends on the internal logic
-of the each decision rule implementation which data element is chosen
-by a decision rule class. The decision rule is an essential part of
-the Insight statistical classification framework. The determinant
-scores from a set of membership functions (e.g. probability density
-functions, distance metrics) are compared by a decision rule and a
-class label is assigned based on the output of the decision rule. The
-common interface is very simple. Any decision rule class must
-implement the \code{Evaluate(vector of discriminant scores)}
-method. In addition to this method, certain decision rule class can
-have additional method that accepts prior knowledge about the decision
-task. The \doxygen{MaximumRatioDecisionRule} is an example of such
-classes.
+A decision rule is a function that returns the index of one data element in a
+vector of data elements. The index returned depends on the internal logic of
+each decision rule. The decision rule is an essential part of the ITK
+statistical classification framework. The scores from a set of membership
+functions (e.g. probability density functions, distance metrics) are compared
+by a decision rule and a class label is assigned based on the output of the
+decision rule. The common interface is very simple. Any decision rule class
+must implement the \code{Evaluate()} method. In addition to this method,
+certain decision rule class can have additional method that accepts prior
+knowledge about the decision task. The
+\doxygen{MaximumRatioDecisionRule} is an example of such a class.
 
-The type of the argument for the \code{Evaluate} method is
-\code{std::vector< double >}. The decision rule classes are part of
+The argument type for the \code{Evaluate()} method is
+\code{std::vector< double >}. The decision rule classes are part of the
 \code{itk} namespace instead of \code{itk::Statistics} namespace.
 
 For a project that uses a decision rule, it must link the \code{itkCommon}
 library. Decision rules are not templated classes.
 
-\subsubsection{Maximum decision rule}
+\subsubsection{Maximum Decision Rule}
 \label{sec:MaximumDecisionRule}
 
 \input{MaximumDecisionRule.tex}
 
-\subsubsection{Minimum decision rule}
+\subsubsection{Minimum Decision Rule}
 \label{sec:MinimumDecisionRule}
 
 \input{MinimumDecisionRule.tex}
 
-\subsubsection{Maximum ratio decision rule}
+\subsubsection{Maximum Ratio Decision Rule}
 \label{sec:MaximumRatioDecisionRule}
 
 \input{MaximumRatioDecisionRule.tex}
 
-\subsection{Random variable generation}
+\subsection{Random Variable Generation}
 \label{sec:RandomVariableGeneration}
 
 A random variable generation class returns a variate when the
 \code{GetVariate()} method is called. When we repeatedly call the method
-for reasonably many times, the set of variates we will get follows
+for ``enough'' times, the set of variates we will get follows
 the distribution form of the random variable generation class.
  
-\subsubsection{Normal (Gaussian) distribution}
+\subsubsection{Normal (Gaussian) Distribution}
 \label{sec:NormalVariateGeneration}
 
 \input{NormalVariateGenerator.tex}
@@ -233,12 +226,12 @@ space. Such decision regions are defined by
 decision rules that are known or can be trained.  The simplest
 configuration of a classification consists of a decision rule and
 multiple membership functions; each membership function represents a
-class. Fig. \ref{fig:simple} illustrates this general framework.
+class. Figure~\ref{fig:simple} illustrates this general framework.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.7\textwidth]{DudaClassifier.eps}
-  \itkcaption[Simple conceptual classifier]{Simple conceptual classifier}
+  \itkcaption[Simple conceptual classifier]{Simple conceptual classifier.}
   \label{fig:simple}
 \end{figure}
 
@@ -258,35 +251,33 @@ as follows:
   \centering
   \includegraphics[width=0.7\textwidth]{StatisticalClassificationFramework.eps}
   \itkcaption[Statistical classification framework]{Statistical classification
-framework}
+framework.}
   \protect\label{fig:StatisticalClassificationFramework}
 \end{figure}
 
-This simple configuration can be used to formulated various
-classification tasks by using different membership functions and
-incorporating task specific requirements and prior knowledge into
-the decision rule. For example, instead of using probability density
-functions as membership functions, through distance functions and a
-minimum value decision rule (which assigns a class by the distance
-function that returns the smallest value) users can achieve a least
-squared error classifier. As another example, users can add a
-rejection scheme to the decision rule so that even in a situation
-where the membership scores suggest a ``winner'', a measurement
-vector can be flagged as ill defined. Such a rejection scheme can
-avoid risks of assigning a class label without a proper margin of
-winning.
+This simple configuration can be used to formulated various classification
+tasks by using different membership functions and incorporating task specific
+requirements and prior knowledge into the decision rule. For example, instead
+of using probability density functions as membership functions, through
+distance functions and a minimum value decision rule (which assigns a class
+from the distance function that returns the smallest value) users can achieve a
+least squared error classifier. As another example, users can add a rejection
+scheme to the decision rule so that even in a situation where the membership
+scores suggest a ``winner'', a measurement vector can be flagged as ill
+defined. Such a rejection scheme can avoid risks of assigning a class label
+without a proper win margin.
 
-\subsection{k-d Tree based k-means clustering}
+\subsection{k-d Tree Based k-Means Clustering}
 \label{sec:KdTreeBasedKMeansClustering}
 
 \input{KdTreeBasedKMeansClustering.tex}
 
-\subsection{Bayesian plug-in classifier}
+\subsection{Bayesian Plug-In Classifier}
 \label{sec:BayesianPluginClassifier}
 
 \input{BayesianPluginClassifier.tex}
 
-\subsection{Expectation maximization mixture model estimation}
+\subsection{Expectation Maximization Mixture Model Estimation}
 \label{sec:ExpectationMaximizationMixtureModelEstimation}
 
 \input{ExpectationMaximizationMixtureModelEstimator.tex}
