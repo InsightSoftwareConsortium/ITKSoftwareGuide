@@ -38,6 +38,7 @@ SET(XFIG_FIGURES
   ImageRegistration1Pipeline
   ImageRegistration1TraceMetric
   ImageRegistration1TraceTranslations
+  ImageRegistration3Observer
   ParzenWindowing1
   ParzenWindowing2
   ParzenWindowing3
