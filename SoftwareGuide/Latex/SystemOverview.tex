@@ -203,6 +203,7 @@ on the program stack, and are automatically deleted when the scope
 that the \code{SmartPointer} was created is closed. As a result, you should
 \emph{rarely if ever call Register() or Delete()} in ITK. For example:
 
+\small
 \begin{verbatim}
   MyRegistrationFunction()
     { <----- Start of scope
@@ -213,6 +214,7 @@ that the \code{SmartPointer} was created is closed. As a result, you should
 
     } <------ End of scope
 \end{verbatim}
+\normalsize
 
 
 At the end of scope, the \code{SmartPointer} \code{interp} is destroyed, the

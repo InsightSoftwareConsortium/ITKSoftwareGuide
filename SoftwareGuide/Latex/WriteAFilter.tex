@@ -415,12 +415,15 @@ method. A discussion of threading follows in the next section.
 Filters that can process data in pieces can typically multi-process using the
 data parallel, shared memory implementation built into the pipeline execution
 process. To create a multithreaded filter, simply define and implement a
-ThreadedGenerateData() method. For example, a itk::ImageToImageFilter would create the method:
+\code{ThreadedGenerateData()} method. For example, a \doxygen{ImageToImageFilter}
+would create the method:
 
+\small
 \begin{verbatim}
     void ThreadedGenerateData(const OutputImageRegionType& 
                               outputRegionForThread, int threadId)
 \end{verbatim}
+\normalsize
 
 The key to threading is to generate output for the output region given (as
 the first parameter in the argument list above). In ITK, this is simple to do

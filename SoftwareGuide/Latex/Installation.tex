@@ -78,11 +78,13 @@ object code is to be produced (ITK\_BINARY\_DIR). These are referred to as the
 directory is created by the user and CMake is invoked with the path to the
 source directory. For example:
 
+\small
 \begin{verbatim}
 mkdir Insight-binary
 cd Insight-binary
 ccmake ../Insight
 \end{verbatim}
+\normalsize
 
 Note that the source directory and the build directory can be the
 same---this is known as an \emph{in-source} build. On Windows, the CMake 
@@ -196,6 +198,7 @@ Here is the content of the two files to write in your new project. These two
 files can be found in the \code{Insight/Examples/Installation} directory. The
 \code{CMakeLists.txt} file contains the following lines:
 
+\small
 \begin{verbatim}
 PROJECT(HelloWorld)
 
@@ -211,6 +214,7 @@ ADD_EXECUTABLE(HelloWorld HelloWorld.cxx )
 
 TARGET_LINK_LIBRARIES(HelloWorld ITKCommon)
 \end{verbatim}
+\normalsize
 
 The first line defines the name of your project as it appears in Visual
 Studio (it will have no effect under UNIX). The second line loads a CMake
