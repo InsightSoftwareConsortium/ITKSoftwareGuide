@@ -41,8 +41,8 @@ ENDIF(NOT MAKEINDEX_COMPILER)
 #  /prepress = high   resolution = Distiller like "Print" with some error checking differences
 #
 #SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/printer" -r600)
-SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/prepress" "-dColorImageResolution=600" "-dGrayImageResolution=600" -r600)
-#SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/screen" -r600)
+#SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/prepress" "-dColorImageResolution=600" "-dGrayImageResolution=600" -r600)
+SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/screen" -r600)
 
 SET(DVIPS_CONVERTER_OPTIONS  -D600)
 
@@ -184,7 +184,6 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   PointSetToListAdaptor.tex
   PointSetWithCovariantVectors.tex
   PointSetWithVectors.tex
-  ProbabilityDensityFunctions.tex
   ResampleImageFilter2.tex
   ResampleImageFilter3.tex
   ResampleImageFilter4.tex
@@ -213,7 +212,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   )
 
 FOREACH( exampletexname ${ITK_EXAMPLES_TEX_SRCS_NAMES})
-  SET( ITK_EXAMPLES_TEX_SRCS ${SoftwareGuide_BINARY_DIR}/Examples/${exampletexname} )
+  SET( ITK_EXAMPLES_TEX_SRCS ${ITK_EXAMPLES_TEX_SRCS} ${SoftwareGuide_BINARY_DIR}/Examples/${exampletexname} )
 ENDFOREACH( exampletexname )
 
 
