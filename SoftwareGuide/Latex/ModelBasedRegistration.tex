@@ -23,19 +23,6 @@ this model fit as a good representation of the anatomical structure contained
 in an image. 
 
 
-\begin{figure}
-\center
-\includegraphics[width=\textwidth]{ModelToImageRegistrationConcept.eps}
-\itkcaption[Model to Image Registration Framework Concept]{Basic concept of
-  Model-to-Image registration.  A simplified geometrical model (ellipse) is
-    registered against an anatomical structure (skull)  by applying a spatial
-    transform and modifying the model internal parameters. This image is not
-    the result of an actual registration, it is shown here only with the
-    purpose of illustrating the concept of model to image registration.}
-\label{fig:ModelToImageRegistrationConcept}
-\end{figure}
-
-
 For example, let's say that in the axial view of a brain image we can roughly
 approximate the skull with an ellipse. The ellipse becomes our simplified
 geometrical model, and registration is the task of finding the best center for
@@ -65,6 +52,19 @@ the main advantage of this approach is that, as opposed to image-to-image
 registration, it actually provides \emph{Insight} into the anatomical structure
 contained in the image. The adapted model becomes a condensed representation of
 the essential elements of the anatomical structure.
+
+\begin{figure}
+\center
+\includegraphics[width=0.8\textwidth]{ModelToImageRegistrationConcept.eps}
+\itkcaption[Model to Image Registration Framework Concept]{Basic concept of
+  Model-to-Image registration.  A simplified geometrical model (ellipse) is
+    registered against an anatomical structure (skull)  by applying a spatial
+    transform and modifying the model internal parameters. This image is not
+    the result of an actual registration, it is shown here only with the
+    purpose of illustrating the concept of model to image registration.}
+\label{fig:ModelToImageRegistrationConcept}
+\end{figure}
+
 
 ITK provides a hierarchy of classes intended to support the construction of
 shape models. This hierarchy has the \doxygen{SpatialObject} as its base class.
