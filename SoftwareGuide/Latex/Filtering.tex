@@ -7,93 +7,130 @@ on a data pipeline architecture in which the output of one filter is passed as
 input to another filter.
 
 
-\section{Thresholding}
-\label{sec:ThresholdingFiltering}
+%\section{Thresholding}
+%\label{sec:ThresholdingFiltering}
+%
+%\subsection{Binary Thresholding}
+%\label{sec:BinaryThresholdingImageFilter}
+%
+%\input BinaryThresholdImageFilter.tex
+%
+%\subsection{Thresholding}
+%\label{sec:ThresholdingImageFilter}
+%
+%\input ThresholdImageFilter.tex
+%
+%
+%
+%\section{Casting}
+%\label{sec:CastingFiltering}
+%
+%\input CastingImageFilters.tex
+%
+%
+%\section{Gradients}
+%\label{sec:GradientFiltering}
+%
+%Computation of gradients is a fairly common operation in image processing. The
+%term is sometimes loosely used to refer the gradient vectors or the magnitude
+%of this gradient. Insight filters attempt to reduce this ambiguity by including
+%the \emph{magnitude} term when appropriate. Insight provides filters for
+%computing both the image of gradient vectors and the image of magnitudes.
+%
+%\subsection{Gradient Magnitude}
+%\label{sec:GradientMagnitudeImageFilter}
+%
+%\input GradientMagnitudeImageFilter.tex
+%
+%\subsection{Gradient Magnitude With Smoothing}
+%\label{sec:GradientMagnitudeRecursiveGaussianImageFilter}
+%
+%\input GradientMagnitudeRecursiveGaussianImageFilter.tex
+%
+%
+%
+%
+%\section{Neighborhood Filters}
+%\label{sec:NeighborhoodFilters}
+%
+%The concept locality is frequently encountered in image processing on the form
+%of filters that compute every output pixel using information from a reduced
+%region on the neighborhood of the input pixel. The classical form of this
+%filters are the $3 \times 3$ filters in 2D images. Convolution masks based on
+%these neighborhoods could perform diverse tasks ranging from noise reduction,
+%to differential operations, to mathematical morphology.
+%
+%The Insight toolkit implements an elegant approach for the computation of these
+%family of filters. The input image is visited by a special iterator called the
+%\code{SmartNeighborhoodIterator}. This iterator is capable of moving over all
+%the pixels in an image and for each position it can address the pixels in a
+%local neighborhood. Operators can be defined in order to specify what
+%algorithmic operation must be performed on the neighborhood of the input pixel
+%to compute the value of the output pixel. The following section describes some
+%of the commonly used filters that take advantage of this construction.  
+%
+%\subsection{Median Filter}
+%\label{sec:MedianFilter}
+%
+%\input MedianImageFilter.tex
+%
+%
+%\subsection{Mathematical Morphology}
+%\label{sec:MathematicalMorphology}
+%
+%Mathematical morphology has proved to be a a powerful resource for image
+%processing and analysis. Insight implements mathematical morphology filters
+%using the approach of NeighborhoodIterators and NeighborhoodOperators. Two
+%basic flavors of filters are available in the toolkit, the ones that operate on
+%binary images and the ones that operate on grayscale images. 
+%
+%\subsubsection{Binary Filters}
+%\label{sec:MathematicalMorphologyBinaryFilters}
+%
+%\input MathematicalMorphologyBinaryFilters.tex
+%
+%
+%\subsubsection{Grayscale Filters}
+%\label{sec:MathematicalMorphologyGrayscaleFilters}
+%
+%\input MathematicalMorphologyGrayscaleFilters.tex
+%
+%
 
-\subsection{Binary Thresholding}
-\label{sec:BinaryThresholdingImageFilter}
 
-\input BinaryThresholdImageFilter.tex
+\section{Smoothing Filters}
+\label{sec:SmoothingFilters}
 
-\subsection{Thresholding}
-\label{sec:ThresholdingImageFilter}
+Real image data has a level of uncertainty that is manifested on the
+variability of measures assigned to pixels. This is usually interpreted as
+noise and considered an undesirable component of the image data. This section
+describes several methods that can be applied to reduce noise on images.
 
-\input ThresholdImageFilter.tex
+\subsection{Blurring}
+\label{sec:BlurringFilters}
 
+Blurring is the traditional approach for removing noise from images. It it
+usally implemented in the form of a convolution with a kernel. The effect of
+this operation on the image spectrum is to attenuate high spatial frequencies.
+Different kernels attenuate frequencies in different ways. One of the most
+commonly used kernels is the Gaussian. Two implementations of gaussian
+smoothing are available in the toolkit. The first one is based on a traditional
+convolution while the other is based on the application of IIR filters that
+approximate the convolution with a Gaussian. 
 
+\subsection{Blurr}
+\label{sec:GaussianConvolutionFilter}
 
-\section{Casting}
-\label{sec:CastingFiltering}
-
-\input CastingImageFilters.tex
-
-
-\section{Gradients}
-\label{sec:GradientFiltering}
-
-Computation of gradients is a fairly common operation in image processing. The
-term is sometimes loosely used to refer the gradient vectors or the magnitude
-of this gradient. Insight filters attempt to reduce this ambiguity by including
-the \emph{magnitude} term when appropriate. Insight provides filters for
-computing both the image of gradient vectors and the image of magnitudes.
-
-\subsection{Gradient Magnitude}
-\label{sec:GradientMagnitudeImageFilter}
-
-\input GradientMagnitudeImageFilter.tex
-
-\subsection{Gradient Magnitude With Smoothing}
-\label{sec:GradientMagnitudeRecursiveGaussianImageFilter}
-
-\input GradientMagnitudeRecursiveGaussianImageFilter.tex
+\subsection{Recursive Blurring}
+\label{sec:RecursiveGaussianSmoothingFilter}
 
 
+\subsection{Edge Preserving}
+\label{sec:EdgePreservingFilters}
 
 
-\section{Neighborhood Filters}
-\label{sec:NeighborhoodFilters}
+\subsubsection{Curvature Flow}
+\label{sec:CurvatureFlowImageFilter}
 
-The concept locality is frequently encountered in image processing on the form
-of filters that compute every output pixel using information from a reduced
-region on the neighborhood of the input pixel. The classical form of this
-filters are the $3 \times 3$ filters in 2D images. Convolution masks based on
-these neighborhoods could perform diverse tasks ranging from noise reduction,
-to differential operations, to mathematical morphology.
-
-The Insight toolkit implements an elegant approach for the computation of these
-family of filters. The input image is visited by a special iterator called the
-\code{SmartNeighborhoodIterator}. This iterator is capable of moving over all
-the pixels in an image and for each position it can address the pixels in a
-local neighborhood. Operators can be defined in order to specify what
-algorithmic operation must be performed on the neighborhood of the input pixel
-to compute the value of the output pixel. The following section describes some
-of the commonly used filters that take advantage of this construction.  
-
-\subsection{Median Filter}
-\label{sec:MedianFilter}
-
-\input MedianImageFilter.tex
-
-
-\subsection{Mathematical Morphology}
-\label{sec:MathematicalMorphology}
-
-Mathematical morphology has proved to be a a powerful resource for image
-processing and analysis. Insight implements mathematical morphology filters
-using the approach of NeighborhoodIterators and NeighborhoodOperators. Two
-basic flavors of filters are available in the toolkit, the ones that operate on
-binary images and the ones that operate on grayscale images. 
-
-\subsubsection{Binary Filters}
-\label{sec:MathematicalMorphologyBinaryFilters}
-
-\input MathematicalMorphologyBinaryFilters.tex
-
-
-\subsubsection{Grayscale Filters}
-\label{sec:MathematicalMorphologyGrayscaleFilters}
-
-\input MathematicalMorphologyGrayscaleFilters.tex
-
-
+\input CurvatureFlowImageFilter.tex
 
