@@ -42,8 +42,8 @@ Figure~\ref{fig:segment}.
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{WatershedCatchmentBasins.eps}
-\caption[Watershed catchment basins]{A fuzzy-valued boundary map, from an image
-or set of images, is segmented using local minima and catchment basins.}
+\caption{A fuzzy-valued boundary map, from an image or set of images, 
+is segmented using local minima and catchment basins.}
 \protect\label{fig:segment}
 \end{figure}
 That is, a segment consists of all points in $U$ whose paths of steepest
@@ -70,10 +70,10 @@ hierarchy of regions, as shown in Figure~\ref{fig:watersheds}.
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{WatershedsHierarchy.eps}
-\caption[Watersheds hierarchy of regions]{A watershed segmentation combined
-with a saliency measure (such as depth) produces a hierarchy of regions.
-Structures can be derived from images by either thresholding the saliency
-measure or combining subtrees within the hierarchy}
+\caption{A watershed segmentation combined with a saliency measure 
+(watershed depth) produces a hierarchy of regions.  Structures can be 
+derived from images by either thresholding the saliency measure or 
+combining subtrees within the hierarchy}
 \protect\label{fig:watersheds}
 \end{figure}
 Previous work has shown the benefit of a user-assisted approach, which provides
@@ -90,66 +90,6 @@ image and grows regions outward and upward at discrete intensity levels
 (equivalent to a sequence of morphological operations and sometimes called {\em
 morphological watersheds} \cite{Serra1982}.) This limits the accuracy by
 enforcing a set of discrete gray levels on the image.
-
-Figures~\ref{fig:WatershedColorSegmentation1}--~\ref{fig:WatershedColorSegmentation3}
-show the results of segmenting the color image from
-Figure~\ref{fig:WatershedColorInput}(a).  These results are obtained by
-applying the watershed algorithm to the root-sum-of-squares gradient magnitude
-shown in Figure~\ref{fig:WatershedColorInput}(b).  By changing the threshold on
-the minimum watershed depth, we can obtain different degrees of segmentation.
-No one segmentation is ``perfect''; at one level the spinal cord is segmented
-into various tracts, while at another level it comes together to form a single
-structure.  Smaller regions can be expanded into larger regions by either
-changing the depth threshold or combining them under some user direction.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.9\textwidth]{WatershedColorEdges.eps}
-\caption[Watershed segmentation output]{ A segmentation (white lines are
-segment boundaries) based on the gradient magnitude of a color image that has
-been processed with vector-valued anisotropic diffusion.}
-\protect\label{fig:WatershedColorSegmentation1}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.4\textwidth]{WatershedSpine1.eps}
-\includegraphics[width=0.4\textwidth]{WatershedSpine1.eps}
-\caption[Watershed segmentation output at two levels]{ Insets from the
-segmentation of the color image shown in
-Figure~\protect\ref{fig:WatershedColorSegmentation1} at two different levels of
-watershed depth.  Top) A lower threshold partitions the spinal cord into
-several distinct tracts.  Bottom) At a higher threshold the vertebrae becomes a
-single segment and the parts of the spinal cord merge.  }
-\protect\label{fig:WatershedColorSegmentation2}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.4\textwidth]{WatershedColorInput.eps}
-\includegraphics[width=0.4\textwidth]{WatershedColorGradientMagnitude.eps}
-\caption[Watershed segmentation inputs]{ Inputs for the segmentation presented
-in \ref{fig:WatershedColorSegmentation3}.  Left) Cryogenic data set after
-smoothing with anisotropic diffusion.  Right) Squared magnitude of gradients on
-every color channel.}
-\protect\label{fig:WatershedColorInput}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.4\textwidth]{WatershedArm1.eps}
-\includegraphics[width=0.4\textwidth]{WatershedArm2.eps}
-\caption[Watershed segmentation output at two levels]{
-Insets from the segmentation of the color image shown in 
-Figure~\protect\ref{fig:WatershedColorSegmentation1} at two different levels of 
-watershed depth.  Top) The fat around the arm consists of many 
-distinct regions.  Bottom) At a higher threshold the 
-fat becomes a single segment as do the bones.
-}
-\protect\label{fig:WatershedColorSegmentation3}
-\end{figure}
-\subsection{Watershed Segmentation in Insight}
-\label{sec:ImplementationWatersheds}
-\index{Watersheds!Segmentation}
 
 \begin{figure}
 \centering
@@ -178,92 +118,62 @@ stage.
 \subsection{Using the Insight Watershed Filter}
 \label{sec:UsingWatersheds}
 \index{Watersheds!ImageFilter}
-The care with which the input to the watershed filter is prepared will greatly
-affect the quality of your result.  As noted in
-Section~\ref{sec:AboutWatersheds}, the height function used as input should be
-created such that higher positive values correspond to object boundaries.  A
-suitable height function for many applications can be generated as the gradient
-magnitude of the image to be segmented.  Typically, the best results are
-obtained by preprocessing the original image with an edge-preserving diffusion
-such as one of the anisotropic diffusion filters, or with the bilateral image
-filter.  The height image input to itk::WatershedImageFilter should be of a
-scalar, floating point type.
+\input{WatershedSegmentation1.tex}
 
-Tuning the filter parameters for any particular application is a process of
-trial and error.  The {\em threshold} parameter can be used to great effect in
-controlling oversegmentation of the image.  Raising the threshold will
-generally reduce computation time and produce output with fewer and larger
-regions.  The trick in tuning paramters is to consider the scale level of the
-objects you are trying to segment.  The best time/quality trade-off will be
-achieved when the image is smoothed and thresholded to eliminate features just
-below the desired scale.
+%\subsection{Interpreting the Results}
+%\label{sec:VisualizingWatersheds}
+%\index{Watersheds!Visualization}
+%In order to interpret the output of the Insight watersheds algorithm, it is
+%important to understand what the output represents and how it is formatted. The
+%itk::WatershedImageFilter produces an image of unsigned long integers.  Each
+%integer number is a label for a unique segmented region (catchment basin) from
+%the original input.  The output is the same size and dimensionality of the
+%input.
 
-Most of the computational complexity of the ITK algorithm lies in generating
-the hierarchy. Processing times for this stage are non-linear with respect to
-the number of catchment basins in the basic segmentation.  This means that the
-amount of information contained in an image is more significant than the number
-of pixels in the image when predicting execution times.  A very large, but very
-flat input may process in a much shorter time than a very small, but very
-detailed input.  In practice, however, very large volumes do tend to increase
-merge times exponentially because scale of the targeted objects does not
-necessarily change proportional to increased resolution of the image.  When
-going from lower to higher dimensionality, increased interconnectivity of
-catchment basins can also result in non-linear increases in processing time.
+%Because the segmented image may have potentially many thousands of labels, some
+%care must be taken when visualizing the data or information may be lost.  One
+%effective way to visualize the output is to map the integer labels into
+%distinct RGB colors.  Because labels close in value tend to also be close
+%spatially in the image, it is helpful to spread sequential label values far
+%apart in the RGB range.  A hashing scheme that puts more weight on the
+%least-significant integer bits is a good way to accomplish this.
+%Figure~\ref{fig:colorVisWatersheds} shows a slice taken from a segmentation of
+%a section of abdomen from the Visible Female Cryosection data.  The unsigned
+%long label values of the output have been hashed into RGB colors.
 
-\subsection{Interpreting the Results}
-\label{sec:VisualizingWatersheds}
-\index{Watersheds!Visualization}
-In order to interpret the output of the Insight watersheds algorithm, it is
-important to understand what the output represents and how it is formatted. The
-itk::WatershedImageFilter produces an image of unsigned long integers.  Each
-integer number is a label for a unique segmented region (catchment basin) from
-the original input.  The output is the same size and dimensionality of the
-input.
+%\begin{figure}
+%\centering
+%\includegraphics[width=.95\textwidth]{WatershedAbdomenSegmentation.eps}
+%\caption{A slice from a segmentation of Visible Female cryosection data.
+%The original is shown at the left and the segmented image is shown to the
+%right. Colored regions in the segmented image correspond to structures in the
+%original data. }
+%\protect\label{fig:colorVisWatersheds}
+%\end{figure}
 
-Because the segmented image may have potentially many thousands of labels, some
-care must be taken when visualizing the data or information may be lost.  One
-effective way to visualize the output is to map the integer labels into
-distinct RGB colors.  Because labels close in value tend to also be close
-spatially in the image, it is helpful to spread sequential label values far
-apart in the RGB range.  A hashing scheme that puts more weight on the
-least-significant integer bits is a good way to accomplish this.
-Figure~\ref{fig:colorVisWatersheds} shows a slice taken from a segmentation of
-a section of abdomen from the Visible Female Cryosection data.  The unsigned
-long label values of the output have been hashed into RGB colors.
+%For volumetric data, it is often interesting to create a surface rendering of
+%one or more regions in the output.  This can be done by thresholding the
+%region(s) of interest from the output image and exporting the result to a
+%visualization package capable of isosurface rendering.  Thresholding can be
+%done either by explicit manipulation of the image values through an ITK image
+%iterator, or using one of the several Insight image thresholding filters.
 
-\begin{figure}
-\centering
-\includegraphics[width=.95\textwidth]{WatershedAbdomenSegmentation.eps}
-\caption[Watershed segmenting the Visible Woman]{A slice from a segmentation of
-Visible Female cryosection data.  The original is shown at the left and the
-segmented image is shown to the right. Colored regions in the segmented image
-correspond to structures in the original data. }
-\protect\label{fig:colorVisWatersheds}
-\end{figure}
+%Figure~\ref{fig:surfaceRenderingWatersheds} is a surface rendering of the right
+%eye, the optic nerve and chiasm, the lens of the eye, and the right lateral
+%rectus muscle.  A slice from the original Visible Female head and neck
+%cryosection data from which the segmentations were created is shown at the
+%left.  This image was created as described above by thresholding isovalues in a
+%watershed segmentation output and then rendered using third-party visualization
+%software.
 
-For volumetric data, it is often interesting to create a surface rendering of
-one or more regions in the output.  This can be done by thresholding the
-region(s) of interest from the output image and exporting the result to a
-visualization package capable of isosurface rendering.  Thresholding can be
-done either by explicit manipulation of the image values through an ITK image
-iterator, or using one of the several Insight image thresholding filters.
-
-Figure~\ref{fig:surfaceRenderingWatersheds} is a surface rendering of the right
-eye, the optic nerve and chiasm, the lens of the eye, and the right lateral
-rectus muscle.  A slice from the original Visible Female head and neck
-cryosection data from which the segmentations were created is shown at the
-left.  This image was created as described above by thresholding isovalues in a
-watershed segmentation output and then rendered using third-party visualization
-software.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.95\textwidth]{WatershedRendering.eps}
-\caption[Watershed segmentation rendered in $3D$]{A surface rendering (right)
-of four anatomical structures in the Visible Female head and neck. A slice of
-the data from which the segmentation was created is shown at the left.  The
-right and left optic nerves and chiasm are shown in yellow.  The right eye is
-in transparent purple.  The lens is dark purple.  The structure in red is the
-lateral rectus muscle.} \protect\label{fig:surfaceRenderingWatersheds}
-\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.95\textwidth]{WatershedRendering.eps}
+%\caption{A surface rendering (right) of four anatomical structures in the Visible
+%Female head and neck. A slice of the data from which the segmentation was
+%created is shown at the left.  The right and left optic nerves and chiasm are
+%shown in yellow.  The right eye is in transparent purple.  The lens is dark
+%purple.  The structure in red is the lateral rectus muscle.}
+%\protect\label{fig:surfaceRenderingWatersheds}
+%\end{figure}
 
