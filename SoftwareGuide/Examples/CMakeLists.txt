@@ -76,7 +76,7 @@ SET( ITK_EXAMPLES_TEX_SRCS
   BinaryThresholdImageFilter.tex
   ThresholdImageFilter.tex
   CastingImageFilters.tex
-  GradientMagnitudeImageFilter.cxx
+  GradientMagnitudeImageFilter.tex
   GradientMagnitudeRecursiveGaussianImageFilter.tex
 )
 
