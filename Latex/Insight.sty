@@ -1132,11 +1132,12 @@
 %
 % Commands for including Graphics
 %
-\DeclareGraphicsExtensions{.eps,.jpg,.gif,.tiff,.bmp}
+\DeclareGraphicsExtensions{.eps,.jpg,.gif,.tiff,.bmp,.png}
 \DeclareGraphicsRule{.jpg}{eps}{.jpg.bb}{`convert #1 eps:-}
 \DeclareGraphicsRule{.gif}{eps}{.gif.bb}{`convert #1 eps:-}
 \DeclareGraphicsRule{.tiff}{eps}{.tiff.bb}{`convert #1 eps:-}
 \DeclareGraphicsRule{.bmp}{eps}{.bmp.bb}{`convert #1 eps:-}
+\DeclareGraphicsRule{.png}{eps}{.png.bb}{`convert #1 eps:-}
 
 
 
