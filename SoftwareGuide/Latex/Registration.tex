@@ -39,7 +39,7 @@ that this definition is inverse to the usual view of image transformation.
 Using the \emph{inverse} transform is typical in registration as it avoids the
 potential problems of ``holes'' with forward transform. The \emph{Interpolator}
 is used to evaluate moving image intensity at non-grid positions. The
-\emph{Metric} component $S(m,f \circ T)$ provides a measure of how well the
+\emph{Metric} component $S(f,m \circ T)$ provides a measure of how well the
 fixed image is matched by the transformed moving image. This measure forms the
 quantitative criterion to be optimized by the \emph{Optimizer} over the search
 space defined by the parameters of the \emph{Transform}.
