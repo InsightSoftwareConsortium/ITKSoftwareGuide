@@ -284,7 +284,7 @@ independently.
 Represents a 2D rotation and a 2D translation. Note that the translation
 component has no effect on the transformation of vectors and covariant vectors. &
 3 &
-The first parameter is the angle in radian and the last two parameters
+The first parameter is the angle in radians and the last two parameters
 are the translation in each dimension. &
 Only defined for two-dimensional input and output spaces. \\
 \hline
@@ -316,6 +316,97 @@ scale normalization functionality in order to get the best performance out of
 the optimizers.
 
 
+\subsection{CenteredRigid2DTransform}
+\label{sec:CenteredRigid2DTransform}
+\index{itk::CenteredRigid2DTransform|textbf}
+
+\begin{center}
+\begin{tabular}{\tableconfiguration}
+\hline
+\textbf{Behavior} &
+\textbf{Number of parameters} &
+\textbf{Parameter Ordering} &
+\textbf{Restrictions} \\
+\hline\hline
+Represents a 2D rotation around an arbitrary center followed by a 2D translation.&
+5 &
+The first parameter is the angle in radians. Second and third are the center of
+rotation coordinates and the last two parameters are the translation in each
+dimension. & 
+Only defined for two-dimensional input and output spaces. \\
+\hline
+\end{tabular}
+\end{center}
+
+CenteredRigid2DTransform implements a rigid transformation in $2D$. The main
+difference between this transform and the \code{Euler2DTransform} is that here
+we can specify an arbitrary center of rotation, while the
+\code{Euler2DTransform} always use the origin of the coordinate system as
+rotation center. This distintion is quite important in image registration since
+ITK images usually have their origin in the corner of the image rather than the
+middle.  Rotational miss-registrations however usually exist as rotaions around
+the center of the image, or at least as rotaions around a point in the middle
+of the anatomical structure captured by the image. Attempting to solve this
+non-origin rotations using rotation around the origin are an almost imposible
+problem to solve with gradient descent optimizers since the deep basin of the
+real solution is across a high ridge in the topography of the cost function.
+
+In practice this transform is used as follows: the user supplies the center of
+rotation in the input space, the angle of rotation and a translation to be
+applied after the rotation.
+
+With these parameters the transforms initialize a rotational matrix and a
+transform that performs the equivalent tasks of: Translating the center of
+rotation to the origin of coordinates, rotating by the specified angle,
+translating back to the center of rotation and finally translate by the
+especified translation.
+
+As the \code{Euler2DTransform} this transform suffers from the difference in
+units used for rotations and translations. Rotations are measured in radians,
+hence their values are in the range $[-\pi,\pi]$. The center of rotation and
+the translations are measured in millimeters and their actual values vary
+depending on the image modality being considered.  Registrations involving
+angles and translations should take advantage of the scale normalization
+functionality in order to get the best performance out of
+the optimizers.
+
+The following equation illustrates the effect of the transform in an input
+point $(x,y)$ that maps to the output point $(x',y')$.
+
+\begin{equation}
+\left[ 
+\begin{array}{c}
+x' \\
+y' \\
+\end{array}
+\right]
+=
+\left[ 
+\begin{array}{cc}
+\cos{\theta} & -\sin{\theta} \\
+\sin{\theta} &  \cos{\theta} \\
+\end{array}
+\right]
+\cdot
+\left[ 
+\begin{array}{c}
+x - C_x \\
+y - C_y \\
+\end{array}
+\right]
++ 
+\left[ 
+\begin{array}{c}
+T_x + C_x \\
+T_y + C_y \\
+\end{array}
+\right]
+\end{equation}
+
+where $\theta$ is the rotation angle, $(C_x,C_y)$ are the coordinates of the
+rotation center and $(t_x,t_y)$ are the components of the translation. Note
+that the center coordinates are subtracted before the rotation and added back
+after the rotation.
 
 \subsection{Similarity2DTransform}
 \label{sec:Similarity2DTransform}
