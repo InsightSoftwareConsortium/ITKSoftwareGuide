@@ -118,18 +118,18 @@ version based on MFC}
 \end{figure}
 
 Figure \ref{fig:CMakeGUI} shows the CMake interface for UNIX and MS-Windows.
-In order to speed up the build process and to avoid compilation problems you
-may want to disable the compilation of the testing and examples. This is done
-with the variables \code{BUILD\_TESTING=OFF} and \code{BUILD\_EXAMPLES=OFF}.
-The examples distributed with the toolkit are a helpful resource for learning
-how to use ITK components. The testing section includes a large number of small 
-programs that exercise the capabilities of ITK classes. Due to the number of
-tests, enabling the testing option will considerable increase the buliding
-time.  It is not desirable to enable this option for a first built of the
-toolkit.
+In order to speed up the build process you may want to disable the compilation
+of the testing and examples. This is done with the variables
+\code{BUILD\_TESTING=OFF} and \code{BUILD\_EXAMPLES=OFF}.  The examples
+distributed with the toolkit are a helpful resource for learning how to use ITK
+components but are not essential for the use of the toolkit itself. The testing
+section includes a large number of small programs that exercise the
+capabilities of ITK classes. Due to the large number of tests, enabling the
+testing option will considerable increase the buliding time.  It is not
+desirable to enable this option for a first built of the toolkit.
 
 An additional resource is available at the \code{InsightApplications} module,
-which contains multiple applications incorporationg GUIs and different levels
+which contains multiple applications incorporating GUIs and different levels
 of visualization.  However, due to the large number of applications and the
 fact that some of them rely on third party libraries, building this module
 should be postponed until you are familiar with the basic structure of the
