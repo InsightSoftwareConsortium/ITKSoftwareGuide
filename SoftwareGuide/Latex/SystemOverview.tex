@@ -54,7 +54,14 @@ in some cases addtional chapters---cover these concepts in more detail.
         includes mesh definition (nodes and elements), loads, and boundary
         conditions.
 
-	\item[Spatial Objects.]
+	\item[Spatial Objects.] A hierarchy of classes for shape representation. 
+        These classes are intended to support modeling of anatomical
+        structures. Using a common basic interface, the spatial objects are 
+        capable of representing regions of space in a variety of different 
+        ways. For example: mesh structures, image masks, and implicit equations.
+        Spatial objects are the natural data structure for communications the 
+        results of segmentation methods and for introducing anatomical priors 
+        in both segmentation and registration methods.
 
 	\item[Level Set Framework.] The level set framework is a set of
         classes for creating filters to solve partial differential equations
