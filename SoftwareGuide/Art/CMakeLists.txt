@@ -53,6 +53,9 @@ SET(XFIG_FIGURES
   ImageRegistration5TraceMetric2
   ImageRegistration5TraceAngle2
   ImageRegistration5TraceTranslations2
+  ImageRegistration6TraceMetric
+  ImageRegistration6TraceAngle
+  ImageRegistration6TraceTranslations
   MultiResImageRegistration1TraceMetric
   MultiResImageRegistration1TraceTranslations
   MultiResImageRegistration2TraceMetric
