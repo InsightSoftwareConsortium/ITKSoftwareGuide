@@ -73,6 +73,7 @@ SET( Tex_SRCS
   Segmentation.tex
   SoftwareGuide.tex
   SoftwareProcess.tex
+  Statistics.tex
   SystemOverview.tex
   Transforms.tex
   Visualization.tex
@@ -89,6 +90,7 @@ ENDFOREACH( file )
 
 
 SET( ITK_EXAMPLES_TEX_SRCS_NAMES 
+  BayesianPluginClassifier.tex
   BilateralImageFilter.tex
   BinaryMinMaxCurvatureFlowImageFilter.tex
   BinaryThresholdImageFilter.tex
@@ -105,13 +107,17 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   DanielssonDistanceMapImageFilter.tex
   DeformableModel1.tex
   DiscreteGaussianImageFilter.tex
+  EuclideanDistance.tex
+  ExpectationMaximizationMixtureModelEstimator.tex
   FastMarchingImageFilter.tex
+  GaussianDensityFunction.tex
   GeodesicActiveContourImageFilter.tex
   GibbsPriorImageFilter1.tex
   GradientAnisotropicDiffusionImageFilter.tex
   GradientMagnitudeImageFilter.tex
   GradientMagnitudeRecursiveGaussianImageFilter.tex
   HelloWorld.tex
+  Histogram.tex
   HybridSegmentationFuzzyVoronoi.tex
   HoughTransform2DLinesImageFilter.tex
   Image1.tex
@@ -136,15 +142,24 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   ImageRegistration8.tex
   ImageRegistration9.tex
   ImageSliceIteratorWithIndex.tex
+  ImageToListAdaptor.tex
   IsolatedConnectedImageFilter.tex
+  KdTree.tex
+  KdTreeBasedKMeansClustering.tex
+  ListSample.tex
+  ListSampleToHistogramFilter.tex
+  ListSampleToHistogramGenerator.tex
   DeformableRegistration1.tex
   DeformableRegistration2.tex
   MultiResImageRegistration1.tex
   MultiResImageRegistration2.tex
   MathematicalMorphologyBinaryFilters.tex
   MathematicalMorphologyGrayscaleFilters.tex
+  MaximumDecisionRule.tex
+  MaximumRatioDecisionRule.tex
   MeanImageFilter.tex
   MedianImageFilter.tex
+  MembershipSample.tex
   Mesh1.tex
   Mesh2.tex
   Mesh3.tex
@@ -154,12 +169,17 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   MeshKComplex.tex
   MeshTraits.tex
   ModelToImageRegistration1.tex
+  MinimumDecisionRule.tex
   MinMaxCurvatureFlowImageFilter.tex
+  NeighborhoodSampler.tex
+  NormalVariateGenerator.tex
   PointSet1.tex
   PointSet2.tex
   PointSet3.tex
+  PointSetToListAdaptor.tex
   PointSetWithCovariantVectors.tex
   PointSetWithVectors.tex
+  ProbabilityDensityFunctions.tex
   ResampleImageFilter2.tex
   ResampleImageFilter3.tex
   ResampleImageFilter4.tex
@@ -170,15 +190,21 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   RGBImageReadWrite.tex
   RGBImage.tex
   RGBPointSet.tex
+  SampleSorting.tex
+  SampleStatistics.tex
+  SampleToHistogramProjectionFilter.tex
   ShapeDetectionLevelSetFilter.tex
   SmoothingRecursiveGaussianImageFilter.tex
   SmoothingRecursiveGaussianImageFilter2.tex
   SigmoidImageFilter.tex
+  SampleSorting.tex
+  Subsample.tex
   ThresholdImageFilter.tex
   VectorCurvatureAnisotropicDiffusionImageFilter.tex
   VectorGradientAnisotropicDiffusionImageFilter.tex
   VectorImage.tex
   WatershedSegmentation1.tex
+  WeightedSampleStatistics.tex
   )
 
 FOREACH( exampletexname ${ITK_EXAMPLES_TEX_SRCS_NAMES})
