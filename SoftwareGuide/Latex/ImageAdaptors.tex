@@ -1,0 +1,22 @@
+
+\chapter{ImageAdaptors}
+
+\index{ImageAdaptors}
+
+The purpose of Image Adaptors is to make an image object of a particular type
+to look like another type of image. A typical example is to take an image of
+pixel type \code{unsigned char} and make it look like an image of pixel type
+\code{float}. The motivation for using Image Adaptors is to prevent the memory
+overload that normaly will be produced by a casting filter. If you use the
+\doxygen{CastImageFilter} for converting an \code{unsigned char} image into a
+\doxygen{float} one, the filter will duplicate the memory buffer required for
+storing the image, given that \code{float}s require four times more memory than
+\code{unsigned char}s, the memory consumption will actually be multiplied by
+four. An ImageAdaptor will prevent this memory replication and will convert
+pixel values only when they are read using image iterators (see
+chapter~\ref{sec:ImageIteratorsChapter}).
+
+ImageAdaptors can replace any of the pixel-wise filters in the toolkit. They
+are defined for most of the basic single valued and single parameter functions
+like trigonometric functions, exponential and logarithms.
+
