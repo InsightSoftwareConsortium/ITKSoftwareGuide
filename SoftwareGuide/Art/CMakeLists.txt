@@ -21,6 +21,8 @@ SET(JPEG_IMAGES
   BinaryMinMaxCurvatureFlowImageFilterOutput
   BinomialBlurImageFilterOutput
   BrainProtonDensitySlice
+  BrainProtonDensitySlice2x3
+  BrainProtonDensitySlice2x3b
   ccmakeScreenShot
   CurvatureFlowImageFilterOutput
   CurvatureAnisotropicDiffusionImageFilterOutput
