@@ -154,6 +154,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   RGBImageReadWrite.tex
   RGBImage.tex
   RGBPointSet.tex
+  ShapeDetectionLevelSetFilter.tex
   SmoothingRecursiveGaussianImageFilter.tex
   SigmoidImageFilter.tex
   ThresholdImageFilter.tex
