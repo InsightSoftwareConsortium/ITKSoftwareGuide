@@ -505,6 +505,52 @@ parameter space and the non-uniformity of the measure units. Gradient-descent
 optimizers should be used with caution on such parameter spaces since the
 notion of gradient direction and step-length are ill-defined.
 
+The following equation illustrates the effect of the transform in an input
+point $(x,y)$ that maps to the output point $(x',y')$.
+
+\begin{equation}
+\left[ 
+\begin{array}{c}
+x' \\
+y' \\
+\end{array}
+\right]
+=
+\left[ 
+\begin{array}{cc}
+\lambda &    0     \\
+   0    &  \lambda \\
+\end{array}
+\right]
+\cdot
+\left[ 
+\begin{array}{cc}
+\cos{\theta} & -\sin{\theta} \\
+\sin{\theta} &  \cos{\theta} \\
+\end{array}
+\right]
+\cdot
+\left[ 
+\begin{array}{c}
+x - C_x \\
+y - C_y \\
+\end{array}
+\right]
++ 
+\left[ 
+\begin{array}{c}
+T_x + C_x \\
+T_y + C_y \\
+\end{array}
+\right]
+\end{equation}
+
+where $\lambda$ is the scale factor, $\theta$ is the rotation angle,
+$(C_x,C_y)$ are the coordinates of the rotation center and $(T_x,T_y)$ are
+the components of the translation. Note that the center coordinates are
+subtracted before the rotation and scaling, and it is added back afterwards.
+
+
 A possible approach for supervising optimization in the parameter space of this
 transform is to dynamically control the array of scales passed to the
 optimizer. The effect produced by the parameters scaling  can be used to steer
