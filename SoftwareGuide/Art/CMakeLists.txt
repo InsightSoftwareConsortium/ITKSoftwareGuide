@@ -53,6 +53,7 @@ SET(XFIG_FIGURES
   Histogram
   HybridSegmentationEngine1
   HybridSegmentationFCVDDM
+  ImageAdaptorConcept
   ImageIOCollaborationDiagram
   ImageIOFactoriesClassDiagram
   ImageIOFactoriesUseCases
