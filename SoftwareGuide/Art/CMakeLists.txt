@@ -52,6 +52,7 @@ SET(XFIG_FIGURES
   ThresholdTransferFunctionOutside
   WatershedCatchmentBasins
   WatershedsHierarchy
+  WatershedImageFilter
 )
 
 
