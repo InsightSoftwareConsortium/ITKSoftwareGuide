@@ -1,11 +1,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+%
+%
 % Complete documentation on the extended LaTeX markup used for Insight
 % documentation is available in ``Documenting Insight'', which is part
 % of the standard documentation for Insight.  It may be found online
 % at:
 %
-%     http://www.itk.org
+%                    http://www.itk.org
+%
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -13,6 +16,13 @@
 
 \usepackage[dvips]{graphicx}
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  hyperref should be the last package to be loaded.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[dvips,
 pdftitle={ITK Software Guide},
 pdfauthor={Edited by Luis Ibanez and Will Schroeder},
@@ -25,13 +35,37 @@ colorlinks,linkcolor={blue},citecolor={green},urlcolor={blue},
 ]{hyperref}
 
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%   Load configuration parameters prepared by CMake
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{SoftwareGuideConfiguration.tex}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%           The Insight Toolkit Software Guide
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \title{The ITK Software Guide}
 
 \author{Editors:\\Luis Ib\'{a}\~{n}ez\\Will Schroeder\\
         Contributors:\\Lydia Ng\\Josh Cates\\Insight Consortium}
 
 \authoraddress{
-  http://www.itk.org\\
+  \url{http://www.itk.org}\\
 	Email: \email{insight-users@public.kitware.com}
 }
 
@@ -48,11 +82,23 @@ colorlinks,linkcolor={blue},citecolor={green},urlcolor={blue},
 
 \setcounter{tocdepth}{3}
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%           Begin Document
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{document}
 
 \maketitle
 
 \frontmatter
+
+\hyperbaseurl{http://www.itk.org/Insight}
 
 \ifitkFullVersion 
 \input{Abstract.tex}
@@ -62,11 +108,6 @@ colorlinks,linkcolor={blue},citecolor={green},urlcolor={blue},
 
 
 \mainmatter
-
-% This file contain platform 
-% dependent information
-\input{SoftwareGuideConfiguration.tex}
-
 
 \ifitkFullVersion
 \part{Introduction}
@@ -116,15 +157,38 @@ colorlinks,linkcolor={blue},citecolor={green},urlcolor={blue},
 
 \backmatter
 
-% Insert the bibliography
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Insert List of Figures and Tables
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\listoffigures
+\listoftables
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Insert the bibliography using BibTeX
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \bibliographystyle{plain}
 \bibliography{\bibtexdatabasepath}
 
 
-% Insert the index file
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Insert the Index file
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \InputIfFileExists{SoftwareGuide.ind}
 
 
+
 \end{document}
+
 
 
