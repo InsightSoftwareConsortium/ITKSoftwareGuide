@@ -476,6 +476,35 @@ Chapter 7 IO
     
 
    
+Chapter 9 Segmentation
+
+
+    - For all the Region Growing examples add a 3D example,
+      and surface render the result with VolView or Paraview.
+      run the Plugins in VolView.
+
+
+    - Clarify that many seed points can be provided.
+      e.g. illustrate the use on the figure 9.1 page 319.
+
+
+    - 9.1.4 Add example showing that the seed can be both in
+            bright or dark places. 
+
+
+            
+    - Add example for KLMRegionGrowing (Ceck with Sayan).
+      & fix Doxygen documentation.
+      From the Doxygen page on Groups, remove the helper
+      classes used in the KLM filter (e.g. border & region).
+      
+
+
+
+
+
+
+
 
 
 New Chapter : Visualization
