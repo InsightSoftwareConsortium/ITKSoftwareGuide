@@ -65,6 +65,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/CurvatureAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/DanielssonDistanceMapImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/DiscreteGaussianImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/DerivativeImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientMagnitudeImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientMagnitudeRecursiveGaussianImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientAnisotropicDiffusionImageFilter.cxx
@@ -92,6 +93,11 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/IO/CovariantVectorImageRead.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/CovariantVectorImageExtractComponent.cxx
   ${ITK_SOURCE_DIR}/Examples/Installation/HelloWorld.cxx
+  ${ITK_SOURCE_DIR}/Examples/Iterators/ImageLinearIteratorWithIndex.cxx
+  ${ITK_SOURCE_DIR}/Examples/Iterators/ImageRandomConstIteratorWithIndex.cxx
+  ${ITK_SOURCE_DIR}/Examples/Iterators/ImageRegionIterator.cxx
+  ${ITK_SOURCE_DIR}/Examples/Iterators/ImageRegionIteratorWithIndex.cxx
+  ${ITK_SOURCE_DIR}/Examples/Iterators/ImageSliceIteratorWithIndex.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration2.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration3.cxx
