@@ -3,6 +3,19 @@
 \chapter{Reading and Writing Images}
 \label{sec:IO}
 
+This chapter introduces the mechanisms provided in the toolkit for reading and
+writing images to files. Insight does not enforce any particular file format,
+instead, it provides a structure to facilitate the future addition of file
+formats without having to modify existing code. 
+
+Let's start with some examples of the simplest cases of moving images between files
+and memory.
+
+\section{Basic Example}
+\label{sec:ImagReadWrite}
+\input ImageReadWrite.tex
+
+
 \begin{figure}
 \center
 \includegraphics[width=12cm]{ImageIOCollaborationDiagram.eps}
@@ -17,18 +30,12 @@
 \label{fig:ImageIOFactoriesUseCases}
 \end{figure}
 
-
-This chapter introduces the mechanisms provided in the toolkit for reading and
-writing images to files. Insight does not enforce any particular file format,
-instead, it provides a structure to facilitate the future addition of file
-formats without having to modify existing code. 
-
-Let's start with some examples of the simplest cases of moving images between files
-and memory.
-
-\section{Basic Example}
-\label{sec:ImagReadWrite}
-\input ImageReadWrite.tex
+\begin{figure}
+\center
+\includegraphics[width=10cm]{ImageIOFactoriesClassDiagram.eps}
+\caption{Class diagram of ImageIO factories.}
+\label{fig:ImageIOFactoriesClassDiagram}
+\end{figure}
 
 \section{Reading and Writing RGB Images}
 \label{sec:RGBImagReadWrite}
@@ -80,13 +87,6 @@ constructing a \code{PNGImageIO} object and returning its pointer. Each time a
 new file format is added, its factory should be implemented as a derived class
 of the \code{ImageIOFactory} class as illustrated in
 Figure~\ref{fig:ImageIOFactoriesClassDiagram}. 
-
-\begin{figure}
-\center
-\includegraphics[width=10cm]{ImageIOFactoriesClassDiagram.eps}
-\caption{Class diagram of ImageIO factories.}
-\label{fig:ImageIOFactoriesClassDiagram}
-\end{figure}
 
 In order to read PNG files, a \code{PNGImageIOFactory} should be created and
 registered with the central \code{ImageIOFactory}
