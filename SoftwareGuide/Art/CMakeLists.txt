@@ -48,6 +48,8 @@ SET(XFIG_FIGURES
   ImageRegistration3Observer
   MultiResImageRegistration1TraceMetric
   MultiResImageRegistration1TraceTranslations
+  MultiResImageRegistration2TraceMetric
+  MultiResImageRegistration2TraceTranslations
   MultiResRegistrationComponents
   MultiResRegistrationConcept
   OptimizersHierarchy
