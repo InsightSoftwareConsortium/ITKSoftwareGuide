@@ -20,6 +20,10 @@
 
 \date{October 29 2002}		
 
+
+\makeindex			% actually write the .idx file
+
+
 \begin{document}
 
 \maketitle
@@ -27,6 +31,7 @@
 \input{Abstract.tex}
 
 \tableofcontents
+
 
 \input{Introduction.tex}
 \input{Installation.tex}
@@ -47,5 +52,7 @@
 
 \bibliographystyle{plain}
 \bibliography{../../Latex/Insight}
+
+\input{\jobname.ind}  % insert the index file
 
 \end{document}
