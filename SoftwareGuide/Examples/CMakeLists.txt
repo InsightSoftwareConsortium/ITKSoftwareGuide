@@ -208,8 +208,8 @@ IF( PERL_FOUND AND PERLCXXPARSER )
   SET(TEX_FILE ${SoftwareGuide_BINARY_DIR}/Examples/${TEX_FILE}.tex)
   ADD_CUSTOM_COMMAND(
     SOURCE    ${example}
-    COMMAND   ${PERL_EXECUTABLE} ${PERLCXXPARSER}
-    ARGS      ${example} ${TEX_FILE}
+    COMMAND   ${PERL_EXECUTABLE} 
+    ARGS      ${PERLCXXPARSER} ${example} ${TEX_FILE}
     TARGET    SoftwareGuideExamples
     DEPENDS   ${PERLCXXPARSER} ${example}
     OUTPUTS   ${TEX_FILE}
