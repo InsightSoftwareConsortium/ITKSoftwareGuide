@@ -95,6 +95,9 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   CastingImageFilters.tex
   ConfidenceConnected.tex
   ConnectedThresholdImageFilter.tex
+  CovariantVectorImageRead.tex
+  CovariantVectorImageWrite.tex
+  CovariantVectorImageExtractComponent.tex
   NeighborhoodConnectedImageFilter.tex
   CurvatureAnisotropicDiffusionImageFilter.tex
   CurvatureFlowImageFilter.tex
