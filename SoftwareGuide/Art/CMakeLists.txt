@@ -225,6 +225,7 @@ SET(JPEG_IMAGES
   ImageSliceIteratorWithIndexOutput
   IsolatedConnectedImageFilterOutput0
   IsolatedConnectedImageFilterOutput1
+  Kitware-logo-medium-res
   LaplacianSegmentationLevelSetImageFilterVentricle
   MultiResImageRegistration1CheckerboardBefore
   MultiResImageRegistration1CheckerboardAfter
