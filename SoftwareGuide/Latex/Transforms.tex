@@ -1,5 +1,5 @@
 
-\def\tableconfiguration{ | p{4cm} | p{2.3cm} | p{4cm} | p{4cm} | }
+\def\tableconfiguration{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} | }
 
 \index{itk::Transform|textbf}
 
@@ -32,6 +32,7 @@ the following table.
 \index{itk::Vector!Concept}
 \index{itk::CovariantVector!Concept}
 
+\begin{table}
 \begin{center}
 \begin{tabular}{ | p{0.3\textwidth} | p{ 0.6\textwidth} | }
 \hline
@@ -54,6 +55,9 @@ functions. Covariant vectors do not have a position in space.\\
 \hline
 \end{tabular}
 \end{center}
+\itkcaption[Geometrical Elementary Objects]{Summary of Objects representing geometrical concepts in ITK}
+\end{table}
+
 
 Additional uses of the \doxygen{Point}, \doxygen{Vector} and \doxygen{CovariantVector}
 classes have been discussed in Chapter \ref{sec:DataRepresentation}.  Each one
@@ -142,6 +146,7 @@ classes available in ITK.
 \label{sec:IdentityTransform}
 \index{itk::IdentityTransform|textbf}
 
+\begin{table}
 \begin{center}
 \begin{tabular}{\tableconfiguration}
 \hline
@@ -157,17 +162,23 @@ Only defined when the input and output space has the same number of dimensions. 
 \hline
 \end{tabular}
 \end{center}
+\itkcaption[Identity Transform Characteristics]{Characteristics of the Identity Transform
+\label{tab:IdentityTransformCharacteristics}}
+\end{table}
 
 The identity transform is mainly used for debugging purposes. It is a mechanism
 to provide a transform to methods that require it but yet have the certainty
 that the transform will have no effect whatsoever in the outcome of the
-process. It is just a \code{NULL} operation.
+process. It is just a \code{NULL} operation. The main characteristics of the
+identity transform are summarized in
+Table~\ref{tab:IdentityTransformCharacteristics}
 
 
 \subsection{Translation Transform}
 \label{sec:TranslationTransform}
 \index{itk::TranslationTransform|textbf}
 
+\begin{table}
 \begin{center}
 \begin{tabular}{\tableconfiguration}
 \hline
@@ -184,6 +195,9 @@ Only defined when the input and output space has the same number of dimensions. 
 \hline
 \end{tabular}
 \end{center}
+\itkcaption[Translation Transform Characteristics]{Characteristics of the Translation Transform
+\label{tab:TranslationTransformCharacteristics}}
+\end{table}
 
 
 The translation transform is probably the simplest yet useful transformation.
@@ -193,8 +207,10 @@ they are not associated to a position in space. Translation is the best
 transform to start a registration method. Before attempting to solve for
 rotations or scaling  it is important to overlap the anatomical objects in both
 images as much as possible. This is done by resolving the translational
-misalignment between the images. Translations also have the advantages of
-being fast to compute and having parameters that are easy to interpret.
+misalignment between the images. Translations also have the advantages of being
+fast to compute and having parameters that are easy to interpret. The main
+characteristics of the translation transform are presented in
+Table~\ref{tab:TranslationTransformCharacteristics}.
 
 
 
