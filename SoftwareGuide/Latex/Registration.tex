@@ -7,7 +7,7 @@ another.\label{fig:ImageRegistrationConcept}}
 \parpic(8cm,3cm)[r]{\includegraphics[width=8cm]{ImageRegistrationConcept.eps}}
   
 This chapter introduces ITK's capabilities for performing image
-registration. Image registration is the process to determine the spatial
+registration. Image registration is the process of determining the spatial
 transform that maps points from one image to homologous points on a object in
 the second image. This concept is schematically represented in Figure
 \ref{fig:ImageRegistrationConcept}. In ITK, registration is performed within
@@ -21,10 +21,10 @@ application.
 The components of the registration framework and their interconnections 
 are shown in Figure \ref{fig:RegistrationComponents}. The basic
 input data to the registration process are two images: one
-is defined as the \emph{fixed} image $f(\bf{X})$ and the other defined as the
+is defined as the \emph{fixed} image $f(\bf{X})$ and the other as the
 \emph{moving} image $m(\bf{X})$. Registration is treated as an optimization problem
 with the goal of finding the spatial mapping that will bring the moving image into 
-alignment with the fixed or target image.
+alignment with the fixed image.
 
 \begin{figure}
 \center
@@ -39,7 +39,7 @@ The \emph{transform} component $T(\bf{X})$ represents the spatial mapping of
 points from the fixed image space to points in the moving image space. Note
 that this definition is inverse to the usual view of image transformation.
 Using the \emph{inverse} transform is typical in registration as it avoids the
-potential problems of ``holes'' with forward transform. The \emph{interpolator}
+potential problems of ``holes'' with the forward transform. The \emph{interpolator}
 is used to evaluate moving image intensity at non-grid positions. The
 \emph{metric} component $S(f,m \circ T)$ provides a measure of how well the
 fixed image is matched by the transformed moving image. This measure forms the
@@ -47,9 +47,9 @@ quantitative criterion to be optimized by the \emph{optimizer} over the search
 space defined by the parameters of the \emph{transform}.
 
 These various ITK registration components will be described in later
-sections.  First we begin with some simple registration examples.
+sections.  First, we begin with some simple registration examples.
 
-\section{Hello World Registration}
+\section{"Hello World" Registration}
 \label{sec:IntroductionImageRegistration}
 \ifitkFullVersion
 \input{ImageRegistration1.tex}
@@ -81,12 +81,12 @@ sections.  First we begin with some simple registration examples.
 
 \section{ Centered Transforms }
 
-The ITK image coordinate origin is typically located in one of image
+The ITK image coordinate origin is typically located in one of the image
 corners. This results in counter-intuitive transform behavior when
 rotations and scaling are involved. Users tend to assume that rotations and
 scaling are performed around a fixed point at the center of the image.  In
 order to compensate for this difference in natural interpretation, a set of
-\emph{centered} transforms have been introduced in the toolkit. The following
+\emph{centered} transforms have been introduced into the toolkit. The following
 sections describe the main characteristics of such transforms.
 
 \subsection{Rigid Registration in 2D}
@@ -130,7 +130,7 @@ reaches the finest possible scale. This coarse-to-fine strategy greatly
 improve the registration success rate and also increases robustness
 by eliminating local optima at coarser scales.
 
-The Insight toolkit offers a multi-resolution registration framework that is
+The Insight Toolkit offers a multi-resolution registration framework that is
 directly compatible with all the registration framework components. The
 multi-resolution registration framework has two additional components: a pair
 of \emph{image pyramids} that are used to down-sample the fixed and moving
