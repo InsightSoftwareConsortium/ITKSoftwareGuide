@@ -162,12 +162,12 @@ Chapter 6 Filtering
 
    - in Thresholding add examples:
 
-       OtsuThresholdImageCalculator (using it alone)
+       OtsuThresholdImageCalculator (using it alone) 
        OtsuThresholdImageFilter (already there, but needs refinement).
 
-       OtsuMultipleThreshold Calculator (using it alone).
-       OtsuMultipeleThreshodl Filter (add example + filter).
-
+       OtsuMultipleThreshold Calculator (using it alone).          ** Added  **
+       OtsuMultipeleThreshodl Filter (add example + filter).       **  Added **
+       
 
 
 
