@@ -117,7 +117,7 @@ IF( PERLCXXPARSER )
     COMMAND   ${PERLCXXPARSER}
     ARGS      ${CxxExamplesListFile}   ${SoftwareGuide_BINARY_DIR}/Examples 
     TARGET    SoftwareGuide
-    DEPENDS   ${ITK_EXAMPLES_SRCS} ${CxxExamplesListFile}
+    DEPENDS   ${ITK_EXAMPLES_SRCS} ${CxxExamplesListFile} ${PERLCXXPARSER}
     OUTPUTS   ${ITK_EXAMPLES_TEX_SRCS}
   )
 
