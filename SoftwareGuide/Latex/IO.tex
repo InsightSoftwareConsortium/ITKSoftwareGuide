@@ -3,18 +3,21 @@
 \chapter{Reading and Writing Images}
 \label{sec:IO}
 
-This chapter introduces the mechanisms provided in the toolkit for reading and
-writing images to files. Insight does not enforce any particular file format,
-instead, it provides a structure to facilitate the future addition of file
-formats without having to modify existing code. 
+This chapter describes the toolkit architecture supporting reading and
+writing of images to files. ITK does not enforce any particular file format,
+instead, it provides a structure supporting a variety of formats that can
+be easily extended by the user as new formats become available.
 
-Let's start with some examples of the simplest cases of moving images between files
-and memory.
+We begin the chapter with some simple examples of file I/O.
 
 \section{Basic Example}
 \label{sec:ImagReadWrite}
 \input{ImageReadWrite.tex}
 
+To better understand the IO architecture, please refer to Figures 
+\ref{fig:ImageIOCollaborationDiagram}, 
+\ref{fig:ImageIOFactoriesUseCases}, and
+\ref{fig:ImageIOFactoriesClassDiagram}. 
 
 \begin{figure}
 \center
@@ -26,14 +29,14 @@ of the ImageIO classes.} \label{fig:ImageIOCollaborationDiagram}
 \begin{figure}
 \center
 \includegraphics[width=\textwidth]{ImageIOFactoriesUseCases.eps}
-\itkcaption[Use cases of ImageIO factories] {Use cases of ImageIO factories}
+\itkcaption[Use cases of ImageIO factories] {Use cases of ImageIO factories.}
 \label{fig:ImageIOFactoriesUseCases}
 \end{figure}
 
 \begin{figure}
 \center
 \includegraphics[width=\textwidth]{ImageIOFactoriesClassDiagram.eps}
-\itkcaption[Class diagram of ImageIO factories] {Class diagram of ImageIO
+\itkcaption[Class diagram of ImageIO factories] {Class diagram of the ImageIO
 factories.}
 \label{fig:ImageIOFactoriesClassDiagram}
 \end{figure}
@@ -42,7 +45,7 @@ factories.}
 \label{sec:RGBImagReadWrite}
 \input{RGBImageReadWrite.tex}
 
-\section{Reading Casting and Writing Images}
+\section{Reading, Casting and Writing Images}
 \label{sec:ImagReadCastWrite}
 \input{ImageReadCastWrite.tex}
 
@@ -81,53 +84,54 @@ in the toolkit.
 \label{sec:ImageIOPluggableFactories}
 
 The principle behind the input/output mechanism used in ITK is known as
-\emph{pluggable-factories} \cite{Gamma1995}. The concept is illustrated in the
-UML diagram in Figure~\ref{fig:ImageIOCollaborationDiagram}. From the user's
-point of view the objects responsible for reading and writing files are the
-\doxygen{ImageFileReader} and \doxygen{ImageFileWriter} classes. These two
-classes, however, are not aware of the details involved in reading or writing
-particular file formats like PNG or DICOM.  What they do, is to dispatch the
-user's requests to a set of specific classes that are aware of the file formats
-intricacies. These classes are the \doxygen{ImageIO} classes. The delegation
-mechanism allows to extend the number of supported file formats by just adding
-new classes to the \doxygen{ImageIO} hierarchy.
+\emph{pluggable-factories} \cite{Gamma1995}. This concept is illustrated in
+the UML diagram in Figure~\ref{fig:ImageIOCollaborationDiagram}. From the
+user's point of view the objects responsible for reading and writing files
+are the \doxygen{ImageFileReader} and \doxygen{ImageFileWriter}
+classes. These two classes, however, are not aware of the details involved in
+reading or writing particular file formats like PNG or DICOM.  What they do
+is to dispatch the user's requests to a set of specific classes that are
+aware of the details of image file formats. These classes are the
+\doxygen{ImageIO} classes. The ITK delegation mechanism enables users to
+extend the number of supported file formats by just adding new classes to the
+\doxygen{ImageIO} hierarchy.
 
-Each instance of \doxygen{ImageFileReader} and \doxygen{ImageFileWriter} has a
-pointer to an \doxygen{ImageIO} object. If this pointer is empty, it will be
-impossible to read/write an image and any request for doing so will result in
-an exception being thrown. When a request for reading or writing a file is
-passed to any ImageFile object, it attempts to find an appropriate
-\doxygen{ImageIO} object capable of doing the job. This is done basically by
-passing the filename to a centralized class, the \doxygen{ImageIOFactory} and
-asking it if it knows of any \doxygen{ImageIO} class capable of reading/writing
-this file. This is illustrated by the use cases on the right side of
+Each instance of \doxygen{ImageFileReader} and \doxygen{ImageFileWriter} has
+a pointer to an \doxygen{ImageIO} object. If this pointer is empty, it will
+be impossible to read or write an image and the image file reader/writer must
+determine which \doxygen{ImageIO} class to use to perform IO operations.
+This is done basically by passing the filename to a centralized class, the
+\doxygen{ImageIOFactory} and asking it to identify any subclass of
+\doxygen{ImageIO} capable of reading or writing the user-specified file. This
+is illustrated by the use cases on the right side of
 Figure~\ref{fig:ImageIOFactoriesUseCases}.
 
-Each class derived from \doxygen{ImageIO} should provide an associated factory
+Each class derived from \doxygen{ImageIO} must provide an associated factory
 class capable of producing an instance of the \doxygen{ImageIO} class. For
 example, for PNG files, there is a \doxygen{PNGImageIO} object that knows how
 to read this image files and there is a \doxygen{PNGImageIOFactory} class
-capable of constructing a \doxygen{PNGImageIO} object and returning its pointer.
-Each time a new file format is added, its factory should be implemented as a
-derived class of the \doxygen{ImageIOFactory} class as illustrated in
-Figure~\ref{fig:ImageIOFactoriesClassDiagram}. 
+capable of constructing a \doxygen{PNGImageIO} object and returning a pointer
+to it.  Each time a new file format is added (i.e., a new \doxygen{ImageIO}
+subclass is created), a factory must be implemented as a derived class of the
+\doxygen{ImageIOFactory} class as illustrated in
+Figure~\ref{fig:ImageIOFactoriesClassDiagram}.
 
-In order to read PNG files, a \doxygen{PNGImageIOFactory} should be created and
-registered with the central \doxygen{ImageIOFactory}
+For example, in order to read PNG files, a \doxygen{PNGImageIOFactory} is
+created and registered with the central \doxygen{ImageIOFactory}
 singleton\footnote{\emph{Singleton} means that there is only one instance of
 this class in a particular application} class as illustrated in the left side
-of Figure~\ref{fig:ImageIOFactoriesUseCases}. When the ImageFileReader asks the
-\doxygen{ImageIOFactory} for an \doxygen{ImageIO} capable of reading the file
-identified with \emph{filename} the ImageIOFactory will iterate over the list
-of registered factories and will ask each one of them is they know how to read
-the file. The factory that responds affirmatively will be used to create the
-specific \doxygen{ImageIO} instance that will be returned to the
-\doxygen{ImageFileReader}.
+of Figure~\ref{fig:ImageIOFactoriesUseCases}. When the ImageFileReader asks
+the \doxygen{ImageIOFactory} for an \doxygen{ImageIO} capable of reading the
+file identified with \emph{filename} the ImageIOFactory will iterate over the
+list of registered factories and will ask each one of them is they know how
+to read the file. The factory that responds affirmatively will be used to
+create the specific \doxygen{ImageIO} instance that will be returned to the
+\doxygen{ImageFileReader} and used to perform the read operations.
 
-In most cases the whole mechanism will be transparent to the user who will only
-interact with the \doxygen{ImageFileReader} and \doxygen{ImageFileWriter}. It is
-possible, however, to explicitly select the type of \doxygen{ImageIO} object to use.
-This is illustrated in the following sections.
+In most cases the mechanism is transparent to the user who onlt interacts
+with the \doxygen{ImageFileReader} and \doxygen{ImageFileWriter}. It is
+possible, however, to explicitly select the type of \doxygen{ImageIO} object
+to use.  This is illustrated by the following example.
 
 
 \section{Using ImageIO classes explicitly}
