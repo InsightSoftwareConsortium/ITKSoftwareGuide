@@ -80,6 +80,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/IO/RGBImageReadWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/Installation/HelloWorld.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration1.cxx
+  ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration2.cxx
 )
 
 
