@@ -721,13 +721,13 @@ can be used by the interpreted languages. There is almost a direct
 translation from C++, with the differences being the
 particular syntactical requirements of each language. For example, in the
 directory \code{Testing/Code/Algorithms} directory, the test 
-\code{itkCurvatureFlowTestTcl.tcl} has a code fragment that appears as follows:
+\code{itkCurvatureFlowTestTcl2.tcl} has a code fragment that appears as follows:
 \small
 \begin{verbatim}
-  set reader [itk::create ImageFileReaderF2]
+  set reader [itkImageFileReaderF2_New]
     $reader SetFileName "${ITK_TEST_INPUT}/cthead1.png"
 
-  set cf [itk::create CurvatureFlowImageFilterF2F2]
+  set cf [itkCurvatureFlowImageFilterF2F2_New]
     $cf SetInput [$reader GetOutput]
     $cf SetTimeStep 0.25
     $cf SetNumberOfIterations 10
