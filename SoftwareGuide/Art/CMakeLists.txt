@@ -82,6 +82,7 @@ SET(XFIG_FIGURES
   ImageRegistration9TraceAngle
   ImageRegistration9TraceTranslations
   LevelSetZeroSet
+  LevelSetSegmentationFigure1
   MinMaxCurvatureFlowFunctionDiagram
   ModelToImageRegistrationConcept
   ModelToImageRegistrationTraceAngle
@@ -112,6 +113,8 @@ SET(XFIG_FIGURES
   SigmoidParameterAlpha
   SigmoidParameterBeta
   ShapeDetectionCollaborationDiagram1
+  ThresholdSegmentationLevelSetImageFilterFigure1
+  ThresholdSegmentationLevelSetImageFilterCollaborationDiagram1
   ThresholdTransferFunctionAbove
   ThresholdTransferFunctionBelow
   ThresholdTransferFunctionOutside
@@ -253,6 +256,9 @@ SET(JPEG_IMAGES
   ThresholdImageFilterOutputAbove
   ThresholdImageFilterOutputBelow
   ThresholdImageFilterOutputOutside
+  ThresholdSegmentationLevelSetImageFilterWhiteMatter
+  ThresholdSegmentationLevelSetImageFilterGrayMatter
+  ThresholdSegmentationLevelSetImageFilterVentricle
   VectorGradientAnisotropicDiffusionImageFilterInput
   VectorGradientAnisotropicDiffusionImageFilterOutput
   VectorCurvatureAnisotropicDiffusionImageFilterInput
