@@ -101,8 +101,8 @@ SET(XFIG_FIGURES
   ResampleImageFilterTransformComposition5
   ResampleImageFilterTransformComposition6
   SigmoidBase
-  SigmoidParametersAlpha
-  SigmoidParametersBeta
+  SigmoidParameterAlpha
+  SigmoidParameterBeta
   ThresholdTransferFunctionAbove
   ThresholdTransferFunctionBelow
   ThresholdTransferFunctionOutside
@@ -222,6 +222,7 @@ SET(JPEG_IMAGES
   RGBGradientAnisotropicDiffusionImageFilterOutput2
   SmoothingRecursiveGaussianImageFilterOutput3
   SmoothingRecursiveGaussianImageFilterOutput5
+  SigmoidImageFilterOutput
   ThresholdImageFilterOutputAbove
   ThresholdImageFilterOutputBelow
   ThresholdImageFilterOutputOutside
