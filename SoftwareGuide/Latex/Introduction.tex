@@ -85,33 +85,130 @@ data.
 \subsection{Obtaining the Software}
 \label{sec:ObtainingTheSoftware}
 
-There are three different ways to access the ITK source code. The next
-chapter describes the process in more detail (see Section 
+There are three different ways to access the ITK source code.
 \ref{sec:DownLoadingITK}).
 \begin{enumerate}
-	\item	from the companion CD-ROM accompanying this text;
-	\item	from periodic releases available on the ITK Web site 
-                http://www.itk.org; and
-	\item	from direct access to the CVS source code repository 
-                (instructions also found at http://www.itk.org).
+	\item	from periodic releases available on the ITK Web site;
+	\item	from CD-ROM, and;
+	\item	from direct access to the CVS source code repository.
 \end{enumerate}
-(In general, the periodic releases and CD-ROM releases are the same, except
-that the CD release typically contains additional resources and data.)
+Official releases are available a few times a year and announced on the ITK
+Web pages and mailing lists. However, they may not provide the latest and
+greatest features of the toolkit. In general, the periodic releases and
+CD-ROM releases are the same, except that the CD release typically contains
+additional resources and data. CVS access provides immediate access to the
+latest toolkit additions, but on any given day may not be stable as compared
+to the official releases---i.e., the code may not compile, it may crash, or
+it might even produce incorrect results.
 
 This \emph{Software Guide} assumes that you are working with the official ITK
-version 1.1 release. To begin with, we highly recommend that you use the
-released version of the software. It is stable, consistent, and better tested
-than the code available from the CVS repository. Later, as you gain
-experience with ITK, you may wish to work from the CVS repository. However,
-if you work from the repository, please be aware of the ITK quality testing
-dashboard. The \emph{Insight Toolkit} is heavily tested using the open-source
-DART regression testing system
+version 1.1 release (available on the ITK Web site). If you are a new user,
+we highly recommend that you use the released version of the software. It is
+stable, consistent, and better tested than the code available from the CVS
+repository. Later, as you gain experience with ITK, you may wish to work from
+the CVS repository. However, if you work from the repository, please be aware
+of the ITK quality testing dashboard. The \emph{Insight Toolkit} is heavily
+tested using the open-source DART regression testing system
 (http://public.kitware.com/dashboard.php). Before updating the CVS
 repository, make sure that the dashboard is \emph{green} indicating stable
 code. If not green it is likely that your software update is unstable. (Learn
 more about the ITK quality dashboard in Section
 \ref{sec:DART} on page \pageref{sec:DART}.)
 
+\section{Downloading ITK}
+\label{sec:DownloadingITK}
+ 
+\index{Downloading|textbf}
+
+ITK can be downloaded without cost from the following web site:
+\begin{center} 
+  \url{http://www.itk.org/HTML/Download.php}
+\end{center}
+In order to track the kind of applications for which ITK is being used, you
+will be asked to fill a form before downloading the software.
+The information you provide in this form will help developers to get a better
+idea of the interests and skills of the toolkit users. It also assists in 
+future funding requests to sponsoring agencies.
+
+Once you fill this form you will have access to the download page where two
+options for downloading the software will be found. This page can be bookmarked
+to facilitate a second visit to the download site without having to fill any
+form again. You can get the tarball of a stable release or you can get the
+development version through CVS.  The release version is stable and dependable
+but may lack the latest features of the toolkit. The CVS version will have the
+latest additions but is inherently unstable and may contain components with
+work in progress.  The following sections describe the details of each one of
+these two alternatives.
+
+\subsection{Downloading Packaged Releases}
+\label{sec:DownloadingReleases}
+
+\index{ITK!downloading release}
+
+Please read the \code{GettingStarted.txt}
+\footnote{\url{http://www.itk.org/HTML/GettingStarted.txt}} document 
+first. It will give you an overview of the download and installation
+processes. Then choose the tarball that better fits your system. The options
+are .zip and .tgz files.  The first type is better suited for MS-Windows
+while the second one is the preferred format for UNIX systems.
+
+Once you unzip or untar the file a directory called \code{Insight} will be
+created in your disk and you will be ready for starting the configuration
+process described in section \ref{sec:CMakeforITK} on page 
+\pageref{sec:CMakeforITK}.
+
+\subsection{Downloading from CVS}
+\label{sec:DownloadingFromCVS}
+
+\index{ITK!CVS repository}
+
+The Concurrent Versions System (CVS) is a tool for software version control
+\cite{Fogel1999}. Generally only developers should be using CVS, so here we 
+assume that you know what CVS is and how to use it.  For more information
+about CVS please see \ref{sec:CVSRepository} on page 
+\pageref{sec:CVSRepository}. (Note: please make sure that you access the 
+software via CVS only when the ITK Quality Dashboard indicates that the 
+code is stable. Learn more about the Quality Dashboard at
+\ref{sec:QualityDashboard} on page \pageref{sec:QualityDashboard}.)
+
+Access ITK via CVS using the following commands (under UNIX and Cygwin): 
+\begin{verbatim}
+cvs -d :pserver:anonymous@www.itk.org:/cvsroot/Insight login
+(respond with password "insight")
+
+cvs -d :pserver:anonymous@www.itk.org:/cvsroot/Insight co Insight
+\end{verbatim}
+
+This will trigger the download of the software into a directory named
+\code{Insight}.  Any time you want to update your version, it will be enough to
+move inside this directory \code{Insight} and type:
+\begin{verbatim}
+cvs update -d -P
+\end{verbatim}
+
+Once you obtain the software you are ready to configure and compile it (see
+\ref{sec:CMakeforITK} on page \pageref{\ref{sec:CMakeforITK}). First,
+however, we recommend that you join the mailing list and read the following
+sections describing the organization of the software. 
+
+\subsection{Join the Mailing List}
+\label{sec:JoinMailList}
+
+\index{ITK!mailing list|textbf}
+\index{mailing list|textbf}
+
+It is strongly recommended that you join the users mailing list. This is one
+of the primary resources to get guidance and orientation about the use of the 
+toolkit. You can subscribe to the users list on-line at
+\begin{center}
+\url{http://www.itk.org/HTML/MailingLists.htm}
+\end{center} 
+
+The insight-users mailing list is also the best mechanism for expressing your
+opinions about the toolkit and to let developers know about features that
+you find useful, desirable or even unnecessary in the toolkit. ITK
+developers are committed to creating a self-sustained open-source
+ITK community. Feedback from users is fundamental to achieve this goal.
 
 \subsection{Directory Structure}
 \label{sec:DirectoryStructure}
@@ -297,4 +394,6 @@ In 2002 the first official public release of ITK was made available. In
 addition, the National Library of Medicine awarded thirteen contracts to
 several organizations to extend ITK's capabilities. NLM funding of 
 \emph{Insight Toolkit} development is continuing through 2003, with additional
-application and maintenance support anticipated beyond 2003. 
+application and maintenance support anticipated beyond 2003. If you are 
+interested in potential funding opportunities, we suggest that you contact
+Dr. Terry Yoo at the National Library of Medicine for more information.
