@@ -78,6 +78,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientRecursiveGaussianImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GaussianBlurImageFunction.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/IsoSurfaceExtraction.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MathematicalMorphologyBinaryFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MathematicalMorphologyGrayscaleFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MedianImageFilter.cxx
