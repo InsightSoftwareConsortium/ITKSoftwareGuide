@@ -138,16 +138,16 @@ fact that some of them rely on third party libraries, building this module
 should be postponed until you are familiar with the basic structure of the
 toolkit and the building process. 
 
-Begin running CMake by using \code{ccmake} on Unix, and \code{CMakeSetup} on
-Windows. Remember to run \code{ccmake} from the binary directory on Unix. On
+Begin running CMake by using
+ccmake on Unix, and CMakeSetup on
+Windows. Remember to run ccmake from the binary directory on Unix. On
 Windows, specify the source and binary directories in the GUI, then begin to
 set the build variables in the GUI as necessary.  Most variables should have
 default values that are sensible. Each time you change a set of variables in
 CMake, it is necessary to proceed to another configuration step. In the
 Windows version this is done by clicking on the ``Configure'' button. In the
-UNIX version this is done in a
-\code{curses} interface where you can select to configure by hitting the
-``c'' key.
+UNIX version this is done in an interface using the 
+curses library, where you can configure by hitting the ``c'' key.
 
 When no new options appear in CMake, you can proceed to generate Makefiles or
 Visual Studio projects (or appropriate buildfile(s) depending on your
@@ -177,13 +177,13 @@ some of the large number of classes available in ITK. The details of these files
 are described in the following section.
 
 Once both files are in your directory you can run CMake in order to configure
-your project. Under UNIX, you can \code{cd} to your newly created directory
+your project. Under UNIX, you can cd to your newly created directory
 and type ``\code{ccmake . }''. Note the ``.'' in the command line for indicating
 that the \code{CMakeLists.txt} file is in the current directory. The
-\code{curses} interface will require you to provide the directory where ITK
+curses interface will require you to provide the directory where ITK
 was built. This is the same path that you indicated for the
 \code{ITK\_BINARY\_DIR} variable at the time of configuring ITK. Under
-Windows you can run \code{CMakeSetup} and provide your newly created
+Windows you can run CMakeSetup and provide your newly created
 directory as being both the source directory and the binary directory for
 your new project (i.e., an in-source build). Then CMake will require you to
 provide the path to the binary directory where ITK was built. The ITK binary

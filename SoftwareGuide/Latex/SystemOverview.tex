@@ -104,6 +104,9 @@ found in ITK.
 \subsection{Generic Programming}
 \label{sec:GenericProgramming}
 
+\index{generic programming}
+\index{template}
+
 Generic programming is a method of organizing libraries consisting of
 generic---or reusable---software components \cite{Musser1996}. The idea is to
 make software that is capable of ``plugging together'' in an efficient,
@@ -164,19 +167,22 @@ In addition to class headers, there are a few other important header files.
 \subsection{Object Factories}
 \label{sec:ObjectFactories}
 
+\index{object factory}
+\index{factory}
+
 Most classes in ITK are instantiated through an \emph{object factory}
 mechanism. That is, rather than using the standard C++ class constructor and
 destructor, instances of an ITK class are created with the static class
 \code{New()} method. In fact, the constructor and destructor are
 \code{protected:} so it is generally not possible to construct an ITK
 instance on the heap. (Note: this behavior pertains to classes that are
-derived from \doxygen{itk::LightObject}. In some cases the need for speed or
+derived from \doxygen{LightObject}. In some cases the need for speed or
 reduced memory footprint dictates that a class not be derived from
-\code{LightObject} and in this case instances may be created on the heap. An
-example of such a class is \code{itk::EventObject}.)
+LightObject and in this case instances may be created on the heap. An
+example of such a class is \doxygen{EventObject}.)
 
 The object factory enables users to control run-time instantiation of classes
-by registering one or more factories with \code{ObjectFactoryBase}. These
+by registering one or more factories with \doxygen{ObjectFactoryBase}. These
 registered factories support the method \code{CreateInstance(classname)}
 which takes as input the name of a class to create. The factory can choose to
 create the class based on a number of factors including the computer system
@@ -206,6 +212,8 @@ the use of the \code{New()} method to create a class. Generally the
 \subsection{Smart Pointers and Memory Management}
 \label{sec:SmartPointers}
 
+\index{smart pointer}
+
 By their nature object-oriented systems represent and operate on data through
 a variety of object types, or classes. When a particular class is
 instantiated to produce an instance of that class, memory allocation occurs
@@ -220,7 +228,8 @@ excessive memory consumption) will occur. This process of allocating and
 releasing memory is known as memory management.
 
 In ITK, memory management is implemented through reference counting. This
-compares to another popular approach---garbage collection---used by many
+compares to another popular approach---garbage collection---used
+\index{garbage collection} by many
 systems including Java. In reference counting, a count of the number of
 references to each instance is kept. When the reference goes to zero, the
 object destroys itself. In garbage collection, a background process sweeps
@@ -241,12 +250,12 @@ is equivalent to an \code{UnRegister()} method. When the reference count
 returns to zero, the instance is destroyed.
 
 This protocol is greatly simplified by using a helper class called a
-\code{SmartPointer}. The smart pointer acts like a regular pointer
+\doxygen{SmartPointer}. The smart pointer acts like a regular pointer
 (e.g. supports operators \code{->} and \code{*}) but automagically performs a
 \code{Register()} when referring to an instance, and an \code{UnRegister()}
 when it no longer points to the instance.  Unlike most other instances in
-ITK, \code{SmartPointer}s can be allocated on the program stack, and are
-automatically deleted when the scope that the \code{SmartPointer} was created
+ITK, SmartPointers can be allocated on the program stack, and are
+automatically deleted when the scope that the SmartPointer was created
 is closed. As a result, you should \emph{rarely if ever call Register() or
 Delete()} in ITK. For example:
 
@@ -264,7 +273,7 @@ Delete()} in ITK. For example:
 \normalsize
 
 In this example, reference counted objects are created (with the \code{New()}
-method) with a reference count of one. Assignment to the \code{SmartPointer}
+method) with a reference count of one. Assignment to the SmartPointer
 \code{interp} does not change the reference count. At the end of scope,
 \code{interp} is destroyed, the reference count of the actual interpolator
 object (referred to by \code{interp}) is decremented, and if it reaches zero,
@@ -300,7 +309,7 @@ generally takes the form as illustrated below:
 \normalsize
 
 where a particular class may throw an exceptions as demonstrated below (this
-code snippet is taken from \code{itk::ByteSwapper}:
+code snippet is taken from \doxygen{ByteSwapper}:
 \small
 \begin{verbatim}
   switch ( sizeof(T) )
@@ -315,13 +324,13 @@ code snippet is taken from \code{itk::ByteSwapper}:
 \end{verbatim}
 \normalsize
 
-Note that \code{ByteSwapperError} is a subclass of
-\doxygen{itk::ExceptionObject}. (In fact in ITK all exceptions should be derived
-from \code{ExceptionObject}.) In this example a special constructor and C++
+Note that \doxygen{ByteSwapperError} is a subclass of
+\doxygen{ExceptionObject}. (In fact in ITK all exceptions should be derived
+from ExceptionObject.) In this example a special constructor and C++
 preprocessor variables \code{\_\_FILE\_\_} and \code{\_\_LINE\_\_} are used to instantiate
 the exception object and provide additional information to the user. You can
 choose to catch a particular exception and hence a specific ITK error, or you
-can trap \emph{any} ITK exception by catching \code{itk::ExceptionObject}.
+can trap \emph{any} ITK exception by catching ExceptionObject.
 
 
 \subsection{Event Handling}
@@ -338,15 +347,15 @@ pattern \cite{Gamma1995} (sometimes referred to as the Command/Observer
 design pattern). In this approach, objects indicate that they are watching
 for a particular event---invoked by a particular instance--by registering
 with the instance that they are watching.  For example, filters in ITK
-periodically invoke the \code{ProgressEvent}. Objects that have registered
+periodically invoke the \doxygen{ProgressEvent}. Objects that have registered
 their interest in this event are notified when the event occurs. The
 notification occurs via an invocation of a command (i.e., function callback,
 method invocation, etc.) that is specified during the registration
-process. (Note that events in ITK are subclasses of \doxygen{itk::EventObject}; look
+process. (Note that events in ITK are subclasses of EventObject; look
 in \code{itkEventObject.h} to determine which events are available.)
 
 To recap via example: various objects in ITK will invoke specific events
-as they execute (from \code{itk::ProcessObject}):
+as they execute (from ProcessObject):
 \small
 \begin{verbatim}
   this->InvokeEvent( ProgressEvent() );
@@ -355,7 +364,7 @@ as they execute (from \code{itk::ProcessObject}):
 
 To watch for such an event, registration is required that associates a
 command (e.g., callback function) with the event:
-\code{itk::Object::AddObserver()} method:
+\code{Object::AddObserver()} method:
 \small
 \begin{verbatim}
   unsigned long progressTag = 
@@ -364,11 +373,11 @@ command (e.g., callback function) with the event:
 \normalsize
 
 When the event occurs, all registered observers are notified via invocation
-of the associated \code{itk::Command::Execute()} method. Note that several
-subclasses of \code{itk::Command} are available supporting const and
+of the associated \code{Command::Execute()} method. Note that several
+subclasses of Command are available supporting const and
 non-const member functions as well as C-style functions. (Look in
 \code{Common/Command.h} to find pre-defined subclasses of
-\code{itk::Command}. If nothing suitable is found, derivation is another
+Command. If nothing suitable is found, derivation is another
 possibility.)
 
 \subsection{Multi-Threading}
@@ -377,14 +386,14 @@ possibility.)
 Multithreading is handled in ITK through a high-level design
 abstraction. This approach provides portable multithreading and hides the
 complexity of differing thread implementations on the many systems supported
-by ITK. For example, the class \code{MultiThreader} provides support for
+by ITK. For example, the class \doxygen{MultiThreader} provides support for
 multithreaded execution using \code{sproc()} on an SGI, or
 \code{pthread\_create} on any platform supporting POSIX threads. 
 
 Multithreading is typically employed by an algorithm during its execution
 phase. MultiThreader can be used to execute a single method on
 multiple threads, or to specify a method per thread. For example, in the 
-method \code{ImageSource} (a superclass for most image processing filters)
+class \doxygen{ImageSource} (a superclass for most image processing filters)
 the \code{GenerateData()} method uses the following methods:
 
 \small
@@ -477,8 +486,8 @@ primarily to support the deformable registration in ITK.
 
 There are two principle types of data represented in ITK: images and
 meshes. This functionality is implemented in the classes 
-\code{itk:Image} and \code{itk::Mesh}, both of which are subclasses of
-\code{itk::DataObject}. In ITK, data objects are classes that are meant to
+Image and Mesh, both of which are subclasses of
+\doxygen{DataObject}. In ITK, data objects are classes that are meant to
 be passed around the system and may participate in data flow pipelines (see
 Section~\ref{sec:DataProcessingPipeline} on
 page~\pageref{sec:DataProcessingPipeline} for more information).
@@ -513,14 +522,15 @@ filter or other class when operating on the image.
 
 \index{itk::Mesh} 
 
-\code{itk::Mesh} represents a \emph{n}-dimensional, unstructured grid. The
-topology of the mesh is represented by a set of \emph{cells} defined by a type and
+The Mesh class represents an \emph{n}-dimensional, unstructured grid. The
+topology of the mesh is represented by a set of \emph{cells} defined by a 
+type and
 connectivity list; the connectivity list in turn refers to points.  The
 geometry of the mesh is defined by the \emph{n}-dimensional points in
 combination with associated cell interpolation functions. \code{Mesh} is
 designed as an adaptive representational structure that changes depending on
 the operations performed on it. At a minimum, points and cells are required
-to represent a mesh; but it is possible to add additional topological
+in order to represent a mesh; but it is possible to add additional topological
 information.  For example, links from the points to the cells that use each
 point can be added; this provides implicit neighborhood information assuming
 the implied topology is the desired one. It is also possible to
@@ -538,9 +548,9 @@ meshes better suited for editing, or those better suited for ``read-only''
 operations, allowing a trade-off between representation flexibility, memory,
 and speed.
 
-\code{itk::Mesh} is a subclass of \code{itk::PointSet}. The \code{PointSet}
+Mesh is a subclass of \doxygen{PointSet}. The PointSet
 class can be used to represent point clouds or randomly distributed
-landmarks, etc. The \code{PointSet} class has no associated topology.
+landmarks, etc. The PointSet class has no associated topology.
 
 
 \section{Data Processing Pipeline}
@@ -559,7 +569,7 @@ While data objects (e.g., images and meshes) are used to represent data,
 produce new data objects. Process objecs are classed as
 \emph{sources}, \emph{filter objects}, or \emph{mappers}.  Sources (such as
 readers) produce data, filter objects take in data and process it to produce
-modified data, and mappers accept data for output either to a file or
+new data, and mappers accept data for output either to a file or
 some other system.  Sometimes the term \emph{filter} is used broadly
 to refer to all three types.
 
@@ -598,9 +608,9 @@ Typically data objects and process objects are connected together using the
 \end{verbatim}
 \normalsize 
 
-In this example the source object \code{itk::RandomImageSource} is connected
-to the \code{itk::ShrinkImageFilter}, and the shrink filter is connected to
-the mapper \code{itk::ImageFileWriter}. When the \code{Update()} method is
+In this example the source object \doxygen{RandomImageSource} is connected
+to the \doxygen{ShrinkImageFilter}, and the shrink filter is connected to
+the mapper \doxygen{ImageFileWriter}. When the \code{Update()} method is
 invoked on the writer, the data processing pipeline causes each of these
 filters in order, culminating in writing the final data to a file on disk.
 
@@ -616,6 +626,7 @@ filters in order, culminating in writing the final data to a file on disk.
 %
 \section{Spatial Objects}
 \label{sec:SpatialObjects}
+\index{spatial object}
 %
 The ITK spatial object framework supports the philosophy that the task of
 image segmentation and registration is actually the task of object
@@ -634,7 +645,7 @@ so forth.
 The capabilities provided by the spatial objects framework supports their use
 in object segmentation, registration, surface/volume rendering, and other
 display and analysis functions. The spatial object framework extends the
-concept of a ``scene graph'' that is common to computer rendering packages so
+concept of a ``scene graph'' \index{scene graph} that is common to computer rendering packages so
 as to support these new functions. With the spatial objects framework you
 can:
 \begin{enumerate}
@@ -659,14 +670,14 @@ can:
         \item Query the resolution at which the object was originally
         computed.  For example, you can query the resolution (i.e., voxel
         spacing) of the image used to generate a particular instance of a
-        \code{BlobSpatialObject}.
+        \doxygen{BlobSpatialObject}.
 \end{enumerate}
 
 Currently implemented types of spatial objects include: Blob, Ellipse, Group,
-Image, Line, Surface, and Tube.  The \code{itk::Scene} object is used to hold
+Image, Line, Surface, and Tube.  The \doxygen{Scene} object is used to hold
 a list of spatial objects that may in turn have children.  Each spatial
 object can be assigned a color property.  Each spatial object type has its
-own capabilities. For example, \code{TubeSpatialObject}s indicate to what
+own capabilities. For example, \doxygen{TubeSpatialObject}s indicate to what
 point on their parent tube they connect.
 
 There are a limited number of spatial objects and their methods in ITK, but
@@ -687,6 +698,10 @@ data or to register two hand segmentations of a liver.
 \section{Wrapping}
 \label{sec:Wrapping}
 
+\index{wrapping}
+\index{Tcl}
+\index{Python}
+
 While the core of ITK is implemented in C++, Tcl and Python bindings can be
 automatically generated and ITK programs can be created using these
 programming languages. This capability is under active development and is for
@@ -701,14 +716,14 @@ for general wrapper generation have difficulty with ITK code because general
 C++ is difficult to parse. As a result, the ITK wrapper generator uses a
 combination of tools to produce language bindings.
 \begin{enumerate}
-  \item \code{gccxml} is a modified version of the GNU compiler gcc that
+  \item gccxml is a modified version of the GNU compiler gcc that
     produces an XML description of an input C++ program.
-  \item  CABLE processes XML information from \code{gccxml} and produces
+  \item  CABLE processes XML information from gccxml and produces
     additional input to the next tool (i.e., CSWIG indicating what is
     to be wrapped.
   \item CSWIG is a modified version of SWIG that has has SWIG's usual
     parser replaced with an XML parser (XML produced from CABLE and
-    \code{gccxml}.) CSWIG produces the appropriate language bindings
+    gccxml.) CSWIG produces the appropriate language bindings
     (either Tcl or Python). (Note: since SWIG is capable of producing
     language bindings for eleven different interpreted languages including
     Java, and Perl, it is expected that support for some of these languages
@@ -724,7 +739,7 @@ The result of the wrapping process is a set of shared libraries/dll's that
 can be used by the interpreted languages. There is almost a direct
 translation from C++, with the differences being the particular syntactical
 requirements of each language. For example, in the directory
-\code{Testing/Code/Algorithms} directory, the test
+\code{Testing/Code/Algorithms}, the test
 \code{itkCurvatureFlowTestTcl2.tcl} has a code fragment that appears as
 follows: 
 \small
