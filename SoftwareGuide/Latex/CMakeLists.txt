@@ -31,6 +31,8 @@ SET( Tex_SRCS
   DataRepresentation.tex
   Filtering.tex
   GUI.tex
+  ImageMetrics.tex
+  ImageInterpolators.tex
   Infrastructure.tex
   Installation.tex
   Introduction.tex
