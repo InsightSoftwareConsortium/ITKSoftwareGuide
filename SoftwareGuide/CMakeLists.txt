@@ -60,7 +60,7 @@ IF( NOT ITK_SOURCE_DIR )
 ENDIF( NOT ITK_SOURCE_DIR )
 
 # ITK_DATA_PATHS is searched recursively.. you need not enter sub-directories
-SET(ITK_DATA_PATHS "${ITK_SOURCE_DIR}/Examples/Data" CACHE STRING "Where the ITK data is. Enter a colon seperated list.")
+SET(ITK_DATA_PATHS "${SoftwareGuide_SOURCE_DIR}/Data:${ITK_SOURCE_DIR}/Examples/Data" CACHE STRING "Where the ITK data is. Enter a colon seperated list.")
 
 #
 # Rebuild the Software Guide figures or not ?
