@@ -103,6 +103,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Registration/DeformableRegistration2.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/MultiResImageRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/MultiResImageRegistration2.cxx
+  ${ITK_SOURCE_DIR}/Examples/Registration/ModelToImageRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ConnectedThresholdImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/NeighborhoodConnectedImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ConfidenceConnected.cxx
