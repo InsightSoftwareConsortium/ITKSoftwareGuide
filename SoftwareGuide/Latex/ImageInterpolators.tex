@@ -5,15 +5,17 @@
 \begin{figure}
 \center
 \includegraphics[width=16cm]{ImageOverlap.eps}
-\caption{ The moving image is mapped into the fixed image space under some
-spatial transformation. An Iterator walks through the fixed image and its
-coordinates are mapped onto the moving image.}
+\caption[Mapping moving image to fixed image in Registration]{ The moving image
+is mapped into the fixed image space under some spatial transformation. An
+Iterator walks through the fixed image and its coordinates are mapped onto the
+moving image.}
 \label{fig:ImageOverlapIterator}
 \end{figure}
 
 
-\piccaption[2]{Grid positions of the fixed image map to non-grid positions of
-  the moving image.\label{fig:ImageOverlapInterpolator}}
+\piccaption[Need for interpolation in Registration]{Grid positions of the fixed
+image map to non-grid positions of the moving
+image.\label{fig:ImageOverlapInterpolator}}
 \parpic(8cm,6cm)[r]{\includegraphics[width=7.5cm]{ImageOverlapInterpolator.eps}}
 
 In the registration process, the metric typically compares intensity values 
