@@ -77,6 +77,9 @@ SET(XFIG_FIGURES
   ImageRegistration6TraceMetric
   ImageRegistration6TraceAngle
   ImageRegistration6TraceTranslations
+  ImageRegistration9TraceMetric
+  ImageRegistration9TraceAngle
+  ImageRegistration9TraceTranslations
   LevelSetZeroSet
   MinMaxCurvatureFlowFunctionDiagram
   ModelToImageRegistrationConcept
@@ -194,6 +197,9 @@ SET(JPEG_IMAGES
   ImageRegistration6Output
   ImageRegistration6DifferenceBefore
   ImageRegistration6DifferenceAfter
+  ImageRegistration9Output
+  ImageRegistration9DifferenceBefore
+  ImageRegistration9DifferenceAfter
   IsolatedConnectedImageFilterOutput0
   IsolatedConnectedImageFilterOutput1
   MultiResImageRegistration1CheckerboardBefore
