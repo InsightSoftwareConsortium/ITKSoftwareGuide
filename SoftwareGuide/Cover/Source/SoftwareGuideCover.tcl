@@ -81,8 +81,8 @@ vtkActor eyeballActor
 
 
 vtkSphereSource lensSource
-    lensSource SetRadius 14
-    lensSource SetCenter 65 61 122
+    lensSource SetRadius 3
+    lensSource SetCenter 65 37 122
     lensSource SetThetaResolution 40 
     lensSource SetPhiResolution 40 
 
@@ -91,8 +91,9 @@ vtkPolyDataMapper lensMapper
 
 vtkActor lensActor
     lensActor SetMapper lensMapper
-    eval [lensActor GetProperty] SetColor   0.8 0.8 0.8
-    lensActor SetPosition  0 0 -150
+    eval [lensActor GetProperty] SetColor   0.4 0.4 0.4
+    lensActor SetScale     1 0.2 1 
+    lensActor SetPosition  0 -40 -150
 
 
 #
