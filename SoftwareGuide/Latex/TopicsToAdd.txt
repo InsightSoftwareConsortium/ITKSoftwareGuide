@@ -200,4 +200,46 @@ Chapter 6 Filtering
 
 
 
+- FFT examples. 
+
+        Maybe add a couple more examples...
+        
+        at least comment the existing ones
+        and generate output example images.
+
+
+
+- RecursiveGaussianImage filter DC component bug, keep track
+  of it during the example. check BUG in the bug tracker.
+
+
+
+
+
+- Voting filters
+
+  
+    Add examples for Voting filters
+    HoleFilling
+
+
+
+- Add example for BinaryMedianImageFilter, take a noisy
+  segmentation (e.g. plain thresholding) and then post-
+  process it with this filter.
+
+  
+
+
+
+
+- Discrete Gaussian needs to fix the graphic according
+  to the original. Check with Jim Miller, to get the
+  paper.
+
+
+
+  
+
+
   
