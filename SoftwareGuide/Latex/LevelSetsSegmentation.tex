@@ -110,7 +110,7 @@ therefore suitable for region-growing segmentation. Other techniques, like
 \code{itk::LaplacianSegmentationLevelSetImageFilter}, can easily become
 ``stuck'' on image features close to their initialization and should be used
 only when a reasonable prior segmentation is available as the initialization.
-In general, for best efficiency your initial model of the surface should be the
+For best efficiency, your initial model of the surface should be the
 best guess possible for the solution.  When extending the example applications
 given here to higher dimensional images, for example, you can improve results
 and dramatically decrease processing time by using a multi-scale
@@ -153,7 +153,7 @@ scale.
 \subsection{Canny-edge Level Set Segmentation}
 \label{sec:CannySegmentationLevelSetImageFilter}
 \ifitkFullVersion
-%\input{CannySegmentationLevelSetImageFilter.tex}
+\input{CannySegmentationLevelSetImageFilter.tex}
 \fi
 
 \subsection{Laplacian Level Set Segmentation}
