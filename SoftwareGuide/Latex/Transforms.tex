@@ -26,7 +26,7 @@ representation objects in ITK.}
  
 Insight implements a consistent geometric representation of the space. The
 characteristics of classes involved in this representation are summarized in
-the following table.
+Table~\ref{tab:GeometricalConcepts}.
 
 \index{itk::Point!Concept}
 \index{itk::Vector!Concept}
@@ -55,7 +55,7 @@ functions. Covariant vectors do not have a position in space.\\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Geometrical Elementary Objects]{Summary of Objects representing geometrical concepts in ITK}
+\itkcaption[Geometrical Elementary Objects]{Summary of Objects representing geometrical concepts in ITK.\label{tab:GeometricalConcepts}}
 \end{table}
 
 
@@ -218,6 +218,7 @@ Table~\ref{tab:TranslationTransformCharacteristics}.
 \label{sec:ScaleTransform}
 \index{itk::ScaleTransform|textbf}
 
+\begin{table}
 \begin{center}
 \begin{tabular}{\tableconfiguration}
 \hline
@@ -236,6 +237,9 @@ Only defined when the input and output space has the same number of dimensions. 
 \hline
 \end{tabular}
 \end{center}
+\itkcaption[Scale Transform Characteristics]{Characteristics of the Scale Transform
+\label{tab:ScaleTransformCharacteristics}}
+\end{table}
 
 This transform represents a simple scaling of the vector space.  Different
 scaling factors can be applied along each dimension. Points are transformed by
@@ -310,15 +314,17 @@ pace. Note that some of the transforms discussed in following sections, for
 example the \doxygen{AffineTransform}, have hidden scaling parameters and are henceforth
 subject to the same vulnerabilities of the \doxygen{ScaleTransform}.
 
-In cases involving misalignments with simultaneous translation, rotation
-and scaling components it may be desirable to solve for these components
-independently.
+In cases involving misalignments with simultaneous translation, rotation and
+scaling components it may be desirable to solve for these components
+independently. The main characteristics of the scale transform are presented in
+Table~\ref{tab:ScaleTransformCharacteristics}.
 
 
 \subsection{Euler2DTransform}
 \label{sec:Euler2DTransform}
 \index{itk::Euler2DTransform|textbf}
 
+\begin{table}
 \begin{center}
 \begin{tabular}{\tableconfiguration}
 \hline
@@ -336,6 +342,9 @@ Only defined for two-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
+\itkcaption[Euler2D Transform Characteristics]{Characteristics of the Euler2D Transform
+\label{tab:Euler2DTransformCharacteristics}}
+\end{table}
 
 Euler2DTransform implements a rigid transformation in $2D$. It is composed of a
 plane rotation and a two-dimensional translation. The rotation is applied
@@ -396,13 +405,15 @@ parameter space.
 
 Registrations involving angles and translations should take advantage of the
 scale normalization functionality in order to get the best performance out of
-the optimizers.
+the optimizers. The main characteristics of the Euler2DTransform are presented
+in Table~\ref{tab:Euler2DTransformCharacteristics}.
 
 
 \subsection{CenteredRigid2DTransform}
 \label{sec:CenteredRigid2DTransform}
 \index{itk::CenteredRigid2DTransform|textbf}
 
+\begin{table}
 \begin{center}
 \begin{tabular}{\tableconfiguration}
 \hline
@@ -420,6 +431,9 @@ Only defined for two-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
+\itkcaption[CenteredRigid2D Transform Characteristics]{Characteristics of the CenteredRigid2D Transform
+\label{tab:CenteredRigid2DTransformCharacteristics}}
+\end{table}
 
 CenteredRigid2DTransform implements a rigid transformation in $2D$. The main
 difference between this transform and the \doxygen{Euler2DTransform} is that here
@@ -489,12 +503,16 @@ T_y + C_y \\
 where $\theta$ is the rotation angle, $(C_x,C_y)$ are the coordinates of the
 rotation center and $(T_x,T_y)$ are the components of the translation. Note
 that the center coordinates are subtracted before the rotation and added back
-after the rotation.
+after the rotation. The main characteristics of the CenteredRigid2DTransform
+are presented in Table~\ref{tab:CenteredRigid2DTransformCharacteristics}.
+
+
 
 \subsection{Similarity2DTransform}
 \label{sec:Similarity2DTransform}
 \index{itk::Similarity2DTransform|textbf}
 
+\begin{table}
 \begin{center}
 \begin{tabular}{\tableconfiguration}
 \hline
@@ -514,6 +532,9 @@ Only defined for two-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
+\itkcaption[Similarity2D Transform Characteristics]{Characteristics of the Similarity2D Transform
+\label{tab:Similarity2DTransformCharacteristics}}
+\end{table}
 
 A similarity transform preserves angles. It can be seen as a rigid transform
 plus an isotropic scaling factor. In its $2D$ implementation, the four
@@ -567,6 +588,8 @@ where $\lambda$ is the scale factor, $\theta$ is the rotation angle,
 $(C_x,C_y)$ are the coordinates of the rotation center and $(T_x,T_y)$ are
 the components of the translation. Note that the center coordinates are
 subtracted before the rotation and scaling, and it is added back afterwards.
+The main characteristics of the Similarity2DTransform are presented in
+Table~\ref{tab:Similarity2DTransformCharacteristics}.
 
 
 A possible approach for supervising optimization in the parameter space of this
@@ -574,14 +597,15 @@ transform is to dynamically control the array of scales passed to the
 optimizer. The effect produced by the parameters scaling  can be used to steer
 the walk on the parameter space by giving preference to some of the parameters
 over others. For example, perform some iterations updating only the rotation
-angle then balance the array of scale factor in the optimizer and perform
-another set of iterations updating only translations.
+angle then balance the array of scale factors in the optimizer and perform
+another set of iterations updating only translations. 
 
 
 \subsection{QuaternionRigidTransform}
 \label{sec:QuaternionRigidTransform}
 \index{itk::QuaternionRigidTransform|textbf}
 
+\begin{table}
 \begin{center}
 \begin{tabular}{\tableconfiguration}
 \hline
@@ -602,6 +626,9 @@ Only defined for three-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
+\itkcaption[QuaternionRigid Transform Characteristics]{Characteristics of the QuaternionRigid Transform
+\label{tab:QuaternionRigidTransformCharacteristics}}
+\end{table}
 
 This class implements a rigid transformation in $3D$ space. The rotational part
 of the transform is represented using a quaternion while the translation is
@@ -616,7 +643,9 @@ class makes sure that after advancing in any direction on the parameter space
 the resulting new set of transform parameters are mapped back to the permissible
 set of parameters. In practice this comes down to normalizing the newly computed
 quaternion to make sure that the transformation remains rigid and no scaling is
-applied. 
+applied.  The main characteristics of the \doxygen{QuaternionRigidTransform} are 
+presented in Table~\ref{tab:QuaternionRigidTransformCharacteristics}.
+
 
 
 
@@ -627,6 +656,7 @@ applied.
 \index{itk::VersorTransformOptimizer|textbf}
 \index{itk::Versor!Definition|textbf}
 
+\begin{table}
 \begin{center}
 \begin{tabular}{\tableconfiguration}
 \hline
@@ -643,6 +673,9 @@ Only defined for three-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
+\itkcaption[Versor Transform Characteristics]{Characteristics of the Versor Transform
+\label{tab:VersorTransformCharacteristics}}
+\end{table}
 
 
 A \emph{Versor} is by definition the rotational part of a quaternion. It can
@@ -651,7 +684,9 @@ Versors only have three independent components since they are restricted to
 reside in the space of unit-quaternions. The implementation of Versors in the
 toolkit uses a set of three numbers.  These three numbers correspond to the
 first three components of a quaternion.  The fourth component of the quaternion
-is computed internally such that the quaternion is of unit length.
+is computed internally such that the quaternion is of unit length. The main
+characteristics of the Versor transform are presented in
+Table~\ref{tab:VersorTransformCharacteristics}.
 
 This transform represents exclusively rotations in 3D. It is intended to solve
 rapidly the rotational component of a more generic misalignment.  It is
@@ -680,6 +715,7 @@ expected.
 \label{sec:VersorRigid3DTransform}
 \index{itk::VersorRigid3DTransform|textbf}
 
+\begin{table}
 \begin{center}
 \begin{tabular}{\tableconfiguration}
 \hline
@@ -697,6 +733,9 @@ Only defined for three-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
+\itkcaption[Versor Rigid3D Transform Characteristics]{Characteristics of the VersorRigid3D Transform
+\label{tab:VersorRigid3DTransformCharacteristics}}
+\end{table}
 
 This transform is a close variant of the \doxygen{QuaternionRigidTransform}. It
 can be seen as an \doxygen{VersorTransform} plus a translation defined by a
@@ -705,7 +744,8 @@ advantage of this class with respect to the \doxygen{QuaternionRigidTransform} i
 that it exposes only 6 parameters, three for the versor components and three
 for the translational components. This makes the search space for the optimizer
 to be reduced to dimension 6 instead of the dimension 7 used by
-\doxygen{QuaternionRigidTransform}.
+\doxygen{QuaternionRigidTransform}. The main characteristics of this transform
+are summarized in Table\ref{tab:VersorRigid3DTransformCharacteristics}.
 
 
 
@@ -713,6 +753,7 @@ to be reduced to dimension 6 instead of the dimension 7 used by
 \label{sec:AffineTransform}
 \index{itk::AffineTransform|textbf}
 
+\begin{table}
 \begin{center}
 \begin{tabular}{\tableconfiguration}
 \hline
@@ -732,11 +773,17 @@ Only defined when the input and output space have the same dimension. \\
 \hline
 \end{tabular}
 \end{center}
+\itkcaption[Affine Transform Characteristics]{Characteristics of the Affine Transform
+\label{tab:AffineTransformCharacteristics}}
+\end{table}
 
 
-The \doxygen{AffineTransform} is one of the most popular transformations in image
-registration. Its main advantage comes from the fact of being represented as a
-linear transformation. The set of its coefficients can actually be represented
+The \doxygen{AffineTransform} is one of the most popular transformations in
+image registration. Its main advantage comes from the fact of being represented
+as a linear transformation. The main characteristics of this transform are
+presented in Table~\ref{tab:AffineTransformCharacteristics}.
+
+The set of \doxygen{AffineTransform} coefficients can actually be represented
 in a vector space of dimensions $(N+1) \times N$. This makes it possible for
 optimizers to be used appropriately on this search space. However the high
 dimensionality of the search space implies also a high computational cost during the
