@@ -149,12 +149,13 @@ UNIX version this is done in a
 ''c'' key.
 
 When no new options appear in CMake, you can proceed to generate Makefiles or
-Visual Studio projects. This is done in Windows by clicking on the ''Ok''
-button.  In the UNIX version this is done by hitting the ''g'' key. After the
-generation process CMake will quit silently. To initiate the build process
-on UNIX, simply type \code{make} in the binary directory. Under Windows, load
-the workspace named \code{ITK.dsw} from the binary directory you specified
-in the CMake GUI.
+Visual Studio projects (or appropriate buildfile(s) depending on your
+compiler). This is done in Windows by clicking on the ''Ok'' button.  In the
+UNIX version this is done by hitting the ''g'' key. After the generation
+process CMake will quit silently. To initiate the build process on UNIX,
+simply type \code{make} in the binary directory. Under Windows, load the
+workspace named \code{ITK.dsw} (if using MSDEV) or \code{ITK.sln} (if using
+the .NET compiler) from the binary directory you specified in the CMake GUI.
 
 The build process will typically take anywhere from 15 to 30 minutes depending
 on the performance of your system. If you decide to enable testing as part of

@@ -24,10 +24,11 @@ in the previous chapter two other modules---\code{InsightDocumentation} and
         multithreading support.
 
 	\item[Data Representation and Access.]  Two principle classes are
-        used to represent data: the Image and Mesh classes. In addition,
-        various types of iterators and containers are used to hold and
-        traverse the data. Other important but less popular classes are
-        also used to represent data such as histograms and BLOX images.
+        used to represent data: the \doxygen{Image} and \doxygen{Mesh}
+        classes.  In addition, various types of iterators and containers are
+        used to hold and traverse the data. Other important but less popular
+        classes are also used to represent data such as histograms and BLOX
+        images.
 
 	\item[Numerics] ITK uses VXL's VNL numerics libraries. These are
         easy-to-use C++ wrappers around the Netlib Fortran numerical 
@@ -77,10 +78,9 @@ in the previous chapter two other modules---\code{InsightDocumentation} and
 
 	\item[Wrapping.] ITK uses a unique, powerful system for producing
         interfaces (i.e., ``wrappers'') to interpreted languages such as Tcl
-        and Python. The CABLE system is capable of wrapping C++ code of
-        arbitrary complexity because it uses a compiler to parse the code.
-        The parsed code is in turn represented using XML that is then
-        used to build the language interfaces.
+        and Python. The GCC_XML tool is used to produce an XML description of
+        arbitrarily complex C++ code; CSWIG is then used to transform the XML
+        description into wrappers using the SWIG package (ref here).
 
 	\item[Auxiliary / Utilities] Several auxiliary subsystems are 
         available to supplement other classes in the system. For example,
@@ -115,12 +115,12 @@ use of the STL Standard Template Library \cite{Austern1999}.
 C++ templating is a programming technique allowing users to write software in
 terms of one or more unknown types \code{T}. To create executable code, the
 user of the software must specify all types \code{T} (known as \emph{template
-instantiation} and successfully process the code with the compiler. The
+instantiation}) and successfully process the code with the compiler. The
 \code{T} may be a native type such as
 \code{float} or \code{int}, or \code{T} may be a user-defined type (e.g.,
 \code{class}). At compile-time, the compiler makes sure that the templated 
 types are compatible with the instantiated code and that the types are
-supported by the necessary functions and operators.
+supported by the necessary methods and operators.
 
 ITK uses the techniques of generic programming in its implementation. The
 advantage of this approach is that an almost unlimited variety of data types
@@ -159,7 +159,49 @@ In addition to class headers, there are a few other important header files.
         the compilatilation process.
 \end{description}
 
-\subsection{Smart Pointers}
+\subsection{Object Factories}
+\label{sec:ObjectFactories}
+
+Most classes in ITK are instantiated through an object factory
+mechanism. That is, rather than using the standard C++ class constructor and
+destructor, instances of an ITK class are created with the static class
+\code{New()} method. In fact, the constructor and destructor are
+\code{protected:} so it is generally not possible to construct an ITK
+instance on the heap. (Note: this behavior pertains to classes that are
+derived from \code{itk::LightObject}. In some cases the need for speed or
+reduced memory footprint dictates that a class not be derived from
+\code{LightObject} and in this case instances may be created on the heap. An
+example of such a class is \code{itk::EventObject}.)
+
+The object factory enables users to control run-time instantiation of classes
+by registering one or more factories with \code{ObjectFactoryBase}. These
+registered factories support the method \code{CreateInstance(classname)}
+which takes as input the name of a class to create. The factory can choose to
+create the class based on a number of factors including the computer system
+configuration and environment variables. For example, in a particular
+application an ITK user may wish to deploy their own class implemented using
+specialized image processing hardware (i.e., to realize a performance
+gain). By using the object factor mechanism, it is possible at run-time to
+replace the creation of a particular ITK filter with such a custom class. (Of
+course, the class must provide the exact same API as the one it is
+replacing.) To do this, the user compiles her class (using the same compiler,
+build options, etc.) and inserts the object code into a shared library or
+DLL. The library is then placed in a directory referred to by the
+\code{ITK_AUTOLOAD_PATH} environment variable. On instantiation, the object
+factory will locate the library, determine that it can create a class of a
+particular name with the factory, and use the factory to create the
+instance. (Note: if the \code{CreateInstance()} method cannot find a factory
+that can create the named class, then the instantiation of the class falls
+back to the usual constructor.)
+
+In practice object factories are used mainly (and generally transparently) by
+the ITK input/output (IO) classes. For most users the greatest impact is on
+the use of the \code{New()} method to create a class. Generally the
+\code{New()} method is declared and implemented via the macro
+\code{itkNewMacro()} found in \code{Common\itkMacro.h}.
+
+
+\subsection{Smart Pointers and Memory Management}
 \label{sec:SmartPointers}
 
 By their nature object-oriented systems represent and operate on data through
@@ -171,7 +213,7 @@ data structures during normal operation of the program. At some
 point---certainly by the time the program is exiting---all references to that
 instance disappear. At this point, the instance must be deleted to recover
 the valuable memory resource that the instance no longer requires. This process
-is known as memory management.
+of allocating and releasing memory is known as memory management.
 
 In ITK, memory management is implemented through reference counting. This
 compares to another popular approach---garbage collection---used by many
@@ -182,9 +224,10 @@ the system identifying instances no longer referenced in the system and
 deletes them. The problem with garbage collection is that the actual point in
 time at which memory is deleted is variable. This is unacceptable when an
 object size may be gigantic (think of a large 3D volume gigabytes in
-size). Reference counting deletes memory immediately.
+size). Reference counting deletes memory immediately (once all references to
+an object disappear).
 
-Reference counting is implemented through a \code{Register()}/\code{Delte()}
+Reference counting is implemented through a \code{Register()}/\code{Delete()}
 member function interface.   All instances of an ITK object have a
 \code{Register()} method invoked on them by any other object that references an
 them. The \code{Register()} method increments the instances' reference
@@ -216,27 +259,137 @@ that the \code{SmartPointer} was created is closed. As a result, you should
 \end{verbatim}
 \normalsize
 
+In this example, reference counted objects are created (with the \code{New()}
+method) with a reference count of one. Assignment to the \code{SmartPointer}
+\code{interp} does not change the reference count. At the end of scope,
+\code{interp} is destroyed, the reference count of the actual interpolator
+object (referred to by \code{interp} is decremented, and if it reaches zero,
+then the interpolator is also destroyed.
 
-At the end of scope, the \code{SmartPointer} \code{interp} is destroyed, the
-reference count of the actual interpolator object is decremented, and if it
-reaches zero, then the interpolator is also destroyed.
 
-%\subsection{Object Factories}
-%\label{sec:ObjectFactories}
+\subsection{Error Handling and Exceptions}
+\label{sec:ErrorHandling}
+
+\index{exceptions|textbf}
+\index{error handling|textbf}
+
+In general, ITK uses exception handling to manage errors during program
+execution. Exception handling is a standard part of the C++ language and
+generally takes the form as illustrated below:
+\small
+\begin{verbatim}
+  try
+    {
+    //...try executing some code here...
+    }
+  catch ( itk::ExceptionObject exp )
+    {
+    //...if an exception is thrown catch it here
+    }
+\end{verbatim}
+\normalsize
+
+where a particular class may throw an exceptions as demonstrated below (this
+code snippet is taken from \code{itk::ByteSwapper}:
+\small
+\begin{verbatim}
+  switch ( sizeof(T) )
+    {
+    //non-error cases go here followed by error case  
+    default:  
+      ByteSwapperError e(__FILE__, __LINE__);
+      e.SetLocation("SwapBE");
+      e.SetDescription("Cannot swap number of bytes requested");
+      throw e;
+    }
+\end{verbatim}
+\normalsize
+
+Note that \code{ByteSwapperError} is a subclass of
+\code{itk::ExceptionObject}. (In fact in ITK all exceptions should be derived
+from \code{ExceptionObject}.) In this example a special constructor and C++
+preprocessor variables \code{__FILE__} and {__LINE__} are used to instantiate
+the exception object and provide additional information to the user. You can
+choose to catch a particular exception and hence a specific ITK error, or you
+can trap \emph{any} ITK exception by catching \code{itk::ExceptionObject}.
 
 
+\subsection{Event Handling}
+\label{sec:EventHandling}
+
+\index{event handling|textbf}
+\index{Command/Observer design pattern|textbf}
+\index{itk::Command|textbf}
+\index{ProgressEvent()|textbf}
+\index{InvokeEvent()|textbf}
+
+Event handling in ITK is implemented using the Subject/Observer design
+pattern \cite{Gamma1995} (sometimes referred to as the Command/Observer
+design pattern). In this approach, objects indicate that they are watching
+for a particular event---invoked by a particular instance--by registering
+with the instance that they are watching.  For example, filters in ITK
+periodically invoke the \code{ProgressEvent}. Objects that have registered
+their interest in this event are notified when the event occurs. The
+notification occurs via an invocation of a command (i.e., function callback,
+method invocation, etc.) that is specified during the registration
+process. (Note that events in ITK are subclasses of {itk::EventObject}; look
+in \code{itk::EventObject.h} to determine which events available.)
+
+To recap via example: various objects in ITK will invoke specific events
+as they execute (from \code{itk::ProcessObject}):
+\small
+\begin{verbatim}
+  this->InvokeEvent( ProgressEvent() );
+\end{verbatim}
+\normalsize
+
+To watch for such an event, registration is required that associates a
+command (e.g., callback function) with the event:
+\code{itk::Object::AddObserver()} method:
+\small
+\begin{verbatim}
+  unsigned long progressTag = 
+    filter->AddObserver(ProgressEvent(), itk::Command*);
+\end{verbatim}
+\normalsize
+
+When the event occurs, all registered observers are notified via invocation
+of the associated \code{itk::Command::Execute()} method. Note that several
+subclasses of \code{itk::Command} are available supporting const and
+non-const member functions as well as C-style functions. (Look in
+\code{Common/Command.h} to find pre-defined subclasses of
+\code{itk::Command}. If nothing suitable is found, derivation is another
+possibility.)
 
 \subsection{Multi-Threading}
 \label{sec:MultiThreading}
 
-Multithreading is handled in ITK in a generic manner. The class
-\code{itk::MultiThreader} provides support for multithreaded execution using
-\code{sproc()} on an SGI, or \code{pthread\_create} on any platform supporting 
-POSIX threads.  This class can be used to execute a single method on multiple
-threads, or to specify a method per thread.
+Multithreading is handled in ITK through a high-level design
+abstraction. This approach provides portable multithreading and hides the
+complexity of differing thread implementations on the many systems supported
+by ITK. For example, the class \code{itk::MultiThreader} provides support for
+multithreaded execution using \code{sproc()} on an SGI, or
+\code{pthread\_create} on any platform supporting POSIX threads. 
 
-%\subsection{Event Handling}
-%\label{sec:EventHandling}
+Multithreading is typically employed by an algorithms during its execution
+phase. \code{itk::MultiThreader} can be used to execute a single method on
+multiple threads, or to specify a method per thread. For example, in the 
+method \code{itk::ImageSource} (a superclass for most image processing filters)
+the \code{GenerateData()} method uses the following methods:
+
+\begin{verbatim}
+  multiThreader->SetNumberOfThreads(int);
+  multiThreader->SetSingleMethod(ThreadFunctionType, void* data);
+  multiThreader->SingleMethodExecute();
+\end{verbatim}
+
+In this example each thread invokes the same method. The multithreaded filter
+takes care to divide the image into different regions that do not overlap for
+write operations.
+
+The general philosophy in ITK regarding thread safety is that accessing
+different instances of a class (and its methods) is a thread-safe operation.
+Invoking methods on the same instance in different threads is to be avoided.
 
 
 %\section{Data Representation and Access}
@@ -244,16 +397,19 @@ threads, or to specify a method per thread.
 %
 %	mesh, image, iterators, various containers
 %
+
 \section{Numerics}
 \label{sec:Numerics}
 
-ITK uses the \code{VNL} numerics library to provide an environment for numerical
-programming that combines the ease of use of packages like Mathematica and
-Matlab with the speed of C and the elegance of C++. It provides a C++
-interface to the high-quality Fortran routines made available in the public
-domain by numerical analysis researchers.
-ITK extends the functionality of \code{VNL} by including interface
-classes between \code{VNL} and ITK proper.
+\index{VNL|textbf}
+\index{numerics|textbf}
+
+ITK uses the \code{VNL} numerics library to provide resources for numerical
+programming combining the ease of use of packages like Mathematica and Matlab
+with the speed of C and the elegance of C++. It provides a C++ interface to
+the high-quality Fortran routines made available in the public domain by
+numerical analysis researchers. ITK extends the functionality of \code{VNL}
+by including interface classes between \code{VNL} and ITK proper.
 
 The VNL numerics library includes classes for
 \begin{description}
@@ -286,7 +442,7 @@ The VNL numerics library includes classes for
         defines constants (pi, e, eps...) and simple functions (sqr, abs,
         rnd...). Class \code{numeric\_limits} is from the ISO standard
         document, and provides a way to access basic limits of a
-        type. E.g. \code{numeric\_limits<short>::max()} returns the maximum
+        type. For example \code{numeric\_limits<short>::max()} returns the maximum
         value of a short.
 \end{description}
 
@@ -295,8 +451,8 @@ routines that have been developed by the numerical analysis community over
 the last forty years and placed in the public domain. The central repository
 for these programs is the "netlib" server \url{http://www.netlib.org/}. The
 National Institute of Standards and Technology (NIST) provides an excellent
-search interface to this repository in its Guide to Available Mathematical
-Software (GAMS) at \url{http://gams.nist.gov}, both as a decision tree and a
+search interface to this repository in its \emph{Guide to Available Mathematical
+Software (GAMS)} at \url{http://gams.nist.gov}, both as a decision tree and a
 text search.
 
 ITK also provides additional numerics functionality. A suite of optimizers, that
