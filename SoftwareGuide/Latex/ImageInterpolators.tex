@@ -6,7 +6,7 @@
 \center
 \includegraphics[width=16cm]{ImageOverlap.eps}
 \caption{ The moving image is mapped into the fixed image space under some
-spatial transformation. An Iterator walks throught the fixed image and its
+spatial transformation. An Iterator walks through the fixed image and its
 coordinates are mapped onto the moving image.}
 \label{fig:ImageOverlapIterator}
 \end{figure}
@@ -23,11 +23,11 @@ it will in general be mapped to a non-grid position. Therefore, interpolation
 is required to evaluate the image intensity at the mapped position.
 
 Figure \ref{fig:ImageOverlapIterator} (left) illustrates the mapping of the
-fixed image space onto the moving image space. The transfom maps points from
+fixed image space onto the moving image space. The transform maps points from
 the fixed image coordinate system onto the moving image coordinate system. The
 figure highlights the region of overlap between the two images after the
 mapping. The right side illustrates how an iterator is used to walk through a
-region of the fixed image. Each one of the interator positions is mapped by the
+region of the fixed image. Each one of the iterator positions is mapped by the
 transform onto the moving image space in order to find the homologous pixel.
 
 Figure \ref{fig:ImageOverlapInterpolator} presents a detailed view of the
@@ -41,7 +41,7 @@ ITK currently offers three different interpolation schemes: nearest-neighbor,
 linear and B-spline. In the context of registration, the interpolation method
 affects the smoothness of the optimization search space and the overall
 computation time. On the other hand, interpolations are executed thousands of
-times in a single optimization cycle. Hence, the user has to tradeoff the
+times in a single optimization cycle. Hence, the user has to trade-off the
 simplicity of computation with smoothness when selecting the interpolation 
 scheme.
 
@@ -75,7 +75,7 @@ floating point computations.
 \code{LinearInterpolateImageFunction} assumes that intensity varies linearly
 between grid positions. Unlike nearest neighbor, the interpolated
 intensity is spatially continuous. However, the intensity gradient
-will be discontinous at grid positions.
+will be discontinuous at grid positions.
 
 \subsection{B-Spline Interpolation}
 \label{sec:BSplineInterpolation}

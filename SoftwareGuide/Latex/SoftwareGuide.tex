@@ -5,14 +5,15 @@
 %
 %     http://www.itk.org
 
-\documentclass{InsightManual}
+\documentclass[oneside]{InsightManual}
 
 \usepackage[dvips]{graphicx}
 
 
-\title{The ITK Software Guide}
+%%% \title{The ITK Software Guide}
+\title{Medical Image Segmentation \\and Registration with ITK\\Short Course\\SPIE Medical Imaging 2003}
 
-\author{Luis Ib\'{a}\~{n}ez\\Will Schroeder\\Lydia Ng\\Insight Consortium}
+\author{Luis Ib\'{a}\~{n}ez\\Will Schroeder\\Lydia Ng\\Josh Cates\\Insight Consortium}
 
 \authoraddress{
   http://www.itk.org\\
@@ -43,14 +44,15 @@
 \input{SoftwareGuideConfiguration.tex}
 
 
-\part{Introduction}
+%%%% \part{Introduction}
 
 \input{Introduction.tex}
 \input{Installation.tex}
 \input{SystemOverview.tex}
+\input{SoftwareProcess.tex}
 
 
-\part{User's Guide}
+%%%% \part{User's Guide}
 
 \input{DataRepresentation.tex}
 \input{Filtering.tex}
@@ -62,14 +64,14 @@
 
 
 
-\part{Developer's Guide}
+%%%  \part{Developer's Guide}
 
 %%% \input{Infrastructure.tex}
 %%% \input{Iterators.tex}
-\input{WriteAFilter.tex}
+%%% \input{WriteAFilter.tex}
 %%% \input{GUI.tex}
 %%% \input{Wrapping.tex}
-\input{SoftwareProcess.tex}
+%%% moved up temporarily -> \input{SoftwareProcess.tex}
 
 
 

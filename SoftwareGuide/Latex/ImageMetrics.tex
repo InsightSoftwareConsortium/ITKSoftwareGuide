@@ -6,18 +6,18 @@
 
 \index{itk::ImageToImageMetric|textbf}
 
-In ITK, \code{itk::ImageToImageMetric} objects measure quantitively how well
-the transformed moving image fits the fixed image by comparing the grayscale
+In ITK, \code{itk::ImageToImageMetric} objects measure quantitatively how well
+the transformed moving image fits the fixed image by comparing the gray-scale
 intensity of the images. These metrics are very flexible and can work with any
 transform or interpolation method and do not require the reduction of the
-grayscale images to sparse extracted information such as edges.
+gray-scale images to sparse extracted information such as edges.
 
 The metric component is perhaps the most critical element of the registration
 framework. The selection of which metric to use is highly dependent on the
 registration problem to be solved. For example, some metrics have a large
 capture range while others require initialization close to the optimal
 position; some metrics are only suitable for comparing images obtained from the
-same imaging modality while others can handle inter-modality comparisions.
+same imaging modality while others can handle inter-modality comparisons.
 Unfortunately, there are no clear-cut rules as to how to choose a metric.
 
 \index{itk::ImageToImageMetric!GetValue()}
@@ -26,7 +26,7 @@ Unfortunately, there are no clear-cut rules as to how to choose a metric.
 
 The basic inputs to a metric are: the fixed and moving images, a transform and
 an interpolator. The method \code{GetValue()} can then be used to evaluate the
-quantitive criterion at the transform parameters specified in the argument.
+quantitative criterion at the transform parameters specified in the argument.
 Typically, the metric samples points within a defined region of the fixed
 image.  For each point, the corresponding moving image position is computed
 using the transform with the specified parameters, then the interpolator is
@@ -96,7 +96,7 @@ $N$ is the number of pixels considered
 
 The optimal value of the metric is one. Misalignment between the images results
 is small measure values. The use of this metric is limited to images obtained
-using the same imaging modality. The metric is insenstive to multiplicative
+using the same imaging modality. The metric is insensitive to multiplicative
 factors between the two images. This metric produces a cost function with sharp
 peaks and well defined maxima. On the other hand, it has a relatively smaller
 capture radius.
@@ -126,7 +126,7 @@ are considered, this makes it consistent when its computation is subject the
 the size of the overlap region between the images. The capture radius of the
 metric can be regulated with the parameter $\lambda$.  The profile of this
 metric is very peaky. The sharp peaks of the metric helps
-to measure spatial misalginment with high precision.
+to measure spatial misalignment with high precision.
 
 The metric is limited to be used with images of the same image modality.  The
 fact that its derivative is large at the central peak is a problem for some
@@ -177,7 +177,7 @@ and joint probability densities is not available and hence the
 densities must be estimated from the image data. Parzen windows 
 (also known as kernel density estimators) can be used for this purpose.
 In this scheme, the densities are constructed by taking intensity 
-samples $S$ from the image and superpositioning kernel functions 
+samples $S$ from the image and super-positioning kernel functions 
 $K(\cdot)$ centered on the elements of $S$ as illustrated in
 Figure \ref{fig:ParzenWindowing}:
 \begin{equation}
@@ -239,7 +239,7 @@ standard deviation. Optimal choice will depend on the content of the images.
 In our experience with the toolkit, we have found that a standard deviation
 of 0.4 works well for images which have been normalized to have a mean
 of zero and standard deviation of 1.0. The standard deviation of the fixed image
-and moving image kernel can be set separatedly using methods 
+and moving image kernel can be set separately using methods 
 \code{SetFixedImageStandardDeviation()} and \code{SetMovingImageStandardDeviation()}.
 
 \subsubsection{Mattes et al Implementation}
