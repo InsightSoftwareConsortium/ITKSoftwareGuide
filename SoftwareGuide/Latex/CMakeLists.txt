@@ -155,9 +155,12 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   ListSample.tex
   ListSampleToHistogramFilter.tex
   ListSampleToHistogramGenerator.tex
+  LandmarksWarping2.tex
+  BSplineWarping1.tex
   DeformableRegistration1.tex
   DeformableRegistration2.tex
   DeformableRegistration3.tex
+  DeformableRegistration4.tex
   MultiResImageRegistration1.tex
   MultiResImageRegistration2.tex
   MathematicalMorphologyBinaryFilters.tex
