@@ -4,7 +4,7 @@
 %
 %
 
-\index{itk::ImageToImageMetric|textbf}
+\index{itk::Image\-To\-Image\-Metric}
 
 In ITK, \doxygen{ImageToImageMetric} objects measure quantitatively how well
 the transformed moving image fits the fixed image by comparing the gray-scale
@@ -20,9 +20,9 @@ position; some metrics are only suitable for comparing images obtained from the
 same imaging modality while others can handle inter-modality comparisons.
 Unfortunately, there are no clear-cut rules as to how to choose a metric.
 
-\index{itk::ImageToImageMetric!GetValue()}
-\index{itk::ImageToImageMetric!GetDerivatives()}
-\index{itk::ImageToImageMetric!GetValueAndDerivatives()}
+\index{itk::Image\-To\-Image\-Metric!GetValue()}
+\index{itk::Image\-To\-Image\-Metric!GetDerivatives()}
+\index{itk::Image\-To\-Image\-Metric!GetValueAndDerivatives()}
 
 The basic inputs to a metric are: the fixed and moving images, a transform and
 an interpolator. The method \code{GetValue()} can then be used to evaluate the
@@ -55,7 +55,7 @@ and transformed moving image $m \circ T(\bf{X})$ as images $A$ and $B$.
 
 \subsection{Mean Squares Metric}
 \label{sec:MeanSquaresMetric}
-\index{itk::MeanSquaresImageToImageMetric|textbf}
+\index{itk::Mean\-Squares\-Image\-To\-Image\-Metric}
 \doxygen{MeanSquaresImageToImageMetric} computes the mean square pixel-wise difference in intensity
 between image $A$ and $B$ over a user defined region:
 
@@ -79,7 +79,7 @@ intensity result in a poor match value.
 
 \subsection{Normalized Correlation Metric}
 \label{sec:NormalizedCorrelationMetric}
-\index{itk::NormalizedCorrelationImageToImageMetric|textbf}
+\index{itk::Normalized\-Correlation\-Image\-To\-Image\-Metric}
 \doxygen{NormalizedCorrelationImageToImageMetric} computes pixel-wise
 cross-correlation and normalizes it by the square root of the autocorrelation
 of the images:
@@ -104,7 +104,7 @@ defined minima.  On the other hand, it has a relatively small capture radius.
 
 \subsection{Mean Reciprocal Square Differences}
 \label{sec:MeanReciprocalSquareDifferenceMetric}
-\index{itk::MeanReciprocalSquareDifferenceImageToImageMetric|textbf}
+\index{itk::Mean\-Reciprocal\-Square\-Difference\-Image\-To\-Image\-Metric}
 \doxygen{MeanReciprocalSquareDifferenceImageToImageMetric} computes pixel-wise differences and adds them 
 after passing them through a bell-shaped function $\frac{1}{1+x^2}$:
 
@@ -215,7 +215,7 @@ ITK has two mutual information metric implementations. The first is
 \doxygen{MutualInformationImageToImageMetric} and follows the method specified
 by Viola and Wells in \cite{Viola1997}.
 
-\index{itk::MutualInformationImageToImageMetric}
+\index{itk::Mutual\-Information\-Image\-To\-Image\-Metric}
 
 In this implementation, two separate intensity samples $S$ and $R$ are drawn
 from the image: the first to compute the density and the second to approximate
@@ -226,15 +226,15 @@ H(A) = \frac{1}{N} \sum_{r_j \in R} \log P^{*}(r_j).
 Gaussian density is used as smoothing kernel where the standard deviation
 $\sigma$ acts as the smoothing parameter.
 
-\index{itk::MutualInformationImageToImageMetric!SetNumberOfSpatialSamples()}
+\index{itk::Mutual\-Information\-Image\-To\-Image\-Metric!SetNumberOfSpatialSamples()}
 
 The number of spatial samples used for computation is defined using
 method \code{SetNumberOfSpatialSamples()}. Typical values range from 50 to 100.
 Note that computation involves an $N \times N$ loop and hence the computation
 burden becomes very expensive when a large number of samples is used.
 
-\index{itk::MutualInformationImageToImageMetric!SetFixedImageStandardDeviation()}
-\index{itk::MutualInformationImageToImageMetric!SetMovingImageStandardDeviation()}
+\index{itk::Mutual\-Information\-Image\-To\-Image\-Metric!SetFixedImageStandardDeviation()}
+\index{itk::Mutual\-Information\-Image\-To\-Image\-Metric!SetMovingImageStandardDeviation()}
 The quality of the density estimates depends on the choice of the standard
 deviation of the Gaussian kernel. The optimal choice will depend on the
 content of the images.  In our experience with the toolkit, we have found
@@ -249,15 +249,15 @@ The second form of mutual information metric available in ITK follows the
 method specified by Mattes et al. in \cite{Mattes2001} and is implemented by
 the class \doxygen{MattesMutualInformationImageToImageMetric}.
 
-\index{itk::MattesMutualInformationImageToImageMetric}
+\index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metric}
 In this implementation, only one set of intensity samples is drawn from the
 image.  Using this set, the marginal and joint probability density function
 (PDF) is evaluated as discrete positions or bins uniformly spread within the
 dynamic range of the images. Entropy values are then computed by summing over
 the bins.
 
-\index{itk::MattesMutualInformationImageToImageMetric!SetNumberOfSpatialSamples()}
-\index{itk::MattesMutualInformationImageToImageMetric!SetNumberOfHistogramBins()}
+\index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metric!SetNumberOfSpatialSamples()}
+\index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metric!SetNumberOfHistogramBins()}
 
 The number of spatial samples used is set using method 
 \code{SetNumberOfSpatialSamples()}. The number of bins use to compute
