@@ -90,11 +90,11 @@ SET(JPEG_IMAGES
   BrainT1SliceBorder20
   ccmakeScreenShot
   CMakeSetupScreenShot
-  CurvatureFlowImageFilterOutput
-  CurvatureAnisotropicDiffusionImageFilterOutput
   ConfidenceConnectedOutput1
   ConfidenceConnectedOutput2
   ConfidenceConnectedOutput3
+  CurvatureFlowImageFilterOutput
+  CurvatureAnisotropicDiffusionImageFilterOutput
   DanielssonDistanceMapImageFilterOutput1
   DanielssonDistanceMapImageFilterOutput2
   Dashboard
