@@ -163,33 +163,7 @@
   }
 }
 
-% This sets up the {verbatim} environment to be indented and a minipage,
-% and to have all the other mostly nice properties that we want for
-% code samples.
 
-\let\itk@OldVerbatim=\verbatim
-\let\itk@OldEndVerbatim=\endverbatim
-\RequirePackage{verbatim}
-
-% Variable used by begin code command
-\newlength{\itk@codewidth}
-
-\renewcommand{\verbatim}{% 
-  \setlength{\parskip}{5pt}% separation between the code snippet and the previous paragraph
-  \setlength{\parindent}{1cm}%
-  % Calculate the text width for the minipage:
-  \setlength{\itk@codewidth}{\linewidth}%
-  \addtolength{\itk@codewidth}{-\parindent}%
-  %
-  \par\indent%
-  \begin{minipage}[t]{\itk@codewidth}%
-    \small%
-    \itk@OldVerbatim%
-}
-\renewcommand{\endverbatim}{%
-    \itk@OldEndVerbatim%
-  \end{minipage}%
-}
 
 % This does a similar thing for the {alltt} environment:
 \RequirePackage{alltt}
