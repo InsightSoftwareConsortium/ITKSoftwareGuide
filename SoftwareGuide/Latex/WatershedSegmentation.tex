@@ -4,6 +4,11 @@
 %
 %
 
+\subsection{Overview}
+\label{sec:AboutWatersheds}
+\index{Watersheds|textbf}
+\index{Watersheds!Overview}
+
 Combining differential expressions (such as the Laplacian) with linear or
 nonlinear filtering in itself provides a variety of mechanisms for 2D and 3D
 image segmentation.  This is done by combining edge detection with flood-fill
@@ -92,7 +97,7 @@ taken in handling the boundaries of regions, in confronting perfectly flat
 regions, and in determining the watershed depth, or order to produce consistent
 results.
 
-Figures~\ref{fig:colorsegment1}--~\ref{fig:colorsegment3}
+Figures~\ref{fig:WatershedColorSegmentation1}--~\ref{fig:WatershedColorSegmentation3}
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{WatershedColorEdges.eps}
@@ -100,7 +105,7 @@ Figures~\ref{fig:colorsegment1}--~\ref{fig:colorsegment3}
 A segmentation (white lines are segment boundaries) based on 
 the gradient magnitude of a color image that has been processed with 
 vector-valued anisotropic diffusion.}
-\protect\label{fig:colorsegment1}
+\protect\label{fig:WatershedColorSegmentation1}
 \end{figure}
 \begin{figure}
 \centering
@@ -108,39 +113,54 @@ vector-valued anisotropic diffusion.}
 \includegraphics[width=0.4\textwidth]{WatershedSpine1.eps}
 \caption{
 Insets from the segmentation of the color image shown in 
-Figure~\protect\ref{fig:colorsegment1} at two different levels of 
+Figure~\protect\ref{fig:WatershedColorSegmentation1} at two different levels of 
 watershed depth.  Top) A lower threshold partitions the spinal cord
 into several distinct tracts.  Bottom) At a higher threshold the 
 vertebrae becomes a single segment and the parts of the 
 spinal cord merge.
 }
-\protect\label{fig:colorsegment2}
+\protect\label{fig:WatershedColorSegmentation2}
 \end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{WatershedColorInput.eps}
+\includegraphics[width=0.4\textwidth]{WatershedColorGradientMagnitude.eps}
+\caption{
+Inputs for the segmentation presented in \ref{fig:WatershedColorSegmentation3}.
+Left) Cryogenic data set after smoothing with anisotropic diffusion.  Right)
+Squared magnitude of gradients on every color channel.}
+\protect\label{fig:WatershedColorInput}
+\end{figure}
+
+
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{WatershedArm1.eps}
 \includegraphics[width=0.4\textwidth]{WatershedArm2.eps}
 \caption{
 Insets from the segmentation of the color image shown in 
-Figure~\protect\ref{fig:colorsegment1} at two different levels of 
+Figure~\protect\ref{fig:WatershedColorSegmentation1} at two different levels of 
 watershed depth.  Top) The fat around the arm consists of many 
 distinct regions.  Bottom) At a higher threshold the 
 fat becomes a single segment as do the bones.
 }
-\protect\label{fig:colorsegment3}
+\protect\label{fig:WatershedColorSegmentation3}
 \end{figure}
+
 show the results of segmenting the color image from
-Figure~\ref{fig:anisocolor}(b).  These results are obtained by applying the
-watershed algorithm to the root-sum-of-squares gradient magnitude shown in
-Figure~\ref{fig:anisocolor}(d).  By changing the threshold on the minimum
-watershed depth, we can obtain different degrees of segmentation.  No one
-segmentation is ``perfect''; at one level the spinal cord is segmented into
-various tracts, while at another level it comes together to form a single
+Figure~\ref{fig:WatershedColorInput}(a).  These results are obtained by
+applying the watershed algorithm to the root-sum-of-squares gradient magnitude
+shown in Figure~\ref{fig:WatershedColorInput}(b).  By changing the threshold on
+the minimum watershed depth, we can obtain different degrees of segmentation.
+No one segmentation is ``perfect''; at one level the spinal cord is segmented
+into various tracts, while at another level it comes together to form a single
 structure.  Smaller regions can be expanded into larger regions by either
 changing the depth threshold or combining them under some user direction.
 
 \subsection{Watershed Segmentation in Insight}
 \label{sec:ImplementationWatersheds}
+\index{Watershed!Segmentation}
 The Insight Toolkit implementation of the watersheds algorithm is based on the
 top-down approach.  That is, it traces gradient descent down from image ridges
 to local minima when identifying catchment basins (see the previous
@@ -166,10 +186,10 @@ example in the Insight code repository.
 The watersheds algorithm uses a city-block connectivity when tracing gradient
 descent flows.  This means that in 2D images the segmented regions are
 4-connected, and in 3D images the segmented regions are 6-connected.  While
-There is currently no API exposed to the user for changing connectivity, but
- the code was designed to be easily modified at the developer level to
-handle arbitrary connectivities by replacing the connectivity object used in
-the gradient descent stage of the algorithm.
+there is currently no API exposed to the user for changing connectivity, the
+code was designed to be easily modified at the developer level to handle
+arbitrary connectivities by replacing the connectivity object used in the
+gradient descent stage of the algorithm.
 
 There are several terms that it is worthwhile to clarify when discussing the
 the watersheds algorithm.  In the context of the Insight
@@ -200,7 +220,7 @@ local minima.  A low pass thresholding step precedes the gradient descent to
 minimize the presence of shallow background regions, which result in
 oversegmentation of the image and increased computation time.  The basic
 segmentation is passed to a sub-filter which generates the merge tree up
-to a user-specified maximum level.  The merge tree is then used by the the image
+to a user-specified maximum level.  The merge tree is then used by the image
 relabeler to effect merging of segments in the basic segmentation and
 produce an output image that is labeled at the desired scale.
 
@@ -213,14 +233,15 @@ maximum flood level} to generate a new labeled image in real-time.
 
 \subsection{Using the Insight Watershed Filter}
 \label{sec:UsingWatersheds}
+\index{Watershed!ImageFilter}
 Because the Insight watershed filter has so few parameters\footnote{There is
-really only one parameter, {\em flood level}.  The {\em threshold} parameter is
-just another stage of preprocessing.}, the quality of a segmentation correlates
-strongly with the quality of the height function that is given as input. What
-quality means in this context is relative to the particular result you are
-trying to achieve.
+really only one parameter, \emph{flood level}.  The \emph{threshold} parameter
+is just another stage of preprocessing.}, the quality of a segmentation
+correlates strongly with the quality of the height function that is given as
+input. What quality means in this context is relative to the particular result
+you are trying to achieve.
 
-As noted in Section~\ref{section:aboutWatersheds}, the input height function
+As noted in Section~\ref{sec:AboutWatersheds}, the input height function
 should have strongly positive values at object boundaries.  A suitable height
 function for many applications can be generated as the gradient magnitude of
 the image.  The gradient magnitude image has the property that larger values
@@ -248,21 +269,22 @@ fast relabeling feature is useful for GUI-based applications and data
 visualization.
 
 Most of the computational complexity of the watersheds algorithm as it is
-currently implemented in Insight comes from generating the merge
-hierarchy. Processing times for this stage are exponential with respect to the
-number of catchment basins in the basic segmentation. This means that
-increasing image size does not necessarily slow processing times non-linearly.
-Instead, the execution speed decreases exponentially with information content
-in the image.  A very large, but very flat input may process in a much shorter
-time than a very small, but very detailed input.  In practice, however, very
-large volumes do tend to decrease merge times exponentially because scale of
-the segmented objectgs does not usually change with image size.  When
-going from 2D to 3D (and higher), increased interconnectivity of catchment
-basins in the basic segmentation also leads to increases in processing time
-which are non-linear with respect to the increased size of the data set.
+currently implemented in Insight comes from generating the merge hierarchy.
+Processing times for this stage are exponential with respect to the number of
+catchment basins in the basic segmentation. This means that increasing image
+size does not necessarily slow processing times non-linearly.  Instead, the
+execution speed decreases exponentially with information content in the image.
+A very large, but very flat input may process in a much shorter time than a
+very small, but very detailed input.  In practice, however, very large volumes
+do tend to decrease merge times exponentially because scale of the segmented
+objects does not usually change with image size.  When going from 2D to 3D (and
+higher), increased interconnectivity of catchment basins in the basic
+segmentation also leads to increases in processing time which are non-linear
+with respect to the increased size of the data set.
 
 \subsection{Visualizing the Results}
 \label{sec:VisualizingWatersheds}
+\index{Watershed!Visualization}
 In order to interpret the output of the Insight watersheds algorithm, it is
 important to understand what the output is and how it is encoded.  The
 watersheds image filter produces an image of unsigned long integers.  This
@@ -298,7 +320,7 @@ one or more regions in the output.  This can be done by thresholding the
 region(s) of interest from the output image and exporting the result to a
 visualization package capable of isosurface rendering.  Thresholding can be
 done either by explicit manipulation of the image values\footnote{Using the
-itk::ImageRegionIterator, visit each image pixel and assign all values not
+\code{itk::ImageRegionIterator}, visit each image pixel and assign all values not
 equal to the labels of interest to 0.} or through one of the several Insight
 image thresholding filters.  The thresholded data can be written to a file and
 read in to other image processing or visualization packages.  There is also
@@ -311,7 +333,8 @@ cryosection data from which the segmentations were created is shown at the
 left.  This image was created as described above by thresholding isovalues in a
 watershed segmentation output and rendered using the Visualization Toolkit
 (VTK).  Before rendering, the volume was antialiasing with
-itk::AntialiasBinaryImageFilter.
+\code{itk::AntialiasBinaryImageFilter}.
+
 
 \begin{figure}
 \centering
@@ -336,6 +359,7 @@ This application is covered in more detail in the next section.
 
 \subsection{Interactive Segmentation}
 \label{sec:SegmentationEditorWatersheds}
+\index{Watersheds!Segmentation Editor}
 The Segmentation Editor (SE) example in the Insight repository is a complete
 system for interactively segmenting image data using the watersheds algorithm.
 The goal of the software is to combine human interaction with automated image
@@ -360,8 +384,8 @@ The SE application is build in the Tcl scripting language.  The graphical
 interface was constructed using a Tk.  Visualization is done with the
 Visualization Toolkit (VTK) wrapped as Tcl commands.  The Insight filters used
 in the application were wrapped first as VTK filters and then also as Tcl
-commands.  Figure~\ref{fig:seBuildWatersheds} shows how the various components
-of the application are put together.
+commands.  Figure~\ref{fig:SegmentationEditorBuildWatersheds} shows how the
+various components of the application are put together.
 
 \begin{figure}
 \centering
@@ -369,7 +393,7 @@ of the application are put together.
 \caption{A user interacts with the Segmentation Editor application.  User
 commands cause updates in the Insight (ITK) and VTK pipelines, which are
 connected through data export and import filters.}
-\protect\label{fig:seBuildWatersheds}
+\protect\label{fig:SegmentationEditorBuildWatersheds}
 \end{figure}
 
 Preprocessing image data correctly is important for achieving good segmentation
@@ -387,7 +411,7 @@ magnitude of the smoothed image.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.80\textwidth]{PreprocessWatersheds.eps}
+\includegraphics[width=0.80\textwidth]{WatershedsPreprocessing.eps}
 \caption{Preparing a height function for input to the watersheds algorithm.
 The image on the left is a slice of the original MRI.  The image in the middle
 is a slice of the data after 12 iterations of a gradient based anisotropic
@@ -414,7 +438,7 @@ original data.  Only one slice of the data is displayed at a time, but the
 
 \begin{figure}
 \centering
-\includegraphics[width=0.80\textwidth]{segmentationsoftware1.eps}
+\includegraphics[width=0.80\textwidth]{WatershedSegmentationApplicationGUI.eps}
 \caption{Snapshot of the Segmentation Editor Tool}
 \protect\label{fig:editingWatersheds}
 \end{figure}
