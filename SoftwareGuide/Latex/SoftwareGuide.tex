@@ -84,6 +84,8 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 
 \begin{document}
 
+\InputIfFileExists{PrintedPreamble.tex}
+
 \maketitle
 
 \frontmatter
@@ -202,6 +204,9 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 
 \backmatter
 
+\ifitkPrintedVersion
+\InputIfFileExists{MarketingMaterial.tex}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -222,9 +227,6 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 \InputIfFileExists{SoftwareGuide.ind}
 
 
-\ifitkPrintedVersion 
-\InputIfFileExists{MarketingMaterial.tex}
-\fi
 
 
 \end{document}
