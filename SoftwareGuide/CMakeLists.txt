@@ -60,13 +60,13 @@ IF( NOT ITK_SOURCE_DIR )
 ENDIF( NOT ITK_SOURCE_DIR )
 
 # ITK_DATA_PATHS is searched recursively.. you need not enter sub-directories
-SET(ITK_DATA_PATHS "${SoftwareGuide_SOURCE_DIR}/Data:${ITK_SOURCE_DIR}/Examples/Data" CACHE STRING "Where the ITK data is. Enter a colon seperated list.")
+SET(ITK_DATA_PATHS "${ITK_SOURCE_DIR}/Examples/Data" CACHE STRING "Where the ITK data is. Enter a colon seperated list.")
 
 #
 # Rebuild the Software Guide figures or not ?
 SET(BUILD_FIGURES ON CACHE BOOL "Build Software Guide figures")
 IF( BUILD_FIGURES )
-  SET(ITK_EXECUTABLES_DIR "/" CACHE PATH "Where the ITK examples executables are")
+  SET(ITK_EXECUTABLES_DIR "/ITK/binaries/bin" CACHE PATH "Where the ITK examples executables are")
   SET(RUN_EXAMPLES_SCRIPT "${SoftwareGuide_SOURCE_DIR}/Examples/RunExamples.pl" CACHE FILEPATH "Where the RunExamples Script is")
 ENDIF( BUILD_FIGURES )
 
@@ -81,7 +81,29 @@ IF(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
 ENDIF(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
 
 
-IF( BUILD_FIGURES )
+IF (BUILD_FIGURES)
+
+  # 
+  #
+  # ADD THE LIST OF INPUT IMAGES YOU WANT FLIPPED HERE. 
+  # 
+  # NOTE:
+  # If ON, all input images in the list and all outputs that use these images as inputs in cmd line args will be flipped about 'y'. The 
+  # command line argument itself does not run using the flipped images; instead the eps images corresponding to the inputs mentioned in the list
+  # and their output dependencies are flipped for inclusion in the TEX document.
+
+  OPTION(ITK_FLIP_INPUTS_AND_THEIR_OUTPUTS "Flip the input images specified in CMakeLists and their corresponding outputs" ON)
+  SET(ITK_FLIP_IMG
+    BrainProtonDensitySlice
+    BrainProtonDensitySliceBorder20
+    VisibleWomanEyeSlice
+    VisibleWomanHeadSlice
+    VentricleModel
+    FivePoints
+    ThresholdSegmentationLevelSetImageFilterVentricle
+  )
+  # END FLIP_INPUTS LIST
+
   SUBDIRS(Examples)
   SUBDIRS(Art)
   SUBDIRS(Latex)
