@@ -99,6 +99,7 @@ SET(XFIG_FIGURES
   MultiResRegistrationComponents
   MultiResRegistrationConcept
   ModelToImageRegistrationComponentsDiagram
+  NeighborhoodIteratorFig1
   NeighborhoodIteratorFig2
   OptimizersHierarchy
   ParzenWindowing1
