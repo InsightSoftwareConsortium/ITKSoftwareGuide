@@ -131,6 +131,17 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Segmentation/VectorConfidenceConnected.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/GeodesicActiveContourImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/WatershedSegmentation1.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/BlobSpatialObject.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/EllipseSpatialObject.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/ImageSpatialObject.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/LandmarkSpatialObject.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/LineSpatialObject.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/ReadWriteSpatialObject.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/Scene.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/SpatialObjectHierarchy.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/SpatialObjectTransforms.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/SurfaceSpatialObject.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/TubeSpatialObject.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/BayesianPluginClassifier.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/EuclideanDistance.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/ExpectationMaximizationMixtureModelEstimator.cxx
