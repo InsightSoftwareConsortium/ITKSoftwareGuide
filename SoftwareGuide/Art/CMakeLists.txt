@@ -101,6 +101,7 @@ SET(JPEG_IMAGES
   BrainProtonDensitySliceShifted13x17y
   BrainProtonDensitySliceRotated10
   BrainProtonDensitySliceR10X13Y17
+  BrainProtonDensitySliceR10X13Y17S12
   BrainT1Slice
   BrainT1SliceBorder20
   ccmakeScreenShot
