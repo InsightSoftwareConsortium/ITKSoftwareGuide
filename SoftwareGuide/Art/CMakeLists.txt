@@ -80,6 +80,7 @@ SET(XFIG_FIGURES
   ThresholdTransferFunctionAbove
   ThresholdTransferFunctionBelow
   ThresholdTransferFunctionOutside
+  TranslationAndRotationCenter
   WatershedCatchmentBasins
   WatershedsHierarchy
   WatershedImageFilter
