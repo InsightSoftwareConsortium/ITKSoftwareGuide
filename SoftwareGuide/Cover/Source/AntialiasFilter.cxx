@@ -27,11 +27,11 @@ int main( int argc, char ** argv )
 {
 
   // Verify the number of parameters in the command line
-  if( argc < 4 )
+  if( argc < 5 )
     {
     std::cerr << "Usage: " << std::endl;
     std::cerr << argv[0] << " inputImageFile  outputImageFile " << std::endl;
-    std::cerr << " radius " << std::endl;
+    std::cerr << " maximumRMSError maximumIterations " << std::endl;
     return -1;
     }
 
