@@ -275,6 +275,9 @@ SET(JPEG_IMAGES
   VectorGradientAnisotropicDiffusionImageFilterOutput
   VectorCurvatureAnisotropicDiffusionImageFilterInput
   VectorCurvatureAnisotropicDiffusionImageFilterOutput
+  VectorConfidenceConnectedOutput1
+  VectorConfidenceConnectedOutput2
+  VectorConfidenceConnectedOutput3
   VisibleWomanHeadSlice
   VisibleWomanEyeSlice
   WatershedAbdomenSegmentation
