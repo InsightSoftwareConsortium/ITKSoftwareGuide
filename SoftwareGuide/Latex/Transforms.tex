@@ -239,8 +239,36 @@ equations summarize the effect of the transform on the basic geometric objects.
 \end{equation}
 
 where $\bf{P}_i$, $\bf{V}_i$ and $\bf{C}_i$ are the point, vector and covariant
-vector $i$-th components while $S_i$ is the scaling factor along dimension
-$i$.  
+vector $i$-th components while $S_i$ is the scaling factor along dimension $i$.
+The following equation illustrates the effect of the scaling transform on a
+$3D$ point.
+
+\begin{equation}
+\left[ 
+\begin{array}{c}
+x' \\
+y' \\
+z' \\
+\end{array}
+\right]
+=
+\left[ 
+\begin{array}{ccc}
+S_1 &  0  &  0  \\
+ 0  & S_2 &  0  \\
+ 0  &  0  & S_3 \\
+\end{array}
+\right]
+\cdot
+\left[ 
+\begin{array}{c}
+x  \\
+y  \\
+z  \\
+\end{array}
+\right]
+\end{equation}
+
 
 Scaling is an apparently simple transformation but actually there are a number of
 issues to keep in mind when it is used with different factors
@@ -293,7 +321,44 @@ Only defined for two-dimensional input and output spaces. \\
 
 Euler2DTransform implements a rigid transformation in $2D$. It is composed of a
 plane rotation and a two-dimensional translation. The rotation is applied
-first, followed by the translation. The difficult aspect of this transformation
+first, followed by the translation. The following equation illustrates the
+effect of this transform in a $2D$ point.
+
+
+\begin{equation}
+\left[ 
+\begin{array}{c}
+x' \\
+y' \\
+\end{array}
+\right]
+=
+\left[ 
+\begin{array}{cc}
+\cos{\theta} & -\sin{\theta} \\
+\sin{\theta} &  \cos{\theta} \\
+\end{array}
+\right]
+\cdot
+\left[ 
+\begin{array}{c}
+x  \\
+y  \\
+\end{array}
+\right]
++ 
+\left[ 
+\begin{array}{c}
+T_x  \\
+T_y  \\
+\end{array}
+\right]
+\end{equation}
+
+where $\theta$ is the rotation angle and $(T_x,T_y)$ are the components of the
+translation.
+
+The difficult aspect of this transformation
 is the fact that translations and rotations do not form a vector space and can
 not be managed as linear independent parameters. Typical optimizers make the
 loose assumption of managing the parameters as a vector space and rely on the
@@ -344,12 +409,12 @@ we can specify an arbitrary center of rotation, while the
 \code{Euler2DTransform} always use the origin of the coordinate system as
 rotation center. This distintion is quite important in image registration since
 ITK images usually have their origin in the corner of the image rather than the
-middle.  Rotational miss-registrations however usually exist as rotaions around
-the center of the image, or at least as rotaions around a point in the middle
-of the anatomical structure captured by the image. Attempting to solve this
-non-origin rotations using rotation around the origin are an almost imposible
-problem to solve with gradient descent optimizers since the deep basin of the
-real solution is across a high ridge in the topography of the cost function.
+middle.  Rotational miss-registrations however usually exist as rotations
+around the center of the image, or at least as rotations around a point in the
+middle of the anatomical structure captured by the image. Using gradient
+descent optimizers, it is almost imposible to solve non-origin rotations using
+origin rotations since the deep basin of the real solution is across a high
+ridge in the topography of the cost function.
 
 In practice this transform is used as follows: the user supplies the center of
 rotation in the input space, the angle of rotation and a translation to be
@@ -404,7 +469,7 @@ T_y + C_y \\
 \end{equation}
 
 where $\theta$ is the rotation angle, $(C_x,C_y)$ are the coordinates of the
-rotation center and $(t_x,t_y)$ are the components of the translation. Note
+rotation center and $(T_x,T_y)$ are the components of the translation. Note
 that the center coordinates are subtracted before the rotation and added back
 after the rotation.
 
