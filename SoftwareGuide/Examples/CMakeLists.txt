@@ -100,6 +100,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ConfidenceConnected.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/IsolatedConnectedImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/HybridSegmentationFuzzyVoronoi.cxx
+  ${ITK_SOURCE_DIR}/Examples/Segmentation/FastMarchingImageFilter.cxx
 )
 
 
