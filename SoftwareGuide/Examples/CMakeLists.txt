@@ -98,6 +98,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/IO/ImageReadExtractWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/ImageReadExportVTK.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/ImageReadRegionOfInterestWrite.cxx
+  ${ITK_SOURCE_DIR}/Examples/IO/ImageSeriesReadWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/RGBImageReadWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/RGBImageSeriesReadWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/CovariantVectorImageWrite.cxx
