@@ -65,6 +65,9 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 \newif\ifitkFullVersion
 \itkFullVersiontrue
 
+\newif\ifitkPrintedVersion
+\itkPrintedVersionfalse
+
 
 % actually write the .idx file
 \makeindex
@@ -115,6 +118,9 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 \ifitkFullVersion 
 \input{Abstract.tex}
 \input{Contributors.tex}
+\fi
+
+\ifitkPrintedVersion 
 \input{Cover.tex}
 \fi
 
