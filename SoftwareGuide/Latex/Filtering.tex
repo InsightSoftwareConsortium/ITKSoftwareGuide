@@ -2,7 +2,7 @@
 
 This chapter introduces the most commonly used filters in the toolkit.  Most of
 these filters are intended to process images. They will accept one or more
-images as input and wil produce one or more images as output. Insight is based
+images as input and will produce one or more images as output. Insight is based
 on a data pipeline architecture in which the output of one filter is passed as
 input to another filter.
 
@@ -52,6 +52,22 @@ computing both the image of gradient vectors and the image of magnitudes.
 
 \section{Neighborhood Filters}
 \label{sec:NeighborhoodFilters}
+
+The concept locality is frequently encountered in image processing on the form
+of filters that compute every output pixel using information from a reduced
+region on the neighborhood of the input pixel. The classical form of this
+filters are the $3 \times 3$ filters in 2D images. Convolution masks based on
+these neighborhoods could perform diverse tasks ranging from noise reduction,
+to differential operations, to mathematical morphology.
+
+The Insight toolkit implements an elegant approach for the computation of these
+family of filters. The input image is visited by a special iterator called the
+\code{SmartNeighborhoodIterator}. This iterator is capable of moving over all
+the pixels in an image and for each position it can address the pixels in a
+local neighborhood. Operators can be defined in order to specify what
+algorithmic operation must be performed on the neighborhood of the input pixel
+to compute the value of the output pixel. The following section describes some
+of the commonly used filters that take advantage of this construction.  
 
 \subsection{Median Filter}
 \label{sec:MedianFilter}
