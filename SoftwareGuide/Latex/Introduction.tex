@@ -220,20 +220,20 @@ pre-compiled binaries, it is helpful to know enough to navigate through the
 code base to find examples, code, and documentation.
 
 ITK is organized into several different modules, or CVS checkouts. If you are
-using an official release or CD release, you will see two important modules:
-the \code{Insight} and \code{InsightDocuments} modules. The source code,
-examples and applications are found in the \code{Insight} module;
-documentation, tutuorials, and material related to the design and marketing
-of ITK are found in \code{InsightDocuments}. Usually you will work with the 
+using an official release or CD release, you will see three important modules:
+the \code{Insight}, \code{InsightDocuments} and \code{InsightApplications}
+modules. The source code, examples and applications are found in the
+\code{Insight} module; documentation, tutuorials, and material related to the
+design and marketing of ITK are found in \code{InsightDocuments}; and fairly
+complex applications using ITK (and other systems such as VTK, Qt, and FLTK)
+are available from \code{InsightApplications}. Usually you will work with the
 \code{Insight} module unless you are a developer, are teaching a course, or
-are looking at the details of various design documents.
+are looking at the details of various design documents. The
+\code{InsightApplications} module should only be downloaded and compile once
+the \code{Insight} module is functioning properly.
 
 The \code{Insight} module contains the following subdirectories:
 \begin{itemize}
-        \item \code{Insight/Applications}---large, relatively complex examples
-        of ITK usage. Some of these applications include GUI's and use other
-        packages such as VTK (\emph{The Visualization Toolkit} 
-        \url{http://www.vtk.org}).
         \item \code{Insight/Auxiliary}---code that interfaces packages
         to ITK.
         \item \code{Insight/Code}---the heart of the software; the location
@@ -307,6 +307,28 @@ The \code{InsightDocuments} module contains the following subdirectories:
         \item \code{InsightDocuments/Web}---the source HTML and other material
         used to produce the Web pages found at \url{http://www.itk.org}.
 \end{itemize}
+
+Similar to the \code{Insight} module, access to the \code{InsightDocuments}
+module is also available via CVS using the following commands (under UNIX and
+Cygwin):
+\begin{verbatim}
+cvs -d :pserver:anonymous@www.itk.org:/cvsroot/Insight co InsightDocuments
+\end{verbatim}
+
+The \code{InsightApplications} module contains large, relatively complex
+examples of ITK usage. See the web pages at 
+\url{http://www.itk.org/HTML/Applications.htm} for a description. Some of 
+these applications require GUI's such as Qt and FLTK and use other packages
+such as VTK (\emph{The Visualization Toolkit}
+\url{http://www.vtk.org}). Do not attempt to compile and build this module
+until you have successfully built the core \code{Insight} module.
+
+Similar to the \code{Insight} and \code{InsightDocuments} module, access to 
+the \code{Insightapplications} module is also available via CVS using the 
+following commands (under UNIX and Cygwin):
+\begin{verbatim}
+cvs -d :pserver:anonymous@www.itk.org:/cvsroot/Insight co InsightApplications
+\end{verbatim}
 
 \subsection{Documentation}
 \label{sec:Documentation}
