@@ -166,8 +166,8 @@ DART supports a variety of test types. These include the following.
         \item[SetGet.] Often developers make assumptions about the values of
         instance variables; i.e., they assume that they are non-NULL,
         etc. The SetGet tests perform a Get on all instance variables with a
-        Get__() method, followed by a Set method on the instance variable
-        with the value returned from the Get__() method. It’s surprising
+        Get\_\_() method, followed by a Set method on the instance variable
+        with the value returned from the Get\_\_() method. It’s surprising
         how many times this test identifies problems.
 
         \item[TestEmptyInput.] This deceptively simple test catches many
@@ -176,15 +176,15 @@ DART supports a variety of test types. These include the following.
         data. TestEmptyInput simply exercises these two conditions on each
         subclass of vtkProcessObject and reports problems if encountered.
 
-        \item[Coverage.] There is a saying among ITK developers: “If it
-        isn’t covered, then it’s broke.” What this means is that
+        \item[Coverage.] There is a saying among ITK developers: \emph{If it
+        isn’t covered, then it’s broke.} What this means is that
         code that is not executed during testing is likely to be wrong. The
         coverage tests identify lines that are not executed in the
         Insight Toolkit test suite, reporting a total percentage
         covered at the end of the test. While it is nearly impossible to
-        bring the coverage to 100% because of error handling code and similar
+        bring the coverage to 100\% because of error handling code and similar
         constructs that are rarely encountered in practice, the coverage
-        numbers should be 75% or higher. Code that is not covered well enough
+        numbers should be 75\% or higher. Code that is not covered well enough
         requires additional tests.
 \end{description}
 
