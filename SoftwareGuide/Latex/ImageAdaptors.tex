@@ -13,11 +13,20 @@ overload that normaly will be produced by a casting filter. If you use the
 \doxygen{float} one, the filter will duplicate the memory buffer required for
 storing the image, given that \code{float}s require four times more memory than
 \code{unsigned char}s, the memory consumption will actually be multiplied by
-four. An ImageAdaptor will prevent this memory replication and will convert
-pixel values only when they are read using image iterators (see
+four. An \doxygen{ImageAdaptor} will prevent this memory replication and will
+convert pixel values only when they are read using image iterators (see
 chapter~\ref{sec:ImageIteratorsChapter}).
 
 ImageAdaptors can replace any of the pixel-wise filters in the toolkit. They
 are defined for most of the basic single valued and single parameter functions
 like trigonometric functions, exponential and logarithms.
+
+The following examples illustrate commonly used cases of ImageAdaptors.
+
+\section{Image Casting}
+\label{sec:ImageAdaptorForBasicCasting}
+\ifitkFullVersion
+\input{ImageAdaptor1.tex}
+\fi
+
 
