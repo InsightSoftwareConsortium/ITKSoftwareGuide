@@ -1,4 +1,139 @@
 \chapter{Introduction}
+\label{chapter:Introduction}
 
-An introduction to the toolkit
+Welcome to the \emphasis{Insight Segmentation and Registration Toolkit (ITK)
+Software Guide}. This book has been updated for ITK 1.1 and later versions of
+the Insight Toolkit software.
+
+ITK is an open-source, object-oriented software system for image processing,
+segmentation, and registration.  Although it is large and complex, ITK is
+designed to be easy to use once you learn about its basic object-oriented and
+implementation methodology. The purpose of this \emphasis{Software Guide} is
+to help you learn just this, plus familiarize you with an important
+algorithms and data representations found throughout the toolkit. The material
+is taught using an extensive set of examples, which we encourage you to compile
+and run while you read this text.
+
+ITK is a large system. As a result, it is not possible to completely document
+all ITK objects and their methods in this guide. Instead, this guide will
+introduce you to important system concepts and lead you up the learning curve
+as fast and efficiently as possible. Once you master the basics, we suggest
+that you take advantage of the many resources available including the Doxygen
+doumentation pages (xref to doxygen) and the community of ITK users (see
+xref to AdditionalResources).
+
+The Insight Toolkit is an open-source software system. What this means is
+that the community of ITK users and developers has great impact on the
+software. Users and developers can contribute greatly to ITK by providing bug
+fixes, tests, new classes, and other feedback. Please feel free to contribute
+your ideas to the community (the ITK mailing list is the preferred method).
+
+\section{Organization}
+\label{sec:Organization}
+
+This software guide is divided into three parts, each of which is further
+divided into several chapters. Part I is a general introduction to ITK,
+including---in the next chapter---a description of how to install the Insight
+Toolkit on your computer. This includes installing pre-compiled libraries and
+executables, and compiling the software from the source code. Part I also
+introduces basic system concepts including an overview of the system
+architecture, and how to build applications in the C++ and Tcl programming
+languages. Part II describes the system from the user point of view. Dozens
+of examples are used to illustrate important system features. Part III is for
+the ITK developer. Part III explains how to create your own classes, extend
+the system, and interface to various windowing and GUI systems.
+
+\section{How to Learn ITK}
+\label{sec:HowToLearnITK}
+
+There are two broad categories of users of ITK. First are class developers,
+those who create classes in C++. Second, users, employ existing C++ classes to
+build applications. Class developers must be proficient in C++, and if you
+are extending or modifying ITK, you must also be familiar with ITK's internal
+structures and design (material covered in Part III). Users may or may not
+use C++, since the compiled C++ class library has been
+\emphasis{wrapped} with the Tcl interpreted language. However, as a user
+you must understand the external interface to ITK classes and the
+relationships between them.
+
+The key to learning how to use ITK is to become familiar with its palette of
+objects and the ways of combining them. If you are a new Insight Toolkit
+user, begin by installing the software. If you are a class developer, you'll
+want to install the source code and then compile it. Users may only need the
+precompiled binaries and executables. We recommend that you learn the system
+by studying the examples (if you are a user) and then study the source code
+(if you are a class developer). Start by reading Chapter 3, which provides an
+overview of some of the key concepts in the system, and then review the
+examples in Part II. You may also wish to run the dozens of examples
+distributed with the source code found in the directory
+\code{ITK/Examples}. (Please see the file \code{ITK/Examples/README.txt} for
+a description of the examples contained in the various subdirectories.) There
+are also several hundred tests found in the source distribution; such as
+those found in ITK/Graphics/Testing/Tcl and ITK/Graphics/Testing/Cxx, most of
+which are minimally documented testing scripts. However, they may be useful
+to see how classes are used together in ITK.
+
+\section{Software Organization}
+\label{sec:SoftwareOrganization}
+
+The following sections describe the directory contents, summarize the software functionality in each directory, and locate the documentation and data. Also refer to Chapter 15 for information about the organization of the companion CD.
+
+\subsection{Obtaining the Software}
+\label{sec:ObtainingTheSoftware}
+
+Obtaining The Software
+There are three different ways to access the ITK source code.
+	1.	from the companion CD-ROM accompanying this text;
+	2.	from daily releases available on the ITK Web site http://www/vtk.org; and
+	3.	from direct access to the CVS source code repository (instructions found at 
+http://www.vtk.org).
+
+This user’s guide assumes that you are working with the official ITK version 4.2 release. We highly recommend that you use this version of the software. It is stable, consistent, and better tested than either the daily releases or CVS repository. However, if you must use a more recent version, please be aware of the ITK quality testing dashboard. The Insight Toolkit is heavily tested using the open-source DART regression testing system (http://public.kitware.com/dashboard.php). Before obtaining an official release or updating the CVS repository, make sure that the dashboard is “green” indicating stable code. If not green it is likely that your software update is unstable. (Learn more about the ITK quality dashboard in the section “The ITK Software Process” on page 178.)
+
+\subsection{Directory Structure}
+\label{sec:DirectoryStructure}
+
+To begin your ITK odyssey, you will first need to know something about ITK’s directory structure. Even if you are installing pre-compiled binaries, it is helpful to know enough to navigate through the code base to find examples, code, and documentation. The ITK directory structure is organized as follows.
+	•	ITK/Common — contains core classes.
+	•	ITK/Filtering — abstract superclasses for filtering data.
+	•	ITK/Rendering — classes used to render.
+	•	ITK/Imaging — image processing filters.
+	•	ITK/Graphics — filters that process 3D data.
+	•	ITK/IO — filters for reading and writing data. 
+	•	ITK/Hybrid — complex classes that depend on Imaging and Graphics. Note that the 3D widgets are located here as well.
+	•	ITK/Parallel — parallel processing support such as MPI.
+	•	ITK/Patented — patented classes, to be used in commercial applications only with a license.
+	•	ITK/Examples — well-documented, how to use ITK examples.
+	•	ITK/Utility — supporting software like expat, png, jpeg, tiff, and zlib. The Doxygen directory contains scripts and configuration programs for generating the Doxygen documentation.
+	•	ITK/Wrapping — support for Tcl, Python, and Java wrapping.
+
+\subsection{Documentation}
+\label{sec:Documentation}
+
+Besides this text and The Insight Toolkit text (see the next section for more information), there are other documentation resources that you should be aware of.
+	•	Doxygen Documentation. The Doxygen documentation is an essential resource when working with ITK. These extensive Web pages describe in detail every class and method in the system. The documentation also contains inheritance and collaboration diagrams, listing of event invocations, and data members. The documentation is heavily hyper-linked to other classes and to the source code. The Doxygen documentation is available on the companion CD, or on-line at http://www.vtk.org. Make sure that you have the right documentation for your version of the source code.
+	•	Header Files. Each ITK class is implemented with a .h and .cxx file. All methods found in the .h header files are documented and provide a quick way to find documentation for a particular method. (Indeed, Doxygen uses the header documentation to produces its output.)
+
+\subsection{Data}
+\label{sec:Data}
+
+The best way to obtain the ITK data is from the companion CD. However, other data is available from http://www.vtk.org and via CVS access. Instructions to CVS access the data repository is also available at vtk.org.
+
+\section{Additional Resources}
+\label{sec:AdditionalResources}
+
+For more information about the Insight Toolkit we recommend the following resources.
+	•	The text The Insight Toolkit An Object-Oriented Approach to 3D Graphics (Third Edition). This book goes into detail about many of the algorithms, data structures, and system issues found in ITK. The text is published by Kitware, Inc.and available from amazon.com and the Kitware estore at http://www.kitware.com/products/. ISBN 1-930934-07-6, 520 pages, printed in full color, hard bound, with CD-ROM.
+	•	The Web pages http://public.kitware.com/ contain pointers to many other resources such as on-line manual pages, a FAQ, and an archive of the vtkusers mailing list (see below). In particular, the Doxygen manual pages are absolutely wonderful. Although they are available on the companion ITK CD, you can also view them on-line at http://public.kitware.com/ITK/doc/nightly/html.
+	•	Many other ITK users and developers also maintain Web pages. One recommended site is Sebastien Barre’s links to ITK resources http://www.barre.nom.fr/vtk/links.html.
+	•	The vtkusers mailing list allows users and developers to ask questions and receive answers; post updates, bug fixes, and improvements; and offer suggestions for improving the system. There are instructions at http://public.kitware.com/mailman/listinfo/vtkusers describing how to join this list.
+	•	Commercial support and consulting are available from Kitware at http://www.kitware.com. Kitware also sells and supports commercial products built with ITK including VolView (volume rendering/image processing), ActiViz for Microsoft Visual Basic/COM/ActiveX support, and the PolyViz application and embeddable control for polygonal mesh viewing and editing. See the Web pages for terms and pricing.
+
+As a last resort, you can e-mail Kitware at kitware@kitware.com. We will answer questions as time and resources permit.An introduction to the toolkit
+
+\section{A Brief History of ITK}
+\label{sec:History}
+
+\index{ITK!history|textbf}
+
 
