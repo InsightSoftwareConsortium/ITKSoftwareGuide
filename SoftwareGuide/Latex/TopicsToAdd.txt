@@ -278,6 +278,51 @@ Chapter 6 Filtering
 
 
 
+Chapter 7 IO
+
+
+
+- Update Figure 7.3 to add all the known fileformats
+
+- Add a table withh all  the fileformat from the FAQ in Wiki.
+
+- Add the examples for Series Read Write:
+
+  The .cxx are there, they need to:
+
+    1. Revision of their comments
+    2. Make sure they have regression testing.
+    3. Make sure they are input in Latex
+    
+    
+  - ImageReadImageSeriesWrite.cxx
+  - ImageSeriesReadWrite.cxx
+  - RGBImageSeriesReadWrite.cxx
+  
+
+- Add a section on DICOM
+
+  - Maybe introduction by Mathieu 
+    - short history, web site, standards.
+      JPEG compression... etc.
+
+  - How to read single DICOM slice
+  - How to write single DICOM slice
+  - How to read a DICOM series 
+  - How to write a DICOM series 
+  - How to printout an entire DICOM header
+  - How to get specific entries.
+
+    DicomSeriesReadImageWrite.cxx
+    DicomSeriesReadImageWrite2.cxx
+    DicomSeriesReadPrintTags.cxx
+    DicomSeriesReadSeriesWrite.cxx
+
+
+
+
+
+
 New Chapter : Visualization
 
 
