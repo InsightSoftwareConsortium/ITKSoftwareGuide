@@ -5,6 +5,11 @@
 INCLUDE (${CMAKE_ROOT}/Modules/FindLATEX.cmake)
 
 
+#
+# Options for PDF generation. 
+# resolution in dpi.
+#
+SET(DVIPDF_COMPILE_OPTIONS "-r600x600")
 
 #
 # File that defines the path to .cxx examples in ITK sources
@@ -80,7 +85,7 @@ IF(LATEX_COMPILE)
     ADD_CUSTOM_COMMAND( 
       SOURCE    SoftwareGuide.dvi
       COMMAND   ${DVIPDF_COMPILE}
-      ARGS      SoftwareGuide.dvi
+      ARGS      ${DVIPDF_COMPILE_OPTIONS} SoftwareGuide.dvi
       TARGET    SoftwareGuideLatex
       DEPENDS   SoftwareGuide.ind 
       OUTPUTS   SoftwareGuide.pdf
