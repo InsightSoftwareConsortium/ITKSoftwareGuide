@@ -1,28 +1,39 @@
 
 \def\tableconfiguration{ | p{4cm} | p{3cm} | p{3cm} | p{4cm} | }
 
+\index{itk::Transform|textbf}
+
 In the toolkit, \code{itk::Transform} objects encapsulates the mapping of
-points, vectors and covariant vectors from an input space to an output space.
-The distinction between points, vectors and covariant vectors has already
-been discussed in Chapter \ref{sec:DataRepresentation}. If a transform is
-invertible, back transform methods are also provided. Currently, 
-ITK provide a variety of transforms from simple translation, rotation and 
-scaling to general affine and kernel transforms. Note that, although we
-discuss transforms in context registration in this section, transforms
-are general and can used for other applications. Some of the commonly used 
+points and vectors from an input space to an output space.
+If a transform is invertible, back transform methods are also provided. 
+Currently, ITK provide a variety of transforms from simple translation, 
+rotation and scaling to general affine and kernel transforms. 
+Note that, although we discuss transforms in context registration in this section, 
+transforms are general and can used for other applications. Some of the commonly used 
 transforms will be discussed in detail later in this section.
 
-Typically, each transform type several methods are provided for setting
+\index{itk::Transform!TransformPoint()}
+\index{itk::Transform!TransformVector()}
+\index{itk::Transform!TransformCovariantVector()}
+Points, vectors and covariant vectors are transformed using methods
+\code{TransformPoint()}, \code{TransformVector()} and \code{TransformCovariantVector()}.
+The distinction between points, vectors and covariant vectors has already
+been discussed in Chapter \ref{sec:DataRepresentation}. 
+
+\index{itk::Transform!SetParameters()}
+Typically each transform type have several methods for setting
 the parameters. For example, \code{Euler2DTransform} provide methods for
 separately setting the offset, the angle, and the entire rotation matrix.
 However, for use in the registration framework, the parameters must also
 be represented by a flat \code{Array<double>} to allow communication
 with generic optimizers. In the case of \code{Euler2DTransform}, the transform
 is also defined by three doubles: the first representing the angle and 
-the last two the offset. The a description of the parameters and their
-ordering is documented in the header file of each transform.
+the last two the offset. The flat array of parameters is defined 
+using \code{SetParameters()}. A description of the parameters and their
+ordering is documented in the header file of each transform. 
 
-Another requirement of the registration framework is the of the
+\index{itk::Transform!GetJacobian()}
+Another requirement of the registration framework is the computation of the
 transformation Jacobian. In general, metrics require the knowledge of 
 the Jacobian in order to compute the metric derivatives. 
 The Jacobian is a matrix whose element are the partial derivatives of the 
@@ -32,20 +43,20 @@ transform:
 \begin{equation}
 J=\left[ \begin{array}{cccc}
 \frac{\partial x_{1}}{\partial p_{1}} & 
-\frac{\partial x_{2}}{\partial p_{1}} & 
-\cdots  & \frac{\partial x_{n}}{\partial p_{1}}\\
 \frac{\partial x_{1}}{\partial p_{2}} & 
+\cdots  & \frac{\partial x_{1}}{\partial p_{m}}\\
+\frac{\partial x_{2}}{\partial p_{1}} & 
 \frac{\partial x_{2}}{\partial p_{2}} & 
-\cdots  & \frac{\partial x_{n}}{\partial p_{2}}\\
+\cdots  & \frac{\partial x_{2}}{\partial p_{m}}\\
 \vdots  & \vdots  & \ddots  & \vdots \\
-\frac{\partial x_{1}}{\partial p_{m}} & 
-\frac{\partial x_{2}}{\partial p_{m}} & 
+\frac{\partial x_{n}}{\partial p_{1}} & 
+\frac{\partial x_{n}}{\partial p_{2}} & 
 \cdots  & \frac{\partial x_{n}}{\partial p_{m}}
 \end{array}\right]
 \end{equation}
- 
 
-
+Within this framework, the Jacobian is represented by a \code{Array2D<double>}
+and is obtained from the transform by method \code{GetJacobian()}
 
 
 \subsection{Identity Transform}
@@ -134,7 +145,7 @@ Represents a 2D rotation and a 2D translation. Note that the translation
 component has no effect on the transformation of vectors and covariant vectors. &
 3 &
 The first parameter is the angle in radian and the last two parameters
-are the translation in each each dimension. &
+are the translation in each dimension. &
 Only defined for two-dimensional input and output spaces. \\
 \hline
 \end{tabular}
@@ -160,7 +171,7 @@ the translation component has no effect on the transformation of vectors and
 covariant vectors. & 
 4 &
 The first parameter is the angle in radian, the second the scaling factor for
-all dimension and the last two parameters are the translation in each
+all dimensions and the last two parameters are the translation in each
 dimension. & 
 Only defined for two-dimensional input and output spaces. \\
 \hline
@@ -207,9 +218,9 @@ Only defined for three-dimensional input and output spaces. \\
 \textbf{Restrictions} \\
 \hline\hline
 Represents a 3D rotation and a 3D translation. The rotation is specified a
-versor or unit quaternion, defined by a vector of three numbers $\bf{q}$.
+versor or unit quaternion, defined by a vector of three numbers.
 These three numbers corresponds to the first three components of a quaternion.
-The fourth component of the quaternion derived such that the quaternion is of
+The fourth component of the quaternion is derived such that the quaternion is of
 unit length. &
 6 &
 The first three parameters defines the versor and the last three parameters the

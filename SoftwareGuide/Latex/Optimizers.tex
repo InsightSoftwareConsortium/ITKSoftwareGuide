@@ -5,14 +5,14 @@
 Optimization algorithms are encapsulated as \code{itk::Optimizer} objects
 within ITK. Optimizers are generic and can be used for general applications.
 Within the registration framework, \code{itk::SingleValuedNonLinearOptimizer}
-are used to optimize the metric criterion with respect to transform parameters.
+are used to optimize the metric criterion with respect to the transform parameters.
 
 \index{itk::Optimizer!SetInitialPosition()}
 \index{itk::Optimizer!StartOptimization()}
 \index{itk::Optimizer!GetCurrentPosition()}
 
 The basic input to an optimizer is a cost function object. In context
-of registration, \code{itk::ImageToImageMetrics} provide this functionality.
+of registration, \code{itk::ImageToImageMetric} provide this functionality.
 The initial parameters are set using \code{SetInitialPosition()} and
 the optimization algorithm is invoked by \code{StartOptimization()}.
 Once the optimization has finished, the final parameters can be obtained
@@ -21,12 +21,13 @@ using \code{GetCurrentPosition()}.
 \index{itk::Optimizer!SetScales()}
 Some optimizers also allows rescaling of the individual parameters. This
 is convenient for normalizing parameters spaces in which some parameters
-have different dynamic range. For example, the first parameter of
+have different dynamic ranges. For example, the first parameter of
 \code{Euler2DTransform} represent an angle while the last two parameters
 the translation. A unit change in angle has a much greater impact on
 an image than a unit change in translation. This difference in scale appears
 as long narrow valleys in the search space making the optimization problem
-diffcult. Scales are represented as \code{Array} of doubles and set via
+diffcult. Rescaling the translation parameters can help to fix this problem.
+Scales are represented as \code{Array} of doubles and set defined using
 \code{SetScales()}.
 
 The types of \code{itk::SingleValuedNonLinearOptimizer} currently available

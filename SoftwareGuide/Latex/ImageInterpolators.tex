@@ -16,16 +16,26 @@ moving image at these non-grid positions.}
 \end{figure}
 
 ITK currently offers three different interpolation schemes: nearest-neighbor,
-linear and B-Spline. In the context of registration, the interpolation method
+linear and B-spline. In the context of registration, the interpolation method
 affects the smoothness of the optimization search space and the overall
 computation time. On the other hand, interpolations are executed thousands of
 times in a single optimization cycle. Hence, the user has to tradeoff the
 simplicity of computation with smoothness when selecting the interpolation 
 scheme.
+
+\index{itk::InterpolateImageFunction|textbf}
+\index{itk::InterpolateImageFunction!SetInputImage()}
+\index{itk::InterpolateImageFunction!Evaluate()}
+\index{itk::InterpolateImageFunction!EvaluateAtContinuousIndex()}
+The basic input to a \code{itk::InterpolateImageFunction} is the image to
+be interpolated. Once an image has be defined using \code{SetInputImage()},
+a user can interpolate either at a point using \code{Evaluate()} or
+an index using \code{EvaluateAtContinuousIndex()}.
  
 \subsection{Nearest Neighbor Interpolation}
 \label{sec:NearestNeighborInterpolation}
-The nearest-neighbor interpolation scheme simply use the intensity of
+\index{itk::NearestNeighborInterpolateImageFunction|textbf}
+\code{NearestNeigbhorInterpolateImageFunction} simply use the intensity of
 the nearest grid position. That is, it assumes that the image intensity
 is piecewise constant with jumps mid-way between grid positions. 
 This interpolation scheme is cheap as it does not require any 
@@ -33,29 +43,32 @@ floating point computations.
 
 \subsection{Linear Interpolation}
 \label{sec:LinearInterpolation}
-This interpolation scheme assumes that intensity varies linearly
+\index{itk::LinearInterpolateImageFunction|textbf}
+\code{LinearInterpolateImageFunction} assumes that intensity varies linearly
 between grid positions. Unlike nearest neighbor, the interpolated
 intensity is spatially continuous. However, the intensity gradient
 will be discontinous at grid positions.
 
 \subsection{B-Spline Interpolation}
 \label{sec:BSplineInterpolation}
-This scheme represents the image intensity using B-Spline basis functions.
-When an input image is first connected to the interpolator, B-Spline 
+\index{itkBSplineInterpolateImageFunction|textbf}
+\code{BSplineInterpolateImageFunction} represents the image intensity 
+using B-spline basis functions. When an input image is first 
+connected to the interpolator, B-spline 
 coefficients are computed using recursive filtering (assuming mirror
 boundary conditions). Intensity at a non-grid position is computed
 by multiplying the B-Spline coefficients with shifted B-Spline kernels
 within a small support region of the requested position.
 
-Currently, \code{BSplineInterpolateImageFunction} support spline order
-from 0 to 5. Spline order of 0 is almost identical to nearest-neighbor.
-Spline order of 1 is exactly identical to linear interpolation. For 
+Currently, this interpolator support spline orders
+from 0 to 5. Spline order of 0 is almost identical to nearest-neighbor;
+spline order of 1 is exactly identical to linear interpolation. For 
 spline order greater than 1, both the interpolated value and their
 derivative are spatially continuous.
 
 It is important to note that when using this scheme, the interpolated
 value may lie outside the range of input image intensity. This is
 especially important when handling unsigned data, as it is possible
-that the interpolated value to be negative.
+that the interpolated value is negative.
 
 

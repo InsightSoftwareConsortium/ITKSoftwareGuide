@@ -50,7 +50,8 @@ and transformed moving image $m \circ T(\bf{X})$ as images $A$ and $B$.
 
 \subsection{Mean Squares Metric}
 \label{sec:MeanSquaresMetric}
-This metric computes the mean square pixel-wise difference in intensity
+\index{itk::MeanSquaresImageToImageMetric|textbf}
+\code{MeanSquaresImageToImageMetric} computes the mean square pixel-wise difference in intensity
 between image $A$ and $B$ over a user defined region:
 
 \begin{equation}
@@ -73,7 +74,9 @@ any linear changes in the intensity result in a poor match value.
 
 \subsection{Normalized Correlation Metric}
 \label{sec:NormalizedCorrelationMetric}
-This metric computes pixel-wise cross-correlation and normalize it
+\index{itk::NormalizedCorrelationImageToImageMetric|textbf}
+\code{NormalizedCorrelationImageToImageMetric} computes 
+pixel-wise cross-correlation and normalize it
 by the square root of the autocorrelation of the images:
 
 \begin{equation}
@@ -88,7 +91,7 @@ $N$ is the number of pixels considered
 
 The optimal value of the metric is one. Misalignment between the
 images results is small measure values. The use of this metric
-is limited to obtained using the same imaging modality. The metric
+is limited to images obtained using the same imaging modality. The metric
 is insenstive to multiplicative differences between the two
 images. This metric produces a cost function with sharp peaks and well
 defined maxima. On the other hand, it has a relatively smaller
@@ -96,7 +99,8 @@ capture radius.
 
 \subsection{Pattern Intensity Metric}
 \label{sec:PatternIntensityMetric}
-This metric computes pixel-wise differences and add them 
+\index{itk::PatternIntensityImageToImageMetric|textbf}
+\code{PatternIntensityImageToImageMetric} computes pixel-wise differences and add them 
 after passing them through a bell-shaped function $\frac{1}{1+x^2}$:
 
 \begin{equation}
@@ -147,11 +151,9 @@ random variable $B$ and
 \begin{equation}
 H(A,B) = \int p_{AB}(a,b) \log p_{AB}(a,b)\,da\,db
 \end{equation}
-be the joint entropy of $A$ and $B$.
-
-If $A$ and $B$ are independent then
+be the joint entropy of $A$ and $B$. If $A$ and $B$ are independent then
 \begin{equation}
-p_{AB}(a,b) = p_A(a) p_B{b}
+p_{AB}(a,b) = p_A(a) p_B(b)
 \end{equation}
 and
 \begin{equation}
@@ -191,21 +193,21 @@ the intensity samples obtained from the image. }
 
 A variety of functions can be used as the smoothing kernel with the
 requirement that it be smooth, symmetric, has zero mean and
-integrates to one. For example, boxcar, Gaussian and B-Spline functions.
+integrates to one. For example, boxcar, Gaussian and B-spline functions
+are suitable candidates.
 A smoothing parameter is used to scale the kernel function.
 The larger the smoothing parameter, the wider the kernel function
 used and hence the smoother the density estimate. If the parameter is
 too large, features such as modes in the density will get smoothed out.
 On the other hand, if the smoothing parameter is too small, the
-resulting density may be too noisy.
-
-The choosing the optimal smoothing parameter is a research 
-problem in itself and beyond the scope of this software guide.
+resulting density may be too noisy. Choosing the optimal smoothing parameter 
+is a difficult research 
+problem and beyond the scope of this software guide.
 Typically, the optimal value of the smoothing parameter will 
 depend on the data and the number of samples used.
 
 \subsubsection{Viola and Wells Implementation}
-ITK has two mutual information implementation. The first is 
+ITK has two mutual information metric implementation. The first is 
 \code{MutualInformationImageToImageMetric} which follows the method specified
 by Viola and Wells in \cite{Viola1997}.
 
@@ -231,7 +233,7 @@ burden becomes very expensive when a large number of samples is used.
 \index{itk::MutualInformationImageToImageMetric!SetMovingImageStandardDeviation()}
 Quality of the density estimates depends on the choice of the Gaussian kernel
 standard deviation. Optimal choice will depend on the content of the images.
-In our experiments with the toolkit, we have found that a standard deviation
+In our experience with the toolkit, we have found that a standard deviation
 of 0.4 works well for images which have been normalized to have a mean
 of zero and standard deviation of 1.0. The standard deviation of the fixed image
 and moving image can be set separatedly using methods 
@@ -246,7 +248,7 @@ specified by Mattes et al in \cite{Mattes2001}.
 In this implementation, only one set of intensity samples is drawn from the image.
 Using this set, the marginal and joint probability density function (PDF)
 is evaluated as discrete positions or bins uniformly spread within the dynamic range
-of the images. Entropy values are then computed by summing over he bins.
+of the images. Entropy values are then computed by summing over the bins.
 
 \index{itk::MattesMutualInformationImageToImageMetric!SetNumberOfSpatialSamples()}
 \index{itk::MattesMutualInformationImageToImageMetric!SetNumberOfHistogramBins()}
@@ -255,17 +257,17 @@ The number of spatial samples used is set using method
 \code{SetNumberOfSpatialSamples()}. The number of bins use to compute
 the entropy values is set via \code{SetNumberOfHistogramBins()}.
 
-Since the fixed image PDF does not contribute to the derivatives, it does
-not need to be smooth. Hence, a zero order (boxcar) B-Spline kernel is
+Since the fixed image PDF does not contribute to the metric derivatives, it does
+not need to be smooth. Hence, a zero order (boxcar) B-spline kernel is
 used for computing the PDF. On the other hand, to ensure smoothness,
 a third order B-spline kernel is used to compute the moving image
 intensity PDF. The advantage of using a B-spline kernel over a Gaussian kernel
-is that the B-spline kernel have a finite support region. This is 
+is that the B-spline kernel has a finite support region. This is 
 computationally attractive, as each intensity sample only affect a small
 of bins and hence does not require a $N \times N$ loop to compute the
 metric value.
 
-During the PDF calculations, the image intensity values are linearly to have
+During the PDF calculations, the image intensity values are linearly scaled to have
 a minimum of zero and maximum of one. This rescaling means that a fixed
 B-spline kernel bandwidth of one can be used to handle image data 
 with arbitrary magnitude and dynamic range.
