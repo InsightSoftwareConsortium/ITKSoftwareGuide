@@ -1,44 +1,43 @@
 
 \chapter{Segmentation}
 
-Segmentation of medical images is a challenging task. A myriad of
-different methods have been proposed and implemented in recent
-years. In spite of the huge effort invested in this problem, there is
-no single approach that could generally solve the problem of
-segmentation for the large variety of image modalities existing today.
+Segmentation of medical images is a challenging task. A myriad of different
+methods have been proposed and implemented in recent years. In spite of the
+huge effort invested in this problem, there is no single approach that can
+generally solve the problem of segmentation for the large variety of image
+modalities existing today.
 
 The most effective segmentation algorithms are obtained by carefully
 customizing combinations of components. The parameters of these components are
 tuned for the characteristics of the image modality used as input and the
 features of the anatomical structure to be segmented. 
 
-The Insight toolkit provides a basic set of algorithms that can be used to
+The Insight Toolkit provides a basic set of algorithms that can be used to
 develop and customize a full segmentation application. Some of the most
-commonly used segmentation components are described in the following sections.
+commonly used segmentation components are described in the following
+sections.
 
 
 \section{Region Growing}
 
-Region growing algorithms have proven to be a very effective approach for image
-segmentation. The basic concept of a region growing algorithm is to start from
-a seed region that is considered to belong to the object to be segmented. The
-pixels neigboring this initial region are evaluated to determine if they could
-also be considered part of the object, in which case they are added to the
-region. When some of the neighbor pixels are included in the region, other
-pixels become new neighbors and hence become candidates to be evaluated and
-eventually included in the region. Region growing algorithms vary depending on
-the criteria used to decide whether a pixel should be included in the region
-or not, the type of neighbor connectivity used on the image grid and the
-strategy used for visiting the neighbor pixels.
+Region growing algorithms have proven to be an effective approach for image
+segmentation. The basic approach of a region growing algorithm is to start
+from a seed region (typically one or more pixels) that are considered to be
+inside the object to be segmented. The pixels neigboring this region are
+evaluated to determine if they should also be considered part of the
+object. If so, they are added to the region and the process continues as long
+as new pixels are added to the region.  Region growing algorithms vary
+depending on the criteria used to decide whether a pixel should be included
+in the region or not, the type connectivity used to detemine neighbors, and
+the strategy used to visit neighboring pixels.
 
-Several implementations of region growing are available in the
-Insight toolkit. This section describes some of the most commonly used.
+Several implementations of region growing are available in ITK.  This section
+describes some of the most commonly used.
 
 \subsection{Connected Threshold}
 
-The simplest criterion for including pixels in a growing region is
-probably the condition of having intensity values inside a specific
-interval.
+A simple criterion for including pixels in a growing region is to evaluate
+intensity value inside a specific interval.
 
 \label{sec:ConnectedThreshold}
 \ifitkFullVersion 
@@ -51,7 +50,6 @@ interval.
 \ifitkFullVersion 
 \input{NeighborhoodConnectedImageFilter.tex}
 \fi
-
 
 
 \subsection{Confidence Connected}
