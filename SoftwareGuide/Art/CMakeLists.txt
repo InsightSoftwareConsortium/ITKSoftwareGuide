@@ -62,6 +62,9 @@ SET(XFIG_FIGURES
   ImageRegistration6TraceMetric
   ImageRegistration6TraceAngle
   ImageRegistration6TraceTranslations
+  ImageRegistration7TraceMetric
+  ImageRegistration7TraceAngle
+  ImageRegistration7TraceTranslations
   MultiResImageRegistration1TraceMetric
   MultiResImageRegistration1TraceTranslations
   MultiResImageRegistration2TraceMetric
@@ -117,6 +120,9 @@ SET(JPEG_IMAGES
   ConfidenceConnectedOutput1
   ConfidenceConnectedOutput2
   ConfidenceConnectedOutput3
+  ConnectedThresholdOutput1
+  ConnectedThresholdOutput2
+  ConnectedThresholdOutput3
   CurvatureFlowImageFilterOutput
   CurvatureAnisotropicDiffusionImageFilterOutput
   DanielssonDistanceMapImageFilterOutput1
@@ -153,6 +159,9 @@ SET(JPEG_IMAGES
   ImageRegistration6Output
   ImageRegistration6DifferenceBefore
   ImageRegistration6DifferenceAfter
+  ImageRegistration7Output
+  ImageRegistration7DifferenceBefore
+  ImageRegistration7DifferenceAfter
   MultiResImageRegistration1CheckerboardBefore
   MultiResImageRegistration1CheckerboardAfter
   MultiResImageRegistration1Output
