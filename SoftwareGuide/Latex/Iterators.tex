@@ -41,7 +41,9 @@ Figure~\ref{fig:ImageIterators} illustrates how image iterators are the glue
 between ITK filters (algorithms) and different ITK image types (data
 containers). A filter processes data in an image one pixel at a time.  The
 \emph{iterator} is incremented at each \emph{iteration} of the inner processing
-loop.
+loop.  
+
+%ITK image iterators visit grid indicies in images, not spatial locations
 
 \begin{figure}
 \centering
@@ -69,10 +71,12 @@ follow.
 %algorithms simple to write and to generalize to higher dimensions.
 
 % Creating iterators
+% Expand the following into a whole section on the interface?
 Whenever possible, ITK iterators share a common interface.  Iterators are
 initialized by passing an \code{itk::Image} smart pointer and region to the
 constructor.  The region defines the rectilinear hypervolume that the iterator
-will walk within the image.  
+will walk within the image.  Iteration is confined to the region over which the
+iterator was initialized.
 
 To set up for iteration through a region, the iterator must be positioned at a
 starting location by one of two methods.
@@ -118,105 +122,177 @@ and may visit a pixel more than once.
 
 
 %Testing for location
+An iterator can be queried to determine if it is at the beginning or the end of
+its iteration region.  These methods are used as halting criteria for iteration
+loops.
+
 \begin{itemize}
-\item \textbf{\code{IsAtEnd()}} 
-\item \textbf{\code{IsAtBegin()}}
+\item \textbf{\code{bool IsAtEnd()}} True if the iterator points to \emph{one
+position past} the end of the iteration region.
+
+\item \textbf{\code{bool IsAtBegin()}} True if the iterator points to the first
+position in the iteration region.  The method is typically used to test for the
+end of reverse iteration.
 \end{itemize}
 
 
 %Accessing data.
+Two methods are commonly defined for ITK iterators to access data.
+
 \begin{itemize}
-\item \textbf{\code{Get()}}
-\item \textbf{\code{Set()}}
+\item \textbf{\code{PixelType Get()}} Returns the value of the pixel at the
+iterator position.
+
+\item \textbf{\code{void Set( PixelType )}}Sets the value of the pixel at the
+iterator position.
 \end{itemize}
+
 
 % Describe efficiency due to inlining for all cases
-%The use of Set, Get also supports image adaptors (section reference?)
-% segue to the case where you need the Value method
+The \code{Get} and \code{Set} methods are inlined and optimized for speed. For
+most cases, calling either of these methods incurs no penalty over directly
+dereferencing the memory pointer in the underlying image memory buffer.
+\code{Get} and \code{Set} methods also support image adaptors (section~\ref{}).
+
+There is one common case where \code{Get} and \code{Set} do incur a penalty.
+The following line of code fetches, modifies, and then writes a value back to
+the same pixel location.
+
+\begin{verbatim}
+it.Set( it.Get() + 1 );
+\end{verbatim}
+
+As written, this code requires one more memory dereference than necessary.  To
+handle this case, some iterators define a third method.
 
 \begin{itemize}
-\item \textbf{\code{Value()}}
+\item \textbf{\code{PixelType \& Value()}} Returns a reference to the pixel at
+the iterator position.
 \end{itemize}
+
+The \code{Value} method can be either an lval or an rval in an expression.  This
+makes it possible to rewrite our example code more efficiently.
+
+\begin{verbatim}
+it.Value()++;
+\end{verbatim}
+
+The \code{Value} method, however, cannot support the use of image adaptors.
+Whenever possible, you should use \code{Get} and \code{Set} instead.  Because
+ITK filters do not modify the contents of their input images, situations
+calling for \code{Value} are less common than might be supposed.  More often
+than not, an algorithm operates on two images, an input from which values are
+only read (\code{Get}), and an output to which values are only written
+(\code{Set}).
 
 % Now give a psuedo code example for putting all of this together.
 Using the methods described above, we can now write a simple example for
-pixel-wise operations in any image region.  The following code calculates the
-square all of the values in an image.
+pixel-wise operations in any image region.  The following code writes the
+square all of the values in an input image to an output image using two
+iterators.
 
 \begin{verbatim}
-Iterator it(image, image->GetRequestedRegion());
+ConstIteratorType in(input_image,   input_image->GetRequestedRegion());
+IteratorType out(output_image, input_image->GetRequestedRegion());
 
-for (it.GoToBegin(); !it.IsAtEnd(); ++it)
+for (in.GoToBegin(), out.GoToBegin(); !in.IsAtEnd(); ++in, ++out)
 {
-  it.Set( it.Get() * it.Get() );
+  out.Set( in.Get() * in.Get() );
 }
 \end{verbatim}
 
+Notice that both the input and output iterators are initialized over the same
+region, that of \code{input\_image}.  This is good practice because it ensures
+that the output iterator walks exactly the same set of pixel indicies as the
+input iterator, but does not require that the output and input be the same
+size.  The only requirement is that the output image must contain the requested
+region of the input image.  Another advantage is that only one test for the end
+of iteration is required in the \code{for} loop.
+
+The input iterator in the previous example is of \code{const} type.  Most ITK
+image iterators have a const and non-const version.  A non-const iterator
+cannot be instantiated with a const \code{itk::Image} smart pointer.
+
+% Need a paragraph or two about other image methods like GetIndex(), etc.  Are
+%these universally defined?
+
+% SetIndex()
+
+% operator <, operator >, etc.
 
 \section{Image Iterators}
 \label{sec:ImageIterators}
+%Introduction and overview
 This section describes iterators that walk rectilinear regions in images and
 reference a single pixel.
 
 
 \subsection{itk::ImageRegionIterator}
 \label{sec:itkImageRegionIterator}
-./Common/itkImageRegionConstIterator.h
-./Common/itkImageRegionIterator.h
-(./Common/itkImageConstIterator.h base class)
-(./Common/itkImageIterator.h base class)
+% Table which lists fetatures?
+%./Common/itkImageRegionConstIterator.h
+%./Common/itkImageRegionIterator.h
+%(./Common/itkImageConstIterator.h base class)
+%(./Common/itkImageIterator.h base class)
 \input{ImageRegionIterator.tex}
 
-%Need to discuss the value method and
-%[where traditional iterators overload the * operator, in ITK we have chosen to
-%use Set Get]
-%        Get
-%        Set
-%Set methods are only defined in const iterators.
-%Some iterators also supply a Value() method to allow dereferencing and modifying a
-%pixel value in a single step.  For example: [give example of how if you wanted
-%to do something like *it++ you would have to write it as it.Set(it.Get() + 1),
-%whereas it.Value()++ saves one dereference]
-
-
-\begin{itemize}
-\item{\textbf{\code{Value()}}}
-\end{itemize}
-
-
+The \code{itk::ImageRegionIterator} has been optimized for iteration speed.  It
+is the first choice for doing pixelwise operations that do not depend on
+location in an image.  Querying for the index of the iterator is still
+possible, but incurs a penalty.  For situations where an algorithm needs to
+efficiently keep track of the indicies associated with its pixels (GIVE SOME
+EXAMPLES?), the itk::ImageRegionIteratorWithIndex() is a better choice.
 
 \subsection{itk::ImageRegionIteratorWithIndex}
 \label{sec:itkImageRegionIteratorWithIndex}
-./Common/itkImageRegionConstIteratorWithIndex.h
-./Common/itkImageRegionIteratorWithIndex.h
-(./Common/itkImageConstIteratorWithIndex.h  base class )
-(./Common/itkImageIteratorWithIndex.h  base class )
+%./Common/itkImageRegionConstIteratorWithIndex.h
+%./Common/itkImageRegionIteratorWithIndex.h
+%(./Common/itkImageConstIteratorWithIndex.h  base class )
+%(./Common/itkImageIteratorWithIndex.h  base class )
+This iterator was designed for use in situations where querying for the
+iterator's index needs to be fast.  Unlike \code{itk::ImageRegionIterator},
+which calculates the index only when queried,
+\code{itk::ImageRegionIteratorWithIndex} keeps the index as a member variable
+which is updated each time the iterator is incremented.  This means there is a
+penalty on the iteration speed.
+
+%
+% SUGGEST SOME POSSIBLE USES HERE???
+
+\input{ImageRegionIteratorWithIndex.tex}
+
+%\code{Itk::ImageRegionIteratorWithIndex} is a good example of how ITK iterators
+%encapsulate common functionality. If an algorithm like the one presented above
+%were written by explicitly incrementing an index counter at each iteration, it
+%would require simultneous knowledge of the image dimensionality, the image
+% size, and the offset betw
+
 
 \subsection{itk::ImageSliceIteratorWithIndex}
 \label{sec:itkImageSliceIteratorWithIndex}
-./Common/itkImageSliceConstIteratorWithIndex.
-./Common/itkImageSliceIteratorWithIndex.h
+%./Common/itkImageSliceConstIteratorWithIndex.
+%./Common/itkImageSliceIteratorWithIndex.h
 
 \subsection{itk::ImageLinearIteratorWithIndex}
 \label{sec:itkImageLinearIteratorWithIndex}
-./Common/itkImageLinearConstIteratorWithIndex.h
-./Common/itkImageLinearIteratorWithIndex.h
+%./Common/itkImageLinearConstIteratorWithIndex.h
+%./Common/itkImageLinearIteratorWithIndex.h
 
 \subsection{itk::ImageRandomConstIteratorWithIndex}
 \label{sec:itkImageRandomConstIteratorWithIndex}
-./Common/itkImageRandomConstIteratorWithIndex.h
-./Common/itkImageRandomIteratorWithIndex.h
+%./Common/itkImageRandomConstIteratorWithIndex.h
+%./Common/itkImageRandomIteratorWithIndex.h
 
 
 \section{Conditional Iterators}
 \label{sec:ConditionalIterators}
+This section describes iterators that walk only pixels whose values satisfy a
+condition.
 
-[Introduction and overview]
-
-./Common/itkConditionalConstIterator.h (BaseClass)
-./Common/itkConditionalIterator.h (BaseClass)
-./Common/itkFloodFilledFunctionConditionalConstIterator.h (BaseClass)
-./Common/itkFloodFilledFunctionConditionalIterator.h (BaseClass)
+%./Common/itkConditionalConstIterator.h (BaseClass)
+%./Common/itkConditionalIterator.h (BaseClass)
+%./Common/itkFloodFilledFunctionConditionalConstIterator.h (BaseClass)
+%./Common/itkFloodFilledFunctionConditionalIterator.h (BaseClass)
 
 
 %[ here are all classes where these filters are used:
@@ -233,18 +309,20 @@ reference a single pixel.
 
 \subsection{itk::FloodFilledImageFunctionConditionalIterator}
 \label{itk::FloodFilledImageFunctionConditionalIterator}
-./Common/itkFloodFilledImageFunctionConditionalConstIterator.h
-./Common/itkFloodFilledImageFunctionConditionalIterator.h
+%./Common/itkFloodFilledImageFunctionConditionalConstIterator.h
+%./Common/itkFloodFilledImageFunctionConditionalIterator.h
 
 
 \subsection{itk::FloodFilledSpatialFunctionConditionalIterator}
 \label{itk::FloodFilledSpatialFunctionConditionalIterator}
-./Common/itkFloodFilledSpatialFunctionConditionalConstIterator.h
-./Common/itkFloodFilledSpatialFunctionConditionalIterator.h
+%./Common/itkFloodFilledSpatialFunctionConditionalConstIterator.h
+%./Common/itkFloodFilledSpatialFunctionConditionalIterator.h
 
 
 \section{Neighborhood Iterators}
 \label{sec:NeighborhoodIterators}
+This section describes iterators which walk rectilinear regions and reference a
+local neighborhood of image pixels.
 
 %Do not support image adaptors
 
@@ -267,6 +345,7 @@ reference a single pixel.
 ./Common/itkShapedNeighborhoodIterator.h
 
 
+% ADD A SECTION WITH TIPS, SUGGESTIONS ON USING ITERATORS?  EXTENDING ITERATORS?
 
 
 
