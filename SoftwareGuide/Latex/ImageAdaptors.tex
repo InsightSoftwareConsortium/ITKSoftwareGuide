@@ -79,4 +79,12 @@ The following examples illustrate common applications of image adaptors.
 \fi
 
 
+\section{Adaptors and Writers}
+
+Image adaptors will not behave correctly when connected directly to a writer.
+The reason is that writers tend to get direct access to the image buffer from
+their input, since image adaptors do not have a real buffer their behavior in
+this circumstances is incorrect. You should avoid instantiating the
+\code{ImageFileWriter} or the \code{ImageSeriesWriter} over an image adaptor
+type.
 
