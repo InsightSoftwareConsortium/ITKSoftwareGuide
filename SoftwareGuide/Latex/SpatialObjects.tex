@@ -1,5 +1,5 @@
 
-\chapter{SpatialObjects}
+\chapter{Spatial Objects}
 \label{sec:SpatialObjects}
 
 This chapter introduces the basic classes that describe \doxygen{SpatialObjects}.
@@ -7,19 +7,15 @@ This chapter introduces the basic classes that describe \doxygen{SpatialObjects}
 \section{Introduction}
 \label{Introduction}
 
-The ITK spatial object framework supports the philosophy that the task of
-image segmentation and registration is actually the task of object
-processing. The image is but one medium for representing objects of interest,
-and much processing and data analysis can and should occur at the object
-level and not based on the medium used to represent the object.
-
-ITK spatial objects provide a common interface for accessing the physical
-location and geometric properties of and the relationship between objects in
-a scene that is independent of the form used to represent those objects. That
-is, the internal representation maintained by a spatial object may be a list
-of points internal to an object, the surface mesh of the object, a continuous
-or parametric representation of the object's internal points or surfaces, and
-so forth.
+In the previous chapter fundamental data representation types such as
+\doxygen{Image} and \doxygen{Mesh} were introduced.  These classes represent
+data at a very low-level. Spatial objects organize data into higher-level
+abstractions that link data to the anatomical structure from which it was
+obtained. In this sense spatial objects are data representational types as
+well. In this chapter several examples are used to demonstrate the many
+spatial objects found in ITK and how they can be organized into hierarchies
+using \doxygen{SceneSpatialObject}. Further the examples illustrate how to use
+SpatialObject transformations to control and calculate the position of data.
 
 \section{Hierarchy}
 \label{sec:SpatialObjectHierarchy}
@@ -34,9 +30,11 @@ so forth.
 \input{SpatialObjectTransforms.tex}
 \fi
 
-\section{Principal Objects}
+\section{Types of Spatial Objects}
 \label{sec:Principal Objects}
-This section describes in detail the different SpatialObjects already implemented in the toolkit.
+
+This section describes in detail the variety of spatial objects 
+implemented in ITK. 
 
 \subsection{BlobSpatialObject}
 \label{sec:BlobSpatialObject}
@@ -80,7 +78,7 @@ This section describes in detail the different SpatialObjects already implemente
 \input{TubeSpatialObject.tex}
 \fi
 
-\section{Scene}
+\section{SceneSpatialObject}
 \label{sec:Scene}
 \ifitkFullVersion 
 \input{SceneSpatialObject.tex}
