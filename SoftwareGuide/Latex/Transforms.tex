@@ -3,15 +3,15 @@
 
 \index{itk::Transform|textbf}
 
-In the toolkit, \doxygen{Transform} objects encapsulate the mapping of points
-and vectors from an input space to an output space.  If a transform is
-invertible, back transform methods are also provided.  Currently, ITK provides
-a variety of transforms from simple translation, rotation and scaling to
-general affine and kernel transforms.  Note that, although in this section we
-discuss transforms in the context of registration, transforms are general and
-can be used for other applications. Some of the commonly used transforms will
-be discussed in detail later. Let's introduce first the objects used in ITK 
-for representing basic spatial concepts.
+In the Insight toolkit, \doxygen{Transform} objects encapsulate the mapping
+of points and vectors from an input space to an output space.  If a transform
+is invertible, back transform methods are also provided.  Currently, ITK
+provides a variety of transforms from simple translation, rotation and
+scaling to general affine and kernel transforms.  Note that, while in this
+section we discuss transforms in the context of registration, transforms are
+general and can be used for other applications. Some of the commonly used
+transforms will be discussed in detail later. Let's begin by introducing the
+objects used in ITK for representing basic spatial concepts.
 
 \subsection{Geometrical Representation}
 \label{sec:GeometricalObjects}
@@ -19,12 +19,12 @@ for representing basic spatial concepts.
 \begin{figure}
 \center
 \includegraphics[width=0.8\textwidth]{GeometricalObjects.eps}
-\itkcaption[Geometrical representation objects in ITK]{Geometrical
+\itkcaption[Geometrical representation objects in ITK]{Geometric
 representation objects in ITK.}
 \label{fig:GeometricalObjects}
 \end{figure}
  
-Insight implements a consistent geometric representation of the space. The
+ITK implements a consistent geometric representation of the space. The
 characteristics of classes involved in this representation are summarized in
 Table~\ref{tab:GeometricalConcepts}.
 
@@ -40,11 +40,11 @@ Table~\ref{tab:GeometricalConcepts}.
 \textbf{Geometrical concept} \\
 \hline\hline
 \doxygen{Point} & 
-Position in space. In a $N$-Dimensional space it is represented by an array of
+Position in space. In $N$-dimensional space it is represented by an array of
 $N$ numbers associated with space coordinates. \\
 \hline
 \doxygen{Vector} & 
-Relative position between two points. In a $N$-Dimensional space is represented
+Relative position between two points. In $N$-dimensional space it is represented
 by an array of $N$-numbers each one associated with the distance along a
 coordinate axis. Vectors do not have a position in space.\\
 \hline
@@ -55,15 +55,16 @@ functions. Covariant vectors do not have a position in space.\\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Geometrical Elementary Objects]{Summary of Objects representing geometrical concepts in ITK.\label{tab:GeometricalConcepts}}
+\itkcaption[Geometrical Elementary Objects]{Summary of objects representing geometrical concepts in ITK.\label{tab:GeometricalConcepts}}
 \end{table}
 
 
-Additional uses of the \doxygen{Point}, \doxygen{Vector} and \doxygen{CovariantVector}
-classes have been discussed in Chapter \ref{sec:DataRepresentation}.  Each one
-of these classes behaves differently under spatial transformations. It is
-henceforth quite important to keep their distinction clear. Figure
-\ref{fig:GeometricalObjects} illustrates schematically the differences between
+Additional uses of the \doxygen{Point}, \doxygen{Vector} and
+\doxygen{CovariantVector} classes have been discussed in Chapter
+\ref{sec:DataRepresentation}.  Each one of these classes behaves differently
+under spatial transformations. It is therefore quite important to keep their
+distinction clear. Figure
+\ref{fig:GeometricalObjects} illustrates the differences between
 these concepts.
 
 
@@ -79,12 +80,12 @@ are transformed using the methods \code{TransformPoint()},
 \subsection{Transform General Properties}
 \label{sec:TransformGeneralProperties}
 
-\index{itk::Transform!SetParameters()} Typically each transform class have
+\index{itk::Transform!SetParameters()} Typically each transform class has
 several methods for setting its parameters.  For example,
-\doxygen{Euler2DTransform} provide methods for separately setting the offset,
-the angle, and the entire rotation matrix.  However, for use in the
-registration framework, the parameters must also be represented by a flat
-\doxygen{Array} of \code{double} to allow communication with generic
+\doxygen{Euler2DTransform} provides methods for specifying the offset,
+angle, and the entire rotation matrix.  However, for use in the
+registration framework, the parameters are represented by a flat
+\doxygen{Array} of \code{double} to facilitates communication with generic
 optimizers. In the case of \doxygen{Euler2DTransform}, the transform is also
 defined by three doubles: the first representing the angle and the last two the
 offset. The flat array of parameters is defined using \code{SetParameters()}. A
@@ -102,14 +103,14 @@ parameters.
 \index{itk::Transform!GetJacobian()}
 
 Another requirement that the registration framework imposes on the transform
-classes is the computation of their Jacobians. In general, metrics require the
-knowledge of the Jacobian in order to compute the metric derivatives.  The
-Jacobian is a matrix whose element are the partial derivatives of the output
-point with respect to the array of parameters that defines the
-transform\footnote{Note that the term \emph{Jacobian} is also commonly used for
-the matrix representing the derivatives of output point coordinates with
-respect to input point coordinates. Sometimes the term is loosely used to refer
-to the determinant of such matrix.}:
+classes is the computation of their Jacobians. In general, metrics require
+the knowledge of the Jacobian in order to compute the metric derivatives.
+The Jacobian is a matrix whose element are the partial derivatives of the
+output point with respect to the array of parameters that defines the
+transform:\footnote{Note that the term \emph{Jacobian} is also commonly used
+for the matrix representing the derivatives of output point coordinates with
+respect to input point coordinates. Sometimes the term is loosely used to
+refer to the determinant of such a matrix.}
 
 \begin{equation}
 J=\left[ \begin{array}{cccc}
@@ -126,18 +127,19 @@ J=\left[ \begin{array}{cccc}
 \end{array}\right]
 \end{equation}
 
-Where $\{p_i\}$ are the transform parameters and $\{x_i\}$ are the coordinates
-of the output point.  Within this framework, the Jacobian is represented by an
+Where $\{p_i\}$ are the transform parameters and $\{x_i\}$ are the
+coordinates of the output point.  Within this framework, the Jacobian is
+represented by an
 \doxygen{Array2D} of \code{double}s and is obtained from the transform by method
 \code{GetJacobian()}. The Jacobian can be interpreted as a matrix that
 indicates for a point in the input space how much its mapping on the output
 space will change as a response to a small variation in one of the transform
-parameters. Note that the values of the Jacobian matrix depend on the point in
-the input space. So actually the Jacobian can be noted as $J(\bf{X})$. The use
-of transform Jacobians allows to compute metric derivatives in a very efficient
-way. When Jacobians are not available, metrics derivatives have to be computed
-using finite difference at a price of $2M$ evaluations of the metric value,
-where $M$ is the number of transform parameters.
+parameters. Note that the values of the Jacobian matrix depend on the point
+in the input space. So actually the Jacobian can be noted as $J(\bf{X})$. The
+use of transform Jacobians enables the efficient computation of metric
+derivatives. When Jacobians are not available, metrics derivatives have to be
+computed using finite difference at a price of $2M$ evaluations of the metric
+value, where $M$ is the number of transform parameters.
 
 The following sections describe the main characteristics of the transform
 classes available in ITK.
@@ -157,20 +159,20 @@ classes available in ITK.
 \hline\hline
 Maps every point to itself, every vector to itself and every covariant vector to itself.  & 
 0 &
-  &  
+NA  &  
 Only defined when the input and output space has the same number of dimensions. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Identity Transform Characteristics]{Characteristics of the Identity Transform
+\itkcaption[Identity Transform Characteristics]{Characteristics of the identity transform.
 \label{tab:IdentityTransformCharacteristics}}
 \end{table}
 
-The identity transform is mainly used for debugging purposes. It is a mechanism
-to provide a transform to methods that require it but yet have the certainty
-that the transform will have no effect whatsoever in the outcome of the
-process. It is just a \code{NULL} operation. The main characteristics of the
-identity transform are summarized in
+The identity transform \doxygen{IdentityTransform} is mainly used for
+debugging purposes. It is provided to methods that require one with the
+certainty that the transform will have no effect whatsoever in the outcome of
+the process. It is just a \code{NULL} operation. The main characteristics of
+the identity transform are summarized in
 Table~\ref{tab:IdentityTransformCharacteristics}
 
 
@@ -195,24 +197,22 @@ Only defined when the input and output space has the same number of dimensions. 
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Translation Transform Characteristics]{Characteristics of the Translation Transform
+\itkcaption[Translation Transform Characteristics]{Characteristics of the TranslationTransform class.
 \label{tab:TranslationTransformCharacteristics}}
 \end{table}
 
-
-The translation transform is probably the simplest yet useful transformation.
-It maps all points in space by adding a constant values to their coordinates.
-Vector and covariant vectors remain unchanged under this transformation since
-they are not associated to a position in space. Translation is the best
-transform to start a registration method. Before attempting to solve for
-rotations or scaling  it is important to overlap the anatomical objects in both
-images as much as possible. This is done by resolving the translational
-misalignment between the images. Translations also have the advantages of being
-fast to compute and having parameters that are easy to interpret. The main
-characteristics of the translation transform are presented in
+The translation transform \doxygen{TranslationTransform} is probably the
+simplest yet one of the most useful transformations.  It maps all points by
+adding a constant values to their coordinates.  Vector and covariant vectors
+remain unchanged under this transformation since they are not associated with
+a particular position in space. Translation is the best transform to start a
+registration method. Before attempting to solve for rotations or scaling it
+is important to overlap the anatomical objects in both images as much as
+possible. This is done by resolving the translational misalignment between
+the images. Translations also have the advantages of being fast to compute
+and having parameters that are easy to interpret. The main characteristics of
+the translation transform are presented in
 Table~\ref{tab:TranslationTransformCharacteristics}.
-
-
 
 \subsection{Scale Transform}
 \label{sec:ScaleTransform}
@@ -230,27 +230,28 @@ Table~\ref{tab:TranslationTransformCharacteristics}.
 Points are transformed by multiplying each one of their coordinates by the
 corresponding scale factor for the dimension.  Vector are transformed as
 points.  Covariant vectors are transformed by \emph{dividing} their components
-by the scale factor of the corresponding dimension.  &
+by the scale factor in the corresponding dimension.  &
 Same as the input space dimension. &
 The $i$-th parameter represents the scaling in the $i$-th dimension. &
 Only defined when the input and output space has the same number of dimensions. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Scale Transform Characteristics]{Characteristics of the Scale Transform
+\itkcaption[Scale Transform Characteristics]{Characteristics of the ScaleTransform class.
 \label{tab:ScaleTransformCharacteristics}}
 \end{table}
 
-This transform represents a simple scaling of the vector space.  Different
-scaling factors can be applied along each dimension. Points are transformed by
-multiplying each one of their coordinates by the  corresponding scale factor
-for the dimension.  Vector are transformed in the same way as points.
-Covariant vectors, on the other hand, are transformed differently since
-anisotropic scaling does not preserve angles. Covariant vectors are transformed
-by \emph{dividing} their components by the scale factor of the corresponding
-dimension. In this way, if a covariant vector was orthogonal to a vector, this
-orthogonality will be preserved after the transformation. The following
-equations summarize the effect of the transform on the basic geometric objects.
+The \doxygen{ScaleTransform} transform represents a simple scaling of the
+vector space.  Different scaling factors can be applied along each
+dimension. Points are transformed by multiplying each one of their
+coordinates by the corresponding scale factor for the dimension.  Vectors are
+transformed in the same way as points.  Covariant vectors, on the other hand,
+are transformed differently since anisotropic scaling does not preserve
+angles. Covariant vectors are transformed by \emph{dividing} their components
+by the scale factor of the corresponding dimension. In this way, if a
+covariant vector was orthogonal to a vector, this orthogonality will be
+preserved after the transformation. The following equations summarize the
+effect of the transform on the basic geometric objects.
 
 \begin{equation}
 \begin{array}{lccccccc}
@@ -291,28 +292,28 @@ z  \\
 \right]
 \end{equation}
 
-
-Scaling is an apparently simple transformation but actually there are a number of
-issues to keep in mind when it is used with different factors
-along every dimension. It has subtle effects in things like computing image
+Scaling is appears to be a simple transformation but actually there are a
+number of issues to keep in mind when using different scale factors along
+every dimension. It has subtle effects---for example, when computing image
 derivatives. Since derivatives are represented by covariant vectors their
-values are modified in a particular way by scaling transforms.
+values are modified in a non-intuitive way by scaling transforms.
 
-One of the difficulties in managing scaling transforms in a registration
-process is that typical optimizers manage the parameter space as a vector space
-where addition is the basic operation. Scaling would be treated more
-naturally in the frame of a logarithmic space where additions will results in
-regular multiplicative increments of the scale. Optimizers in the family of
-gradient-descent will have trouble finding a step-length appropriate for
-updating a scale since the effect of an additive increment on a scale factor
-will diminish as the factor grows. In other words, a scale factor variation of
-$(1.0+ \epsilon)$ is quite different from a scale variation of $(5.0+\epsilon)$.
+One of the difficulties with managing scaling transforms in a registration
+process is that typical optimizers manage the parameter space as a vector
+space where addition is the basic operation. Scaling is better treated in the
+frame of a logarithmic space where additions result in regular multiplicative
+increments of the scale. Gradient-descent optimizers have trouble updating
+step-length since the effect of an additive increment on a scale factor
+diminishs as the factor grows. In other words, a scale factor variation of
+$(1.0+ \epsilon)$ is quite different from a scale variation of
+$(5.0+\epsilon)$.
 
 Registrations involving scale transforms require careful monitoring of the
-optimizer parameters in order to keep it running at an interesting yet stable
-pace. Note that some of the transforms discussed in following sections, for
-example the \doxygen{AffineTransform}, have hidden scaling parameters and are henceforth
-subject to the same vulnerabilities of the \doxygen{ScaleTransform}.
+optimizer parameters in order to keep it progressing at a stable pace. Note
+that some of the transforms discussed in following sections, for example the
+\doxygen{AffineTransform}, have hidden scaling parameters and are therefore
+subject to the same vulnerabilities of the
+\doxygen{ScaleTransform}.
 
 In cases involving misalignments with simultaneous translation, rotation and
 scaling components it may be desirable to solve for these components
@@ -342,14 +343,14 @@ Only defined for two-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Euler2D Transform Characteristics]{Characteristics of the Euler2D Transform
+\itkcaption[Euler2D Transform Characteristics]{Characteristics of the Euler2DTransform class.
 \label{tab:Euler2DTransformCharacteristics}}
 \end{table}
 
-Euler2DTransform implements a rigid transformation in $2D$. It is composed of a
-plane rotation and a two-dimensional translation. The rotation is applied
-first, followed by the translation. The following equation illustrates the
-effect of this transform in a $2D$ point.
+\doxygen{Euler2DTransform} implements a rigid transformation in $2D$. It is 
+composed of a plane rotation and a two-dimensional translation. The rotation
+is applied first, followed by the translation. The following equation
+illustrates the effect of this transform on a $2D$ point.
 
 
 \begin{equation}
@@ -385,28 +386,28 @@ T_y  \\
 where $\theta$ is the rotation angle and $(T_x,T_y)$ are the components of the
 translation.
 
-The difficult aspect of this transformation
-is the fact that translations and rotations do not form a vector space and can
-not be managed as linear independent parameters. Typical optimizers make the
-loose assumption of managing the parameters as a vector space and rely on the
-step-length to be small enough for this assumption to hold approximately.
+A challenging aspect of this transformation is the fact that translations and
+rotations do not form a vector space and can not be managed as linear
+independent parameters. Typical optimizers make the loose assumption that
+parameters exist in a vector space and rely on the step-length to be small
+enough for this assumption to hold approximately.
 
 In addition to the non-linearity of the parameter space, the most common
-difficulty of this transform is the difference in units used for rotations and
-translations. Rotations are measured in radians, hence their values are in the
-range $[-\pi,\pi]$. Translations are measured in millimeters and their actual
-values vary depending on the image modality being considered. In practice,
-translations have values on the order of $10$ to $100$. This scale difference
-between rotation and translation parameters is undesirable for gradient-descent
-optimizers because they deviate the trajectories of descent making optimization
-slower and more unstable. In order to compensate for these differences, ITK
-optimizers accept an array of scale values that are used to normalize the
-parameter space.
+difficulty found when using this transform is the difference in units used
+for rotations and translations. Rotations are measured in radians, hence
+their values are in the range $[-\pi,\pi]$. Translations are measured in
+millimeters and their actual values vary depending on the image modality
+being considered. In practice, translations have values on the order of $10$
+to $100$. This scale difference between the rotation and translation
+parameters is undesirable for gradient-descent optimizers because they
+deviate the trajectories of descent making optimization slower and more
+unstable. In order to compensate for these differences, ITK optimizers accept
+an array of scale values that are used to normalize the parameter space.
 
 Registrations involving angles and translations should take advantage of the
-scale normalization functionality in order to get the best performance out of
-the optimizers. The main characteristics of the Euler2DTransform are presented
-in Table~\ref{tab:Euler2DTransformCharacteristics}.
+scale normalization functionality in order to obtain the best performance out
+of the optimizers. The main characteristics of the \doxygen{Euler2DTransform}
+are presented in Table~\ref{tab:Euler2DTransformCharacteristics}.
 
 
 \subsection{CenteredRigid2DTransform}
@@ -431,40 +432,40 @@ Only defined for two-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[CenteredRigid2D Transform Characteristics]{Characteristics of the CenteredRigid2D Transform
+\itkcaption[CenteredRigid2D Transform Characteristics]{Characteristics of the CenteredRigid2DTransform class.
 \label{tab:CenteredRigid2DTransformCharacteristics}}
 \end{table}
 
-CenteredRigid2DTransform implements a rigid transformation in $2D$. The main
-difference between this transform and the \doxygen{Euler2DTransform} is that here
-we can specify an arbitrary center of rotation, while the
+\doxygen{CenteredRigid2DTransform} implements a rigid transformation in $2D$. 
+The main difference between this transform and the \doxygen{Euler2DTransform}
+is that here we can specify an arbitrary center of rotation, while the
 \doxygen{Euler2DTransform} always use the origin of the coordinate system as
-rotation center. This distintion is quite important in image registration since
-ITK images usually have their origin in the corner of the image rather than the
-middle.  Rotational miss-registrations however usually exist as rotations
-around the center of the image, or at least as rotations around a point in the
-middle of the anatomical structure captured by the image. Using gradient
-descent optimizers, it is almost imposible to solve non-origin rotations using
-origin rotations since the deep basin of the real solution is across a high
-ridge in the topography of the cost function.
+the center of rotation. This distintion is quite important in image
+registration since ITK images usually have their origin in the corner of the
+image rather than the middle.  Rotational mis-registrations however usually
+exist as rotations around the center of the image, or at least as rotations
+around a point in the middle of the anatomical structure captured by the
+image. Using gradient descent optimizers, it is almost imposible to solve
+non-origin rotations using origin rotations since the deep basin of the real
+solution is across a high ridge in the topography of the cost function.
 
 In practice this transform is used as follows: the user supplies the center of
 rotation in the input space, the angle of rotation and a translation to be
 applied after the rotation.
 
 With these parameters the transforms initialize a rotational matrix and a
-transform that performs the equivalent tasks of: Translating the center of
+transform that performs the equivalent tasks of: translating the center of
 rotation to the origin of coordinates, rotating by the specified angle,
-translating back to the center of rotation and finally translate by the
-user-especified translation.
+translating back to the center of rotation and finally translating by the
+user-especified vector.
 
-As the \doxygen{Euler2DTransform} this transform suffers from the difference in
-units used for rotations and translations. Rotations are measured in radians,
-hence their values are in the range $[-\pi,\pi]$. The center of rotation and
-the translations are measured in millimeters and their actual values vary
-depending on the image modality being considered.  Registrations involving
-angles and translations should take advantage of the scale normalization
-functionality in order to get the best performance out of
+Similar to the \doxygen{Euler2DTransform} this transform suffers from the
+difference in units used for rotations and translations. Rotations are
+measured in radians, hence their values are in the range $[-\pi,\pi]$. The
+center of rotation and the translations are measured in millimeters and their
+actual values vary depending on the image modality being considered.
+Registrations involving angles and translations should take advantage of the
+scale normalization functionality in order to get the best performance out of
 the optimizers.
 
 The following equation illustrates the effect of the transform in an input
@@ -503,9 +504,9 @@ T_y + C_y \\
 where $\theta$ is the rotation angle, $(C_x,C_y)$ are the coordinates of the
 rotation center and $(T_x,T_y)$ are the components of the translation. Note
 that the center coordinates are subtracted before the rotation and added back
-after the rotation. The main characteristics of the CenteredRigid2DTransform
-are presented in Table~\ref{tab:CenteredRigid2DTransformCharacteristics}.
-
+after the rotation. The main features of the
+\doxygen{CenteredRigid2DTransform} are presented in
+Table~\ref{tab:CenteredRigid2DTransformCharacteristics}.
 
 
 \subsection{Similarity2DTransform}
@@ -525,22 +526,23 @@ Represents a 2D rotation, homogeneous scaling and a 2D translation. Note that
 the translation component has no effect on the transformation of vectors and
 covariant vectors. & 
 4 &
-The first parameter is the angle in radian, the second the scaling factor for
+The first parameter is the angle in radians, the second the scaling factor for
 all dimensions and the last two parameters are the translation in each
 dimension. & 
 Only defined for two-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Similarity2D Transform Characteristics]{Characteristics of the Similarity2D Transform
+\itkcaption[Similarity2D Transform Characteristics]{Characteristics of the Similarity2DTransform class.
 \label{tab:Similarity2DTransformCharacteristics}}
 \end{table}
 
-A similarity transform preserves angles. It can be seen as a rigid transform
-plus an isotropic scaling factor. In its $2D$ implementation, the four
-parameters of this transformation combine the characteristics of the
-\doxygen{ScaleTransform} and \doxygen{Euler2DTransform} concerning the non-linearity of the
-parameter space and the non-uniformity of the measure units. Gradient-descent
+A similarity transform \doxygen{Similarity2DTransform} preserves angles. It
+can be seen as a rigid transform plus an isotropic scaling factor. In its
+$2D$ implementation, the four parameters of this transformation combine the
+characteristics of the \doxygen{ScaleTransform} and
+\doxygen{Euler2DTransform} relating to the non-linearity of the parameter
+space and the non-uniformity of the measurement units. Gradient-descent
 optimizers should be used with caution on such parameter spaces since the
 notion of gradient direction and step-length are ill-defined.
 
@@ -588,17 +590,17 @@ where $\lambda$ is the scale factor, $\theta$ is the rotation angle,
 $(C_x,C_y)$ are the coordinates of the rotation center and $(T_x,T_y)$ are
 the components of the translation. Note that the center coordinates are
 subtracted before the rotation and scaling, and it is added back afterwards.
-The main characteristics of the Similarity2DTransform are presented in
+The main features of the \doxygen{Similarity2DTransform} are presented in
 Table~\ref{tab:Similarity2DTransformCharacteristics}.
 
 
-A possible approach for supervising optimization in the parameter space of this
-transform is to dynamically control the array of scales passed to the
-optimizer. The effect produced by the parameters scaling  can be used to steer
-the walk on the parameter space by giving preference to some of the parameters
-over others. For example, perform some iterations updating only the rotation
-angle then balance the array of scale factors in the optimizer and perform
-another set of iterations updating only translations. 
+A possible approach for controlling optimization in the parameter space of
+this transform is to dynamically modify the array of scales passed to the
+optimizer. The effect produced by the parameters scaling can be used to steer
+the walk in the parameter space by giving preference to some of the
+parameters over others. For example, perform some iterations updating only
+the rotation angle then balance the array of scale factors in the optimizer
+and perform another set of iterations updating only translations.
 
 
 \subsection{QuaternionRigidTransform}
@@ -626,27 +628,28 @@ Only defined for three-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[QuaternionRigid Transform Characteristics]{Characteristics of the QuaternionRigid Transform
+\itkcaption[QuaternionRigid Transform Characteristics]{Characteristics of the QuaternionRigidTransform class.
 \label{tab:QuaternionRigidTransformCharacteristics}}
 \end{table}
 
-This class implements a rigid transformation in $3D$ space. The rotational part
-of the transform is represented using a quaternion while the translation is
-represented with a vector. Quaternions components do not form a vector space
-and hence raise the same concerns of the \doxygen{Similarity2DTransform} when used
-with gradient-descent optimizers.
+The \doxygen{QuaternionRigidTransform} class implements a rigid
+transformation in $3D$ space. The rotational part of the transform is
+represented using a quaternion while the translation is represented with a
+vector. Quaternions components do not form a vector space and hence raise the
+same concerns as the
+\doxygen{Similarity2DTransform} when used with gradient-descent optimizers.
 
-As a solution, the \doxygen{QuaternionRigidTransformGradientDescentOptimizer}
-was introduced in the toolkit.  This specialized optimizer implements a
-variation of a gradient-descent algorithm adapted for a quaternion space.  This
-class makes sure that after advancing in any direction on the parameter space
-the resulting new set of transform parameters are mapped back to the permissible
-set of parameters. In practice this comes down to normalizing the newly computed
-quaternion to make sure that the transformation remains rigid and no scaling is
-applied.  The main characteristics of the \doxygen{QuaternionRigidTransform} are 
-presented in Table~\ref{tab:QuaternionRigidTransformCharacteristics}.
-
-
+To address these concerns, the
+\doxygen{QuaternionRigidTransformGradientDescentOptimizer} was introduced into
+the toolkit.  This specialized optimizer implements a variation of a
+gradient-descent algorithm adapted for a quaternion space.  This class
+insures that after advancing in any direction on the parameter space the
+resulting set of transform parameters are mapped back into the permissible
+set of parameters. In practice this comes down to normalizing the newly
+computed quaternion to make sure that the transformation remains rigid and no
+scaling is applied.  The main characteristics of the
+\doxygen{QuaternionRigidTransform} are presented in
+Table~\ref{tab:QuaternionRigidTransformCharacteristics}.
 
 
 
@@ -678,37 +681,37 @@ Only defined for three-dimensional input and output spaces. \\
 \end{table}
 
 
-A \emph{Versor} is by definition the rotational part of a quaternion. It can
+A \emph{versor} is by definition the rotational part of a quaternion. It can
 also be defined as a \emph{unit-quaternion} \cite{Hamilton1866,Joly1905}.
 Versors only have three independent components since they are restricted to
-reside in the space of unit-quaternions. The implementation of Versors in the
+reside in the space of unit-quaternions. The implementation of versors in the
 toolkit uses a set of three numbers.  These three numbers correspond to the
-first three components of a quaternion.  The fourth component of the quaternion
-is computed internally such that the quaternion is of unit length. The main
-characteristics of the Versor transform are presented in
+first three components of a quaternion.  The fourth component of the
+quaternion is computed internally such that the quaternion is of unit
+length. The main characteristics of the versor transform
+\doxygen{VersorTransform} are presented in
 Table~\ref{tab:VersorTransformCharacteristics}.
 
-This transform represents exclusively rotations in 3D. It is intended to solve
-rapidly the rotational component of a more generic misalignment.  It is
-desirable to remove first any translation in order to superimpose the gravity
-centers of the images. The efficiency of this transform comes from using a
-parameter space of reduced dimensionality. Versors are the best possible
-representation for rotations in $3D$ space. Sequences of versors allow the
-creation of smooth rotational trajectories and for this reason they behave stably
-under optimization methods.
+This transform exclusively represents rotations in 3D. It is intended to
+rapidly solve the rotational component of a more general misalignment.  It is
+desirable to first remove first any translation in order to superimpose the
+gravity centers of the images. The efficiency of this transform comes from
+using a parameter space of reduced dimensionality. Versors are the best
+possible representation for rotations in $3D$ space. Sequences of versors
+allow the creation of smooth rotational trajectories and for this reason they
+behave stably under optimization methods.
 
 The space formed by versor parameters is not a vector space. Standard
 gradient-descent algorithms are not appropriate for exploring this parameter
 space. An optimizer specialized for the versor space is available in the
 toolkit under the name of \doxygen{VersorTransformOptimizer}. This optimizer
-implements Versor derivatives as defined by original Hamilton
+implements versor derivatives as originally defined by Hamilton
 \cite{Hamilton1866}.
 
 Note that the coordinate systems in ITK are determined by the settings of the
 \code{Origin} defined in the image class. Rotations will be applied in this
-coordinate space, not with respect to the center of the image as can be naively
-expected.
-
+coordinate space, not with respect to the center of the image as might be
+naively expected.
 
 
 \subsection{VersorRigid3DTransform}
@@ -733,20 +736,20 @@ Only defined for three-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Versor Rigid3D Transform Characteristics]{Characteristics of the VersorRigid3D Transform
+\itkcaption[Versor Rigid3D Transform Characteristics]{Characteristics of the VersorRigid3DTransform class.
 \label{tab:VersorRigid3DTransformCharacteristics}}
 \end{table}
 
-This transform is a close variant of the \doxygen{QuaternionRigidTransform}. It
-can be seen as an \doxygen{VersorTransform} plus a translation defined by a
-vector. It general terms it implements a rigid transform in $3D$.  The
-advantage of this class with respect to the \doxygen{QuaternionRigidTransform} is
-that it exposes only 6 parameters, three for the versor components and three
-for the translational components. This makes the search space for the optimizer
-to be reduced to dimension 6 instead of the dimension 7 used by
-\doxygen{QuaternionRigidTransform}. The main characteristics of this transform
+\doxygen{VersorRigid3DTransform} is a close variant of the
+\doxygen{QuaternionRigidTransform}. It can be seen as an
+\doxygen{VersorTransform} plus a translation defined by a vector. In general
+terms it implements a rigid transform in $3D$.  The advantage of this class
+with respect to the \doxygen{QuaternionRigidTransform} is that it exposes
+only siz parameters, three for the versor components and three for the
+translational components. This reduces the search space for the optimizer 
+to six dimensions instead of the seven dimensional used by
+\doxygen{QuaternionRigidTransform}. The main features of this transform
 are summarized in Table\ref{tab:VersorRigid3DTransformCharacteristics}.
-
 
 
 \subsection{AffineTransform}
@@ -773,49 +776,51 @@ Only defined when the input and output space have the same dimension. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Affine Transform Characteristics]{Characteristics of the Affine Transform
+\itkcaption[Affine Transform Characteristics]{Characteristics of the AffineTransform class.
 \label{tab:AffineTransformCharacteristics}}
 \end{table}
 
-
-The \doxygen{AffineTransform} is one of the most popular transformations in
-image registration. Its main advantage comes from the fact of being represented
-as a linear transformation. The main characteristics of this transform are
-presented in Table~\ref{tab:AffineTransformCharacteristics}.
+The \doxygen{AffineTransform} is one of the most popular transformations used
+for image registration. Its main advantage comes from the fact of its being
+represented as a linear transformation. The main features of this
+transform are presented in Table~\ref{tab:AffineTransformCharacteristics}.
 
 The set of \doxygen{AffineTransform} coefficients can actually be represented
 in a vector space of dimensions $(N+1) \times N$. This makes it possible for
 optimizers to be used appropriately on this search space. However the high
-dimensionality of the search space implies also a high computational cost during the
-computation of cost-function derivatives. The best compromise in the reduction
-of this computational time is to use the transform Jacobian in combination with
-the image gradient for computing the cost-function derivatives.
+dimensionality of the search space implies also a high computational cost
+during the computation of cost-function derivatives. The best compromise in
+the reduction of this computational time is to use the transform Jacobian in
+combination with the image gradient for computing the cost-function
+derivatives.
 
 The coefficients on the $N \times N$ matrix can represent rotations,
 anisotropic scaling and shearing. These coefficients are usually of a very
-different dynamic range compared to the translation coefficients. Coefficients in the 
-matrix tend to be in the range $[-1:1]$ but are not restricted to this interval.
-Translation coefficients on the other hand can be on the order of $10$ to $100$ and
-are basically related to the image size and pixel spacing.
+different dynamic range compared to the translation
+coefficients. Coefficients in the matrix tend to be in the range $[-1:1]$ but
+are not restricted to this interval.  Translation coefficients on the other
+hand can be on the order of $10$ to $100$ and are basically related to the
+image size and pixel spacing.
 
-This difference in scale makes it necessary again to take advantage of the
+This difference in scale again makes it necessary to take advantage of the
 functionality offered by optimizer for rescaling the parameter space. This is
 particularly relevant for optimizers based on gradient-descent approaches.
 
-A registration based on the affine transform may be more effective when applied
-after simpler transformations have been used to remove the major components of
-misalignment. Otherwise it will incur in an overwhelming computational
-cost. For example, using an affine transform, the first set of optimization
-iterations would typically be focused on removing large translations. This task
-could rather be accomplished by a translation transform in a parameter space of
-size $N$ instead of the $(N+1) \times N$ associated with the affine transform.
+A registration based on the affine transform may be more effective when
+applied after simpler transformations have been used to remove the major
+components of misalignment. Otherwise it will incur an overwhelming
+computational cost. For example, using an affine transform, the first set of
+optimization iterations would typically be focused on removing large
+translations. This task could rather be accomplished by a translation
+transform in a parameter space of size $N$ instead of the $(N+1) \times N$
+associated with the affine transform.
 
 Tracking the evolution of a registration process that uses
 \doxygen{AffineTransforms} can be a challenging task since it is difficult to
-represent the coefficients in a meaningful way.  The simple print out of the
-transform coefficients may not offer a clear picture of the current behavior
-and trend of the optimization.  An ergonomic implementation could rather use
-the affine transform to deform the rendering of a wire-frame cube in a 3D
+represent the coefficients in a meaningful way.  A simple print out of the
+transform coefficients generally do not offer a clear picture of the current
+behavior and trend of the optimization.  A better implementation uses
+the affine transform to deform wire-frame cube which is shown in a 3D
 visualization display.
 
 

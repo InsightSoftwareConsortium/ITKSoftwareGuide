@@ -34,19 +34,19 @@ used to compute the moving image intensity at the mapped position. Details on
 this mapping are illustrated in Figures \ref{fig:ImageOverlapIterator} and
 \ref{fig:ImageOverlapInterpolator}. 
 
-As well as the measure value, gradient-based optimization schemes also require
+Besides the measure value, gradient-based optimization schemes also require
 derivatives of the measure with respect to each transform parameter. The
-methods \code{GetDerivatives()} and \code{GetValueAndDerivatives()} can be used
-to obtain the gradient information.
+methods \code{GetDerivatives()} and \code{GetValueAndDerivatives()} can be
+used to obtain the gradient information.
 
 
-The following is the list of Metrics currently available in ITK:
+The following is the list of metrics currently available in ITK:
 \begin{itemize}
-\item Mean Squares
-\item Normalized Correlation
-\item Mutual Information by Viola and Wells
-\item Mutual Information by Mattes
-\item Mean Reciprocal Square Differences
+\item mean squares \doxygen{MeanSquaresImageToImageMetric}
+\item normalized correlation \doxygen{NormalizedCorrelationImageToImageMetric}
+\item mean reciprocal square differences \doxygen{MeanReciprocalSquareDifferenceImageToImageMetric} 
+\item mutual information by Viola and Wells \doxygen{MutualInformationImageToImageMetric}
+\item mutual information by Mattes \doxygen{MattesMutualInformationImageToImageMetric}
 \end{itemize}
 
 In the following sections, we describe each metric type in detail. 
@@ -70,7 +70,7 @@ $N$ is the number of pixels considered
 
 The optimal value of the metric is zero. Poor matches between images $A$ and
 $B$ results in large values of the metric. This metric is simple to compute and
-have a relatively large capture radius.
+haa a relatively large capture radius.
 
 This metric relies on the assumption that intensity representing the same
 homologous point must be the same in both images. Hence, its use is restricted
@@ -81,8 +81,8 @@ intensity result in a poor match value.
 \label{sec:NormalizedCorrelationMetric}
 \index{itk::NormalizedCorrelationImageToImageMetric|textbf}
 \doxygen{NormalizedCorrelationImageToImageMetric} computes pixel-wise
-cross-correlation and normalize it by the square root of the autocorrelation of
-the images:
+cross-correlation and normalizes it by the square root of the autocorrelation
+of the images:
 
 \begin{equation}
 NC(A,B) = -1 \times \frac{ \sum_i^N \left( A_i \cdot B_i \right) }
@@ -105,7 +105,7 @@ defined minima.  On the other hand, it has a relatively small capture radius.
 \subsection{Mean Reciprocal Square Differences}
 \label{sec:MeanReciprocalSquareDifferenceMetric}
 \index{itk::MeanReciprocalSquareDifferenceImageToImageMetric|textbf}
-\doxygen{MeanReciprocalSquareDifferenceImageToImageMetric} computes pixel-wise differences and add them 
+\doxygen{MeanReciprocalSquareDifferenceImageToImageMetric} computes pixel-wise differences and adds them 
 after passing them through a bell-shaped function $\frac{1}{1+x^2}$:
 
 \begin{equation}
@@ -123,7 +123,7 @@ The characteristics of this metric have been studied by Penney and Holden
 \cite{Holden1999}\cite{Penney1998}
 
 This image metric has the advantage of producing poor values when few pixels
-are considered, this makes it consistent when its computation is subject the
+are considered, this makes it consistent when its computation is subject to the
 size of the overlap region between the images. The capture radius of the
 metric can be regulated with the parameter $\lambda$.  The profile of this
 metric is very peaky. The sharp peaks of the metric helps to measure spatial
@@ -132,22 +132,22 @@ used here in terms of the intensity domain, not the spatial domain. In that
 regard, $\lambda$ should be given in intensity units and be associated to the
 difference in intensity that will make drop the metric by $50\%$.
 
-The metric is limited to be used with images of the same image modality.  The
+The metric is limited for images of the same image modality.  The
 fact that its derivative is large at the central peak is a problem for some
-optimizers that rely on the derivative to decrease as the extrema are reached.
-This metric is also sensitive to linear changes in intensity.
+optimizers that rely on the derivative to decrease as the extrema are
+reached.  This metric is also sensitive to linear changes in intensity.
 
 
 \subsection{Mutual Information Metric}
 \label{sec:MutualInformationMetric}
-This metric computes the mutual information between image $A$ and image $B$.
-Mutual information (MI) measures how much information one random variable
-(image intensity in one image) tells about another random variable 
-(image intensity in the other image). The major advantage of using
-MI is that the actual form of the dependency does not have to be specified. 
-Therefore, complex mapping between two images can be modeled. 
-This flexibility makes MI well suited as a criterion of multi-modality
-registration.
+The \doxygen{MutualInformationImageToImageMetric} metric computes the mutual
+information between image $A$ and image $B$.  Mutual information (MI)
+measures how much information one random variable (image intensity in one
+image) tells about another random variable (image intensity in the other
+image). The major advantage of using MI is that the actual form of the
+dependency does not have to be specified.  Therefore, complex mapping between
+two images can be modeled.  This flexibility makes MI well suited as a
+criterion of multi-modality registration.
 
 Mutual information is defined in terms of entropy. Let
 \begin{equation}
@@ -177,8 +177,8 @@ I(A,B)=H(A)+H(B)-H(A,B)
 
 \subsubsection{Parzen Windowing}
 
-\itkpiccaption[Parzen windowing in Mutual Information]{
- In Parzen windowing, a continuous density function is constructed by
+\itkpiccaption[Parzen Windowing in Mutual Information]{
+In Parzen windowing, a continuous density function is constructed by
 superimposing kernel functions (Gaussian function in this case) centered on the
 intensity samples obtained from the image.\label{fig:ParzenWindowing}}
 \parpic(0.5\textwidth,5.5cm)[r]{\includegraphics[width=0.48\textwidth]{ParzenWindowing13.eps}}
@@ -192,15 +192,15 @@ samples $S$ from the image and super-positioning kernel functions
 $K(\cdot)$ centered on the elements of $S$ as illustrated in
 Figure \ref{fig:ParzenWindowing}:
 
-A variety of functions can be used as the smoothing kernel with the requirement
-that it be smooth, symmetric, has zero mean and integrates to one. For example,
-boxcar, Gaussian and B-spline functions are suitable candidates.  A smoothing
-parameter is used to scale the kernel function.  The larger the smoothing
-parameter, the wider the kernel function used and hence the smoother the
-density estimate. If the parameter is too large, features such as modes in the
-density will get smoothed out.  On the other hand, if the smoothing parameter
-is too small, the resulting density may be too noisy. The estimation is given 
-by the following equation. 
+A variety of functions can be used as the smoothing kernel with the
+requirement that they are smooth, symmetric, and have zero mean and
+integrate to one. For example, boxcar, Gaussian and B-spline functions are
+suitable candidates.  A smoothing parameter is used to scale the kernel
+function.  The larger the smoothing parameter, the wider the kernel function
+used and hence the smoother the density estimate. If the parameter is too
+large, features such as modes in the density will get smoothed out.  On the
+other hand, if the smoothing parameter is too small, the resulting density
+may be too noisy. The estimation is given by the following equation.
 
 \begin{equation}
 p(a) \approx P^{*}(a) = \frac{1}{N} \sum_{s_j \in S} K\left(a - s_j\right)
@@ -212,7 +212,7 @@ smoothing parameter will depend on the data and the number of samples used.
 
 \subsubsection{Viola and Wells Implementation}
 ITK has two mutual information metric implementations. The first is 
-\doxygen{MutualInformationImageToImageMetric} that follows the method specified
+\doxygen{MutualInformationImageToImageMetric} and follows the method specified
 by Viola and Wells in \cite{Viola1997}.
 
 \index{itk::MutualInformationImageToImageMetric}
@@ -235,24 +235,26 @@ burden becomes very expensive when a large number of samples is used.
 
 \index{itk::MutualInformationImageToImageMetric!SetFixedImageStandardDeviation()}
 \index{itk::MutualInformationImageToImageMetric!SetMovingImageStandardDeviation()}
-Quality of the density estimates depends on the choice of the Gaussian kernel
-standard deviation. Optimal choice will depend on the content of the images.
-In our experience with the toolkit, we have found that a standard deviation
-of 0.4 works well for images that have been normalized to have a mean
-of zero and standard deviation of 1.0. The standard deviation of the fixed image
-and moving image kernel can be set separately using methods 
+The quality of the density estimates depends on the choice of the standard
+deviation of the Gaussian kernel. The optimal choice will depend on the
+content of the images.  In our experience with the toolkit, we have found
+that a standard deviation of 0.4 works well for images that have been
+normalized to have a mean of zero and standard deviation of 1.0. The standard
+deviation of the fixed image and moving image kernel can be set separately
+using methods
 \code{SetFixedImageStandardDeviation()} and \code{SetMovingImageStandardDeviation()}.
 
-\subsubsection{Mattes et al Implementation}
-The second form of mutual information metric available in the toolkit follows
-the method specified by Mattes et al in \cite{Mattes2001} and is implemented by
-the class  \doxygen{MattesMutualInformationImageToImageMetric}.
+\subsubsection{Mattes et al. Implementation}
+The second form of mutual information metric available in ITK follows the
+method specified by Mattes et al. in \cite{Mattes2001} and is implemented by
+the class \doxygen{MattesMutualInformationImageToImageMetric}.
 
 \index{itk::MattesMutualInformationImageToImageMetric}
-In this implementation, only one set of intensity samples is drawn from the image.
-Using this set, the marginal and joint probability density function (PDF)
-is evaluated as discrete positions or bins uniformly spread within the dynamic range
-of the images. Entropy values are then computed by summing over the bins.
+In this implementation, only one set of intensity samples is drawn from the
+image.  Using this set, the marginal and joint probability density function
+(PDF) is evaluated as discrete positions or bins uniformly spread within the
+dynamic range of the images. Entropy values are then computed by summing over
+the bins.
 
 \index{itk::MattesMutualInformationImageToImageMetric!SetNumberOfSpatialSamples()}
 \index{itk::MattesMutualInformationImageToImageMetric!SetNumberOfHistogramBins()}
@@ -261,17 +263,16 @@ The number of spatial samples used is set using method
 \code{SetNumberOfSpatialSamples()}. The number of bins use to compute
 the entropy values is set via \code{SetNumberOfHistogramBins()}.
 
-Since the fixed image PDF does not contribute to the metric derivatives, it does
-not need to be smooth. Hence, a zero order (boxcar) B-spline kernel is
-used for computing the PDF. On the other hand, to ensure smoothness,
-a third order B-spline kernel is used to compute the moving image
-intensity PDF. The advantage of using a B-spline kernel over a Gaussian kernel
-is that the B-spline kernel has a finite support region. This is 
-computationally attractive, as each intensity sample only affect a small
-of bins and hence does not require a $N \times N$ loop to compute the
-metric value.
+Since the fixed image PDF does not contribute to the metric derivatives, it
+does not need to be smooth. Hence, a zero order (boxcar) B-spline kernel is
+used for computing the PDF. On the other hand, to ensure smoothness, a third
+order B-spline kernel is used to compute the moving image intensity PDF. The
+advantage of using a B-spline kernel over a Gaussian kernel is that the
+B-spline kernel has a finite support region. This is computationally
+attractive, as each intensity sample only affects a small number of bins and
+hence does not require a $N \times N$ loop to compute the metric value.
 
-During the PDF calculations, the image intensity values are linearly scaled to have
-a minimum of zero and maximum of one. This rescaling means that a fixed
-B-spline kernel bandwidth of one can be used to handle image data 
-with arbitrary magnitude and dynamic range.
+During the PDF calculations, the image intensity values are linearly scaled
+to have a minimum of zero and maximum of one. This rescaling means that a
+fixed B-spline kernel bandwidth of one can be used to handle image data with
+arbitrary magnitude and dynamic range.

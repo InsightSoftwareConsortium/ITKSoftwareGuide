@@ -10,13 +10,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 For the problem of intra-modality deformable registration, the Insight
-toolkit provides an implementation of Thirion's ``demons'' algorithm
+Toolkit provides an implementation of Thirion's ``demons'' algorithm
 \cite{Thirion1995b,Thirion1998}. 
-In this implementation, each image is viewed as a set of iso-intensity contours. 
-The main idea is that a regular grid of demons forces deform an image by 
-pushing the contours in the normal direction. 
-The orientation and magnitude of the displacement is 
-derived from the instantaneous optical flow equation:
+In this implementation, each image is viewed as a set of iso-intensity
+contours.  The main idea is that a regular grid of forces deform an image by
+pushing the contours in the normal direction.  The orientation and magnitude
+of the displacement is derived from the instantaneous optical flow equation:
 
 \begin{equation}
 \bf{D}(\bf{X}) \cdot \nabla f(\bf{X}) = - \left(m(\bf{X}) - f(\bf{X}) \right)
@@ -48,9 +47,10 @@ renormalized the equation such that:
 \label{eqn:DemonsDisplacement}
 \end{equation}
 
-Starting with an initial deformatin field $\bf{D}^{0}(\bf{X})$, the demons algorithm
-iteratively updates the field using Equation \ref{eqn:DemonsDisplacement} such
-that the field at the $N$-th iteration is given by:
+Starting with an initial deformatin field $\bf{D}^{0}(\bf{X})$, the demons
+algorithm iteratively updates the field using Equation
+\ref{eqn:DemonsDisplacement} such that the field at the $N$-th iteration is
+given by:
 
 \begin{equation}
 \bf{D}^{N}(\bf{X}) = \bf{D}^{N-1}(\bf{X}) - \frac
@@ -62,17 +62,17 @@ m(\bf{X}+ \bf{D}^{N-1}(\bf{X}) )
 \label{eqn:DemonsUpdateEquation}
 \end{equation}
 
-Reconstruction of the deformation field is an ill-posed problem where matching the
-fixed and moving images have many solutions. For example, since each image pixel
-is free to move independently, it is possible that all pixels of one particular
-value in $m(\bf{X})$ could map to a single image pixel in $f(\bf{X})$
-of the same value. The resulting deformation field may be unrealistic for real-world
-applications. An option to solve for the field uniquely is to enforce an 
-elastic-like behavior by smoothing the deformation field using a Gaussian filter 
-between iterations.
+Reconstruction of the deformation field is an ill-posed problem where
+matching the fixed and moving images have many solutions. For example, since
+each image pixel is free to move independently, it is possible that all
+pixels of one particular value in $m(\bf{X})$ could map to a single image
+pixel in $f(\bf{X})$ of the same value. The resulting deformation field may
+be unrealistic for real-world applications. An option to solve for the field
+uniquely is to enforce an elastic-like behavior by smoothing the deformation
+field using a Gaussian filter between iterations.
 
-In the toolkit, the demons algorithm is implemented as part of the Finite Difference
-Solver (FDS) framework and it use is demostrated in the following example.
+In ITK, the demons algorithm is implemented as part of the finite difference
+solver (FDS) framework and its use is demostrated in the following example.
 
 \input{DeformableRegistration2.tex} 
 

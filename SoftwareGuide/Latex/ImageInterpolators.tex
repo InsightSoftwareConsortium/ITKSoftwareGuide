@@ -5,10 +5,10 @@
 \begin{figure}
 \center
 \includegraphics[width=\textwidth]{ImageOverlap.eps}
-\itkcaption[Mapping moving image to fixed image in Registration]{ The moving image
-is mapped into the fixed image space under some spatial transformation. An
-Iterator walks through the fixed image and its coordinates are mapped onto the
-moving image.}
+\itkcaption[Mapping moving image to fixed image in Registration]{ The moving
+image is mapped into the fixed image space under some spatial
+transformation. An iterator walks through the fixed image and its coordinates
+are mapped onto the moving image.}
 \label{fig:ImageOverlapIterator}
 \end{figure}
 
@@ -18,11 +18,11 @@ image map to non-grid positions of the moving
 image.\label{fig:ImageOverlapInterpolator}}
 \parpic(8cm,6cm)[r]{\includegraphics[width=7.5cm]{ImageOverlapInterpolator.eps}}
 
-In the registration process, the metric typically compares intensity values 
-in the fixed image with the corresponding values in the transformed moving
-image. When a point is mapped from one space to another by a transform,
-it will in general be mapped to a non-grid position. Therefore, interpolation
-is required to evaluate the image intensity at the mapped position.
+In the registration process, the metric typically compares intensity values
+in the fixed image against the corresponding values in the transformed moving
+image. When a point is mapped from one space to another by a transform, it
+will in general be mapped to a non-grid position. Therefore, interpolation is
+required to evaluate the image intensity at the mapped position.
 
 Figure \ref{fig:ImageOverlapIterator} (left) illustrates the mapping of the
 fixed image space onto the moving image space. The transform maps points from
@@ -39,13 +39,15 @@ Interpolation is needed for estimating the intensity of the moving image at
 these non-grid positions.
 
 
-ITK currently offers three different interpolation schemes: nearest-neighbor,
-linear and B-spline. In the context of registration, the interpolation method
-affects the smoothness of the optimization search space and the overall
-computation time. On the other hand, interpolations are executed thousands of
-times in a single optimization cycle. Hence, the user has to trade-off the
-simplicity of computation with smoothness when selecting the interpolation 
-scheme.
+ITK currently offers three different interpolation schemes: nearest-neighbor
+via \doxygen{NearestNeighborInterpolateImageFunction}, linear via
+\doxygen{LinearInterpolateImageFunction} and B-spline interpolation via
+\doxygen{BSplineInterpolateImageFunction}. In the context of registration,
+the interpolation method affects the smoothness of the optimization search
+space and the overall computation time. On the other hand, interpolations are
+executed thousands of times in a single optimization cycle. Hence, the user
+has to trade-off the simplicity of computation with smoothness when selecting
+the interpolation scheme.
 
 \index{itk::InterpolateImageFunction|textbf}
 \index{itk::InterpolateImageFunction!SetInputImage()}
@@ -65,7 +67,7 @@ which image pixels exist.
 \subsection{Nearest Neighbor Interpolation}
 \label{sec:NearestNeighborInterpolation}
 \index{itk::NearestNeighborInterpolateImageFunction|textbf}
-\doxygen{NearestNeighborInterpolateImageFunction} simply use the intensity of
+\doxygen{NearestNeighborInterpolateImageFunction} simply uses the intensity of
 the nearest grid position. That is, it assumes that the image intensity
 is piecewise constant with jumps mid-way between grid positions. 
 This interpolation scheme is cheap as it does not require any 
@@ -74,10 +76,10 @@ floating point computations.
 \subsection{Linear Interpolation}
 \label{sec:LinearInterpolation}
 \index{itk::LinearInterpolateImageFunction|textbf}
-\doxygen{LinearInterpolateImageFunction} assumes that intensity varies linearly
-between grid positions. Unlike nearest neighbor, the interpolated
-intensity is spatially continuous. However, the intensity gradient
-will be discontinuous at grid positions.
+\doxygen{LinearInterpolateImageFunction} assumes that intensity varies
+linearly between grid positions. Unlike nearest neighbor, the interpolated
+intensity is spatially continuous. However, the intensity gradient will be
+discontinuous at grid positions.
 
 \subsection{B-Spline Interpolation}
 \label{sec:BSplineInterpolation}
@@ -87,14 +89,13 @@ using B-spline basis functions. When an input image is first
 connected to the interpolator, B-spline 
 coefficients are computed using recursive filtering (assuming mirror
 boundary conditions). Intensity at a non-grid position is computed
-by multiplying the B-Spline coefficients with shifted B-Spline kernels
+by multiplying the B-spline coefficients with shifted B-spline kernels
 within a small support region of the requested position.
 
-Currently, this interpolator support spline orders
-from 0 to 5. Spline order of 0 is almost identical to nearest-neighbor;
-spline order of 1 is exactly identical to linear interpolation. For 
-spline order greater than 1, both the interpolated value and their
-derivative are spatially continuous.
+Currently, this interpolator supports spline of order $0$ to $5$. Spline
+order of $0$ is almost identical to nearest-neighbor; spline order of $1$ is
+exactly identical to linear interpolation. For spline order greater than $1$,
+both the interpolated value and their derivative are spatially continuous.
 
 It is important to note that when using this scheme, the interpolated
 value may lie outside the range of input image intensity. This is
