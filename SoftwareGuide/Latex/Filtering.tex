@@ -31,10 +31,19 @@ input to another filter.
 \section{Casting}
 \label{sec:CastingImageFilters}
 
-\ifitkFullVersion
+%\ifitkFullVersion
 \input{CastingImageFilters.tex}
-\fi
+%\fi
 
+\section{Intensity Mapping}
+\label{sec:IntensityMapping}
+The following filter can be seen as a variant of the casting filters. Its main
+difference is he use of a smooth and continuous transtion function.
+
+%\ifitkFullVersion
+\input{SigmoidImageFilter.tex}
+%\fi
+  
 
 \section{Gradients}
 \label{sec:GradientFiltering}
