@@ -228,10 +228,9 @@ private:
 
 int main( int argc, char *argv[] )
 {
-  if( argc > 1 )
+  if( argc != 2 )
   {
-    std::cerr << "Too many parameters " << std::endl;
-    std::cerr << "Usage: " << argv[0] << std::endl;
+    std::cerr << "Usage: " << argv[0] << "InputImageFilename" << std::endl;
   }
 
 
