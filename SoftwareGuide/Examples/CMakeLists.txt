@@ -178,7 +178,9 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/SubsampleVolume.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/VectorCurvatureAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/VectorGradientAnisotropicDiffusionImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/IO/DicomImageReadWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/DicomSeriesReadImageWrite2.cxx
+  ${ITK_SOURCE_DIR}/Examples/IO/DicomSeriesReadSeriesWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/ImageReadWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/ImageReadCastWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/ImageReadExtractWrite.cxx
