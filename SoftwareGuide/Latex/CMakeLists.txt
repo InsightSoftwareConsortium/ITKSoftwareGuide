@@ -30,6 +30,7 @@ SET( Tex_SRCS
   Abstract.tex
   Applications.tex
   AnisotropicDiffusionFiltering.tex
+  Contributors.tex
   DataRepresentation.tex
   Filtering.tex
   GUI.tex
