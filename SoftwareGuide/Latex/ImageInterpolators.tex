@@ -49,7 +49,7 @@ executed thousands of times in a single optimization cycle. Hence, the user
 has to trade-off the simplicity of computation with smoothness when selecting
 the interpolation scheme.
 
-\index{itk::InterpolateImageFunction|textbf}
+\index{itk::InterpolateImageFunction}
 \index{itk::InterpolateImageFunction!SetInputImage()}
 \index{itk::InterpolateImageFunction!Evaluate()}
 \index{itk::InterpolateImageFunction!EvaluateAtContinuousIndex()}
@@ -66,7 +66,7 @@ which image pixels exist.
 
 \subsection{Nearest Neighbor Interpolation}
 \label{sec:NearestNeighborInterpolation}
-\index{itk::NearestNeighborInterpolateImageFunction|textbf}
+\index{itk::Nearest\-Neighbor\-Interpolate\-Image\-Function}
 \doxygen{NearestNeighborInterpolateImageFunction} simply uses the intensity of
 the nearest grid position. That is, it assumes that the image intensity
 is piecewise constant with jumps mid-way between grid positions. 
@@ -75,7 +75,7 @@ floating point computations.
 
 \subsection{Linear Interpolation}
 \label{sec:LinearInterpolation}
-\index{itk::LinearInterpolateImageFunction|textbf}
+\index{itk::Linear\-Interpolate\-Image\-Function}
 \doxygen{LinearInterpolateImageFunction} assumes that intensity varies
 linearly between grid positions. Unlike nearest neighbor, the interpolated
 intensity is spatially continuous. However, the intensity gradient will be
@@ -83,7 +83,7 @@ discontinuous at grid positions.
 
 \subsection{B-Spline Interpolation}
 \label{sec:BSplineInterpolation}
-\index{itkBSplineInterpolateImageFunction|textbf}
+\index{itk::BSpline\-Interpolate\-Image\-Function}
 \doxygen{BSplineInterpolateImageFunction} represents the image intensity 
 using B-spline basis functions. When an input image is first 
 connected to the interpolator, B-spline 
