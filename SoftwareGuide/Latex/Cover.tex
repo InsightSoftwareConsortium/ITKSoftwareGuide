@@ -1,13 +1,13 @@
-\chapter{The Cover}
+\chapter*{The Cover}
 
 This section describes the cover of this book. The task of designing the cover
 was suppossed to be an easy one. 
 
-\section{Removing the Gel}
+\section*{Removing the Gel}
 During the freezing process the body of the Visible Woman was inmersed in a
 block of gel. This Gel appears as a blue substance in the cryogenic data.
 
-\section{The Skin}
+\section*{The Skin}
 The skin was easy to segment once the Gel was removed. A simple region growing
 algorithm was used providing seed points in the region previously occupied by
 the gel. 
@@ -19,7 +19,7 @@ geometrical representation of the surface and introduce it in the VTK
 visualization pipeline.
 
 
-\section{The Brain}
+\section*{The Brain}
 The visible part of the brain represents the surface of the gray matter.  The
 brain was segmented using the Vector version of the confidence connected image
 filter.  This filter implements a region growing algorithm that starting from a
@@ -39,12 +39,12 @@ Finaly, the volume resulting from the median filter was passed through the
 antialiasin image filter.
 
 
-\section{The Neck Mucles}
+\section*{The Neck Mucles}
 
-\section{The Skull}
+\section*{The Skull}
 The Skull was segmented from the CT data set and registered to the cryogenic data.
 
-\section{The Eye} 
+\section*{The Eye} 
 The eye was charged with symbolism in this image. In part because the
 motivation for the development of the toolkit was the analysis of the Visible
 human data, and in part because the toolkit was names \emph{Insight}.
@@ -65,7 +65,7 @@ in order to generate a float image with the eyebal contour embebded as a zero
 set.
 
 
-\section{Visualization}
+\section*{Visualization}
 
 The visualization of the segementation was done by passing all the binary 
 masks through the AntialiasImageFilter, generating iso-contours with VTK
