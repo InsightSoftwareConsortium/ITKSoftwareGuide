@@ -159,6 +159,8 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/MedianImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MeanImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MinMaxCurvatureFlowImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/OtsuThresholdImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/OtsuMultipleThresholdImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/ResampleImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/ResampleImageFilter2.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/ResampleImageFilter3.cxx
