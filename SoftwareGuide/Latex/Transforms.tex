@@ -1,0 +1,21 @@
+In the toolkit, \code{itk::Transform} objects encapsulates the mapping of
+points, vectors and covariant vectors from an input space to an output space.
+The distinction between points, vectors and covariant vectors has already
+been discussed in Chapter \ref{sec:DataRepresentation}. If a transform is
+invertible, back transform methods are also provided. Currently, 
+ITK provide a variety of transfroms from simple translation, rotation and 
+scaling to general affine and kernel transforms. Note that, although we
+discuss transforms in context registration in this section, transforms
+are general and can used for other applications.
+
+Typically, for each transform type several methods are provided for setting
+the parameters. For example, \code{Euler2DTransform} provide methods for
+separatedly setting the offset, the angle, and the entire rotation matrix.
+However, for use in the registration framework, the parameters must also
+be represented by a flat \code{Array<double>} to allow communication
+with generic optimizers. In the case of \code{Euler2DTransform}, the transform
+is also defined by three doubles: the first representing the angle and 
+the last two the offset.
+
+%Talk about jacobian
+%Go through each transform
