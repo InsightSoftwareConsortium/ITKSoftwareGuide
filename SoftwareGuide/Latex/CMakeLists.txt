@@ -127,6 +127,8 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   ImageRegistration5.tex
   ImageRegistration6.tex
   ImageRegistration7.tex
+  ImageRegistration8.tex
+  ImageRegistration9.tex
   IsolatedConnectedImageFilter.tex
   DeformableRegistration1.tex
   DeformableRegistration2.tex
