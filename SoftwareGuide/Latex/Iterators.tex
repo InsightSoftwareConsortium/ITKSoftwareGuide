@@ -259,10 +259,22 @@ while ( ! in.IsAtBegin() )
 %\item \textbf{\code{operator>=}}
 %\end{itemize}
 
+%operator +=, -=, etc
+
+% A note on bounds checking
+For efficiency, most ITK image iterators do not perform bounds checking.  What
+this means is that it is possible to move an iterator to a location outside its
+valid iteration region.  Dereferencing the iterator at an out-of-bounds location
+will produce an undefined result. It is left to the user to make sure the
+iterator remains in bounds.  For most applications,  bounds checking is just
+the standard test for \code{IsAtEnd()} or \code{IsAtBegin()} condition at each
+iteration step.  Calling \code{operator+=} and \code{operator-=} on an iterator
+to perform random access operations may require more careful measures.
 
 % SetIndex()
 
 % operator <, operator >, etc.
+
 
 \section{Image Iterators}
 \label{sec:ImageIterators}
@@ -278,149 +290,23 @@ speed up or encapsulate common tasks.
 
 \subsection{itk::ImageRegionIterator}
 \label{sec:itkImageRegionIterator}
-% Table which lists fetatures?
-%./Common/itkImageRegionConstIterator.h
-%./Common/itkImageRegionIterator.h
-%(./Common/itkImageConstIterator.h base class)
-%(./Common/itkImageIterator.h base class)
 \input{ImageRegionIterator.tex}
-
-The \code{itk::ImageRegionIterator} has been optimized for iteration speed.  It
-is the first choice for doing pixelwise operations where location in the image
-is not important.  
 
 \subsection{itk::ImageRegionIteratorWithIndex}
 \label{sec:itkImageRegionIteratorWithIndex}
-%./Common/itkImageRegionConstIteratorWithIndex.h
-%./Common/itkImageRegionIteratorWithIndex.h
-%(./Common/itkImageConstIteratorWithIndex.h  base class )
-%(./Common/itkImageIteratorWithIndex.h  base class )
-The ``WithIndex'' family of iterators were designed for use in situations where
-an algorithm makes extensive use of the iterator's index location. Unlike
-\code{itk::ImageRegionIterator}, which calculates the index only when queried,
-\code{itk::ImageRegionIteratorWithIndex} maintains its index location as a member variable
-which is updated each time the iterator is incremented or decremented.
-Otherwise, this iterator is very similar.  A penalty introduced on the
-iteration speed, but is more efficient when repeatedly querying for the index.
-
 \input{ImageRegionIteratorWithIndex.tex}
-
-% A Note on encapsulation?
-%\code{Itk::ImageRegionIteratorWithIndex} is a good example of how ITK iterators
-%can save programmer effort by encapsulating common functionality.  Incrementing
-%an N dimensional index over a subregion of an image is not trivial code to
 
 \subsection{itk::ImageLinearIteratorWithIndex}
 \label{sec:itkImageLinearIteratorWithIndex}
-%./Common/itkImageLinearConstIteratorWithIndex.h
-%./Common/itkImageLinearIteratorWithIndex.h
-An \code{itk::ImageLinearIteratorWithIndex} is designed for line-by-line
-processing of an image.  It walks a linear path along a selected image
-direction parallel to one of the principle axes of the image. The image is
-effectively indexed as a set of parallel lines spanning the selected image
-dimension.
-
-Like all other ITK image iterators, movement is constrained to within an image
-region, $R$.  The line $\ell$ through which the iterator moves is defined by a
-selected direction and an origin.  The origin itself can be iterated, and is
-any of the pixels along the lower boundary of $R$.  $\ell$ extends from the
-origin to the upper boundary of $R$.
-
-Several additional methods are defined for this iterator to control movement
-along the line $\ell$, and movement of the line origin within the image.
-
-%Might need a figure here to describe this iterator.
-
-\begin{itemize}
-\item \textbf{\code{NextLine()}} Moves the iterator to the beginning pixel
-location of the next line in the image.  The origin of the next line is
-determined by incrementing the current origin along the fastest increasing
-dimension of the subspace of the image that excludes the selected dimension.
-
-\item \textbf{\code{PreviousLine()}} Moves the iterator to the \emph{last valid
-pixel location} in the previous line. The origin of the previous line is
-determined by decrementing the current origin along the fastest increasing
-dimension of the subspace of the image that excludes the selected dimension.
-
-\item \textbf{\code{(GoToBeginOfLine())}} Moves the iterator to the beginning
-pixel of the current line.
-
-\item \textbf{\code{(GoToEndOfLine())}}  Move the iterator to \emph{one past
-the last valid} pixel of the current line.
-
-\item \textbf{\code{(IsAtBeginOfLine())}} Returns true if the iterator points
-to the beginning pixel of the current line.
-
-\item \textbf{\code{(IsAtEndOfLine())}}  Returns true if the iterator points to
-\emph{one position past the last valid} pixel of the current line.
-\end{itemize}
-
 \input{ImageLinearIteratorWithIndex.tex}
 
 \subsection{itk::ImageSliceIteratorWithIndex}
 \label{sec:itkImageSliceIteratorWithIndex}
-%./Common/itkImageSliceConstIteratorWithIndex.
-%./Common/itkImageSliceIteratorWithIndex.h
-The \code{itk::ImageSliceIteratorWithIndex} is an extension of the
-\code{itk::ImageLinearIteratorWithIndex}.  It adds a second dimension over
-which iteration can be controlled, called the \emph{slice}.  A slice can be
-thought of as a 2D plane of the image, oriented parallel to one of the
-principle axes.  Any combination of line and slice directions can be handled by
-this iterator.
-
-%Need a figure here to illustrate?
-
-In addition to those methods defined for
-\code{itk::ImageLinearIteratorWithIndex}, the slice iterator defines the following.
-
-\begin{itemize}
-\item \textbf{\code{NextSlice()}} Moves the iterator to the beginning pixel
-location of the next slice in the image.  The origin of the next slice is
-determined by incrementing the current origin along the fastest increasing
-dimension of the subspace of the image that excludes the selected slice and
-line dimensions.
-
-\item \textbf{\code{PreviousSlice()}} Moves the iterator to the \emph{last valid
-pixel location} in the previous slice. The origin of the previous slice is
-determined by decrementing the current origin along the fastest increasing
-dimension of the subspace of the image that excludes the selected slice and
-line dimensions.
-
-\item \textbf{\code{(GoToBeginOfSlice())}} Moves the iterator to the beginning
-pixel of the current slice.
-
-\item \textbf{\code{(GoToEndOfSlice())}}  Move the iterator to \emph{one past
-the last valid} pixel of the current slice.
-
-\item \textbf{\code{(IsAtBeginOfSlice())}} Returns true if the iterator points
-to the beginning pixel of the current slice.
-
-\item \textbf{\code{(IsAtEndOfSlice())}}  Returns true if the iterator points to
-\emph{one position past the last valid} pixel of the current slice.
-\end{itemize}
-
 \input{ImageSliceIteratorWithIndex.tex}
-
 
 \subsection{itk::ImageRandomConstIteratorWithIndex}
 \label{sec:itkImageRandomConstIteratorWithIndex}
-%./Common/itkImageRandomConstIteratorWithIndex.h
-%./Common/itkImageRandomIteratorWithIndex.h
-Sometimes an algorithm may require a random sample of the pixel values in an
-image. \code{itk::ImageRandomConstIteratorWithIndex} was developed for that
-purpose. When incremented or decremented, the iterator simply jumps to a random
-location in its image region.  
-
-The user must specify a sample size when creating this iterator. The sample
-size defines the end position for the iterator.  \Is
-
-%\code{itk::ImageRandomConstIteratorWithIndex} may visit the same pixel location
-%more than once.
-
 \input{ImageRandomConstIteratorWithIndex}
-
-
-
 
 
 \section{Conditional Iterators}
