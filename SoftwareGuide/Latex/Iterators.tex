@@ -8,10 +8,10 @@ generalization of the familiar C-Language pointer used to reference data in
 memory.  ITK has a wide variety of image iterators, some of which are highly
 specialized to simplify common image processing tasks.
 
-The next section is a brief introduction that defines iterators in the
-context of ITK.  The programming interface common to most ITK image iterators
-is decribed in section~\ref{sec:IteratorsInterface}.  Specific ITK iterator
-types and examples of how they are used are documented in
+The next section is a brief introduction that defines iterators in the context
+of ITK.  Section ~\ref{sec:IteratorsInterface} described the programming
+interface common to most ITK image iterators.  Specific ITK iterator types and
+examples of how they are used are documented in
 sections~\ref{sec:ImageIterators}--\ref{sec:NeighborhoodIterators}.
 
 \section{Introduction}
@@ -84,8 +84,8 @@ section~\ref{sec:ImageSection} for more information on image regions.
 \index{Iterators!const}
 Most ITK image iterators have a const and non-const version.  A non-const
 iterator cannot be instantiated with a const \doxygen{Image} smart pointer.
-Const versions of iterators do not allow modifying the image that they iterate
-over.
+Const versions of iterators do not allow modification of the values in the
+image over which they iterate.
 
 Here is an example of defining and constructing an iterator using the
 \doxygen{ImageRegionIterator}.  For more examples, see
@@ -328,12 +328,12 @@ region, the \code{RequestedRegion} of \code{inputImage}.  This is good
 practice because it ensures that the output iterator walks exactly the same set
 of pixel indicies as the input iterator, but does not require that the output
 and input be the same size.  The only requirement is that the output image must
-contain the requested region of the input image, which will almost always be
+contain the requested region of the input image, which will generally be
 the case when writing ITK pipeline filter objects.  Another advantage is that
 only one test for the end of iteration is required in the \code{for} loop.
 
 \index{reverse iteration}
-Equivalent code can be written to iterate through the image in reverse.
+Equivalent code can be written by iterating through the image in reverse.
 The syntax is slightly more awkward because the \emph{end} of the
 iteration region is not a valid position and we can only test whether the
 iterator is strictly \emph{equal} to its beginning position.  It is often more
@@ -455,62 +455,73 @@ implicit geometric shape functions or connected component regions.
 \section{Neighborhood Iterators}
 \label{sec:NeighborhoodIterators}
 \index{Iterators!neighborhood|(}
+In ITK, a pixel neighborhood is loosely defined as a small set of pixels that
+are locally adjacent to one another in an image.  The size and shape (stencil)
+of a neighborhood, as well the connectivity among pixels in a neighborhood,
+may vary with the application.
 
-It is common in image processing algorithms to compute  values at a pixel
-locations based on the values of pixels adjacent to those locations.  Finite
-difference operations, for example, compute a derivative at pixel location $i$
-based on the values at locations $i+1$ and $i-1$. Other examples include
-convolution filtering and morphological operations.  These types of
-computations are called \emph{neighborhood} computations because they use a local
-neighborhood of values.  A neighborhood is loosely defined as a small set of pixels
-that are locally adjacent to one another in an image.  The size and shape
-(stencil) of neighborhoods may vary, and the connectivity among pixels in a
-neighborhood may also vary.
+Many image processing algorithms perform local, neighborhood-based
+calculations.  In other words, the result at an ND pixel index $i$ in the image
+is computed from the values of other pixels in the neighborhood of $i$. Finite
+difference operations, for example, may take the derivative at pixel index
+$i_x$ based on the values of $i_(x+1)$ and $i_(x-1)$. Other common examples of
+neighborhood operations include convolution filtering and image morphology.
 
 This section describes a class of ITK image iterators that are designed for
-working with neighborhoods of image pixels. An ITK neighborhood iterator walks
-an image region just like a normal image iterator, but instead of referencing
-just one pixel at a time, it points to an entire ND neighborhood of pixels
-around each pixel. 
+working with pixel neighborhoods. An ITK neighborhood iterator walks an image
+region just like a normal image iterator, but instead of referencing just one
+pixel at a time, it points to an entire ND neighborhood of pixels around each
+pixel. Extensions to the normal ITK iterator interface provide read and write
+access to all neighborhood pixels, as well as other useful information
+such as the size, extent, and location of the neighborhood.
 
+The standard ITK iterator operations defined in
+section~\ref{sec:IteratorsInterface} are also valid for neighborhood iterators.
+Neighborhood iterators use the same forward, reverse, and random access
+iteration code as normal ITK iterators.
 Figure~\ref{fig:WalkingNeighborhoodIterator} illustrates the concept of the
-neighborhood iterator.
-%
-% DESCRIBE FIGURE HERE
-%
+neighborhood iterator and shows its path through an iteration region.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{NeighborhoodIteratorFigure1.eps}
+\itkcaption[ITK neighborhood iterator iteration]{Path of a neighborhood
+iterator through an image.  The iteration region is shown in a darker
+shade and the extent of the iterator is indicated by the hashing. }
+\protect\label{fig:WalkingNeighborhoodIterator}
+\end{figure}
+
+\index{Neighborhood iterators!construction of}
+In addition to the standard image pointer and iteration region
+(section~\ref{sec:IteratorsInterface}), neighborhood iterator constructors also
+need an argument that describes the extent of the neighborhood.  Neighborhood
+extent is expressed as the symmetric distance from the center of the
+neighborhood in an ND array called the \emph{radius}. Each element $i$ of the
+radius, where $N$ is the dimensionality of the neighborhood and $0 < i < N$,
+gives the extent of the neighborhood in pixels for dimension $N$.  The length of
+each face of the resulting ND hypercube is $(i * 2) + 1$ pixels, a distance of
+$i$ on either side of the single pixel at the neighbor center.
+Figure~{\ref{fig:NeighborhoodIteratorRadius} illustrates these concepts for a
+2D iterator.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{NeighborhoodIteratorFigure1.eps}
 \itkcaption[ITK image iteration]{Path of a neighborhood iterator through an image.  The
 iteration region is shown in a darker shade. An arrow denotes a single iterator
-step, the result of one \code{++} operation.  The }
+step, the result of one \code{++} operation.  }
 \protect\label{fig:WalkingNeighborhoodIterator}
 \end{figure}
 
-All of the standard operators defined for ... Additionally, neighborhood
-iterators are random access iterators, which means that they can be moved
+In addition to the standard interface, neighborhood iterators define methods
+for accessing neighbor pixels.  
 around an image in arbitrary sized steps.
 
-\index{NeighborhoodIterators!operator+=(itk::Offset)}
-\begin{itemize}
-\item \textbf{\code{operator+=(itk::Offset)}} Moves the iterator by an ND
-offset in the positive direction.
-
-\index{NeighborhoodIterators!operator-=(itk::Offset}
-\item \textbf{\code{operator-=(itk::Offset)}} Moves the iterator by an ND
-offset in the negative direction.
-\end{itemize}
-
-Figure~\ref{fig:OffsetNeighborhoodIterator} illustrates the random access
-functionality of the neighborhood iterator.  For efficiency reasons, random
-access iterations do not perform bounds checking.  It is therefore possible to
-move the iterator outside of its iteration region where dereferencing will
-produce undefined results.
-
-
-
 %start with a simple example in pseudocode
+
+
+
+
 
 The neighborhood iterator interface extends the normal ITK iterator interface
 for setting and getting pixel values.  neighborhood is stored like an array.
@@ -561,9 +572,15 @@ defined.
 \item \textbf{\code{itk::IndexType GetIndex()}} 
 \item \textbf{\code{itk::ImageIndex GetIndex(itk::Offset o)}} 
 \item \textbf{\code{itk::ImageIndex GetIndex(unsigned int i)}} 
-\item \textbf{\code{OffsetType ComputeInternalIndex(unsigned int i)}} 
-\item \textbf{\code{const ImageType *GetImagePointer()}} 
 
+\item \textbf{\code{itk::Offset GetOffset(unsigned int i)}} 
+\item \textbf{\code{unsigned long GetNeighborhoodIndex(itk::Offset)}} 
+
+\item \textbf{\code{std::slice GetSlice(unsigned int n)}} 
+
+\item \textbf{\code{const ImageType *GetImagePointer()}} 
+\item \textbf{\code{unsigned long GetSize()}}
+\item \textbf{\code{itk::Size GetRadius()}}
 
 \end{itemize}
 
@@ -611,20 +628,48 @@ describe behavior of set/get pixel methods.  introduce the setpixel with status
 
 \subsection{itk::NeighborhoodIterator}
 \label{sec:itkNeighborhoodIterator}
+The standard neighborhood iterators in ITK are the
+\code{itk::ConstNeighborhoodIterator} and the
+\code{itk::NeighborhoodIterator}.  These two classes implement the complete API
+described above.  This section illustrates their use with several examples.
 
-% \input{NeighborhoodIterator1.tex}
+\input{NeighborhoodIterator1.tex}
+\input{Neighborhooditerator2.tex}
+\input{Neighborhooditerator3.tex}
+\input{Neighborhooditerator4.tex}
+\input{Neighborhooditerator5.tex}
+\input{Neighborhooditerator6.tex}
+
 %./Common/itkConstNeighborhoodIterator.h
 %./Common/itkNeighborhoodIterator.h
 
-% Example: derivative
-% Example: convolution filtering
-% Example: boundary conditions
-% Example: walking faces
+% Example1: Edge detection using ``hand-coded'' Sobel operator
+% Example2: Sobel edge detection using convolution filtering and Sobel operator
+% Example3: Improving boundary condition efficiency
+% Example4: gaussian filtering, separable convolution
+% Example5: Slicing the neighborhood: gaussian filtering, separable convolution
+% Example6: Advanced Neighborhood Techniques: local minima, local maxima
 
 \subsection{itk::ShapedNeighborhoodIterator}
 \label{sec:itkShapedNeighborhoodIterator}
+
+% INTRODUCTION
+
+% SPEED COMPLEXITY TRADEOFFS
+
+% SETTING THE 
+
+% DIFFERNCES IN THE REST OF THE API
+
+
+\input{ShapedNeighborhoodIterator1.tex}
+\input{ShapedNeighborhoodIterator2.tex}
+
 %./Common/itkConstShapedNeighborhoodIterator.h
 %./Common/itkShapedNeighborhoodIterator.h
+
+
+
 
 \index{Iterators!neighborhood|)}
 
