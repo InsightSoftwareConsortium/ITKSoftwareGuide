@@ -1,10 +1,10 @@
 \chapter{Iterators}
-
+\label{sec:ImageIteratorsChapter}
 \index{Iterators!image|(}
 \index{Generic Programming}
 This chapter introduces the \emph{image iterator}, a fundamental and important
 generic programming construct for image processing in ITK.  An iterator is a
-generalization of the familiar C pointer used to reference data in
+generalization of the familiar C-Language pointer used to reference data in
 memory.  ITK has a wide variety of image iterators, some of which are highly
 specialized to simplify common image processing tasks.
 
@@ -30,21 +30,21 @@ maintaining functional independence between algorithms and containers.
 
 The iterator is so named because it is used for \emph{iterative}, sequential
 access of container values.  Iterators appear in \code{for} and
-\code{while} loop constructs, visiting each data point in turn.  A C pointer,
+\code{while} loop constructs, visiting each data point in turn.  A C-Language pointer,
 for example, is a type of iterator.  It can be moved forward (incremented) and
 backward (decremented) through memory to sequentially reference elements of an
 array. Many iterator implementations have an interface similar to the
-C pointer interface. 
+C-Language pointer interface. 
 
 \index{Iterators!advantages of}
 In ITK we use iterators to write generic image processing code for
-\code{itk::Image}s instantiated with different combinations of pixel type, pixel
+\doxygen{itk::Image}s instantiated with different combinations of pixel type, pixel
 container type, and dimensionality.  Because ITK image iterators are
 specifically designed to work with \emph{image} containers, their interface and
 implementation is optimized for image processing tasks.
 
 Writing image processing code in ITK with iterators has many specific
-advantages over using the \code{itk::Image} interface directly.  Code is more
+advantages over using the \doxygen{itk::Image} interface directly.  Code is more
 compact and often generalizes automatically to higher dimensions, algorithms
 run much faster, and iterators simplify tasks such as multithreading,
 neighborhood image processing, and working with non-rectilinear regions of
@@ -72,9 +72,9 @@ or on the pixel type of the image.
 \index{Iterators!and image regions}
 
 There are always at least two arguments to an ITK image iterator constructor.
-The first argument is a smart pointer to an \code{itk::Image}.  This is the
+The first argument is a smart pointer to an \doxygen{itk::Image}.  This is the
 image to iterate over. The second argument is an
-\code{itk::ImageRegion} that specifies the \emph{iteration region}.  The
+\doxygen{itk::ImageRegion} that specifies the \emph{iteration region}.  The
 iteration region is the rectilinear area of the image that iteration is
 constrained within. Valid iteration regions are any subregions of the image
 wholly contained in the current \code{BufferedRegion}.  See
@@ -83,12 +83,12 @@ section~\ref{sec:ImageSection} for more information on image regions.
 
 \index{Iterators!const}
 Most ITK image iterators have a const and non-const version.  A non-const
-iterator cannot be instantiated with a const \code{itk::Image} smart pointer.
+iterator cannot be instantiated with a const \doxygen{itk::Image} smart pointer.
 Const versions of iterators do not allow modifying the image that they iterate
 over.
 
 Here is an example of defining and constructing an iterator using the
-\code{itk::ImageRegionIterator}.  For more examples, see
+\doxygen{itk::ImageRegionIterator}.  For more examples, see
 sections~\ref{sec:ImageIterators}--\ref{sec:NeighborhoodIterators}.
 
 \begin{verbatim}
@@ -220,7 +220,7 @@ An iterator can also report its current image index position.
 
 \begin{itemize}
 \index{Iterators!GetIndex()}
-\item \textbf{\code{ImageIndex GetIndex()}} Returns the \code{itk::ImageIndex}
+\item \textbf{\code{ImageIndex GetIndex()}} Returns the \doxygen{itk::Index}
 of the image pixel that the iterator currently points to.
 \end{itemize}
 
@@ -276,25 +276,25 @@ handle this case, some iterators define a third data access method.
 the iterator position.
 \end{itemize}
 
-The \code{Value} method can be either an lval or an rval in an expression.  It
-has all the properties of \code{operator*}.  The \code{Value} method makes it
+The \code{Value()} method can be either an lval or an rval in an expression.  It
+has all the properties of \code{operator*}.  The \code{Value()} method makes it
 possible to rewrite our example code more efficiently.
 
 \begin{verbatim}
 it.Value()++;
 \end{verbatim}
 
-Consider using the \code{Value} method when a call to a pixel type's
+Consider using the \code{Value()} method when a call to a pixel type's
 \code{operator=} method is non-trivial, for example, when working
 with multiple-component data such as vectors.
 
-The disadvantage of using \code{Value} over \code{Get} and \code{Set} is that
-is cannot support image adaptors. Whenever possible, use \code{Get} and
-\code{Set} instead.  Because ITK filters do not modify the contents of their
-input images, situations calling for
-\code{Value} are less common than might be supposed.  More often than not, an
-algorithm operates on two images, an input from which values are only read
-(\code{Get}), and an output to which values are only written (\code{Set}).
+The disadvantage of using \code{Value()} over \code{Get()} and \code{Set()} is
+that is cannot support image adaptors. Whenever possible, use \code{Get()} and
+\code{Set()} instead.  Because ITK filters do not modify the contents of their
+input images, situations calling for \code{Value()} are less common than might
+be supposed.  More often than not, an algorithm operates on two images, an
+input from which values are only read (\code{Get()}), and an output to which
+values are only written (\code{Set()}).
 
 
 \subsection{Iteration Loops}
@@ -306,18 +306,18 @@ calculates the squares all values in an input image and writes them to an
 output image.
 
 \begin{verbatim}
-ConstIteratorType in(input_image,   input_image->GetRequestedRegion());
-IteratorType out(output_image, input_image->GetRequestedRegion());
+ConstIteratorType in( inputImage,   inputImage->GetRequestedRegion() );
+IteratorType out( outputImage, inputImage->GetRequestedRegion() );
 
-for (in.GoToBegin(), out.GoToBegin(); !in.IsAtEnd(); ++in, ++out)
-{
+for ( in.GoToBegin(), out.GoToBegin(); !in.IsAtEnd(); ++in, ++out )
+  {
   out.Set( in.Get() * in.Get() );
-}
+  }
 \end{verbatim}
 
 \index{Iterators!and image regions}
 Notice that both the input and output iterators are initialized over the same
-region, the \code{RequestedRegion} of \code{input\_image}.  This is good
+region, the \code{RequestedRegion} of \code{inputImage}.  This is good
 practice because it ensures that the output iterator walks exactly the same set
 of pixel indicies as the input iterator, but does not require that the output
 and input be the same size.  The only requirement is that the output image must
@@ -337,12 +337,11 @@ convenient to write reverse iteration in a
 in.GoToEnd();
 out.GoToEnd();
 while ( ! in.IsAtBegin() )
-{
+  {
   --in;
   --out;
   out.Set( in.Get() * in.Get() );
-}
-
+  }
 \end{verbatim}
 
 %\begin{itemize}
@@ -364,11 +363,10 @@ while ( ! in.IsAtBegin() )
 \label{sec:ImageIterators}
 %Introduction and overview
 This section describes iterators that walk rectilinear regions in images and
-reference a single pixel.  The \code{itk::ImageRegionIterator} is the basic,
-general purpose ITK image iterator.  The rest of the
-iterators described in this section are variations on
-\code{itk::ImageRegionIterator} and incorporate specializations designed to 
-speed up or encapsulate common tasks.
+reference a single pixel.  The \doxygen{itk::ImageRegionIterator} is the basic,
+general purpose ITK image iterator.  The rest of the iterators described in
+this section are variations on \doxygen{itk::ImageRegionIterator} and
+incorporate specializations designed to speed up or encapsulate common tasks.
 
 % Each of the iterators has a const and non-const version
 
