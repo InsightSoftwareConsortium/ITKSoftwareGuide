@@ -31,14 +31,23 @@ input to another filter.
 \section{Casting}
 \label{sec:CastingImageFilters}
 
+The filters discussed in this section perform pixel-wise intensity mappings.
+This is usually desired as a parallel action to image pixel-type casting since
+the input and output pixel-types have in general different dynamic ranges.
+
+\subsection{Linear Mappings}
+\label{sec:IntensityLinearMapping}
+
 %\ifitkFullVersion
 \input{CastingImageFilters.tex}
 %\fi
 
-\section{Intensity Mapping}
-\label{sec:IntensityMapping}
+\subsection{Non Linear Mappings}
+\label{sec:IntensityNonLinearMapping}
+
 The following filter can be seen as a variant of the casting filters. Its main
-difference is he use of a smooth and continuous transtion function.
+difference is the use of a smooth and continuous transtion function of
+non-linear form.
 
 %\ifitkFullVersion
 \input{SigmoidImageFilter.tex}
@@ -181,14 +190,14 @@ approximate the convolution with a Gaussian \cite{Deriche1990,Deriche1993}.
 \label{sec:EdgePreservingSmoothingFilters}
 
 \subsubsection{Introduction to Anisotropic Diffusion}
+\label{sec:IntroductionAnisotropicDiffusion}
 \ifitkFullVersion
 \input{AnisotropicDiffusionFiltering.tex}
 \fi
 
+
 \subsubsection{Curvature Flow}
-\ifitkFullVersion
 \label{sec:CurvatureFlowImageFilter}
-\fi
 
 \ifitkFullVersion
 \input{CurvatureFlowImageFilter.tex}
