@@ -66,11 +66,23 @@ illustrate how to use SpatialObject transformations to control and
 calculate the position of objects in space.
 
 \section{Hierarchy}
+
+The spatial objects can be combined to form a hierarchy as a tree.
+Each transform is stored within each object, therefore the hierarchy cannot
+be described as a Directed Acyclic Graph (DAG) but really as a tree.
+The user is responsible for mainting the hierarchy as a tree, no checking are done
+to ensure no cycle is present.
+
 \label{sec:SpatialObjectHierarchy}
 \ifitkFullVersion 
 \input{SpatialObjectHierarchy.tex}
-\fi 
+\fi
 
+\section{SpatialObject Tree Container}
+\label{sec:SpatialObjectTreeContainer}
+\ifitkFullVersion 
+\input{SpatialObjectTreeContainer.tex}
+\fi
 
 \section{Transformations}
 \label{sec:SpatialObjectTransforms}
@@ -84,10 +96,22 @@ calculate the position of objects in space.
 This section describes in detail the variety of spatial objects 
 implemented in ITK. 
 
+\subsection{ArrowSpatialObject}
+\label{sec:ArrowSpatialObject}
+\ifitkFullVersion 
+\input{ArrowSpatialObject.tex}
+\fi
+
 \subsection{BlobSpatialObject}
 \label{sec:BlobSpatialObject}
 \ifitkFullVersion 
 \input{BlobSpatialObject.tex}
+\fi
+
+\subsection{CylinderSpatialObject}
+\label{sec:CylinderSpatialObject}
+\ifitkFullVersion 
+\input{CylinderSpatialObject.tex}
 \fi
 
 \subsection{EllipseSpatialObject}
@@ -96,10 +120,28 @@ implemented in ITK.
 \input{EllipseSpatialObject.tex}
 \fi
 
+\subsection{GaussianSpatialObject}
+\label{sec:GaussianSpatialObject}
+\ifitkFullVersion 
+\input{GaussianSpatialObject.tex}
+\fi
+
+\subsection{GroupSpatialObject}
+\label{sec:GroupSpatialObject}
+\ifitkFullVersion 
+\input{GroupSpatialObject.tex}
+\fi
+
 \subsection{ImageSpatialObject}
 \label{sec:ImageSpatialObject}
 \ifitkFullVersion 
 \input{ImageSpatialObject.tex}
+\fi
+
+\subsection{ImageMaskSpatialObject}
+\label{sec:ImageMaskSpatialObject}
+\ifitkFullVersion 
+\input{ImageMaskSpatialObject.tex}
 \fi
 
 \subsection{LandmarkSpatialObject}
@@ -114,6 +156,12 @@ implemented in ITK.
 \input{LineSpatialObject.tex}
 \fi
 
+\subsection{MeshSpatialObject}
+\label{sec:MeshSpatialObject}
+\ifitkFullVersion 
+\input{MeshSpatialObject.tex}
+\fi
+
 \subsection{SurfaceSpatialObject}
 \label{sec:SurfaceSpatialObject}
 \ifitkFullVersion 
@@ -121,9 +169,28 @@ implemented in ITK.
 \fi
 
 \subsection{TubeSpatialObject}
+
+\doxygen{TubeSpatialObject} represents a base class for the representation
+of tubular structures. \doxygen{VesselTubeSpatialObject} amd 
+\doxygen{DTITubeSpatialObject} are currently deriving from this base class.
+VesselTubeSpatialObject represents blood vessels extracted for an image and 
+DTITubeSpatialObject is used to represent fiber tracts.
+
 \label{sec:TubeSpatialObject}
 \ifitkFullVersion 
 \input{TubeSpatialObject.tex}
+\fi
+
+\subsubsection{VesselTubeSpatialObject}
+\label{sec:VesselTubeSpatialObject}
+\ifitkFullVersion 
+\input{VesselTubeSpatialObject.tex}
+\fi
+
+\subsubsection{DTITubeSpatialObject}
+\label{sec:DTITubeSpatialObject}
+\ifitkFullVersion 
+\input{DTITubeSpatialObject.tex}
 \fi
 
 \section{SceneSpatialObject}
@@ -136,4 +203,10 @@ implemented in ITK.
 \label{sec:ReadWriteSpatialObjects}
 \ifitkFullVersion 
 \input{ReadWriteSpatialObject.tex}
+\fi
+
+\section{Statistics Computation via SpatialObjects}
+\label{sec:SpatialObjectToImageStatisticsCalculator}
+\ifitkFullVersion 
+\input{SpatialObjectToImageStatisticsCalculator.tex}
 \fi
