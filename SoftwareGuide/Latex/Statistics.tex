@@ -6,7 +6,7 @@ statistics subsystem's primary purpose is to provide general functionalities
 for statistical pattern classification. However, its use is not limited
 for classification. Users might want to use data containers and
 algorithms in the statistics subsystem to perform other statistical
-analyses or to preprocess image data for other tasks.
+analysis or to preprocessor image data for other tasks.
 
 The statistics subsystem mainly consists of three parts: data container
 classes, statistical algorithms, and the classification framework. In this
@@ -44,7 +44,7 @@ There are two adaptor classes that provide the common
 \doxygen{PointSet}, two primary data container classes in Insight. The
 adaptor classes do not store any real data elements themselves. These
 data comes from the source data container plugged into them. First, we
-will decribe how to create an
+will describe how to create an
 \subdoxygen{Statistics}{ImageToListAdaptor} and then an
 \subdoxygen{statistics}{PointSetToListAdaptor} object.
 
@@ -83,13 +83,13 @@ will decribe how to create an
 
 In the previous section, we discuss the data containers in the Insight
 statistics subsystem. We also need processing algorithms and
-statistical funtions to conduct statistical analysis or statistical
+statistical functions to conduct statistical analysis or statistical
 classification. An algorithm is an operation over a set of the
 measurement vectors in a sample. A function is an operation over
 individual measurement vectors. For example, if we implemented a class
 (\subdoxygen{Statistics}{EuclideanDistance}) that calculates the
 Euclidean distance two measurement vector, we call it a function,
-while if we implmented a class
+while if we implemented a class
 (\subdoxygen{Statistics}{MeanCalculator}) that calculates the sample
 mean of a sample, we call it an algorithm.
 
@@ -101,7 +101,7 @@ mean of a sample, we call it an algorithm.
  classes. Statistics can tells us characteristics of a sample. Such
  sample statistics are very important for statistical
  classification. When we know the form of the sample distributions and
- their paramters (statistics), we can conduct Bayesian
+ their parameters (statistics), we can conduct Bayesian
  classification. We have sample mean and covariance calculation
  algorithms implemented. Each algorithm also has its weighted version
  (see section \ref{sec:WeightedMeanCovariance}). The weighted versions
@@ -191,7 +191,7 @@ The type of the argument for the \code{Evaluate} method is
 \code{std::vector< double >}. The decision rule classes are part of
 \code{itk} namespace instead of \code{itk::Statistics} namespace.
 
-For a project that uses a decision rule, it must link the itkCommon
+For a project that uses a decision rule, it must link the \code{itkCommon}
 library. Decision rules are not templated classes.
 
 \subsubsection{Maximum decision rule}
