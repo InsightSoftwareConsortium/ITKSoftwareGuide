@@ -107,6 +107,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/IO/CovariantVectorImageExtractComponent.cxx
   ${ITK_SOURCE_DIR}/Examples/Installation/HelloWorld.cxx
   ${ITK_SOURCE_DIR}/Examples/Iterators/ImageLinearIteratorWithIndex.cxx
+  ${ITK_SOURCE_DIR}/Examples/Iterators/ImageLinearIteratorWithIndex2.cxx
   ${ITK_SOURCE_DIR}/Examples/Iterators/ImageRandomConstIteratorWithIndex.cxx
   ${ITK_SOURCE_DIR}/Examples/Iterators/ImageRegionIterator.cxx
   ${ITK_SOURCE_DIR}/Examples/Iterators/ImageRegionIteratorWithIndex.cxx
