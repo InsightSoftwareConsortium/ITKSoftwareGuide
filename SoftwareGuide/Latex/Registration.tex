@@ -78,6 +78,17 @@ First we begin with some simple registration examples.
 \input{ImageRegistration4.tex}
 \fi
 
+
+\section{ Centered Transforms }
+
+The origin of coordinates in ITK images is usually located in one of image
+corners. This results in counter-intuitive behaviors of the transforms when
+rotations and scaling are involved. We tend to assume that rotations and
+scaling are performed by using a fixed point at the center of the image.  In
+order to compensate for this difference in natural interpretation, a set of
+\emph{centered} transforms have been introduced in the toolkit. The following
+sections describe the main characteristics of such transforms.
+
 \subsection{Rigid Registration in 2D}
 \label{sec:RigidRegistrationIn2D}
 \ifitkFullVersion
