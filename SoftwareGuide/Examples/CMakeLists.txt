@@ -88,6 +88,9 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/IO/ImageReadCastWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/ImageReadExtractWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/RGBImageReadWrite.cxx
+  ${ITK_SOURCE_DIR}/Examples/IO/CovariantVectorImageWrite.cxx
+  ${ITK_SOURCE_DIR}/Examples/IO/CovariantVectorImageRead.cxx
+  ${ITK_SOURCE_DIR}/Examples/IO/CovariantVectorImageExtractComponent.cxx
   ${ITK_SOURCE_DIR}/Examples/Installation/HelloWorld.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration2.cxx
