@@ -449,8 +449,8 @@ The VNL numerics library includes classes for
         \code{vnl\_rpoly\_roots} provides a root finder. 
 
         \item[Optimization.] Classes \code{vnl\_levenberg\_marquardt},
-        \code{vnl\_amoeba}, \code{vnl\_lbfgs},
-        \code{vnl\_conjugate\_gradient} allow optimization of user-supplied
+        \code{vnl\_amoeba}, \code{vnl\_conjugate\_gradient}, 
+        \code{vnl\_lbfgs} allow optimization of user-supplied
         functions either with or without user-supplied derivatives.
 
         \item[Standardized functions and constants.] Class \code{vnl\_math}
@@ -757,7 +757,8 @@ The same code in C++ would appear as follows:
 
 \small
 \begin{verbatim}
-  itk::ImageFileReader<ImageType>::Pointer reader = itk::ImageFileReader<ImageType>::New();
+  itk::ImageFileReader<ImageType>::Pointer reader = 
+              itk::ImageFileReader<ImageType>::New();
   reader->SetFileName("cthead1.png");
 
   itk::CurvatureFlowImageFilter<ImageType,ImageType>::Pointer cf =
