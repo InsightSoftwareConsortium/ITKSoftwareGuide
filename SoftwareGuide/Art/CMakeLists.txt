@@ -22,6 +22,18 @@ FIND_PROGRAM(FIG2DEV_EXECUTABLE
 INCLUDE (${CMAKE_ROOT}/Modules/FindImageMagick.cmake)
 
 
+#
+#
+#  Error checking for the components we need
+#
+#
+IF(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
+  MESSAGE("ImageMagick convert utility was not found. Please pass to advanced mode and provide its full path")
+ENDIF(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
+
+
+
+
 ADD_CUSTOM_TARGET(SoftwareGuideArt  ALL echo)
 
 SET(XFIG_FIGURES
