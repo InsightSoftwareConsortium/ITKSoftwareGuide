@@ -340,15 +340,16 @@ Here is the content of the two files to write in your new project. First, the
 \code{CMakeList.txt} file.
 
 \begin{verbatim}
-PROJECT(mySampleProject)
+PROJECT(HelloWorld)
 
 INCLUDE (${CMAKE_ROOT}/Modules/FindITK.cmake)
 IF (USE_ITK_FILE)
   INCLUDE(${USE_ITK_FILE})
 ENDIF(USE_ITK_FILE)
 
-LINK_LIBRARIES( ITKCommon )
-ADD_EXECUTABLE(SampleProject SampleProject.cxx )
+ADD_EXECUTABLE(HelloWorld HelloWorld.cxx )
+
+TARGET_LINK_LIBRARIES(HelloWorld ITKCommon)
 \end{verbatim}
 
 The first line will define the name of your project as it appears in Visual
@@ -365,23 +366,8 @@ which ITK libraries will be linked against this project. Finally the line
 that will be produced as result of this project. The following arguments in the
 line are the names of the source files to be compiled and linked.
 
-The source file \code{SampleProject.cxx} should have the following content
+\input HelloWorld.tex
 
-\begin{verbatim}
-#include "itkImage.h"
-#include <iostream>
-int main() 
-{
-  typedef itk::Image< char, 3 > ImageType;
-  ImageType::Pointer image = ImageType::New();
-  std::cout << "ITK Hello World !" << std::endl;
-  return 0;
-}
-\end{verbatim}
-
-This declares a 3D image \footnote{also known as a volume} whose pixels are
-of type \code{char}.  The Image class is explained in detail in section
-\ref{sec:ImageSection}.
-
+The Image class is explained in detail in section \ref{sec:ImageSection}.
 
 
