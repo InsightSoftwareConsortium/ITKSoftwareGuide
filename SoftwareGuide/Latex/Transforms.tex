@@ -1,5 +1,5 @@
 
-\def\tableconfiguration{ | p{4cm} | p{3cm} | p{3cm} | p{4cm} | }
+\def\tableconfiguration{ | p{4cm} | p{2.3cm} | p{4cm} | p{4cm} | }
 
 \index{itk::Transform|textbf}
 
@@ -7,11 +7,11 @@ In the toolkit, \code{itk::Transform} objects encapsulate the mapping of points
 and vectors from an input space to an output space.  If a transform is
 invertible, back transform methods are also provided.  Currently, ITK provides
 a variety of transforms from simple translation, rotation and scaling to
-general affine and kernel transforms.  Note that, although we discuss
-transforms in the context of registration in this section, transforms are
-general and can be used for other applications. Some of the commonly used
-transforms will be discussed in detail later in this section. Let's introduce
-first the objects used in ITK for for representing basic spatial concepts.
+general affine and kernel transforms.  Note that, although in this section we
+discuss transforms in the context of registration, transforms are general and
+can be used for other applications. Some of the commonly used transforms will
+be discussed in detail later. Let's introduce first the objects used in ITK for
+for representing basic spatial concepts.
 
 \subsection{Geometrical Representation}
 \label{sec:GeometricalObjects}
@@ -48,7 +48,7 @@ coordinate axis. Vectors do not have a position in space.\\
 \hline
 \code{itk::CovariantVector} & Orthogonal direction to a $(N-1)$-dimensional
 manifold in space. For example, in $3D$ it corresponds to the vector orthogonal
-to a surface. This is the apropriate class for representing gradients of
+to a surface. This is the appropriate class for representing gradients of
 functions. Covariant vectors do not have a position in space.\\
 \hline
 \end{tabular}
@@ -67,15 +67,15 @@ these concepts.
 \index{itk::Transform!TransformCovariantVector()}
 
 \code{itk::Transform} classes provide different methods for mapping each one of
-the basic space-representation object.  Points, vectors and covariant vectors
+the basic space-representation objects.  Points, vectors and covariant vectors
 are transformed using the methods \code{TransformPoint()},
-\code{TransformVector()} and \code{TransformCovariantVector()}.
+\code{TransformVector()} and \code{TransformCovariantVector()} respectively.
 
 \subsection{Transform General Properties}
 \label{sec:TransformGeneralProperties}
 
 \index{itk::Transform!SetParameters()}
-Typically each transform type have several methods for setting its parameters.
+Typically each transform class have several methods for setting its parameters.
 For example, \code{Euler2DTransform} provide methods for separately setting the
 offset, the angle, and the entire rotation matrix.  However, for use in the
 registration framework, the parameters must also be represented by a flat
@@ -86,18 +86,24 @@ array of parameters is defined using \code{SetParameters()}. A description of
 the parameters and their ordering is documented in the following sections.
  
 In the context of registration, the transform parameters define the search
-space for optimizers. That is, the goal of the optimization is to find the
-set of parameters defining a transform that optimizes the value of an image
-metric. The more parameters a transform has, the longer its computational time
-will be when used in a registration method since the dimension of the search
-space will be equal to the number of transform parameters.
+space for optimizers. That is, the goal of the optimization is to find the set
+of parameters defining a transform that results in the best possible value of
+an image metric. The more parameters a transform has, the longer its
+computational time will be when used in a registration method since the
+dimension of the search space will be equal to the number of transform
+parameters.
 
 \index{itk::Transform!GetJacobian()}
-Another requirement of the registration framework is the computation of the
-transformation Jacobian. In general, metrics require the knowledge of the
-Jacobian in order to compute the metric derivatives.  The Jacobian is a matrix
-whose element are the partial derivatives of the output point with respect to
-the array of parameters that defines the transform:
+
+Another requirement that the registration framework imposes on the transform
+classes is the computation of their Jacobians. In general, metrics require the
+knowledge of the Jacobian in order to compute the metric derivatives.  The
+Jacobian is a matrix whose element are the partial derivatives of the output
+point with respect to the array of parameters that defines the
+transform\footnote{Note that the term \emph{Jacobian} is also commonly used for
+the matrix representing the derivatives of output point coordinates with
+respect to input point coordinates. Sometimes the term is loosely used to refer
+to the determinant of such matrix.}:
 
 \begin{equation}
 J=\left[ \begin{array}{cccc}
@@ -114,17 +120,18 @@ J=\left[ \begin{array}{cccc}
 \end{array}\right]
 \end{equation}
 
-Within this framework, the Jacobian is represented by a \code{Array2D<double>}
-and is obtained from the transform by method \code{GetJacobian()}. The Jacobian
-can be interpreted as a matrix that indicates for a point in the input space
-how much its mapping on the output space will change as a response to a small
-variation in one of the transform parameters. Note the the values of the
-Jacobian matrix depend on the point in the input space. So actually the
-Jacobian can be noted as $J(\bf{X})$. The use of transform Jacobians allows to
-compute metric derivatives in a very efficient way. When Jacobians are not
-available, metrics derivatives have to be computed using finite difference at a
-price of $2M$ evaluations of the metric value, where $M$ is the number of
-transform parameters.
+Where $\{p_i\}$ are the transform parameters and $\{x_i\}$ are the coordinates
+of the output point.  Within this framework, the Jacobian is represented by a
+\code{Array2D<double>} and is obtained from the transform by method
+\code{GetJacobian()}. The Jacobian can be interpreted as a matrix that
+indicates for a point in the input space how much its mapping on the output
+space will change as a response to a small variation in one of the transform
+parameters. Note the the values of the Jacobian matrix depend on the point in
+the input space. So actually the Jacobian can be noted as $J(\bf{X})$. The use
+of transform Jacobians allows to compute metric derivatives in a very efficient
+way. When Jacobians are not available, metrics derivatives have to be computed
+using finite difference at a price of $2M$ evaluations of the metric value,
+where $M$ is the number of transform parameters.
 
 The following sections describe the main characteristics of the transform
 classes availables in ITK.
@@ -168,13 +175,22 @@ process. It is just a \code{NULL} operation.
 Represents a simple translation of points in the input space
 and has no effect on vectors or covariant vectors. &
 Same as the input space dimension. &
-The i-th parameter represents the translation in the i-th dimension. &
+The $i$-th parameter represents the translation in the $i$-th dimension. &
 Only defined when the input and output space has the same number of dimensions. \\
 \hline
 \end{tabular}
 \end{center}
 
 
+The translation transform is probably the simplest yet useful transformation.
+It maps all points in space by adding a constant values to their coordinates.
+Vector and Covariant vectors remain unchanged under this transformation since
+they are not associated to a position in space. Translation is the best
+transform to start a registration method. Before attempting to solve for
+rotations or scaling  it is important to overlap the anatomical objects in both
+images as much as possible. This is done by resolving the translation
+miss-registration between the images. Translations have also the advantages of
+being a fast transform and having parameters that are easy to interpret.
 
 
 
@@ -189,17 +205,52 @@ Only defined when the input and output space has the same number of dimensions. 
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
 \hline\hline
-Represents a simple scaling of the vector space. Each component of a point, vector
-or covariant vector is multiplied by the user defined scaling factor. &
+Points are transformed by multiplying each one of their coordinates by the
+corresponding scale factor for this dimension.  Vector are transformed as
+points.  Covariant vectors are transformed by \emph{dividing} their components
+by the scale factor of the corresponding dimension.  &
 Same as the input space dimension. &
-The i-th parameter represents the scaling in the i-th dimension. &
+The $i$-th parameter represents the scaling in the $i$-th dimension. &
 Only defined when the input and output space has the same number of dimensions. \\
 \hline
 \end{tabular}
 \end{center}
 
+This transform represents a simple scaling of the vector space.  Different
+scaling factors can be applied along each dimension. Points are transformed by
+multiplying each one of their coordinates by the  corresponding scale factor
+for this dimension.  Vector are transformed in the same way as points.
+Covariant vectors, on the other hand, are transformed differently since
+anisotropic scaling does not preserve angles. Covariant vectors are transformed
+by \emph{dividing} their components by the scale factor of the corresponding
+dimension. In this way, if a covariant vector was orthogonal to a vector, this
+orthogonality will be preserved after the transformation. 
 
+Scaling is an apparently simple transformation but actually has a number of
+issues to keep in mind in particular when it is used with different factors
+along every dimension. It has subtle effects in things like computing image
+derivatives. Since derivatives are represented by covariant vectors their
+values are modified in a particular way by scaling transforms.
 
+One of the difficulties in managing scaling transforms in a registration
+process is that typical optimizers manage the parameter space as a vector space
+in which addition is the basic operation. Scaling would be treated more
+naturally in the frame of a logarithmic space where additions will results in
+regular multiplicative increments of the scale. Optimizers in the family of
+gradient-descent will have trouble finding a step-length appropriate for
+updating a scale since the effect of an additive increment on a scale factor
+will diminish as the factor grows. In other words, a scale factor variation of
+$(1.0+ \epsilon)$ is quite different from $(5.0+\epsilon)$.
+
+Registrations involving scale transforms require carefully monitoring of the
+optimizer parameters in order to keep it running at an interesting yet stable
+pace. Note that some of the transforms discussed in following sections, for
+example the AffineTransform, have hidden scaling parameters and are henceforth
+subject to the same vulnerabilities as the ScaleTransform.
+
+In cases involving miss-registration with simultaneous translation, rotation
+and scaling components it may be desirable to solve for these components
+independently.
 
 
 \subsection{Euler2DTransform}
