@@ -1,0 +1,75 @@
+\chapter{The Cover}
+
+This section describes the cover of this book. The task of designing the cover
+was suppossed to be an easy one. 
+
+\section{Removing the Gel}
+During the freezing process the body of the Visible Woman was inmersed in a
+block of gel. This Gel appears as a blue substance in the cryogenic data.
+
+\section{The Skin}
+The skin was easy to segment once the Gel was removed. A simple region growing
+algorithm was used providing seed points in the region previously occupied by
+the gel. 
+
+An Antialiasing filter was applied in order to generate an image of pixel type
+float where the surface was represented by the zero set. This data set was
+exported to VTK where a contouring filter was used in order to extract a
+geometrical representation of the surface and introduce it in the VTK
+visualization pipeline.
+
+
+\section{The Brain}
+The visible part of the brain represents the surface of the gray matter.  The
+brain was segmented using the Vector version of the confidence connected image
+filter.  This filter implements a region growing algorithm that starting from a
+set of seed points add neighbor pixels subject to a condition of homogeneity.
+
+The set of sparse points obtained from the region growin algorithm was passed
+through a mathematical morphology dilation in order to close holes and then
+through a binary median filter. The binary median filter has the outstanding
+characteristic of being very simple in implementation by applying a
+sophisticated effect on the image. Qualitatively it is equivalent to a
+curvature flow evolution of the iso-contouors. In fact the BinaryMedian filter
+as implemented in ITK is equivalent to the Majority Filter which belong to the
+family of Voting filter classified as a subset of the \emph{Larger than Life}
+cellular automata, 
+
+Finaly, the volume resulting from the median filter was passed through the 
+antialiasin image filter.
+
+
+\section{The Neck Mucles}
+
+\section{The Skull}
+The Skull was segmented from the CT data set and registered to the cryogenic data.
+
+\section{The Eye} 
+The eye was charged with symbolism in this image. In part because the
+motivation for the development of the toolkit was the analysis of the Visible
+human data, and in part because the toolkit was names \emph{Insight}.
+
+The first step in processing the Eye was to extract a sub-image of
+$60\times60\times60$ pixels centered around the eyeball.
+
+This small volume was then processed with the Vector Gradient Anisotropic
+Diffusion filter in order to increase the homogeneity of the pixels in the 
+eyeball.
+
+The smoothed volume was segmented using the VectorConfidenceConnected filter
+and a number of 10 seed points. The resulting binary mask was dilated with 
+a mathematical morphology filter with a structuring element of radius one, then
+smoothed with a binary mean image filter which is equivalent to Majority voting
+cellular automata. Finally the mask was processed with the AntialiasImageFilter
+in order to generate a float image with the eyebal contour embebded as a zero
+set.
+
+
+\section{Visualization}
+
+The visualization of the segementation was done by passing all the binary 
+masks through the AntialiasImageFilter, generating iso-contours with VTK
+filters, and then setting up a VTK script.
+
+The skin surface was clipped using the ClippPolyDataFilter and a vtkCylinder
+as function.
