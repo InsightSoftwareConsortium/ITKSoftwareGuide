@@ -22,7 +22,7 @@ as to how to choose a metric.
 \index{itk::ImageToImageMetric!GetValueAndDerivatives()}
 
 The basic inputs to a metric are: the fixed and moving images, a
-transform and an interpolator. The method \code{GetValue} can
+transform and an interpolator. The method \code{GetValue()} can
 then be used to evaluate the quantitive criterion at the transform
 parameters specified in the argument. Typically, the metric samples 
 points within a defined region of the fixed image. 
@@ -166,113 +166,106 @@ The difference is called Mutual Information : \( I(A,B) \)
 I(A,B)=H(A)+H(B)-H(A,B)
 \end{equation}
 
-
-Computes how much uncertainty about one image can be
-reduced by having the information contained in the other
-image.
-
-Information == Reduction in uncertainty
-
-\begin{equation}
-H(A)=-\sum _{i=1}^{G}p(a_{i})\cdot \log p(a_{i})
-\end{equation}
-
-\begin{center}
-$a_{i}$ is the i-th gray level of image A
-$G$ is the number of gray levels in image A
-$p(a_{i})$ is the probability of finding $a_{i}$ in a pixel of A
-\end{center}
-
-\begin{equation}
-H(A) = \mbox{Entropy of} A
-\end{equation}
-
-$p(a_{i})$ values can be estimated from the image histogram.
-
-A population of pixel pairs can be obtained by taking homologous pixels from
-two images.
-
-Joint Entropy can be computed from the statistical distribution of gray levels.
-
-\begin{equation}
-H(A,B)=-\sum _{i=1}^{G_{A}}\sum _{j=1}^{G_{B}}p\left( a_{i},b_{j}\right) \cdot \log p\left( a_{i},b_{j}\right)
-\end{equation}
-
-
-\begin{center}
-$a_{i}$ is the i-th gray level of image A
-$b_{j}$ is the j-th gray level of image B $p\left( a_{i},b_{j}\right)$ is the
-probability of finding the gray level $a_{i}$ associated with the gray level
-$b_{j}$ in the same pair of pixels.
-\end{center}
-
-
-If the gray levels of A are independent of B
-
-\begin{equation}
-p\left( a_{i},b_{j}\right) =p\left( a_{i}\right) \cdot p\left( b_{j}\right) 
-\end{equation}
-
-
-and then 
-
-\begin{equation}
-H(A,B)=H(A)+H(B)
-\end{equation}
-
-
-but if there is any dependency
-
-\begin{equation}
-H(A,B)<H(A)+H(B)
-\end{equation}
-
-
-the difference is called Mutual Information : \( I(A,B) \)
-
-\begin{equation}
-I(A,B)=H(A)+H(B)-H(A,B)
-\end{equation}
-
-
 \subsubsection{Parzen Windowing}
+In a typical registration problem, direct access to the marginal 
+and joint probability densities is not available and hence the
+densities must be estimated from the image data. Parzen windows 
+(also known as kernel density estimators) can be used for this purpose.
+In this scheme, the densities are constructed by taking intensity 
+samples $S$ from the image and superpositioning kernel functions 
+$K(\cdot)$ centered on the elements of $S$ as illustrated in
+Figure \ref{fig:ParzenWindowing}:
+\begin{equation}
+p(a) \approx P^{*}(a) = \frac{1}{N} \sum_{s_j \in S} K\left(a - s_j\right)
+\end{equation}
 
-The probability distributions of gray levels are in general unkown.
-
-They can be estimated by taking samples (pixels) from the image and
-reconstructing a continuous function by convolving the samples with a smoothing
-kernel function.
-
+\begin{figure}
+\center
 \includegraphics{ParzenWindowing1.eps}
+\includegraphics{ParzenWindowing3.eps}
+\caption{ In Parzen windowing, a continuous density function is constructed by
+superimposing kernel functions (Gaussian function in this case) centered on
+the intensity samples obtained from the image. }
+\label{fig:ParzenWindowing}
+\end{figure}
 
-This is typically done with a Gaussian. A value of sigma should be selected
-somehow related with the number of pixels sampled.  
+A variety of functions can be used as the smoothing kernel with the
+requirement that it be smooth, symmetric, has zero mean and
+integrates to one. For example, boxcar, Gaussian and B-Spline functions.
+A smoothing parameter is used to scale the kernel function.
+The larger the smoothing parameter, the wider the kernel function
+used and hence the smoother the density estimate. If the parameter is
+too large, features such as modes in the density will get smoothed out.
+On the other hand, if the smoothing parameter is too small, the
+resulting density may be too noisy.
 
-\subsubsection{Convolution with the
-smoothing function}
+The choosing the optimal smoothing parameter is a research 
+problem in itself and beyond the scope of this software guide.
+Typically, the optimal value of the smoothing parameter will 
+depend on the data and the number of samples used.
 
-\resizebox*{0.5\columnwidth}{!}{\includegraphics{ParzenWindowing2.eps}}
+\subsubsection{Viola and Wells Implementation}
+ITK has two mutual information implementation. The first is 
+\code{MutualInformationImageToImageMetric} which follows the method specified
+by Viola and Wells in \cite{ViolaW:1997}.
 
-Resulting continuous probability distribution 
+\index{itk::MutualInformationImageToImageMetric}
 
-\resizebox*{0.5\columnwidth}{!}{\includegraphics{ParzenWindowing3.eps}}
+In this implementation, two separate intensity samples $S$ and $R$ are drawn
+from the image: the first to compute the density and the second to approximate
+the entropy as a sample mean:
+\begin{equation}
+H(A) = \frac{1}{N} \sum_{r_j \in R} \log P^{*}(r_j).
+\end{equation}
+Gaussian density is used as smoothing kernel where the standard deviation
+$\sigma$ acts as the smoothing parameter.
 
+\index{itk::MutualInformationImageToImageMetric!SetNumberOfSpatialSamples()}
 
-Advantages
+The number of spatial samples used for computation is defined using
+method \code{SetNumberOfSpatialSamples()}. Typical values range from 50 to 100.
+Note that computation involves an $N \times N$ loop and hence the computation
+burden becomes very expensive when a large number of samples is used.
 
-\begin{itemize}
-\item Allows to compare different image modalities
-\item Few samples (pixels) are required
-\end{itemize}
+\index{itk::MutualInformationImageToImageMetric!SetFixedImageStandardDeviation()}
+\index{itk::MutualInformationImageToImageMetric!SetMovingImageStandardDeviation()}
+Quality of the density estimates depends on the choice of the Gaussian kernel
+standard deviation. Optimal choice will depend on the content of the images.
+In our experiments with the toolkit, we have found that a standard deviation
+of 0.4 works well for images which have been normalized to have a mean
+of zero and standard deviation of 1.0. The standard deviation of the fixed image
+and moving image can be set separatedly using methods 
+\code{SetFixedImageStandardDeviation()} and \code{SetMovingImageStandardDeviation()}.
 
-Disadvantages
+\subsubsection{Mattes et al Implementation}
+The second implementation of mutual information is 
+\code{MattesMutualInformationImageToImageMetric} which follows the method
+specified by Mattes et al in \cite{Mattes:2001}.
 
-\begin{itemize}
-\item Requires to tune parameters (number of samples and parzen windowing probability distributions estimation)
-\item Not suitable for images related by linear relationships
-\end{itemize}
+\index{itk::MattesMutualInformationImageToImageMetric}
+In this implementation, only one set of intensity samples is drawn from the image.
+Using this set, the marginal and joint probability density function (PDF)
+is evaluated as discrete positions or bins uniformly spread within the dynamic range
+of the images. Entropy values are then computed by summing over he bins.
 
+\index{itk::MattesMutualInformationImageToImageMetric!SetNumberOfSpatialSamples()}
+\index{itk::MattesMutualInformationImageToImageMetric!SetNumberOfHistogramBins()}
 
+The number of spatial samples used is set using method 
+\code{SetNumberOfSpatialSamples()}. The number of bins use to compute
+the entropy values is set via \code{SetNumberOfHistogramBins()}.
 
+Since the fixed image PDF does not contribute to the derivatives, it does
+not need to be smooth. Hence, a zero order (boxcar) B-Spline kernel is
+used for computing the PDF. On the other hand, to ensure smoothness,
+a third order B-spline kernel is used to compute the moving image
+intensity PDF. The advantage of using a B-spline kernel over a Gaussian kernel
+is that the B-spline kernel have a finite support region. This is 
+computationally attractive, as each intensity sample only affect a small
+of bins and hence does not require a $N \times N$ loop to compute the
+metric value.
 
-
+During the PDF calculations, the image intensity values are linearly to have
+a minimum of zero and maximum of one. This rescaling means that a fixed
+B-spline kernel bandwidth of one can be used to handle image data 
+with arbitrary magnitude and dynamic range.
