@@ -107,7 +107,7 @@ information.
 \itkpiccaption[Relationship between DataObjects and ProcessObjects]
 {Relationship between \doxygen{DataObject} and \doxygen{ProcessObject}.
 \label{fig:DataPipeLineOneConnection}}
-\parpic(6cm,4cm)[r]{\includegraphics[width=5cm]{DataPipelineOneConnection.eps}}
+\parpic(7cm,2.5cm)[r]{\includegraphics[width=6cm]{DataPipelineOneConnection.eps}}
 
 
 Filters are defined with respect to the type of data they input (if any), and
@@ -354,7 +354,7 @@ that the filter developer may choose to overload.
         or other region boundary effects.
 \end{itemize}
 
-\doxygen{GibbsPriorFilter} is an example of a filter that needs to invoke
+\doxygen{RGBGibbsPriorFilter} is an example of a filter that needs to invoke
 \code{EnlargeOutputRequestedRegion()}. The designer of this filter decided that
 the filter should operate on all the data. Note that a subtle interplay between
 this method and \code{GenerateInputRequestedRegion()} is occurring here. The
