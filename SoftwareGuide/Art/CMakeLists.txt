@@ -35,6 +35,7 @@ SET(XFIG_FIGURES
   ImageOverlapInterpolator
   ImageOverlapIterator
   ImageRegistrationConcept
+  ImageRegistration1Pipeline
   ImageRegistration1TraceMetric
   ImageRegistration1TraceTranslations
   ParzenWindowing1
