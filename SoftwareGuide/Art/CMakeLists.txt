@@ -243,6 +243,8 @@ SET(JPEG_IMAGES
   NeighborhoodConnectedImageFilterOutput1
   NeighborhoodConnectedImageFilterOutput2
   NeighborhoodConnectedImageFilterOutput3
+  NeighborhoodIterators1a
+  NeighborhoodIterators1b
   ResampleImageFilterInput2x3
   ResampleImageFilterOutput1
   ResampleImageFilterOutput2
