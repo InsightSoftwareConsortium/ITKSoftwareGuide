@@ -17,6 +17,7 @@ ADD_CUSTOM_TARGET(SoftwareGuideArt  ALL echo)
 
 SET(JPEG_IMAGES
   BinaryThresholdImageFilterOutput
+  BinaryMinMaxCurvatureFlowImageFilterOutput
   BrainProtonDensitySlice
   CurvatureFlowImageFilterOutput
   GradientMagnitudeImageFilterOutput
