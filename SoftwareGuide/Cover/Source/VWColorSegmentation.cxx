@@ -41,20 +41,20 @@ int main(int argc, char * argv[] )
 
   ImageReaderType::Pointer imageReader = ImageReaderType::New();
   imageReader->SetFileName( argv[1] );
+
   try
     {
     imageReader->Update();
     }
   catch( itk::ExceptionObject & excp )
     {
-    std::cout << excp << std::endl;
+    std::cerr << excp << std::endl;
     return -1;
     }
 
   confidenceFilter->SetInput( imageReader->GetOutput() );
 
 
-  confidenceFilter->Update();
   confidenceFilter->SetReplaceValue( 255 );
   confidenceFilter->SetNumberOfIterations( 2 );
   confidenceFilter->SetMultiplier( atof( argv[4] ) );
@@ -62,17 +62,45 @@ int main(int argc, char * argv[] )
   std::ifstream seedsFile;
   seedsFile.open( argv[3] );
 
+  if( seedsFile.fail() )
+    {
+    std::cerr << "Problem opening seeds file " << std::endl;  
+    }
+      
   ImageType::IndexType index;
 
-  seedsFile >> index[0] >> index[1] >> index[2];
-  while( !seedsFile.eof() );
+  float x;
+  float y;
+  float z;
+
+  seedsFile >>  x >> y >> z;
+
+  index[0] = static_cast<signed long>( x );
+  index[1] = static_cast<signed long>( y );
+  index[2] = static_cast<signed long>( z );
+
+  while( !seedsFile.eof() )
     {
     confidenceFilter->AddSeed( index );
-    seedsFile >> index[0] >> index[1] >> index[2];
+    seedsFile >>  x >> y >> z;
+    index[0] = static_cast<signed long>( x );
+    index[1] = static_cast<signed long>( y );
+    index[2] = static_cast<signed long>( z );
     }
   
   seedsFile.close();
   
+  try
+    {
+    confidenceFilter->Update();
+    }
+  catch( itk::ExceptionObject & excp )
+    {
+    std::cerr << excp << std::endl;
+    return -1;
+    }
+
+
 
   ImageWriterType::Pointer imageWriter = ImageWriterType::New();
 
@@ -87,7 +115,7 @@ int main(int argc, char * argv[] )
     }
   catch( itk::ExceptionObject & excp )
     {
-    std::cout << excp << std::endl;
+    std::cerr << excp << std::endl;
     return -1;
     }
 
