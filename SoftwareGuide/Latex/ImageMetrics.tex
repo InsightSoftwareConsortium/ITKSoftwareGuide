@@ -216,7 +216,7 @@ depend on the data and the number of samples used.
 
 \subsubsection{Viola and Wells Implementation}
 ITK has two mutual information metric implementations. The first is 
-\doxygen{MutualInformationImageToImageMetric} which follows the method specified
+\doxygen{MutualInformationImageToImageMetric} that follows the method specified
 by Viola and Wells in \cite{Viola1997}.
 
 \index{itk::MutualInformationImageToImageMetric}
@@ -242,7 +242,7 @@ burden becomes very expensive when a large number of samples is used.
 Quality of the density estimates depends on the choice of the Gaussian kernel
 standard deviation. Optimal choice will depend on the content of the images.
 In our experience with the toolkit, we have found that a standard deviation
-of 0.4 works well for images which have been normalized to have a mean
+of 0.4 works well for images that have been normalized to have a mean
 of zero and standard deviation of 1.0. The standard deviation of the fixed image
 and moving image kernel can be set separately using methods 
 \code{SetFixedImageStandardDeviation()} and \code{SetMovingImageStandardDeviation()}.

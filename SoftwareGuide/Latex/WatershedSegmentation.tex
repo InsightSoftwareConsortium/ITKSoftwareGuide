@@ -56,7 +56,7 @@ trivial.  For higher-dimensional image domains, the watershed boundaries are
 not simply local phenomenon, they depend on the shape of the entire watershed.
 
 The drawback of watershed segmentation is that it produces a region for each
-local minimum, which is often, in practice, too many regions---an over
+local minimum, that is often, in practice, too many regions---an over
 segmentation.  To alleviate this, we can establish a minimum watershed depth.
 The watershed depth is the difference in height between the watershed minimum
 and the lowest boundary point.  That is, the maximum depth of water a region
@@ -76,7 +76,7 @@ Structures can be derived from images by either thresholding the saliency
 measure or combining subtrees within the hierarchy}
 \protect\label{fig:watersheds}
 \end{figure}
-Previous work has shown the benefit of a user-assisted approach, which provides
+Previous work has shown the benefit of a user-assisted approach, that provides
 a graphical interface to this hierarchy so that a technician can quickly move
 from the small regions that lie within a area of interest to the union of
 regions that correspond to the anatomical structure \cite{Yoo1991}.
@@ -100,18 +100,18 @@ enforcing a set of discrete gray levels on the image.
 
 Figure~\ref{fig:constructionWatersheds} shows how the Insight image-to-image
 watersheds filter is constructed.  The filter is actually a collection of
-smaller filters which modularize the several steps of the algorithm in a
+smaller filters that modularize the several steps of the algorithm in a
 mini-pipeline.  The segmenter object creates the initial segmentation via
 steepest descent from each pixel to local minima. Shallow background regions
 are removed (flattened) before segmentation using a simple minimum value
 threshold (this helps to minimize oversegmentation of the image).  The initial
-segmentation is passed to a second sub-filter which generates a hierarchy of
+segmentation is passed to a second sub-filter that generates a hierarchy of
 basins to a user-specified maximum watershed depth.  The relabeler object at
 the end of the mini-pipeline uses the hierarchy and the initial segmentation to
 produce an output image at any scale {\em below} the user-specified maximum.
 Data objects are cached in the mini-pipeline so that changing watershed depths
 only requires a (fast) relabeling of the basic segmentation.  The three
-parameters which control the filter are shown in the
+parameters that control the filter are shown in the
 Figure~\ref{fig:constructionWatersheds} connected to their relevant processing
 stage.
 

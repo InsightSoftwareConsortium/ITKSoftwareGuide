@@ -7,7 +7,7 @@ another.\label{fig:ImageRegistrationConcept}}
 \parpic(8cm,3cm)[r]{\includegraphics[width=8cm]{ImageRegistrationConcept.eps}}
   
 This chapter introduces the functionalities offered by Insight for performing
-image registration. Image registration is the process in which we determine the
+image registration. Image registration is the process where we determine the
 spatial transform that maps points from one image to homologous points on a
 object in the second image. This concept is schematically represented in Figure
 \ref{fig:ImageRegistrationConcept}. In the toolkit, registration is performed
@@ -132,10 +132,10 @@ reaches the finest possible scale. This coarse-to-fine strategy greatly
 increases the capture range of the registration and also increases robustness
 by eliminating local optima at coarser scales.
 
-The Insight toolkit offers a multi-resolution registration framework which
+The Insight toolkit offers a multi-resolution registration framework that
 is directly compatible with all the registration framework components. The
 multi-resolution registration framework has two additional components:
-two \emph{Image Pyramids} which are used to down-sample the fixed and moving
+two \emph{Image Pyramids} that are used to down-sample the fixed and moving
 images as illustrated in Figure \ref{fig:MultiResRegistrationComponents}.
 The pyramids smooth and subsamples the images according to user defined
 schedules of shrink factors. 

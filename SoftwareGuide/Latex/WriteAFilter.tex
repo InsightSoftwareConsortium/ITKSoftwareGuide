@@ -4,7 +4,7 @@
 This purpose of this chapter is to assist developers create their own filter
 (process object).  This chapter is divided into four major parts. An initial
 definition of terms is followed by an overview of the filter creation
-process. Next, data streaming is discussed, which must be understood in order
+process. Next, data streaming is discussed, that must be understood in order
 to write correct filters. Finally, a the section on multithreading describes
 what you must do in order to take take advantage of shared memory parallel
 processing.
@@ -161,7 +161,7 @@ into a pipeline topology. The input to a process object is a data object
 (unless the process initiates the pipeline and then it is a source, process
 object). These data objects in turn are consumed by other process objects,
 and so on, until a directed graph of data flow is constructed. Eventually the
-pipeline is terminated by one or more mappers, which may write data to
+pipeline is terminated by one or more mappers, that may write data to
 storage, or interface with a graphics or other system. This is illustrated in 
 figures \ref{fig:DataPipeLineOneConnection} and \ref{fig:DataPipeLine}.
 
@@ -201,7 +201,7 @@ The pipeline execution process performs several important functions.
         process in order to produce an output of sufficient size for
         downstream filters; it also takes into account any limits on memory
         or special filter requirements. Other factors include the size of
-        data processing kernels, which affect how much data needs to be input
+        data processing kernels, that affect how much data needs to be input
         (extra padding).
 
         \item It subdivides data into subpieces for multithreading. (Note
@@ -315,14 +315,14 @@ any valid region within the LargestPossibleRegion.
 The function of PropagateRequestedRegion() is, given a request for data (the
 amount is specified by RequestedRegion), propagate upstream configuring the
 filter's input and output process object's to the correct size. Eventually,
-this means configuring the BufferedRegion, which is the amount of data
+this means configuring the BufferedRegion, that is the amount of data
 actually allocated.
 
 The reason for the buffered region is this: the output of a filter may be
 consumed by more than one downstream filter. If these consumers each request
 different amounts of input (say due to kernel requirements or other padding
 needs), then the upstream, generating filter produces the data to satisfy
-both consumers, which may mean it produces more data than one of the
+both consumers, that may mean it produces more data than one of the
 consumers needs.
 
 The ProcessObject::PropagateRequestedRegion() method invokes three methods

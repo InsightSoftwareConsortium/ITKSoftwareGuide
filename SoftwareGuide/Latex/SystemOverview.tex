@@ -79,7 +79,7 @@ in the previous chapter two other modules---\code{InsightDocumentation} and
         interfaces (i.e., ``wrappers'') to interpreted languages such as Tcl
         and Python. The CABLE system is capable of wrapping C++ code of
         arbitrary complexity because it uses a compiler to parse the code.
-        The parsed code is in turn represented using XML which is then
+        The parsed code is in turn represented using XML that is then
         used to build the language interfaces.
 
 	\item[Auxiliary / Utilities] Several auxiliary subsystems are 
@@ -139,13 +139,14 @@ generic programming, we recommend the two books cited above.
 
 In ITK classes are defined by a maximum of two files: a header \code{.h} file
 and an implementation file---\code{.cxx} if a non-templated class, and a
-\code{.txx} if a templated class. The header files contains documentation that
-is used by the Doxygen documentation systen to produce the HTML manual pages.
+\code{.txx} if a templated class.
+The header files contain class declarations
+and formatted comments that are used by the Doxygen documentation
+system to automatically produce HTML manual pages.
 
 In addition to class headers, there are a few other important header files.
 \begin{description}
         \item[\code{itkMacro.h}] is found in the \code{Code/Common} directory
-
         and defines standard system-wide macros (such as \code{Set/Get},
         constants, and other parameters.
 
@@ -183,22 +184,23 @@ time at which memory is deleted is variable. This is unacceptable when an
 object size may be gigantic (think of a large 3D volume gigabytes in
 size). Reference counting deletes memory immediately.
 
-Reference counting is implemented as follows. Instances have a
-\code{Register()} method invoked on them by a class that uses the
-instance. The \code{Register()} method increments the instances' reference
+Reference counting is implemented through a \code{Register()}/\code{Delte()}
+member function interface.   All instances of an ITK object have a
+\code{Register()} method invoked on them by any other object that references an
+them. The \code{Register()} method increments the instances' reference
 count. When the reference to the instance disappears, a \code{Delete()}
-method is invoked on the instance---this is equivalent to an
-\code{UnRegister()} method that decrements the reference count. When the
+method is invoked on the instance that decrements the reference count---this is equivalent to an
+\code{UnRegister()} method. When the
 reference count returns to zero, the instance is destroyed.
 
 This protocol is greatly simplified by using a helper class called a
-\code{SmartPointer}. The smart pointer acts like a regular pointer 
+\code{SmartPointer}. The smart pointer acts like a regular pointer
 (e.g. supports operators \code{->} and \code{*}) but automagically
 performs a \code{Register()} when referring to an instance, and an
 \code{UnRegister()} when it no longer points to the instance.  Unlike
 most other instances in ITK, \code{SmartPointer}s can be allocated
-on the program stack, and are automatically deleted when the scope in
-which the \code{SmartPointer} was created is closed. As a result, you should
+on the program stack, and are automatically deleted when the scope
+that the \code{SmartPointer} was created is closed. As a result, you should
 \emph{rarely if ever call Register() or Delete()} in ITK. For example:
 
 \begin{verbatim}
@@ -243,15 +245,15 @@ threads, or to specify a method per thread.
 \section{Numerics}
 \label{sec:Numerics}
 
-ITK uses the \code{VNL} numerics library and provides extra functionality
-beyond \code{VNL} including interface classes to ITK proper.  The numerics
-library, \code{VNL} is intended to provide an environment for numerical
-programming which combines the ease of use of packages like Mathematica and
+ITK uses the \code{VNL} numerics library to provide an environment for numerical
+programming that combines the ease of use of packages like Mathematica and
 Matlab with the speed of C and the elegance of C++. It provides a C++
 interface to the high-quality Fortran routines made available in the public
 domain by numerical analysis researchers.
+ITK extends the functionality of \code{VNL} by including interface
+classes between \code{VNL} and ITK proper.
 
-The VNL numerics library includes classes for 
+The VNL numerics library includes classes for
 \begin{description}
         \item[Matrices and vectors.] Standard matrix and vector support
         and operations on these types.
@@ -287,7 +289,7 @@ The VNL numerics library includes classes for
 \end{description}
 
 Most VNL routines are implemented as wrappers around the high-quality Fortran
-routines which have been developed by the numerical analysis community over
+routines that have been developed by the numerical analysis community over
 the last forty years and placed in the public domain. The central repository
 for these programs is the "netlib" server \url{http://www.netlib.org/}. The
 National Institute of Standards and Technology (NIST) provides an excellent
@@ -295,7 +297,7 @@ search interface to this repository in its Guide to Available Mathematical
 Software (GAMS) at \url{http://gams.nist.gov}, both as a decision tree and a
 text search.
 
-ITK provides additional numerics functionality. A suite of optimizers, that
+ITK also provides additional numerics functionality. A suite of optimizers, that
 use \code{VNL} under the hood and integrate with the registration framework
 are available. A large collection of statistics functions---not available from
 \code{VNL}---are also provided in the \code{Insight/Numerics/Statistics}
@@ -358,7 +360,7 @@ can:
         \item Compute the bounding box of a spatial object and (optionally)
         its children.
 
-        \item Query the resolution at which the object was originally
+        \item Query the resolution that the object was originally
         computed.  For example, you can query the resolution (i.e., voxel
         spacing) of the image used to generate a particular instance of a
         \code{BlobSpatialObject}.
@@ -373,7 +375,7 @@ point on their parent tube they connect.
 
 There are a limited number of spatial objects and their methods in ITK, but
 their number is growing and their potential is huge. Using the nominal
-spatial object capabilities methods, such as marching cubes or mutual
+spatial object capabilities, methods such as marching cubes or mutual
 information registration, can be applied to objects regardless of their
 internal representation. By having a common API, the same method can be used
 to register a parametric representation of a heart with an individual's CT
