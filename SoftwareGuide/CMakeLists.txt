@@ -69,6 +69,8 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/Image2.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/Image3.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/Image4.cxx
+  ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/RGBImage.cxx
+  ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/VectorImage.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/PointSet1.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/PointSet2.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/Mesh1.cxx
@@ -82,6 +84,8 @@ SET( ITK_EXAMPLES_TEX_SRCS
   ${SoftwareGuide_BINARY_DIR}/Examples/Image2.tex
   ${SoftwareGuide_BINARY_DIR}/Examples/Image3.tex
   ${SoftwareGuide_BINARY_DIR}/Examples/Image4.tex
+  ${SoftwareGuide_BINARY_DIR}/Examples/RGBImage.tex
+  ${SoftwareGuide_BINARY_DIR}/Examples/VectorImage.tex
   ${SoftwareGuide_BINARY_DIR}/Examples/PointSet1.tex
   ${SoftwareGuide_BINARY_DIR}/Examples/PointSet2.tex
   ${SoftwareGuide_BINARY_DIR}/Examples/Mesh1.tex
