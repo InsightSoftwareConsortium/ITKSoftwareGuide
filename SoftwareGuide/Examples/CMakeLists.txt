@@ -73,6 +73,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/DerivativeImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientMagnitudeImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientMagnitudeRecursiveGaussianImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/GradientRecursiveGaussianImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MathematicalMorphologyBinaryFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MathematicalMorphologyGrayscaleFilters.cxx
@@ -84,6 +85,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/ResampleImageFilter3.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/ResampleImageFilter4.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/ResampleImageFilter5.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/ResampleVolumesToBeIsotropic.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/RGBCurvatureAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/RGBGradientAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/SmoothingRecursiveGaussianImageFilter.cxx
@@ -162,6 +164,9 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Statistics/GaussianDensityFunction.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/Histogram.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/ImageToListAdaptor.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/ImageHistogram1.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/ImageHistogram2.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/ImageHistogram3.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/KdTree.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/KdTreeBasedKMeansClustering.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/ListSample.cxx
