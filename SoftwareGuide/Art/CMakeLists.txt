@@ -115,7 +115,7 @@ SET(JPEG_IMAGES
   WatershedArm2
   WatershedRendering
   WatershedsPreprocessing
-  WatershedsSegmentationApplicationGUI
+  WatershedSegmentationApplicationGUI
 )
 
 
