@@ -48,6 +48,7 @@ SET( SoftwareGuide_Tex_SRCS
 ENDFOREACH( file )
 
 
+SET( ITK_EXAMPLES_TEX_SRCS ${SoftwareGuide_BINARY_DIR}/Examples/*.tex )
 
 SET( CxxExamplesListFile  
   ${SoftwareGuide_BINARY_DIR}/Examples/ExamplesList.txt
@@ -62,13 +63,16 @@ IF(LATEX_COMPILE)
   CONFIGURE_FILE(${SoftwareGuide_SOURCE_DIR}/LaTeXWrapper.sh.in
                  ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh)
 
+  MESSAGE("test for dependencies on the examples tex")
+  MESSAGE(${ITK_EXAMPLES_TEX_SRCS})
+
   ADD_CUSTOM_COMMAND( 
-    SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS} 
+    SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS} ${ITK_EXAMPLES_TEX_SRCS}
     COMMAND   /bin/sh
     ARGS      ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh
               ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex
     TARGET    SoftwareGuideLatex
-    DEPENDS   ${SoftwareGuide_Tex_SRCS}
+    DEPENDS   ${SoftwareGuide_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS}
     OUTPUTS   SoftwareGuide.dvi
   )
 
