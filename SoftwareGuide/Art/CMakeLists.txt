@@ -21,11 +21,14 @@ SET(JPEG_IMAGES
   BinaryMinMaxCurvatureFlowImageFilterOutput
   BinomialBlurImageFilterOutput
   BrainProtonDensitySlice
+  ccmakeScreenShot
   CurvatureFlowImageFilterOutput
   CurvatureAnisotropicDiffusionImageFilterOutput
+  CMakeSetupScreenShot
   DiscreteGaussianImageFilterOutput
   DanielssonDistanceMapImageFilterOutput1
   DanielssonDistanceMapImageFilterOutput2
+  Dashboard
   FivePoints
   GradientMagnitudeImageFilterOutput
   GradientMagnitudeRecursiveGaussianImageFilterOutput3
