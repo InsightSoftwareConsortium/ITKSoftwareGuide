@@ -88,7 +88,7 @@ Only defined when the input and output space has the same number of dimensions. 
 \label{sec:Euler2DTransform}
 \begin{array}{rr}
 \bf{Behavior} & 
-Represents a rotation and a translation. Note that the translation
+Represents a 2D rotation and a 2D translation. Note that the translation
 componet has no effect on the transformation of vectors and covariant vectors. \\
 \bf{No. of parameters} & 
 3\\
@@ -103,23 +103,70 @@ Only defined for two-dimensional input and output spaces. \\
 \label{sec:Similarity2DTransform}
 \begin{array}{rr}
 \bf{Behavior} & 
-Represents a rotation, homogenous scaling and a translation. Note that the translation
+Represents a 2D rotation, homogenous scaling and a 2D translation. Note that the translation
 componet has no effect on the transformation of vectors and covariant vectors. \\
 \bf{No. of parameters} & 
 4\\
 \bf{Parameter Ordering} & 
 The first parameter is the angle in radian, the second the scaling factor for all
-dimension and the last two parameters are the translation in each each dimension. \\
+dimension and the last two parameters are the translation in each dimension. \\
 \bf{Restrictions} &
-Only defined for two-dimensional input and output spaces.
+Only defined for two-dimensional input and output spaces. \\
+\end{array}
+
+\subsection{QuaternionRigidTransform}
+\begin{array}{rr}
+\bf{Behavior} & 
+Represents a 3D rotation and a 3D translation. The rotation is specified
+as a quaternion, defined by a vector of four numbers $\bf{q}$.
+The relationship between quaternion and rotation about vector $\bf{n}$ by
+angle $\theta$ is as follows:
+\[ \bf{q} = (\bf{n}\sin(\theta/2), \cos(\theta/2))\]
+Note that if the quaternion is not of unit length, scaling will also result. \\
+\bf{No. of parameters} & 
+7\\
+\bf{Parameter Ordering} & 
+The first four parameters defines the quaternion and the last three parameters
+the translation in each dimension. \\
+\bf{Restrictions} &
+Only defined for three-dimensional input and output spaces. \\
 \end{array}
 
 \subsection{VersorRigid3DTransform}
-%\subsection{VersorTransform}
-
-\subsection{QuaternionRigidTransform}
+\label{sec:VersorRigid3DTransform}
+\begin{array}{rr}
+\bf{Behavior} & 
+Represents a 3D rotation and a 3D translation. The rotation is specified 
+a versor or unit quaternion, defined by a vector of three numbers $\bf{q}$.
+These three numbers corresponds to the first three components of a quaternion.
+The fourth component of the quaternion derived such that the quaternion
+is of unit length.
+\\
+\bf{No. of parameters} & 
+6\\
+\bf{Parameter Ordering} & 
+The first three parameters defines the versor and the last three parameters
+the translation in each dimension. \\
+\bf{Restrictions} &
+Only defined for three-dimensional input and output spaces. \\
+\end{array}
 
 \subsection{AffineTransform}
+\label{sec:AffineTransform}
+\begin{array}{rr}
+\bf{Behavior} & 
+Represents an affine transform composed of rotation, scaling, shearing and
+translation. The transform is specified by a $N \times N$ matrix and
+a $N \times 1$ vector where $N$ is space dimension. \\
+\bf{No. of parameters} & 
+$(N+1) \times N$\\
+\bf{Parameter Ordering} & 
+The first $N \times N$ parameters defines the matrix in column-major order
+(where the column index varies the fastest).
+The last $N$ parameters defines the translate for each dimension. \\
+\bf{Restrictions} &
+Only defined when the input and output space have the same dimension. \\
+\end{array}
 
 
 
