@@ -89,13 +89,19 @@ SET(JPEG_IMAGES
   BrainProtonDensitySliceShifted13x17y
   BrainT1SliceBorder20
   ccmakeScreenShot
+  CMakeSetupScreenShot
   CurvatureFlowImageFilterOutput
   CurvatureAnisotropicDiffusionImageFilterOutput
-  CMakeSetupScreenShot
-  DiscreteGaussianImageFilterOutput
+  ConfidenceConnectedOutput1
+  ConfidenceConnectedOutput2
+  ConfidenceConnectedOutput3
   DanielssonDistanceMapImageFilterOutput1
   DanielssonDistanceMapImageFilterOutput2
   Dashboard
+  DeformableRegistration1Output
+  DeformableRegistration1CheckerboardBefore
+  DeformableRegistration1CheckerboardAfter
+  DiscreteGaussianImageFilterOutput
   FivePoints
   GradientMagnitudeImageFilterOutput
   GradientMagnitudeRecursiveGaussianImageFilterOutput3
