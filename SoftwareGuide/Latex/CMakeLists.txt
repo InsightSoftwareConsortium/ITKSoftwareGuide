@@ -83,6 +83,8 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   ImageRegistration3.tex
   ImageRegistration4.tex
   ImageRegistration5.tex
+  ImageRegistration6.tex
+  ImageRegistration7.tex
   DeformableRegistration1.tex
   MultiResImageRegistration1.tex
   MultiResImageRegistration2.tex
