@@ -119,7 +119,9 @@ int main(int argc, char * argv[] )
     return -1;
     }
 
- 
+
+  
+  #ifdef DEBUGSEGFAULTING
   const ConfidenceConnectedFilterType::CovarianceMatrixType & covariance = 
                                            confidenceFilter->GetCovariance();
 
@@ -151,7 +153,7 @@ int main(int argc, char * argv[] )
     }
 
   ofs.close();
-
+  #endif
  
   return 0;
 }
