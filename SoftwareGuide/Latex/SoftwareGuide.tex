@@ -1,7 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%
-%
 % Complete documentation on the extended LaTeX markup used for Insight
 % documentation is available in ``Documenting Insight'', which is part
 % of the standard documentation for Insight.  It may be found online
@@ -9,14 +7,11 @@
 %
 %                    http://www.itk.org
 %
-%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[twoside,titlepage]{InsightBook}
 
 \usepackage[dvips]{graphicx}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -34,19 +29,14 @@ pdfstartview={FitH},
 colorlinks,linkcolor={blue},citecolor={green},urlcolor={blue},
 ]{hyperref}
 
-
-
-
 % Increase printable page size (copied from fullpage.sty)
 \topmargin 0.25in
 \advance \topmargin by -\headheight
 \advance \topmargin by -\headsep
 
-
 \oddsidemargin 20pt
 \evensidemargin -20pt
 \marginparwidth 0.5in
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -57,9 +47,6 @@ colorlinks,linkcolor={blue},citecolor={green},urlcolor={blue},
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{SoftwareGuideConfiguration.tex}
-
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -89,16 +76,12 @@ colorlinks,linkcolor={blue},citecolor={green},urlcolor={blue},
 % actually write the .idx file
 \makeindex
 
-
 \setcounter{tocdepth}{3}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%
 %           Begin Document
-%
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -115,8 +98,22 @@ colorlinks,linkcolor={blue},citecolor={green},urlcolor={blue},
 \input{Contributors.tex}
 \fi
 
-\tableofcontents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Insert Table of Contents; List of Figures and Tables
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\tableofcontents
+\listoffigures
+\listoftables
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% Begin technical content
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \mainmatter
 
@@ -175,16 +172,6 @@ colorlinks,linkcolor={blue},citecolor={green},urlcolor={blue},
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% Insert List of Figures and Tables
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\listoffigures
-\listoftables
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
 %  Insert the bibliography using BibTeX
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -200,7 +187,6 @@ colorlinks,linkcolor={blue},citecolor={green},urlcolor={blue},
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \InputIfFileExists{SoftwareGuide.ind}
-
 
 
 \end{document}
