@@ -21,13 +21,13 @@ as curvature or gradient magnitude.  This technique is less sensitive to
 user-defined thresholds than classic region-growing methods, and may be better
 suited for fusing different types of features from different data sets.  The
 watersheds technique is also more flexible in that it does not produce a single
-image segmentation, but, rather, a hierarchy of segmentations from which a
+image segmentation, but rather a hierarchy of segmentations from which a
 single region or set of regions can be extracted a-priori, using a threshold,
-or interactively with the help of a graphical user interface
+or interactively, with the help of a graphical user interface
 \cite{Yoo1992,Yoo1991}.
 
 The strategy of watershed segmentation is to treat an image $f$ as a height
-function, i.e.  the surface formed by graphing $f$ as a function of its
+function, i.e.,  the surface formed by graphing $f$ as a function of its
 independent parameters, $\vec{x} \in U$.  The image $f$ is often not the
 original input data, but is derived from that data through some filtering,
 graded (or fuzzy) feature extraction, or fusion of feature maps from different
@@ -50,34 +50,36 @@ That is, a segment consists of all points in $U$ whose paths of steepest
 descent on the graph of $f$ terminate at the same minimum in $f$.  Thus, there
 are as many segments in an image as there are minima in $f$.  The segment
 boundaries are ``ridges'' \cite{Koenderink1979,Koenderink1993,Eberly1996} in
-the graph of $f$.  In the 1D case ($U \subset \Re$) the watershed boundaries
+the graph of $f$.  In the 1D case ($U \subset \Re$), the watershed boundaries
 are the local maxima of $f$, and the results of the watershed segmentation is
 trivial.  For higher-dimensional image domains, the watershed boundaries are
-not simply local phenomenon, they depend on the shape of the entire watershed.
+not simply local phenomena; they depend on the shape of the entire watershed.
 
-The drawback of watershed segmentation is that it produces a region for each
-local minimum, that is often, in practice, too many regions---an over
-segmentation.  To alleviate this, we can establish a minimum watershed depth.
-The watershed depth is the difference in height between the watershed minimum
-and the lowest boundary point.  That is, the maximum depth of water a region
-could hold without flowing into any of its neighbors.  Thus, a watershed
-segmentation algorithm can sequentially combine watersheds whose depths fall
-below the minimum until all of the watersheds are of sufficient depth.  This
-depth measurement can be combined with other saliency measurements, such as
-size.  The result is a segmentation containing regions whose boundaries and
-size are significant.  Because the merging process is sequential, it produces a
-hierarchy of regions, as shown in Figure~\ref{fig:watersheds}.
+The drawback of watershed segmentation is that it produces a region
+for each local minimum; that is often, in practice, too many
+regions---an over segmentation.  To alleviate this, we can establish a
+minimum watershed depth.  The watershed depth is the difference in
+height between the watershed minimum and the lowest boundary point.
+In other words, it is the maximum depth of water a region could hold
+without flowing into any of its neighbors.  Thus, a watershed
+segmentation algorithm can sequentially combine watersheds whose
+depths fall below the minimum until all of the watersheds are of
+sufficient depth.  This depth measurement can be combined with other
+saliency measurements, such as size.  The result is a segmentation
+containing regions whose boundaries and size are significant.  Because
+the merging process is sequential, it produces a hierarchy of regions,
+as shown in Figure~\ref{fig:watersheds}.
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{WatershedsHierarchy.eps}
 \caption[Watersheds Hierarchy of Regions]{A watershed segmentation combined
 with a saliency measure (watershed depth) produces a hierarchy of regions.
 Structures can be derived from images by either thresholding the saliency
-measure or combining subtrees within the hierarchy}
+measure or combining subtrees within the hierarchy.}
 \protect\label{fig:watersheds}
 \end{figure}
-Previous work has shown the benefit of a user-assisted approach, that provides
-a graphical interface to this hierarchy so that a technician can quickly move
+Previous work has shown the benefit of a user-assisted approach that provides
+a graphical interface to this hierarchy, so that a technician can quickly move
 from the small regions that lie within a area of interest to the union of
 regions that correspond to the anatomical structure \cite{Yoo1991}.
 
@@ -98,22 +100,23 @@ enforcing a set of discrete gray levels on the image.
 \protect\label{fig:constructionWatersheds}
 \end{figure}
 
-Figure~\ref{fig:constructionWatersheds} shows how the Insight image-to-image
-watersheds filter is constructed.  The filter is actually a collection of
-smaller filters that modularize the several steps of the algorithm in a
-mini-pipeline.  The segmenter object creates the initial segmentation via
-steepest descent from each pixel to local minima. Shallow background regions
-are removed (flattened) before segmentation using a simple minimum value
-threshold (this helps to minimize oversegmentation of the image).  The initial
-segmentation is passed to a second sub-filter that generates a hierarchy of
-basins to a user-specified maximum watershed depth.  The relabeler object at
-the end of the mini-pipeline uses the hierarchy and the initial segmentation to
-produce an output image at any scale {\em below} the user-specified maximum.
-Data objects are cached in the mini-pipeline so that changing watershed depths
-only requires a (fast) relabeling of the basic segmentation.  The three
-parameters that control the filter are shown in the
-Figure~\ref{fig:constructionWatersheds} connected to their relevant processing
-stage.
+Figure~\ref{fig:constructionWatersheds} shows how the Insight
+image-to-image watersheds filter is constructed.  The filter is
+actually a collection of smaller filters that modularize the several
+steps of the algorithm in a mini-pipeline.  The segmenter object
+creates the initial segmentation via steepest descent from each pixel
+to local minima. Shallow background regions are removed (flattened)
+before segmentation using a simple minimum value threshold (this helps
+to minimize oversegmentation of the image).  The initial segmentation
+is passed to a second sub-filter that generates a hierarchy of basins
+to a user-specified maximum watershed depth.  The relabeler object at
+the end of the mini-pipeline uses the hierarchy and the initial
+segmentation to produce an output image at any scale {\em below} the
+user-specified maximum.  Data objects are cached in the mini-pipeline
+so that changing watershed depths only requires a (fast) relabeling of
+the basic segmentation.  The three parameters that control the filter
+are shown in Figure~\ref{fig:constructionWatersheds} connected to
+their relevant processing stages.
 
 \subsection{Using the Insight Watershed Filter}
 \label{sec:UsingWatersheds}
