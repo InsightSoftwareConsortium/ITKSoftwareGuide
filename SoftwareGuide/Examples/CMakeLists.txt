@@ -138,7 +138,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/LandmarkSpatialObject.cxx
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/LineSpatialObject.cxx
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/ReadWriteSpatialObject.cxx
-  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/Scene.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/SceneSpatialObject.cxx
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/SpatialObjectHierarchy.cxx
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/SpatialObjectTransforms.cxx
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/SurfaceSpatialObject.cxx
