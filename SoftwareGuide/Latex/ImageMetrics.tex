@@ -176,6 +176,13 @@ I(A,B)=H(A)+H(B)-H(A,B)
 \end{equation}
 
 \subsubsection{Parzen Windowing}
+
+\itkpiccaption[Parzen windowing in Mutual Information]{
+ In Parzen windowing, a continuous density function is constructed by
+superimposing kernel functions (Gaussian function in this case) centered on the
+intensity samples obtained from the image.\label{fig:ParzenWindowing}}
+\parpic(0.5\textwidth,5.5cm)[r]{\includegraphics[width=0.48\textwidth]{ParzenWindowing13.eps}}
+
 In a typical registration problem, direct access to the marginal 
 and joint probability densities is not available and hence the
 densities must be estimated from the image data. Parzen windows 
@@ -184,35 +191,24 @@ In this scheme, the densities are constructed by taking intensity
 samples $S$ from the image and super-positioning kernel functions 
 $K(\cdot)$ centered on the elements of $S$ as illustrated in
 Figure \ref{fig:ParzenWindowing}:
+
+A variety of functions can be used as the smoothing kernel with the requirement
+that it be smooth, symmetric, has zero mean and integrates to one. For example,
+boxcar, Gaussian and B-spline functions are suitable candidates.  A smoothing
+parameter is used to scale the kernel function.  The larger the smoothing
+parameter, the wider the kernel function used and hence the smoother the
+density estimate. If the parameter is too large, features such as modes in the
+density will get smoothed out.  On the other hand, if the smoothing parameter
+is too small, the resulting density may be too noisy. The estimation is given 
+by the following equation. 
+
 \begin{equation}
 p(a) \approx P^{*}(a) = \frac{1}{N} \sum_{s_j \in S} K\left(a - s_j\right)
 \end{equation}
 
-\begin{figure}
-\center
-\includegraphics[height=3cm]{ParzenWindowing1.eps}
-\includegraphics[height=3cm]{ParzenWindowing3.eps}
-\itkcaption[Parzen windowing in Mutual Information]{ In Parzen windowing, a
-continuous density function is constructed by superimposing kernel functions
-(Gaussian function in this case) centered on the intensity samples obtained
-from the image. }
-\label{fig:ParzenWindowing}
-\end{figure}
-
-A variety of functions can be used as the smoothing kernel with the
-requirement that it be smooth, symmetric, has zero mean and
-integrates to one. For example, boxcar, Gaussian and B-spline functions
-are suitable candidates.
-A smoothing parameter is used to scale the kernel function.
-The larger the smoothing parameter, the wider the kernel function
-used and hence the smoother the density estimate. If the parameter is
-too large, features such as modes in the density will get smoothed out.
-On the other hand, if the smoothing parameter is too small, the
-resulting density may be too noisy. Choosing the optimal smoothing parameter 
-is a difficult research 
-problem and beyond the scope of this software guide.
-Typically, the optimal value of the smoothing parameter will 
-depend on the data and the number of samples used.
+Choosing the optimal smoothing parameter is a difficult research problem and
+beyond the scope of this software guide.  Typically, the optimal value of the
+smoothing parameter will depend on the data and the number of samples used.
 
 \subsubsection{Viola and Wells Implementation}
 ITK has two mutual information metric implementations. The first is 
