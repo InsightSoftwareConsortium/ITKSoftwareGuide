@@ -221,6 +221,13 @@ SET(JPEG_IMAGES
   RGBCurvatureAnisotropicDiffusionImageFilterOutput2
   RGBGradientAnisotropicDiffusionImageFilterOutput
   RGBGradientAnisotropicDiffusionImageFilterOutput2
+  ShapeDetectionLevelSetFilterOutput1
+  ShapeDetectionLevelSetFilterOutput2
+  ShapeDetectionLevelSetFilterOutput3
+  ShapeDetectionLevelSetFilterOutput5
+  ShapeDetectionLevelSetFilterOutput6
+  ShapeDetectionLevelSetFilterOutput7
+  ShapeDetectionLevelSetFilterOutput8
   SmoothingRecursiveGaussianImageFilterOutput3
   SmoothingRecursiveGaussianImageFilterOutput5
   SigmoidImageFilterOutput
