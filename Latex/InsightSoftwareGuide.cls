@@ -1,12 +1,44 @@
 %
-% InsightBook.cls for the Insight documentation
+% InsightSoftwareGuide.cls for the Insight documentation
 %
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{InsightBook}
-             [1998/03/03 Document class (Insight book)]
+\ProvidesClass{InsightSoftwareGuide}
+             [1998/03/03 Document class (Insight SoftwareGuide)]
 
-\RequirePackage{InsightPaper}
+%
+%  Change this to say a4paper instead of letterpaper if you want A4.  These
+%  are the latex defaults.
+%
+\newcommand{\itk@paper}{letterpaper}
+\newcommand{\itk@ptsize}{10pt}
+
+% Increase printable page size (copied from fullpage.sty)
+\topmargin 0.25in
+\advance \topmargin by -\headheight
+\advance \topmargin by -\headsep
+
+\leftmargin   0.625in
+\rightmargin  0.625in
+\bottommargin 0.625in
+
+\oddsidemargin 20pt
+\evensidemargin -20pt
+\marginparwidth 0.5in
+
+%  These set up the fonts for the documents.
+%
+%  The "times" package makes the default font the PostScript Times
+%  font, which makes for smaller PostScript and a font that more people 
+%  like.
+%
+%  The "avant" package causes the AvantGarde font to be used for
+%  sans-serif text, instead of the uglier Helvetica set up by the "times"
+%  package.
+%
+%\RequirePackage{avant}\typeout{Using AvantGarde instead of Computer Modern.}
+\RequirePackage{times}\typeout{Using Times instead of Computer Modern.}
+
 
 % Change the options here to get a different set of basic options, but only
 % if you have to.  Paper and font size should be adjusted in itkpaper.sty.
@@ -42,8 +74,8 @@
 %
 
 
-\paperheight 9.25in
-\paperwidth   7.5in
+\paperheight 9.5in
+\paperwidth  7.25in
 
 % This gives us all the Insight-specific markup that we really want.
 % This should come last.  Do not change this.
