@@ -81,7 +81,8 @@ There is a const and a non-const version of most ITK image iterators. A
 non-const iterator cannot be instantiated on a non-const image pointer.
 Const versions of iterators may read, but may not write pixel values.
 
-Here is a simple example that defines and constructs a simple image iterator.
+Here is a simple example that defines and constructs a simple image iterator
+for an \doxygen{Image}.
 
 \small
 \begin{verbatim}
@@ -169,7 +170,7 @@ position at the current index plus specified \doxygen{Offset}.
 
 \index{Iterators!operator-=()}
 \item \textbf{\code{operator-=( OffsetType )}} Moves the iterator to 
-the pixel position at the current index minus specified Offest.
+the pixel position at the current index minus specified Offset.
 
 \index{Iterators!SetPosition()}
 \item \textbf{\code{SetPosition( IndexType )}} Moves the iterator to the given
