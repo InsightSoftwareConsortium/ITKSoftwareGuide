@@ -58,11 +58,10 @@ if( $numArgs < 5 )
   print "Usage arguments: \n".
   "  Name of the .cxx/.txx file (with extenstion).\n".
   "  ITKExecsDirectoryPath \n".
-  "  colon separated list of possible include directories for input images\n".
   "  Cmake file to be generated\n".
   "  Name of the TEX file generated, so dependencies can be specified\n".
   "  Ouput folder to store generated images\n".
-  "  Name of the source file (to add dependency)\n";
+  "  Colon separated list of possible include directories for input images\n".
   die;
   }
 
@@ -144,9 +143,9 @@ sub GetArgsAndFilenames {
   
   #Create a .cmake file
   $cmakeFile =  File::Spec->canonpath($cmakefile);
-  
+
   #Check if file exists
-  if (-e cmakeFile) 
+  if (-e $cmakeFile) 
     {
     open CMAKEFILE, "<  $cmakeFile" or die "Couldn't open $cmakeFile";
     @cmakelinesold = <CMAKEFILE>;   
@@ -224,7 +223,9 @@ sub GetArgsAndFilenames {
                 }       
               $filefound=0;
 
-              File::Find::find (
+              foreach $searchelement (@$searchdirs)
+                {
+                File::Find::find (
                 sub 
                   { 
                   if ($File::Find::name =~ /$inputfileInThisLine/) 
@@ -234,7 +235,9 @@ sub GetArgsAndFilenames {
                     $foundfilename = $File::Find::name; 
                     $filefound = 1;
                     }
-                  }, @$searchdirs);
+                  }, $searchelement);
+                  if ($filefound)   { last;  }
+                }
 
               if (!($filefound)) 
                 {
