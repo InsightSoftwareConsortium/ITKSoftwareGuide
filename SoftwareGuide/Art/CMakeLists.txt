@@ -37,10 +37,12 @@ ENDIF(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
 ADD_CUSTOM_TARGET(SoftwareGuideArt  ALL echo)
 
 SET(XFIG_FIGURES
+  BayesianPluginClassifier
   BinaryThresholdTransferFunction
   CannySegmentationLevelSetImageFilterCollaborationDiagram1
   DiscreteGaussian
   DeformableModelCollaborationDiagram
+  DudaClassifier
   GeometricalObjects
   GeodesicActiveContoursCollaborationDiagram1
   FastMarchingCollaborationDiagram1
@@ -48,6 +50,7 @@ SET(XFIG_FIGURES
   FuzzyConnectednessCollaborationDiagram1
   FuzzyVoronoiCollaborationDiagram1
   FuzzyVoronoiDeformableCollaborationDiagram1
+  Histogram
   HybridSegmentationEngine1
   HybridSegmentationFCVDDM
   ImageIOCollaborationDiagram
@@ -111,10 +114,12 @@ SET(XFIG_FIGURES
   ResampleImageFilterTransformComposition4
   ResampleImageFilterTransformComposition5
   ResampleImageFilterTransformComposition6
+  SampleInheritanceTree
   SigmoidBase
   SigmoidParameterAlpha
   SigmoidParameterBeta
   ShapeDetectionCollaborationDiagram1
+  StatisticalClassificationFramework
   ThresholdSegmentationLevelSetImageFilterFigure1
   ThresholdSegmentationLevelSetImageFilterCollaborationDiagram1
   ThresholdTransferFunctionAbove
@@ -264,6 +269,7 @@ SET(JPEG_IMAGES
   ThresholdSegmentationLevelSetImageFilterWhiteMatter
   ThresholdSegmentationLevelSetImageFilterGrayMatter
   ThresholdSegmentationLevelSetImageFilterVentricle
+  TwoNormalDensityFunctionPlot
   VectorGradientAnisotropicDiffusionImageFilterInput
   VectorGradientAnisotropicDiffusionImageFilterOutput
   VectorCurvatureAnisotropicDiffusionImageFilterInput
