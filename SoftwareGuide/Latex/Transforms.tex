@@ -1,9 +1,12 @@
+
+\def\tableconfiguration{ | p{4cm} | p{3cm} | p{3cm} | p{4cm} | }
+
 In the toolkit, \code{itk::Transform} objects encapsulates the mapping of
 points, vectors and covariant vectors from an input space to an output space.
 The distinction between points, vectors and covariant vectors has already
 been discussed in Chapter \ref{sec:DataRepresentation}. If a transform is
 invertible, back transform methods are also provided. Currently, 
-ITK provide a variety of transfroms from simple translation, rotation and 
+ITK provide a variety of transforms from simple translation, rotation and 
 scaling to general affine and kernel transforms. Note that, although we
 discuss transforms in context registration in this section, transforms
 are general and can used for other applications. Some of the commonly used 
@@ -11,7 +14,7 @@ transforms will be discussed in detail later in this section.
 
 Typically, each transform type several methods are provided for setting
 the parameters. For example, \code{Euler2DTransform} provide methods for
-separatedly setting the offset, the angle, and the entire rotation matrix.
+separately setting the offset, the angle, and the entire rotation matrix.
 However, for use in the registration framework, the parameters must also
 be represented by a flat \code{Array<double>} to allow communication
 with generic optimizers. In the case of \code{Euler2DTransform}, the transform
@@ -42,131 +45,206 @@ J=\left[ \begin{array}{cccc}
 \end{equation}
  
 
+
+
+
 \subsection{Identity Transform}
 \label{sec:IdentityTransform}
-\begin{array}{rr}
-\bf{Behavior} & 
-Maps every point to itself, every vector to itself and every covariant vector to itself. \\
-\bf{No. of parameters} & 
-0 \\
-\bf{Parameter Ordering} & 
-\\
-\bf{Restrictions} &
+
+\begin{center}
+\begin{tabular}{\tableconfiguration}
+\hline
+\textbf{Behavior} &
+\textbf{Number of parameters} &
+\textbf{Parameter Ordering} &
+\textbf{Restrictions} \\
+\hline\hline
+Maps every point to itself, every vector to itself and every covariant vector to itself.  & 
+0 &
+  &  
 Only defined when the input and output space has the same number of dimensions. \\
-\end{array}
+\hline
+\end{tabular}
+\end{center}
+
+
+
 
 
 \subsection{Translation Transform}
 \label{sec:TranslationTransform}
-\begin{array}{rr}
-\bf{Behavior} & 
+
+\begin{center}
+\begin{tabular}{\tableconfiguration}
+\hline
+\textbf{Behavior} &
+\textbf{Number of parameters} &
+\textbf{Parameter Ordering} &
+\textbf{Restrictions} \\
+\hline\hline
 Represents a simple translation of points in the input space
-and has no effect on vectors or covariant vectors. \\
-\bf{No. of parameters} & 
-Same as the input space dimension.\\
-\bf{Parameter Ordering} & 
-The i-th parameter represents the translation in the i-th dimension. \\
-\bf{Restrictions} &
+and has no effect on vectors or covariant vectors. &
+Same as the input space dimension. &
+The i-th parameter represents the translation in the i-th dimension. &
 Only defined when the input and output space has the same number of dimensions. \\
-\end{array}
- 
-\subsection{ScaleTransform}
+\hline
+\end{tabular}
+\end{center}
+
+
+
+
+
+\subsection{Scale Transform}
 \label{sec:ScaleTransform}
-\begin{array}{rr}
-\bf{Behavior} & 
-Represents a simple scaling of the vector space. Each componet of a point, vector
-or covariant vector is multiplied by the user defined scaling factor.\\
-\bf{No. of parameters} & 
-Same as the input space dimension. \\
-\bf{Parameter Ordering} & 
-The i-th parameter represents the scaling in the i-th dimension. \\
-\bf{Restrictions} &
+
+\begin{center}
+\begin{tabular}{\tableconfiguration}
+\hline
+\textbf{Behavior} &
+\textbf{Number of parameters} &
+\textbf{Parameter Ordering} &
+\textbf{Restrictions} \\
+\hline\hline
+Represents a simple scaling of the vector space. Each component of a point, vector
+or covariant vector is multiplied by the user defined scaling factor. &
+Same as the input space dimension. &
+The i-th parameter represents the scaling in the i-th dimension. &
 Only defined when the input and output space has the same number of dimensions. \\
-\end{array}
+\hline
+\end{tabular}
+\end{center}
+
+
+
+
 
 \subsection{Euler2DTransform}
 \label{sec:Euler2DTransform}
-\begin{array}{rr}
-\bf{Behavior} & 
+
+\begin{center}
+\begin{tabular}{\tableconfiguration}
+\hline
+\textbf{Behavior} &
+\textbf{Number of parameters} &
+\textbf{Parameter Ordering} &
+\textbf{Restrictions} \\
+\hline\hline
 Represents a 2D rotation and a 2D translation. Note that the translation
-componet has no effect on the transformation of vectors and covariant vectors. \\
-\bf{No. of parameters} & 
-3\\
-\bf{Parameter Ordering} & 
+component has no effect on the transformation of vectors and covariant vectors. &
+3 &
 The first parameter is the angle in radian and the last two parameters
-are the translation in each each dimension. \\
-\bf{Restrictions} &
+are the translation in each each dimension. &
 Only defined for two-dimensional input and output spaces. \\
-\end{array}
+\hline
+\end{tabular}
+\end{center}
+
+
+
+
 
 \subsection{Similarity2DTransform}
 \label{sec:Similarity2DTransform}
-\begin{array}{rr}
-\bf{Behavior} & 
-Represents a 2D rotation, homogenous scaling and a 2D translation. Note that the translation
-componet has no effect on the transformation of vectors and covariant vectors. \\
-\bf{No. of parameters} & 
-4\\
-\bf{Parameter Ordering} & 
-The first parameter is the angle in radian, the second the scaling factor for all
-dimension and the last two parameters are the translation in each dimension. \\
-\bf{Restrictions} &
+
+\begin{center}
+\begin{tabular}{\tableconfiguration}
+\hline
+\textbf{Behavior} &
+\textbf{Number of parameters} &
+\textbf{Parameter Ordering} &
+\textbf{Restrictions} \\
+\hline\hline
+Represents a 2D rotation, homogeneous scaling and a 2D translation. Note that
+the translation component has no effect on the transformation of vectors and
+covariant vectors. & 
+4 &
+The first parameter is the angle in radian, the second the scaling factor for
+all dimension and the last two parameters are the translation in each
+dimension. & 
 Only defined for two-dimensional input and output spaces. \\
-\end{array}
+\hline
+\end{tabular}
+\end{center}
+
 
 \subsection{QuaternionRigidTransform}
-\begin{array}{rr}
-\bf{Behavior} & 
-Represents a 3D rotation and a 3D translation. The rotation is specified
-as a quaternion, defined by a vector of four numbers $\bf{q}$.
-The relationship between quaternion and rotation about vector $\bf{n}$ by
-angle $\theta$ is as follows:
-\[ \bf{q} = (\bf{n}\sin(\theta/2), \cos(\theta/2))\]
-Note that if the quaternion is not of unit length, scaling will also result. \\
-\bf{No. of parameters} & 
-7\\
-\bf{Parameter Ordering} & 
+\label{sec:QuaternionRigidTransform}
+
+\begin{center}
+\begin{tabular}{\tableconfiguration}
+\hline
+\textbf{Behavior} &
+\textbf{Number of parameters} &
+\textbf{Parameter Ordering} &
+\textbf{Restrictions} \\
+\hline\hline
+Represents a 3D rotation and a 3D translation. The rotation is specified as a
+quaternion, defined by a vector of four numbers $\bf{q}$.  The relationship
+between quaternion and rotation about vector $\bf{n}$ by angle $\theta$ is as
+follows: \[ \bf{q} = (\bf{n}\sin(\theta/2), \cos(\theta/2))\] Note that if the
+quaternion is not of unit length, scaling will also result. &
+7 &
 The first four parameters defines the quaternion and the last three parameters
-the translation in each dimension. \\
-\bf{Restrictions} &
+the translation in each dimension. &
 Only defined for three-dimensional input and output spaces. \\
-\end{array}
+\hline
+\end{tabular}
+\end{center}
+
+
 
 \subsection{VersorRigid3DTransform}
 \label{sec:VersorRigid3DTransform}
-\begin{array}{rr}
-\bf{Behavior} & 
-Represents a 3D rotation and a 3D translation. The rotation is specified 
-a versor or unit quaternion, defined by a vector of three numbers $\bf{q}$.
+
+
+\begin{center}
+\begin{tabular}{\tableconfiguration}
+\hline
+\textbf{Behavior} &
+\textbf{Number of parameters} &
+\textbf{Parameter Ordering} &
+\textbf{Restrictions} \\
+\hline\hline
+Represents a 3D rotation and a 3D translation. The rotation is specified a
+versor or unit quaternion, defined by a vector of three numbers $\bf{q}$.
 These three numbers corresponds to the first three components of a quaternion.
-The fourth component of the quaternion derived such that the quaternion
-is of unit length.
-\\
-\bf{No. of parameters} & 
-6\\
-\bf{Parameter Ordering} & 
-The first three parameters defines the versor and the last three parameters
-the translation in each dimension. \\
-\bf{Restrictions} &
+The fourth component of the quaternion derived such that the quaternion is of
+unit length. &
+6 &
+The first three parameters defines the versor and the last three parameters the
+translation in each dimension. &
 Only defined for three-dimensional input and output spaces. \\
-\end{array}
+\hline
+\end{tabular}
+\end{center}
+
+
 
 \subsection{AffineTransform}
 \label{sec:AffineTransform}
-\begin{array}{rr}
-\bf{Behavior} & 
+
+\begin{center}
+\begin{tabular}{\tableconfiguration}
+\hline
+\textbf{Behavior} &
+\textbf{Number of parameters} &
+\textbf{Parameter Ordering} &
+\textbf{Restrictions} \\
+\hline\hline
 Represents an affine transform composed of rotation, scaling, shearing and
-translation. The transform is specified by a $N \times N$ matrix and
-a $N \times 1$ vector where $N$ is space dimension. \\
-\bf{No. of parameters} & 
-$(N+1) \times N$\\
-\bf{Parameter Ordering} & 
+translation. The transform is specified by a $N \times N$ matrix and a $N
+\times 1$ vector where $N$ is space dimension. &
+$(N+1) \times N$ &
 The first $N \times N$ parameters defines the matrix in column-major order
-(where the column index varies the fastest).
-The last $N$ parameters defines the translate for each dimension. \\
-\bf{Restrictions} &
+(where the column index varies the fastest).  The last $N$ parameters defines
+the translate for each dimension. &
 Only defined when the input and output space have the same dimension. \\
-\end{array}
+\hline
+\end{tabular}
+\end{center}
+
+
 
 
 
