@@ -153,7 +153,7 @@ and so on.
 \includegraphics[width=0.4\textwidth]{IteratorFigure1.eps}
 \itkcaption[ITK image iteration]{Normal path of an iterator through a 2D image.  The
 iteration region is shown in a darker shade.  An arrow denotes a single iterator
-step, the result of one \code{++} opesration.}
+step, the result of one \code{++} operation.}
 \protect\label{fig:WalkingIterator}
 \end{figure}
 
@@ -268,7 +268,7 @@ Consider using the \code{Value()} method instead of \code{Get()} or
 \code{Set()} when a call to \code{operator=} on a pixel is non-trivial, such as
 when working with vector pixels, and operations are done in-place in the
 image. The disadvantage of using \code{Value} is that it cannot support image
-adaptors. 
+adapters. 
 
 \subsection{Iteration Loops}
 \label{sec:IterationExample}
@@ -293,7 +293,7 @@ for ( in.GoToBegin(), out.GoToBegin(); !in.IsAtEnd(); ++in, ++out )
 Notice that both the input and output iterators are initialized over the same
 region, the \code{RequestedRegion} of \code{inputImage}.  This is good
 practice because it ensures that the output iterator walks exactly the same set
-of pixel indicies as the input iterator, but does not require that the output
+of pixel indices as the input iterator, but does not require that the output
 and input be the same size. The only requirement is that the input image
 must contain a region (a starting index and size) that matches the
 \code{RequestedRegion} of the output image.
@@ -424,7 +424,7 @@ tasks more efficient or easier to implement.
 In ITK, a pixel neighborhood is loosely defined as a small set of pixels that
 are locally adjacent to one another in an image.  The size and shape
 of a neighborhood, as well the connectivity among pixels in a neighborhood,
-ay vary with the application.
+may vary with the application.
 
 Many image processing algorithms are neighborhood-based, that is, the result at
 a pixel $i$ is computed from the values of pixels in the ND neighborhood of
@@ -448,7 +448,7 @@ image. Figure~\ref{fig:NeighborhoodIteratorFig1} shows a neighborhood iterator
 moving through an iteration region.  This iterator defines a $3x3$ neighborhood
 around each pixel that it visits. The \emph{center} of the neighborhood
 iterator is always positioned over its current index and all other neighborhood
-pixel indicies are referenced as offsets from the center index.  The pixel
+pixel indices are referenced as offsets from the center index.  The pixel
 under the center of the neighborhood iterator and all pixels under the shaded
 area, or \emph{extent}, of the iterator can be dereferenced.
 
@@ -632,8 +632,7 @@ in \code{itk::Neighborhood N}, which must be the same size and shape as the iter
 
 \end{itemize}
 
-Several additional methods are defined to provide information about the
-neighborhood and the pixel locations within it.
+Several methods are defined to provide information about the neighborhood.
 
 \index{NeighborhoodIterators!}
 \begin{itemize}
@@ -664,28 +663,31 @@ the array position of the pixel at offset \code{o} from the neighborhood center.
 
 \index{Neighborhood iterators!boundary conditions}
 \index{Neighborhood iterators!bounds checking}
-When neighborhood-based calculations are done at pixels along an image
-boundary, they may call for pixel data that lies outside of the boundary.
-Because this out-of-bounds data does not exist, an algorithm must supply it
-according to some predetermined rules.  A rule for supplying out-of-bounds
-pixel data is sometimes called a \emph{boundary condition}.
+A neighborhood-based calculation in a neighborhood close to an image boundary
+may require data that falls outside the boundary.  The iterator in
+figure~\{fig:NeighborhoodIteratorFig1}, for example, is centered on a boundary
+pixel such that three of its neighbors actually do not exist in the image.
+When the extent of a neighborhood falls outside the image, pixel values for
+missing neighbors are supplied according to a rule, usually chosen to satisfy
+the numerical requirements of the algorithm.  A rule for supplying
+out-of-bounds values is called a \emph{boundary condition}.
  
 ITK neighborhood iterators automatically detect out-of-bounds dereferences and
-return values according to boundary conditions.  The boundary condition type is
-specified by the second, optional template parameter of the iterator.  By
-default, neighborhood iterators use a Neumann condition where the first
+will return values according to boundary conditions.  The boundary condition
+type is specified by the second, optional template parameter of the iterator.
+By default, neighborhood iterators use a Neumann condition where the first
 derivative across the boundary is zero.  The Neumann rule simply returns the
 closest in-bounds pixel value to the requested out-of-bounds location.  Several
 other common boundary conditions can be found in the ITK toolkit.  They include
-a wrap-around condition that returns the pixel value from the opposite side of
-the data set, and is useful for periodic data such as Fourier transforms, and a
-constant value condition that returns a set value $v$ for all out-of-bounds pixel
-dereferences.  The constant value condition is equivalent to padding the image
-with value $v$.
+a periodic condition that returns the pixel value from the opposite side of the
+data set, and is useful when working with periodic data such as Fourier
+transforms, and a constant value condition that returns a set value $v$ for all
+out-of-bounds pixel dereferences.  The constant value condition is equivalent
+to padding the image with value $v$.
 
 Bounds checking is a computationally expensive operation because it occurs each
-time the iterator is incremented.  To increase effiency, a neighborhood
-iterator will automatically disable bounds checking when it detects that it is
+time the iterator is incremented.  To increase efficiency, a neighborhood
+iterator automatically disables bounds checking when it detects that it is
 not necessary.  A user may also explicitly disable or enable bounds checking.
 Most neighborhood based algorithms can minimize the need for bounds checking
 through clever definition of iteration regions.  These techniques are explored
@@ -696,7 +698,7 @@ in section~\ref{sec:NeighborhoodExample3}.
 \index{NeighborhoodIterator!NeedToUseBoundaryConditionOn()}
 \item \textbf{\code{void NeedToUseBoundaryConditionOn()}} Explicitly turn
 bounds checking on.  This method should be used with caution because
-enabling bounds checking unnecessarily may result in a significant performance
+unnecessarily enabling bounds checking may result in a significant performance
 decrease. In general you should allow the iterator to automatically determine
 this setting.
 
@@ -706,32 +708,30 @@ bounds checking. This method should be used with caution because disabling
 bounds checking when it is needed will result in out-of-bounds reads and
 undefined results.
 
-\index{NeighborhoodIterator!OverideBoundaryCondition()}.
-\item \textbf{\code{void OverrideBoundaryCondition(itk::BoundaryCondition *b}} 
+\index{NeighborhoodIterator!OverrideBoundaryCondition()}}
+\item \textbf{\code{void OverrideBoundaryCondition(itk::BoundaryCondition *b)}} 
 Overrides the templated boundary condition, using boundary condition object
-\code{b} instead. Object \code{b} should remain in scope until the iterator has
-been destroyed.  This method can be used to change the boundary handling at
-run-time.
+\code{b} instead. Object \code{b} should not be deleted until it has been
+released by the iterator.  This method can be used to change iterator behavior
+at run-time.
 
 \index{NeighborhoodIterator!ResetBoundaryCondition()}
-\item \textbf{\code{void ResetBoundaryCondition()}} Discontinues use of any
+\item \textbf{\code{void ResetBoundaryCondition()}} Discontinues the use of any
 run-time specified boundary condition and returns to using the condition
 specified in the template argument.
 
 \index{NeighborhoodIterator!SetPixel()}
 \item \textbf{\code{void itk::SetPixel(unsigned int i, PixelType p, bool
-status}} Sets the value at neighborhood array position \code{i} to value
+status)}} Sets the value at neighborhood array position \code{i} to value
 \code{p}.  If the position \code{i} is out-of-bounds, \code{status} is set to
 \code{false}, otherwise \code{status} is set to \code{true}.
 \end{itemize}
 
-%[Be sure to reference Section: Neighborhood Filters]
-
 The following sections describe the two ITK neighborhood iterator classes,
 \code{itk::NeighborhoodIterator} and \code{itk::ShapedNeighborhoodIterator}.
 Each has a const and a non-const version.  The shaped iterator is a refinement
-of the standard \code{itk::NeighborhoodIterator} that allows for an arbitrarily
-(non-rectilinear) neighborhood.
+of the standard \code{itk::NeighborhoodIterator} that supports an
+arbitrarily-shaped (non-rectilinear) neighborhood.
 
 \subsection{itk::NeighborhoodIterator}
 \label{sec:itkNeighborhoodIterator}
@@ -760,7 +760,7 @@ of \doxygen{itk::NeighborhoodIterator}.
 \label{sec:NeighborhoodExample3}
 \input{NeighborhoodIterators3.tex}
 
-\index{gaussian blurring}
+\index{Gaussian blurring}
 \subsubsection{Separable convolution: Gaussian filtering}
 \label{sec:NeighborhoodExample4}
 \input{NeighborhoodIterators4.tex}
@@ -789,12 +789,13 @@ of \doxygen{itk::NeighborhoodIterator}.
 \index{Neighborhood iterators!shaped}
 \index{Neighborhood iterators!as stencils}
 This section describes a variation on the neighborhood iterator called a
-\emph{shaped} neighborhood iterator.  A shaped neighborhood is created like
-a bit mask, with different offsets in the rectilinear neighborhood of
-the normal neighborhood iterator turned on or off to create a stencil.
-Inactive positions (those not in the stencil) are not updated during iteration and
-their values cannot be read or written.  The shaped iterator is implemented in
-the class \doxygen{ShapedNeighborhoodIterator}, which is a subclass of
+\emph{shaped} neighborhood iterator.  A shaped neighborhood is defined like
+a bit mask, or \emph{stencil}, with different offsets in the rectilinear
+neighborhood of the normal neighborhood iterator turned off or on to create a
+pattern.  Inactive positions (those not in the stencil) are not updated during
+iteration and their values cannot be read or written.  The shaped iterator is
+implemented in the class \doxygen{ShapedNeighborhoodIterator}, which is a
+subclass of
 \doxygen{NeighborhoodIterator}.  A const version,
 \doxygen{ConstShapedNeighborhoodIterator}, is also available.
 
@@ -804,10 +805,11 @@ Like a regular neighborhood iterator, a shaped neighborhood iterator must be
 initialized with an ND radius object, but the radius of the neighborhood of a
 shaped iterator only defines the set of \emph{possible} neighbors.  Any number
 of possible neighbors can then be activated or deactivated.  The shaped
-neighborhood iterator defines an API for activating neighbors.  When activated,
-that neighbor location, defined relative to the center of the neighborhood, is
-placed on the \emph{active list} and is then part of the stencil.  Neighbor
-offsets can be added or removed from the stencil at any time.
+neighborhood iterator defines an API for activating neighbors.  When a neighbor
+location, defined relative to the center of the neighborhood, is activated, it
+is placed on the \emph{active list} and is then part of the stencil.  An
+iterator can be ``reshaped'' at any time by adding or removing offsets from the
+active list.
 
 \begin{itemize}
 
@@ -856,8 +858,8 @@ const or non-const iterator through the shaped iterator stencil that points
 
 The functionality and interface of the shaped neighborhood iterator is best
 described by example.  Let's use \doxygen{ShapedNeighborhoodIterator} to
-implement some image morphology algorithms (see \cite{Gonzales1993},
-\cite{Castleman1996}, et al.).  The example that follows implement erosion and
+implement some binary image morphology algorithms (see \cite{Gonzales1993},
+\cite{Castleman1996}, et al.).  The examples that follow implement erosion and
 dilation.
 
 \index{ShapedNeighborhoodIterator!examples of}
