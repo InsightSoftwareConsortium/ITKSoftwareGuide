@@ -13,7 +13,7 @@ were combined in the same scene.
 
 \begin{description}
 
-\item [Removing the Gel]
+\item [Removing the Gel.]
 The body of the Visible Woman was inmersed in a block of gel during the
 freezing process. This gel appears as a blue material in the cryogenic data.
 To remove the gel, the joint histogram of RGB values was computed. This
@@ -28,7 +28,7 @@ equation of this plane was subsequently used to discriminate pixels in the
 gel from pixels in the anatomical structures. The gel pixels were zeroed out
 and the RGB values on the body were preserved.
 
-\item[The Skin]
+\item[The Skin.]
 The skin was easy to segment once the gel was removed. A simple region
 growing algorithm was used requiring seed points in the region previously
 occupied by the gel and then set to zero values. An anti-aliasing filter was
@@ -37,7 +37,7 @@ was represented by the zero set. This data set was exported to VTK where a
 contouring filter was used to extract the surface and introduce it in the VTK
 visualization pipeline.
 
-\item[The Brain]
+\item[The Brain.]
 The visible part of the brain represents the surface of the gray matter.  The
 brain was segmented using the vector version of the confidence connected
 image filter.  This filter implements a region growing algorithm that starts
@@ -56,7 +56,7 @@ belongs to the family of voting filters classified as a subset of the
 the median filter was passed through the anti-aliasing image filter. As
 before, VTK was used to extract the surface.
 
-\item[The Neck Musculature]
+\item[The Neck Musculature.]
 The neck musculature was not perfectly segmented. Indeed, the resulting
 surface is a fusion of muscles, blood vessels and other anatomical
 structures. The segmentation was performed by applying the
@@ -67,14 +67,14 @@ morphology filter and smoothed with the BinaryMedianImageFilter. The
 AntiAliasBinaryImageFilter was used at the end to reduce the pixelization
 effects prior to the extraction of the iso-surface with vtkContourFilter.
 
-\item[The Skull]
+\item[The Skull.]
 The skull was segmented from the CT data set and registered to the cryogenic
 data. The segmentation was performed by simple thresholding, which was good
 enough for the cover image. As a result, most of the bone structures are
 actually fused together. This includes the jaw bone and the cervical
 vertebrae.
 
-\item[The Eye] 
+\item[The Eye.] 
 The eye is charged with symbolism in this image. This is due in part because
 the motivation for the toolkit is the analysis of the Visible Human data,
 and in part because the name of the toolkit is \emph{Insight}.
@@ -93,7 +93,7 @@ filter (equivalent to majority voting cellular automata). Finally the mask
 was processed with the AntiAliasBinaryImageFilter in order to generate a
 float image with the eyeball contour embedded as a zero set.
 
-\item[Visualization]
+\item[Visualization.]
 The visualization of the segmentation was done by passing all the binary
 masks through the AntiAliasBinaryImageFilter, generating iso-contours with
 VTK filters, and then setting up a VTK Tcl script. The skin surface was
@@ -102,7 +102,7 @@ vtkCylinder. The vtkWindowToImageFilter proved to be quite useful for
 generating the final high resolution rendering of the scene ($3000\times3000$
 pixels).
 
-\item[Cosmetic Postprocessing]
+\item[Cosmetic Postprocessing.]
 We have to confess that we used Adobe Photoshop to post-process the image. In
 particular, the background of the image was adjusted using Photoshop's color
 selection. The overall composition of the image with the cover text and
