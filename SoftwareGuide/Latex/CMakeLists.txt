@@ -38,8 +38,12 @@ ENDIF(NOT MAKEINDEX_COMPILER)
 #  /screen   = low    resolution = Distiller "Screen" optimized
 #  /ebook    = medium resolution = Distiller "eBook"  
 #  /printer  = high   resolution = Distiller "Print" optimized  
+#  /prepress = high   resolution = Distiller like "Print" with some error checking differences
 #
+#SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/printer" -r600)
+#SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/prepress" -r600)
 SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/screen" -r600)
+
 SET(DVIPS_CONVERTER_OPTIONS  -D600)
 
 #
