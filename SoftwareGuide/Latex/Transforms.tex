@@ -23,7 +23,7 @@ for representing basic spatial concepts.
 \label{fig:GeometricalObjects}
 \end{figure}
  
-Insight implements a consitent geometric representation of the space. The
+Insight implements a consistent geometric representation of the space. The
 characteristics of classes involved in this representation are summarized in
 the following table.
 
@@ -134,7 +134,7 @@ using finite difference at a price of $2M$ evaluations of the metric value,
 where $M$ is the number of transform parameters.
 
 The following sections describe the main characteristics of the transform
-classes availables in ITK.
+classes available in ITK.
 
 \subsection{Identity Transform}
 \label{sec:IdentityTransform}
@@ -312,7 +312,7 @@ optimizers accept an array of scale values that are used to normalize the
 parameter space.
 
 Registrations involving angles and translations should take advantage of the
-scale normalization funtionality in order to get the best performance out of
+scale normalization functionality in order to get the best performance out of
 the optimizers.
 
 
@@ -354,7 +354,7 @@ transform is to dynamically control the array of scales passed to the
 optimizer. The effect produced by the parameters scaling  can be used to steer
 the walk on the parameter space by giving preference to some of the parameters
 over others. For example, perform some iterations updating only the rotation
-angle then rebablance the array of scale factor in the optimizer and perform
+angle then balance the array of scale factor in the optimizer and perform
 another set of iterations updating only translations.
 
 
@@ -393,7 +393,7 @@ As a solution, the \code{itk::QuaternionRigidTransformGradientDescentOptimizer}
 was introduced in the toolkit.  This specialized optimizer implements a
 variation of a gradient-descent algorithm adapted for a quaternion space.  This
 class makes sure that after advancing in any direction on the parameter space
-the resulting new set of transform parameters are mapped back to the persimible
+the resulting new set of transform parameters are mapped back to the permissible
 set of parameters. In practice this comes down to normalize the newly computed
 quaternion to make sure that the transformation remains rigid and no scaling is
 applied. 
@@ -442,6 +442,7 @@ to be reduced to dimension 6 instead of the dimension 7 used by
 
 \subsection{AffineTransform}
 \label{sec:AffineTransform}
+\index{itk::AffineTransform|textbf}
 
 \begin{center}
 \begin{tabular}{\tableconfiguration}
@@ -464,6 +465,41 @@ Only defined when the input and output space have the same dimension. \\
 \end{center}
 
 
+The \code{AffineTransform} is one of the most popular transformations in image
+registration. Its main advantage comes from the fact of being represented as a
+linear transformation. The set of its coefficients can actually be represented
+in a vector space of dimensions $(N+1) \times N$. This makes possible for
+optimizers to be used appropriately on this search space. However the high
+dimension of the search space implies also a high computational cost during the
+computation of cost-function derivatives. The best compromise in the reduction
+of this computational time is to use the transform Jacobian in combination with
+the image gradient for computing the cost-function derivatives.
 
+The coefficients on the $N \times N$ matrix can represent rotations,
+anisotropic scaling and shearing. These coefficients are usually of a very
+different dynamic range than the translation coefficients. Coefficients in the 
+matrix tend to be in the range $[-1:-1]$ but are not restricted to this interval.
+Translation coefficients on the other hand can be on the order of $10$ to $100$ and
+are basically related to the image size and pixel spacing.
+
+This difference in scale make necessary again to take advantage of the
+functionality offered by optimizer for rescaling the parameter space. This is
+particularly relevant for optimizers based on gradient-descent approaches.
+
+A registration based on the affine transform may be more effective when applied
+after simpler transformations have been used to remove the major components of
+miss-registration. Otherwise it will incur in an overwhelming computational
+cost. For example, using an affine transform , the first set of optimization
+iterations would typically be focused on removing large translations. This task
+could rather be accomplished by a Translation transform in a parameter space of
+size $N$ instead of the $(N+1) \times N$ associated with the affine transform.
+
+Tracking the evolution of a registration process that uses
+\code{AffineTransform} can be a challenging task since it is difficult to
+represent the coefficients in a meaningful way.  The simple print out of the
+transform coefficients may not offer a clear picture of the current behavior
+and trend of the optimization.  An ergonomic implementation could rather use
+the affine transform to deform the rendering of a wire-frame cube in a 3D
+visualization display.
 
 
