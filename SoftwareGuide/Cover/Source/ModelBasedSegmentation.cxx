@@ -250,19 +250,6 @@ int main( int argc, char *argv[] )
   ellipse->SetRadius(  10.0  );
 
 
-
-
-  // Place the ellipse 
-
-  EllipseType::TransformType::OffsetType offset;
-  offset[ 0 ] = 100.0;
-  offset[ 1 ] =  40.0;
-  offset[ 2 ] =  40.0;
-
-  ellipse->GetObjectToParentTransform()->SetOffset(offset);
-  ellipse->ComputeObjectToWorldTransform();
- 
-
   typedef itk::ImageToSpatialObjectRegistrationMethod<
                                       ImageType,
                                       EllipseType  >  RegistrationType;
@@ -288,8 +275,7 @@ int main( int argc, char *argv[] )
   OptimizerType::Pointer optimizer  = OptimizerType::New();
 
 
-  typedef itk::TranslationTransform< double, Dimension > TransformType;
-
+  typedef itk::TranslationTransform< double, Dimension > TransformType; 
   TransformType::Pointer transform = TransformType::New();
 
 
@@ -324,6 +310,29 @@ int main( int argc, char *argv[] )
   reader->Update();
 
 
+  // Place the ellipse close to the optimal position
+  typedef ImageType::IndexType IndexType;
+  IndexType initialIndexPosition;
+
+  initialIndexPosition[0] = 28; 
+  initialIndexPosition[1] = 20;
+  initialIndexPosition[2] = 33;
+
+  TransformType::InputPointType initialPhysicalPosition;
+
+  reader->GetOutput()->TransformIndexToPhysicalPoint( 
+                                  initialIndexPosition, 
+                                  initialPhysicalPosition );
+  
+  EllipseType::TransformType::OffsetType offset;
+  for(unsigned int i=0; i<Dimension; i++)
+    {
+    offset[i] = initialPhysicalPosition[i];
+    }
+
+  ellipse->GetObjectToParentTransform()->SetOffset(offset);
+  ellipse->ComputeObjectToWorldTransform();
+
   
   registration->SetFixedImage( reader->GetOutput() );
   registration->SetMovingSpatialObject( ellipse );
@@ -332,12 +341,10 @@ int main( int argc, char *argv[] )
   registration->SetOptimizer( optimizer );
   registration->SetMetric( metric );
 
-  TransformType::ParametersType initialParameters( 
-                      transform->GetNumberOfParameters() );
-  
-  initialParameters[0] = 30.0; 
-  initialParameters[1] = 30.0;
-  initialParameters[2] = 30.0;
+  TransformType::ParametersType initialParameters = transform->GetParameters();
+
+  initialParameters.Fill( 0.0 );
+ 
 
   registration->SetInitialTransformParameters(initialParameters);
 
