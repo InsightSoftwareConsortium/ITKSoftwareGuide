@@ -150,12 +150,15 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   ImageToListAdaptor.tex
   IsolatedConnectedImageFilter.tex
   IsoSurfaceExtraction.tex
+  IterativeClosestPoint1.tex
+  IterativeClosestPoint2.tex
+  IterativeClosestPoint3.tex
   KdTree.tex
   KdTreeBasedKMeansClustering.tex
   ListSample.tex
   ListSampleToHistogramFilter.tex
   ListSampleToHistogramGenerator.tex
-  LandmarksWarping2.tex
+  LandmarkWarping2.tex
   BSplineWarping1.tex
   DeformableRegistration1.tex
   DeformableRegistration2.tex
