@@ -59,6 +59,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/MathematicalMorphologyBinaryFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MathematicalMorphologyGrayscaleFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MedianImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/MeanImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MinMaxCurvatureFlowImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/RGBCurvatureAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/RGBGradientAnisotropicDiffusionImageFilter.cxx
@@ -107,6 +108,7 @@ SET( ITK_EXAMPLES_TEX_SRCS
   MathematicalMorphologyBinaryFilters.tex
   MathematicalMorphologyGrayscaleFilters.tex
   MedianImageFilter.tex
+  MeanImageFilter.tex
   RGBImageReadWrite.tex
   RGBCurvatureAnisotropicDiffusionImageFilter.tex
   RGBGradientAnisotropicDiffusionImageFilter.tex
