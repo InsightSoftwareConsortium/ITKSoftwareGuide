@@ -72,9 +72,6 @@ IF(LATEX_COMPILE)
   CONFIGURE_FILE(${SoftwareGuide_SOURCE_DIR}/LaTeXWrapper.sh.in
                  ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh)
 
-  MESSAGE("test for dependencies on the examples tex")
-  MESSAGE(${ITK_EXAMPLES_TEX_SRCS})
-
   ADD_CUSTOM_COMMAND( 
     SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS} ${ITK_EXAMPLES_TEX_SRCS}
     COMMAND   /bin/sh
