@@ -80,6 +80,21 @@ vtkActor eyeballActor
     eyeballActor SetPosition  0 0 -150
 
 
+vtkSphereSource lensSource
+    lensSource SetRadius 14
+    lensSource SetCenter 65 61 122
+    lensSource SetThetaResolution 40 
+    lensSource SetPhiResolution 40 
+
+vtkPolyDataMapper lensMapper
+    lensMapper SetInput [lensSource GetOutput]
+
+vtkActor lensActor
+    lensActor SetMapper lensMapper
+    eval [lensActor GetProperty] SetColor   0.8 0.8 0.8
+    lensActor SetPosition  0 0 -150
+
+
 #
 #  Skin
 #
@@ -113,12 +128,13 @@ vtkRenderWindowInteractor iren
 #
 #  Add all the actors
 #
-ren1 AddActor grayMatterActor
-ren1 AddActor skullActor
+#ren1 AddActor grayMatterActor
+#ren1 AddActor skullActor
 ren1 AddActor rightEyeActor
 ren1 AddActor eyeballActor
-ren1 AddActor neckMusclesActor
-ren1 AddActor skinActor
+ren1 AddActor lensActor
+#ren1 AddActor neckMusclesActor
+#ren1 AddActor skinActor
 
 
 
@@ -147,7 +163,7 @@ vtkWindowToImageFilter grabber
 vtkPNGWriter writer
   writer SetInput [ grabber GetOutput ]
   writer SetFileName "SoftwareGuideCover.png"
-  writer Write
+#  writer Write
 
 
 iren AddObserver UserEvent {wm deiconify .vtkInteract}
