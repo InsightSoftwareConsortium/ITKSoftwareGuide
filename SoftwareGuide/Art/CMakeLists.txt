@@ -208,6 +208,7 @@ SET(JPEG_IMAGES
   ImageRegistration9Output
   ImageRegistration9DifferenceBefore
   ImageRegistration9DifferenceAfter
+  ImageSliceIteratorWithIndexOutput
   IsolatedConnectedImageFilterOutput0
   IsolatedConnectedImageFilterOutput1
   MultiResImageRegistration1CheckerboardBefore
