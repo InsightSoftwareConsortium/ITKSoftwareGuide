@@ -175,6 +175,9 @@ SET(JPEG_IMAGES
   MinMaxCurvatureFlowImageFilterOutput
   MeanImageFilterOutput
   MedianImageFilterOutput
+  NeighborhoodConnectedImageFilterOutput1
+  NeighborhoodConnectedImageFilterOutput2
+  NeighborhoodConnectedImageFilterOutput3
   ResampleImageFilterInput2x3
   ResampleImageFilterOutput1
   ResampleImageFilterOutput2
