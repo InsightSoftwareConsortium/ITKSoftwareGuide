@@ -159,6 +159,7 @@ SET(JPEG_IMAGES
   DeformableRegistration2Output
   DeformableRegistration2CheckerboardBefore
   DeformableRegistration2CheckerboardAfter
+  DerivativeImageFilterOutput
   DiscreteGaussianImageFilterOutput
   FivePoints
   FastMarchingImageFilterOutput1
