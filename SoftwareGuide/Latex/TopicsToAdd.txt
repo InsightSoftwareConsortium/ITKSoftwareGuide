@@ -109,12 +109,17 @@ Chapter 4    Data Representation
 
      
 (1) 
-     - Double check that the AutomaticMesh example works as advertised...
+     - Double check that the AutomaticMesh example works as advertised... 
+        [Status: done. 
+          It works
+        ]
 
 
 (1)
-    -  Double check that all the examples are still working...
-
+    -  Double check that all the examples are still working... 
+      [Status: done 
+        Checked.. work
+      ]
 
 (3)
     - Check with Will about the AutoPointer...  maybe remove the 
@@ -122,10 +127,14 @@ Chapter 4    Data Representation
 
 
 (2)
-   - Add example on how to use the Neighborhood links
+   - Add example on how to use the Neighborhood links 
 
      
            BuildCellLinks()
+
+      [Status: Pending
+        Approporiate Example ?
+      ]
 
 (1)
    - Add section on the Simplex 
@@ -164,12 +173,18 @@ Chapter 6 Filtering
 (1) Karthik
    - in Thresholding add examples:
 
-       OtsuThresholdImageCalculator (using it alone) 
-       OtsuThresholdImageFilter (already there, but needs refinement).
+       OtsuThresholdImageCalculator (using it alone)    [Status: Done]
+       OtsuThresholdImageFilter (already there, but needs refinement).  [Status: Done]
 
-       OtsuMultipleThreshold Calculator (using it alone).          ** Added  **
-       OtsuMultipeleThreshodl Filter (add example + filter).       **  Added **
-       
+       OtsuMultipleThreshold Calculator (using it alone).          
+       OtsuMultipeleThreshodl Filter (add example + filter).       
+        
+        [Status: Done]
+        [ToDo: Maybe update Otsu Multiple Threshold filter example to the new itkOtsuThresholdFilter]
+        added by Padfiled. The earlier one used the ThresholdCalculator class
+          cvs add Art/OtsuThresholdImageFilterOutput.png
+          cvs commit Insight/Examples/Filtering/OtsuMultipeleThresholdImageFilter.cxx
+        ]
 
 
 
@@ -210,6 +225,9 @@ Chapter 6 Filtering
         
         at least comment the existing ones
         and generate output example images.
+        [Status: Postponed. Necessary ??
+          One example exists and works. Maybe add some figures. 
+          Rescale FFT outputs to log and display, Change example, add logMappingFuctor ?]
 
 
 (1) Luis
@@ -231,8 +249,10 @@ Chapter 6 Filtering
 - Add example for BinaryMedianImageFilter, take a noisy
   segmentation (e.g. plain thresholding) and then post-
   process it with this filter.
-
-  
+    [Status: done.]
+    [ToDo: Add Examples/Filtering/BinaryMedianImageFilter.cxx to CVS]
+    [Add BinaryMedianImageFilterOutput.jpg to SoftwareGuide/Art/]
+    [Add BinaryThresholdImageFilterOutput.jpg to SoftwareGuide/Art/]
 
 
 
@@ -253,6 +273,12 @@ Chapter 6 Filtering
 - Edge preserving filtering: move the Median filter here,
   and show the effect of running many iterations of a median.
   Explain its relationship to Voting filters.
+  
+  [Ask Luis about Recursive Filter discrepancy ?? What's going on ?]
+  
+  [Status Done: 
+    cvs commit SoftwareGuide/Latex/Filtering.tex]
+
 
 
 (3) Luis
@@ -269,6 +295,18 @@ Chapter 6 Filtering
   http://www.itk.org/Insight/Doxygen/html/classitk_1_1ReinitializeLevelSetImageFilter.html
 
   Check with Lydia (Brain Allen Institue) and/or Josh Cates (Utah)
+
+  [Status: Done]
+  [Added Insight/Code/BasicFilters/itkSignedDanielssonDistanceMapImageFilter.txx, 
+         Insight/Code/BasicFilters/itkSignedDanielssonDistanceMapImageFilter.h
+         Testing/BasicFilters/SignedDanielssonDistanceMapImageFilterTest.cxx
+          to repository]
+  [ToDo: Commit 
+      cvs add Insight/Examples/Filtering/SignedDanielssonDistanceMapImageFilter.cxx 
+      cvs add SoftwareGuide/Art/SignedDanielssonDistanceMapImageFilterOutput.png
+      cvs add SoftwareGuide/Art/Circle.png
+      cvs commit /InsightDocuments/SoftwareGuide/Examples/CMakeLists.txt
+  ]
 
 
 (1) Luis
@@ -291,6 +329,10 @@ Chapter 7 IO
 
 - Add a table withh all  the fileformat from the FAQ in Wiki.
 
+    [Status: Done]
+    [ToDo: Update figure InsightDocuments/Art/SoftwareGuideImageIOFactoriesClassDiagram.fig in CVS]
+
+
 - Add the examples for Series Read Write:
 
   The .cxx are there, they need to:
@@ -301,9 +343,11 @@ Chapter 7 IO
     
     
   - ImageReadImageSeriesWrite.cxx
-  - ImageSeriesReadWrite.cxx
+  - ImageSeriesReadWrite.cxx      [unnecessary if there is a series write and a series read anyway ?]
   - RGBImageSeriesReadWrite.cxx
   
+  [Status: Done]
+
 
 (1) Mathieu
 - Add a section on DICOM
@@ -324,6 +368,15 @@ Chapter 7 IO
     DicomSeriesReadPrintTags.cxx
     DicomSeriesReadSeriesWrite.cxx
 
+  [Status: Added little bit, Ask Mathieu to finish the rest]
+  [Added SWGuide comments to file /Insight/Examples/IO/DicomSeriesReadImageWrite2.cxx]
+  [Changed IO.tex to include GDCMDicom instead of older DICOM]
+  [ToDo: cvs Update files: 
+          /Insight/Examples/IO/DicomSeriesReadImageWrite2.cxx
+          /InsightDocuments/SoftwareGuide/IO/IO.tex
+          /InsightDocuments/Latex/Insight.bib  
+          /InsightDocuments/SoftwareGuide/Examples/CMakeLists.txt
+  ]
 
 
 
@@ -351,6 +404,12 @@ Chapter 7 IO
     - GradientDifferenceImageMetric      
     - KappaStatistics
     - MeanReciprocalSquares
+
+  [Status: Done]
+  [ToDo: Update
+      /SoftwareGuide/Latex/ImageMetrics.tex
+      /InsightDocuments/Latex/Insight.bib
+  ]
 
 
 (1) Luis
@@ -405,7 +464,14 @@ Chapter 7 IO
        - MeanSquaresHistogram
        - CorrelationCoefficientHistogramMetric
        - CompareHistogramImageToImageMetric
-
+    [Status: Done. 
+      2 of the above metrics not added
+      Not sure if it is necessary to add "CorrelationCoefficientHistogramMetric".. 
+      Pretty much the same as NormalizedCorrelationMetric... 
+      "CompareHistogramImageToImageMetric" will be used by KullbackLiebler
+    ]
+      
+  
 
 
 (1) Luis
@@ -422,6 +488,10 @@ Chapter 7 IO
         evaluating deformable registration. 
         like morphing.
 
+        [Status: ToDo
+          Maybe ask Luis for some fMRI datasets...
+        ]  
+      
 
      2) A mechanism for initializing displacement
           fields for deformable registration methods
@@ -429,11 +499,36 @@ Chapter 7 IO
 
       - BSplineWarping
       - LandmarWarping
-        
+        [Status: Done
+          ToDo: cvs add ThinPlateSplineWarp.cxx
+        ]
+
+      [Status: Clarify with Luis
+        Not sure what's necessary. The deformation field may be computed with
+        BSplineWarping etc and Demons can be initialized via SetInitialDeformationField.
+                
        Illustrate how to use Paraview for visualizing
        the deformation field
 
+      [Status: Done
+        Added section on viewing 2D deformation fields
+        Adding section on viewing 3D deformation fields
+
+      ToDo:
+        cvs add /InsightDocuments/SoftwareGuide/Latex/VisualizingDeformationFieldsUsingParaview.tex
+        cvs add /InsightDocuments/SoftwareGuide/Art/ParaviewScreenshot1.jpg
+        cvs add /InsightDocuments/SoftwareGuide/Art/ParaviewScreenshot2.jpg
+        cvs add /InsightDocuments/SoftwareGuide/Art/ParaviewScreenshot3.jpg
+        cvs add /InsightDocuments/SoftwareGuide/Art/ParaviewScreenshot1.eps
+        cvs add /InsightDocuments/SoftwareGuide/Art/ParaviewScreenshot2.eps
+        cvs add /InsightDocuments/SoftwareGuide/Art/ParaviewScreenshot3.eps
+        cvs add /InsightDocuments/SoftwareGuide/Art/ParaviewScreenshot4.eps
+        cvs commit /InsightDocuments/SoftwareGuide/Latex/Registration.tex
+      ]
+
      - Show an example on the deformation of the grid.
+        [Status: ToDo]
+
 
 
      
@@ -468,10 +563,23 @@ Chapter 7 IO
         why... from Thirion's paper.
         DeformableRegistration3.cxx example...
 
+        [Status: Done
+          Was already there..
+        Other changes:
+          Removed DeformableRegistration2.cxx and DeformableRegistration3.cxx 
+          from Latex/DeformableRegistration.tex, cause its present in 
+          Latex/DemonsRegistration.tex
+        
+        ToDo: 
+          cvs commit InsightDocuments/SoftwareGuide/Latex/DemonsRegistration.tex
+                     InsightDocuments/SoftwareGuide/Latex/DeformableRegistration.tex
+        ]
+
 (2) Karthik
       - Add a 3D example ( on the same image of the 3D FEM)  
     
       - Results visualized in ParaView...
+        [Status: Doing]
 
 (1) Karthik (Luis help)
       - FIX equations in section 8.13 for the K factor for
@@ -479,6 +587,9 @@ Chapter 7 IO
         on Thirion's paper.
 
       - Run this for the extra examples to be added for FEM.
+
+    [Status: Pending
+    ]
 
 
 (1) Luis
@@ -491,6 +602,10 @@ Chapter 7 IO
       2D & 3D and both optimizers LBFGS LBSFGSB.
       DeformableRegistration7 & 8
       (give credit to filter contributor).
+
+    [Status: Working on it
+      Will add that to vis using Paraview section
+    ]
 
 
 (2) (Luis) Delegate to Stephen & Julien
@@ -512,16 +627,30 @@ Chapter 9 Segmentation
     - For all the Region Growing examples add a 3D example,
       and surface render the result with VolView or Paraview.
       run the Plugins in VolView.
-
+      [Status: Done
+        Added a 3D example for ConfidenceConnected filter
+        Some images and segemented white matter with Volview.
+      ToDo:
+        cvs add 3DregionGrowingScreenshot1.eps
+        cvs add SlicesBrainWebConfidenceConnected.eps
+        cvs add ConfidenceConnectedOnBrainWeb.tex        
+      ]
+      
 
 (1) Karthik
     - Clarify that many seed points can be provided.
       e.g. illustrate the use on the figure 9.1 page 319.
+      [Status: Done
+        The previous 3D segmentation used 5 seed points. Hopefully that
+        clarifies the point.
+      ]
 
 (1) Karthik
     - 9.1.4 Add example showing that the seed can be both in
             bright or dark places. 
 
+      [ ?? Not sure if needed ?? The book has segmentations of gray matter!]
+    
 
 (2) (Luis) Outsource to Sayan            
     - Add example for KLMRegionGrowing (Ceck with Sayan).
@@ -543,8 +672,9 @@ Chapter 9 Segmentation
 (1) Karthik
     - Level Sets:  Verify that all of them run & eventually
       fine tune the  parameters from the Regression testing.
-
-
+    [Status: Working on it
+    ]
+    
 
 (2) Luis
       - Add 3D examples from VolView ?
@@ -575,6 +705,8 @@ Chapter 9 Segmentation
 (1) Karthik
     - Active Shape Models (Leventon paper by Lydia).
       GeodesicActiveContourShapePriorLevelSetImageFilter.cxx
+      [ ?? ]
+    
 
 
 (2) Will (preprocessing for visualization)
@@ -688,6 +820,14 @@ Automation process:
 - Added tags to most examples in Filtering/, Segmentation/, Iterators/
 - Option to Build Figures
 - Option to Flip specified list of input figures (and their output figure dependencies)
+
+
+Other fixes: (Karthik)
+-Fixed Examples Registration/ImageRegistration10.cxx and added outputs
+-Fixed Examples Registration/ImageRegistration11.cxx and added outputs
+-Fixed Examples Registration/ImageRegistration13.cxx and added outputs
+
+
 
 
 
