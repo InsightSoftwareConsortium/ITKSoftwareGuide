@@ -133,6 +133,9 @@ SET(JPEG_IMAGES
   ImageRegistration5Output2
   ImageRegistration5DifferenceBefore2
   ImageRegistration5DifferenceAfter2
+  ImageRegistration6Output
+  ImageRegistration6DifferenceBefore
+  ImageRegistration6DifferenceAfter
   MultiResImageRegistration1CheckerboardBefore
   MultiResImageRegistration1CheckerboardAfter
   MultiResImageRegistration1Output
