@@ -497,22 +497,6 @@
 \DeclareTextCommandDefault{\textunderscore}{%
   \leavevmode \kern.06em\vbox{\hrule\@width.55em}}
 
-% Underscore hack (only act like subscript operator if in math mode)
-%
-% The following is due to Mark Wooding (the old version didn't work with
-% Latex 2e.
-
-\DeclareRobustCommand\hackscore{%
-  \ifmmode_\else\textunderscore\fi%
-}
-\begingroup
-\catcode`\_\active
-\def\next{%
-  \AtBeginDocument{\catcode`\_\active\def_{\hackscore{}}}%
-}
-\expandafter\endgroup\next
-
-
 % Now for a lot of semantically-loaded environments that do a ton of magical
 % things to get the right formatting and index entries for the stuff in
 % Insight modules and C API.
