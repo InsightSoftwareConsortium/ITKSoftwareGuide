@@ -13,14 +13,6 @@
 \newcommand{\itk@paper}{letterpaper}
 \newcommand{\itk@ptsize}{10pt}
 
-% Increase printable page size (copied from fullpage.sty)
-\topmargin 0in
-\advance \topmargin by -\headheight
-\advance \topmargin by -\headsep
-
-\oddsidemargin   0.625in
-\evensidemargin -0.625in
-\marginparwidth  0.500in
 
 %  These set up the fonts for the documents.
 %
@@ -39,9 +31,24 @@
 % Change the options here to get a different set of basic options, but only
 % if you have to.  
 %
-\LoadClass[\itk@paper,\itk@ptsize,twoside,openright]{book}
+\LoadClass[\itk@paper,\itk@ptsize,twoside,titlepage,openright]{book}
+
+\paperheight 9.50in
+\paperwidth  7.25in
+
+\topmargin 0.625in
+\setlength{\voffset}{-0.625in}
+
+% Increase printable page size (copied from fullpage.sty)
+\advance \topmargin by -\headheight
+\advance \topmargin by -\headsep
+
+\oddsidemargin   0.625in
+\evensidemargin -0.625in
 
 \setcounter{secnumdepth}{2}
+
+
 
 % Optional packages:
 %
@@ -69,9 +76,6 @@
 %
 %
 
-
-\paperheight 9.50in
-\paperwidth  7.25in
 
 % This gives us all the Insight-specific markup that we really want.
 % This should come last.  Do not change this.
