@@ -47,6 +47,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/ThresholdImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/CastingImageFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientMagnitudeImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/GradientMagnitudeRecursiveGaussianImageFilter.cxx
 )
 
 
@@ -75,7 +76,8 @@ SET( ITK_EXAMPLES_TEX_SRCS
   BinaryThresholdImageFilter.tex
   ThresholdImageFilter.tex
   CastingImageFilters.tex
-  GradientMagnitudeImageFilter.tex
+  GradientMagnitudeImageFilter.cxx
+  GradientMagnitudeRecursiveGaussianImageFilter.tex
 )
 
 
