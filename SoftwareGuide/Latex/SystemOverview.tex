@@ -48,16 +48,6 @@ in the previous chapter two other modules---\code{InsightDocumentation} and
         output data from the pipeline. ITK uses a flexible object factory
         mechanism supporting a variety of file formats.
 
-	\item[Registration Framework.] A flexible framework for registration
-        supports four different types of registration: image registration,
-        multiresolution registration, PDE based registration, and FEM (finite-
-        element, i.e., deformable) registration.
-
-	\item[FEM Framework.] ITK includes a subsystem for solving general
-        FEM problems, in particular non-rigid registration. The FEM package
-        includes mesh definition (nodes and elements), loads, and boundary
-        conditions.
-
 	\item[Spatial Objects.] Geometric shapes are represented in ITK using
         the spatial object hierarchy.  These classes are intended to support
         modeling of anatomical structures. Using a common basic interface,
@@ -67,6 +57,16 @@ in the previous chapter two other modules---\code{InsightDocumentation} and
         scheme.  Spatial objects are a natural data structure for
         communicating the results of segmentation methods and for introducing
         anatomical priors in both segmentation and registration methods.
+
+	\item[Registration Framework.] A flexible framework for registration
+        supports four different types of registration: image registration,
+        multiresolution registration, PDE based registration, and FEM (finite-
+        element, i.e., deformable) registration.
+
+	\item[FEM Framework.] ITK includes a subsystem for solving general
+        FEM problems, in particular non-rigid registration. The FEM package
+        includes mesh definition (nodes and elements), loads, and boundary
+        conditions.
 
 	\item[Level Set Framework.] The level set framework is a set of
         classes for creating filters to solve partial differential equations
@@ -718,10 +718,11 @@ are found in the {Testing/Code/*/} directories.
 
 The result of the wrapping process is a set of shared libraries/dll's that
 can be used by the interpreted languages. There is almost a direct
-translation from C++, with the differences being the
-particular syntactical requirements of each language. For example, in the
-directory \code{Testing/Code/Algorithms} directory, the test 
-\code{itkCurvatureFlowTestTcl2.tcl} has a code fragment that appears as follows:
+translation from C++, with the differences being the particular syntactical
+requirements of each language. For example, in the directory
+\code{Testing/Code/Algorithms} directory, the test
+\code{itkCurvatureFlowTestTcl2.tcl} has a code fragment that appears as
+follows: 
 \small
 \begin{verbatim}
   set reader [itkImageFileReaderF2_New]
@@ -753,7 +754,7 @@ language such as Tcl.  Templated classes must be instantiated prior to
 wrapping. That is, the template parameters must be specified as part of the
 wrapping process. In the example above, the
 \code{CurvatureFlowImageFilterF2F2} indicates that this filter has been
-instantiated using an output and output image type of two-dimensional float
+instantiated using an input and output image type of two-dimensional float
 values (e.g., \code{F2}). Typically just a few common types are selected for
 the wrapping process to avoid an explosion of types and hence, library
 size. To add a new type requires rerunning the wrapping process to produce
