@@ -51,7 +51,7 @@ scheme.
 \index{itk::InterpolateImageFunction!EvaluateAtContinuousIndex()}
 \index{itk::InterpolateImageFunction!IsInsideBuffer()}
 
-The basic input to a \code{itk::InterpolateImageFunction} is the image to
+The basic input to a \doxygen{InterpolateImageFunction} is the image to
 be interpolated. Once an image has been defined using \code{SetInputImage()},
 a user can interpolate either at a point using \code{Evaluate()} or
 an index using \code{EvaluateAtContinuousIndex()}.
@@ -63,7 +63,7 @@ which image pixels exist.
 \subsection{Nearest Neighbor Interpolation}
 \label{sec:NearestNeighborInterpolation}
 \index{itk::NearestNeighborInterpolateImageFunction|textbf}
-\code{NearestNeighborInterpolateImageFunction} simply use the intensity of
+\doxygen{NearestNeighborInterpolateImageFunction} simply use the intensity of
 the nearest grid position. That is, it assumes that the image intensity
 is piecewise constant with jumps mid-way between grid positions. 
 This interpolation scheme is cheap as it does not require any 
@@ -72,7 +72,7 @@ floating point computations.
 \subsection{Linear Interpolation}
 \label{sec:LinearInterpolation}
 \index{itk::LinearInterpolateImageFunction|textbf}
-\code{LinearInterpolateImageFunction} assumes that intensity varies linearly
+\doxygen{LinearInterpolateImageFunction} assumes that intensity varies linearly
 between grid positions. Unlike nearest neighbor, the interpolated
 intensity is spatially continuous. However, the intensity gradient
 will be discontinuous at grid positions.
@@ -80,7 +80,7 @@ will be discontinuous at grid positions.
 \subsection{B-Spline Interpolation}
 \label{sec:BSplineInterpolation}
 \index{itkBSplineInterpolateImageFunction|textbf}
-\code{BSplineInterpolateImageFunction} represents the image intensity 
+\doxygen{BSplineInterpolateImageFunction} represents the image intensity 
 using B-spline basis functions. When an input image is first 
 connected to the interpolator, B-spline 
 coefficients are computed using recursive filtering (assuming mirror

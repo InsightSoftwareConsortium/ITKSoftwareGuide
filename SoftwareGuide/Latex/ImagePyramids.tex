@@ -1,10 +1,10 @@
 
 \index{itk::MultiResolutionPyramidImageFilter|textbf}
 
-In ITK, the \code{MultiResolutionPyramidImageFilter} can be used to create a
+In ITK, the \doxygen{MultiResolutionPyramidImageFilter} can be used to create a
 sequence of down-sampled version of the input image.  The down-sampling is done
 according to a user defined multi-resolution schedule. The schedule is
-specified as an \code{Array2D<int>} containing shrink factors for each
+specified as an \doxygen{Array2D}<int> containing shrink factors for each
 multi-resolution level (rows) for each dimension (columns). For example,
 
 \begin{verbatim}
@@ -59,6 +59,6 @@ and starting factors of 8, 8 and 4, the generated schedule would be:
 When this filter is triggered by \code{Update()}, $M$ outputs are produced
 where the $m$-th output correspond to the $m$-th level of the pyramid.
 To generate these images, Gaussian smoothing is first performed using a
-\code{DiscreteGaussianImageFilter} with the variance set to $(s/2)^2$,
+\doxygen{DiscreteGaussianImageFilter} with the variance set to $(s/2)^2$,
 where $s$ is the shrink factor. The smoothed images are then sub-sampled using
-a \code{ShrinkImageFilter}.
+a \doxygen{ShrinkImageFilter}.
