@@ -1,0 +1,48 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%     This file is included from the file   Segmentation.tex
+% 
+%     Section tag and label are placed in this top file.
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Extracting salient features from images is an important task on image
+processing.  It is typicaly used for guiding segmentation methods, perparing
+data for registration methods, or as a mechanism for recognimizing anatomical
+structures in images.
+
+The following section introduce some of the feature extraction methods 
+available in the toolkit.
+
+
+\subsection{Hough Transform}
+\label{sec:HoughtLineExtraction}
+
+The Hough transfomr is a widely used technique for detection of geometrical
+features in images. It is based on mapping the image into a parameteric space
+in which it may be easier to identify if particular geometrical features are
+present in the image. The transformation is specific for each desired
+geometrical shape. 
+
+\subsubsection{Line Extraction}
+\label{sec:HoughtLineExtraction}
+
+\ifitkFullVersion
+\input{HoughTransform2DLinesImageFilter.tex}
+\fi
+
+
+
+\subsubsection{Circle Extraction}
+\label{sec:HoughtCircleExtraction}
+
+\ifitkFullVersion
+%\input{HoughTransform2DLinesImageFilter.tex}
+\fi
+
+
+
