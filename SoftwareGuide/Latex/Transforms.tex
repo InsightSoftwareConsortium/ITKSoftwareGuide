@@ -3,42 +3,101 @@
 
 \index{itk::Transform|textbf}
 
-In the toolkit, \code{itk::Transform} objects encapsulates the mapping of
-points and vectors from an input space to an output space.
-If a transform is invertible, back transform methods are also provided. 
-Currently, ITK provide a variety of transforms from simple translation, 
-rotation and scaling to general affine and kernel transforms. 
-Note that, although we discuss transforms in context registration in this section, 
-transforms are general and can used for other applications. Some of the commonly used 
-transforms will be discussed in detail later in this section.
+In the toolkit, \code{itk::Transform} objects encapsulate the mapping of points
+and vectors from an input space to an output space.  If a transform is
+invertible, back transform methods are also provided.  Currently, ITK provides
+a variety of transforms from simple translation, rotation and scaling to
+general affine and kernel transforms.  Note that, although we discuss
+transforms in the context of registration in this section, transforms are
+general and can be used for other applications. Some of the commonly used
+transforms will be discussed in detail later in this section. Let's introduce
+first the objects used in ITK for for representing basic spatial concepts.
+
+\subsection{Geometrical Representation}
+\label{sec:GeometricalObjects}
+
+\begin{figure}
+\center
+\includegraphics[width=14cm]{GeometricalObjects.eps}
+\caption{Geometrical representation objects in ITK.}
+\label{fig:GeometricalObjects}
+\end{figure}
+ 
+Insight implements a consitent geometric representation of the space. The
+characteristics of classes involved in this representation are summarized in
+the following table.
+
+\index{itk::Point!Concept}
+\index{itk::Vector!Concept}
+\index{itk::CovariantVector!Concept}
+
+\begin{center}
+\begin{tabular}{ | p{4cm} | p{ 11cm } | }
+\hline
+\textbf{Class} &
+\textbf{Geometrical concept} \\
+\hline\hline
+\code{itk::Point} & 
+Position in space. In a $N$-Dimensional space it is represented by an array of
+$N$ numbers associated with space coordinates. \\
+\hline
+\code{itk::Vector} & 
+Relative position between two points. In a $N$-Dimensional space is represented
+by an array of $N$-numbers each one associated with the distance along a
+coordinate axis. Vectors do not have a position in space.\\
+\hline
+\code{itk::CovariantVector} & Orthogonal direction to a $(N-1)$-dimensional
+manifold in space. For example, in $3D$ it corresponds to the vector orthogonal
+to a surface. This is the apropriate class for representing gradients of
+functions. Covariant vectors do not have a position in space.\\
+\hline
+\end{tabular}
+\end{center}
+
+Additional uses of the \code{Point}, \code{Vector} and \code{CovariantVector}
+classes have been discussed in Chapter \ref{sec:DataRepresentation}.  Each one
+of these classes behaves differently under spatial transformations. It is
+henceforth quite important to keep their distinction clear. Figure
+\ref{fig:GeometricalObjects} illustrates schematically the differences between
+these concepts.
+
 
 \index{itk::Transform!TransformPoint()}
 \index{itk::Transform!TransformVector()}
 \index{itk::Transform!TransformCovariantVector()}
-Points, vectors and covariant vectors are transformed using methods
-\code{TransformPoint()}, \code{TransformVector()} and \code{TransformCovariantVector()}.
-The distinction between points, vectors and covariant vectors has already
-been discussed in Chapter \ref{sec:DataRepresentation}. 
+
+\code{itk::Transform} classes provide different methods for mapping each one of
+the basic space-representation object.  Points, vectors and covariant vectors
+are transformed using the methods \code{TransformPoint()},
+\code{TransformVector()} and \code{TransformCovariantVector()}.
+
+\subsection{Transform General Properties}
+\label{sec:TransformGeneralProperties}
 
 \index{itk::Transform!SetParameters()}
-Typically each transform type have several methods for setting
-the parameters. For example, \code{Euler2DTransform} provide methods for
-separately setting the offset, the angle, and the entire rotation matrix.
-However, for use in the registration framework, the parameters must also
-be represented by a flat \code{Array<double>} to allow communication
-with generic optimizers. In the case of \code{Euler2DTransform}, the transform
-is also defined by three doubles: the first representing the angle and 
-the last two the offset. The flat array of parameters is defined 
-using \code{SetParameters()}. A description of the parameters and their
-ordering is documented in the header file of each transform. 
+Typically each transform type have several methods for setting its parameters.
+For example, \code{Euler2DTransform} provide methods for separately setting the
+offset, the angle, and the entire rotation matrix.  However, for use in the
+registration framework, the parameters must also be represented by a flat
+\code{Array<double>} to allow communication with generic optimizers. In the
+case of \code{Euler2DTransform}, the transform is also defined by three
+doubles: the first representing the angle and the last two the offset. The flat
+array of parameters is defined using \code{SetParameters()}. A description of
+the parameters and their ordering is documented in the following sections.
+ 
+In the context of registration, the transform parameters define the search
+space for optimizers. That is, the goal of the optimization is to find the
+set of parameters defining a transform that optimizes the value of an image
+metric. The more parameters a transform has, the longer its computational time
+will be when used in a registration method since the dimension of the search
+space will be equal to the number of transform parameters.
 
 \index{itk::Transform!GetJacobian()}
 Another requirement of the registration framework is the computation of the
-transformation Jacobian. In general, metrics require the knowledge of 
-the Jacobian in order to compute the metric derivatives. 
-The Jacobian is a matrix whose element are the partial derivatives of the 
-output point with respect to the array of parameters that defines the 
-transform:
+transformation Jacobian. In general, metrics require the knowledge of the
+Jacobian in order to compute the metric derivatives.  The Jacobian is a matrix
+whose element are the partial derivatives of the output point with respect to
+the array of parameters that defines the transform:
 
 \begin{equation}
 J=\left[ \begin{array}{cccc}
@@ -56,8 +115,19 @@ J=\left[ \begin{array}{cccc}
 \end{equation}
 
 Within this framework, the Jacobian is represented by a \code{Array2D<double>}
-and is obtained from the transform by method \code{GetJacobian()}
+and is obtained from the transform by method \code{GetJacobian()}. The Jacobian
+can be interpreted as a matrix that indicates for a point in the input space
+how much its mapping on the output space will change as a response to a small
+variation in one of the transform parameters. Note the the values of the
+Jacobian matrix depend on the point in the input space. So actually the
+Jacobian can be noted as $J(\bf{X})$. The use of transform Jacobians allows to
+compute metric derivatives in a very efficient way. When Jacobians are not
+available, metrics derivatives have to be computed using finite difference at a
+price of $2M$ evaluations of the metric value, where $M$ is the number of
+transform parameters.
 
+The following sections describe the main characteristics of the transform
+classes availables in ITK.
 
 \subsection{Identity Transform}
 \label{sec:IdentityTransform}
@@ -78,8 +148,10 @@ Only defined when the input and output space has the same number of dimensions. 
 \end{tabular}
 \end{center}
 
-
-
+The identity transform is mainly used for debugging purposes. It is a mechanism
+to provide a transform to methods that require it but yet have the certainty
+that the transform will have no effect whatsoever in the outcome of the
+process. It is just a \code{NULL} operation.
 
 
 \subsection{Translation Transform}
