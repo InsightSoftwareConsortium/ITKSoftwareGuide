@@ -13,27 +13,84 @@
 \label{sec:HybridSegmentationIntroduction}
 
 
-It is sometimes convenient to combine several segmentation strategies with the
-aim of taking advantage of their qualities an compensate their vulnerabilities.
-The synergy between fundamentally different methodologies tends to result in
-robustness and higher segmentation quality.  This section illustrates an hybrid
-approach for segmentation in which two different strategies are configured to
-work together. In this case, an input image is first processed by a filter
-based on the concept of region growing. The criterion of acceptance in the
-region is defined by a similarity measure that evaluates how homogeneous is the
-path between to pixels. The output of this filter is used as a prior for
-another filter that performs a full partition of the image space and then work
-joining and splitting regions in order to optimize an homogeneity measure.
+Hybrid methods for automated segmentation of radiological patient data and the 
+Visible Human data integrate boundary-based and region-based segmentation methods 
+that amplify the strength but reduces the weakness of both approaches.The novelty 
+comes from combining a region-based segmentation methods, the fuzzy connectedness 
+and Voronoi Diagram classification with a boundary-based deformable model 
+segmentation, to develop hybrid methods that yield high precision, accuracy and 
+efficiency.The synergy between fundamentally different methodologies tends to 
+result in robustness and higher segmentation quality. We built Hybrid Segmentation 
+Engine,  Figure \ref{fig:ComponentsofaHybridSegmentationApproach}, that consists of modules 
+representating component segmentation methods (itk filters). We can derive a variety 
+of hybrid segmentation methods from the modules. It should be noted that under Fuzzy 
+Connectedness module and Deformable Models module, we checked in into the itk a number 
+of filters in each of the categories, respectively. Below, we decribe two examples of
+hybrid segmentation methods, derived from the Hybrid segmentation Engine: Hybrid 
+Method 1: Integration of Fuzzy Connectedness and Voronoi Diagram Classification;
+Hybrid Method 2: Integration of Gibbs prior and Deformable Models.
 Details on the concepts behind those methods have been discussed in the
-litterature
+literature
 \cite{Angelini2002,Udupa2002,Jin2002,Imielinska2001,Imielinska2000a,Imielinska2000b}
 
 
 
-\subsection{Background}
-\label{sec:HybridSegmentationBackground}
+\subsection{HybridMethod1:FuzzyConectednessAndVoronoiDiagramClassification}
+\label{sec:HybridMethod1}
 
+In this section, we present a hybrid segmentation method that requires minimal
+manual initialization, where we integrate the fuzzy connectedness segmentation
+and Voronoi Diagram Classification. We start with fuzzy connectedness filter
+to generate a sample of tissue from a region to be segmented. From the sample,
+we derive automatically, homogeneity statistics that constitute homogeneity
+operator to be used in the next stage of the method. The output of the fuzzy 
+connectedness filter is used as a prior for the Voronoi Diagram Classification 
+filter that performs iterative subdivision and classification of the segmented
+image that results in an estimation of the boundary. The output of this filter
+is a 3D binary image that can be used to display the 3D result of the
+segmentation, or passed to another filter (e.g. Deformable Model) for further
+improvement of the final segmentation. Details describing the concepts behind those methods 
+have been published in
+\cite{Angelini2002,Udupa2002,Jin2002,Imielinska2001,Imielinska2000a,Imielinska2000b}
 
+In Figure \ref{fig:UMLClassDiagramoftherFuzzyConnectednessFilter}, we describe 
+base class for simple fuzzy connectedness segmentation. This method is non-scale 
+based, non-iterative and requires only one seed to initialize it. We define affinity 
+between two nearby elements in a image (e.g. pixels, voxels) via a degree of adjacency, 
+similarity of their intensity values, and their similarity with the estimated object. 
+The closer the elements are and more similar their intensities are, the greater is 
+the affinity between them. We compute the strength of a path and fuzzy connectedness 
+between each two pixels (voxels) in the segmented image from the fuzzy affinity. 
+Computation of fuzzy connectedness value of each pixel (voxel) is implemented
+by selecteing a seed point and using dynamic programming. The result constitutes the fuzzy
+map. Thresholding of the fuzzy map gives a segmented object that is strongly connected
+to the seed point (for more details, see \cite{Udupa1996}). We checked in two fuzzy 
+connectedness filters: the itkSimpleFuzzyConnectednessScalarImageFilter that is an
+implementation of the fuzzy connectedness segmentation of single channel (gray scale) 
+image;itkSimpleFuzzyConnectednessRGBImageFilter that is an implementation of fuzzy
+connectedness implementation of three-channel (RGB) image. Other classes can be derived 
+from the base class by defining other affinity function, and targeting multi-channel
+images with and arbitrary number of channels. It has to be noted, that the simple fuzzy 
+connectedness filter can be used as a stand-alone segmentation method,
+as it is described in the diagram in Figure 
+\ref{fig:UMLCollaborationDiagramoftheFuzzyConnectednessFilter}.
+
+In Figure \ref{fig:UMLClassDiagramoftheVoronoiDiagramFilter} we present base class for Voronoi
+Diagram Clasification. We initialize the method with a number of random seed points and compute
+Voronoi Diagram over the segmented 2D image. Each Voronoi region, in teh subdivision,
+is classified as internal
+or external, based on the homogeneity operator derived from the fuzzy connectedness algorithm.
+We define boundary regions as the external regions that are adjacent to the internal regions. 
+We subdivide further the boundary regions by adding seed points to
+the regions. We converge to the final segmentation using simple stopping criterium (for details,
+see \cite{Imielinska2001}). We implemneted two Voronoi Diagram filters:
+the itkVoronoiSegmentationImageFilter that is dedicated to process single
+channel (gray scale) images; the itkVoronoiSegmentationRGBImageFilter that segments three-channel
+(RGB) images. Other classes can be derivedfrom the base class by defining other homogeneity
+measurements, and targeting multichannel images with and arbitrary number of channels.
+The other classes that are used for computing 2D Voronoi Diagram, are shown in Figure \ref{fig:UMLClassesforImplementationofVoronoiDiagramFilter}. We note that the Voronoi Diagram
+Filter can be used as a stand-alone segmentation method, as it is depicted in Figure
+\ref{fig:UMLCollaborationDiagramoftheVoronoiDiagramFilter}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -48,108 +105,63 @@ litterature
 \begin{figure}
 \center
 \includegraphics[width=14cm]{HybridSegmentationEngine1.eps}
-\caption{Components of a HybridSegmentation approach}
-\label{fig:HybridSegmentationEngine1}
-\end{figure}
-
-The Figure \ref{fig:HybridSegmentationEngine1} illustrates the main
-components of the hybrid segmentation algorithm.
-
-\begin{figure}
-\center
-\includegraphics[width=14cm]{HybridSegmentationFCVDDM.eps}
-\caption{Components of a HybridSegmentation approach}
-\label{fig:HybridSegmentationFCVDDM}
-\end{figure}
-
-
-\begin{figure}
-\center
-\includegraphics[width=14cm]{VoronoiSegmentationClassDiagram1.eps}
-\caption{UML Class Diagram of the VoronoiSegmentation filter}
-\label{fig:VoronoiSegmentationClassDiagram1}
+\caption{Hybrid Segmentation Engine}
+\label{fig:ComponentsofaHybridSegmentationApproach}
 \end{figure}
 
 
 \begin{figure}
 \center
 \includegraphics[width=14cm]{FuzzyConnectednessClassDiagram1.eps}
-\caption{UML Class Diagram of the FuzzyConnectedness filter}
-\label{fig:FuzzyConnectednessClassDiagram1}
+\caption{Diagram of the FuzzyConnectedness filter}
+\label{fig:UMLClassDiagramoftherFuzzyConnectednessFilter}
 \end{figure}
-
-
-\begin{figure}
-\center
-\includegraphics[width=14cm]{VoronoiSegmentationCollaborationDiagram1.eps}
-\caption{UML Collaboration Diagram of the VoronoiSegmentation filter}
-\label{fig:VoronoiSegmentationCollaborationDiagram1}
-\end{figure}
-
 
 
 \begin{figure}
 \center
 \includegraphics[width=14cm]{FuzzyConnectednessCollaborationDiagram1.eps}
-\caption{UML Collaboration Diagram of the FuzzyConnectedness filter}
-\label{fig:FuzzyConnectednessCollaborationDiagram1}
+\caption{Diagram Of Stand-Alone Fuzzy Connectedness Segmentation}
+\label{fig:UMLCollaborationDiagramoftherFuzzyConnectednessFilter}
 \end{figure}
 
+\begin{figure}
+\center
+\includegraphics[width=14cm]{VoronoiSegmentationClassDiagram1.eps}
+\caption{Diagram of the Voronoi Diagram Classification filter}
+\label{fig:UMLCollaborationDiagramoftherFuzzyConnectednessFilter}}
+\end{figure}
+
+\begin{figure}
+\center
+\includegraphics[width=14cm]{VoronoiSegmentationCollaborationDiagram1.eps}
+\caption{Classes for Implementation of Voronoi Diagram Filter}
+\label{fig:UMLClassesforImplementationofVoronoiDiagramFilter}
+\end{figure}
 
 
 \begin{figure}
 \center
 \includegraphics[width=14cm]{VoronoiSegmentationCollaborationDiagram2.eps}
-\caption{UML Collaboration Diagram of the VoronoiSegmentation filter}
-\label{fig:VoronoiSegmentationCollaborationDiagram2}
+\caption{Diagram Of Stand-Alone Voronoi Diagram Segmentation}
+\label{fig:UMLCollaborationDiagramoftheVoronoiSegmentationFilter}
 \end{figure}
 
 
 
+\subsubsection{HybridMethod1:Example}
+\label{sec:HybridMethod1:Example}
 
-\begin{figure}
-\center
-\includegraphics[width=14cm]{FuzzyVoronoiCollaborationDiagram1.eps}
-\caption{UML Collaboration Diagram of the Fuzzy Voronoi Segmentation}
-\label{fig:FuzzyVoronoiCollaborationDiagram1}
-\end{figure}
-
-
-
-
-\begin{figure}
-\center
-\includegraphics[width=14cm]{FuzzyVoronoiDeformableCollaborationDiagram1.eps}
-\caption{UML Collaboration Diagram of the Fuzzy Voronoi Deformable Segmentation}
-\label{fig:FuzzyVoronoiDeformableCollaborationDiagram1}
-\end{figure}
-
-
-
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  Here is an example of how to include equations
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{equation}
-MS(A,B) = \frac{1}{N} \sum_i^N \left( A_i - B_i \right)^2
-\end{equation}
-
-
-
-
-
-\subsection{Example}
-\label{sec:HybridSegmentationExample1}
+The source code of this section can be found in the file 
+Examples/Segmentation/HybridSegmentationFuzzyVoronoi.cxx
 
 \input{HybridSegmentationFuzzyVoronoi.tex}
 
+
+\subsection{HybridMethod2:GibbsPriorDeformableModel}
+\label{sec:HybridMethod2}
+
+
+\subsubsection{HybridMethod2:Example}
+\label{sec:HybridMethod2:Example}
 
