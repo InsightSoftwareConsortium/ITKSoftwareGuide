@@ -71,6 +71,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/DanielssonDistanceMapImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/DiscreteGaussianImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/DerivativeImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/FlipImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientMagnitudeImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientMagnitudeRecursiveGaussianImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientRecursiveGaussianImageFilter.cxx
