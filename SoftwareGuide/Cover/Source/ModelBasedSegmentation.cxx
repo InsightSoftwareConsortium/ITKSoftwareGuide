@@ -159,6 +159,7 @@ public:
     while(!it.IsAtEnd())
       {
       m_FixedImage->TransformIndexToPhysicalPoint( it.GetIndex(), point );
+      std::cout << "Index " << it.GetIndex() << "  =  " << point << std::endl;
       if(m_MovingSpatialObject->IsInside(point,99999))
         { 
         m_PointList.push_back(point);
@@ -264,9 +265,13 @@ int main( int argc, char *argv[] )
   EllipseType::Pointer ellipse = EllipseType::New();
 
 
+  EllipseType::ArrayType axis;
+  axis[0] = 10;
+  axis[1] =  5;
+  axis[2] = 10;
 
 
-  ellipse->SetRadius(  10.0  );
+  ellipse->SetRadius( axis );
 
 
   typedef itk::ImageToSpatialObjectRegistrationMethod<
@@ -306,7 +311,7 @@ int main( int argc, char *argv[] )
 
   optimizer->SetNormalVariateGenerator( generator );
   optimizer->Initialize( 10 );
-  optimizer->SetMaximumIteration( 400 );
+  optimizer->SetMaximumIteration( 40 );
 
  
   TransformType::ParametersType parametersScale;
@@ -363,12 +368,12 @@ int main( int argc, char *argv[] )
   SizeType   fixedRegionSize;
 
   fixedRegionStart[0] = 20;
-  fixedRegionStart[1] = 50;
+  fixedRegionStart[1] = 15;
   fixedRegionStart[2] = 20;
 
   fixedRegionSize[0] = 20;
   fixedRegionSize[1] = 10;
-  fixedRegionSize[2] = 20;
+  fixedRegionSize[2] = 25;
   
   fixedRegion.SetSize(  fixedRegionSize  );
   fixedRegion.SetIndex( fixedRegionStart );
