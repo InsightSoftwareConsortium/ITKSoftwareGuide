@@ -86,7 +86,7 @@ sub ParseCxxFile {
   # The following message will show up in the actual text preceding
   # any of the examples. That facilitate users to relate to code in 
   # the source tree.
-  print OUTFILE "The sources of this code can be found in the file\\\\\n";
+  print OUTFILE "The source code of this section can be found in the file\\\\\n";
   print OUTFILE "\\texttt\{$examplefilename\}\n\n";
 
 
