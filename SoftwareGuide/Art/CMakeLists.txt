@@ -45,6 +45,7 @@ SET(XFIG_FIGURES
   DudaClassifier
   GeometricalObjects
   GeodesicActiveContoursCollaborationDiagram1
+  GeodesicActiveContourShapePriorCollaborationDiagram
   FastMarchingCollaborationDiagram1
   FuzzyConnectednessClassDiagram1
   FuzzyConnectednessCollaborationDiagram1
