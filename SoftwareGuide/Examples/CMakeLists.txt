@@ -8,7 +8,7 @@
 # Find ITK Sources
 #
 FIND_PATH(ITK_SOURCE_DIR UseITK.cmake.in)
-
+INCLUDE (${CMAKE_ROOT}/Modules/FindPerl.cmake)
 
 
 #
@@ -138,7 +138,7 @@ IF( PERLCXXPARSER )
 
   ADD_CUSTOM_COMMAND(
     SOURCE    ${ITK_EXAMPLES_SRCS}
-    COMMAND   find
+    COMMAND   C:/cygwin/bin/find
     ARGS      ${ITK_SOURCE_DIR}/Examples   -name '*.cxx' -print > ${CxxExamplesListFile}
     TARGET    SoftwareGuideExamples
     DEPENDS   ${ITK_EXAMPLES_SRCS}
@@ -153,7 +153,7 @@ IF( PERLCXXPARSER )
 
   ADD_CUSTOM_COMMAND(
     SOURCE    ${ITK_EXAMPLES_SRCS}
-    COMMAND   ${PERLCXXPARSER}
+    COMMAND   ${PERL_EXECUTABLE} ${PERLCXXPARSER}
     ARGS      ${CxxExamplesListFile}   ${SoftwareGuide_BINARY_DIR}/Examples
     TARGET    SoftwareGuideExamples
     DEPENDS   ${CxxExamplesListFile} ${PERLCXXPARSER}
