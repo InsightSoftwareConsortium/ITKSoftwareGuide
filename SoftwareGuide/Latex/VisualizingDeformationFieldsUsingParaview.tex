@@ -49,7 +49,9 @@ Figure \ref{fig:ParaviewScreenshot3} shows the vector field visualized using Par
 Let us create a 3D deformation field. We will use Thin Plate Splines to warp a 3D dataset and create a deformation field. We will pick a set of point landmarks and translate them to provide a specification of correspondences at point landmarks. Note that the landmarks have been picked randomly for purposes of illustration and are not intended to portray a true deformation. The landmarks may be used to produce a deformation field in several ways. Most techniques minimize some regularizing functional representing the irregularity of the deformation field, which is usually some function of the spatial derivatives of the field. Here will we use {\it thin plate splines}. Thin plate splines minimize the regularizing functional 
 
 \begin{equation}
+I[f(x,y)] = \iint (f^2_{xx} + 2 f^2_{xy} + f^2_{yy}) dx dy
 \end{equation}
+where the subscripts denote partial derivatives of f.
 
 The code for this section can be found in Insight/Examples/Registration/ThinPlateSplineWarp.cxx
 
