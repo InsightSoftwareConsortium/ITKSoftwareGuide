@@ -62,6 +62,8 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   BinomialBlurImageFilter.tex
   CastingImageFilters.tex
   ConfidenceConnected.tex
+  ConnectedThresholdImageFilter.tex
+  NeighborhoodConnectedImageFilter.tex
   CurvatureAnisotropicDiffusionImageFilter.tex
   CurvatureFlowImageFilter.tex
   DanielssonDistanceMapImageFilter.tex
@@ -85,6 +87,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   ImageRegistration5.tex
   ImageRegistration6.tex
   ImageRegistration7.tex
+  IsolatedConnectedImageFilter.tex
   DeformableRegistration1.tex
   MultiResImageRegistration1.tex
   MultiResImageRegistration2.tex
