@@ -7,9 +7,14 @@ INCLUDE (${CMAKE_ROOT}/Modules/FindLATEX.cmake)
 
 #
 # Options for PDF generation. 
-# resolution in dpi.
+# resolution in dpi.  
 #
-SET(DVIPDF_COMPILE_OPTIONS "-r600x600")
+#  /screen   = low    resolution = Distiller "Screen" optimized
+#  /ebook    = medium resolution = Distiller "eBook"  
+#  /printer  = high   resolution = Distiller "Print" optimized  
+#
+SET(PS2PDF_COMPILE_OPTIONS "-dPDFSETTINGS=/screen" -r600)
+SET(DVIPS_COMPILE_OPTIONS  -D600)
 
 #
 # File that defines the path to .cxx examples in ITK sources
@@ -161,13 +166,23 @@ IF(LATEX_COMPILE)
     OUTPUTS   SoftwareGuide.dvi
   )
 
-  IF(DVIPDF_COMPILE)
+  IF(DVIPS_COMPILE)
     ADD_CUSTOM_COMMAND( 
       SOURCE    SoftwareGuide.dvi
-      COMMAND   ${DVIPDF_COMPILE}
-      ARGS      ${DVIPDF_COMPILE_OPTIONS} SoftwareGuide.dvi
+      COMMAND   ${DVIPS_COMPILE}
+      ARGS      SoftwareGuide.dvi ${DVIPS_COMPILE_OPTIONS} -o  SoftwareGuide.ps
       TARGET    SoftwareGuideLatex
       DEPENDS   SoftwareGuide.ind SoftwareGuide.bbl
+      OUTPUTS   SoftwareGuide.ps
+    )
+  ENDIF(DVIPS_COMPILE)
+  
+  IF(PS2PDF_COMPILE)
+    ADD_CUSTOM_COMMAND( 
+      SOURCE    SoftwareGuide.ps
+      COMMAND   ${PS2PDF_COMPILE}
+      ARGS      ${PS2PDF_COMPILE_OPTIONS} SoftwareGuide.ps
+      TARGET    SoftwareGuideLatex
       OUTPUTS   SoftwareGuide.pdf
     )
     ADD_CUSTOM_COMMAND( 
@@ -176,7 +191,7 @@ IF(LATEX_COMPILE)
       TARGET    SoftwareGuideLatex
       DEPENDS   SoftwareGuide.pdf
     )
-  ENDIF(DVIPDF_COMPILE)
+  ENDIF(PS2PDF_COMPILE)
 
   IF(MAKEINDEX_COMPILE)
     ADD_CUSTOM_COMMAND( 
