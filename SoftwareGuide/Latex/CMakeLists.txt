@@ -41,8 +41,8 @@ ENDIF(NOT MAKEINDEX_COMPILER)
 #  /prepress = high   resolution = Distiller like "Print" with some error checking differences
 #
 #SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/printer" -r600)
-#SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/prepress" -r600)
-SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/screen" -r600)
+SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/prepress" "-dColorImageResolution=600" "-dGrayImageResolution=600" -r600)
+#SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/screen" -r600)
 
 SET(DVIPS_CONVERTER_OPTIONS  -D600)
 
