@@ -103,6 +103,7 @@ SET(XFIG_FIGURES
   SigmoidBase
   SigmoidParameterAlpha
   SigmoidParameterBeta
+  ShapeDetectionCollaborationDiagram1
   ThresholdTransferFunctionAbove
   ThresholdTransferFunctionBelow
   ThresholdTransferFunctionOutside
