@@ -54,20 +54,19 @@ are the local maxima of $f$, and the results of the watershed segmentation is
 trivial.  For higher-dimensional image domains, the watershed boundaries are
 not simply local phenomena; they depend on the shape of the entire watershed.
 
-The drawback of watershed segmentation is that it produces a region
-for each local minimum; that is often, in practice, too many
-regions---an over segmentation.  To alleviate this, we can establish a
-minimum watershed depth.  The watershed depth is the difference in
-height between the watershed minimum and the lowest boundary point.
-In other words, it is the maximum depth of water a region could hold
-without flowing into any of its neighbors.  Thus, a watershed
-segmentation algorithm can sequentially combine watersheds whose
-depths fall below the minimum until all of the watersheds are of
-sufficient depth.  This depth measurement can be combined with other
-saliency measurements, such as size.  The result is a segmentation
-containing regions whose boundaries and size are significant.  Because
-the merging process is sequential, it produces a hierarchy of regions,
-as shown in Figure~\ref{fig:watersheds}.
+The drawback of watershed segmentation is that it produces a region for each
+local minimum---in practice too many regions---and an over segmentation
+results.  To alleviate this, we can establish a minimum watershed depth.  The
+watershed depth is the difference in height between the watershed minimum and
+the lowest boundary point.  In other words, it is the maximum depth of water
+a region could hold without flowing into any of its neighbors.  Thus, a
+watershed segmentation algorithm can sequentially combine watersheds whose
+depths fall below the minimum until all of the watersheds are of sufficient
+depth.  This depth measurement can be combined with other saliency
+measurements, such as size.  The result is a segmentation containing regions
+whose boundaries and size are significant.  Because the merging process is
+sequential, it produces a hierarchy of regions, as shown in
+Figure~\ref{fig:watersheds}.
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{WatershedsHierarchy.eps}
@@ -82,7 +81,7 @@ a graphical interface to this hierarchy, so that a technician can quickly move
 from the small regions that lie within a area of interest to the union of
 regions that correspond to the anatomical structure \cite{Yoo1991}.
 
-There are two different algorithms commonly used to implement watersheds,
+There are two different algorithms commonly used to implement watersheds:
 top-down and bottom-up.  The top-down, gradient descent strategy was chosen for
 ITK because we want to consider the output of multi-scale differential
 operators, and the $f$ in question will therefore have floating point
@@ -100,25 +99,24 @@ of the Insight watersheds filter.}
 \protect\label{fig:constructionWatersheds}
 \end{figure}
 
-Figure~\ref{fig:constructionWatersheds} shows how the Insight
-image-to-image watersheds filter is constructed.  The filter is
-actually a collection of smaller filters that modularize the several
-steps of the algorithm in a mini-pipeline.  The segmenter object
-creates the initial segmentation via steepest descent from each pixel
-to local minima. Shallow background regions are removed (flattened)
-before segmentation using a simple minimum value threshold (this helps
-to minimize oversegmentation of the image).  The initial segmentation
-is passed to a second sub-filter that generates a hierarchy of basins
-to a user-specified maximum watershed depth.  The relabeler object at
-the end of the mini-pipeline uses the hierarchy and the initial
-segmentation to produce an output image at any scale {\em below} the
-user-specified maximum.  Data objects are cached in the mini-pipeline
-so that changing watershed depths only requires a (fast) relabeling of
-the basic segmentation.  The three parameters that control the filter
-are shown in Figure~\ref{fig:constructionWatersheds} connected to
-their relevant processing stages.
+Figure~\ref{fig:constructionWatersheds} shows how the ITK image-to-image
+watersheds filter is constructed.  The filter is actually a collection of
+smaller filters that modularize the several steps of the algorithm in a
+mini-pipeline.  The segmenter object creates the initial segmentation via
+steepest descent from each pixel to local minima. Shallow background regions
+are removed (flattened) before segmentation using a simple minimum value
+threshold (this helps to minimize oversegmentation of the image).  The
+initial segmentation is passed to a second sub-filter that generates a
+hierarchy of basins to a user-specified maximum watershed depth.  The
+relabeler object at the end of the mini-pipeline uses the hierarchy and the
+initial segmentation to produce an output image at any scale {\em below} the
+user-specified maximum.  Data objects are cached in the mini-pipeline so that
+changing watershed depths only requires a (fast) relabeling of the basic
+segmentation.  The three parameters that control the filter are shown in
+Figure~\ref{fig:constructionWatersheds} connected to their relevant
+processing stages.
 
-\subsection{Using the Insight Watershed Filter}
+\subsection{Using the ITK Watershed Filter}
 \label{sec:UsingWatersheds}
 \index{Watersheds!ImageFilter}
 \input{WatershedSegmentation1.tex}
