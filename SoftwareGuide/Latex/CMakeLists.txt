@@ -45,6 +45,7 @@ SET( Tex_SRCS
   SoftwareGuide.tex
   SoftwareProcess.tex
   SystemOverview.tex
+  Transforms.tex
   Visualization.tex
   Wrapping.tex
   WatershedSegmentation.tex
