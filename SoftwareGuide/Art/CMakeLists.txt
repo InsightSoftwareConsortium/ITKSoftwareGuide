@@ -301,6 +301,9 @@ SET(JPEG_IMAGES
   VectorConfidenceConnectedOutput3
   VisibleWomanHeadSlice
   VisibleWomanEyeSlice
+  VisibleWomanEyeSliceRedComponent
+  VisibleWomanEyeSliceGreenComponent
+  VisibleWomanEyeSliceBlueComponent
   WatershedAbdomenSegmentation
   WatershedRendering
   WatershedSegmentation1Output1
