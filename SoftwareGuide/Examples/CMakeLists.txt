@@ -159,6 +159,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ThresholdSegmentationLevelSetImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/VectorConfidenceConnected.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/GeodesicActiveContourImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Segmentation/GeodesicActiveContourShapePriorLevelSetImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/WatershedSegmentation1.cxx
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/BlobSpatialObject.cxx
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/EllipseSpatialObject.cxx
