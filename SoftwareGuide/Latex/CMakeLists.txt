@@ -208,6 +208,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   VectorCurvatureAnisotropicDiffusionImageFilter.tex
   VectorGradientAnisotropicDiffusionImageFilter.tex
   VectorImage.tex
+  WarpImageFilter1.tex
   WatershedSegmentation1.tex
   WeightedSampleStatistics.tex
   )
