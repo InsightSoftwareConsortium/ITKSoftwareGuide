@@ -11,14 +11,17 @@ gain an appreciation for the breadth and area of application of ITK.
 
 The Insight Toolkit consists of several subsystems. A brief
 description of these subsystems follows. Later sections in this chapter---and
-in some cases addtional chapters---cover these concepts in more detail. 
+in some cases addtional chapters---cover these concepts in more detail. (Note:
+in the previous chapter two other modules---\code{InsightDocumentation} and
+\code{InsightApplications} were briefly described.)
 
 \begin{description}
-	\item[Essential System Objects.] Like any software system, ITK is
-        built around some core design features. Some of the more important
-        features include smart pointers for memory management, object factories
-        for adaptable object instantiation, event management using the 
-        command/observer design paradigm, and multithreading support.
+	\item[Essential System Concepts.] Like any software system, ITK is
+        built around some core design concepts. Some of the more important
+        concepts include generic programming, smart pointers for memory
+        management, object factories for adaptable object instantiation,
+        event management using the command/observer design paradigm, and
+        multithreading support.
 
 	\item[Data Representation and Access.]  Two principle classes are
         used to represent data: the Image and Mesh classes. In addition,
@@ -30,12 +33,12 @@ in some cases addtional chapters---cover these concepts in more detail.
         easy-to-use C++ wrappers around the Netlib Fortran numerical 
         analysis routines (\url{http://www.netlib.org}).
 
-	\item[Data Processing Pipeline.]  The data representation classes are
-        operated on by \emph{filters} that in turn may be organized into data
-        flow pipelines. These pipelines maintain state and therefore execute
-        only when necessary, support multi-threading, and are streaming
-        capable (i.e., can operate on pieces of data to minimize the
-        memory footprint).
+	\item[Data Processing Pipeline.]  The data representation classes
+        (known as \emph{data objects}) are operated on by \emph{filters} that
+        in turn may be organized into data flow pipelines. These pipelines
+        maintain state and therefore execute only when necessary, support
+        multi-threading, and are streaming capable (i.e., can operate on
+        pieces of data to minimize the memory footprint).
 
         \item[IO Framework.] Associated with the data processing pipeline are
         sources, i.e., filters that initiate the pipeline, and mappers,
@@ -54,15 +57,15 @@ in some cases addtional chapters---cover these concepts in more detail.
         includes mesh definition (nodes and elements), loads, and boundary
         conditions.
 
-	\item[Spatial Objects.] A hierarchy of classes for shape
-        representation.  These classes are intended to support modeling of
-        anatomical structures. Using a common basic interface, the spatial
-        objects are capable of representing regions of space in a variety of
-        different ways. For example: mesh structures, image masks, and
-        implicit equations.  Spatial objects are the natural data structure
-        for communications the results of segmentation methods and for
-        introducing anatomical priors in both segmentation and registration
-        methods.
+	\item[Spatial Objects.] Geometric shapes are represented in ITK using
+        the spatial object hierarchy.  These classes are intended to support
+        modeling of anatomical structures. Using a common basic interface,
+        the spatial objects are capable of representing regions of space in a
+        variety of different ways. For example: mesh structures, image masks,
+        and implicit equations may be used as the underlying representation
+        scheme.  Spatial objects are a natural data structure for
+        communicating the results of segmentation methods and for introducing
+        anatomical priors in both segmentation and registration methods.
 
 	\item[Level Set Framework.] The level set framework is a set of
         classes for creating filters to solve partial differential equations
@@ -90,11 +93,46 @@ in some cases addtional chapters---cover these concepts in more detail.
 \end{description}
 
 
-\section{Essential System Objects}
-\label{sec:EssentialSystemObjects}
+\section{Essential System Concepts}
+\label{sec:EssentialSystemConcepts}
 
-This section describes some of the core objects and implementation constructs
+This section describes some of the core concepts and implementation features
 found in ITK.
+
+\subsection{Generic Programming}
+\label{sec:GenericProgramming}
+
+Generic programming is a method of organizing libraries consisting of
+generic---or reusable---software components \cite{Musser1996}. The idea is to
+make software that is capable of ``plugging together'' in an efficient,
+adaptable manner. The essential ideas of generic programming are
+\emph{containers} to hold data, \emph{iterators} to access the data, and 
+\emph{generic algorithms} that use containers and iterators to create 
+efficient, fundamental algorithms such as sorting. Generic programming is
+implemented in C++ with the \emph{template} programming mechanism and the 
+use of the STL Standard Template Library \cite{Austern1999}.
+
+C++ templating is a programming technique allowing users to write software in
+terms of one or more unknown types \code{T}. To create executable code, the
+user of the software must specify all types \code{T} (known as \emph{template
+instantiation} and successfully process the code with the compiler. The
+\code{T} may be a native type such as
+\code{float} or \code{int}, or \code{T} may be a user-defined type (e.g.,
+\code{class}). At compile-time, the compiler makes sure that the templated 
+types are compatible with the instantiated code and that the types are
+supported by the necessary functions and operators.
+
+ITK uses the techniques of generic programming in its implementation. The
+advantage of this approach is that an almost unlimited variety of data types
+are supported simply by defining the appropriate template types. For example,
+in ITK it is possible to create images consisting of almost any type of
+pixel. In addition, the type resolution is performed at compile-time, so the
+compiler can optimize the code to deliver maximal performance. The
+disadvantage of generic programming is that many compilers still do not
+support these advanced concepts and cannot compile ITK. And even if they do,
+they may produce completely undecipherable error messages due to even the
+simplest syntax errors. If you are not familiar with templated code and
+generic programming, we recommend the two books cited above.
 
 \subsection{Include Files and Class Definitions}
 \label{sec:IncludeFiles}
@@ -107,6 +145,7 @@ is used by the Doxygen documentation systen to produce the HTML manual pages.
 In addition to class headers, there are a few other important header files.
 \begin{description}
         \item[\code{itkMacro.h}] is found in the \code{Code/Common} directory
+
         and defines standard system-wide macros (such as \code{Set/Get},
         constants, and other parameters.
 
@@ -178,9 +217,23 @@ At the end of scope, the \code{SmartPointer} \code{interp} is destroyed, the
 reference count of the actual interpolator object is decremented, and if it
 reaches zero, then the interpolator is also destroyed.
 
-%	multithreading, smart pointers, object factories, system includes,
-%	command/observers/events
-%
+%\subsection{Object Factories}
+%\label{sec:ObjectFactories}
+
+
+
+\subsection{Multi-Threading}
+\label{sec:MultiThreading}
+
+Multithreading is handled in ITK in a generic manner. The class
+\code{itk::MultiThreader} provides support for multithreaded execution using
+\code{sproc()} on an SGI, or \code{pthread_create} on any platform supporting 
+POSIX threads.  This class can be used to execute a single method on multiple
+threads, or to specify a method per thread.
+
+%\subsection{Event Handling}
+%\label{sec:EventHandling}
+
 
 %\section{Data Representation and Access}
 %\label{sec:DataRepresentationAndAccess}
