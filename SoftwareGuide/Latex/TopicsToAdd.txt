@@ -322,6 +322,38 @@ Chapter 7 IO
 
 
 
+- Chapter 8  Registration
+
+  
+  - Add a diagram from the PPT tutorial
+    regarding pixel spacing.
+
+
+  - Add time performance for the examples & 
+    describe Zion. (check about multithreading).
+
+
+  - Secion 8.4  Add the other MI metrics
+
+
+    - Kullback Leibler MI
+    - Normalized Mutual Information Histogram
+
+
+  - ImageRegistration8 --> 3D example
+    
+
+  - Add ImageRegistration7 & the Similarity transform.
+
+
+  - In Multi-Resolution add comment regarding the approach
+    of fine-tunning the parameters for each level.
+
+
+  -  ImageRegistration11.cxx  
+    
+
+
 
 New Chapter : Visualization
 
