@@ -1,7 +1,7 @@
 \chapter{How To Write A Filter}
 \label{chapter:WriteAFilter}
 
-This purpose of this chapter is to assist developers create their own
+This purpose of this chapter is help developers create their own
 filter (process object).  This chapter is divided into four major
 parts. An initial definition of terms is followed by an overview of
 the filter creation process. Next, data streaming is discussed. The
@@ -124,17 +124,18 @@ Once the appropriate superclass is identified, the filter writer
 implements the class defining the methods required by most all ITK
 objects: \code{New()}, \code{PrintSelf()}, and protected constructor,
 copy constructor, delete, and operator=, and so on. Also, don't forget
-standard typedefs like Self, Superclass, Pointer, and
-ConstPointer. Then the filter writer can focus on the most important
+standard typedefs like \code{Self}, \code{Superclass}, \code{Pointer}, and
+\code{ConstPointer}. Then the filter writer can focus on the most important
 parts of the implementation: defining the API, data members, and other
-implementation details of the algorithm. In particular, the filter
-writer will have to implement either a \code{GenerateData()}
-(non-threaded) or \code{ThreadedGenerateData()} method. (See ``'' for
-more information.)
+implementation details of the algorithm. In particular, the filter writer
+will have to implement either a \code{GenerateData()} (non-threaded) or
+\code{ThreadedGenerateData()} method. (See Section~\ref{sec:MultiThreading}
+for an overview of multi-threading in ITK.)
 
-An important note: the GenerateData() method is required to allocate memory for
-the output. The ThreadedGenerateData() method is not. In default implementation
-(see \doxygen{ImageSource}, a superclass of \doxygen{ImageToImageFilter})
+An important note: the GenerateData() method is required to allocate memory
+for the output. The ThreadedGenerateData() method is not. In default
+implementation (see \doxygen{ImageSource}, a superclass of
+\doxygen{ImageToImageFilter})
 \code{GenerateData()} allocates memory and then invokes
 \code{ThreadedGenerateData()}.
 
@@ -439,9 +440,10 @@ because an output iterator can be created using the region provided. Hence
 the output can be iterated over, accessing the corresponding input pixels as
 necessary to compute the value of the output pixel.
 
-Multi-threading requires caution when producing output or invoking
-events. Normally only thread id zero is allowed to produce output or generate
-events. (The threadId is passed as argument into ThreadedGenerateData()). 
-If more than one thread tries to write to the same place at the same time, 
-the program can behave badly, and even crash.
+Multi-threading requires caution when performing I/O (including using
+\code{cout} or \code{cerr}) or invoking events. A safe practice is to allow 
+only thread id zero to perform I/O or generate events. (The thread id is
+passed as argument into \code{ThreadedGenerateData()}).  If more than one
+thread tries to write to the same place at the same time, the program can
+behave badly, and possibly even deadlock or crash.
 

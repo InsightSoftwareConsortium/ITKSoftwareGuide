@@ -1,5 +1,5 @@
 
-\chapter{ImageAdaptors}
+\chapter{Image Adaptors}
 \label{sec:ImageAdaptors}
 
 \index{ImageAdaptors}
@@ -29,17 +29,16 @@ memory buffer large enough to store the \code{float} image. The
 original image and contains no useful additional information. Image
 adaptors, on the other hand, do not require the extra memory as
 pixels are converted only when they are read using image iterators
-(see chapter~\ref{sec:ImageIteratorsChapter}).
+(see Chapter~\ref{sec:ImageIteratorsChapter}).
 
-Image adaptors are particularly useful when there is infrequent pixel
-access, since the actual conversion occurs on the fly during pixel
-access. In such cases the use of image adaptors may reduce overall
-computation time as well as reduce memory usage. The use of image
-adaptors, however, can be disadvantageous in some situations. For
-example, when the downstream filter is executed multiple times, a
-CastImageFilter will cache its output after the first execution and
-will not re-execute when the filter downstream is updated. Conversely,
-an image adaptor will compute the cast every time.
+Image adaptors are particularly useful when there is infrequent pixel access,
+since the actual conversion occurs on the fly during the access operation. In
+such cases the use of image adaptors may reduce overall computation time as
+well as reduce memory usage. The use of image adaptors, however, can be
+disadvantageous in some situations. For example, when the downstream filter
+is executed multiple times, a CastImageFilter will cache its output after the
+first execution and will not re-execute when the filter downstream is
+updated. Conversely, an image adaptor will compute the cast every time.
 
 Another application for image adaptors is to perform lightweight
 pixel-wise operations replacing the need for a filter. In the toolkit,
