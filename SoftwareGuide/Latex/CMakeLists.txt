@@ -54,11 +54,62 @@ SET( SoftwareGuide_Tex_SRCS
 ENDFOREACH( file )
 
 
-#SET( ITK_EXAMPLES_TEX_SRCS ${SoftwareGuide_BINARY_DIR}/Examples/*.tex )
 
-SET( CxxExamplesListFile  
-  ${SoftwareGuide_BINARY_DIR}/Examples/ExamplesList.txt
- )
+SET( ITK_EXAMPLES_TEX_SRCS_NAMES 
+  BilateralImageFilter.tex
+  BinaryMinMaxCurvatureFlowImageFilter.tex
+  BinaryThresholdImageFilter.tex
+  BinomialBlurImageFilter.tex
+  CastingImageFilters.tex
+  CurvatureAnisotropicDiffusionImageFilter.tex
+  CurvatureFlowImageFilter.tex
+  DanielssonDistanceMapImageFilter.tex
+  DiscreteGaussianImageFilter.tex
+  GradientAnisotropicDiffusionImageFilter.tex
+  GradientMagnitudeImageFilter.tex
+  GradientMagnitudeRecursiveGaussianImageFilter.tex
+  HelloWorld.tex
+  Image1.tex
+  Image2.tex
+  Image3.tex
+  Image4.tex
+  ImageRegistration1.tex
+  MathematicalMorphologyBinaryFilters.tex
+  MathematicalMorphologyGrayscaleFilters.tex
+  MeanImageFilter.tex
+  MedianImageFilter.tex
+  Mesh1.tex
+  Mesh2.tex
+  Mesh3.tex
+  MeshCellsIteration.tex
+  MeshCellVisitor2.tex
+  MeshCellVisitor.tex
+  MeshKComplex.tex
+  MeshTraits.tex
+  MinMaxCurvatureFlowImageFilter.tex
+  PointSet1.tex
+  PointSet2.tex
+  PointSet3.tex
+  PointSetWithCovariantVectors.tex
+  PointSetWithVectors.tex
+  ResampleImageFilter2.tex
+  ResampleImageFilter3.tex
+  ResampleImageFilter.tex
+  RGBCurvatureAnisotropicDiffusionImageFilter.tex
+  RGBGradientAnisotropicDiffusionImageFilter.tex
+  RGBImageReadWrite.tex
+  RGBImage.tex
+  RGBPointSet.tex
+  ThresholdImageFilter.tex
+  VectorCurvatureAnisotropicDiffusionImageFilter.tex
+  VectorGradientAnisotropicDiffusionImageFilter.tex
+  VectorImage.tex
+  )
+
+FOREACH( exampletexname ${ITK_EXAMPLES_TEX_SRCS_NAMES})
+  SET( ITK_EXAMPLES_TEX_SRCS ${SoftwareGuide_BINARY_DIR}/Examples/${exampletexname} )
+ENDFOREACH( exampletexname )
+
 
 
 
