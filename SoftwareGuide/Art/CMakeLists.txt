@@ -44,6 +44,8 @@ SET(JPEG_IMAGES
   ResampleImageFilterOutput1
   ResampleImageFilterOutput2
   ResampleImageFilterOutput3
+  ResampleImageFilterOutput7
+  ResampleImageFilterOutput7b
   RGBCurvatureAnisotropicDiffusionImageFilterOutput
   RGBCurvatureAnisotropicDiffusionImageFilterOutput2
   RGBGradientAnisotropicDiffusionImageFilterOutput
