@@ -31,6 +31,11 @@ FIND_PROGRAM(PERLCXXPARSER
 
 ADD_CUSTOM_TARGET(SoftwareGuideExamples  ALL echo)
 
+#
+# At some point we should replace the manual ITK_EXAMPLES_SRCS with 
+# this FILE GLOB_RECURSE expression
+#
+FILE( GLOB_RECURSE ITK_EXAMPLES_SRCS2  ${ITK_SOURCE_DIR}/Examples/*.cxx)
 
 
 SET( ITK_EXAMPLES_SRCS
@@ -139,6 +144,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration7.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration8.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration9.cxx
+  ${ITK_SOURCE_DIR}/Examples/Registration/MeanSquaresImageMetric1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/DeformableRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/DeformableRegistration2.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/DeformableRegistration3.cxx
@@ -147,6 +153,9 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Registration/BSplineWarping1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/MultiResImageRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/MultiResImageRegistration2.cxx
+  ${ITK_SOURCE_DIR}/Examples/Registration/IterativeClosestPoint1.cxx
+  ${ITK_SOURCE_DIR}/Examples/Registration/IterativeClosestPoint2.cxx
+  ${ITK_SOURCE_DIR}/Examples/Registration/IterativeClosestPoint3.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ModelToImageRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/CannySegmentationLevelSetImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ConnectedThresholdImageFilter.cxx
