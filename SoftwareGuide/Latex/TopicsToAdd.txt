@@ -340,6 +340,17 @@ Chapter 7 IO
     - Normalized Mutual Information Histogram
 
 
+
+
+    Add other Metrics: (find a section for them...)
+
+    
+    - MatchCardinality metric
+    - GradientDifferenceImageMetric      
+    - KappaStatistics
+    - MeanReciprocalSquares
+
+
   - ImageRegistration8 --> 3D example
     
 
@@ -350,9 +361,121 @@ Chapter 7 IO
     of fine-tunning the parameters for each level.
 
 
-  -  ImageRegistration11.cxx  
+  -  ImageRegistration11.cxx  use of the OnePlusOne optimizer + MI metric.
+    
+  
+   - Move Section 8.11 Multires pyramid filter to the Section on 
+     Multiresolution and link it with the .cxx example on the 
+     use of this filter.
+     Commit the example for StarsEnd on MultiresolutionPyramidFilter.cxx
+     polish the comments and add the Latex section.
+
+
+
+  -  What to do with METRIC & Parameters Plots ?
+     they are probably not valid anymore
+     but it will take a long time to regenerate them.
+  
+
+
+
+  - Transforms Section:
+
+      Full revision: discuss with Stephen & Lydia, regarding
+      parameters & center of rotation.
+
+
+  - Metrics:
+
+      Add new metrics
+
+       - Kullbak Leibler
+       - MutualInformationHistogramBased 
+       - MatchCardinality metric
+       - GradientDifferenceImageMetric      
+       - KappaStatistics
+       - MeanReciprocalSquares
+       - MeanSquaresHistogram
+       - CorrelationCoefficientHistogramMetric
+       - CompareHistogramImageToImageMetric
+
+
+
+  - Add Section on PointSet-To-Image registration
+    describe the method of the Narrowband to Image
+    registration.
+
+
+
+  - Warping Image 
+  
+     1) A way of creating ground truth for
+        evaluating deformable registration. 
+        like morphing.
+
+
+     2) A mechanism for initializing displacement
+          fields for deformable registration methods
+          like Demons.
+
+      - BSplineWarping
+      - LandmarWarping
+        
+       Illustrate how to use Paraview for visualizing
+       the deformation field
+
+     - Show an example on the deformation of the grid.
+
+
+     
+
+     - Add two examples more for FEM
+       using the exact same code but changing the parameter
+       file.
+
+       Illustrate how to select the "Elasticity" and "Roc"
+
+       Illustrate the use of Landmarks in the FEM framework.
+       FiniteElementRegistrationLandmarks.txt
+
+     - Add a 3D example.... do rendering with Volview ? Paraview ?
+    
+       Specially show the modifications needed in the input
+       parameter file in order to do 3D.
+
+       
+
+   - DEMONS
+
+      - Add example for Symmetric forces demons, explain
+        why... from Thirion's paper.
+        DeformableRegistration3.cxx example...
+
+      - Add a 3D example ( on the same image of the 3D FEM)  
+    
+      - Results visualized in ParaView...
+
+      - FIX equations in section 8.13 for the K factor for
+        pixel spacing, and mention the lack of unit-balance
+        on Thirion's paper.
+
+      - Run this for the extra examples to be added for FEM.
+
+
+
+
+
+   - Model to Image registration (Check with Stephen & Julien)
+
+       - Show the image of the real SpatialObject (e.g. draw
+         the Ellipsoid using VTK.
+
+       - Add example of 3D vasculature tree & CT, or Ultrasound.
+
+
     
 
+   
 
 
 New Chapter : Visualization
