@@ -53,7 +53,7 @@ of the NeighborhoodIterator.
 The following code illustrates how to use the Median filter 
 as implemented in ITK
 
-\include Filtering\MedianImagefilter.cxx
+\include Filtering\MedianImageFilter.cxx
 
 
 */
