@@ -38,13 +38,13 @@ C-Language pointer interface.
 
 \index{Iterators!advantages of}
 In ITK we use iterators to write generic image processing code for
-\doxygen{itk::Image}s instantiated with different combinations of pixel type, pixel
+\doxygen{Image}s instantiated with different combinations of pixel type, pixel
 container type, and dimensionality.  Because ITK image iterators are
 specifically designed to work with \emph{image} containers, their interface and
 implementation is optimized for image processing tasks.
 
 Writing image processing code in ITK with iterators has many specific
-advantages over using the \doxygen{itk::Image} interface directly.  Code is more
+advantages over using the \doxygen{Image} interface directly.  Code is more
 compact and often generalizes automatically to higher dimensions, algorithms
 run much faster, and iterators simplify tasks such as multithreading,
 neighborhood image processing, and working with non-rectilinear regions of
@@ -72,9 +72,9 @@ or on the pixel type of the image.
 \index{Iterators!and image regions}
 
 There are always at least two arguments to an ITK image iterator constructor.
-The first argument is a smart pointer to an \doxygen{itk::Image}.  This is the
+The first argument is a smart pointer to an \doxygen{Image}.  This is the
 image to iterate over. The second argument is an
-\doxygen{itk::ImageRegion} that specifies the \emph{iteration region}.  The
+\doxygen{ImageRegion} that specifies the \emph{iteration region}.  The
 iteration region is the rectilinear area of the image that iteration is
 constrained within. Valid iteration regions are any subregions of the image
 wholly contained in the current \code{BufferedRegion}.  See
@@ -83,12 +83,12 @@ section~\ref{sec:ImageSection} for more information on image regions.
 
 \index{Iterators!const}
 Most ITK image iterators have a const and non-const version.  A non-const
-iterator cannot be instantiated with a const \doxygen{itk::Image} smart pointer.
+iterator cannot be instantiated with a const \doxygen{Image} smart pointer.
 Const versions of iterators do not allow modifying the image that they iterate
 over.
 
 Here is an example of defining and constructing an iterator using the
-\doxygen{itk::ImageRegionIterator}.  For more examples, see
+\doxygen{ImageRegionIterator}.  For more examples, see
 sections~\ref{sec:ImageIterators}--\ref{sec:NeighborhoodIterators}.
 
 \begin{verbatim}
@@ -220,7 +220,7 @@ An iterator can also report its current image index position.
 
 \begin{itemize}
 \index{Iterators!GetIndex()}
-\item \textbf{\code{ImageIndex GetIndex()}} Returns the \doxygen{itk::Index}
+\item \textbf{\code{ImageIndex GetIndex()}} Returns the \doxygen{Index}
 of the image pixel that the iterator currently points to.
 \end{itemize}
 
@@ -363,9 +363,9 @@ while ( ! in.IsAtBegin() )
 \label{sec:ImageIterators}
 %Introduction and overview
 This section describes iterators that walk rectilinear regions in images and
-reference a single pixel.  The \doxygen{itk::ImageRegionIterator} is the basic,
+reference a single pixel.  The \doxygen{ImageRegionIterator} is the basic,
 general purpose ITK image iterator.  The rest of the iterators described in
-this section are variations on \doxygen{itk::ImageRegionIterator} and
+this section are variations on \doxygen{ImageRegionIterator} and
 incorporate specializations designed to speed up or encapsulate common tasks.
 
 % Each of the iterators has a const and non-const version
