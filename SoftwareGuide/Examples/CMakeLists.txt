@@ -68,6 +68,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/CastingImageFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/CurvatureFlowImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/CurvatureAnisotropicDiffusionImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/CannyEdgeDetectionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/DanielssonDistanceMapImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/DiscreteGaussianImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/DerivativeImageFilter.cxx
@@ -76,6 +77,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientMagnitudeRecursiveGaussianImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientRecursiveGaussianImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientAnisotropicDiffusionImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/GaussianBlurImageFunction.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MathematicalMorphologyBinaryFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MathematicalMorphologyGrayscaleFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MedianImageFilter.cxx
