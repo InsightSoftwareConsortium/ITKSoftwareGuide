@@ -102,6 +102,14 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Iterators/ImageRegionIterator.cxx
   ${ITK_SOURCE_DIR}/Examples/Iterators/ImageRegionIteratorWithIndex.cxx
   ${ITK_SOURCE_DIR}/Examples/Iterators/ImageSliceIteratorWithIndex.cxx
+  ${ITK_SOURCE_DIR}/Examples/Iterators/NeighborhoodIterators1.cxx
+  ${ITK_SOURCE_DIR}/Examples/Iterators/NeighborhoodIterators2.cxx
+  ${ITK_SOURCE_DIR}/Examples/Iterators/NeighborhoodIterators3.cxx
+  ${ITK_SOURCE_DIR}/Examples/Iterators/NeighborhoodIterators4.cxx
+  ${ITK_SOURCE_DIR}/Examples/Iterators/NeighborhoodIterators5.cxx
+  ${ITK_SOURCE_DIR}/Examples/Iterators/NeighborhoodIterators6.cxx
+  ${ITK_SOURCE_DIR}/Examples/Iterators/ShapedNeighborhoodIterators1.cxx
+  ${ITK_SOURCE_DIR}/Examples/Iterators/ShapedNeighborhoodIterators2.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration2.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration3.cxx
