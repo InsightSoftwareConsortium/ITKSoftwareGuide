@@ -171,6 +171,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   RGBPointSet.tex
   ShapeDetectionLevelSetFilter.tex
   SmoothingRecursiveGaussianImageFilter.tex
+  SmoothingRecursiveGaussianImageFilter2.tex
   SigmoidImageFilter.tex
   ThresholdImageFilter.tex
   VectorCurvatureAnisotropicDiffusionImageFilter.tex
