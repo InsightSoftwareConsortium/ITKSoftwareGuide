@@ -28,6 +28,7 @@ ADD_CUSTOM_TARGET(SoftwareGuideLatex  ALL echo)
 SET( Tex_SRCS 
   Abstract.tex
   Applications.tex
+  AnisotropicDiffusionFiltering.tex
   DataRepresentation.tex
   Filtering.tex
   GUI.tex
@@ -46,6 +47,7 @@ SET( Tex_SRCS
   SystemOverview.tex
   Visualization.tex
   Wrapping.tex
+  WatershedSegmentation.tex
 )
 
 FOREACH( file ${Tex_SRCS})
