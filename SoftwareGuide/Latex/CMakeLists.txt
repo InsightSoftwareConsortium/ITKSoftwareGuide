@@ -102,9 +102,11 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   CurvatureAnisotropicDiffusionImageFilter.tex
   CurvatureFlowImageFilter.tex
   DanielssonDistanceMapImageFilter.tex
+  DeformableModel1.tex
   DiscreteGaussianImageFilter.tex
   FastMarchingImageFilter.tex
   GeodesicActiveContourImageFilter.tex
+  GibbsPriorImageFilter1.tex
   GradientAnisotropicDiffusionImageFilter.tex
   GradientMagnitudeImageFilter.tex
   GradientMagnitudeRecursiveGaussianImageFilter.tex
