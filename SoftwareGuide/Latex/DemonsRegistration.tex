@@ -54,7 +54,8 @@ that the field at the $N$-th iteration is given by:
 
 \begin{equation}
 \bf{D}^{N}(\bf{X}) = \bf{D}^{N-1}(\bf{X}) - \frac
-{\left(  m(\bf{X}) - f(\bf{X}) \right) \nabla f(\bf{X})}
+{\left(  m(\bf{X}+ \bf{D}^{N-1}(\bf{X})) 
+- f(\bf{X}) \right) \nabla f(\bf{X})}
 {\left\|  \nabla f \right\|^2 + \left(  
 m(\bf{X}+ \bf{D}^{N-1}(\bf{X}) )
  - f(\bf{X}) \right)^2 } 
