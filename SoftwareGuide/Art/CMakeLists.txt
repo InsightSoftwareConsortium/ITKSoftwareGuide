@@ -39,6 +39,7 @@ ADD_CUSTOM_TARGET(SoftwareGuideArt  ALL echo)
 SET(XFIG_FIGURES
   BinaryThresholdTransferFunction
   DiscreteGaussian
+  DeformableModelCollaborationDiagram
   GeometricalObjects
   GeodesicActiveContoursCollaborationDiagram1
   FastMarchingCollaborationDiagram1
