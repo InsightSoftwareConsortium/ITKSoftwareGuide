@@ -46,6 +46,9 @@ SET(XFIG_FIGURES
   ImageRegistration4TraceMetric
   ImageRegistration4TraceTranslations
   ImageRegistration3Observer
+  MultiResImageRegistration1TraceMetric
+  MultiResImageRegistration1TraceTranslations
+  MultiResRegistrationComponents
   ParzenWindowing1
   ParzenWindowing2
   ParzenWindowing3
@@ -103,6 +106,9 @@ SET(JPEG_IMAGES
   ImageRegistration2CheckerboardAfter
   ImageRegistration4CheckerboardBefore
   ImageRegistration4CheckerboardAfter
+  MultiResImageRegistration1CheckerboardBefore
+  MultiResImageRegistration1CheckerboardAfter
+  MultiResImageRegistration1Output
   MathematicalMorphologyBinaryErosionOutput
   MathematicalMorphologyBinaryDilationOutput
   MathematicalMorphologyGrayscaleErosionOutput
