@@ -78,12 +78,15 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/VectorCurvatureAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/VectorGradientAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/ImageReadWrite.cxx
+  ${ITK_SOURCE_DIR}/Examples/IO/ImageReadCastWrite.cxx
+  ${ITK_SOURCE_DIR}/Examples/IO/ImageReadExtractWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/RGBImageReadWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/Installation/HelloWorld.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration2.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration3.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration4.cxx
+  ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration5.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/DeformableRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/MultiResImageRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/MultiResImageRegistration2.cxx
