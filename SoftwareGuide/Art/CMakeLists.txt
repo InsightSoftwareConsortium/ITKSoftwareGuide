@@ -131,8 +131,8 @@ ENDFOREACH(image)
 FOREACH(figure ${XFIG_FIGURES})
 ADD_CUSTOM_COMMAND( 
   SOURCE    ${SoftwareGuide_SOURCE_DIR}/Art/${figure}.fig
-  COMMAND   ${FIG2DEV_EXECUTABLE}
-  ARGS      -L eps ${SoftwareGuide_SOURCE_DIR}/Art/${figure}.fig ${SoftwareGuide_BINARY_DIR}/Art/${figure}.eps
+  COMMAND   ${CMAKE_COMMAND}
+  ARGS     -E chdir ${SoftwareGuide_SOURCE_DIR}/Art ${FIG2DEV_EXECUTABLE} -L eps ${SoftwareGuide_SOURCE_DIR}/Art/${figure}.fig ${SoftwareGuide_BINARY_DIR}/Art/${figure}.eps
   TARGET    SoftwareGuideArt
   OUTPUTS   ${SoftwareGuide_BINARY_DIR}/Art/${figure}.eps
 )
