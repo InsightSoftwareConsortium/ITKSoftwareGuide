@@ -21,6 +21,8 @@ SET(JPEG_IMAGES
   GradientMagnitudeImageFilterOutput
   GradientMagnitudeRecursiveGaussianImageFilterOutput3
   GradientMagnitudeRecursiveGaussianImageFilterOutput5
+  MathematicalMorphologyBinaryErosionOutput
+  MathematicalMorphologyBinaryDilationOutput
   MedianImageFilterOutput
   ThresholdImageFilterOutputAbove
   ThresholdImageFilterOutputBelow
