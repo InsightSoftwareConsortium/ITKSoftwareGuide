@@ -18,12 +18,15 @@ ADD_CUSTOM_TARGET(SoftwareGuideArt  ALL echo)
 SET(JPEG_IMAGES
   BinaryThresholdImageFilterOutput
   BinaryMinMaxCurvatureFlowImageFilterOutput
+  BinomialBlurImageFilterOutput
   BrainProtonDensitySlice
   CurvatureFlowImageFilterOutput
+  CurvatureAnisotropicDiffusionImageFilterOutput
   DiscreteGaussianImageFilterOutput
   GradientMagnitudeImageFilterOutput
   GradientMagnitudeRecursiveGaussianImageFilterOutput3
   GradientMagnitudeRecursiveGaussianImageFilterOutput5
+  GradientAnisotropicDiffusionImageFilterOutput
   MathematicalMorphologyBinaryErosionOutput
   MathematicalMorphologyBinaryDilationOutput
   MathematicalMorphologyGrayscaleErosionOutput
