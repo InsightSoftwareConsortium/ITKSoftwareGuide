@@ -162,6 +162,8 @@ SET(JPEG_IMAGES
   ImageRegistration7Output
   ImageRegistration7DifferenceBefore
   ImageRegistration7DifferenceAfter
+  IsolatedConnectedImageFilterOutput0
+  IsolatedConnectedImageFilterOutput1
   MultiResImageRegistration1CheckerboardBefore
   MultiResImageRegistration1CheckerboardAfter
   MultiResImageRegistration1Output
