@@ -38,6 +38,8 @@ Style Guidelines for the ITK Software Guide
   Anything inside these gets put into the document; avoid blank lines or too
   much whitespace. Make sure any comments in included code are correct in
   terms of grammar, spelling, and are complete sentences.
+  Note that the code should not exced column 80 or it will go out of
+  margins in the PDF document.
 
 7. Figure/table captions should be proper sentences and end in a period
    ".".
@@ -49,6 +51,8 @@ Style Guidelines for the ITK Software Guide
 
 9. Don't forget to index. You may need hyphenation directives in long
    class/method names, etc.
+   Avoid the use of the {textbf} at the end of the index. It looks nice on 
+   the printed version but breaks the hyperlinks in the PDF online version.
 
 10. When possible, a short paragraph on motivation/theory prior to an example
     is good. It's not a theory book, so balance the amount of material
