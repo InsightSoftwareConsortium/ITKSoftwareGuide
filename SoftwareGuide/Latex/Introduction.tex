@@ -8,8 +8,8 @@ the \emph{Insight Toolkit} software.
 ITK is an open-source, object-oriented software system for image processing,
 segmentation, and registration.  Although it is large and complex, ITK is
 designed to be easy to use once you learn about its basic object-oriented and
-implementation methodology. The purpose of this \emph{Software Guide} is
-to help you learn just this, plus familiarize you with an important
+implementation methodology. The purpose of this Software Guide is
+to help you learn just this, plus to familiarize you with the important
 algorithms and data representations found throughout the toolkit. The material
 is taught using an extensive set of examples that we encourage you to compile
 and run while you read this guide.
@@ -49,13 +49,14 @@ the system, and interface to various windowing and GUI systems.
 \section{How to Learn ITK}
 \label{sec:HowToLearnITK}
 
-There are two broad categories of users of ITK. First are class developers,
-those who create classes in C++. Second, users, employ existing C++ classes
-to build applications. Class developers must be proficient in C++, and if you
-are extending or modifying ITK, you must also be familiar with ITK's internal
-structures and design (material covered in Part III). Users may or may not
-use C++, since the compiled C++ class library has been \emph{wrapped} with
-the Tcl and Python interpreted languages. However, as a user you must
+There are two broad categories of users of ITK. First are class
+developers, those who create classes in C++. The second, users, employ
+existing C++ classes to build applications. Class developers must be
+proficient in C++, and if they are extending or modifying ITK, they
+must also be familiar with ITK's internal structures and design
+(material covered in Part III). Users may or may not use C++, since
+the compiled C++ class library has been \emph{wrapped} with the Tcl
+and Python interpreted languages. However, as a user you must
 understand the external interface to ITK classes and the relationships
 between them.
 
@@ -64,8 +65,9 @@ objects and the ways of combining them. If you are a new \emph{Insight
 Toolkit} user, begin by installing the software. If you are a class
 developer, you'll want to install the source code and then compile it. Users
 may only need the precompiled binaries and executables. We recommend that you
-learn the system by studying the examples (if you are a user) and then study
-the source code (if you are a class developer). Start by reading Chapter 3,
+learn the system by studying the examples and then, if you are a class
+developer, study
+the source code. Start by reading Chapter 3,
 which provides an overview of some of the key concepts in the system, and
 then review the examples in Part II. You may also wish to compile and run the
 dozens of examples distributed with the source code found in the directory
@@ -75,7 +77,8 @@ a description of the examples contained in the various subdirectories.) There
 are also several hundred tests found in the source distribution in 
 \code{Insight/Testing/Code}, most of which are minimally documented
 testing code. However, they may be useful to see how classes are used
-together in ITK.
+together in ITK, especially since they are designed to exercise as
+much of the functionality of each class as possible.  
 
 \section{Software Organization}
 \label{sec:SoftwareOrganization}
@@ -90,8 +93,8 @@ data.
 There are three different ways to access the ITK source code
 (see Section \ref{sec:DownloadingITK} on page \pageref{sec:DownloadingITK}).
 \begin{enumerate}
-	\item	from periodic releases available on the ITK Web site;
-	\item	from CD-ROM, and;
+	\item	from periodic releases available on the ITK Web site,
+	\item	from CD-ROM, and
 	\item	from direct access to the CVS source code repository.
 \end{enumerate}
 Official releases are available a few times a year and announced on the ITK
@@ -104,7 +107,7 @@ stable as compared to the official releases---i.e., the code may not compile,
 it may crash, or it might even produce incorrect results.
 
 This \emph{Software Guide} assumes that you are working with the official ITK
-version 1.1 release (available on the ITK Web site). If you are a new user,
+version 1.2 release (available on the ITK Web site). If you are a new user,
 we highly recommend that you use the released version of the software. It is
 stable, consistent, and better tested than the code available from the CVS
 repository. Later, as you gain experience with ITK, you may wish to work from
@@ -201,7 +204,7 @@ sections describing the organization of the software.
 
 It is strongly recommended that you join the users mailing list. This is one
 of the primary resources for guidance and help regarding the use of the 
-toolkit. You can subscribe to the users list on-line at
+toolkit. You can subscribe to the users list online at
 
 \begin{center}
 \url{http://www.itk.org/HTML/MailingLists.htm}
@@ -211,7 +214,7 @@ The insight-users mailing list is also the best mechanism for expressing your
 opinions about the toolkit and to let developers know about features that you
 find useful, desirable or even unnecessary. ITK developers are committed to
 creating a self-sustaining open-source ITK community. Feedback from users is
-fundamental to achieve this goal.
+fundamental to achieving this goal.
 
 \subsection{Directory Structure}
 \label{sec:DirectoryStructure}
@@ -231,7 +234,8 @@ complex applications using ITK (and other systems such as VTK, Qt, and FLTK)
 are available from \code{InsightApplications}. Usually you will work with the
 \code{Insight} module unless you are a developer, are teaching a course, or
 are looking at the details of various design documents. The
-\code{InsightApplications} module should only be downloaded and compile once
+\code{InsightApplications} module should only be downloaded and
+compiled once
 the \code{Insight} module is functioning properly.
 
 The \code{Insight} module contains the following subdirectories:
@@ -295,7 +299,7 @@ The \code{InsightDocuments} module contains the following subdirectories:
         the design and creation of ITK including progress reports and 
         design documents.
         \item \code{InsightDocuments/Latex}---\LaTeX{} styles to produce this
-        \emph{User's Guide} as well as other documents.
+        \emph{Software Guide} as well as other documents.
         \item \code{InsightDocuments/Marketing}---marketing flyers and 
         literature used to succinctly describe ITK.
         \item \code{InsightDocuments/Papers}---papers related to the many
@@ -320,7 +324,7 @@ cvs -d :pserver:anonymous@www.itk.org:/cvsroot/Insight co InsightDocuments
 The \code{InsightApplications} module contains large, relatively complex
 examples of ITK usage. See the web pages at 
 \url{http://www.itk.org/HTML/Applications.htm} for a description. Some of 
-these applications require GUI's such as Qt and FLTK and use other packages
+these applications require GUI toolkits such as Qt and FLTK or other packages
 such as VTK (\emph{The Visualization Toolkit}
 \url{http://www.vtk.org}). Do not attempt to compile and build this module
 until you have successfully built the core \code{Insight} module.
@@ -362,9 +366,12 @@ aware of.
 and its associated data. This data is available from the National Library of
 Medicine at \url{http://www.nlm.nih.gov/research/visible/visible_human.html}.
 
-Another source of data can be obtained from the ITK Web site at 
-\url{http://www.itk.org/HTML/Data.htm} or via ftp from
+Another source of data can be obtained from the ITK Web site at either
+of the following:
+\begin{quote}
+\url{http://www.itk.org/HTML/Data.htm} \\
 \url{ftp://public.kitware.com/pub/itk/Data/}.
+\end{quote}
 
 \section{Additional Resources}
 \label{sec:AdditionalResources}
