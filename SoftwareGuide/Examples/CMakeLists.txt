@@ -73,8 +73,11 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/ResampleImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/ResampleImageFilter2.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/ResampleImageFilter3.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/ResampleImageFilter4.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/ResampleImageFilter5.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/RGBCurvatureAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/RGBGradientAnisotropicDiffusionImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/SmoothingRecursiveGaussianImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/VectorCurvatureAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/VectorGradientAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/ImageReadWrite.cxx
