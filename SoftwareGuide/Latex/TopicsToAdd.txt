@@ -67,4 +67,65 @@ Chapter 2
 Chapter 3
 
 
+    Check with Will...
 
+
+
+
+
+
+Chapter 4    Data Representation
+
+
+
+
+
+   - 4.1.4 Update it to mention OriginType and SpacingType instead of
+     arrays of doubles and/or floats.
+
+
+
+
+
+  - 4.1.7  Import Data to image
+
+     Take from the tutorial and build up this section
+
+     http://www.itk.org/CourseWare/Training/GettingStarted-V.pdf
+
+
+     Explain how to put an ITK pipeline inside a C function and
+     prevent the output image from being destroyed.
+
+     Add... source code examples to the CVS Examples directory.
+
+
+
+     
+
+
+
+  Mesh
+
+     
+
+     - Double check that the AutomaticMesh example works as advertised...
+
+
+
+    -  Double check that all the examples are still working...
+
+
+
+    - Check with Will about the AutoPointer...  maybe remove the 
+      notation of TakeOwnership,... check with vtkAbstracCell.
+
+
+
+
+
+
+      
+    
+
+  
