@@ -87,6 +87,7 @@ SET(JPEG_IMAGES
   BrainProtonDensitySlice2x3b
   BrainProtonDensitySliceBorder20
   BrainProtonDensitySliceShifted13x17y
+  BrainProtonDensitySliceRotated10
   BrainT1Slice
   BrainT1SliceBorder20
   ccmakeScreenShot
@@ -118,6 +119,9 @@ SET(JPEG_IMAGES
   ImageRegistration2CheckerboardAfter
   ImageRegistration4CheckerboardBefore
   ImageRegistration4CheckerboardAfter
+  ImageRegistration5Output
+  ImageRegistration5DifferenceBefore
+  ImageRegistration5DifferenceAfter
   MultiResImageRegistration1CheckerboardBefore
   MultiResImageRegistration1CheckerboardAfter
   MultiResImageRegistration1Output
