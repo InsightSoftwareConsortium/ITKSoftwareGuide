@@ -150,6 +150,7 @@ SET(JPEG_IMAGES
   BinaryThresholdImageFilterOutput
   BinaryMinMaxCurvatureFlowImageFilterOutput
   BinomialBlurImageFilterOutput
+  BrainMidSagittalSlice
   BrainProtonDensitySlice
   BrainProtonDensitySlice2x3
   BrainProtonDensitySlice2x3b
@@ -200,6 +201,10 @@ SET(JPEG_IMAGES
   GeodesicActiveContourImageFilterOutput6
   GeodesicActiveContourImageFilterOutput7
   GeodesicActiveContourImageFilterOutput8
+  GeodesicActiveContourShapePriorImageFilterOutput1
+  GeodesicActiveContourShapePriorImageFilterOutput2
+  GeodesicActiveContourShapePriorImageFilterOutput5
+  GeodesicActiveContourShapePriorImageFilterOutput6
   GradientMagnitudeImageFilterOutput
   GradientMagnitudeRecursiveGaussianImageFilterOutput3
   GradientMagnitudeRecursiveGaussianImageFilterOutput5
