@@ -79,6 +79,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/PointSetWithCovariantVectors.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/Mesh1.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/Mesh2.cxx
+  ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/Mesh3.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/*.cxx
 )
 
@@ -98,6 +99,7 @@ SET( ITK_EXAMPLES_TEX_SRCS
   ${SoftwareGuide_BINARY_DIR}/Examples/PointSetWithCovariantVectors.tex
   ${SoftwareGuide_BINARY_DIR}/Examples/Mesh1.tex
   ${SoftwareGuide_BINARY_DIR}/Examples/Mesh2.tex
+  ${SoftwareGuide_BINARY_DIR}/Examples/Mesh3.tex
 )
 
 
