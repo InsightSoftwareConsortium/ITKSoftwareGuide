@@ -96,6 +96,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   ImageRegistration7.tex
   IsolatedConnectedImageFilter.tex
   DeformableRegistration1.tex
+  DeformableRegistration2.tex
   MultiResImageRegistration1.tex
   MultiResImageRegistration2.tex
   MathematicalMorphologyBinaryFilters.tex
