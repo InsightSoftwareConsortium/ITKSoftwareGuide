@@ -140,23 +140,23 @@
 % option has been used.  This eliminates a fair amount of crud in the
 % individual document files.
 %
-\let\itk@OldTableofcontents=\tableofcontents
-\renewcommand{\tableofcontents}{%
-  \setcounter{page}{1}%
-  \pagebreak%
-  {%
-    \parskip = 0mm%
-    \itk@OldTableofcontents%
-    \if@openright%
-      \ifodd\value{page}%
-        \typeout{Adding blank page after the table of contents.}%
-        \pagebreak\hspace{0pt}%
-      \fi%
-    \fi%
-    \cleardoublepage%
-  }%
-  \itk@doing@page@targetstrue%
-}
+%\let\itk@OldTableofcontents=\tableofcontents
+%\renewcommand{\tableofcontents}{%
+%  \setcounter{page}{1}%
+%  \pagebreak%
+%  {%
+%    \parskip = 0mm%
+%    \itk@OldTableofcontents%
+%    \if@openright%
+%      \ifodd\value{page}%
+%        \typeout{Adding blank page after the table of contents.}%
+%        \pagebreak\hspace{0pt}%
+%      \fi%
+%    \fi%
+%    \cleardoublepage%
+%  }%
+%  \itk@doing@page@targetstrue%
+%}
 % This is needed to get the width of the section # area wide enough in the
 % library reference.  Doing it here keeps it the same for all the manuals.
 %
