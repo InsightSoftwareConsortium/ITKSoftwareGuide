@@ -47,12 +47,14 @@ SET( SoftwareGuide_Dox_SRCS
   ${SoftwareGuide_SOURCE_DIR}/Examples/DataRepresentationImagePage.dox
   ${SoftwareGuide_SOURCE_DIR}/Examples/DataRepresentationMeshPage.dox
   ${SoftwareGuide_SOURCE_DIR}/Examples/DataRepresentationPointSetPage.dox
+  ${SoftwareGuide_SOURCE_DIR}/Examples/FilteringImages.dox
 )
 
 SET( SoftwareGuide_DoxTex_SRCS 
   ${SoftwareGuide_BINARY_DIR}/Examples/DataRepresentationImagePage.tex
   ${SoftwareGuide_BINARY_DIR}/Examples/DataRepresentationMeshPage.tex
   ${SoftwareGuide_BINARY_DIR}/Examples/DataRepresentationPointSetPage.tex
+  ${SoftwareGuide_BINARY_DIR}/Examples/FilteringImages.tex
 )
 
 
