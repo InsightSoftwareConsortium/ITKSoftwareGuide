@@ -64,7 +64,9 @@ sub ParseCxxFile {
       print OUTFILE "\\end{verbatim}\n";
       }
     if( !$tagfound && $dumpinglatex ) {
-      print OUTFILE "$_";
+      my $outline = $_;
+      $outline =~ s/\/\///; 
+      print OUTFILE "$outline";
       }
 
   }
