@@ -1,6 +1,6 @@
 
 
-\chapter{IO}
+\chapter{Reading and Writing Images}
 \label{sec:IO}
 
 This chapter introduces the mechanisms provided in the toolkit for reading and
@@ -8,7 +8,16 @@ writing images to files. Insight does not enforce any particular file format,
 instead, it provides a structure to facilitate the future addition of file
 formats without having to modify existing code. 
 
+Let's start with a example of the simplest case of moving images between files
+and memory.
 
+\section{Basic Example}
+\label{sec:ImagReadWrite}
+\input ImageReadWrite.tex
+
+
+The following section describes the internals of the IO architecture provided
+in the toolkit.
 
 \section{Pluggable Factories}
 \label{sec:ImageIOPluggableFactories}
@@ -21,17 +30,17 @@ formats without having to modify existing code.
 \end{figure}
 
 
-The principle behind the input/output mechanism is known as
-\emph{pluggable-factories}. The concept is illustrated in the UML diagram in
-figure \ref{fig:ImageIOCollaborationDiagram}. From the user's point of view the
-objects responsible for reading and writing files are the
+The principle behind the input/output mechanism used in ITK is known as
+\emph{pluggable-factories}\cite{Gamma1995}. The concept is illustrated in the
+UML diagram in figure \ref{fig:ImageIOCollaborationDiagram}. From the user's
+point of view the objects responsible for reading and writing files are the
 \code{itk::ImageFileReader} and \code{itk::ImageFileWriter} classes. These two
 classes, however, are not aware of the details involved in reading or writing
 particular file formats like PNG or DICOM.  What they do, is to dispatch the
 user's requests to a set of specific classes that are aware of the file formats
 intricacies. These classes are the ImageIO classes. The delegation mechanism
-allows to extend the number of supported file formats by just adding new classes
-to the ImageIO hierarchy.
+allows to extend the number of supported file formats by just adding new
+classes to the ImageIO hierarchy.
 
 \begin{figure}
 \center
@@ -81,12 +90,16 @@ In most cases the whole mechanism will be transparent to the user who will only
 interact with the \code{ImageFileReader} and \code{ImageFileWriter}. The following
 sections introduce specific examples of commonly used IO tasks. 
 
+The following sections present how to use the IO infrastructure for performing
+common tasks in reading and writing images.
 
 
 \section{Reading and Writing RGB Images}
 \label{sec:RGBImagReadWrite}
-
 \input RGBImageReadWrite.tex
+
+
+
 
 
 
