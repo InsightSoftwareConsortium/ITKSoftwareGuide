@@ -81,6 +81,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/Mesh2.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/Mesh3.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshTraits.cxx
+  ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshKComplex.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/*.cxx
 )
 
@@ -102,6 +103,7 @@ SET( ITK_EXAMPLES_TEX_SRCS
   ${SoftwareGuide_BINARY_DIR}/Examples/Mesh2.tex
   ${SoftwareGuide_BINARY_DIR}/Examples/Mesh3.tex
   ${SoftwareGuide_BINARY_DIR}/Examples/MeshTraits.tex
+  ${SoftwareGuide_BINARY_DIR}/Examples/MeshKComplex.tex
 )
 
 
