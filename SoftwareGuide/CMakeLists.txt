@@ -41,37 +41,3 @@ SUBDIRS(Latex)
 
 
 
-#
-#
-#  Error checking for all the components
-#
-#
-IF(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
-  MESSAGE("ImageMagick convert utility was not found. Please pass to advanced mode and provide its full path")
-ENDIF(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
-
-
-IF(NOT LATEX_COMPILE)
-  MESSAGE("Latex compiler was not found. Please pass to advanced mode and provide its full path")
-ENDIF(NOT LATEX_COMPILE)
-
-IF(NOT BIBTEX_COMPILE)
-  MESSAGE("BibTeX executable was not found. Please pass to advanced mode and provide its full path")
-ENDIF(NOT BIBTEX_COMPILE)
-
-IF(NOT DVIPS_COMPILE)
-  MESSAGE("dvips executable was not found. Please pass to advanced mode and provide its full path")
-ENDIF(NOT DVIPS_COMPILE)
-
-IF(NOT PS2PDF_COMPILE)
-  MESSAGE("ps2pdf executable was not found. Please pass to advanced mode and provide its full path")
-ENDIF(NOT PS2PDF_COMPILE)
-
-IF(NOT MAKEINDEX_COMPILE)
-  MESSAGE("makeindex executable was not found. Please pass to advanced mode and provide its full path")
-ENDIF(NOT MAKEINDEX_COMPILE)
-
-
-
-
-
