@@ -162,9 +162,9 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Registration/BSplineWarping1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/MultiResImageRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/MultiResImageRegistration2.cxx
-  ${ITK_SOURCE_DIR}/Examples/Registration/IterativeClosestPoint1.cxx
-  ${ITK_SOURCE_DIR}/Examples/Registration/IterativeClosestPoint2.cxx
-  ${ITK_SOURCE_DIR}/Examples/Registration/IterativeClosestPoint3.cxx
+  ${ITK_SOURCE_DIR}/Examples/Patented/IterativeClosestPoint1.cxx
+  ${ITK_SOURCE_DIR}/Examples/Patented/IterativeClosestPoint2.cxx
+  ${ITK_SOURCE_DIR}/Examples/Patented/IterativeClosestPoint3.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ModelToImageRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/CannySegmentationLevelSetImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ConnectedThresholdImageFilter.cxx
@@ -174,11 +174,11 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Segmentation/NeighborhoodConnectedImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ConfidenceConnected.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/IsolatedConnectedImageFilter.cxx
-  ${ITK_SOURCE_DIR}/Examples/Segmentation/HybridSegmentationFuzzyVoronoi.cxx
+  ${ITK_SOURCE_DIR}/Examples/Patented/HybridSegmentationFuzzyVoronoi.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/HoughTransform2DLinesImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/HoughTransform2DCirclesImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/FastMarchingImageFilter.cxx
-  ${ITK_SOURCE_DIR}/Examples/Segmentation/FuzzyConnectednessImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Patented/FuzzyConnectednessImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ShapeDetectionLevelSetFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ThresholdSegmentationLevelSetImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/VectorConfidenceConnected.cxx
