@@ -186,13 +186,13 @@ Only defined when the input and output space has the same number of dimensions. 
 
 The translation transform is probably the simplest yet useful transformation.
 It maps all points in space by adding a constant values to their coordinates.
-Vector and Covariant vectors remain unchanged under this transformation since
+Vector and covariant vectors remain unchanged under this transformation since
 they are not associated to a position in space. Translation is the best
 transform to start a registration method. Before attempting to solve for
 rotations or scaling  it is important to overlap the anatomical objects in both
-images as much as possible. This is done by resolving the translation
-miss-registration between the images. Translations have also the advantages of
-being a fast transform and having parameters that are easy to interpret.
+images as much as possible. This is done by resolving the translational
+misalignment between the images. Translations also have the advantages of
+being fast to compute and having parameters that are easy to interpret.
 
 
 
@@ -209,7 +209,7 @@ being a fast transform and having parameters that are easy to interpret.
 \textbf{Restrictions} \\
 \hline\hline
 Points are transformed by multiplying each one of their coordinates by the
-corresponding scale factor for this dimension.  Vector are transformed as
+corresponding scale factor for the dimension.  Vector are transformed as
 points.  Covariant vectors are transformed by \emph{dividing} their components
 by the scale factor of the corresponding dimension.  &
 Same as the input space dimension. &
@@ -222,7 +222,7 @@ Only defined when the input and output space has the same number of dimensions. 
 This transform represents a simple scaling of the vector space.  Different
 scaling factors can be applied along each dimension. Points are transformed by
 multiplying each one of their coordinates by the  corresponding scale factor
-for this dimension.  Vector are transformed in the same way as points.
+for the dimension.  Vector are transformed in the same way as points.
 Covariant vectors, on the other hand, are transformed differently since
 anisotropic scaling does not preserve angles. Covariant vectors are transformed
 by \emph{dividing} their components by the scale factor of the corresponding
@@ -242,8 +242,8 @@ where $\bf{P}_i$, $\bf{V}_i$ and $\bf{C}_i$ are the point, vector and covariant
 vector $i$-th components while $S_i$ is the scaling factor along dimension
 $i$.  
 
-Scaling is an apparently simple transformation but actually has a number of
-issues to keep in mind in particular when it is used with different factors
+Scaling is an apparently simple transformation but actually there are a number of
+issues to keep in mind when it is used with different factors
 along every dimension. It has subtle effects in things like computing image
 derivatives. Since derivatives are represented by covariant vectors their
 values are modified in a particular way by scaling transforms.
@@ -258,13 +258,13 @@ updating a scale since the effect of an additive increment on a scale factor
 will diminish as the factor grows. In other words, a scale factor variation of
 $(1.0+ \epsilon)$ is quite different from a scale variation of $(5.0+\epsilon)$.
 
-Registrations involving scale transforms require carefully monitoring of the
+Registrations involving scale transforms require careful monitoring of the
 optimizer parameters in order to keep it running at an interesting yet stable
 pace. Note that some of the transforms discussed in following sections, for
-example the AffineTransform, have hidden scaling parameters and are henceforth
-subject to the same vulnerabilities of the ScaleTransform.
+example the \code{AffineTransform}, have hidden scaling parameters and are henceforth
+subject to the same vulnerabilities of the \code{ScaleTransform}.
 
-In cases involving miss-registration with simultaneous translation, rotation
+In cases involving misalignments with simultaneous translation, rotation
 and scaling components it may be desirable to solve for these components
 independently.
 
@@ -291,7 +291,7 @@ Only defined for two-dimensional input and output spaces. \\
 \end{tabular}
 \end{center}
 
-Euler2DTransform implements a Rigid transformation in $2D$. It is composed of a
+Euler2DTransform implements a rigid transformation in $2D$. It is composed of a
 plane rotation and a two-dimensional translation. The rotation is applied
 first, followed by the translation. The difficult aspect of this transformation
 is the fact that translations and rotations do not form a vector space and can
@@ -300,13 +300,13 @@ loose assumption of managing the parameters as a vector space and rely on the
 step-length to be small enough for this assumption to hold approximately.
 
 In addition to the non-linearity of the parameter space, the most common
-difficulty on this transform is the difference in units used for rotations and
+difficulty of this transform is the difference in units used for rotations and
 translations. Rotations are measured in radians, hence their values are in the
 range $[-\pi,\pi]$. Translations are measured in millimeters and their actual
 values vary depending on the image modality being considered. In practice,
 translations have values on the order of $10$ to $100$. This scale difference
 between rotation and translation parameters is undesirable for gradient-descent
-optimizers because they deviate the trayectories of descent making optimization
+optimizers because they deviate the trajectories of descent making optimization
 slower and more unstable. In order to compensate for these differences, ITK
 optimizers accept an array of scale values that are used to normalize the
 parameter space.
@@ -394,7 +394,7 @@ was introduced in the toolkit.  This specialized optimizer implements a
 variation of a gradient-descent algorithm adapted for a quaternion space.  This
 class makes sure that after advancing in any direction on the parameter space
 the resulting new set of transform parameters are mapped back to the permissible
-set of parameters. In practice this comes down to normalize the newly computed
+set of parameters. In practice this comes down to normalizing the newly computed
 quaternion to make sure that the transformation remains rigid and no scaling is
 applied. 
 
@@ -434,17 +434,17 @@ first three components of a quaternion.  The fourth component of the quaternion
 is computed internally such that the quaternion is of unit length.
 
 This transform represents exclusively rotations in 3D. It is intended to solve
-rapidly the rotational component of a more generic miss-registration.  It is
+rapidly the rotational component of a more generic misalignment.  It is
 desirable to remove first any translation in order to superimpose the gravity
 centers of the images. The efficiency of this transform comes from using a
 parameter space of reduced dimensionality. Versors are the best possible
-representation for rotations in $3D$ space. Sequences of Versors allow to
-create smooth rotational trajectories and for this reason they behave stably
+representation for rotations in $3D$ space. Sequences of versors allow the
+creation of smooth rotational trajectories and for this reason they behave stably
 under optimization methods.
 
 The space formed by versor parameters is not a vector space. Standard
 gradient-descent algorithms are not appropriate for exploring this parameter
-space. An optimizer specialized for the Versor space is available in the
+space. An optimizer specialized for the gersor space is available in the
 toolkit under the name of \code{itk::VersorTransformOptimizer}. This optimizer
 implements Versor derivatives as defined by original Hamilton
 \cite{Hamilton1866}.
@@ -517,34 +517,34 @@ Only defined when the input and output space have the same dimension. \\
 The \code{AffineTransform} is one of the most popular transformations in image
 registration. Its main advantage comes from the fact of being represented as a
 linear transformation. The set of its coefficients can actually be represented
-in a vector space of dimensions $(N+1) \times N$. This makes possible for
+in a vector space of dimensions $(N+1) \times N$. This makes it possible for
 optimizers to be used appropriately on this search space. However the high
-dimension of the search space implies also a high computational cost during the
+dimensionality of the search space implies also a high computational cost during the
 computation of cost-function derivatives. The best compromise in the reduction
 of this computational time is to use the transform Jacobian in combination with
 the image gradient for computing the cost-function derivatives.
 
 The coefficients on the $N \times N$ matrix can represent rotations,
 anisotropic scaling and shearing. These coefficients are usually of a very
-different dynamic range than the translation coefficients. Coefficients in the 
-matrix tend to be in the range $[-1:-1]$ but are not restricted to this interval.
+different dynamic range compared to the translation coefficients. Coefficients in the 
+matrix tend to be in the range $[-1:1]$ but are not restricted to this interval.
 Translation coefficients on the other hand can be on the order of $10$ to $100$ and
 are basically related to the image size and pixel spacing.
 
-This difference in scale make necessary again to take advantage of the
+This difference in scale makes it necessary again to take advantage of the
 functionality offered by optimizer for rescaling the parameter space. This is
 particularly relevant for optimizers based on gradient-descent approaches.
 
 A registration based on the affine transform may be more effective when applied
 after simpler transformations have been used to remove the major components of
-miss-registration. Otherwise it will incur in an overwhelming computational
-cost. For example, using an affine transform , the first set of optimization
+misalignment. Otherwise it will incur in an overwhelming computational
+cost. For example, using an affine transform, the first set of optimization
 iterations would typically be focused on removing large translations. This task
-could rather be accomplished by a Translation transform in a parameter space of
+could rather be accomplished by a translation transform in a parameter space of
 size $N$ instead of the $(N+1) \times N$ associated with the affine transform.
 
 Tracking the evolution of a registration process that uses
-\code{AffineTransform} can be a challenging task since it is difficult to
+\code{AffineTransforms} can be a challenging task since it is difficult to
 represent the coefficients in a meaningful way.  The simple print out of the
 transform coefficients may not offer a clear picture of the current behavior
 and trend of the optimization.  An ergonomic implementation could rather use
