@@ -6,16 +6,120 @@ invertible, back transform methods are also provided. Currently,
 ITK provide a variety of transfroms from simple translation, rotation and 
 scaling to general affine and kernel transforms. Note that, although we
 discuss transforms in context registration in this section, transforms
-are general and can used for other applications.
+are general and can used for other applications. Some of the commonly used 
+transforms will be discussed in detail later in this section.
 
-Typically, for each transform type several methods are provided for setting
+Typically, each transform type several methods are provided for setting
 the parameters. For example, \code{Euler2DTransform} provide methods for
 separatedly setting the offset, the angle, and the entire rotation matrix.
 However, for use in the registration framework, the parameters must also
 be represented by a flat \code{Array<double>} to allow communication
 with generic optimizers. In the case of \code{Euler2DTransform}, the transform
 is also defined by three doubles: the first representing the angle and 
-the last two the offset.
+the last two the offset. The a description of the parameters and their
+ordering is documented in the header file of each transform.
 
-%Talk about jacobian
-%Go through each transform
+Another requirement of the registration framework is the of the
+transformation Jacobian. In general, metrics require the knowledge of 
+the Jacobian in order to compute the metric derivatives. 
+The Jacobian is a matrix whose element are the partial derivatives of the 
+output point with respect to the array of parameters that defines the 
+transform:
+
+\begin{equation}
+J=\left[ \begin{array}{cccc}
+\frac{\partial x_{1}}{\partial p_{1}} & 
+\frac{\partial x_{2}}{\partial p_{1}} & 
+\cdots  & \frac{\partial x_{n}}{\partial p_{1}}\\
+\frac{\partial x_{1}}{\partial p_{2}} & 
+\frac{\partial x_{2}}{\partial p_{2}} & 
+\cdots  & \frac{\partial x_{n}}{\partial p_{2}}\\
+\vdots  & \vdots  & \ddots  & \vdots \\
+\frac{\partial x_{1}}{\partial p_{m}} & 
+\frac{\partial x_{2}}{\partial p_{m}} & 
+\cdots  & \frac{\partial x_{n}}{\partial p_{m}}
+\end{array}\right]
+\end{equation}
+ 
+
+\subsection{Identity Transform}
+\label{sec:IdentityTransform}
+\begin{array}{rr}
+\bf{Behavior} & 
+Maps every point to itself, every vector to itself and every covariant vector to itself. \\
+\bf{No. of parameters} & 
+0 \\
+\bf{Parameter Ordering} & 
+\\
+\bf{Restrictions} &
+Only defined when the input and output space has the same number of dimensions. \\
+\end{array}
+
+
+\subsection{Translation Transform}
+\label{sec:TranslationTransform}
+\begin{array}{rr}
+\bf{Behavior} & 
+Represents a simple translation of points in the input space
+and has no effect on vectors or covariant vectors. \\
+\bf{No. of parameters} & 
+Same as the input space dimension.\\
+\bf{Parameter Ordering} & 
+The i-th parameter represents the translation in the i-th dimension. \\
+\bf{Restrictions} &
+Only defined when the input and output space has the same number of dimensions. \\
+\end{array}
+ 
+\subsection{ScaleTransform}
+\label{sec:ScaleTransform}
+\begin{array}{rr}
+\bf{Behavior} & 
+Represents a simple scaling of the vector space. Each componet of a point, vector
+or covariant vector is multiplied by the user defined scaling factor.\\
+\bf{No. of parameters} & 
+Same as the input space dimension. \\
+\bf{Parameter Ordering} & 
+The i-th parameter represents the scaling in the i-th dimension. \\
+\bf{Restrictions} &
+Only defined when the input and output space has the same number of dimensions. \\
+\end{array}
+
+\subsection{Euler2DTransform}
+\label{sec:Euler2DTransform}
+\begin{array}{rr}
+\bf{Behavior} & 
+Represents a rotation and a translation. Note that the translation
+componet has no effect on the transformation of vectors and covariant vectors. \\
+\bf{No. of parameters} & 
+3\\
+\bf{Parameter Ordering} & 
+The first parameter is the angle in radian and the last two parameters
+are the translation in each each dimension. \\
+\bf{Restrictions} &
+Only defined for two-dimensional input and output spaces. \\
+\end{array}
+
+\subsection{Similarity2DTransform}
+\label{sec:Similarity2DTransform}
+\begin{array}{rr}
+\bf{Behavior} & 
+Represents a rotation, homogenous scaling and a translation. Note that the translation
+componet has no effect on the transformation of vectors and covariant vectors. \\
+\bf{No. of parameters} & 
+4\\
+\bf{Parameter Ordering} & 
+The first parameter is the angle in radian, the second the scaling factor for all
+dimension and the last two parameters are the translation in each each dimension. \\
+\bf{Restrictions} &
+Only defined for two-dimensional input and output spaces.
+\end{array}
+
+\subsection{VersorRigid3DTransform}
+%\subsection{VersorTransform}
+
+\subsection{QuaternionRigidTransform}
+
+\subsection{AffineTransform}
+
+
+
