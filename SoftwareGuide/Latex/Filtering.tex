@@ -34,6 +34,13 @@ ITK.
 \fi
 
 
+\section{Edge Detection}
+
+\subsection{Canny Edge Detection}
+\ifitkFullVersion
+\input{CannyEdgeDetectionImageFilter.tex}
+\fi
+
 
 \section{Casting and Intensity Mapping}
 \label{sec:CastingImageFilters}
@@ -203,6 +210,19 @@ filters that approximate the convolution with a Gaussian
 \fi
 
 
+\subsection{Local Blurring}
+\label{sec:BlurringFunctions}
+
+In some cases it is desirable to compute smoothing in restricted regions of the
+image, or to do it using different parameters that are computed locally.  The
+following sections describe options for applying local smoothing in images.
+
+\subsubsection{Gaussian Blur Image Function}
+\label{sec:GaussianBlurImageFunction}
+
+\ifitkFullVersion
+\input{GaussianBlurImageFunction.tex}
+\fi
 
 \subsection{Edge Preserving Smoothing}
 \label{sec:EdgePreservingSmoothingFilters}
