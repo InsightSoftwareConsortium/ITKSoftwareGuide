@@ -96,6 +96,8 @@ SET(JPEG_IMAGES
   ImageRegistration2Output
   ImageRegistration1DifferenceBefore
   ImageRegistration1DifferenceAfter
+  ImageRegistration2CheckerboardBefore
+  ImageRegistration2CheckerboardAfter
   MathematicalMorphologyBinaryErosionOutput
   MathematicalMorphologyBinaryDilationOutput
   MathematicalMorphologyGrayscaleErosionOutput
