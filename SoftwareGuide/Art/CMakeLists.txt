@@ -23,6 +23,9 @@ SET(JPEG_IMAGES
   CurvatureFlowImageFilterOutput
   CurvatureAnisotropicDiffusionImageFilterOutput
   DiscreteGaussianImageFilterOutput
+  DanielssonDistanceMapImageFilterOutput1
+  DanielssonDistanceMapImageFilterOutput2
+  FivePoints
   GradientMagnitudeImageFilterOutput
   GradientMagnitudeRecursiveGaussianImageFilterOutput3
   GradientMagnitudeRecursiveGaussianImageFilterOutput5
