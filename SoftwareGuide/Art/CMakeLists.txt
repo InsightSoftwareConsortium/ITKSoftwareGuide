@@ -83,6 +83,9 @@ SET(XFIG_FIGURES
   ImageRegistration6TraceMetric
   ImageRegistration6TraceAngle
   ImageRegistration6TraceTranslations
+  ImageRegistration8TraceMetric
+  ImageRegistration8TraceAngle
+  ImageRegistration8TraceTranslations
   ImageRegistration9TraceMetric
   ImageRegistration9TraceAngle
   ImageRegistration9TraceTranslations
@@ -227,6 +230,9 @@ SET(JPEG_IMAGES
   ImageRegistration6Output
   ImageRegistration6DifferenceBefore
   ImageRegistration6DifferenceAfter
+  ImageRegistration8Output
+  ImageRegistration8DifferenceBefore
+  ImageRegistration8DifferenceAfter
   ImageRegistration9Output
   ImageRegistration9DifferenceBefore
   ImageRegistration9DifferenceAfter
@@ -329,8 +335,8 @@ ENDFOREACH(image)
 FOREACH(figure ${XFIG_FIGURES})
 ADD_CUSTOM_COMMAND( 
   SOURCE    ${SoftwareGuide_SOURCE_DIR}/Art/${figure}.fig
-  COMMAND   ${CMAKE_COMMAND}
-  ARGS     -E chdir ${SoftwareGuide_SOURCE_DIR}/Art ${FIG2DEV_EXECUTABLE} -L eps ${SoftwareGuide_SOURCE_DIR}/Art/${figure}.fig ${SoftwareGuide_BINARY_DIR}/Art/${figure}.eps
+  COMMAND   ${FIG2DEV_EXECUTABLE}
+  ARGS      -L eps ${SoftwareGuide_SOURCE_DIR}/Art/${figure}.fig ${SoftwareGuide_BINARY_DIR}/Art/${figure}.eps
   TARGET    SoftwareGuideArt
   OUTPUTS   ${SoftwareGuide_BINARY_DIR}/Art/${figure}.eps
 )
