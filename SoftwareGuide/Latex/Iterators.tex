@@ -1,32 +1,74 @@
 \chapter{Iterators}
 
-% Questions: do I talk about issues like image regions?  i.e. which regions to
-%  always work with?  Do I talk about issues with the neighborhoods such as how
-% to do convolution and other neighborhood framework objects ?
+\index{Iterator!Concept}
+\index{Generic Programming}
+This chapter introduces the \emph{image iterator}, a fundamental and important
+generic programming construct for image processing in ITK.  An iterator is a
+generalization of the familiar C pointer, used to access data in memory.  ITK
+has a wide variety of iterators, some of which are highly specialized to
+simplify common image processing tasks.
 
-%LOOKS LIKE WITH INDEX ITERATOR IS NOT NEEDED IN BINARY FUNCTOR IMAGE FILTER
+The section that follows is a brief introduction that defines iterators in the
+context of ITK and the \code{itk::Image} and describes their common programming
+interface.  The specific types and instances of iterators are documented in the
+last sections of this chapter, along with some examples of how they can be
+used.
 
-\section(Introduction)
+\section{Overview}
 \label{sec:IteratorsIntroduction}
+% Further define iterators in the context of generic programming.
+Generic programming models define functionally independent components called
+\emph{containers} and \emph{algorithms}.  Algorithms operate on data
+within containers to produce some result.  Iterators keep these two components
+independent of one another by presenting the algorithm object with a generic
+interface that it can use to fetch and store data in any container object.
+Using iterators, algorithm code can be written that does not depend on any one
+specific representation of data.
 
-This chapter introduces image iterators.  Image iterators are an important and
-powerful tool for image processing using ITK.  They are the preferred way to
-work with image pixels, can speed up algorithms, and help to generalize many
-common image operations to arbitrary dimensionality.
+% Define iterators in the context of ITK generic programming. 
+In ITK, we use the iterator concept to write image processing code that can be
+instantiated and run on \code{itk::Image}s of any combination of pixel type,
+dimensionality, and pixel container type (see itk::Image).
+Figure~\ref{fig:ImageIterators} illustrates how image iterators form the glue
+between ITK filters (algorithms) and different ITK image types (data
+containers). A filter processes data in an image one pixel at a time.  The
+\emph{iterator} is incremented at each \emph{iteration} of the inner processing
+loop.
 
-An iterator is a generalization of a memory pointer.  Generic
-programming models decompose programming space into functionally orthogonal principle
-components, including algorithms and data containers.  Iterators provide the glue
-between algorithms and data containers.  They allow  algorithms to access values stored in
-data containers of any type that uses a common interface. [enable code reuse,
-generalize to higher dimensions]  iterator steps through the container one
-element at a time.
+\begin{figure}
+\centering
+%\includegraphics[width=0.9\textwidth]{}
+%figure with small graphic illustrating algorithm & iterators plus some simple pseudocode.
+\caption[Image iterators in ITK]{Image iterators in ITK}
+\protect\label{fig:ImageIterators}
+\end{figure}
 
-[give an example of just a real-world, normal iterator]
-The simplest example of an iterator is a wrapper for a C memory pointer.  
-[check stroustrup for info here and possible example, also reference for STL?]
-[simple example of how a generic iterator, for 3 dimensions show a for loop and
-image access contrasted with a single image]
+% List advantages: code size/reuse. increased performance over set/get in image, allow to ignore
+% dimensionality. 
+There are many advantages to using image iterators over direct pixel access
+through \code{itk::Image::Set} and \code{itk::Image::Get} methods.  Code is more
+compact and often generalizes automatically to higher dimensions, algorithms
+run much faster, and many tasks such as multithreading, neighborhood image
+processing, and working with non-rectilinear regions of interest are greatly
+simplified.  These advantages will be illustrated in the sections to follow. 
+
+%In fact, with iterators,
+%algorithms often generalize to higher dimensions automatically.  Note how the
+%code in figure~\ref{fig:ImageIterators} is equally correct for images of two,
+%three, or even ten dimensions.  The alternative to using iterators in this
+%example would be a set of nested \code{for} loops.  Such nested loops would
+%also require knowing the size of the image.  
+
+
+% Talk about extensions to iterator concept, iterating through nonrectilinear
+% regions.  Encapsulating complex tasks such as managing pointers to pixel
+% neighbors in ND.
+%Image iterators can encapsulate much of the complexity of writing many common
+%algorithms.  Some ITK iterators, for example, have been designed to walk
+%non-rectilinear paths through an image, allowing specialized processing over
+%regions of interest or boundary pixels.  Other iterators efficiently manage
+%access to entire N-dimensional neighborhoods, making localized image processing
+%algorithms simple to write and to generalize to higher dimensions.
 
 
 [describe a standard ITK interface]
@@ -36,7 +78,7 @@ Most ITK iterators define the following methods. [a bulleted definition list?]
         IsAtEnd()
         IsAtBegin()
         Operator++
-        Opterator--
+        Operator--
 
 [where traditional iterators overload the * operator, in ITK we have chosen to
 use Set Get]
@@ -53,6 +95,8 @@ The use of Set, Get also supports image adaptors (section reference?)
 
 [three basic types of image iterators: single pixel access methods, single
 pixel methods which walk special paths, neighborhood access methods,]
+
+The following sections describe the various ITK image iterator types.
 
 \section{Image Iterators}
 \label{sec:ImageIterators}
