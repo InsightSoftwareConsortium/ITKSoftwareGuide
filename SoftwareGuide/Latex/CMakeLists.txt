@@ -61,6 +61,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   BinaryThresholdImageFilter.tex
   BinomialBlurImageFilter.tex
   CastingImageFilters.tex
+  ConfidenceConnected.tex
   CurvatureAnisotropicDiffusionImageFilter.tex
   CurvatureFlowImageFilter.tex
   DanielssonDistanceMapImageFilter.tex
