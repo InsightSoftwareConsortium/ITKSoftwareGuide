@@ -8,3 +8,6 @@
 \newcommand{\doxygen}[1]{
 \href{http://public.kitware.com/Insight/Doxygen/html/classitk_1_1#1.html}{\code{itk::#1}}}  
 
+% Define command to make reference to on-line Doxygen documentation
+\newcommand{\subdoxygen}[2]{
+\href{http://public.kitware.com/Insight/Doxygen/html/classitk_1_1#1_1_1#2.html}{\code{itk::#1::#2}}}  
