@@ -4,7 +4,7 @@
 \index{Generic Programming}
 This chapter introduces the \emph{image iterator}, a fundamental and important
 generic programming construct for image processing in ITK.  An iterator is a
-generalization of the familiar C pointer, used to access data in memory.  ITK
+generalization of the familiar C pointer and is used to access data in memory.  ITK
 has a wide variety of iterators, some of which are highly specialized to
 simplify common image processing tasks.
 
@@ -19,17 +19,25 @@ used.
 % Further define iterators in the context of generic programming.
 Generic programming models define functionally independent components called
 \emph{containers} and \emph{algorithms}.  Algorithms operate on data
-within containers to produce some result.  Iterators keep these two components
-independent of one another by presenting the algorithm object with a generic
-interface that it can use to fetch and store data in any container object.
-Using iterators, algorithm code can be written that does not depend on any one
-specific representation of data.
+within containers.  Iterators keep these two components independent of one
+another by presenting the algorithm object with a generic interface for
+fetching and storing data in any container object type.  Using iterators,
+algorithm code can be written that does not depend on one specific
+representation of data.
+
+The iterator gets its name because it is designed for \emph{iterative},
+sequential access of container values.  The typical use of an iterator is to
+visit each data point in a container to apply an operation or calculate a
+value.  A C pointer, for example, is a type of iterator.  It can be pointed at
+a beginning location in a memory array and then iteratively incremented until
+reaching the end of that array.  Most iterator implementations, in fact, have
+an interface which looks somewhat like that of the C pointer.
 
 % Define iterators in the context of ITK generic programming. 
-In ITK, we use the iterator concept to write image processing code that can be
+In ITK, we use iterators to write image processing code that can be
 instantiated and run on \code{itk::Image}s of any combination of pixel type,
-dimensionality, and pixel container type (see itk::Image).
-Figure~\ref{fig:ImageIterators} illustrates how image iterators form the glue
+pixel container type, and dimensionality (see itk::Image).
+Figure~\ref{fig:ImageIterators} illustrates how image iterators are the glue
 between ITK filters (algorithms) and different ITK image types (data
 containers). A filter processes data in an image one pixel at a time.  The
 \emph{iterator} is incremented at each \emph{iteration} of the inner processing
@@ -45,24 +53,14 @@ loop.
 
 % List advantages: code size/reuse. increased performance over set/get in image, allow to ignore
 % dimensionality. 
-There are many advantages to using image iterators over direct pixel access
-through \code{itk::Image::Set} and \code{itk::Image::Get} methods.  Code is more
-compact and often generalizes automatically to higher dimensions, algorithms
-run much faster, and many tasks such as multithreading, neighborhood image
-processing, and working with non-rectilinear regions of interest are greatly
-simplified.  These advantages will be illustrated in the sections to follow. 
+There are many advantages to using ITK image iterators over direct pixel access
+through \code{itk::Image::Set} and \code{itk::Image::Get} methods.  Code is
+more compact and often generalizes automatically to higher dimensions,
+algorithms run much faster, and iterators simplify tasks such as
+multithreading, neighborhood image processing, and working with non-rectilinear
+regions of interest.  These advantages are illustrated in the sections to
+follow.
 
-%In fact, with iterators,
-%algorithms often generalize to higher dimensions automatically.  Note how the
-%code in figure~\ref{fig:ImageIterators} is equally correct for images of two,
-%three, or even ten dimensions.  The alternative to using iterators in this
-%example would be a set of nested \code{for} loops.  Such nested loops would
-%also require knowing the size of the image.  
-
-
-% Talk about extensions to iterator concept, iterating through nonrectilinear
-% regions.  Encapsulating complex tasks such as managing pointers to pixel
-% neighbors in ND.
 %Image iterators can encapsulate much of the complexity of writing many common
 %algorithms.  Some ITK iterators, for example, have been designed to walk
 %non-rectilinear paths through an image, allowing specialized processing over
@@ -70,37 +68,95 @@ simplified.  These advantages will be illustrated in the sections to follow.
 %access to entire N-dimensional neighborhoods, making localized image processing
 %algorithms simple to write and to generalize to higher dimensions.
 
+% Creating iterators
+Whenever possible, ITK iterators share a common interface.  Iterators are
+initialized by passing an \code{itk::Image} smart pointer and region to the
+constructor.  The region defines the rectilinear hypervolume that the iterator
+will walk within the image.  
 
-[describe a standard ITK interface]
-Most ITK iterators define the following methods. [a bulleted definition list?]
-        GoToBegin()
-        GoToEnd()
-        IsAtEnd()
-        IsAtBegin()
-        Operator++
-        Operator--
+To set up for iteration through a region, the iterator must be positioned at a
+starting location by one of two methods.
 
-[where traditional iterators overload the * operator, in ITK we have chosen to
-use Set Get]
-        Get
-        Set
-Set methods are only defined in const iterators.
-Some iterators also supply a Value() method to allow dereferencing and modifying a
-pixel value in a single step.  For example: [give example of how if you wanted
-to do something like *it++ you would have to write it as it.Set(it.Get() + 1),
-whereas it.Value()++ saves one dereference]
+\begin{itemize}
+\item \textbf{\code{GoToBegin()}} points the iterator to the first valid
+data element in the region.
 
-[image adaptors]
-The use of Set, Get also supports image adaptors (section reference?)
+\item \textbf{\code{GoToEnd()}} points the iterator to \emph{one position past}
+the last valid element in the region.
+\end{itemize}
 
-[three basic types of image iterators: single pixel access methods, single
-pixel methods which walk special paths, neighborhood access methods,]
+%Moving iteators
+ITK iterators define forward and reverse movement through their regions by
+overloading the increment and decrement operators.
 
-The following sections describe the various ITK image iterator types.
+\begin{itemize}
+\item \textbf{\code{operator++()}} Increments the iterator one position in the
+positive direction.
+
+\item \textbf{\code{operator--()}} Decrements the iterator one position in the
+negative direction.  Not all ITK iterators define this method.
+\end{itemize}
+
+Most iterators, will increment and decrement in the direction of the fastest
+increasing image dimension, wrapping around region boundaries.  As illustrated
+in figure~{\ref{fig:WalkingIterator}}, a typical iterator moves across columns
+and down rows.  When it reaches the end of the last row in the first slice, the
+iterator wraps to the beginning of the first row in the next slice.  Some
+iterators do not follow a predetermined path through their regions.  A
+conditional iterator (section~\ref{sec:ConditionalIterators}), for example,
+visits pixels only if they have certain values or connectivities.  Random
+iterators, as their name implies, increment and decrement to random locations,
+and may visit a pixel more than once.
+
+\begin{figure}
+\centering
+%\includegraphics[width=0.9\textwidth]{}
+%figure with small graphic illustrating algorithm & iterators plus some simple pseudocode.
+\caption[Normal iterator path.]{Normal path of an iterator through an image}
+\protect\label{fig:WalkingIterator}
+\end{figure}
+
+
+%Testing for location
+\begin{itemize}
+\item \textbf{\code{IsAtEnd()}} 
+\item \textbf{\code{IsAtBegin()}}
+\end{itemize}
+
+
+%Accessing data.
+\begin{itemize}
+\item \textbf{\code{Get()}}
+\item \textbf{\code{Set()}}
+\end{itemize}
+
+% Describe efficiency due to inlining for all cases
+%The use of Set, Get also supports image adaptors (section reference?)
+% segue to the case where you need the Value method
+
+\begin{itemize}
+\item \textbf{\code{Value()}}
+\end{itemize}
+
+% Now give a psuedo code example for putting all of this together.
+Using the methods described above, we can now write a simple example for
+pixel-wise operations in any image region.  The following code calculates the
+square all of the values in an image.
+
+\begin{verbatim}
+Iterator it(image, image->GetRequestedRegion());
+
+for (it.GoToBegin(); !it.IsAtEnd(); ++it)
+{
+  it.Set( it.Get() * it.Get() );
+}
+\end{verbatim}
+
 
 \section{Image Iterators}
 \label{sec:ImageIterators}
-
+This section describes iterators that walk rectilinear regions in images and
+reference a single pixel.
 
 
 \subsection{itk::ImageRegionIterator}
@@ -109,14 +165,25 @@ The following sections describe the various ITK image iterator types.
 ./Common/itkImageRegionIterator.h
 (./Common/itkImageConstIterator.h base class)
 (./Common/itkImageIterator.h base class)
+\input{ImageRegionIterator.tex}
 
-Describe typical use cases.
+%Need to discuss the value method and
+%[where traditional iterators overload the * operator, in ITK we have chosen to
+%use Set Get]
+%        Get
+%        Set
+%Set methods are only defined in const iterators.
+%Some iterators also supply a Value() method to allow dereferencing and modifying a
+%pixel value in a single step.  For example: [give example of how if you wanted
+%to do something like *it++ you would have to write it as it.Set(it.Get() + 1),
+%whereas it.Value()++ saves one dereference]
 
-Describe any special peculiarities of the interface and the guarantees of
-complexity, etc.  Guarantees: will walk a region in same order on two different
-images, no guarantees of what that order will be necessarily.
 
-Example code
+\begin{itemize}
+\item{\textbf{\code{Value()}}}
+\end{itemize}
+
+
 
 \subsection{itk::ImageRegionIteratorWithIndex}
 \label{sec:itkImageRegionIteratorWithIndex}
@@ -179,8 +246,10 @@ Example code
 \section{Neighborhood Iterators}
 \label{sec:NeighborhoodIterators}
 
-[Introduction goes here]
-[Be sure to reference Section: Neighborhood Filters]
+%Do not support image adaptors
+
+%[Introduction goes here]
+%[Be sure to reference Section: Neighborhood Filters]
 
 % Example: derivative
 % Example: convolution filtering
