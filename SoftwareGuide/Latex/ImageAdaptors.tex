@@ -17,18 +17,18 @@ iterator from the filter downstream attempts to access the image data.}
 \label{fig:ImageAdaptorConcept}
 \end{figure}
 
-The purpose of an \emph{image adaptors} is to make one image appear
+The purpose of an \emph{image adaptor} is to make one image appear
 like another image, possibly of a different pixel type.  A typical
 example is to take an image of pixel type \code{unsigned char} and
 present it as an image of pixel type \code{float}. The motivation for
-using image adaptors in this case is to prevent the extra memory
-resource required by using a casting filter.  When we use the
+using image adaptors in this case is to avoid the extra memory
+resources required by using a casting filter.  When we use the
 \doxygen{CastImageFilter} for the conversion, the filter creates a
-memory buffer to store the \code{float} image. The \code{float} image
-requires four times the memory compared to the original image and
-contains no useful additional information. Image adaptors, on
-the other hand, does not require the extra memory as pixels are
-converted only when they are read using image iterators 
+memory buffer large enough to store the \code{float} image. The
+\code{float} image requires four times the memory of the
+original image and contains no useful additional information. Image
+adaptors, on the other hand, do not require the extra memory as
+pixels are converted only when they are read using image iterators
 (see chapter~\ref{sec:ImageIteratorsChapter}).
 
 Image adaptors are particularly useful when there is infrequent pixel
