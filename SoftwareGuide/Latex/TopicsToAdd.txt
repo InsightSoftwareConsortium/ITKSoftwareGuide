@@ -147,6 +147,7 @@ Chapter 5  Spatial Objects
 
     e.g. add the ImageMaskSpatialObject.
 
+    PolygonSpatialObject ??
 
 
 
@@ -200,7 +201,7 @@ Chapter 6 Filtering
 
 
 
-- FFT examples. 
+- FFT examples. (Fourier)
 
         Maybe add a couple more examples...
         
@@ -275,6 +276,7 @@ Chapter 6 Filtering
 
 
 
+- MRI Bias correction from InsightApplications (Martin Styner).
 
 
 
@@ -463,6 +465,13 @@ Chapter 7 IO
 
 
 
+   -  Add example on LevelSet MotionRegistration (Jim filter)
+      DeformableRegistration5.cxx:
+
+
+   -  Examples on BSplines 
+      2D & 3D and both optimizers LBFGS LBSFGSB.
+
 
 
    - Model to Image registration (Check with Stephen & Julien)
@@ -501,11 +510,83 @@ Chapter 9 Segmentation
 
 
 
+    - Watersheds :   Add screenshot of the Segmentation Editor ?
+                     and a 3D example ?
+                    
+
+        -Add example for the new filter
+        IsolatedWatershed.
+
+
+
+    - Level Sets:  Verify that all of them run & eventually
+      fine tune the  parameters from the Regression testing.
+
+
+      - Add 3D examples from VolView ?
+
+          - FastMarching
+          - ShapeDetection
+          - GeodesicActiveContours
+          - Threshold Segmentation
+
+    - LevelSet in MultiResolution (Jim Miller GE example).
+
+    - Talk about iso-surface extraction in order to visualize
+      the level set.
+
+        - Plug it to VTK
+        - monitor the iterations >>> ADD example ITK+VTK ***
+          (Look at SNAP) 
+
+
+    - CURVES LevelSet for tubular objects
+      Add a .cxx example
+
+
+    - Active Shape Models (Leventon paper by Lydia).
+      GeodesicActiveContourShapePriorLevelSetImageFilter.cxx
+
+
+    - Use of LevelSets for AntiAliasing & Fourth Order level set.
 
 
 
 
+    - Voting Filters 
+         - General voting filter
+         - Majority filter
+         - HoleFilling
+         - HoleFillingIterative
 
+
+   - Cellular segmentation
+        - 2D example
+        - Run 3D example
+
+
+
+   - Hybrid Methods
+
+       Remove Fuzzy : It is patented
+
+       Deformable model : fix an example in 3D and show the output
+       Deformable model Simplex Mesh: InsightApplications (put screenshot).
+   
+
+  - Relabel Filter & Connected components. (put it in Filtering ???).
+
+
+  -  KMeans segmentation (or in Statistics chapter).
+  -  MarkovRandomFields (or in Statistics chapter).
+       
+
+
+  - Feature extraction: (check with Julien)
+
+         eventually add figures  ???
+
+  
 
 New Chapter : Visualization
 
