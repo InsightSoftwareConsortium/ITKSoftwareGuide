@@ -278,8 +278,8 @@ the need for speed and/or memory demands a smaller, faster class.
 \subsection{Error Handling and Exceptions}
 \label{sec:ErrorHandling}
 
-\index{exceptions|textbf}
-\index{error handling|textbf}
+\index{exceptions}
+\index{error handling}
 
 In general, ITK uses exception handling to manage errors during program
 execution. Exception handling is a standard part of the C++ language and
@@ -325,11 +325,11 @@ can trap \emph{any} ITK exception by catching \code{itk::ExceptionObject}.
 \subsection{Event Handling}
 \label{sec:EventHandling}
 
-\index{event handling|textbf}
-\index{Command/Observer design pattern|textbf}
-\index{itk::Command|textbf}
-\index{ProgressEvent()|textbf}
-\index{InvokeEvent()|textbf}
+\index{event handling}
+\index{Command/Observer design pattern}
+\index{itk::Command}
+\index{ProgressEvent()}
+\index{InvokeEvent()}
 
 Event handling in ITK is implemented using the Subject/Observer design
 pattern \cite{Gamma1995} (sometimes referred to as the Command/Observer
@@ -405,8 +405,8 @@ Invoking methods on the same instance in different threads is to be avoided.
 \section{Numerics}
 \label{sec:Numerics}
 
-\index{VNL|textbf}
-\index{numerics|textbf}
+\index{VNL}
+\index{numerics}
 
 ITK uses the \code{VNL} numerics library to provide resources for numerical
 programming combining the ease of use of packages like Mathematica and Matlab
@@ -471,7 +471,7 @@ primarily to support the deformable registration in ITK.
 \label{sec:DataRepresentationAndAccess}
 %	mesh, image, iterators, various containers
 
-\index{data object|textbf} 
+\index{data object} 
 
 There are two principle types of data represented in ITK: images and
 meshes. This functionality is implemented in the classes 
@@ -482,7 +482,7 @@ Section~\ref{sec:DataProcessingPipeline} on
 page~\pageref{sec:DataProcessingPipeline} for more information).
 
 
-\index{itk::Image|textbf}
+\index{itk::Image}
 
 \code{itk::Image} represents a \emph{n}-dimensional, regular sampling of
 data. The sampling direction is parallel to each of the coordinate axes, and
@@ -509,7 +509,7 @@ regions:
 filter or other class when operating on the image.
 \end{enumerate}
 
-\index{itk::Mesh|textbf} 
+\index{itk::Mesh} 
 
 \code{itk::Mesh} represents a \emph{n}-dimensional, unstructured grid. The
 topology of the mesh is represented by a set of `cells defined by a type and
@@ -543,13 +543,13 @@ landmarks, etc. The \code{PointSet} class has no associated topology.
 \section{Data Processing Pipeline}
 \label{sec:DataProcessingPipeline}
 
-\index{data processing pipeline|textbf}
+\index{data processing pipeline}
 
-\index{process object|textbf} 
-\index{source|textbf}
-\index{reader|textbf} 
-\index{filter|textbf} 
-\index{mapper|textbf} 
+\index{process object} 
+\index{source}
+\index{reader} 
+\index{filter} 
+\index{mapper} 
 
 While data objects (e.g., images and meshes) are used to represent data,
 \emph{process objects} are classes that operate on data objects and may
@@ -560,7 +560,7 @@ data objects as output (i.e., \emph{filter objects}), or accept one or more
 data objects as input and either write the data to a file or exchange it with
 another system (i.e., a \emph{mappers}).
 
-\index{streaming|textbf}
+\index{streaming}
 
 The data processing pipeline ties together data objects (e.g., images and
 meshes) and process objects. The pipeline supports an automatic updating

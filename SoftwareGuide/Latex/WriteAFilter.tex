@@ -102,7 +102,7 @@ information.
 
 \section{Overview of Filter Creation}
 \label{sec:OverviewFilterCreation}
-\index{filter!overview of creation|textbf}
+\index{filter!overview of creation}
 
 \itkpiccaption[Relationship between DataObjects and ProcessObjects]
 {Relationship between \doxygen{DataObject} and \doxygen{ProcessObject}.
@@ -178,7 +178,7 @@ execution process in detail, with a focus on data streaming.
 
 \subsection{Overview of Pipeline Execution}
 \label{sec:OverviewPipelineExecution}
-\index{pipeline!overview of execution|textbf}
+\index{pipeline!overview of execution}
 
 The pipeline execution process performs several important functions.
 
@@ -262,7 +262,7 @@ them. Examples are provided along the way to illustrate concepts.
 
 \subsection{Details of Pipeline Execution}
 \label{sec:DetailsPipelineExecution}
-\index{pipeline!execution details|textbf}
+\index{pipeline!execution details}
 
 Typically pipeline execution is initiated when a process object receives the
 \code{ProcessObject::Update()} method invocation. This method is simply delegated to
@@ -282,7 +282,7 @@ The \code{DataObject::Update()} method in turn invokes three other methods:
 
 \subsubsection{UpdateOutputInformation()}
 \label{sec:UpdateOutputInformation}
-\index{pipeline!UpdateOutputInformation|textbf}
+\index{pipeline!UpdateOutputInformation}
 
 The \code{UpdateOutputInformation()} method determines the pipeline modified
 time. It may set the RequestedRegion and the LargestPossibleRegion depending
@@ -308,7 +308,7 @@ the spacing and LargestPossibleRegion of the output change. Thus,
 
 \subsubsection{PropagateRequestedRegion()}
 \label{sec:PropagateRequestedRegion}
-\index{pipeline!PropagateRequestedRegion|textbf}
+\index{pipeline!PropagateRequestedRegion}
 
 The \code{PropagateRequestedRegion()} propagates upstream to satisfy a data
 request. In typical application this data request is usually the
@@ -376,7 +376,7 @@ the gradient at each output pixel.
 
 \subsubsection{UpdateOutputData()}
 \label{sec:UpdateOutputData}
-\index{pipeline!UpdateOutputData|textbf}
+\index{pipeline!UpdateOutputData}
 
 \code{UpdateOutputData()} is the third and final method as a result of the
 \code{Update()} method. The purpose of this method is to determine whether a
@@ -411,7 +411,7 @@ next section.
 
 \section{Threaded Filter Execution}
 \label{sec:ThreadedFilterExecution}
-\index{pipeline!ThreadedFilterExecution|textbf}
+\index{pipeline!ThreadedFilterExecution}
 
 Filters that can process data in pieces can typically multi-process using the
 data parallel, shared memory implementation built into the pipeline execution
