@@ -39,7 +39,7 @@ position of the model, we can also customize internal parameters that change
 its shape.
 
 Figure~\ref{fig:ModelToImageRegistrationComponentsDiagram} illustrates the
-major components of the registration framework in ITK when model base
+major components of the registration framework in ITK when a model base
 registration problem is configured. The basic input data for the registration
 is provided by pixel data in an \doxygen{Image} and by geometrical data stored
 in a \doxygen{SpatialObject}. A Metrics has to be defined in order to evaluate
@@ -58,7 +58,7 @@ registration, it actually provides \emph{Insigth} into the anatomical structure
 contained in the image. The adapted model becomes a condensed representation of
 the essential elements of the anatomical structure.
 
-ITK provides a hierarchy of classed intended to support the construction of
+ITK provides a hierarchy of classes intended to support the construction of
 shape models. This hierarchy has the \doxygen{SpatialObject} as its base class.
 A number of basic functionalities are defined at this level. For example, the
 capacity to evaluate is a given point is \emph{inside} or \emph{outside} of the
