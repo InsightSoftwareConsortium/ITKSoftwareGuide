@@ -125,6 +125,7 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 \fi
 
 %\ifitkPrintedVersion 
+%\newpage
 %\InputIfFileExists{Cover.tex}
 %\fi
 
@@ -192,15 +193,32 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 %%% \input{Applications.tex}
 
 
-\ifitkFullVersion
+
 \part{Developer's Guide}
 
 %%% \input{Infrastructure.tex}
+
+\ifitkFullVersion
 \input{Iterators.tex}
+\fi
+
+\ifitkFullVersion
 \input{WriteAFilter.tex}
+\fi
+
+\ifitkFullVersion
 \input{ImageAdaptors.tex}
+\fi
+
+
+
 %%% \input{GUI.tex}
 %%% \input{Wrapping.tex}
+
+
+
+
+\ifitkFullVersion
 \input{SoftwareProcess.tex}
 \fi
 
