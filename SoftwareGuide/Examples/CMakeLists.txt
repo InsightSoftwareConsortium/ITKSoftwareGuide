@@ -61,6 +61,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellsIteration.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellVisitor.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellVisitor2.cxx
+  ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Path/PolyLineParametricPath1.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BilateralImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinaryThresholdImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinaryMinMaxCurvatureFlowImageFilter.cxx
@@ -156,6 +157,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Segmentation/HoughTransform2DLinesImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/HoughTransform2DCirclesImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/FastMarchingImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Segmentation/FuzzyConnectednessImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ShapeDetectionLevelSetFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ThresholdSegmentationLevelSetImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/VectorConfidenceConnected.cxx
