@@ -13,24 +13,25 @@
 \label{sec:HybridSegmentationIntroduction}
 
 
-Hybrid methods for automated segmentation of radiological patient data and the 
-Visible Human data integrate boundary-based and region-based segmentation methods 
-that amplify the strength but reduces the weakness of both approaches.The novelty 
-comes from combining a region-based segmentation methods, the fuzzy connectedness 
-and Voronoi Diagram classification with a boundary-based deformable model 
-segmentation, to develop hybrid methods that yield high precision, accuracy and 
-efficiency.The synergy between fundamentally different methodologies tends to 
-result in robustness and higher segmentation quality. We built Hybrid Segmentation 
-Engine,  Figure \ref{fig:ComponentsofaHybridSegmentationApproach}, that consists of modules 
-representating component segmentation methods (itk filters). We can derive a variety 
-of hybrid segmentation methods from the modules. It should be noted that under Fuzzy 
-Connectedness module and Deformable Models module, we checked in into the itk a number 
-of filters in each of the categories, respectively. Below, we decribe two examples of
-hybrid segmentation methods, derived from the Hybrid segmentation Engine: Hybrid 
-Method 1: Integration of Fuzzy Connectedness and Voronoi Diagram Classification;
-Hybrid Method 2: Integration of Gibbs prior and Deformable Models.
-Details on the concepts behind those methods have been discussed in the
-literature
+This section introduces the use of Hybrid methods for segmentation of
+radiological patient data and the Visible Human data. The hybrid segmentation
+approach integrates boundary-based and region-based segmentation methods that
+amplify the strength but reduces the weakness of both approaches. The advantage
+of this approach comes from combining region-based segmentation methods like
+the Fuzzy Connectedness and Voronoi Diagram classification with boundary-based
+deformable model segmentation. The synergy between fundamentally different
+methodologies tends to result in robustness and higher segmentation quality. 
+An Hybrid Segmentation Engine can be built, as illustrated in Figure
+\ref{fig:ComponentsofaHybridSegmentationApproach}. It consists of modules
+representing segmentation methods (ITK filters). We can derive a variety of
+hybrid segmentation methods by exchanging the filter use in each module. It
+should be noted that under the Fuzzy Connectedness module and Deformable Models
+modules, there are several different filters that can be used as components.
+Below, we describe two examples of hybrid segmentation methods,
+derived from the Hybrid segmentation Engine: Hybrid Method 1: Integration of
+Fuzzy Connectedness and Voronoi Diagram Classification; Hybrid Method 2:
+Integration of Gibbs prior and Deformable Models.  Details on the concepts
+behind those methods have been discussed in the literature
 \cite{Angelini2002,Udupa2002,Jin2002,Imielinska2001,Imielinska2000a,Imielinska2000b}
 
 
@@ -62,7 +63,7 @@ The closer the elements are and more similar their intensities are, the greater 
 the affinity between them. We compute the strength of a path and fuzzy connectedness 
 between each two pixels (voxels) in the segmented image from the fuzzy affinity. 
 Computation of fuzzy connectedness value of each pixel (voxel) is implemented
-by selecteing a seed point and using dynamic programming. The result constitutes the fuzzy
+by selecting a seed point and using dynamic programming. The result constitutes the fuzzy
 map. Thresholding of the fuzzy map gives a segmented object that is strongly connected
 to the seed point (for more details, see \cite{Udupa1996}). We checked in two fuzzy 
 connectedness filters: the itkSimpleFuzzyConnectednessScalarImageFilter that is an
@@ -76,18 +77,18 @@ as it is described in the diagram in Figure
 \ref{fig:UMLCollaborationDiagramoftheFuzzyConnectednessFilter}.
 
 In Figure \ref{fig:UMLVoronoiSegmentationClassFilter} we present base class for
-Voronoi Diagram Clasification. We initialize the method with a number of random
+Voronoi Diagram Classification. We initialize the method with a number of random
 seed points and compute Voronoi Diagram over the segmented 2D image. Each
-Voronoi region, in teh subdivision, is classified as internal or external,
+Voronoi region, in the subdivision, is classified as internal or external,
 based on the homogeneity operator derived from the fuzzy connectedness
 algorithm.  We define boundary regions as the external regions that are
 adjacent to the internal regions.  We subdivide further the boundary regions
 by adding seed points to the regions. We converge to the final segmentation
-using simple stopping criterium (for details, see \cite{Imielinska2001}). We
-implemneted two Voronoi Diagram filters: the
+using simple stopping criterion (for details, see \cite{Imielinska2001}). We
+implemented two Voronoi Diagram filters: the
 itkVoronoiSegmentationImageFilter that is dedicated to process single channel
 (gray scale) images; the itkVoronoiSegmentationRGBImageFilter that segments
-three-channel (RGB) images. Other classes can be derivedfrom the base class
+three-channel (RGB) images. Other classes can be derived from the base class
 by defining other homogeneity measurements, and targeting multichannel images
 with and arbitrary number of channels.  The other classes that are used for
 computing 2D Voronoi Diagram, are shown in Figure
