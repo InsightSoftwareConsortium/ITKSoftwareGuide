@@ -189,21 +189,31 @@ ENDFOREACH( exampletexname )
 
 IF(LATEX_COMPILER)
 
-  IF (WIN32)
+  IF (NOT UNIX)
     SET(ITK_TEXINPUTS ${SoftwareGuide_SOURCE_DIR}/../Latex;${SoftwareGuide_SOURCE_DIR};${SoftwareGuide_SOURCE_DIR}/Latex;${SoftwareGuide_SOURCE_DIR}/Art;${SoftwareGuide_BINARY_DIR};${SoftwareGuide_BINARY_DIR}/Examples;${SoftwareGuide_BINARY_DIR}/Art;${SoftwareGuide_BINARY_DIR}/Latex)
 
     CONFIGURE_FILE(${SoftwareGuide_SOURCE_DIR}/LaTeXWrapper.bat.in
                    ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.bat)
     SET (LATEX_WRAPPER1 ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.bat)
     SET (LATEX_WRAPPER2 "")
-  ELSE (WIN32)
+
+    CONFIGURE_FILE(${SoftwareGuide_SOURCE_DIR}/DvipsWrapper.bat.in
+                   ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.bat)
+    SET (DVIPS_WRAPPER1 ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.bat)
+    SET (DVIPS_WRAPPER2 "")
+  ELSE (NOT UNIX)
     SET(ITK_TEXINPUTS ${SoftwareGuide_SOURCE_DIR}/../Latex:${SoftwareGuide_SOURCE_DIR}:${SoftwareGuide_SOURCE_DIR}/Latex:${SoftwareGuide_SOURCE_DIR}/Art:${SoftwareGuide_BINARY_DIR}:${SoftwareGuide_BINARY_DIR}/Examples:${SoftwareGuide_BINARY_DIR}/Art:${SoftwareGuide_BINARY_DIR}/Latex)
 
     CONFIGURE_FILE(${SoftwareGuide_SOURCE_DIR}/LaTeXWrapper.sh.in
                    ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh)
     SET (LATEX_WRAPPER1 /bin/sh)
     SET (LATEX_WRAPPER2 ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh)
-  ENDIF (WIN32)
+
+    CONFIGURE_FILE(${SoftwareGuide_SOURCE_DIR}/DvipsWrapper.sh.in
+                   ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.sh)
+    SET (DVIPS_WRAPPER1 /bin/sh)
+    SET (DVIPS_WRAPPER2 ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.sh)
+  ENDIF (NOT UNIX)
 
   ADD_CUSTOM_COMMAND( 
     SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS} ${ITK_EXAMPLES_TEX_SRCS}
@@ -218,8 +228,9 @@ IF(LATEX_COMPILER)
   IF(DVIPS_CONVERTER)
     ADD_CUSTOM_COMMAND( 
       SOURCE    SoftwareGuide.dvi
-      COMMAND   ${DVIPS_CONVERTER}
-      ARGS      SoftwareGuide.dvi ${DVIPS_CONVERTER_OPTIONS} -o  SoftwareGuide.ps
+      COMMAND   ${DVIPS_WRAPPER1}
+      ARGS      ${DVIPS_WRAPPER2}
+                SoftwareGuide.dvi ${DVIPS_CONVERTER_OPTIONS} -o  SoftwareGuide.ps
       TARGET    SoftwareGuideLatex
       DEPENDS   SoftwareGuide.ind SoftwareGuide.bbl
       OUTPUTS   SoftwareGuide.ps
