@@ -227,7 +227,7 @@ reaches zero, then the interpolator is also destroyed.
 
 Multithreading is handled in ITK in a generic manner. The class
 \code{itk::MultiThreader} provides support for multithreaded execution using
-\code{sproc()} on an SGI, or \code{pthread_create} on any platform supporting 
+\code{sproc()} on an SGI, or \code{pthread\_create} on any platform supporting 
 POSIX threads.  This class can be used to execute a single method on multiple
 threads, or to specify a method per thread.
 
