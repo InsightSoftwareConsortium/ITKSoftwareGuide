@@ -74,6 +74,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   Image2.tex
   Image3.tex
   Image4.tex
+  ImageReadWrite.tex
   ImageRegistration1.tex
   ImageRegistration2.tex
   ImageRegistration3.tex
