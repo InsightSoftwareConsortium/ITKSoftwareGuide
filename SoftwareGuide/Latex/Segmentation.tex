@@ -1,32 +1,57 @@
 
 \chapter{Segmentation}
 
+Segmentation of medical images is a challenging task. Myriads of different
+methods have been proposed and implemented in recent years. In spite of the
+huge effort invested on this problem, there is no a single approach that could
+solve in general the problem of segmentation for the large variety of image
+modalities existing today.
+
+The most effective segmentation algorithms are obtained by carefully
+customizing combination of components. The parameters of these components are
+tunned for the characteristics of the image modality used as input and the
+features of the anatomical structure to be segmented. 
+
+The Insight toolkit provides a basic set of algorithms that can be used to
+develop and customize a full segmentation application. Some of the most
+commonly used segmentation components are described in the following sections.
+
 
 \section{Region Growing}
 
-\subsection{Threshold Connected}
+Region growing algorithms have proved to be a very effective approach for image
+segmentation. The basic concept of a region growing algorithm is to start from
+a seed region that is considered to belong to the object to be segmented. The
+neighbor pixels to this initial region are evaluated to determine if they could
+also be considered part of the object, in which case, they are added to the
+region. When some of the neighbor pixels are included in the region, other
+pixels become new neighbors and hence become candidates to be evaluated and
+eventually included in the region. Region growing algorithms vary depending on
+the criteria used to decide whether a pixel should be included in the region
+or not, the type of neighbor connectivity used on the image grid and the
+strategy used for visiting the neighbor pixels.
+
+Several implementations of region growing are available in the
+Insight toolkit. This section describes some of the most commonly used.
 
 \subsection{Confidence Connected}
 \label{sec:ConfidenceConnected}
 \input{ConfidenceConnected.tex}
 
+\subsection{Threshold Connected}
 
 \section{Segmentation Based on Watersheds}
 \label{sec:WatershedSegmentation}
-
-
-\subsection{Overview}
-\label{sec:aboutWatersheds}
 %\input WatershedSegmentation.tex
 
 
 
-\section{Level Sets Segmentation}
-\label{sec:LevelSetsSegmentation}
+%% \section{Level Sets Segmentation}
+%% \label{sec:LevelSetsSegmentation}
 
-\subsection{Threshold Level Set Segmentation}
-\subsection{Fast Marching Segmentation}
-\subsection{Shape Detection Segmentation}
-\subsection{Geodesic Contours Segmentation}
+%% \subsection{Threshold Level Set Segmentation}
+%% \subsection{Fast Marching Segmentation}
+%% \subsection{Shape Detection Segmentation}
+%% \subsection{Geodesic Contours Segmentation}
 
 
