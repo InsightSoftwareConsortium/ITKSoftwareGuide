@@ -44,6 +44,22 @@ intensity value inside a specific interval.
 \input{ConnectedThresholdImageFilter.tex}
 \fi
 
+\subsection{Otsu Segmentation}
+Another criterion for classifying pixels is to minimize the error of misclassification.
+The goal is to find a threshold that classfies the image into two clusters such that 
+we minimize the area under the histogram for one cluster that lies on the other cluster's 
+side of the threshold. This is equivalent to minimizing the within class variance
+or equivalently maximizing the between class variance.
+
+\label{sec:OtsuThreshold}
+\ifitkFullVersion 
+\input{OtsuThresholdImageFilter.tex}
+\fi
+
+\label{sec:OtsuMultipleThreshold}
+\ifitkFullVersion 
+\input{OtsuMultipleThresholdImageFilter.tex}
+\fi
 
 \subsection{Neighborhood Connected}
 \label{sec:NeighborhoodConnectedImageFilter}
