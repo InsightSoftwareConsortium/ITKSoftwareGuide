@@ -1,4 +1,4 @@
-\chapter*{The Cover}
+\section*{About the cover}
 
 This section describes the cover of this book. The task of designing the cover
 was suppossed to be an easy one. However, finding an image that will honor the
@@ -9,7 +9,7 @@ to the segmentation and registration of the Visible Human data set. In fact the
 more recently acquired Visible Woman datasets were used for this cover.  Both
 the RGB cryosections and the CT scans were combined in the same scene.
 
-\section*{Removing the Gel}
+\subsection*{Removing the Gel}
 
 During the freezing process the body of the Visible Woman was inmersed in a
 block of gel. This Gel appears as a blue substance in the cryogenic data.  In
@@ -23,7 +23,7 @@ The equation of this plane was subsequently used for discriminating pixels in
 the gel from pixels in the anatomical structures of the body. The Gel pixels
 were set to null values and the RGB values on the body were preserved.
 
-\section*{The Skin}
+\subsection*{The Skin}
 
 The skin was easy to segment once the Gel was removed. A simple region growing
 algorithm was used providing seed points in the region previously occupied by
@@ -36,7 +36,7 @@ geometrical representation of the surface and introduce it in the VTK
 visualization pipeline.
 
 
-\section*{The Brain}
+\subsection*{The Brain}
 
 The visible part of the brain represents the surface of the gray matter.  The
 brain was segmented using the Vector version of the confidence connected image
@@ -57,7 +57,7 @@ Finaly, the volume resulting from the median filter was passed through the
 antialiasin image filter.
 
 
-\section*{The Neck Mucles}
+\subsection*{The Neck Mucles}
 
 The neck muscles are not perfectly segmented. Indeed, the current surface is a
 fusion of muscles, blood vessels and other structures. The segmentation was
@@ -72,7 +72,7 @@ previos to the extraction of the iso-surface with the vtkContourFilter.
 
 
 
-\section*{The Skull}
+\subsection*{The Skull}
 
 The Skull was segmented from the CT data set and registered to the cryogenic
 data. The segmentation was performed by simple thresholding, which was good
@@ -80,7 +80,7 @@ enough for producing an appealing surface for the cover. This means that most
 of the bone structures are actually fused together. This includes the jaw bone,
 and the cervical vertebrae.
 
-\section*{The Eye} 
+\subsection*{The Eye} 
 
 The eye was charged with symbolism in this image. In part because the
 motivation for the development of the toolkit was the analysis of the Visible
@@ -103,7 +103,7 @@ in order to generate a float image with the eyebal contour embebded as a zero
 set.
 
 
-\section*{Visualization}
+\subsection*{Visualization}
 
 The visualization of the segmentation was done by passing all the binary masks
 through the itkAntialiasImageFilter, generating iso-contours with VTK filters,
@@ -114,7 +114,7 @@ as clipping function. The vtkWindowToImageFilter proved to be quite useful for
 generating the final high resolution rendering of the scene (3000x3000 pixels).
 
 
-\section*{Cosmetic Postprocessing}
+\subsection*{Cosmetic Postprocessing}
 
 We have to confess that we used Adobe Photoshop in the cosmetic post-processing of
 the image. In particular, the background of the image was color-tunned using
