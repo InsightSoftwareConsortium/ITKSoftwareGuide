@@ -117,7 +117,6 @@ SET(XFIG_FIGURES
   WatershedCatchmentBasins
   WatershedsHierarchy
   WatershedImageFilter
-  WatershedSegmentationEditorBuild
 )
 
 
@@ -243,17 +242,10 @@ SET(JPEG_IMAGES
   VectorCurvatureAnisotropicDiffusionImageFilterOutput
   VisibleWomanHeadSlice
   VisibleWomanEyeSlice
-  WatershedColorEdges
-  WatershedColorInput
-  WatershedColorGradientMagnitude
-  WatershedSpine1
-  WatershedSpine2
   WatershedAbdomenSegmentation
-  WatershedArm1
-  WatershedArm2
   WatershedRendering
-  WatershedsPreprocessing
-  WatershedSegmentationApplicationGUI
+  WatershedSegmentation1Output1
+  WatershedSegmentation1Output2
 )
 
 
