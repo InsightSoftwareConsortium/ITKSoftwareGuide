@@ -142,6 +142,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   MeshCellVisitor.tex
   MeshKComplex.tex
   MeshTraits.tex
+  ModelToImageRegistration1.tex
   MinMaxCurvatureFlowImageFilter.tex
   PointSet1.tex
   PointSet2.tex
