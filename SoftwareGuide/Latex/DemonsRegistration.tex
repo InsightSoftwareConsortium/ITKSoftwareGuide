@@ -43,9 +43,14 @@ re-normalizes the equation such that:
 \begin{equation}
 \bf{D}(\bf{X}) = - \frac
 {\left(  m(\bf{X}) - f(\bf{X}) \right) \nabla f(\bf{X})}
-{\left\|  \nabla f \right\|^2 + \left(  m(\bf{X}) - f(\bf{X}) \right)^2 } 
+{\left\|  \nabla f \right\|^2 + \left(  m(\bf{X}) - f(\bf{X}) \right)^2 / K } 
 \label{eqn:DemonsDisplacement}
 \end{equation}
+
+Where $K$ is a normalization factor that accounts for the units imbalance
+between intensities and gradients. This factor is computed as the mean squared
+value of the pixel spacings. The inclusion of $K$ make the force computation to
+be invariant to the pixel scaling of the images.
 
 Starting with an initial deformatin field $\bf{D}^{0}(\bf{X})$, the demons
 algorithm iteratively updates the field using Equation
@@ -75,4 +80,23 @@ In ITK, the demons algorithm is implemented as part of the finite difference
 solver (FDS) framework and its use is demonstrated in the following example.
 
 \input{DeformableRegistration2.tex} 
+
+A variant of the force computation is also implemented in which the gradient of
+the deformed moving image is also involved. This provides a level of symmetry
+in the force calculation during one iteration of the PDE update. The equation
+used in this case is
+
+\begin{equation}
+\bf{D}(\bf{X}) = - \frac
+{2 \left(  m(\bf{X}) - f(\bf{X}) \right) \left(  \nabla f(\bf{X}) +  \nabla g(\bf{X}) \right) }
+{\left\|  \nabla f + \nabla g \right\|^2 + \left(  m(\bf{X}) - f(\bf{X}) \right)^2 / K } 
+\label{eqn:DemonsDisplacement}
+\end{equation}
+
+The following example illustrates the use of this defomable registration
+method.
+
+\input{DeformableRegistration2.tex} 
+
+
 
