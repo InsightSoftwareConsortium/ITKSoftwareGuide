@@ -91,7 +91,7 @@ vtkPolyDataMapper lensMapper
 
 vtkActor lensActor
     lensActor SetMapper lensMapper
-    eval [lensActor GetProperty] SetColor   0.4 0.4 0.4
+    eval [lensActor GetProperty] SetColor   0.3 0.3 0.3
     lensActor SetScale     1 0.2 1 
     lensActor SetPosition  0 -40 -150
 
@@ -129,13 +129,13 @@ vtkRenderWindowInteractor iren
 #
 #  Add all the actors
 #
-#ren1 AddActor grayMatterActor
-#ren1 AddActor skullActor
+ren1 AddActor grayMatterActor
+ren1 AddActor skullActor
 ren1 AddActor rightEyeActor
 ren1 AddActor eyeballActor
-ren1 AddActor lensActor
-#ren1 AddActor neckMusclesActor
-#ren1 AddActor skinActor
+#ren1 AddActor lensActor
+ren1 AddActor neckMusclesActor
+ren1 AddActor skinActor
 
 
 
