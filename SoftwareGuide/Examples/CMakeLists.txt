@@ -59,6 +59,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/MedianImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MinMaxCurvatureFlowImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/RGBCurvatureAnisotropicDiffusionImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/RGBGradientAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/VectorCurvatureAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/VectorGradientAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/RGBImageReadWrite.cxx
@@ -104,6 +105,7 @@ SET( ITK_EXAMPLES_TEX_SRCS
   MedianImageFilter.tex
   RGBImageReadWrite.tex
   RGBCurvatureAnisotropicDiffusionImageFilter.tex
+  RGBGradientAnisotropicDiffusionImageFilter.tex
   VectorCurvatureAnisotropicDiffusionImageFilter.tex
   VectorGradientAnisotropicDiffusionImageFilter.tex
 )
