@@ -14,6 +14,9 @@
 \newcommand{\itk@ptsize}{10pt}
 
 
+\newcommand{\itkcaption}[2][]{\caption[{#1}]{\small \textsf{{#2}} \normalsize}}
+
+
 %  These set up the fonts for the documents.
 %
 %  The "times" package makes the default font the PostScript Times
