@@ -1,0 +1,59 @@
+/** 
+
+\page FilteringImagesPage ImageFilters
+
+Filters are the basic components of the ITK pipeline.
+Outputs of filters are passed as input to others in order
+to assemble a processin chain.
+
+The basic code for using a filter is illustrated in the 
+following code
+
+\include Filtering\GradientMagnitudeImageFilter.cxx
+
+\par
+
+The following example illustrates how to threshold an image
+
+
+\include Filtering\BinaryThresholdImageFilter.cxx
+
+\par
+
+The following example illustrates how to use mathematical
+morphology filters in order to erode and dilate a binary
+image
+
+
+\include Filtering\MathematicalMorphologyFilters.cxx
+
+
+\par
+
+Given that some filters requires particular type for optimally
+performing their processing, it is sometime necessary to 
+cast the pixel type of an image before connecting it as input
+of the filter. This casting can be performed in several way
+depending on the desired input and output pixel types.
+
+The following example illustrates how to use several of the
+casting filters available in ITK.
+
+\include Filtering\CastingImageFilters.cxx
+
+
+\par
+
+A typical operation in basic image processing is filtering
+using a local mask that operates with pixels on the image.
+This is the base for classical 3x3 or 5x5 image filtering 
+operation. ITK implement this operation by taking advantage
+of the NeighborhoodIterator.
+
+The following code illustrates how to use the Median filter 
+as implemented in ITK
+
+\include Filtering\MedianImagefilter.cxx
+
+
+*/
