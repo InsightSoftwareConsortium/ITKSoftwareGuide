@@ -1,4 +1,5 @@
 .git*            export-ignore
 
+*.jpg           -crlf
 *.sh             crlf=input
 *.sh.in          crlf=input
