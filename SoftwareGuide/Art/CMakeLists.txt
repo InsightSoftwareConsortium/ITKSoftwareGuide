@@ -39,6 +39,10 @@ SET(XFIG_FIGURES
   ImageRegistration1Pipeline
   ImageRegistration1TraceMetric
   ImageRegistration1TraceTranslations
+  ImageRegistration2TraceTranslations
+  ImageRegistration2TraceTranslations2
+  ImageRegistration2TraceMetric
+  ImageRegistration2TraceMetric2
   ImageRegistration3Observer
   ParzenWindowing1
   ParzenWindowing2
@@ -89,6 +93,7 @@ SET(JPEG_IMAGES
   GradientMagnitudeRecursiveGaussianImageFilterOutput5
   GradientAnisotropicDiffusionImageFilterOutput
   ImageRegistration1Output
+  ImageRegistration2Output
   ImageRegistration1DifferenceBefore
   ImageRegistration1DifferenceAfter
   MathematicalMorphologyBinaryErosionOutput
