@@ -33,21 +33,20 @@ region of the fixed image. Each one of the iterator positions is mapped by the
 transform onto the moving image space in order to find the homologous pixel.
 
 Figure \ref{fig:ImageOverlapInterpolator} presents a detailed view of the
-mapping from the fixed image to the moving image. In general the grid positions
+mapping from the fixed image to the moving image. In general, the grid positions
 of the fixed image will not be mapped onto grid positions of the moving image.
 Interpolation is needed for estimating the intensity of the moving image at
 these non-grid positions.
 
 
-ITK currently offers three different interpolation schemes: nearest-neighbor
-via \doxygen{NearestNeighborInterpolateImageFunction}, linear via
-\doxygen{LinearInterpolateImageFunction} and B-spline interpolation via
+ITK currently offers three different interpolation schemes: nearest neighbor
+via the \doxygen{NearestNeighborInterpolateImageFunction}, linear via the
+\doxygen{LinearInterpolateImageFunction} and B-spline interpolation via the 
 \doxygen{BSplineInterpolateImageFunction}. In the context of registration,
 the interpolation method affects the smoothness of the optimization search
 space and the overall computation time. On the other hand, interpolations are
 executed thousands of times in a single optimization cycle. Hence, the user
-has to trade-off the simplicity of computation with smoothness when selecting
-the interpolation scheme.
+has to balance the simplicity of computation with the smoothness of the optimization when selecting the interpolation scheme.
 
 \index{itk::InterpolateImageFunction}
 \index{itk::InterpolateImageFunction!SetInputImage()}
@@ -55,19 +54,19 @@ the interpolation scheme.
 \index{itk::InterpolateImageFunction!EvaluateAtContinuousIndex()}
 \index{itk::InterpolateImageFunction!IsInsideBuffer()}
 
-The basic input to a \doxygen{InterpolateImageFunction} is the image to
+The basic input to an InterpolateImageFunction is the image to
 be interpolated. Once an image has been defined using \code{SetInputImage()},
 a user can interpolate either at a point using \code{Evaluate()} or
 an index using \code{EvaluateAtContinuousIndex()}.
  
-Interpolators provide the method \code{IsInsideBuffer()} that test whether a
+Interpolators provide the method \code{IsInsideBuffer()} that tests whether a
 particular image index or a physical point falls inside the spatial domain for
 which image pixels exist.
 
 \subsection{Nearest Neighbor Interpolation}
 \label{sec:NearestNeighborInterpolation}
 \index{itk::Nearest\-Neighbor\-Interpolate\-Image\-Function}
-\doxygen{NearestNeighborInterpolateImageFunction} simply uses the intensity of
+The NearestNeighborInterpolateImageFunction simply uses the intensity of
 the nearest grid position. That is, it assumes that the image intensity
 is piecewise constant with jumps mid-way between grid positions. 
 This interpolation scheme is cheap as it does not require any 
@@ -76,15 +75,15 @@ floating point computations.
 \subsection{Linear Interpolation}
 \label{sec:LinearInterpolation}
 \index{itk::Linear\-Interpolate\-Image\-Function}
-\doxygen{LinearInterpolateImageFunction} assumes that intensity varies
-linearly between grid positions. Unlike nearest neighbor, the interpolated
+The LinearInterpolateImageFunction assumes that intensity varies
+linearly between grid positions. Unlike nearest neighbor interpolation, the interpolated
 intensity is spatially continuous. However, the intensity gradient will be
 discontinuous at grid positions.
 
 \subsection{B-Spline Interpolation}
 \label{sec:BSplineInterpolation}
 \index{itk::BSpline\-Interpolate\-Image\-Function}
-\doxygen{BSplineInterpolateImageFunction} represents the image intensity 
+The BSplineInterpolateImageFunction represents the image intensity 
 using B-spline basis functions. When an input image is first 
 connected to the interpolator, B-spline 
 coefficients are computed using recursive filtering (assuming mirror
@@ -92,13 +91,13 @@ boundary conditions). Intensity at a non-grid position is computed
 by multiplying the B-spline coefficients with shifted B-spline kernels
 within a small support region of the requested position.
 
-Currently, this interpolator supports spline of order $0$ to $5$. Spline
-order of $0$ is almost identical to nearest-neighbor; spline order of $1$ is
-exactly identical to linear interpolation. For spline order greater than $1$,
-both the interpolated value and their derivative are spatially continuous.
+Currently, this interpolator supports splines of order $0$ to $5$. Using a spline
+of order $0$ is almost identical to nearest neighbor interpolation; a spline of order $1$ is
+exactly identical to linear interpolation. For splines of order greater than $1$,
+both the interpolated value and its derivative are spatially continuous.
 
 It is important to note that when using this scheme, the interpolated
-value may lie outside the range of input image intensity. This is
+value may lie outside the range of input image intensities. This is
 especially important when handling unsigned data, as it is possible
 that the interpolated value is negative.
 
