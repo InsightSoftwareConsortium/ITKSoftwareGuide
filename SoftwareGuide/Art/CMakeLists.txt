@@ -16,6 +16,7 @@ INCLUDE (${CMAKE_ROOT}/Modules/FindImageMagick.cmake)
 ADD_CUSTOM_TARGET(SoftwareGuideArt  ALL echo)
 
 SET(JPEG_IMAGES
+  BilateralImageFilterOutput
   BinaryThresholdImageFilterOutput
   BinaryMinMaxCurvatureFlowImageFilterOutput
   BinomialBlurImageFilterOutput
