@@ -205,6 +205,8 @@ SET(JPEG_IMAGES
   HybridSegmentationFuzzyVoronoiOutput2
   ImageAdaptorToVectorImageComponentX
   ImageAdaptorToVectorImageComponentY
+  ImageAdaptorThresholdingA
+  ImageAdaptorThresholdingB
   ImageRegionIteratorOutput
   ImageRegionIteratorWithIndexOutput
   ImageRegistration1Output
