@@ -652,6 +652,11 @@ New Chapter
    itkReadITKImage3DSegmentShowVTK.cxx
 
 
+Automation process:
+
+- Added tags to most examples in Filtering/, Segmentation/, Iterators/
+- Option to Build Figures
+- Option to Flip specified list of input figures (and their output figure dependencies)
 
 
 
