@@ -49,6 +49,7 @@ SET(XFIG_FIGURES
   MultiResImageRegistration1TraceMetric
   MultiResImageRegistration1TraceTranslations
   MultiResRegistrationComponents
+  MultiResRegistrationConcept
   ParzenWindowing1
   ParzenWindowing2
   ParzenWindowing3
