@@ -85,7 +85,7 @@ cross-correlation and normalize it by the square root of the autocorrelation of
 the images:
 
 \begin{equation}
-NC(A,B) = \frac{ \sum_i^N \left( A_i \cdot B_i \right) }
+NC(A,B) = -1 \times \frac{ \sum_i^N \left( A_i \cdot B_i \right) }
          { \sqrt { \sum_i^N A_i^2  \cdot \sum_i^N B_i^2 } }
 \end{equation}
 \begin{center}
@@ -94,12 +94,13 @@ $B_i$ is the i-th pixel of Image B\\
 $N$ is the number of pixels considered
 \end{center}
 
-The optimal value of the metric is one. Misalignment between the images results
-is small measure values. The use of this metric is limited to images obtained
-using the same imaging modality. The metric is insensitive to multiplicative
-factors between the two images. This metric produces a cost function with sharp
-peaks and well defined maxima. On the other hand, it has a relatively smaller
-capture radius.
+Note the $-1$ factor in the metric computation. This factor is used to make the
+metric be optimal when its minimum is reached.  The optimal value of the metric
+is then minus one. Misalignment between the images results is small measure
+values.  The use of this metric is limited to images obtained using the same
+imaging modality.  The metric is insensitive to multiplicative factors between
+the two images.  This metric produces a cost function with sharp peaks and well
+defined minima.  On the other hand, it has a relatively small capture radius.
 
 \subsection{Pattern Intensity Metric}
 \label{sec:PatternIntensityMetric}
@@ -108,7 +109,7 @@ capture radius.
 after passing them through a bell-shaped function $\frac{1}{1+x^2}$:
 
 \begin{equation}
-PI(A,B) =  \sum_i^N \frac{ 1 }{ 1 + \lambda \left( A_i - B_i \right) ^ 2 }
+PI(A,B) =  \sum_i^N \frac{ 1 }{ 1 + \frac{ \left( A_i - B_i \right) ^ 2}{ \lambda^2 }  }
 \end{equation}
 \begin{center}
 $A_i$ is the i-th pixel of Image A \\
@@ -125,8 +126,11 @@ This image metric has the advantage of producing poor values when few pixels
 are considered, this makes it consistent when its computation is subject the
 the size of the overlap region between the images. The capture radius of the
 metric can be regulated with the parameter $\lambda$.  The profile of this
-metric is very peaky. The sharp peaks of the metric helps
-to measure spatial misalignment with high precision.
+metric is very peaky. The sharp peaks of the metric helps to measure spatial
+misalignment with high precision. Note that the notion of capture radius is
+used here in terms of the intensity domain, not the spatial domain. In that
+regard, $\lambda$ should be given in intensity units and be associated to the
+difference in intensity that will make drop the metric by $50\%$.
 
 The metric is limited to be used with images of the same image modality.  The
 fact that its derivative is large at the central peak is a problem for some
