@@ -63,7 +63,7 @@ ADD_CUSTOM_COMMAND(
   TARGET    SoftwareGuideArt
   OUTPUTS   ${SoftwareGuide_BINARY_DIR}/Art/${image}.eps
 )
-SET(DEPS ${DEPS} " " ${SoftwareGuide_BINARY_DIR}/Art/${image}.eps)
+SET(DEPS ${DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${image}.eps)
 ENDFOREACH(image)
 
 ADD_CUSTOM_COMMAND(

@@ -48,7 +48,7 @@ SET( Tex_SRCS
 
 FOREACH( file ${Tex_SRCS})
 SET( SoftwareGuide_Tex_SRCS  
-   ${SoftwareGuide_Tex_SRCS} " " ${SoftwareGuide_SOURCE_DIR}/Latex/${file}
+   ${SoftwareGuide_Tex_SRCS} ${SoftwareGuide_SOURCE_DIR}/Latex/${file}
  )
 ENDFOREACH( file )
 
