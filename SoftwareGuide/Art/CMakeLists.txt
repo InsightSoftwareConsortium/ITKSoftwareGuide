@@ -53,6 +53,7 @@ SET(XFIG_FIGURES
   WatershedCatchmentBasins
   WatershedsHierarchy
   WatershedImageFilter
+  WatershedSegmentationEditorBuild
 )
 
 
