@@ -34,6 +34,7 @@ SET(XFIG_FIGURES
   ImageOverlap
   ImageOverlapInterpolator
   ImageOverlapIterator
+  ImageRegistrationConcept
   ParzenWindowing1
   ParzenWindowing2
   ParzenWindowing3
