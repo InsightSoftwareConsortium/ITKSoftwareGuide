@@ -144,7 +144,6 @@
 \renewcommand{\tableofcontents}{%
   \setcounter{page}{1}%
   \pagebreak%
-  \pagestyle{plain}%
   {%
     \parskip = 0mm%
     \itk@OldTableofcontents%
@@ -156,8 +155,6 @@
     \fi%
     \cleardoublepage%
   }%
-  \pagenumbering{arabic}%
-  \@ifundefined{fancyhf}{}{\pagestyle{normal}}%
   \itk@doing@page@targetstrue%
 }
 % This is needed to get the width of the section # area wide enough in the
