@@ -36,6 +36,7 @@ SET(JPEG_IMAGES
   MathematicalMorphologyGrayscaleErosionOutput
   MathematicalMorphologyGrayscaleDilationOutput
   MinMaxCurvatureFlowImageFilterOutput
+  MeanImageFilterOutput
   MedianImageFilterOutput
   RGBCurvatureAnisotropicDiffusionImageFilterOutput
   RGBCurvatureAnisotropicDiffusionImageFilterOutput2
