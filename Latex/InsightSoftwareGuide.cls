@@ -18,9 +18,9 @@
 \advance \topmargin by -\headheight
 \advance \topmargin by -\headsep
 
-\oddsidemargin   0.625in
-\evensidemargin -0.625in
-\marginparwidth  0.5in
+\oddsidemargin   0.25in
+\evensidemargin -0.25in
+\marginparwidth  0.25in
 
 %  These set up the fonts for the documents.
 %
@@ -70,8 +70,8 @@
 %
 
 
-\paperheight 9.5in
-\paperwidth  7.25in
+\paperheight 11in
+\paperwidth  8.5in
 
 % This gives us all the Insight-specific markup that we really want.
 % This should come last.  Do not change this.

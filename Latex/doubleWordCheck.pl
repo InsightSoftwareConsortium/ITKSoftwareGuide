@@ -3,6 +3,8 @@
 #  Script for searching for double words in the text
 #
 #  Contributed by Hans Johnson,  Iowa University
+#  This was one of the first examples in the Mastering Regular Expressions Book.
+#  There are several other gems like this in that book.
 #
 
 $/ = ".\n";
