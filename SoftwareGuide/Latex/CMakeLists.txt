@@ -75,6 +75,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   Image4.tex
   ImageRegistration1.tex
   ImageRegistration2.tex
+  ImageRegistration3.tex
   MathematicalMorphologyBinaryFilters.tex
   MathematicalMorphologyGrayscaleFilters.tex
   MeanImageFilter.tex
