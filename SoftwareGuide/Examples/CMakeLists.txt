@@ -43,6 +43,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/VectorImage.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/ImageAdaptor1.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/ImageAdaptor2.cxx
+  ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/ImageAdaptor3.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/AutomaticMesh.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/PointSet1.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/PointSet2.cxx
