@@ -50,6 +50,7 @@ SET(XFIG_FIGURES
   MultiResImageRegistration1TraceTranslations
   MultiResRegistrationComponents
   MultiResRegistrationConcept
+  OptimizersHierarchy
   ParzenWindowing1
   ParzenWindowing2
   ParzenWindowing3
