@@ -100,10 +100,15 @@ vtkActor skinActor
 #  Rendering pipeline shared among the anatomical structures
 #
 vtkRenderer ren1
+    ren1 SetBackground 0.1 0.2 0.4
+
 vtkRenderWindow renWin
     renWin AddRenderer ren1
+    renWin SetSize 1000 1000
+
 vtkRenderWindowInteractor iren
     iren SetRenderWindow renWin
+
 
 #
 #  Add all the actors
@@ -113,38 +118,45 @@ ren1 AddActor grayMatterActor
 ren1 AddActor skullActor
 ren1 AddActor rightEyeActor
 ren1 AddActor eyeballActor
-ren1 AddActor neckMusclesActor
+#ren1 AddActor neckMusclesActor
 ren1 AddActor skinActor
 
-# [ren1 GetActiveCamera] SetClippingRange 400 800
-# [ren1 GetActiveCamera] SetFocalPoint    94  114  -60
-# [ren1 GetActiveCamera] SetFocalPoint  -426 -626  107
-# [ren1 GetActiveCamera] ComputeViewPlaneNormal
-# [ren1 GetActiveCamera] SetViewUp   0  0   1
 
-ren1 SetBackground 0.1 0.2 0.4
-renWin SetSize 1024 1024
+
+#
+#  Configure camera point of view
+#
+eval [ren1 GetActiveCamera] SetClippingRange 400 800
+eval [ren1 GetActiveCamera] SetFocalPoint    94  114  -60
+eval [ren1 GetActiveCamera] SetPosition    -426 -626  107
+eval [ren1 GetActiveCamera] ComputeViewPlaneNormal
+eval [ren1 GetActiveCamera] SetViewUp   0  0   1
+eval [ren1 GetActiveCamera] Zoom 1.5
+ren1 ResetCamera
+
 
 
 
 #
 #  Saving the rendered image
+#  Magnification to 3 will produce a higher resolution image
 #
 vtkWindowToImageFilter grabber
   grabber SetInput renWin
+  grabber SetMagnification 3
   
 vtkPNGWriter writer
   writer SetInput [ grabber GetOutput ]
   writer SetFileName "SoftwareGuideCover.png"
-
+#  writer Write
 
 
 iren AddObserver UserEvent {wm deiconify .vtkInteract}
 
 iren Initialize
 
-[ren1 GetActiveCamera] Zoom 1.5
 renWin Render
+ren1   Render
 
 wm withdraw .
 
