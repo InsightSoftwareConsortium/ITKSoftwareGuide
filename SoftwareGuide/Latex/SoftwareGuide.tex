@@ -67,7 +67,7 @@ and the \emph{Insight Software Consortium}}
 \itkFullVersiontrue
 
 \newif\ifitkPrintedVersion
-\itkPrintedVersionfalse
+\itkPrintedVersiontrue
 
 
 % actually write the .idx file
@@ -86,7 +86,7 @@ and the \emph{Insight Software Consortium}}
 \begin{document}
 
 %\ifitkPrintedVersion
-%\InputIfFileExists{PrintedPreamble.tex}
+\InputIfFileExists{PrintedPreamble.tex}
 %\fi
 
 \maketitle
@@ -127,7 +127,7 @@ and the \emph{Insight Software Consortium}}
 
 
 %\ifitkPrintedVersion 
-%\input{Cover.tex}
+\input{Cover.tex}
 %\fi
 
 \ifitkFullVersion 
@@ -263,7 +263,7 @@ and the \emph{Insight Software Consortium}}
 
 %\ifitkPrintedVersion
 \cleardoublepage
-%\InputIfFileExists{MarketingMaterial.tex}
+\InputIfFileExists{MarketingMaterial.tex}
 %\fi
 
 
