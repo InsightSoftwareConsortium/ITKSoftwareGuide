@@ -1,19 +1,41 @@
-In the registration process, the metric typically compare intensity values 
+% 
+%  This file is included by Registration.tex
+%
+
+\begin{figure}
+\center
+\includegraphics[width=16cm]{ImageOverlap.eps}
+\caption{ The moving image is mapped into the fixed image space under some
+spatial transformation. An Iterator walks throught the fixed image and its
+coordinates are mapped onto the moving image.}
+\label{fig:ImageOverlapIterator}
+\end{figure}
+
+
+\piccaption[2]{Grid positions of the fixed image map to non-grid positions of
+  the moving image.\label{fig:PointSetWithVectors}}
+\parpic(8cm,6cm)[r]{\includegraphics[width=7.5cm]{ImageOverlapInterpolator.eps}}
+
+In the registration process, the metric typically compares intensity values 
 in the fixed image with the corresponding values in the transformed moving
 image. When a point is mapped from one space to another by a transform,
 it will in general be mapped to a non-grid position. Therefore, interpolation
 is required to evaluate the image intensity at the mapped position.
 
-\begin{figure}
-\center
-\includegraphics[height=6cm]{ImageOverlap.eps}
-\includegraphics[height=6cm]{ImageOverlapInterpolator.eps}
-\caption{ The moving image is mapped into the fixed image space under some spatial
-transformation. Grid positions of the fixed image maps to non-grid positions of the
-moving image. Interpolation is needed for estimating the intensity of the
-moving image at these non-grid positions.}
-\label{fig:ImageOverlapInterpolator}
-\end{figure}
+Figure \ref{fig:ImageOverlapIterator} (left) illustrates the mapping of the
+fixed image space onto the moving image space. The transfom maps points from
+the fixed image coordinate system onto the moving image coordinate system. The
+figure highlights the region of overlap between the two images after the
+mapping. The right side illustrates how an iterator is used to walk through a
+region of the fixed image. Each one of the interator positions is mapped by the
+transform onto the moving image space in order to find the homologous pixel.
+
+Figure \ref{fig:ImageOverlapInterpolator} presents a detailed view of the
+mapping from the fixed image to the moving image. In general the grid positions
+of the fixed image will not be mapped onto grid positions of the moving image.
+Interpolation is needed for estimating the intensity of the moving image at
+these non-grid positions.
+
 
 ITK currently offers three different interpolation schemes: nearest-neighbor,
 linear and B-spline. In the context of registration, the interpolation method
@@ -27,11 +49,17 @@ scheme.
 \index{itk::InterpolateImageFunction!SetInputImage()}
 \index{itk::InterpolateImageFunction!Evaluate()}
 \index{itk::InterpolateImageFunction!EvaluateAtContinuousIndex()}
+\index{itk::InterpolateImageFunction!IsInsideBuffer()}
+
 The basic input to a \code{itk::InterpolateImageFunction} is the image to
-be interpolated. Once an image has be defined using \code{SetInputImage()},
+be interpolated. Once an image has been defined using \code{SetInputImage()},
 a user can interpolate either at a point using \code{Evaluate()} or
 an index using \code{EvaluateAtContinuousIndex()}.
  
+Interpolators provide the method \code{IsInsideBuffer()} which tests whether a
+particular image index or a physical point falls inside the spatial domain for
+which image pixels exist.
+
 \subsection{Nearest Neighbor Interpolation}
 \label{sec:NearestNeighborInterpolation}
 \index{itk::NearestNeighborInterpolateImageFunction|textbf}
