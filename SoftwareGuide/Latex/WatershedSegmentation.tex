@@ -160,7 +160,7 @@ changing the depth threshold or combining them under some user direction.
 
 \subsection{Watershed Segmentation in Insight}
 \label{sec:ImplementationWatersheds}
-\index{Watershed!Segmentation}
+\index{Watersheds!Segmentation}
 The Insight Toolkit implementation of the watersheds algorithm is based on the
 top-down approach.  That is, it traces gradient descent down from image ridges
 to local minima when identifying catchment basins (see the previous
@@ -233,7 +233,7 @@ maximum flood level} to generate a new labeled image in real-time.
 
 \subsection{Using the Insight Watershed Filter}
 \label{sec:UsingWatersheds}
-\index{Watershed!ImageFilter}
+\index{Watersheds!ImageFilter}
 Because the Insight watershed filter has so few parameters\footnote{There is
 really only one parameter, \emph{flood level}.  The \emph{threshold} parameter
 is just another stage of preprocessing.}, the quality of a segmentation
@@ -284,7 +284,7 @@ with respect to the increased size of the data set.
 
 \subsection{Visualizing the Results}
 \label{sec:VisualizingWatersheds}
-\index{Watershed!Visualization}
+\index{Watersheds!Visualization}
 In order to interpret the output of the Insight watersheds algorithm, it is
 important to understand what the output is and how it is encoded.  The
 watersheds image filter produces an image of unsigned long integers.  This
