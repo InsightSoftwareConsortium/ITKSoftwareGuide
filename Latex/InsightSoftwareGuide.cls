@@ -15,6 +15,7 @@
 
 
 \newcommand{\itkcaption}[2][]{\caption[{#1}]{\small \textsf{{#2}} \normalsize}}
+\newcommand{\itkpiccaption}[2][]{\piccaption[{#1}]{\small \textsf{{#2}} \normalsize}}
 
 
 %  These set up the fonts for the documents.
