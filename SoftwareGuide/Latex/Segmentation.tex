@@ -34,13 +34,38 @@ strategy used for visiting the neighbor pixels.
 Several implementations of region growing are available in the
 Insight toolkit. This section describes some of the most commonly used.
 
+\subsection{Connected Threshold}
+
+Probably the simplest criterion for including pixels in a growing region is the
+condition of  having intensity values inside a specify intensity interval.
+
+\label{sec:ConnectedThreshold}
+\ifitkFullVersion 
+\input{ConnectedThresholdImageFilter.tex}
+\fi
+
+
+\subsection{Neighborhood Connected}
+\label{sec:NeighborhoodConnectedImageFilter}
+\ifitkFullVersion 
+\input{NeighborhoodConnectedImageFilter.tex}
+\fi
+
+
+
 \subsection{Confidence Connected}
 \label{sec:ConfidenceConnected}
 \ifitkFullVersion 
 \input{ConfidenceConnected.tex}
 \fi
 
-\subsection{Threshold Connected}
+
+\subsection{Isolated Connected}
+\label{sec:IsolatedConnected}
+\ifitkFullVersion 
+\input{IsolatedConnectedImageFilter.tex}
+\fi
+
 
 \section{Segmentation Based on Watersheds}
 \label{sec:WatershedSegmentation}
