@@ -32,7 +32,7 @@
 #
 CMAKE_MINIMUM_REQUIRED(VERSION 1.6)
 
-PROJECT(SoftwareGuide NONE)
+PROJECT(SoftwareGuide C)
 
 
 

@@ -2,7 +2,7 @@
 #  This empty files makes the Examples directory 
 #  to be created in the binary tree
 #
-PROJECT(Examples NONE)
+PROJECT(Examples C)
 
 # Macro defs
 #
