@@ -32,16 +32,16 @@ that the main difference here is that in addition to mapping the spatial
 position of the model, we can also customize internal parameters that change
 its shape.
 
-Figure~\ref{fig:ModelToImageRegistrationComponentsDiagram} illustrates the
-major components of the registration framework in ITK when a model base
+Figure~\ref{fig:ModelToImageRegistrationComponentsDiagram}   illustrates  the
+major  components of  the registration  framework in  ITK when  a  model base
 registration problem is configured. The basic input data for the registration
-is provided by pixel data in an Image and by geometrical data stored
-in a SpatialObject. A metric has to be defined in order to evaluate
-the fitness between the model and the image. This fitness value can be improved
-by introducing variations in the spatial positioning of the
-SpatialObject and/or by changing its internal parameters. The search
-space for the optimizer is now the composition of the transform parameter and
-the shape internal parameters.
+is  provided by  pixel data  in an  \doxygen{Image} and  by  geometrical data
+stored in a  \doxygen{SpatialObject}. A metric has to be  defined in order to
+evaluate the fitness between the model  and the image. This fitness value can
+be  improved by  introducing variations  in  the spatial  positioning of  the
+SpatialObject and/or  by changing its  internal parameters. The  search space
+for the optimizer  is now the composition of the  transform parameter and the
+shape internal parameters.
 
 This same approach can be considered a segmentation technique, since once the
 model has been optimally superimposed on the image we could label pixels

@@ -405,7 +405,7 @@ an array of scale values that are used to normalize the parameter space.
 
 Registrations involving angles and translations should take advantage of the
 scale normalization functionality in order to obtain the best performance out
-of the optimizers. The main characteristics of the \doxygen{Euler2DTransform}
+of the optimizers. The main characteristics of the Euler2DTransform class
 are presented in Table~\ref{tab:Euler2DTransformCharacteristics}.
 
 
@@ -436,7 +436,7 @@ Only defined for two-dimensional input and output spaces. \\
 \end{table}
 
 \doxygen{CenteredRigid2DTransform} implements a rigid transformation in $2D$. 
-The main difference between this transform and the Euler2DTransform
+The main difference between this transform and the \doxygen{Euler2DTransform}
 is that here we can specify an arbitrary center of rotation, while the
 Euler2DTransform always uses the origin of the coordinate system as
 the center of rotation. This distinction is quite important in image
@@ -535,14 +535,14 @@ Only defined for two-dimensional input and output spaces. \\
 \label{tab:Similarity2DTransformCharacteristics}}
 \end{table}
 
-The \doxygen{Similarity2DTransform} preserves angles. It
-can be seen as a rigid transform plus an isotropic scaling factor. In its
-$2D$ implementation, the four parameters of this transformation combine the
-characteristics of the ScaleTransform and Euler2DTransform relating to the 
-non-linearity of the parameter
-space and the non-uniformity of the measurement units. Gradient descent
-optimizers should be used with caution on such parameter spaces since the
-notion of gradient direction and step length are ill-defined.
+The \doxygen{Similarity2DTransform} preserves angles. It can be seen as a
+rigid transform plus an isotropic scaling factor. In its $2D$ implementation,
+the four parameters of this transformation combine the characteristics of the
+\doxygen{ScaleTransform} and \doxygen{Euler2DTransform} relating to the
+non-linearity of the parameter space and the non-uniformity of the
+measurement units. Gradient descent optimizers should be used with caution on
+such parameter spaces since the notion of gradient direction and step length
+are ill-defined.
 
 The following equation illustrates the effect of the transform on an input
 point $(x,y)$ that maps to the output point $(x',y')$,
@@ -634,7 +634,8 @@ The \doxygen{QuaternionRigidTransform} class implements a rigid
 transformation in $3D$ space. The rotational part of the transform is
 represented using a quaternion while the translation is represented with a
 vector. Quaternions components do not form a vector space and hence raise the
-same concerns as the Similarity2DTransform when used with gradient descent optimizers.
+same concerns as the \doxygen{Similarity2DTransform} when used with gradient
+descent optimizers.
 
 The \doxygen{QuaternionRigidTransformGradientDescentOptimizer} was introduced into the toolkit to address these concerns.  This specialized optimizer implements a variation of a
 gradient descent algorithm adapted for a quaternion space.  This class
@@ -735,14 +736,15 @@ Only defined for three-dimensional input and output spaces. \\
 \end{table}
 
 \doxygen{VersorRigid3DTransform} is a close variant of the
-QuaternionRigidTransform. It can be seen as a VersorTransform plus a translation defined by a vector. In general
+\doxygen{QuaternionRigidTransform}. It can be seen as a 
+\doxygen{VersorTransform} plus a translation defined by a vector. In general
 terms, it implements a rigid transform in $3D$.  The advantage of this class
-with respect to the QuaternionRigidTransform is that it exposes
-only six parameters, three for the versor components and three for the
-translational components. This reduces the search space for the optimizer 
-to six dimensions instead of the seven dimensional used by the 
-QuaternionRigidTransform. The main features of this transform
-are summarized in Table\ref{tab:VersorRigid3DTransformCharacteristics}.
+with respect to the QuaternionRigidTransform is that it exposes only six
+parameters, three for the versor components and three for the translational
+components. This reduces the search space for the optimizer to six dimensions
+instead of the seven dimensional used by the QuaternionRigidTransform. The
+main features of this transform are summarized in
+Table\ref{tab:VersorRigid3DTransformCharacteristics}.
 
 
 \subsection{AffineTransform}
@@ -773,7 +775,7 @@ Only defined when the input and output space have the same dimension. \\
 \label{tab:AffineTransformCharacteristics}}
 \end{table}
 
-The AffineTransform is one of the most popular transformations used
+The \doxygen{AffineTransform} is one of the most popular transformations used
 for image registration. Its main advantage comes from the fact that it is 
 represented as a linear transformation. The main features of this
 transform are presented in Table~\ref{tab:AffineTransformCharacteristics}.
@@ -796,8 +798,9 @@ hand, can be on the order of $10$ to $100$, and are basically related to the
 image size and pixel spacing.
 
 This difference in scale makes it necessary to take advantage of the
-functionality offered by the optimizer for rescaling the parameter space. This is
-particularly relevant for optimizers based on gradient descent approaches.
+functionality offered by the optimizer for rescaling the parameter
+space. This is particularly relevant for optimizers based on gradient descent
+approaches.
 
 A registration based on the affine transform may be more effective when
 applied after simpler transformations have been used to remove the major

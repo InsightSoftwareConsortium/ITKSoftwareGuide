@@ -56,8 +56,10 @@ and transformed moving image $(m \circ T(\bf{X}))$ as images $A$ and $B$.
 \subsection{Mean Squares Metric}
 \label{sec:MeanSquaresMetric}
 \index{itk::Mean\-Squares\-Image\-To\-Image\-Metric}
-The MeanSquaresImageToImageMetric computes the mean squared pixel-wise difference in intensity
-between image $A$ and $B$ over a user defined region:
+
+The \doxygen{MeanSquaresImageToImageMetric} computes the mean squared
+pixel-wise difference in intensity between image $A$ and $B$ over a user
+defined region:
 
 \begin{equation}
 MS(A,B) = \frac{1}{N} \sum_i^N \left( A_i - B_i \right)^2
@@ -80,7 +82,8 @@ intensity result in a poor match value.
 \subsection{Normalized Correlation Metric}
 \label{sec:NormalizedCorrelationMetric}
 \index{itk::Normalized\-Correlation\-Image\-To\-Image\-Metric}
-The NormalizedCorrelationImageToImageMetric computes pixel-wise
+
+The \doxygen{NormalizedCorrelationImageToImageMetric} computes pixel-wise
 cross-correlation and normalizes it by the square root of the autocorrelation
 of the images:
 
@@ -105,8 +108,10 @@ defined minima.  On the other hand, it has a relatively small capture radius.
 \subsection{Mean Reciprocal Square Differences}
 \label{sec:MeanReciprocalSquareDifferenceMetric}
 \index{itk::Mean\-Reciprocal\-Square\-Difference\-Image\-To\-Image\-Metric}
-The MeanReciprocalSquareDifferenceImageToImageMetric computes pixel-wise differences and adds them 
-after passing them through a bell-shaped function $\frac{1}{1+x^2}$:
+
+The \doxygen{MeanReciprocalSquareDifferenceImageToImageMetric} computes
+pixel-wise differences and adds them after passing them through a bell-shaped
+function $\frac{1}{1+x^2}$:
 
 \begin{equation}
 PI(A,B) =  \sum_i^N \frac{ 1 }{ 1 + \frac{ \left( A_i - B_i \right) ^ 2}{ \lambda^2 }  }
@@ -123,14 +128,14 @@ The characteristics of this metric have been studied by Penney and Holden
 \cite{Holden1999}\cite{Penney1998}
 
 This image metric has the advantage of producing poor values when few pixels
-are considered.  This makes it consistent when its computation is subject to the
-size of the overlap region between the images. The capture radius of the
+are considered.  This makes it consistent when its computation is subject to
+the size of the overlap region between the images. The capture radius of the
 metric can be regulated with the parameter $\lambda$.  The profile of this
 metric is very peaky. The sharp peaks of the metric help to measure spatial
 misalignment with high precision. Note that the notion of capture radius is
 used here in terms of the intensity domain, not the spatial domain. In that
-regard, $\lambda$ should be given in intensity units and be associated with the
-differences in intensity that will make drop the metric by $50\%$.
+regard, $\lambda$ should be given in intensity units and be associated with
+the differences in intensity that will make drop the metric by $50\%$.
 
 The metric is limited to images of the same image modality.  The
 fact that its derivative is large at the central peak is a problem for some
@@ -140,7 +145,8 @@ reached.  This metric is also sensitive to linear changes in intensity.
 
 \subsection{Mutual Information Metric}
 \label{sec:MutualInformationMetric}
-The MutualInformationImageToImageMetric computes the mutual
+
+The \doxygen{MutualInformationImageToImageMetric} computes the mutual
 information between image $A$ and image $B$.  Mutual information (MI)
 measures how much information one random variable (image intensity in one
 image) tells about another random variable (image intensity in the other
@@ -211,9 +217,10 @@ beyond the scope of this software guide.  Typically, the optimal value of the
 smoothing parameter will depend on the data and the number of samples used.
 
 \subsubsection{Viola and Wells Implementation}
-ITK has two mutual information metric implementations. The first is 
-MutualInformationImageToImageMetric and follows the method specified
-by Viola and Wells in \cite{Viola1997}.
+
+The Insight Toolkit has two mutual information metric implementations. The
+first is \doxygen{MutualInformationImageToImageMetric} and follows the method
+specified by Viola and Wells in \cite{Viola1997}.
 
 \index{itk::Mutual\-Information\-Image\-To\-Image\-Metric}
 
@@ -247,7 +254,7 @@ using methods
 \subsubsection{Mattes et al. Implementation}
 The second form of mutual information metric available in ITK follows the
 method specified by Mattes et al. in \cite{Mattes2001} and is implemented by
-the MattesMutualInformationImageToImageMetric class.
+the \doxygen{MattesMutualInformationImageToImageMetric} class.
 
 \index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metric}
 In this implementation, only one set of intensity samples is drawn from the
