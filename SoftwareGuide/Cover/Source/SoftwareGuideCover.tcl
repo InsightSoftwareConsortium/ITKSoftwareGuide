@@ -113,12 +113,11 @@ vtkRenderWindowInteractor iren
 #
 #  Add all the actors
 #
-
 ren1 AddActor grayMatterActor
 ren1 AddActor skullActor
 ren1 AddActor rightEyeActor
 ren1 AddActor eyeballActor
-#ren1 AddActor neckMusclesActor
+ren1 AddActor neckMusclesActor
 ren1 AddActor skinActor
 
 
@@ -128,11 +127,11 @@ ren1 AddActor skinActor
 #
 eval [ren1 GetActiveCamera] SetClippingRange 400 800
 eval [ren1 GetActiveCamera] SetFocalPoint    94  114  -60
-eval [ren1 GetActiveCamera] SetPosition    -426 -626  107
+eval [ren1 GetActiveCamera] SetPosition    -526 -526  127
 eval [ren1 GetActiveCamera] ComputeViewPlaneNormal
 eval [ren1 GetActiveCamera] SetViewUp   0  0   1
-eval [ren1 GetActiveCamera] Zoom 1.5
 ren1 ResetCamera
+eval [ren1 GetActiveCamera] Zoom 1.35
 
 
 
@@ -148,7 +147,7 @@ vtkWindowToImageFilter grabber
 vtkPNGWriter writer
   writer SetInput [ grabber GetOutput ]
   writer SetFileName "SoftwareGuideCover.png"
-#  writer Write
+  writer Write
 
 
 iren AddObserver UserEvent {wm deiconify .vtkInteract}
