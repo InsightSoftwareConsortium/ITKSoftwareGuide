@@ -62,6 +62,7 @@ SET( Tex_SRCS
   GUI.tex
   ImageMetrics.tex
   ImageInterpolators.tex
+  ImageAdaptors.tex
   Infrastructure.tex
   Installation.tex
   Introduction.tex
