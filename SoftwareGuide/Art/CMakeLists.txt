@@ -119,11 +119,13 @@ SET(JPEG_IMAGES
   DeformableRegistration1CheckerboardAfter
   DiscreteGaussianImageFilterOutput
   FivePoints
+  FatMRISlice
   GradientMagnitudeImageFilterOutput
   GradientMagnitudeRecursiveGaussianImageFilterOutput3
   GradientMagnitudeRecursiveGaussianImageFilterOutput5
   GradientAnisotropicDiffusionImageFilterOutput
   HybridSegmentationFuzzyVoronoiOutput
+  HybridSegmentationFuzzyVoronoiOutput2
   HybridSegmentationOutput1
   ImageRegistration1Output
   ImageRegistration2Output
