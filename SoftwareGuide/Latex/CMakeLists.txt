@@ -70,6 +70,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   GradientMagnitudeImageFilter.tex
   GradientMagnitudeRecursiveGaussianImageFilter.tex
   HelloWorld.tex
+  HybridSegmentationFuzzyVoronoi.tex
   Image1.tex
   Image2.tex
   Image3.tex
