@@ -138,6 +138,7 @@ classes availables in ITK.
 
 \subsection{Identity Transform}
 \label{sec:IdentityTransform}
+\index{itk::IdentityTransform|textbf}
 
 \begin{center}
 \begin{tabular}{\tableconfiguration}
@@ -163,6 +164,7 @@ process. It is just a \code{NULL} operation.
 
 \subsection{Translation Transform}
 \label{sec:TranslationTransform}
+\index{itk::TranslationTransform|textbf}
 
 \begin{center}
 \begin{tabular}{\tableconfiguration}
@@ -196,6 +198,7 @@ being a fast transform and having parameters that are easy to interpret.
 
 \subsection{Scale Transform}
 \label{sec:ScaleTransform}
+\index{itk::ScaleTransform|textbf}
 
 \begin{center}
 \begin{tabular}{\tableconfiguration}
@@ -268,6 +271,7 @@ independently.
 
 \subsection{Euler2DTransform}
 \label{sec:Euler2DTransform}
+\index{itk::Euler2DTransform|textbf}
 
 \begin{center}
 \begin{tabular}{\tableconfiguration}
@@ -303,7 +307,7 @@ values vary depending on the image modality being considered. In practice,
 translations have values on the order of $10$ to $100$. This scale difference
 between rotation and translation parameters is undesirable for gradient-descent
 optimizers because they deviate the trayectories of descent making optimization
-slower and more unstable. In order to compensate these differences, ITK
+slower and more unstable. In order to compensate for these differences, ITK
 optimizers accept an array of scale values that are used to normalize the
 parameter space.
 
@@ -315,6 +319,7 @@ the optimizers.
 
 \subsection{Similarity2DTransform}
 \label{sec:Similarity2DTransform}
+\index{itk::Similarity2DTransform|textbf}
 
 \begin{center}
 \begin{tabular}{\tableconfiguration}
@@ -337,12 +342,12 @@ Only defined for two-dimensional input and output spaces. \\
 \end{center}
 
 A similarity transform preserves angles. It can be seen as a rigid transform
-plus an isotropic scaling factor. The four parameters of this transformation
-combine the characteristics of the \code{Scale} and \code{Euler2DTransform}
-concerning the non-linearity of the parameter space and the non-uniformity of
-the measure units. Gradient-descent like optimizers should be used with caution
-on such parameter spaces since the notion of gradient direction and step-length
-are ill-defined.
+plus an isotropic scaling factor. In its $2D$ implementation, the four
+parameters of this transformation combine the characteristics of the
+\code{Scale} and \code{Euler2DTransform} concerning the non-linearity of the
+parameter space and the non-uniformity of the measure units. Gradient-descent
+optimizers should be used with caution on such parameter spaces since the
+notion of gradient direction and step-length are ill-defined.
 
 A possible approach for supervising optimization in the parameter space of this
 transform is to dynamically control the array of scales passed to the
@@ -355,6 +360,7 @@ another set of iterations updating only translations.
 
 \subsection{QuaternionRigidTransform}
 \label{sec:QuaternionRigidTransform}
+\index{itk::QuaternionRigidTransform|textbf}
 
 \begin{center}
 \begin{tabular}{\tableconfiguration}
@@ -365,7 +371,7 @@ another set of iterations updating only translations.
 \textbf{Restrictions} \\
 \hline\hline
 Represents a 3D rotation and a 3D translation. The rotation is specified as a
-quaternion, defined by a vector of four numbers $\bf{q}$.  The relationship
+quaternion, defined by a set of four numbers $\bf{q}$.  The relationship
 between quaternion and rotation about vector $\bf{n}$ by angle $\theta$ is as
 follows: \[ \bf{q} = (\bf{n}\sin(\theta/2), \cos(\theta/2))\] Note that if the
 quaternion is not of unit length, scaling will also result. &
@@ -377,11 +383,27 @@ Only defined for three-dimensional input and output spaces. \\
 \end{tabular}
 \end{center}
 
+This class implements a rigid transformation in $3D$ space. The rotational part
+of the transform is represented using a quaternion while the translation is
+represented with a vector. Quaternions components do not form a vector space
+and hence raise the same concerns of the \code{Similarity2DTransform} when used
+with gradient-descent optimizers.
+
+As a solution, the \code{itk::QuaternionRigidTransformGradientDescentOptimizer}
+was introduced in the toolkit.  This specialized optimizer implements a
+variation of a gradient-descent algorithm adapted for a quaternion space.  This
+class makes sure that after advancing in any direction on the parameter space
+the resulting new set of transform parameters are mapped back to the persimible
+set of parameters. In practice this comes down to normalize the newly computed
+quaternion to make sure that the transformation remains rigid and no scaling is
+applied. 
+
 
 
 \subsection{VersorRigid3DTransform}
 \label{sec:VersorRigid3DTransform}
-
+\index{itk::VersorRigid3DTransform|textbf}
+\index{itk::Versor!Definition|textbf}
 
 \begin{center}
 \begin{tabular}{\tableconfiguration}
@@ -391,18 +413,30 @@ Only defined for three-dimensional input and output spaces. \\
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
 \hline\hline
-Represents a 3D rotation and a 3D translation. The rotation is specified a
-versor or unit quaternion, defined by a vector of three numbers.
-These three numbers corresponds to the first three components of a quaternion.
-The fourth component of the quaternion is derived such that the quaternion is of
-unit length. &
+Represents a 3D rotation and a 3D translation. The rotation is specified by a
+versor or unit quaternion, while the translation is represented by a vector. &
 6 &
-The first three parameters defines the versor and the last three parameters the
+The first three parameters define the versor and the last three parameters the
 translation in each dimension. &
 Only defined for three-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
+
+This transform is a close variant of the \code{QuaternionRigidTransform}. A
+\emph{Versor} is by definition the rotational part of a quaternion. It can also
+be defined as a \emph{unit-quaternion}. Versors only have three independent
+components since they are restricted to reside in the space of
+unit-quaternions. The implementation of Versors in the toolkit uses a set of
+three numbers.  These three numbers correspond to the first three components of
+a quaternion.  The fourth component of the quaternion is computed internally
+such that the quaternion is of unit length.
+
+The advantage of this class with respect to the \code{QuaternionRigidTransform}
+is that it exposes only 6 parameters, three for the versor components and three
+for the translational components. This makes the search space for the optimizer
+to be reduced to dimension 6 instead of the dimension 7 used by
+\code{QuaternionRigidTransform}.
 
 
 
