@@ -121,6 +121,7 @@ SET(XFIG_FIGURES
 
 
 SET(JPEG_IMAGES
+  itkLogo
   BilateralImageFilterOutput
   BinaryThresholdImageFilterOutput
   BinaryMinMaxCurvatureFlowImageFilterOutput
