@@ -68,6 +68,10 @@ First we begin with some simple registration examples.
 \label{sec:MultiModalityRegistrationMattes}
 \input{ImageRegistration4.tex}
 
+\subsection{Rigid Registration in 2D}
+\label{sec:RigidRegistrationIn2D}
+\input{ImageRegistration5.tex}
+
 
 
 \section{Multi-Resolution Registration}
@@ -130,32 +134,5 @@ Let's review now the main characteristics of the registration framework componen
 
 \section{Deformable Registration}
 \label{sec:DeformableRegistration}
-\input{DeformableRegistration1.tex}
-
- 
-\begin{figure} \center
-\includegraphics[width=8cm]{DeformableRegistration1CheckerboardBefore.eps}
-\includegraphics[width=8cm]{DeformableRegistration1CheckerboardAfter.eps}
-\caption{Checkerboard comparisons before and after FEM-based deformable registration.}
-\label{fig:DeformableRegistration1Output}
-\end{figure}
-
-Figure \ref{fig:DeformableRegistration1Output} presents the results of
-the FEM-based deformable registration applied to two time-separated
-slices of a living mouse dataset.  Checkerboard comparisons of the two
-images are shown before registration (left) and after registration
-(right).  Both images were acquired from the same living mouse, the
-first after inspiration of air into the lungs and the second after
-exhalation.  Deformation occurs due to the elastic recoil of the lung
-tissue and the relaxation of the diaphragm.
-
-The following is a documented sample parameter file that can be used with this
-deformable registration example.  This example demonstrates the setup of a
-basic registration problem that does not use multi-resolution strategies.  As a
-result, only one value for the parameters between \texttt{(\# of pixels per
-element)} and \texttt{(maximum iterations)} is necessary.  In order to use a
-multi-resolution strategy, you would have to specify values for those
-parameters at each level of the pyramid.
-
-\verbatiminput{FiniteElementRegistrationParameters1.txt}
+\input{DeformableRegistration.tex}
 
