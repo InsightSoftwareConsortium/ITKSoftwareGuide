@@ -219,7 +219,7 @@ The pipeline execution process performs several important functions.
         \item It may free (or release) output data if filters no longer need
         it to compute, and the user requests that data is to be
         released. (Note: a filter's output data object may be considered a
-        ``cache''. If the cache is allowed to remain (\code{ReleaseDataOff()}) 
+        ``cache''. If the cache is allowed to remain (\code{ReleaseDataFlagOff()}) 
         between pipeline execution, and the filter, or the input to the 
         filter, never changes, then process objects downstream of the filter 
         just reuse the filter's cache to reexecute.)
