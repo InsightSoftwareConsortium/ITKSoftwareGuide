@@ -153,6 +153,10 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Registration/DeformableRegistration2.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/DeformableRegistration3.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/DeformableRegistration4.cxx
+  ${ITK_SOURCE_DIR}/Examples/Registration/DeformableRegistration5.cxx
+  ${ITK_SOURCE_DIR}/Examples/Registration/DeformableRegistration6.cxx
+  ${ITK_SOURCE_DIR}/Examples/Registration/DeformableRegistration7.cxx
+  ${ITK_SOURCE_DIR}/Examples/Registration/DeformableRegistration8.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/LandmarkWarping2.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/BSplineWarping1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/MultiResImageRegistration1.cxx
