@@ -34,6 +34,9 @@ SET(JPEG_IMAGES
   MinMaxCurvatureFlowImageFilterOutput
   MedianImageFilterOutput
   RGBCurvatureAnisotropicDiffusionImageFilterOutput
+  RGBCurvatureAnisotropicDiffusionImageFilterOutput2
+  RGBGradientAnisotropicDiffusionImageFilterOutput
+  RGBGradientAnisotropicDiffusionImageFilterOutput2
   ThresholdImageFilterOutputAbove
   ThresholdImageFilterOutputBelow
   ThresholdImageFilterOutputOutside
@@ -42,6 +45,7 @@ SET(JPEG_IMAGES
   VectorCurvatureAnisotropicDiffusionImageFilterInput
   VectorCurvatureAnisotropicDiffusionImageFilterOutput
   VisibleWomanHeadSlice
+  VisibleWomanEyeSlice
 )
 
 FOREACH(image ${JPEG_IMAGES})
