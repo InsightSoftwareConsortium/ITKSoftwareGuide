@@ -78,6 +78,7 @@ SET(XFIG_FIGURES
   ImageRegistration7TraceMetric
   ImageRegistration7TraceAngle
   ImageRegistration7TraceTranslations
+  LevelSetZeroSet
   MultiResImageRegistration1TraceMetric
   MultiResImageRegistration1TraceTranslations
   MultiResImageRegistration2TraceMetric
