@@ -27,6 +27,7 @@ ADD_CUSTOM_TARGET(SoftwareGuideArt  ALL echo)
 SET(XFIG_FIGURES
   BinaryThresholdTransferFunction
   DiscreteGaussian
+  GeometricalObjects
   ImageIOCollaborationDiagram
   ImageIOFactoriesClassDiagram
   ImageIOFactoriesUseCases
