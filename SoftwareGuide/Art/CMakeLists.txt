@@ -178,7 +178,6 @@ SET(JPEG_IMAGES
   GradientAnisotropicDiffusionImageFilterOutput
   HybridSegmentationFuzzyVoronoiOutput
   HybridSegmentationFuzzyVoronoiOutput2
-  HybridSegmentationOutput1
   ImageRegistration1Output
   ImageRegistration2Output
   ImageRegistration4Output
