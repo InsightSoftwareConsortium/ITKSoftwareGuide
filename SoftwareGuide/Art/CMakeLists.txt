@@ -18,6 +18,7 @@ ADD_CUSTOM_TARGET(SoftwareGuideArt  ALL echo)
 SET(JPEG_IMAGES
   BinaryThresholdImageFilterOutput
   BrainProtonDensitySlice
+  GradientMagnitudeImageFilterOutput
   ThresholdImageFilterOutputAbove
   ThresholdImageFilterOutputBelow
   ThresholdImageFilterOutputOutside
