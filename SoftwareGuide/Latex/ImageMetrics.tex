@@ -62,7 +62,7 @@ pixel-wise difference in intensity between image $A$ and $B$ over a user
 defined region:
 
 \begin{equation}
-MS(A,B) = \frac{1}{N} \sum_i^N \left( A_i - B_i \right)^2
+MS(A,B) = \frac{1}{N} \sum_{i=1}^N \left( A_i - B_i \right)^2
 \end{equation}
 \begin{center}
 $A_i$ is the i-th pixel of Image A\\ 
@@ -72,7 +72,7 @@ $N$ is the number of pixels considered
 
 The optimal value of the metric is zero. Poor matches between images $A$ and
 $B$ result in large values of the metric. This metric is simple to compute and
-haa a relatively large capture radius.
+has a relatively large capture radius.
 
 This metric relies on the assumption that intensity representing the same
 homologous point must be the same in both images. Hence, its use is restricted
@@ -100,8 +100,8 @@ cross-correlation and normalizes it by the square root of the autocorrelation
 of the images:
 
 \begin{equation}
-NC(A,B) = -1 \times \frac{ \sum_i^N \left( A_i \cdot B_i \right) }
-         { \sqrt { \sum_i^N A_i^2  \cdot \sum_i^N B_i^2 } }
+NC(A,B) = -1 \times \frac{ \sum_{i=1}^N \left( A_i \cdot B_i \right) }
+         { \sqrt { \sum_{i=1}^N A_i^2  \cdot \sum_{i=1}^N B_i^2 } }
 \end{equation}
 \begin{center}
 $A_i$ is the i-th pixel of Image A\\ 
@@ -126,7 +126,7 @@ pixel-wise differences and adds them after passing them through a bell-shaped
 function $\frac{1}{1+x^2}$:
 
 \begin{equation}
-PI(A,B) =  \sum_i^N \frac{ 1 }{ 1 + \frac{ \left( A_i - B_i \right) ^ 2}{ \lambda^2 }  }
+PI(A,B) =  \sum_{i=1}^N \frac{ 1 }{ 1 + \frac{ \left( A_i - B_i \right) ^ 2}{ \lambda^2 }  }
 \end{equation}
 \begin{center}
 $A_i$ is the i-th pixel of Image A \\
