@@ -79,6 +79,18 @@ homologous point must be the same in both images. Hence, its use is restricted
 to images of the same modality. Additionally, any linear changes in the
 intensity result in a poor match value.
 
+\subsubsection{Exploring a Metric}
+\label{sec:ExploringAMetric}
+
+Getting familiar with the characteristics of the Metric as a cost function is
+fundamental in order to find the best way of seting up an optimization process
+that will use this metric for solving a registration problem. 
+
+\ifitkFullVersion
+\input{MeanSquaresImageMetric1.tex}
+\fi
+
+
 \subsection{Normalized Correlation Metric}
 \label{sec:NormalizedCorrelationMetric}
 \index{itk::Normalized\-Correlation\-Image\-To\-Image\-Metric}
