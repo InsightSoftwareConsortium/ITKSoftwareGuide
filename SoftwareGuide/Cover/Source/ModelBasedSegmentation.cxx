@@ -159,7 +159,6 @@ public:
     while(!it.IsAtEnd())
       {
       m_FixedImage->TransformIndexToPhysicalPoint( it.GetIndex(), point );
-      std::cout << "Index " << it.GetIndex() << "  =  " << point << std::endl;
       if(m_MovingSpatialObject->IsInside(point,99999))
         { 
         m_PointList.push_back(point);
@@ -195,26 +194,22 @@ public:
     
     typename PointListType::const_iterator it = m_PointList.begin();
     
-    typename TFixedImage::SizeType size =
-              m_FixedImage->GetBufferedRegion().GetSize();
+    typename TFixedImage::RegionType region = m_FixedImage->GetBufferedRegion();
 
     IndexType index;
-    IndexType start = m_FixedImage->GetBufferedRegion().GetIndex();
 
     value = 0;
     while(it != m_PointList.end())
-    {
+      {
       PointType transformedPoint = m_Transform->TransformPoint(*it);
       m_FixedImage->TransformPhysicalPointToIndex(transformedPoint,index);
-      if(    index[0]> start[0] 
-          && index[1]> start[1]
-          && index[0]< static_cast< signed long >( size[0] )
-          && index[1]< static_cast< signed long >( size[1] )  )
+      if( region.IsInside( index ) )
         {
         value += m_FixedImage->GetPixel(index);
         }
       it++;
-    }
+      }
+//    std::cout << "GetValue( " << parameters << " )  = " << value << std::endl; 
     return value;
   }
 
@@ -266,9 +261,9 @@ int main( int argc, char *argv[] )
 
 
   EllipseType::ArrayType axis;
-  axis[0] = 10;
-  axis[1] =  5;
-  axis[2] = 10;
+  axis[0] =  6;
+  axis[1] =  3;
+  axis[2] =  6;
 
 
   ellipse->SetRadius( axis );
@@ -311,7 +306,7 @@ int main( int argc, char *argv[] )
 
   optimizer->SetNormalVariateGenerator( generator );
   optimizer->Initialize( 10 );
-  optimizer->SetMaximumIteration( 40 );
+  optimizer->SetMaximumIteration( 4000 );
 
  
   TransformType::ParametersType parametersScale;
