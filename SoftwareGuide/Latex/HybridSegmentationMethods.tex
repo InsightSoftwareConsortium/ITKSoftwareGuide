@@ -66,16 +66,21 @@ between each two pixels (voxels) in the segmented image from the fuzzy affinity.
 Computation of the fuzzy connectedness value of each pixel (voxel) is implemented
 by selecting a seed point and using dynamic programming. The result constitutes the fuzzy
 map. Thresholding of the fuzzy map gives a segmented object that is strongly connected
-to the seed point (for more details, see \cite{Udupa1996}). We checked in two fuzzy 
-connectedness filters: the \code{itkSimpleFuzzyConnectednessScalarImageFilter}, an
-implementation of the fuzzy connectedness segmentation of single-channel (grayscale) 
-image, and the \code{itkSimpleFuzzyConnectednessRGBImageFilter}, an implementation of fuzzy
-connectedness segmentation of a three-channel (RGB) image. Other classes can be derived 
-from the base class by defining other affinity functions and targeting multi-channel
-images with an arbitrary number of channels. It has to be noted that the simple fuzzy 
-connectedness filter can be used as a stand-alone segmentation method,
-as described in the diagram in Figure 
-\ref{fig:UMLCollaborationDiagramoftheFuzzyConnectednessFilter}.
+to the seed point (for more details, see \cite{Udupa1996}). Two fuzzy
+connectedness filters are available in the toolkit: 
+
+\begin{itemize}
+\item The \code{itkSimpleFuzzyConnectednessScalarImageFilter}, an implementation of the
+fuzzy connectedness segmentation of single-channel (grayscale) image.
+\item The \code{itkSimpleFuzzyConnectednessRGBImageFilter}, an implementation
+of fuzzy connectedness segmentation of a three-channel (RGB) image. 
+\end{itemize}
+
+Other classes can be derived from the base class by defining other affinity
+functions and targeting multi-channel images with an arbitrary number of
+channels. It has to be noted that the simple fuzzy connectedness filter can be
+used as a stand-alone segmentation method, as described in the diagram in
+Figure \ref{fig:UMLCollaborationDiagramoftheFuzzyConnectednessFilter}.
 
 In Figure \ref{fig:UMLVoronoiSegmentationClassFilter} we present the base class for
 Voronoi diagram classification. We initialize the method with a number of random
@@ -106,7 +111,7 @@ depicted in Figure
 
 \begin{figure}
 \center
-\includegraphics[width=\textwidth]{HybridSegmentationEngine1.eps}
+\includegraphics[width=0.8\textwidth]{HybridSegmentationEngine1.eps}
 \itkcaption[Hybrid Segmentation Engine]{Hybrid Segmentation Engine}
 \label{fig:ComponentsofaHybridSegmentationApproach}
 \end{figure}
@@ -114,7 +119,7 @@ depicted in Figure
 
 \begin{figure}
 \center
-\includegraphics[width=\textwidth]{FuzzyConnectednessClassDiagram1.eps}
+\includegraphics[width=\0.8textwidth]{FuzzyConnectednessClassDiagram1.eps}
 \itkcaption[FuzzyConectedness Filter Diagram]{Diagram of the FuzzyConnectedness filter}
 \label{fig:UMLClassDiagramoftherFuzzyConnectednessFilter}
 \end{figure}
@@ -122,7 +127,7 @@ depicted in Figure
 
 \begin{figure}
 \center
-\includegraphics[width=\textwidth]{FuzzyConnectednessCollaborationDiagram1.eps}
+\includegraphics[width=\0.8textwidth]{FuzzyConnectednessCollaborationDiagram1.eps}
 \itkcaption[Fuzzy Connectedness Segmentation Diagram]{Diagram Of Stand-Alone
 Fuzzy Connectedness Segmentation}
 \label{fig:UMLCollaborationDiagramoftheFuzzyConnectednessFilter}
@@ -130,14 +135,14 @@ Fuzzy Connectedness Segmentation}
 
 \begin{figure}
 \center
-\includegraphics[width=\textwidth]{VoronoiSegmentationClassDiagram1.eps}
+\includegraphics[width=\0.8textwidth]{VoronoiSegmentationClassDiagram1.eps}
 \itkcaption[Voronoi Filter class diagram]{Diagram of the Voronoi Diagram Classification filter}
 \label{fig:UMLVoronoiSegmentationClassFilter}
 \end{figure}
 
 \begin{figure}
 \center
-\includegraphics[width=\textwidth]{VoronoiSegmentationCollaborationDiagram1.eps}
+\includegraphics[width=\0.8textwidth]{VoronoiSegmentationCollaborationDiagram1.eps}
 \itkcaption[Voronoi Diagram Filter classes]{Classes for Implementation of Voronoi Diagram Filter}
 \label{fig:UMLClassesforImplementationofVoronoiDiagramFilter}
 \end{figure}
@@ -145,7 +150,7 @@ Fuzzy Connectedness Segmentation}
 
 \begin{figure}
 \center
-\includegraphics[width=\textwidth]{VoronoiSegmentationCollaborationDiagram2.eps}
+\includegraphics[width=\0.8textwidth]{VoronoiSegmentationCollaborationDiagram2.eps}
 \itkcaption[Voronoi Diagram Segmentation]{Diagram Of Stand-Alone Voronoi Diagram Segmentation}
 \label{fig:UMLCollaborationDiagramoftheVoronoiSegmentationFilter}
 \end{figure}
@@ -153,7 +158,7 @@ Fuzzy Connectedness Segmentation}
 
 \begin{figure}
 \center
-\includegraphics[width=\textwidth]{FuzzyVoronoiCollaborationDiagram1.eps}
+\includegraphics[width=\0.8textwidth]{FuzzyVoronoiCollaborationDiagram1.eps}
 \itkcaption[Fuzzy Connectedness and Voronoi Diagram Classification]{Integration of
 Fuzzy Connectedness with Voronoi Diagram Classification}
 \label{fig:UMLHybridMethodDiagram1}
@@ -161,7 +166,7 @@ Fuzzy Connectedness with Voronoi Diagram Classification}
 
 \begin{figure}
 \center
-\includegraphics[width=\textwidth]{FuzzyVoronoiDeformableCollaborationDiagram1.eps}
+\includegraphics[width=\0.8textwidth]{FuzzyVoronoiDeformableCollaborationDiagram1.eps}
 \itkcaption[Fuzzy Connectedness, Voronoi diagram, and Deformable
 Models]{Integration of Fuzzy Connectedness, Voronoi diagram, and Deformable
 Models}
