@@ -8,7 +8,7 @@
 \center
 \includegraphics[width=0.8\textwidth]{ImageAdaptorConcept.eps}
 \itkcaption[ImageAdaptor concept]{ Illustration of the difference between using
-a \doxygen{CastImageFilter} and using the \doxygen{ImageAdaptor} mechanism.
+an \doxygen{CastImageFilter} and using the \doxygen{ImageAdaptor} mechanism.
 ImageAdaptors only convert pixel values when they are accessed by iterators.
 Henceforth, they do not need to store the resulting image in a memory buffer.
 In the case illustrated in this figure, the \emph{Image Y} is not created by
@@ -62,8 +62,14 @@ The following examples illustrate commonly used cases of ImageAdaptors.
 
 \section{Image Casting}
 \label{sec:ImageAdaptorForBasicCasting}
-%\ifitkFullVersion
+\ifitkFullVersion
 \input{ImageAdaptor1.tex}
-%\fi
+\fi
+
+\section{Adapting RGB Images}
+\label{sec:ImageAdaptorForRGB}
+\ifitkFullVersion
+\input{ImageAdaptor2.tex}
+\fi
 
 
