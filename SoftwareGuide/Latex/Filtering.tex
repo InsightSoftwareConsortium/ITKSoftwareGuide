@@ -69,6 +69,11 @@ algorithmic operation must be performed on the neighborhood of the input pixel
 to compute the value of the output pixel. The following section describes some
 of the commonly used filters that take advantage of this construction.  
 
+\subsection{Mean Filter}
+\label{sec:MeanFilter}
+
+%\input MeanImageFilter.tex
+
 \subsection{Median Filter}
 \label{sec:MedianFilter}
 
@@ -167,6 +172,12 @@ approximate the convolution with a Gaussian.
 %\input CurvatureAnisotropicDiffusionImageFilter.tex
 
 
+\subsubsection{Bilateral Filter}
+\label{sec:BilateralImageFilter}
+
+%\input BilateralImageFilter.tex
+
+
 
 \subsection{Edge Preserving Smoothing in Vector Images}
 \label{sec:VectorAnisotropicDiffusion}
@@ -206,7 +217,15 @@ The following classes implement versions of anisotropic diffusion on vector imag
 \section{Distance Map}
 \label{sec:DistanceMap}
 
-\input DanielssonDistanceMapImageFilter.tex
+%\input DanielssonDistanceMapImageFilter.tex
+
+
+
+\section{Geometrical Transformations}
+\label{sec:GeometricalTransformationFilters}
+
+\subsection{Resample Image Filter}
+\input ResampleImageFilter.tex
 
 
 
