@@ -44,6 +44,26 @@ FILE(GLOB PNG_IMAGES *.png)
 FILE(GLOB JPEG_IMAGES *.jpg)
 FILE(GLOB EPS_IMAGES *.eps)
 
+#
+# If we built the figures, remove figures that were already generated 
+# from the list
+#
+IF (BUILD_FIGURES)
+  FIND_FILE(GENERATED_FILES "GeneratedFiles.txt" "${SoftwareGuide_BINARY_DIR}/Art/Generated")
+  SET(GENERATED_FILES "${GENERATED_FILES}" CACHE INTERNAL "These files were generated" FORCE) #Just make the variable internal
+  IF(GENERATED_FILES)
+    FILE(READ ${GENERATED_FILES} REGULAR_EXPRESSIONS)
+    FILE(GLOB FILES_TO_REMOVE ${REGULAR_EXPRESSIONS})
+    REMOVE(XFIG_FIGURES ${FILES_TO_REMOVE})
+    REMOVE(PNG_IMAGES ${FILES_TO_REMOVE})
+    REMOVE(JPEG_IMAGES ${FILES_TO_REMOVE})
+    REMOVE(EPS_IMAGES ${FILES_TO_REMOVE})
+  ENDIF(GENERATED_FILES)
+ENDIF(BUILD_FIGURES)
+
+
+
+
 #SET(XFIG_FIGURES
 #  BayesianPluginClassifier
 #  BinaryThresholdTransferFunction

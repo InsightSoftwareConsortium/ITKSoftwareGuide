@@ -19,15 +19,46 @@ MACRO(ADD_GENERATED_FIG_DEPS OUTPUT_IMG GENERATED_FIG)
   SET( GENERATED_FIGURE_DEPS ${GENERATED_FIGURE_DEPS} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${GENERATED_FIG}" )
 ENDMACRO( ADD_GENERATED_FIG_DEPS )
 
-MACRO(CONVERT_IMG SOME_IMG EPS_IMG)
+MACRO(CONVERT_IMG SOME_IMG EPS_IMG PATH)
   ADD_CUSTOM_COMMAND(
-      SOURCE      "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}"
+      SOURCE      "${PATH}/${SOME_IMG}"
       COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE} 
-      ARGS        "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+      ARGS        "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
       DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}"
       OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
   )
 ENDMACRO(CONVERT_IMG)
+
+MACRO(CONVERT_AND_FLIP_IMG SOME_IMG EPS_IMG PATH)
+  ADD_CUSTOM_COMMAND(
+      SOURCE      "${PATH}/${SOME_IMG}"
+      COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE} 
+      ARGS        "-flip" "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+      DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}"
+      OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+  )
+ENDMACRO(CONVERT_AND_FLIP_IMG)
+
+MACRO(CONVERT_INPUT_IMG SOME_IMG EPS_IMG PATH)
+  ADD_CUSTOM_COMMAND(
+      SOURCE      "${PATH}/${SOME_IMG}"
+      COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE} 
+      ARGS        "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+      DEPENDS     ${RUN_EXAMPLES_SCRIPT}
+      OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+  )
+ENDMACRO(CONVERT_INPUT_IMG)
+
+MACRO(CONVERT_AND_FLIP_INPUT_IMG SOME_IMG EPS_IMG PATH)
+  ADD_CUSTOM_COMMAND(
+      SOURCE      "${PATH}/${SOME_IMG}"
+      COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE} 
+      ARGS        "-flip" "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+      DEPENDS     ${RUN_EXAMPLES_SCRIPT}
+      OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+  )
+ENDMACRO(CONVERT_AND_FLIP_INPUT_IMG)
+
 
 MACRO(SET_DEP_FOR_TEXFILE NAME VAL)
   SET(${NAME} ${${NAME}} "${VAL}")
@@ -261,6 +292,10 @@ SET( ITK_EXAMPLES_SRCS
 )
 
 
+    
+
+
+
 
 IF( BUILD_FIGURES )
   #
@@ -271,6 +306,19 @@ IF( BUILD_FIGURES )
   MAKE_DIRECTORY( "${SoftwareGuide_BINARY_DIR}/Art/Generated" )
   SET ( GeneratedFolder "${SoftwareGuide_BINARY_DIR}/Art/Generated" )
 
+
+  IF(ITK_FLIP_INPUTS_AND_THEIR_OUTPUTS)
+    SET(FILENAME "${SoftwareGuide_BINARY_DIR}/Art/Generated/Flipped_files.txt")
+    FILE(WRITE ${FILENAME} "")
+    FOREACH(FLIPIMG ${ITK_FLIP_IMG})
+      FILE(APPEND ${FILENAME} "${FLIPIMG} ")
+    ENDFOREACH(FLIPIMG)
+  ENDIF(ITK_FLIP_INPUTS_AND_THEIR_OUTPUTS)   
+  
+  SET(FILENAME2 "${SoftwareGuide_BINARY_DIR}/Art/Generated/GeneratedFiles.txt")
+  FILE(WRITE ${FILENAME2} "")
+
+  
   FOREACH (example ${ITK_EXAMPLES_SRCS})
     #
     # Configure .. copy needed source files
@@ -290,9 +338,9 @@ IF( BUILD_FIGURES )
       SET( ExampleCmakeFile "${Examples_BINARY_DIR}/${EXAMPLE_FILE_BASE}.cmake")
       GET_FILENAME_COMPONENT(TEX_FILE ${example} NAME_WE)
       SET(TEX_FILE ${SoftwareGuide_BINARY_DIR}/Examples/${TEX_FILE}.tex)    
-      EXEC_PROGRAM(${PERL_EXECUTABLE} 
+      EXEC_PROGRAM(${PERL_EXECUTABLE} "${SoftwareGuide_BINARY_DIR}/Art/Generated"
         ${Examples_BINARY_DIR}
-        ARGS      ${RUN_EXAMPLES_SCRIPT} ${example} ${ITK_EXECUTABLES_DIR} ${ITK_DATA_PATHS} ${ExampleCmakeFile} ${TEX_FILE} ${GeneratedFolder}
+        ARGS      ${RUN_EXAMPLES_SCRIPT} ${example} ${ITK_EXECUTABLES_DIR} "${ITK_DATA_PATHS}" ${ExampleCmakeFile} ${TEX_FILE} ${GeneratedFolder}
       ) 
       # Include each of the generated .cmake files in dependencies list
       INCLUDE(${ExampleCmakeFile})
