@@ -8,22 +8,21 @@
 \label{sec:AboutWatersheds}
 \index{Watersheds|textbf}
 \index{Watersheds!Overview}
-
-Imagine water raining onto a landscape topology and flowing with gravity to
-collect in low basins.  The size of those basins will grow with increasing
-amounts of precipitation until they spill into one another, causing small
-basins to merge together into larger basins.  Analogously, watershed
-segmentation classifies pixels into regions using gradient descent on image
-features and analysis of weak points along region boundaries. Regions
-(catchment basins) are formed by using local geometric structure to associate
-points in the image domain with local extrema in some feature measurement such
-as curvature or gradient magnitude.  This technique is less sensitive to
-user-defined thresholds than classic region-growing methods, and may be better
-suited for fusing different types of features from different data sets.  The
-watersheds technique is also more flexible in that it does not produce a single
-image segmentation, but rather a hierarchy of segmentations from which a
-single region or set of regions can be extracted a-priori, using a threshold,
-or interactively, with the help of a graphical user interface
+Watershed segmentation classifies pixels into regions using gradient descent on
+image features and analysis of weak points along region boundaries.  Imagine
+water raining onto a landscape topology and flowing with gravity to collect in
+low basins.  The size of those basins will grow with increasing amounts of
+precipitation until they spill into one another, causing small basins to merge
+together into larger basins.  Regions (catchment basins) are formed by using
+local geometric structure to associate points in the image domain with local
+extrema in some feature measurement such as curvature or gradient magnitude.
+This technique is less sensitive to user-defined thresholds than classic
+region-growing methods, and may be better suited for fusing different types of
+features from different data sets.  The watersheds technique is also more
+flexible in that it does not produce a single image segmentation, but rather a
+hierarchy of segmentations from which a single region or set of regions can be
+extracted a-priori, using a threshold, or interactively, with the help of a
+graphical user interface
 \cite{Yoo1992,Yoo1991}.
 
 The strategy of watershed segmentation is to treat an image $f$ as a height
