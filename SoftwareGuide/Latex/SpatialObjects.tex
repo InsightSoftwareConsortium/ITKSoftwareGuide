@@ -2,7 +2,8 @@
 \chapter{Spatial Objects}
 \label{sec:SpatialObjects}
 
-This chapter introduces the basic classes that describe \doxygen{SpatialObjects}.
+This chapter introduces the basic classes that describe
+\doxygen{SpatialObject}s.
 
 \section{Introduction}
 \label{Introduction}
@@ -20,9 +21,9 @@ analysis research is supported; key examples are described in the following.
 \begin{description}
   \item[Model-to-image registration.] A mathematical instance of an object
   can be registered with an image to localize the instance of that object in
-  the image.  Via SpatialObjects, mutual information, cross-correlation, and
-  boundary-to-image metrics of ITK can be applied without modification to
-  perform spatialObject-to-image registration.
+  the image.  Using SpatialObjects, mutual information, cross-correlation, and
+  boundary-to-image metrics can be applied without modification to
+  perform spatial object-to-image registration.
 
   \item[Model-to-model registration.] Iterative closest point, landmark, and
   surface distance minimization methods can be used with any ITK transform,
@@ -50,8 +51,8 @@ analysis research is supported; key examples are described in the following.
   render any SpatialObject (or collection of SpatialObjects) into an image.
 
   \item[IO.] SpatialObject reading and writing to disk is independent of the
-  SpatialObject class hierarchy.  MetaObject IO methods are provided, and
-  others are easily defined.
+  SpatialObject class hierarchy.  Meta object IO (through
+  \doxygen{MetaImageIO}) methods are provided, and others are easily defined.
 
   \item[Tubes, blobs, images, surfaces.] Are a few of the many SpatialObject
   data containers and types provided.  New types can be added, generally by
