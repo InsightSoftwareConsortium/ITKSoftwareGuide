@@ -2,17 +2,17 @@
 \label{sec:ImageIteratorsChapter}
 \index{Iterators!image|(}
 \index{Generic Programming}
-This chapter introduces the \emph{image iterator}, a fundamental and important
+This chapter introduces the \emph{image iterator}, an important
 generic programming construct for image processing in ITK.  An iterator is a
 generalization of the familiar C-Language pointer used to reference data in
 memory.  ITK has a wide variety of image iterators, some of which are highly
 specialized to simplify common image processing tasks.
 
 The next section is a brief introduction that defines iterators in the context
-of ITK.  Section ~\ref{sec:IteratorsInterface} described the programming
-interface common to most ITK image iterators.  Specific ITK iterator types and
-examples of how they are used are documented in
-sections~\ref{sec:ImageIterators}--\ref{sec:NeighborhoodIterators}.
+of ITK.  Section \ref{sec:IteratorsInterface} describes the programming
+interface common to most ITK image iterators.
+Sections~\ref{sec:ImageIterators}--\ref{sec:NeighborhoodIterators} document
+specific ITK iterator types and provide examples of how they are used.
 
 \section{Introduction}
 \label{sec:IteratorsIntroduction}
@@ -21,7 +21,7 @@ sections~\ref{sec:ImageIterators}--\ref{sec:NeighborhoodIterators}.
 \index{Iterators!definition of}
 Generic programming models define functionally independent components called
 \emph{containers} and \emph{algorithms}.  Container objects store data and
-algorithms operate on that data.  To access data in containers, algorithms use
+algorithms operate on data.  To access data in containers, algorithms use
 a third class of objects called \emph{iterators}.  An iterator is an
 abstraction of a memory pointer.  Every container type must define its own
 iterator type, but all iterators are written to provide a common interface so that
@@ -34,20 +34,19 @@ access of container values.  Iterators appear in \code{for} and
 for example, is a type of iterator.  It can be moved forward (incremented) and
 backward (decremented) through memory to sequentially reference elements of an
 array. Many iterator implementations have an interface similar to the
-C-Language pointer interface. 
+C-Language pointer.
 
 \index{Iterators!advantages of}
-In ITK we use iterators to write generic image processing code for
-\doxygen{Image}s instantiated with different combinations of pixel type, pixel
+In ITK we use iterators to write generic image processing code for images
+instantiated with different combinations of pixel type, pixel
 container type, and dimensionality.  Because ITK image iterators are
 specifically designed to work with \emph{image} containers, their interface and
 implementation is optimized for image processing tasks.  Using the ITK
 iterators instead of accessing data directly through the
 \doxygen{Image} interface has many advantages. Code is more
 compact and often generalizes automatically to higher dimensions, algorithms
-run much faster, and iterators simplify tasks such as multithreading,
-neighborhood image processing, and working with non-rectilinear regions of
-interest.
+run much faster, and iterators simplify tasks such as multithreading and
+neighborhood-based image processing.
 
 
 \section{Programming Interface}
@@ -55,9 +54,9 @@ interest.
 
 \index{Iterators!programming interface|(}
 %Creating iterators
-The section describes the programming interface for ITK image iterators.  Not
-all image iterators implement the full interface, and some define additional
-methods.
+This section describes the standard ITK image iterator programming interface.
+Some specialized image iterators may deviate from this standard or provide
+additional methods.
 
 \subsection{Creating Iterators}
 \label{sec:CreatingIterators}
@@ -69,21 +68,20 @@ or on the pixel type of the image.
 
 \index{Iterators!and image regions}
 
-There are always at least two arguments to an ITK image iterator constructor.
-The first argument is a smart pointer to the \doxygen{Image} to iterate. The
-second argument is an \doxygen{ImageRegion} that specifies the \emph{iteration
-region} within the image.  The iteration region is the rectilinear area of the
-image to which iteration is contrained. A valid iteration region is any
-subregion of the image within the current \code{BufferedRegion}.  See
-section~\ref{sec:ImageSection} for more information on image regions. 
+An iterator constructor requires at least two arguments, a smart pointer to the
+image to iterate across, and an image region. The image region, called the
+\emph{iteration region}, is a rectilinear area in which iteration is
+constrained.  The iteration region must be wholly contained within the image.
+More specifically , a valid iteration region is any subregion of the image
+within the current \code{BufferedRegion}.  See section~\ref{sec:ImageSection}
+for more information on image regions.
 
 \index{Iterators!const}
-Most ITK image iterators have a const and a non-const version.  A non-const
-iterator cannot be instantiated with a const \doxygen{Image} smart pointer.
-Const versions of iterators may read, but may not write pixel values.
+There is a const and a non-const version of most ITK image iterators. A non-const
+iterator cannot be instantiated on a non-const image pointer.  Const versions
+of iterators may read, but may not write pixel values. 
 
-Here is a simple example of defining and constructing an iterator using the
-\doxygen{ImageRegionIterator}.  
+Here is a simple example that defines and constructs a simple image iterator.
 
 \small
 \begin{verbatim}
@@ -101,8 +99,8 @@ IteratorType iterator( image, image->GetRequestedRegion() );
 \subsection{Moving Iterators}
 \label{sec:MovingIterators}
 An iterator is described as \emph{walking} its iteration region.  At any time,
-the iterator will reference, or ``point to'', one pixel location that is
-denoted by its ND image index. \emph{Forward iteration} goes from the beginning of the iteration
+the iterator will reference, or ``point to'', one pixel location in the ND
+image.  \emph{Forward iteration} goes from the beginning of the iteration
 region to the end of the iteration region.  \emph{Reverse iteration},
 goes from just past the end of the region back to the beginning.  There are two
 corresponding starting positions for iterators, the \emph{begin} position and
@@ -128,8 +126,8 @@ important to remember because attempting to dereference an iterator at its end
 position will have undefined results.
 
 %Moving iteators
-ITK iterators define forward and reverse movement through their regions by
-defining the increment and decrement operators.
+ITK iterators are moved back and forth across their iterations using the 
+decrement and increment operators.
 
 \index{Iterators!operator++()}
 \begin{itemize}
@@ -143,7 +141,7 @@ negative direction.  Only the prefix decrement operator is defined for ITK
 image iterators. 
 \end{itemize}
 
-Figure~\ref{fig:WalkingIterator} illustrates typical iterator movement over
+Figure~\ref{fig:WalkingIterator} illustrates typical iteration over
 an image region.  Most iterators increment and decrement in the direction of
 the fastest increasing image dimension, wrapping to the first position in the
 next higher dimension at region boundaries.  In other words, an
@@ -155,7 +153,7 @@ and so on.
 \includegraphics[width=0.4\textwidth]{IteratorFigure1.eps}
 \itkcaption[ITK image iteration]{Normal path of an iterator through a 2D image.  The
 iteration region is shown in a darker shade.  An arrow denotes a single iterator
-step, the result of one \code{++} operation.}
+step, the result of one \code{++} opesration.}
 \protect\label{fig:WalkingIterator}
 \end{figure}
 
@@ -166,18 +164,13 @@ dimensionality of the image and the extent of the iteration region to use proper
 
 \begin{itemize}
 \index{Iterators!operator+=()}
-\item \textbf{\code{operator+=( Offset )}} Moves the iterator to the pixel
-position at the current index plus the specified ND \code{itk::Offset}. 
+\item \textbf{\code{operator+=( itk::Offset \code{o} )}} Moves the iterator to the pixel
+position at the current index plus offset \code{o}.
 
 \index{Iterators!operator-=()}
-\item \textbf{\code{operator-=( Offset )}} Moves the iterator to the pixel
-position at the current index minus the specified ND \code{itk::Offset}.
-\end{itemize}
+\item \textbf{\code{operator-=( Offset \code{0} )}} Moves the iterator to the pixel
+position at the current index minus offset \code{o}.
 
-One final method is defined for most iterators that moves an iterator directly
-to any image index position.
-
-\begin{itemize}
 \index{Iterators!SetPosition()}
 \item \textbf{\code{SetPosition( Index )}} Moves the iterator to the given
 \code{itk::Index} position.
@@ -220,13 +213,9 @@ of the image pixel that the iterator currently points to.
 
 % A note on bounds checking
 \index{Iterators!and bounds checking}
-For efficiency, most ITK image iterators do not perform bounds checking.  What
-this means is that it is possible to move an iterator to a location outside its
-valid iteration region where dereferencing the iterator will produce an
-undefined result. It is left to the user to make sure the 
-iterator remains in bounds.  For most applications,  bounds checking only
-requires the standard test for \code{IsAtEnd()} or \code{IsAtBegin()} condition at each
-iteration step.  Special care should be taken with random access iteration.
+For efficiency, most ITK image iterators do not perform bounds checking.  It is
+possible to move an iterator outside of its valid iteration region.
+Dereferencing an out-of-bounds iterator will produce undefined results.
 
 \subsection{Accessing Data}
 \label{sec:AccessingData}
@@ -244,16 +233,11 @@ iterator position.  Not defined for const versions of iterators.
 \end{itemize}
 
 % Describe efficiency due to inlining for all cases
-The \code{Get} and \code{Set} methods are inlined and optimized for speed. In
-most cases, a call to one of these methods incurs no penalty over directly
-dereferencing the memory pointer in the underlying image memory buffer.
-\code{Get} and \code{Set} methods also support the use of image adaptors
-(section~\ref{sec:ImageAdaptors}).
-\index{Iterators!support of adaptors}
-
-There are some common cases, however, where \code{Get} and \code{Set} do incur a
-penalty. Consider the following code, which fetches, modifies, and then writes
-a value back to the same pixel location.
+The \code{Get} and \code{Set} methods are inlined and optimized for speed so
+that their use is equivalent to dereferencing the image buffer directly.  There
+are a few common cases, however, where \code{Get} and \code{Set} cannot do
+incur a penalty. Consider the following code, which fetches, modifies, and then
+writes a value back to the same pixel location.
 
 \small
 \begin{verbatim}
@@ -261,8 +245,8 @@ it.Set( it.Get() + 1 );
 \end{verbatim}
 \normalsize
 
-As written, this code requires one more memory dereference than is necessary.  To
-handle this case, some iterators define a third data access method.
+As written, this code requires one more memory dereference than is necessary.
+Some iterators define a third data access method that avoids this penalty.
 
 \begin{itemize}
 \index{Iterators!Value()}
@@ -270,7 +254,7 @@ handle this case, some iterators define a third data access method.
 the iterator position.
 \end{itemize}
 
-The \code{Value()} method can be either an lval or an rval in an expression.  It
+The \code{Value()} method can be used as either an lval or an rval in an expression.  It
 has all the properties of \code{operator*}.  The \code{Value()} method makes it
 possible to rewrite our example code more efficiently.
 
@@ -280,25 +264,18 @@ it.Value()++;
 \end{verbatim}
 \normalsize
 
-Consider using the \code{Value()} method when a call to a pixel type's
-\code{operator=} method is non-trivial, for example, when working
-with multiple-component data such as vectors.
-
-The disadvantage of using \code{Value()} over \code{Get()} and \code{Set()} is
-that is cannot support image adaptors. Whenever possible, use \code{Get()} and
-\code{Set()} instead.  Because ITK filters do not modify the contents of their
-input images, situations calling for \code{Value()} are less common than might
-be supposed. More often than not, an algorithm operates on two images, an
-input from which values are only read (\code{Get()}), and an output to which
-values are only written (\code{Set()}).
+Consider using the \code{Value()} method instead of \code{Get()} or
+\code{Set()} when a call to \code{operator=} on a pixel is non-trivial, such as
+when working with vector pixels, and operations are done in-place in the
+image. The disadvantage of using \code{Value} is that it cannot support image
+adaptors. 
 
 \subsection{Iteration Loops}
 \label{sec:IterationExample}
 % Now give a psuedo code example for putting all of this together.
 Using the methods described in the previous sections, we can now write a simple
-example for pixel-wise operations in any image region.  The following code
-calculates the squares of all values in an input image and writes them to an
-output image.
+example to do pixel-wise operations on an image.  The following code calculates
+the squares of all values in an input image and writes them to an output image.
 
 \small
 \begin{verbatim}
@@ -317,15 +294,16 @@ Notice that both the input and output iterators are initialized over the same
 region, the \code{RequestedRegion} of \code{inputImage}.  This is good
 practice because it ensures that the output iterator walks exactly the same set
 of pixel indicies as the input iterator, but does not require that the output
-and input be the same size, only that it be contained in the input image.
+and input be the same size. The only requirement is that the input image
+must contain a region (a starting index and size) that matches the
+\code{RequestedRegion} of the output image.
 
 \index{reverse iteration}
 Equivalent code can be written by iterating through the image in reverse.
 The syntax is slightly more awkward because the \emph{end} of the
 iteration region is not a valid position and we can only test whether the
 iterator is strictly \emph{equal} to its beginning position.  It is often more
-convenient to write reverse iteration in a
-\code{while} loop.
+convenient to write reverse iteration in a \code{while} loop.
 
 \small
 \begin{verbatim}
@@ -358,11 +336,12 @@ while ( ! in.IsAtBegin() )
 \section{Image Iterators}
 \label{sec:ImageIterators}
 %Introduction and overview
-This section describes iterators that walk rectilinear regions in images and
-reference a single pixel.  The \doxygen{ImageRegionIterator} is the basic,
-general purpose ITK image iterator.  The rest of the iterators described in
-this section are variations on \doxygen{ImageRegionIterator} and
-incorporate specializations designed to speed up or encapsulate common tasks.
+This section describes iterators that walk rectilinear image regions and
+reference a single pixel at a time.  The \doxygen{ImageRegionIterator} is the
+most basic ITK image iterator and the first choice for most applications. The
+rest of the iterators in this section are specializations of
+\doxygen{ImageRegionIterator} that are designed make common image processing
+tasks more efficient or easier to implement.
 
 % Each of the iterators has a const and non-const version
 
@@ -445,7 +424,7 @@ incorporate specializations designed to speed up or encapsulate common tasks.
 In ITK, a pixel neighborhood is loosely defined as a small set of pixels that
 are locally adjacent to one another in an image.  The size and shape
 of a neighborhood, as well the connectivity among pixels in a neighborhood,
-may vary with the application.
+ay vary with the application.
 
 Many image processing algorithms are neighborhood-based, that is, the result at
 a pixel $i$ is computed from the values of pixels in the ND neighborhood of
@@ -456,48 +435,53 @@ include convolution filtering and image morphology.
 
 This section describes a class of ITK image iterators that are designed for
 working with pixel neighborhoods. An ITK neighborhood iterator walks an image
-region just like a normal image iterator, but insted of just referencing a
+region just like a normal image iterator, but instead of only referencing a
 single pixel at each step, it simultaneously points to the entire ND
 neighborhood of pixels.  Extensions to the standard iterator interface provide
 read and write access to all neighborhood pixels and information
 such as the size, extent, and location of the neighborhood.
 
-All standard ITK iterator operations defined in
-section~\ref{sec:IteratorsInterface} are valid for neighborhood iterators.
-Neighborhood iterators use the same code for forward, reverse, and random access
-iteration as normal ITK iterators.
-Figure~\ref{fig:WalkingNeighborhoodIterator} shows a neighborhood iterator
-moving across an iteration region.  The \emph{center} of the
-neighborhood iterator is always positioned over its current index. All
-other neighborhood pixel indicies are referenced as offsets from the center
-index.
+Neighborhood iterators use the same operators defined in
+section~\ref{sec:IteratorsInterface} and the same code constructs as normal
+iterators for looping through an
+image. Figure~\ref{fig:NeighborhoodIteratorFig1} shows a neighborhood iterator
+moving through an iteration region.  This iterator defines a $3x3$ neighborhood
+around each pixel that it visits. The \emph{center} of the neighborhood
+iterator is always positioned over its current index and all other neighborhood
+pixel indicies are referenced as offsets from the center index.  The pixel
+under the center of the neighborhood iterator and all pixels under the shaded
+area, or \emph{extent}, of the iterator can be dereferenced.
 
 \begin{figure}
 \centering
-%\includegraphics[width=0.4\textwidth]{NeighborhoodIteratorFigure1.eps}
-\itkcaption[ITK neighborhood iterator iteration]{Path of a neighborhood
-iterator through an image.  The iteration region is shown in a darker
-shade and the extent of the iterator is indicated by the hashing. }
-\protect\label{fig:WalkingNeighborhoodIterator}
+\includegraphics[width=0.6\textwidth]{NeighborhoodIteratorFig1.eps}
+\itkcaption[Neighborhood iterator]{Path of a $3x3$ neighborhood
+iterator through a 2D image region.  The extent of the neighborhood is
+indicated by the hashing around the iterator position. Pixels that lie within
+this extent are accessible through the iterator.  An arrow denotes a single
+iterator step, the result of one \code{++} operation.}
+\protect\label{fig:NeighborhoodIteratorFig1}
 \end{figure}
 
 \index{Neighborhood iterators!construction of}
 \index{Neighborhood iterators!radius of}
-In addition to the standard image pointer and iteration region
-(section~\ref{sec:IteratorsInterface}), neighborhood iterator constructors also
-require an argument that defines the extent of the neighborhood.  Neighborhood
-extent is expressed as the symmetric distance from the center of the
-neighborhood in an ND array called the \emph{radius}. Each element $d$ of the
-radius, where $N$ is the dimensionality of the neighborhood and $0 < d < N$,
-gives the extent of the neighborhood in pixels for dimension $N$.  The length
-of each face of the resulting ND hypercube is $2d + 1$ pixels, a distance of
-$d$ on either side of the single pixel at the neighbor center.
-Figure~{\ref{fig:NeighborhoodIteratorFig2} shows the relationship
-between the radius of the iterator and the size of the neighborhood for a
-variety of 2D iterator shapes.
 
-The radius of the neighborhood iterator is available after construction
-through the \code{GetRadius} method.  A few other methods provide some useful
+In addition to the standard image pointer and iteration region
+(section~\ref{sec:IteratorsInterface}), neighborhood iterator constructors
+require an argument that specifies the extent of the neighborhood to cover.
+Neighborhood extent is symmetric across its center in each
+axis and is given as an array of $N$ distances that are collectively called the
+\emph{radius}. Each element $d$ of the radius, where $0 < d < N$ and
+$N$ is the dimensionality of the neighborhood, gives the extent of the
+neighborhood in pixels for dimension $N$.  The length of each face of the
+resulting ND hypercube is $2d + 1$ pixels, a distance of $d$ on either side of
+the single pixel at the neighbor center.
+Figure~{\ref{fig:NeighborhoodIteratorFig2} shows the relationship between the
+radius of the iterator and the size of the neighborhood for a variety of 2D
+iterator shapes.
+
+The radius of the neighborhood iterator is queried after construction
+by calling the \code{GetRadius} method.  Some other methods provide some useful
 information about the iterator and its underlying image.
 
 \begin{figure}
@@ -521,48 +505,48 @@ neighborhood.
 the image referenced by the iterator.
 
 \index{NeighborhoodIterator!Size()}
-\item \textbf{\code{unsigned long Size()}} Returns the size in pixels of the
+\item \textbf{\code{unsigned long Size()}} Returns the size in number of pixels of the
 neighborhood.
 
 \end{itemize}
 
 The neighborhood iterator interface extends the normal ITK iterator interface
-for setting and getting pixel values.  The iterator stores references to all of
-the neighborhood pixels in a linear array and pixels can be dereferenced
-directly using their array positions.  The \code{Size} method above returns the
-size of this array.  Array positions are incremented along the fastest
-increasing image dimension: first column, then row, then slice, and so on.  The
-center pixel is always at position $n/2$, where $n$ is the size of the array.
-In figure~\ref{fig:NeighborhoodIteratorFig2}, the linear array index is shown
-at the top of each pixel.
+for setting and getting pixel values.  One way to dereference pixels is to
+think of the neighborhood as a linear array where each pixel has a unique
+integer index. The index of a pixel in the array is determined by incrementing
+from the upper-left-forward corner of the neighborhood along the fastest
+increasing image dimension: first column, then row, then slice, and so on.  In
+figure~\ref{fig:NeighborhoodIteratorFig2}, the unique integer index is shown
+at the top of each pixel.  The center pixel is always at position $n/2$, where
+$n$ is the size of the array.
 
 \begin{itemize}
 
 \index{NeighborhoodIterator!GetPixel()}
-\item \textbf{\code{PixelType GetPixel(const unsigned int i}} Returns the value
+\item \textbf{\code{PixelType GetPixel(const unsigned int i)}} Returns the value
 of the pixel at neighborhood position \code{i}.
 
 \index{NeighborhoodIterator!SetPixel()}
-\item \textbf{\code{PixelType SetPixel(const unsigned int i, PixelType p}} Sets
+\item \textbf{\code{PixelType SetPixel(const unsigned int i, PixelType p)}} Sets
 the value of the pixel at position \code{i} to \code{p}.
 
 \end{itemize}
 
 Another way to think about a pixel location in a neighborhood is as an ND
-offset from the neighborhood center.  The upper-left corner of a $3x3x3$
+offset from the neighborhood center.  The upper-left-forward corner of a $3x3x3$
 neighborhood, for example, can be described by offset $(-1, -1, -1)$. The
-bottom-right corner of the same neighborhood is at offset $(1, 1, 1)$.  
-In figure~\ref{fig:NeighborhoodIteratorFig2}, the offset it given below the
-linear array index in each neighborhood pixel.
+bottom-right-back corner of the same neighborhood is at offset $(1, 1, 1)$.  In
+figure~\ref{fig:NeighborhoodIteratorFig2}, the offset from center is shown
+at the bottom of each neighborhood pixel.
 
 \begin{itemize}
 
 \index{NeighborhoodIterator!GetPixel()}
-\item \textbf{\code{PixelType GetPixel(const itk::Offset \&o}} Get the value of
+\item \textbf{\code{PixelType GetPixel(const itk::Offset \&o)}} Get the value of
 the pixel at the position offset \code{o} from the neighborhood center.
 
 \index{NeighborhoodIterator!SetPixel()}
-\item \textbf{\code{PixelType SetPixel(const itk::Offset \&o, PixelType p}} Set
+\item \textbf{\code{PixelType SetPixel(const itk::Offset \&o, PixelType p)}} Set
 the value at the position offset \code{o} from the neighborhood center to
 the value \code{p}.
 
