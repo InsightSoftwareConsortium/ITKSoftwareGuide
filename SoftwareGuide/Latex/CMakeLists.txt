@@ -73,6 +73,7 @@ SET( Tex_SRCS
   Segmentation.tex
   SoftwareGuide.tex
   SoftwareProcess.tex
+  SpatialObjects.tex
   Statistics.tex
   SystemOverview.tex
   Transforms.tex
