@@ -48,6 +48,9 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/CastingImageFilters.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientMagnitudeImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientMagnitudeRecursiveGaussianImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/MathematicalMorphologyBinaryFilters.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/MathematicalMorphologyGrayscaleFilters.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/MedianImageFilter.cxx
 )
 
 
@@ -78,6 +81,9 @@ SET( ITK_EXAMPLES_TEX_SRCS
   CastingImageFilters.tex
   GradientMagnitudeImageFilter.tex
   GradientMagnitudeRecursiveGaussianImageFilter.tex
+  MathematicalMorphologyBinaryFilters.tex
+  MathematicalMorphologyGrayscaleFilters.tex
+  MedianImageFilter.tex
 )
 
 
@@ -95,6 +101,7 @@ IF( PERLCXXPARSER )
     COMMAND   find
     ARGS      ${ITK_SOURCE_DIR}/Examples   -name '*.cxx' -print > ${CxxExamplesListFile}
     TARGET    SoftwareGuideExamples
+    DEPENDS   ${ITK_EXAMPLES_SRCS}
     OUTPUTS   ${CxxExamplesListFile}
   )
   ADD_CUSTOM_COMMAND( 
