@@ -75,26 +75,31 @@ connectedness filter can be used as a stand-alone segmentation method,
 as it is described in the diagram in Figure 
 \ref{fig:UMLCollaborationDiagramoftheFuzzyConnectednessFilter}.
 
-In Figure \ref{UMLVoronoiSegmentationClassFilter} we present base class for Voronoi
-Diagram Clasification. We initialize the method with a number of random seed points and compute
-Voronoi Diagram over the segmented 2D image. Each Voronoi region, in teh subdivision,
-is classified as internal
-or external, based on the homogeneity operator derived from the fuzzy connectedness algorithm.
-We define boundary regions as the external regions that are adjacent to the internal regions. 
-We subdivide further the boundary regions by adding seed points to
-the regions. We converge to the final segmentation using simple stopping criterium (for details,
-see \cite{Imielinska2001}). We implemneted two Voronoi Diagram filters:
-the itkVoronoiSegmentationImageFilter that is dedicated to process single
-channel (gray scale) images; the itkVoronoiSegmentationRGBImageFilter that segments three-channel
-(RGB) images. Other classes can be derivedfrom the base class by defining other homogeneity
-measurements, and targeting multichannel images with and arbitrary number of channels.
-The other classes that are used for computing 2D Voronoi Diagram, are shown in Figure \ref{fig:UMLClassesforImplementationofVoronoiDiagramFilter}}. We note that the Voronoi Diagram
-Filter can be used as a stand-alone segmentation method, as it is depicted in Figure
+In Figure \ref{UMLVoronoiSegmentationClassFilter} we present base class for
+Voronoi Diagram Clasification. We initialize the method with a number of random
+seed points and compute Voronoi Diagram over the segmented 2D image. Each
+Voronoi region, in teh subdivision, is classified as internal or external,
+based on the homogeneity operator derived from the fuzzy connectedness
+algorithm.  We define boundary regions as the external regions that are
+adjacent to the internal regions.  We subdivide further the boundary regions
+by adding seed points to the regions. We converge to the final segmentation
+using simple stopping criterium (for details, see \cite{Imielinska2001}). We
+implemneted two Voronoi Diagram filters: the
+itkVoronoiSegmentationImageFilter that is dedicated to process single channel
+(gray scale) images; the itkVoronoiSegmentationRGBImageFilter that segments
+three-channel (RGB) images. Other classes can be derivedfrom the base class
+by defining other homogeneity measurements, and targeting multichannel images
+with and arbitrary number of channels.  The other classes that are used for
+computing 2D Voronoi Diagram, are shown in Figure
+\ref{fig:UMLClassesforImplementationofVoronoiDiagramFilter}. We note that the
+Voronoi Diagram Filter can be used as a stand-alone segmentation method, as
+it is depicted in Figure
 \ref{fig:UMLCollaborationDiagramoftheVoronoiSegmentationFilter}.
 
- We present in Figure \ref{fig:UMLHybridMethodDiagram1} Figure \ref{fig:UMLHybridMethodDiagram2} d
-diagrams for hybrid segmentation methods that integrate: fuzzy connectednedd with Voronoi Diagram;
-and fuzzy connectedness, Voronoi Diagram with Deformable Models, respectively.
+ We present in Figure \ref{fig:UMLHybridMethodDiagram1} and Figure
+ \ref{fig:UMLHybridMethodDiagram2} diagrams for hybrid segmentation methods
+ that integrate: fuzzy connectedness with Voronoi Diagram; and fuzzy
+ connectedness, Voronoi Diagram with Deformable Models, respectively.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -154,33 +159,26 @@ and fuzzy connectedness, Voronoi Diagram with Deformable Models, respectively.
 
 \begin{figure}
 \center
-\includegraphics[width=14cm]{HybridMethodDiagram1.eps}
+\includegraphics[width=14cm]{FuzzyVoronoiCollaborationDiagram1.eps}
 \caption{Integration of Fuzzy Connectedness with Voronoi Diagram Classification}
 \label{fig:UMLHybridMethodDiagram1}
 \end{figure}
 
 \begin{figure}
 \center
-\includegraphics[width=14cm]{HybridMethodDiagram22.eps}
+\includegraphics[width=14cm]{FuzzyVoronoiDeformableCollaborationDiagram1.eps}
 \caption{Integration of Fuzzy Connectedness, Voronoi Diagram, and Deformable Models}
 \label{fig:UMLHybridMethodDiagram2}
 \end{figure}
 
 
 
-\subsubsection{HybridMethod1:Example}
+\subsubsection{Example of an Hybrid segmentation Method}
 \label{sec:HybridMethod1:Example}
 
-The source code of this section can be found in the file 
-Examples/Segmentation/HybridSegmentationFuzzyVoronoi.cxx
-
+\ifitkFullVersion
 \input{HybridSegmentationFuzzyVoronoi.tex}
+\fi
 
 
-\subsection{HybridMethod2:GibbsPriorDeformableModel}
-\label{sec:HybridMethod2}
-
-
-\subsubsection{HybridMethod2:Example}
-\label{sec:HybridMethod2:Example}
 
