@@ -20,6 +20,7 @@ SET(JPEG_IMAGES
   BinaryMinMaxCurvatureFlowImageFilterOutput
   BrainProtonDensitySlice
   CurvatureFlowImageFilterOutput
+  DiscreteGaussianImageFilter
   GradientMagnitudeImageFilterOutput
   GradientMagnitudeRecursiveGaussianImageFilterOutput3
   GradientMagnitudeRecursiveGaussianImageFilterOutput5
