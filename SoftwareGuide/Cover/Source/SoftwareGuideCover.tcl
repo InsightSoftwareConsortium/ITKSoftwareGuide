@@ -30,7 +30,7 @@ vtkPolyDataMapper skullMapper
 
 vtkActor skullActor
     skullActor SetMapper skullMapper
-    eval [skullActor GetProperty] SetColor   0.9 0.9 1.0
+    eval [skullActor GetProperty] SetColor   1.0 0.96 0.86
     skullActor SetScale 1.50 1.50 1.50
     skullActor SetPosition  -105 10 -125
 
@@ -46,7 +46,7 @@ vtkPolyDataMapper neckMusclesMapper
 
 vtkActor neckMusclesActor
     neckMusclesActor SetMapper neckMusclesMapper
-    eval [neckMusclesActor GetProperty] SetColor 1.0  0.5  0.4
+    eval [neckMusclesActor GetProperty] SetColor 1.0  0.9  0.9
     neckMusclesActor SetPosition  0 0 -374
  
 
@@ -100,10 +100,11 @@ vtkActor skinActor
 #  Rendering pipeline shared among the anatomical structures
 #
 vtkRenderer ren1
-    ren1 SetBackground 0.1 0.2 0.4
+    ren1 SetBackground 0.7 0.7 0.7
 
 vtkRenderWindow renWin
     renWin AddRenderer ren1
+#    renWin SetSize 1000 1000
     renWin SetSize 1000 1000
 
 vtkRenderWindowInteractor iren
@@ -147,7 +148,7 @@ vtkWindowToImageFilter grabber
 vtkPNGWriter writer
   writer SetInput [ grabber GetOutput ]
   writer SetFileName "SoftwareGuideCover.png"
-  writer Write
+#  writer Write
 
 
 iren AddObserver UserEvent {wm deiconify .vtkInteract}
