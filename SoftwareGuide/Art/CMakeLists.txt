@@ -28,6 +28,7 @@ SET(XFIG_FIGURES
   BinaryThresholdTransferFunction
   DiscreteGaussian
   GeometricalObjects
+  HybridSegmentationDiagram1
   ImageIOCollaborationDiagram
   ImageIOFactoriesClassDiagram
   ImageIOFactoriesUseCases
@@ -122,6 +123,7 @@ SET(JPEG_IMAGES
   GradientMagnitudeRecursiveGaussianImageFilterOutput5
   GradientAnisotropicDiffusionImageFilterOutput
   HybridSegmentationFuzzyVoronoiOutput
+  HybridSegmentationOutput1
   ImageRegistration1Output
   ImageRegistration2Output
   ImageRegistration4Output
@@ -160,10 +162,14 @@ SET(JPEG_IMAGES
   ResampleImageFilterOutput7
   ResampleImageFilterOutput7b
   ResampleImageFilterOutput9
+  ResampleImageFilterOutput10
+  ResampleImageFilterOutput11
   RGBCurvatureAnisotropicDiffusionImageFilterOutput
   RGBCurvatureAnisotropicDiffusionImageFilterOutput2
   RGBGradientAnisotropicDiffusionImageFilterOutput
   RGBGradientAnisotropicDiffusionImageFilterOutput2
+  SmoothingRecursiveGaussianImageFilterOutput3
+  SmoothingRecursiveGaussianImageFilterOutput5
   ThresholdImageFilterOutputAbove
   ThresholdImageFilterOutputBelow
   ThresholdImageFilterOutputOutside
