@@ -6,6 +6,11 @@ ${SoftwareGuide_SOURCE_DIR}/SoftwareGuideConfiguration.tex.in
 ${SoftwareGuide_BINARY_DIR}/SoftwareGuideConfiguration.tex
 )
 
+CONFIGURE_FILE(
+${SoftwareGuide_SOURCE_DIR}/doxygen.config.in
+${SoftwareGuide_BINARY_DIR}/doxygen.config
+)
+
 
 # 
 # Find LaTeX
@@ -14,12 +19,10 @@ INCLUDE (${CMAKE_ROOT}/Modules/FindLATEX.cmake)
 
 
 # 
-# Find ITK
+# Find ITK Sources
 #
-INCLUDE (${CMAKE_ROOT}/Modules/FindITK.cmake)
-IF (USE_ITK_FILE)
-  INCLUDE(${USE_ITK_FILE})
-ENDIF(USE_ITK_FILE)
+FIND_PATH(ITK_SOURCE_DIR UseITK.cmake.in)
+
 
 ADD_CUSTOM_TARGET(SoftwareGuide  ALL echo)
 
