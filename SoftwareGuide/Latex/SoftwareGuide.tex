@@ -5,7 +5,7 @@
 %
 %     http://www.itk.org
 
-\documentclass[oneside]{InsightManual}
+\documentclass[twoside,titlepage]{InsightBook}
 
 \usepackage[dvips]{graphicx}
 
@@ -33,11 +33,14 @@
 
 \maketitle
 
-\input{Abstract.tex}
+\frontmatter
 
+\input{Abstract.tex}
 
 \tableofcontents
 
+
+\mainmatter
 
 % This file contain platform 
 % dependent information
@@ -72,7 +75,7 @@
 %%% \input{Wrapping.tex}
 \input{SoftwareProcess.tex}
 
-
+\backmatter
 
 % Insert the bibliography
 \bibliographystyle{plain}
