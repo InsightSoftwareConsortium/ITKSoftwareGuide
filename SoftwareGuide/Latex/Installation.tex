@@ -119,14 +119,21 @@ version based on MFC}
 
 Figure \ref{fig:CMakeGUI} shows the CMake interface for UNIX and MS-Windows.
 In order to speed up the build process and to avoid compilation problems you
-may want to disable the compilation of the demo applications. This is done
-with the variable
-\code{BUILD\_APPLICATIONS=OFF}. The demo applications  distributed with the
-toolkit are a helpful resource for learning how to write applications with
-ITK.  However, due to the large number of examples and the fact that some of
-them rely on third party libraries, enabling this option will considerably
-complicate the initial configuration of the toolkit and is best avoided the
-first time.
+may want to disable the compilation of the testing and examples. This is done
+with the variables \code{BUILD\_TESTING=OFF} and \code{BUILD\_EXAMPLES=OFF}.
+The examples distributed with the toolkit are a helpful resource for learning
+how to use ITK components. The testing section includes a large number of small 
+programs that exercise the capabilities of ITK classes. Due to the number of
+tests, enabling the testing option will considerable increase the buliding
+time.  It is not desirable to enable this option for a first built of the
+toolkit.
+
+An additional resource is available at the \code{InsightApplications} module,
+which contains multiple applications incorporationg GUIs and different levels
+of visualization.  However, due to the large number of applications and the
+fact that some of them rely on third party libraries, building this module
+should be postponed until you are familiar with the basic structure of the
+toolkit and the building process. 
 
 Begin running CMake by using \code{ccmake} on Unix, and \code{CMakeSetup} on
 Windows. Remember to run \code{ccmake} from the binary directory on Unix. On
@@ -148,9 +155,10 @@ the workspace named \code{ITK.dsw} from the binary directory you specified
 in the CMake GUI.
 
 The build process will typically take anywhere from 30 minutes to one hour
-depending on the performance of your system. As part of the normal built
-process, about 300 small test programs are compiled. This verifies that the
-basic components of ITK have been correctly built on your system.
+depending on the performance of your system. If you enabled testing as part of
+the normal built process, about 500 small test programs will be compiled
+greatly increasing the build time. These test programs will verify that the
+basic components of ITK compile and run correctly on your system.
 
 \section{Getting Started With ITK }
 \label{sec:GettingStartedWithITK}
