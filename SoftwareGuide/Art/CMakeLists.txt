@@ -87,6 +87,7 @@ SET(XFIG_FIGURES
   MultiResImageRegistration2TraceTranslations
   MultiResRegistrationComponents
   MultiResRegistrationConcept
+  ModelToImageRegistrationComponentsDiagram
   OptimizersHierarchy
   ParzenWindowing1
   ParzenWindowing2
