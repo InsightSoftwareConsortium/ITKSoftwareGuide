@@ -8,7 +8,14 @@
 # Find ITK Sources
 #
 FIND_PATH(ITK_SOURCE_DIR UseITK.cmake.in)
+
+
+
+#
+# Find Perl executable
+#
 INCLUDE (${CMAKE_ROOT}/Modules/FindPerl.cmake)
+
 
 
 #
@@ -19,7 +26,9 @@ FIND_PROGRAM(PERLCXXPARSER
 )
 
 
+
 ADD_CUSTOM_TARGET(SoftwareGuideExamples  ALL echo)
+
 
 
 SET( ITK_EXAMPLES_SRCS
@@ -75,91 +84,30 @@ SET( ITK_EXAMPLES_SRCS
 
 
 
-SET( ITK_EXAMPLES_TEX_SRCS
-  HelloWorld.tex
-  Image1.tex
-  Image2.tex
-  Image3.tex
-  Image4.tex
-  RGBImage.tex
-  VectorImage.tex
-  PointSet1.tex
-  PointSet2.tex
-  PointSet3.tex
-  RGBPointSet.tex
-  PointSetWithVectors.tex
-  PointSetWithCovariantVectors.tex
-  Mesh1.tex
-  Mesh2.tex
-  Mesh3.tex
-  MeshTraits.tex
-  MeshKComplex.tex
-  MeshCellsIteration.tex
-  MeshCellVisitor.tex
-  MeshCellVisitor2.tex
-  MinMaxCurvatureFlowImageFilter.tex
-  BilateralImageFilter.tex
-  BinaryThresholdImageFilter.tex
-  BinaryMinMaxCurvatureFlowImageFilter.tex
-  BinomialBlurImageFilter.tex
-  ThresholdImageFilter.tex
-  CastingImageFilters.tex
-  CurvatureFlowImageFilter.tex
-  CurvatureAnisotropicDiffusionImageFilter.tex
-  DanielssonDistanceMapImageFilter.tex
-  DiscreteGaussianImageFilter.tex
-  GradientMagnitudeImageFilter.tex
-  GradientMagnitudeRecursiveGaussianImageFilter.tex
-  GradientAnisotropicDiffusionImageFilter.tex
-  MathematicalMorphologyBinaryFilters.tex
-  MathematicalMorphologyGrayscaleFilters.tex
-  MedianImageFilter.tex
-  MeanImageFilter.tex
-  ResampleImageFilter.tex
-  ResampleImageFilter2.tex
-  ResampleImageFilter3.tex
-  RGBImageReadWrite.tex
-  ImageRegistration1.tex
-  RGBCurvatureAnisotropicDiffusionImageFilter.tex
-  RGBGradientAnisotropicDiffusionImageFilter.tex
-  VectorCurvatureAnisotropicDiffusionImageFilter.tex
-  VectorGradientAnisotropicDiffusionImageFilter.tex
-)
 
-
-
-SET( CxxExamplesListFile
-  ${SoftwareGuide_BINARY_DIR}/Examples/ExamplesList.txt
- )
-
-
-
-IF( PERLCXXPARSER )
-
+IF( PERL_EXECUTABLE AND PERLCXXPARSER )
+  FOREACH(example ${ITK_EXAMPLES_SRCS})
+  GET_FILENAME_COMPONENT(TEX_FILE ${example} NAME_WE)
+  SET(TEX_FILE ${SoftwareGuide_BINARY_DIR}/Examples/${TEX_FILE}.tex)
   ADD_CUSTOM_COMMAND(
-    SOURCE    ${ITK_EXAMPLES_SRCS}
-    COMMAND   C:/cygwin/bin/find
-    ARGS      ${ITK_SOURCE_DIR}/Examples   -name '*.cxx' -print > ${CxxExamplesListFile}
-    TARGET    SoftwareGuideExamples
-    DEPENDS   ${ITK_EXAMPLES_SRCS}
-    OUTPUTS   ${CxxExamplesListFile}
-  )
-  ADD_CUSTOM_COMMAND( 
-    SOURCE    SoftwareGuideExamples
-    COMMAND   echo
-    TARGET    SoftwareGuideExamples
-    DEPENDS   ${ITK_EXAMPLES_TEX_SRCS}
-  )
-
-  ADD_CUSTOM_COMMAND(
-    SOURCE    ${ITK_EXAMPLES_SRCS}
+    SOURCE    ${example}
     COMMAND   ${PERL_EXECUTABLE} ${PERLCXXPARSER}
-    ARGS      ${CxxExamplesListFile}   ${SoftwareGuide_BINARY_DIR}/Examples
+    ARGS      ${example} ${TEX_FILE}
     TARGET    SoftwareGuideExamples
-    DEPENDS   ${CxxExamplesListFile} ${PERLCXXPARSER}
-    OUTPUTS   ${ITK_EXAMPLES_TEX_SRCS}
+    DEPENDS   ${PERLCXXPARSER} ${example}
+    OUTPUTS   ${TEX_FILE}
   )
+  SET(TEX_DEPENDENCIES ${TEX_DEPENDENCIES} ${TEX_FILE})
+  ENDFOREACH(example)
 
-ENDIF( PERLCXXPARSER )
+ENDIF( PERL_EXECUTABLE AND PERLCXXPARSER )
+
+
+ADD_CUSTOM_COMMAND( 
+  SOURCE    SoftwareGuideExamples
+  COMMAND   echo
+  TARGET    SoftwareGuideExamples
+  DEPENDS   ${TEX_DEPENDENCIES}
+)
 
 

@@ -13,21 +13,16 @@
 #
 #
 
-print "number of arguments =  $#ARGV \n";
 
 if( $#ARGV < 1 )
   {
-  print "Usage: ".$ARG0." <input file with list of inputs> <output path> \n";
+  print "Usage: ".$ARG0." <input file> <output file> \n";
   exit;
   }
 
-open(INLISTFILE, "$ARGV[0]"  )  or die "Can't open $ARGV[0] $!";
-my @inputfiles = <INLISTFILE>;
 
 
-foreach (@inputfiles) {
-  ParseCxxFile( $_ , $ARGV[1] );
-}
+ParseCxxFile( $ARGV[0] , $ARGV[1] );
 
 
 
@@ -43,13 +38,6 @@ sub ParseCxxFile {
 
   my $inputfilename  = shift;
   my $outputfilename = shift;
-
-  my $basefilename = $inputfilename;
-
-  $basefilename =~ s/.*\///;
-  $basefilename =~ s/\.cxx/.tex/;
-  
-  $outputfilename .= "/".$basefilename;
 
   # truncate the initial part of the path
   $inputfilename =~ /(Examples\/.*$)/;
