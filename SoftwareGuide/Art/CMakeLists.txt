@@ -113,6 +113,9 @@ SET(JPEG_IMAGES
   MultiResImageRegistration1CheckerboardBefore
   MultiResImageRegistration1CheckerboardAfter
   MultiResImageRegistration1Output
+  MultiResImageRegistration2CheckerboardBefore
+  MultiResImageRegistration2CheckerboardAfter
+  MultiResImageRegistration2Output
   MathematicalMorphologyBinaryErosionOutput
   MathematicalMorphologyBinaryDilationOutput
   MathematicalMorphologyGrayscaleErosionOutput
