@@ -22,8 +22,8 @@ of the displacement is derived from the instantaneous optical flow equation:
 \label{eqn:OpticalFlow}
 \end{equation}
 
-In the above equation, $f(\bf{X})$ is the fixed image and $m(\bf{X})$
-is the moving image to be registered and $\bf{D}(\bf{X})$ is the displacement 
+In the above equation, $f(\bf{X})$ is the fixed image, $m(\bf{X})$
+is the moving image to be registered, and $\bf{D}(\bf{X})$ is the displacement 
 or optical flow between the images. It is well known in optical flow
 literature that Equation \ref{eqn:OpticalFlow} is insufficient to specify 
 $\bf{D}(\bf{X})$ locally and is usually determined using some form of
@@ -38,7 +38,7 @@ direction of the intensity gradient is used:
 
 However, this equation becomes unstable for small values of the image gradient,
 resulting in large displacement values. To overcome this problem, Thirion
-renormalized the equation such that:
+re-normalizes the equation such that:
 
 \begin{equation}
 \bf{D}(\bf{X}) = - \frac
@@ -63,16 +63,16 @@ m(\bf{X}+ \bf{D}^{N-1}(\bf{X}) )
 \end{equation}
 
 Reconstruction of the deformation field is an ill-posed problem where
-matching the fixed and moving images have many solutions. For example, since
+matching the fixed and moving images has many solutions. For example, since
 each image pixel is free to move independently, it is possible that all
 pixels of one particular value in $m(\bf{X})$ could map to a single image
 pixel in $f(\bf{X})$ of the same value. The resulting deformation field may
 be unrealistic for real-world applications. An option to solve for the field
-uniquely is to enforce an elastic-like behavior by smoothing the deformation
-field using a Gaussian filter between iterations.
+uniquely is to enforce an elastic-like behavior, smoothing the deformation
+field with a Gaussian filter between iterations.
 
 In ITK, the demons algorithm is implemented as part of the finite difference
-solver (FDS) framework and its use is demostrated in the following example.
+solver (FDS) framework and its use is demonstrated in the following example.
 
 \input{DeformableRegistration2.tex} 
 
