@@ -134,6 +134,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellVisitor.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellVisitor2.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Path/PolyLineParametricPath1.cxx
+  ${ITK_SOURCE_DIR}/Examples/DataRepresentation/COntainers/TreeContainer.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BilateralImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinaryThresholdImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinaryMedianImageFilter.cxx
@@ -257,9 +258,17 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Segmentation/GeodesicActiveContourImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/GeodesicActiveContourShapePriorLevelSetImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/WatershedSegmentation1.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/SpatialObjectTreeContainer.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/ArrowSpatialObject.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/CylinderSpatialObject.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/DTITubeSpatialObject.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/GaussianSpatialObject.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/GroupSpatialObject.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/MeshSpatialObject.cxx
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/BlobSpatialObject.cxx
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/EllipseSpatialObject.cxx
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/ImageSpatialObject.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/ImageMaskSpatialObject.cxx
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/LandmarkSpatialObject.cxx
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/LineSpatialObject.cxx
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/ReadWriteSpatialObject.cxx
@@ -268,6 +277,8 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/SpatialObjectTransforms.cxx
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/SurfaceSpatialObject.cxx
   ${ITK_SOURCE_DIR}/Examples/SpatialObjects/TubeSpatialObject.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/VesselTubeSpatialObject.cxx
+  ${ITK_SOURCE_DIR}/Examples/SpatialObjects/SpatialObjectToImageStatisticsCalculator.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/BayesianPluginClassifier.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/EuclideanDistance.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/ExpectationMaximizationMixtureModelEstimator.cxx
