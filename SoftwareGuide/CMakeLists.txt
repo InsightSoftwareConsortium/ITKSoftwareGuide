@@ -84,6 +84,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshKComplex.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellsIteration.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellVisitor.cxx
+  ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellVisitor2.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/*.cxx
 )
 
@@ -108,6 +109,7 @@ SET( ITK_EXAMPLES_TEX_SRCS
   ${SoftwareGuide_BINARY_DIR}/Examples/MeshKComplex.tex
   ${SoftwareGuide_BINARY_DIR}/Examples/MeshCellsIteration.tex
   ${SoftwareGuide_BINARY_DIR}/Examples/MeshCellVisitor.tex
+  ${SoftwareGuide_BINARY_DIR}/Examples/MeshCellVisitor2.tex
 )
 
 
