@@ -122,6 +122,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ConfidenceConnected.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/IsolatedConnectedImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/HybridSegmentationFuzzyVoronoi.cxx
+  ${ITK_SOURCE_DIR}/Examples/Segmentation/HoughTransform2DLinesImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/FastMarchingImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ShapeDetectionLevelSetFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ThresholdSegmentationLevelSetImageFilter.cxx
