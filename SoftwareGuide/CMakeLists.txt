@@ -148,10 +148,9 @@ IF(LATEX_COMPILE)
     ARGS      ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh
               ${SoftwareGuide_SOURCE_DIR}/SoftwareGuide.tex
     TARGET    SoftwareGuide
-    DEPENDS   ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS}
+    DEPENDS   ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS} ${SoftwareGuide_BINARY_DIR}/SoftwareGuide.ind
     OUTPUTS   ${SoftwareGuide_BINARY_DIR}/SoftwareGuide.dvi
   )
-
 
   IF(DVIPDF_COMPILE)
     ADD_CUSTOM_COMMAND( 
@@ -169,6 +168,28 @@ IF(LATEX_COMPILE)
       DEPENDS   ${SoftwareGuide_BINARY_DIR}/SoftwareGuide.pdf
     )
   ENDIF(DVIPDF_COMPILE)
+
+  IF(MAKEINDEX_COMPILE)
+    ADD_CUSTOM_COMMAND( 
+      SOURCE    ${SoftwareGuide_SOURCE_DIR}/SoftwareGuide.tex
+      COMMAND   /bin/sh
+      ARGS      ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh
+                ${SoftwareGuide_SOURCE_DIR}/SoftwareGuide.tex
+      TARGET    SoftwareGuide
+      DEPENDS   ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS} 
+      OUTPUTS   ${SoftwareGuide_BINARY_DIR}/SoftwareGuide.idx
+    )
+    ADD_CUSTOM_COMMAND( 
+      SOURCE    ${SoftwareGuide_BINARY_DIR}/SoftwareGuide.idx
+      COMMAND   ${MAKEINDEX_COMPILE}
+      ARGS      ${SoftwareGuide_BINARY_DIR}/SoftwareGuide.idx
+      TARGET    SoftwareGuide
+      DEPENDS   ${SoftwareGuide_BINARY_DIR}/SoftwareGuide.idx
+      OUTPUTS   ${SoftwareGuide_BINARY_DIR}/SoftwareGuide.ind
+    )
+
+  ENDIF(MAKEINDEX_COMPILE)
+
 ENDIF(LATEX_COMPILE)
 
 
