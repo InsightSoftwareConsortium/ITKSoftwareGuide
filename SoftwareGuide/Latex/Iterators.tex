@@ -703,7 +703,7 @@ iterator will automatically disable bounds checking when it detects that it is
 not necessary.  A user may also explicitly disable or enable bounds checking.
 Most neighborhood based algorithms can minimize the need for bounds checking
 through clever definition of iteration regions.  These techniques are explored
-in section~\ref{sec:????????????????????????????????????????????}
+in section~\ref{sec:NeighborhoodExample3}.
 
 \index{NeighborhoodIterators!}
 \begin{itemize}
@@ -744,14 +744,11 @@ of the standard \code{itk::NeighborhoodIterator} that allows for an arbitrarily
 
 \subsection{itk::NeighborhoodIterator}
 \label{sec:itkNeighborhoodIterator}
-The standard neighborhood iterators in ITK are the
-\code{itk::ConstNeighborhoodIterator} and the 
-\code{itk::NeighborhoodIterator}.  These two classes implement the complete API
-described above and are the most commonly used neighborhood iterators.  This
-section illustrates their use with several examples.  Refer to
-section~\ref{sec:?????????????????????????????????????????????????} on
-neighborhood filters for descriptions of algorithms in ITK that have been
-written using the techniques described in this section.
+The standard neighborhood iterator class in ITK is the
+\code{itk::NeighborhoodIterator}.  Together with its \code{const} version,
+\doxygen{itk::ConstNeighborhoodIterator}, it implements the complete API
+described above.  This section provides several examples to illustrate the use
+of \doxygen{itk::NeighborhoodIterator}.
 
 \subsubsection{Basic neighborhood techniques: edge detection}
 \label{sec:NeighborhoodExample1}
@@ -759,23 +756,23 @@ written using the techniques described in this section.
 
 \subsubsection{Convolution filtering: Sobel operator}
 \label{sec:NeighborhoodExample2}
-\input{Neighborhooditerators2.tex}
+\input{NeighborhoodIterators2.tex}
 
 \subsubsection{Optimizing iteration speed}
 \label{sec:NeighborhoodExample3}
-\input{Neighborhooditerators3.tex}
+\input{NeighborhoodIterators3.tex}
 
 \subsubsection{Separable convolution: Gaussian filtering}
 \label{sec:NeighborhoodExample4}
-\input{Neighborhooditerators4.tex}
+\input{NeighborhoodIterators4.tex}
 
 \subsubsection{Slicing the neighborhood}
 \label{sec:NeighborhoodExample5}
-\input{Neighborhooditerators5.tex}
+\input{NeighborhoodIterators5.tex}
 
 \subsubsection{Random access iteration}
 \label{sec:NeighborhoodExample6}
-\input{Neighborhooditerators6.tex}
+\input{NeighborhoodIterators6.tex}
 
 %./Common/itkConstNeighborhoodIterator.h
 %./Common/itkNeighborhoodIterator.h
@@ -811,11 +808,11 @@ offsets can be added or removed from the stencil at any time.
 
 \begin{itemize}
 
-\item \textbf{\code{void ActivateOffset( itk::Offset &o)}} Include the offset
+\item \textbf{\code{void ActivateOffset( itk::Offset \&o)}} Include the offset
 \code{o} in the stencil of active neighborhood positions.  Offsets are relative
 to the neighborhood center.
 
-\item \textbf{\code{void DeactivateOffset( itk::Offset &o)}} Remove the offset
+\item \textbf{\code{void DeactivateOffset( itk::Offset \&o)}} Remove the offset
 \code{o} from the stencil of active neighborhood positions.  Offsets are
 relative to the neighborhood center. 
 
