@@ -31,6 +31,7 @@ SET(XFIG_FIGURES
   ImageIOCollaborationDiagram
   ImageIOFactoriesClassDiagram
   ImageIOFactoriesUseCases
+  ImageOriginAndSpacing
   ImageOverlapedRegions
   ImageOverlap
   ImageOverlapInterpolator
