@@ -1,9 +1,13 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
 % Complete documentation on the extended LaTeX markup used for Insight
 % documentation is available in ``Documenting Insight'', which is part
 % of the standard documentation for Insight.  It may be found online
 % at:
 %
 %     http://www.itk.org
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[twoside,titlepage]{InsightBook}
 
@@ -23,6 +27,10 @@
 \date{\today}		
 
 
+\newif\ifitkFullVersion
+\itkFullVersiontrue
+
+
 % actually write the .idx file
 \makeindex			
 
@@ -35,7 +43,9 @@
 
 \frontmatter
 
+\ifitkFullVersion 
 \input{Abstract.tex}
+\fi
 
 \tableofcontents
 
@@ -47,25 +57,32 @@
 \input{SoftwareGuideConfiguration.tex}
 
 
+\ifitkFullVersion
 \part{Introduction}
 
 \input{Introduction.tex}
 \input{Installation.tex}
 \input{SystemOverview.tex}
+\fi
 
 
 \part{User's Guide}
 
+\ifitkFullVersion
 \input{DataRepresentation.tex}
 \input{Filtering.tex}
 \input{IO.tex}
 %%% \input{Numerics.tex}
+\fi
 \input{Registration.tex}
+\ifitkFullVersion
 \input{Segmentation.tex}
 %%% \input{Applications.tex}
+\fi
 
 
 
+\ifitkFullVersion
 \part{Developer's Guide}
 
 %%% \input{Infrastructure.tex}
@@ -74,6 +91,7 @@
 %%% \input{GUI.tex}
 %%% \input{Wrapping.tex}
 \input{SoftwareProcess.tex}
+\fi
 
 \backmatter
 
