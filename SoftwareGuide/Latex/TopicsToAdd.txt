@@ -122,10 +122,82 @@ Chapter 4    Data Representation
 
 
 
+   - Add example on how to use the Neighborhood links
+
+     
+           BuildCellLinks()
 
 
+   - Add section on the Simplex 
+     (check Leila Baghdadi, and Thomas Boettger).
+
+
+   - Graph cuts (liver segmentation).
+     check mailing list archives, check the Voronoi.
+
+
+
+
+
+Chapter 5  Spatial Objects
+
+
+    Coordinate with Julien Jomier at UNC. 
+    They plan to update this section.
+
+    e.g. add the ImageMaskSpatialObject.
+
+
+
+
+    
 
       
     
+
+Chapter 6 Filtering
+
+
+
+   - in Thresholding add examples:
+
+       OtsuThresholdImageCalculator (using it alone)
+       OtsuThresholdImageFilter (already there, but needs refinement).
+
+       OtsuMultipleThreshold Calculator (using it alone).
+       OtsuMultipeleThreshodl Filter (add example + filter).
+
+
+
+
+
+
+ - 6.2.1 Casting filters (low priority)
+
+     spliting CastImageFilter into 4 separate .cxx
+     
+     and check if we have other casting filters...
+
+
+      
+ - Double check equation pdf-page 147. Equations were correctd.
+
+
+
+
+ - Mathematical morphology, 
+
+     add Examples for the new filters that Jim Miller (GE)
+     added recently
+
+
+         GrayScaleFillHoleImageFilter
+         GrayScaleGrindPeakImageFilter
+         GrayScaleConnecteOpeningImageFilter
+         GrayScaleConnecteCloseningImageFilter
+         GrayScaleGeodesicDilateImageFilter
+         GrayScaleGeodesicErodeImageFilter
+
+
 
   
