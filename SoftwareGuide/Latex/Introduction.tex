@@ -208,30 +208,90 @@ important to understand since other directory structures (such as the
 \subsection{Documentation}
 \label{sec:Documentation}
 
-Besides this text and The \emph{Insight Toolkit} text (see the next section for more information), there are other documentation resources that you should be aware of.
-	•	Doxygen Documentation. The Doxygen documentation is an essential resource when working with ITK. These extensive Web pages describe in detail every class and method in the system. The documentation also contains inheritance and collaboration diagrams, listing of event invocations, and data members. The documentation is heavily hyper-linked to other classes and to the source code. The Doxygen documentation is available on the companion CD, or on-line at http://www.vtk.org. Make sure that you have the right documentation for your version of the source code.
-	•	Header Files. Each ITK class is implemented with a .h and .cxx file. All methods found in the .h header files are documented and provide a quick way to find documentation for a particular method. (Indeed, Doxygen uses the header documentation to produces its output.)
+Besides this text, there are other documentation resources that you should be
+aware of.
+\begin{description}
+        \item[Doxygen Documentation.] The Doxygen documentation is an
+        essential resource when working with ITK. These extensive Web pages
+        describe in detail every class and method in the system. The
+        documentation also contains inheritance and collaboration diagrams,
+        listing of event invocations, and data members. The documentation is
+        heavily hyper-linked to other classes and to the source code. The
+        Doxygen documentation is available on the companion CD, or on-line at
+        http://www.itk.org. Make sure that you have the right documentation
+        for your version of the source code.
+
+	\item[Header Files.] Each ITK class is implemented with a .h and
+        .cxx/.txx file (.txx file for templated classes). All methods
+        found in the .h header files are documented and provide a quick way
+        to find documentation for a particular method. (Indeed, Doxygen uses
+        the header documentation to produces its output.)
+\end{description}
 
 \subsection{Data}
 \label{sec:Data}
 
-The best way to obtain the ITK data is from the companion CD. However, other data is available from http://www.vtk.org and via CVS access. Instructions to CVS access the data repository is also available at vtk.org.
+\emph{The Insight Toolkit} was designed to support the Visible Human Project 
+and its associated data. This data is available from the National Library of
+Medicine at \code{http://www.nlm.nih.gov/research/visible/visible_human.html}.
+
+Another source of data can be obtained from the ITK Web site at 
+\code{http://www.itk.org/HTML/Data.htm} or via ftp from
+\code{ftp://public.kitware.com/pub/itk/Data/}.
 
 \section{Additional Resources}
 \label{sec:AdditionalResources}
 
-For more information about the \emph{Insight Toolkit} we recommend the following resources.
-	•	The text The Insight Toolkit An Object-Oriented Approach to 3D Graphics (Third Edition). This book goes into detail about many of the algorithms, data structures, and system issues found in ITK. The text is published by Kitware, Inc.and available from amazon.com and the Kitware estore at http://www.kitware.com/products/. ISBN 1-930934-07-6, 520 pages, printed in full color, hard bound, with CD-ROM.
-	•	The Web pages http://public.kitware.com/ contain pointers to many other resources such as on-line manual pages, a FAQ, and an archive of the vtkusers mailing list (see below). In particular, the Doxygen manual pages are absolutely wonderful. Although they are available on the companion ITK CD, you can also view them on-line at http://public.kitware.com/ITK/doc/nightly/html.
-	•	Many other ITK users and developers also maintain Web pages. One recommended site is Sebastien Barre’s links to ITK resources http://www.barre.nom.fr/vtk/links.html.
-	•	The vtkusers mailing list allows users and developers to ask questions and receive answers; post updates, bug fixes, and improvements; and offer suggestions for improving the system. There are instructions at http://public.kitware.com/mailman/listinfo/vtkusers describing how to join this list.
-	•	Commercial support and consulting are available from Kitware at http://www.kitware.com. Kitware also sells and supports commercial products built with ITK including VolView (volume rendering/image processing), ActiViz for Microsoft Visual Basic/COM/ActiveX support, and the PolyViz application and embeddable control for polygonal mesh viewing and editing. See the Web pages for terms and pricing.
+For more information about the \emph{Insight Toolkit} we recommend the
+following resources.
 
-As a last resort, you can e-mail Kitware at kitware@kitware.com. We will answer questions as time and resources permit.An introduction to the toolkit
+\begin{itemize}
+	\item The Web pages \code{http://www.itk.org} contain pointers to
+	many other resources such as on-line manual pages, a FAQ, and an
+	archive of the insight-users mailing list (see below). In particular,
+	the Doxygen manual pages are absolutely wonderful. They are 
+        available online at \code{http://www.itk.org/Doxygen/html/index.html}.
+
+	\item The insight-users mailing list allows users and developers to ask
+	questions and receive answers; post updates, bug fixes, and
+	improvements; and offer suggestions for improving the system. There
+	are instructions at 
+        \code{http://www.itk.org/mailman/listinfo/insight-users}
+	describing how to join this list.
+
+        \item Research partnerships with members of the Insight Software
+        Consortium are encouraged. Please see the web pages for more 
+        information.
+
+	\item Commercial support and consulting are available from Kitware at
+	http://www.kitware.com. 
+\end{itemize}
 
 \section{A Brief History of ITK}
 \label{sec:History}
 
 \index{ITK!history|textbf}
 
+In 1999 the US National Library of Medicine of the National Institutes of
+Health awarded a three-year contract to develop an open-source registration
+and segmentation toolkit, which eventually came to be known as the Insight
+Toolkit (ITK). ITK's NLM Project Manager was Dr. Terry Yoo, who coordinated
+the six prime contractors who made up the Insight consortium. These
+consortium members included three commercial partners---GE Corporate R&D,
+Kitware, Inc., and MathSoft (the company name is now Insightful)---and three
+academic partners---University of North Carolina (UNC), University of
+Tennessee (UT) (Ross Whitaker subsequently moved to University of Utah), and
+University of Pennsylvania (UPenn). The Principle Investigators for these
+partners were, respectively, Bill Lorensen at GE CRD, Will Schroeder at
+Kitware, Vikram Chalana at Insightful, Stephen Aylward with Luis Ibanez at
+UNC (Luis is now at Kitware), Ross Whitaker with Josh Cates at UT (both now
+at Utah), and Dimitri Metaxas at UPenn. In addition, several subcontractors
+rounded out the consortium including Peter Raitu at Brigham & Women's
+Hospital, Celina Imielinska and Pat Molholt at Columbia University, Jim Gee
+at UPenn's Grasp Lab, and George Stetton at University of Pittsburgh.
 
+In 2002 the first official public release of ITK was made available. In
+addition, the National Library of Medicine awarded thirteen contracts to
+several organizations to extend ITK's capabilities. NLM funding of 
+\emph{Insight Toolkit} development is continuing through 2003, with additional
+application and maintenance support anticipated beyond 2003.
