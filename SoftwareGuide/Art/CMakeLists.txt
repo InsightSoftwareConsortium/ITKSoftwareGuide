@@ -80,6 +80,7 @@ SET(XFIG_FIGURES
   ImageRegistration7TraceAngle
   ImageRegistration7TraceTranslations
   LevelSetZeroSet
+  MinMaxCurvatureFlowFunctionDiagram
   MultiResImageRegistration1TraceMetric
   MultiResImageRegistration1TraceTranslations
   MultiResImageRegistration2TraceMetric
