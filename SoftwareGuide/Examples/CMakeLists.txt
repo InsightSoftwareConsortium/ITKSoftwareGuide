@@ -69,6 +69,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Path/PolyLineParametricPath1.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BilateralImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinaryThresholdImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/BinaryMedianImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinaryMinMaxCurvatureFlowImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinomialBlurImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/ThresholdImageFilter.cxx
