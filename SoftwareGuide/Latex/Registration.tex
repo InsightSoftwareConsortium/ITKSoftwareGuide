@@ -83,12 +83,20 @@ The Insight toolkit offers a multi-resolution registration framework which
 is directly compatible with all the registration framework components. The
 multi-resolution registration framework has two additional components:
 two \emph{Image Pyramids} which are used to downsample the fixed and moving
-images according to some user defined schedule.
+images as illustrated in Figure \ref{fig:MultiResRegistrationComponents}.
+The pyramids smooth and subsamples the images according to user defined
+schedule of shrink factors. 
+
+\begin{figure}
+\center
+\includegraphics[width=14cm]{MultiResRegistrationComponents.eps}
+\caption{Components of the Multi-Resolution registration framework.}
+\label{fig:MultiResRegistrationComponents}
+\end{figure}
  
-We now present the main features of the multi-resolution framework by
+We now present the main capbilities of the multi-resolution framework by
 way of an example.
 \input{MultiResImageRegistration1.tex}
-
 
 Let's review now the main characteristics of the registration framework components. 
 
