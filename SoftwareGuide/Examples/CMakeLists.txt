@@ -82,7 +82,9 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration2.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration3.cxx
+  ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration4.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/DeformableRegistration1.cxx
+  ${ITK_SOURCE_DIR}/Examples/Registration/MultiResImageRegistration1.cxx
 )
 
 
