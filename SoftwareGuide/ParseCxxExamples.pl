@@ -40,6 +40,7 @@ sub ParseCxxFile {
   my $endcodesnippettag   = "EndCodeSnippet";
 
   my $dumpinglatex = 0;
+  my $dumpingcode  = 0;
 
   while(<INFILE>) {
 
@@ -48,10 +49,12 @@ sub ParseCxxFile {
     if( /$beginlatextag/ ) {
       $tagfound = 1;
       $dumpinglatex = 1;
+      $dumpingcode  = 0;
       }
     elsif( /$begincodesnippettag/ ) {
       $tagfound = 1;
-      $dumpinglatex = 1;
+      $dumpinglatex = 0;
+      $dumpingcode  = 1;
       print OUTFILE "\\begin{verbatim}\n";
       }
     elsif( /$endlatextag/ ) {
@@ -60,13 +63,18 @@ sub ParseCxxFile {
       }
     elsif( /$endcodesnippettag/ ) {
       $tagfound = 1;
-      $dumpinglatex = 0;
+      $dumpingcode = 0;
       print OUTFILE "\\end{verbatim}\n";
       }
-    if( !$tagfound && $dumpinglatex ) {
-      my $outline = $_;
-      $outline =~ s/\/\///; 
-      print OUTFILE "$outline";
+    if( !$tagfound ) {
+      if( $dumpinglatex ) {
+        my $outline = $_;
+        $outline =~ s/\/\///; 
+        print OUTFILE "$outline";
+        }
+      if( $dumpingcode ) {
+        print OUTFILE "$_";
+        }
       }
 
   }
