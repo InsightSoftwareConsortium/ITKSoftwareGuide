@@ -28,7 +28,12 @@ SET(XFIG_FIGURES
   BinaryThresholdTransferFunction
   DiscreteGaussian
   GeometricalObjects
+  FuzzyConnectednessClassDiagram1
+  FuzzyConnectednessCollaborationDiagram1
+  FuzzyVoronoiCollaborationDiagram1
+  FuzzyVoronoiDeformableCollaborationDiagram1
   HybridSegmentationEngine1
+  HybridSegmentationFCVDDM
   ImageIOCollaborationDiagram
   ImageIOFactoriesClassDiagram
   ImageIOFactoriesUseCases
@@ -82,6 +87,9 @@ SET(XFIG_FIGURES
   ThresholdTransferFunctionBelow
   ThresholdTransferFunctionOutside
   TranslationAndRotationCenter
+  VoronoiSegmentationClassDiagram1
+  VoronoiSegmentationCollaborationDiagram1
+  VoronoiSegmentationCollaborationDiagram2
   WatershedCatchmentBasins
   WatershedsHierarchy
   WatershedImageFilter
