@@ -132,6 +132,9 @@ SET(JPEG_IMAGES
   DeformableRegistration1Output
   DeformableRegistration1CheckerboardBefore
   DeformableRegistration1CheckerboardAfter
+  DeformableRegistration2Output
+  DeformableRegistration2CheckerboardBefore
+  DeformableRegistration2CheckerboardAfter
   DiscreteGaussianImageFilterOutput
   FivePoints
   FatMRISlice
