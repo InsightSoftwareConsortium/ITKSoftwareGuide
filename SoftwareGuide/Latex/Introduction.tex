@@ -1,32 +1,34 @@
 \chapter{Introduction}
 \label{chapter:Introduction}
 
-Welcome to the \emphasis{Insight Segmentation and Registration Toolkit (ITK)
+Welcome to the \emph{Insight Segmentation and Registration Toolkit (ITK)
 Software Guide}. This book has been updated for ITK 1.1 and later versions of
-the Insight Toolkit software.
+the \emph{Insight Toolkit} software.
 
 ITK is an open-source, object-oriented software system for image processing,
 segmentation, and registration.  Although it is large and complex, ITK is
 designed to be easy to use once you learn about its basic object-oriented and
-implementation methodology. The purpose of this \emphasis{Software Guide} is
+implementation methodology. The purpose of this \emph{Software Guide} is
 to help you learn just this, plus familiarize you with an important
 algorithms and data representations found throughout the toolkit. The material
 is taught using an extensive set of examples, which we encourage you to compile
-and run while you read this text.
+and run while you read this guide.
 
 ITK is a large system. As a result, it is not possible to completely document
-all ITK objects and their methods in this guide. Instead, this guide will
+all ITK objects and their methods in this text. Instead, this guide will
 introduce you to important system concepts and lead you up the learning curve
 as fast and efficiently as possible. Once you master the basics, we suggest
 that you take advantage of the many resources available including the Doxygen
-doumentation pages (xref to doxygen) and the community of ITK users (see
-xref to AdditionalResources).
+doumentation pages (\code{http://www.itk.org/HTML/Documentation.htm})) and
+the community of ITK users (see \ref{sec:AdditionalResources} on page 
+\pageref{sec:AdditionalResources}.)
 
-The Insight Toolkit is an open-source software system. What this means is
-that the community of ITK users and developers has great impact on the
-software. Users and developers can contribute greatly to ITK by providing bug
-fixes, tests, new classes, and other feedback. Please feel free to contribute
-your ideas to the community (the ITK mailing list is the preferred method).
+The \emph{Insight Toolkit} is an open-source software system. What this means
+is that the community of ITK users and developers has great impact on the
+evolution of the software. Users and developers can contribute greatly to ITK
+by providing bug reports, bug fixes, tests, new classes, and other
+feedback. Please feel free to contribute your ideas to the community (the ITK
+mailing list is the preferred method).
 
 \section{Organization}
 \label{sec:Organization}
@@ -47,70 +49,166 @@ the system, and interface to various windowing and GUI systems.
 \label{sec:HowToLearnITK}
 
 There are two broad categories of users of ITK. First are class developers,
-those who create classes in C++. Second, users, employ existing C++ classes to
-build applications. Class developers must be proficient in C++, and if you
+those who create classes in C++. Second, users, employ existing C++ classes
+to build applications. Class developers must be proficient in C++, and if you
 are extending or modifying ITK, you must also be familiar with ITK's internal
 structures and design (material covered in Part III). Users may or may not
-use C++, since the compiled C++ class library has been
-\emphasis{wrapped} with the Tcl interpreted language. However, as a user
-you must understand the external interface to ITK classes and the
-relationships between them.
+use C++, since the compiled C++ class library has been \emph{wrapped} with
+the Tcl interpreted language. However, as a user you must understand the
+external interface to ITK classes and the relationships between them.
 
 The key to learning how to use ITK is to become familiar with its palette of
-objects and the ways of combining them. If you are a new Insight Toolkit
-user, begin by installing the software. If you are a class developer, you'll
-want to install the source code and then compile it. Users may only need the
-precompiled binaries and executables. We recommend that you learn the system
-by studying the examples (if you are a user) and then study the source code
-(if you are a class developer). Start by reading Chapter 3, which provides an
-overview of some of the key concepts in the system, and then review the
-examples in Part II. You may also wish to run the dozens of examples
-distributed with the source code found in the directory
-\code{ITK/Examples}. (Please see the file \code{ITK/Examples/README.txt} for
+objects and the ways of combining them. If you are a new \emph{Insight
+Toolkit} user, begin by installing the software. If you are a class
+developer, you'll want to install the source code and then compile it. Users
+may only need the precompiled binaries and executables. We recommend that you
+learn the system by studying the examples (if you are a user) and then study
+the source code (if you are a class developer). Start by reading Chapter 3,
+which provides an overview of some of the key concepts in the system, and
+then review the examples in Part II. You may also wish to compile and run the
+dozens of examples distributed with the source code found in the directory
+\code{Insight/Examples}. (Please see the file 
+\code{Insight/Examples/README.txt} for
 a description of the examples contained in the various subdirectories.) There
-are also several hundred tests found in the source distribution; such as
-those found in ITK/Graphics/Testing/Tcl and ITK/Graphics/Testing/Cxx, most of
-which are minimally documented testing scripts. However, they may be useful
-to see how classes are used together in ITK.
+are also several hundred tests found in the source distribution in 
+\code{Insight/Testing/Code}, most of which are minimally documented
+testing scripts. However, they may be useful to see how classes are used
+together in ITK.
 
 \section{Software Organization}
 \label{sec:SoftwareOrganization}
 
-The following sections describe the directory contents, summarize the software functionality in each directory, and locate the documentation and data. Also refer to Chapter 15 for information about the organization of the companion CD.
+The following sections describe the directory contents, summarize the
+software functionality in each directory, and locate the documentation and
+data.
 
 \subsection{Obtaining the Software}
 \label{sec:ObtainingTheSoftware}
 
-Obtaining The Software
 There are three different ways to access the ITK source code.
-	1.	from the companion CD-ROM accompanying this text;
-	2.	from daily releases available on the ITK Web site http://www/vtk.org; and
-	3.	from direct access to the CVS source code repository (instructions found at 
-http://www.vtk.org).
+\begin{enumerate}
+	\item	from the companion CD-ROM accompanying this text;
+	\item	from periodic releases available on the ITK Web site 
+                http://www.itk.org; and
+	\item	from direct access to the CVS source code repository 
+                (instructions also found at http://www.itk.org).
+\end{enumerate}
+(In general, the periodic releases and CD-ROM releases are the same, except
+that the CD release typically contains additional resources and data.)
 
-This user’s guide assumes that you are working with the official ITK version 4.2 release. We highly recommend that you use this version of the software. It is stable, consistent, and better tested than either the daily releases or CVS repository. However, if you must use a more recent version, please be aware of the ITK quality testing dashboard. The Insight Toolkit is heavily tested using the open-source DART regression testing system (http://public.kitware.com/dashboard.php). Before obtaining an official release or updating the CVS repository, make sure that the dashboard is “green” indicating stable code. If not green it is likely that your software update is unstable. (Learn more about the ITK quality dashboard in the section “The ITK Software Process” on page 178.)
+This \emph{Software Guide} assumes that you are working with the official ITK
+version 1.1 release. To begin with, we highly recommend that you use this
+version of the software. It is stable, consistent, and better tested than the
+code available from the CVS repository. Later, as you gain experience with
+ITK, you may wish to work from the CVS repository. However, if you work from
+the repository, please be aware of the ITK quality testing dashboard. The
+\emph{Insight Toolkit} is heavily tested using the open-source DART
+regression testing system (http://public.kitware.com/dashboard.php). Before
+updating the CVS repository, make sure that the dashboard is \emph{green}
+indicating stable code. If not green it is likely that your software update
+is unstable. (Learn more about the ITK quality dashboard in Section
+\ref{sec:DART} on page \pageref{sec:DART}.)
+
 
 \subsection{Directory Structure}
 \label{sec:DirectoryStructure}
 
-To begin your ITK odyssey, you will first need to know something about ITK’s directory structure. Even if you are installing pre-compiled binaries, it is helpful to know enough to navigate through the code base to find examples, code, and documentation. The ITK directory structure is organized as follows.
-	•	ITK/Common — contains core classes.
-	•	ITK/Filtering — abstract superclasses for filtering data.
-	•	ITK/Rendering — classes used to render.
-	•	ITK/Imaging — image processing filters.
-	•	ITK/Graphics — filters that process 3D data.
-	•	ITK/IO — filters for reading and writing data. 
-	•	ITK/Hybrid — complex classes that depend on Imaging and Graphics. Note that the 3D widgets are located here as well.
-	•	ITK/Parallel — parallel processing support such as MPI.
-	•	ITK/Patented — patented classes, to be used in commercial applications only with a license.
-	•	ITK/Examples — well-documented, how to use ITK examples.
-	•	ITK/Utility — supporting software like expat, png, jpeg, tiff, and zlib. The Doxygen directory contains scripts and configuration programs for generating the Doxygen documentation.
-	•	ITK/Wrapping — support for Tcl, Python, and Java wrapping.
+To begin your ITK odyssey, you will first need to know something about ITK's
+software organization and directory structure. Even if you are installing
+pre-compiled binaries, it is helpful to know enough to navigate through the
+code base to find examples, code, and documentation.
+
+ITK is organized into several different modules, or CVS checkouts. If you are
+using an official release or CD release, you will see two important modules:
+the \code{Insight} and \code{InsightDocuments} modules. The source code,
+examples and applications are found in the \code{Insight} module;
+documentation, tutuorials, and material related to the design and marketing
+of ITK are found in \code{InsightDocuments}. Usually you will work with the 
+\code{Insight} module unless you are a developer, are teaching a course, or
+are looking for the details of various design documents.
+
+The \code{InsightDocuments} module contains the following subdirectories:
+\begin{itemize}
+        \item \code{InsightDocuments/CourseWare}---material related to
+        teaching ITK.
+        \item \code{InsightDocuments/Developer}---historical documents covering
+        the design and creation of ITK including progress reports and 
+        design documents.
+        \item \code{InsightDocuments/Latex}---\LaTeX{} styles to produce this
+        \emph{User's Guide} as well as other documents.
+        \item \code{InsightDocuments/Marketing}---marketing flyers and 
+        literature used to succinctly describe ITK.
+        \item \code{InsightDocuments/Papers}---papers related to the many
+        algorithms, data representations, and software tools used in ITK.
+        \item \code{InsightDocuments/SoftwareGuide}---\LaTeX{} files used to
+        create this \emph{Software Guide}. (Note that the code found in
+        \code{Insight\Examples} is used in conjunction with these \LaTeX{}
+        files.)
+        \item \code{InsightDocuments/Validation}---validation case studies
+        using ITK.
+        \item \code{InsightDocuments/Web}---the source HTML and other material
+        used to produce the Web pages found at \code{http://www.itk.org}.
+\end{itemize}
+
+The \code{Insight} module contains the following subdirectories:
+\begin{itemize}
+        \item \code{Insight/Applications}---large, relatively complex examples
+        of ITK usage. Some of these applications include GUI's and use other
+        packages such as VTK (\emph{The Visualization Toolkit} 
+        \code{http://www.vtk.org}).
+        \item \code{Insight/Auxiliary}---
+        \item \code{Insight/Code}---the heart of the software; the location
+        of the majority of the source code.
+        \item \code{Insight/Documentation}---a compact subset of documentation
+        to get ITK users started.
+        \item \code{Insight/Examples}---a suite of simple, well-documented
+        examples used by this \emph{Software Guide} and to illustrate important
+        ITK concepts.
+        \item \code{Insight/Testing}---a large number of small programs used
+        to test ITK. These examples tend to be minimally documented but may
+        be useful to demonstrate various concepts. These tests are used by DART
+        to produce the ITK Quality Dashboard (see Section \ref{sec:DART} on 
+        page \pageref{sec:DART}.)
+        \item \code{Insight/Utilities}---supporting software for the ITK
+        source code. For example, DART and Doxygen support, as well as 
+        libraries such as \code{png} and \code{zlib}.
+        \item \code{Insight/Validation}---a series of validation case studies
+        including the source code used to produce the results.
+        \item \code{Insight/Wrapping}---support for the CABLE wrapping tool.
+        CABLE is used by ITK to build interfaces between the C++ library and
+        various interpreted languages (currently Tcl is supported).
+\end{itemize}
+
+The source code directory structure---found in \code{Insight/Code}---is 
+important to understand since other directory structures (such as the
+\code{Testing} and \code{Wrapping} directories) shadow the structure of the
+\code{Insight/Code} directory.
+\begin{itemize}
+        \item \code{Insight/Code/Common}---core classes, macro definitions,
+        typedefs, and other software constructs central to ITK.
+        \item \code{Insight/Code/Numerics}---mathematical library and
+        supporting classes. (Note: ITK's mathematical library is based
+        on the VXL/VNL software package \code{http://vxl.sourceforge.net}.)
+        \item \code{Insight/Code/BasicFilters}---basic image processing
+        filters.
+        \item \code{Insight/Code/IO}---classes that support the reading
+        and writing of data.
+        \item \code{Insight/Code/Algorithms}---the location of most 
+        segmentation and registration algorithms.
+        \item \code{Insight/Code/SpatialObject}---classes that represent
+        and organize data using spatial relationships (e.g., the leg bone
+        is connected to the hip bone, etc.)
+        \item \code{Insight/Code/Patented}---any patented algorithms are
+        placed here. Using this code in commercial application requires
+        a patent licence.
+        \item \code{Insight/Code/Local}---an empty directory used by developers
+        and users to experiment with new code.
+\end{itemize}
 
 \subsection{Documentation}
 \label{sec:Documentation}
 
-Besides this text and The Insight Toolkit text (see the next section for more information), there are other documentation resources that you should be aware of.
+Besides this text and The \emph{Insight Toolkit} text (see the next section for more information), there are other documentation resources that you should be aware of.
 	•	Doxygen Documentation. The Doxygen documentation is an essential resource when working with ITK. These extensive Web pages describe in detail every class and method in the system. The documentation also contains inheritance and collaboration diagrams, listing of event invocations, and data members. The documentation is heavily hyper-linked to other classes and to the source code. The Doxygen documentation is available on the companion CD, or on-line at http://www.vtk.org. Make sure that you have the right documentation for your version of the source code.
 	•	Header Files. Each ITK class is implemented with a .h and .cxx file. All methods found in the .h header files are documented and provide a quick way to find documentation for a particular method. (Indeed, Doxygen uses the header documentation to produces its output.)
 
@@ -122,7 +220,7 @@ The best way to obtain the ITK data is from the companion CD. However, other dat
 \section{Additional Resources}
 \label{sec:AdditionalResources}
 
-For more information about the Insight Toolkit we recommend the following resources.
+For more information about the \emph{Insight Toolkit} we recommend the following resources.
 	•	The text The Insight Toolkit An Object-Oriented Approach to 3D Graphics (Third Edition). This book goes into detail about many of the algorithms, data structures, and system issues found in ITK. The text is published by Kitware, Inc.and available from amazon.com and the Kitware estore at http://www.kitware.com/products/. ISBN 1-930934-07-6, 520 pages, printed in full color, hard bound, with CD-ROM.
 	•	The Web pages http://public.kitware.com/ contain pointers to many other resources such as on-line manual pages, a FAQ, and an archive of the vtkusers mailing list (see below). In particular, the Doxygen manual pages are absolutely wonderful. Although they are available on the companion ITK CD, you can also view them on-line at http://public.kitware.com/ITK/doc/nightly/html.
 	•	Many other ITK users and developers also maintain Web pages. One recommended site is Sebastien Barre’s links to ITK resources http://www.barre.nom.fr/vtk/links.html.
