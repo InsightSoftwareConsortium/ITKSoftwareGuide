@@ -4,7 +4,6 @@
 The purpose of this chapter is to provide you with an overview of the
 \emph{Insight Toolkit} system. We recommend that you read this chapter to
 gain an appreciation for the breadth and area of application of ITK.
-(Note: this chapter is not yet completed at this time.)
 
 \section{System Organization}
 \label{sec:SystemOrganization}
@@ -27,26 +26,28 @@ in the previous chapter two other modules---\code{InsightDocumentation} and
         easy-to-use C++ wrappers around the Netlib Fortran numerical 
         analysis routines (\url{http://www.netlib.org}).
 
-	\item[Data Representation and Access.]  Two principle classes are
+	\item[Data Representation and Access.]  Two principal classes are
         used to represent data: the \doxygen{Image} and \doxygen{Mesh}
         classes.  In addition, various types of iterators and containers are
         used to hold and traverse the data. Other important but less popular
         classes are also used to represent data such as histograms and BLOX
         images.
 
-	\item[Data Processing Pipeline.]  The data representation classes
-        (known as \emph{data objects}) are operated on by \emph{filters} that
-        in turn may be organized into data flow pipelines. These pipelines
-        maintain state and therefore execute only when necessary, support
-        multi-threading, and are streaming capable (i.e., can operate on
-        pieces of data to minimize the memory footprint).
+	\item[Data Processing Pipeline.]  The data representation
+	classes (known as \emph{data objects}) are operated on by
+	\emph{filters} that in turn may be organized into data flow
+	\emph{pipelines}. These pipelines maintain state and therefore
+	execute only when necessary.  They also support
+	multi-threading, and are streaming capable (i.e., can operate
+	on pieces of data to minimize the memory footprint).
 
-        \item[IO Framework.] Associated with the data processing pipeline are
-        sources, i.e., filters that initiate the pipeline, and mappers,
-        filters that terminate the pipeline. A common type of
-        sources are readers, used to input data, and writers, used to
-        output data from the pipeline. ITK uses a flexible object factory
-        mechanism supporting a variety of file formats.
+        \item[IO Framework.] Associated with the data processing
+        pipeline are \emph{sources}, filters that initiate the
+        pipeline, and \emph{mappers}, filters that terminate the
+        pipeline.  The standard examples of sources and mappers are
+        \emph{readers} and \emph{writers} respectively.  Readers
+        input data (typically from a file), and writers output data
+        from the pipeline.
 
 	\item[Spatial Objects.] Geometric shapes are represented in ITK using
         the spatial object hierarchy.  These classes are intended to support
@@ -60,8 +61,8 @@ in the previous chapter two other modules---\code{InsightDocumentation} and
 
 	\item[Registration Framework.] A flexible framework for registration
         supports four different types of registration: image registration,
-        multiresolution registration, PDE based registration, and FEM (finite-
-        element, i.e., deformable) registration.
+        multiresolution registration, PDE-based registration, and FEM (finite
+        element method) registration.
 
 	\item[FEM Framework.] ITK includes a subsystem for solving general
         FEM problems, in particular non-rigid registration. The FEM package
@@ -76,11 +77,12 @@ in the previous chapter two other modules---\code{InsightDocumentation} and
         several specific subclasses including threshold, Canny, and Laplacian
         based methods.
 
-	\item[Wrapping.] ITK uses a unique, powerful system for producing
-        interfaces (i.e., ``wrappers'') to interpreted languages such as Tcl
-        and Python. The GCC\_XML tool is used to produce an XML description of
-        arbitrarily complex C++ code; CSWIG is then used to transform the XML
-        description into wrappers using the SWIG package (ref here).
+	\item[Wrapping.] ITK uses a unique, powerful system for
+	producing interfaces (i.e., ``wrappers'') to interpreted
+	languages such as Tcl and Python. The GCC\_XML tool is used to
+	produce an XML description of arbitrarily complex C++ code;
+	CSWIG is then used to transform the XML description into
+	wrappers using the \href{http://www.swig.org/}{SWIG} package.
 
 	\item[Auxiliary / Utilities] Several auxiliary subsystems are 
         available to supplement other classes in the system. For example,
@@ -148,7 +150,7 @@ In addition to class headers, there are a few other important header files.
 \begin{description}
         \item[\code{itkMacro.h}] is found in the \code{Code/Common} directory
         and defines standard system-wide macros (such as \code{Set/Get},
-        constants, and other parameters.
+        constants, and other parameters).
 
         \item[\code{itkNumericTraits.h}] is found in the \code{Code/Common} 
         directory and defines numeric characteristics for native types such
@@ -162,13 +164,13 @@ In addition to class headers, there are a few other important header files.
 \subsection{Object Factories}
 \label{sec:ObjectFactories}
 
-Most classes in ITK are instantiated through an object factory
+Most classes in ITK are instantiated through an \emph{object factory}
 mechanism. That is, rather than using the standard C++ class constructor and
 destructor, instances of an ITK class are created with the static class
 \code{New()} method. In fact, the constructor and destructor are
 \code{protected:} so it is generally not possible to construct an ITK
 instance on the heap. (Note: this behavior pertains to classes that are
-derived from \code{itk::LightObject}. In some cases the need for speed or
+derived from \doxygen{itk::LightObject}. In some cases the need for speed or
 reduced memory footprint dictates that a class not be derived from
 \code{LightObject} and in this case instances may be created on the heap. An
 example of such a class is \code{itk::EventObject}.)
@@ -181,7 +183,7 @@ create the class based on a number of factors including the computer system
 configuration and environment variables. For example, in a particular
 application an ITK user may wish to deploy their own class implemented using
 specialized image processing hardware (i.e., to realize a performance
-gain). By using the object factor mechanism, it is possible at run-time to
+gain). By using the object factory mechanism, it is possible at run-time to
 replace the creation of a particular ITK filter with such a custom class. (Of
 course, the class must provide the exact same API as the one it is
 replacing.) To do this, the user compiles her class (using the same compiler,
@@ -268,7 +270,7 @@ method) with a reference count of one. Assignment to the \code{SmartPointer}
 object (referred to by \code{interp}) is decremented, and if it reaches zero,
 then the interpolator is also destroyed.
 
-Note that in ITK SmartPointer's are always used to refer to instances of
+Note that in ITK SmartPointers are always used to refer to instances of
 classes derived from \doxygen{LightObject}. Method invocations and function
 calls often return ``real'' pointers to instances, but they are immediately
 assigned to a SmartPointer. Raw pointers are used for non-LightObject classes when
@@ -314,7 +316,7 @@ code snippet is taken from \code{itk::ByteSwapper}:
 \normalsize
 
 Note that \code{ByteSwapperError} is a subclass of
-\code{itk::ExceptionObject}. (In fact in ITK all exceptions should be derived
+\doxygen{itk::ExceptionObject}. (In fact in ITK all exceptions should be derived
 from \code{ExceptionObject}.) In this example a special constructor and C++
 preprocessor variables \code{\_\_FILE\_\_} and \code{\_\_LINE\_\_} are used to instantiate
 the exception object and provide additional information to the user. You can
@@ -340,8 +342,8 @@ periodically invoke the \code{ProgressEvent}. Objects that have registered
 their interest in this event are notified when the event occurs. The
 notification occurs via an invocation of a command (i.e., function callback,
 method invocation, etc.) that is specified during the registration
-process. (Note that events in ITK are subclasses of {itk::EventObject}; look
-in \code{itk::EventObject.h} to determine which events available.)
+process. (Note that events in ITK are subclasses of \doxygen{itk::EventObject}; look
+in \code{itkEventObject.h} to determine which events are available.)
 
 To recap via example: various objects in ITK will invoke specific events
 as they execute (from \code{itk::ProcessObject}):
@@ -375,14 +377,14 @@ possibility.)
 Multithreading is handled in ITK through a high-level design
 abstraction. This approach provides portable multithreading and hides the
 complexity of differing thread implementations on the many systems supported
-by ITK. For example, the class \code{itk::MultiThreader} provides support for
+by ITK. For example, the class \code{MultiThreader} provides support for
 multithreaded execution using \code{sproc()} on an SGI, or
 \code{pthread\_create} on any platform supporting POSIX threads. 
 
-Multithreading is typically employed by an algorithms during its execution
-phase. \code{itk::MultiThreader} can be used to execute a single method on
+Multithreading is typically employed by an algorithm during its execution
+phase. MultiThreader can be used to execute a single method on
 multiple threads, or to specify a method per thread. For example, in the 
-method \code{itk::ImageSource} (a superclass for most image processing filters)
+method \code{ImageSource} (a superclass for most image processing filters)
 the \code{GenerateData()} method uses the following methods:
 
 \small
@@ -408,12 +410,12 @@ Invoking methods on the same instance in different threads is to be avoided.
 \index{VNL}
 \index{numerics}
 
-ITK uses the \code{VNL} numerics library to provide resources for numerical
+ITK uses the VNL numerics library to provide resources for numerical
 programming combining the ease of use of packages like Mathematica and Matlab
 with the speed of C and the elegance of C++. It provides a C++ interface to
 the high-quality Fortran routines made available in the public domain by
-numerical analysis researchers. ITK extends the functionality of \code{VNL}
-by including interface classes between \code{VNL} and ITK proper.
+numerical analysis researchers. ITK extends the functionality of VNL
+by including interface classes between VNL and ITK proper.
 
 The VNL numerics library includes classes for
 \begin{description}
@@ -460,9 +462,9 @@ Software (GAMS)} at \url{http://gams.nist.gov}, both as a decision tree and a
 text search.
 
 ITK also provides additional numerics functionality. A suite of optimizers, that
-use \code{VNL} under the hood and integrate with the registration framework
+use VNL under the hood and integrate with the registration framework
 are available. A large collection of statistics functions---not available from
-\code{VNL}---are also provided in the \code{Insight/Numerics/Statistics}
+VNL---are also provided in the \code{Insight/Numerics/Statistics}
 directory. In addition, a complete finite element (FEM) package is available,
 primarily to support the deformable registration in ITK.
 
@@ -484,17 +486,17 @@ page~\pageref{sec:DataProcessingPipeline} for more information).
 
 \index{itk::Image}
 
-\code{itk::Image} represents a \emph{n}-dimensional, regular sampling of
+\doxygen{itk::Image} represents an \emph{n}-dimensional, regular sampling of
 data. The sampling direction is parallel to each of the coordinate axes, and
 the origin of the sampling, inter-pixel spacing, and the number of samples in
 each direction (i.e., image dimension) can be specified. The sample, or
-pixel, value in ITK is arbitrary---a template parameter \code{TPixel}
+pixel, type in ITK is arbitrary---a template parameter \code{TPixel}
 specifies the type upon template instantiation. (The dimensionality of the
 image must also be specified when the image class is instantiated.) The key
 is that the pixel type must support certain operations (for example, addition
 or difference) if the code is to compile in all cases (for example, to be
 processed by a particular filter that uses these operations). In practice the
-ITK user will use a C++ simple type (e.g., int, float) or a pre-defined pixel
+ITK user will use a C++ simple type (e.g., \code{int}, \code{float}) or a pre-defined pixel
 type and will rarely create a new type of pixel class.
 
 One of the important ITK concepts regarding images is that rectangular,
@@ -512,8 +514,8 @@ filter or other class when operating on the image.
 \index{itk::Mesh} 
 
 \code{itk::Mesh} represents a \emph{n}-dimensional, unstructured grid. The
-topology of the mesh is represented by a set of `cells defined by a type and
-connectivity list; the connectivity list in turn refer to points.  The
+topology of the mesh is represented by a set of \emph{cells} defined by a type and
+connectivity list; the connectivity list in turn refers to points.  The
 geometry of the mesh is defined by the \emph{n}-dimensional points in
 combination with associated cell interpolation functions. \code{Mesh} is
 designed as an adaptive representational structure that changes depending on
@@ -521,9 +523,10 @@ the operations performed on it. At a minimum, points and cells are required
 to represent a mesh; but it is possible to add additional topological
 information.  For example, links from the points to the cells that use each
 point can be added; this provides implicit neighborhood information assuming
-manifold topology. If the mesh is not manifold, or information is to be
-stored on the boundaries of cells, then explicit boundary entities (e.g.,
-edges and/or faces) can be created.
+the implied topology is the desired one. It is also possible to
+specify boundary cells explicitly, to indicate different connectivity
+from the implied neighborhood relationships, or to store information
+on the boundaries of cells. 
 
 The mesh is defined in terms of three template parameters: 1) a pixel type
 associated with the points, cells, and cell boundaries; 2) the dimension of
@@ -553,19 +556,19 @@ landmarks, etc. The \code{PointSet} class has no associated topology.
 
 While data objects (e.g., images and meshes) are used to represent data,
 \emph{process objects} are classes that operate on data objects and may
-produce new data objects. Known generally as \emph{filters}, process objects
-may be used to input data (i.e., \emph{source objects} such as a data
-\emph{reader}), may input one or more data objects and produce one or more
-data objects as output (i.e., \emph{filter objects}), or accept one or more
-data objects as input and either write the data to a file or exchange it with
-another system (i.e., a \emph{mappers}).
+produce new data objects. Process objecs are classed as
+\emph{sources}, \emph{filter objects}, or \emph{mappers}.  Sources (such as
+readers) produce data, filter objects take in data and process it to produce
+modified data, and mappers accept data for output either to a file or
+some other system.  Sometimes the term \emph{filter} is used broadly
+to refer to all three types.
 
 \index{streaming}
 
 The data processing pipeline ties together data objects (e.g., images and
 meshes) and process objects. The pipeline supports an automatic updating
-mechanism that causes filters to execute if and only if their input 
-and/or the filter changes. Further, the data pipeline supports
+mechanism that causes a filter to execute if and only if its input 
+or its internal state changes. Further, the data pipeline supports
 \emph{streaming}, the ability to automatically break data into smaller
 pieces, process the pieces one by one, and reassemble the processed data into
 a final result.
@@ -631,7 +634,7 @@ so forth.
 The capabilities provided by the spatial objects framework supports their use
 in object segmentation, registration, surface/volume rendering, and other
 display and analysis functions. The spatial object framework extends the
-concept of a "scene graph" that is common to computer rendering packages so
+concept of a ``scene graph'' that is common to computer rendering packages so
 as to support these new functions. With the spatial objects framework you
 can:
 \begin{enumerate}
@@ -640,11 +643,12 @@ can:
         this way, a liver may contain vessels and those vessels can be
         organized in a tree structure.
 
-        \item Query if a physical point is inside of an object or
+        \item Query if a physical point is inside an object or
         (optionally) any of its children.
 
-        \item Request the value and derivatives at a physical point as
-        specified by an object or (optionally) its children.
+        \item Request the value and derivatives, at a physical point,
+        of an associated intensity function, as specified
+        by an object or (optionally) its children.
 
         \item Specify the coordinate transformation that maps a parent
         object's coordinate system into a child object's coordinate system.
@@ -652,7 +656,7 @@ can:
         \item Compute the bounding box of a spatial object and (optionally)
         its children.
 
-        \item Query the resolution that the object was originally
+        \item Query the resolution at which the object was originally
         computed.  For example, you can query the resolution (i.e., voxel
         spacing) of the image used to generate a particular instance of a
         \code{BlobSpatialObject}.
@@ -660,7 +664,7 @@ can:
 
 Currently implemented types of spatial objects include: Blob, Ellipse, Group,
 Image, Line, Surface, and Tube.  The \code{itk::Scene} object is used to hold
-a list of spatial objects that may in-turn have children.  Each spatial
+a list of spatial objects that may in turn have children.  Each spatial
 object can be assigned a color property.  Each spatial object type has its
 own capabilities. For example, \code{TubeSpatialObject}s indicate to what
 point on their parent tube they connect.
@@ -699,13 +703,13 @@ combination of tools to produce language bindings.
 \begin{enumerate}
   \item \code{gccxml} is a modified version of the GNU compiler gcc that
     produces an XML description of an input C++ program.
-  \item  \code{CABLE} processes XML information from \code{gccxml} and produces
-    additional input to the next tool (i.e., \code{CSWIG} indicating what is
+  \item  CABLE processes XML information from \code{gccxml} and produces
+    additional input to the next tool (i.e., CSWIG indicating what is
     to be wrapped.
-  \item \code{CSWIG} is a modified version of SWIG that has has SWIG's usual
-    parser replaced with an XML parser (XML produced from \code{CABLE} and
-    \code{gccxml}.) \code{CSWIG} produces the appropriate language bindings
-    (either Tcl or Python). (Note: since \code{SWIG} is capable of producing
+  \item CSWIG is a modified version of SWIG that has has SWIG's usual
+    parser replaced with an XML parser (XML produced from CABLE and
+    \code{gccxml}.) CSWIG produces the appropriate language bindings
+    (either Tcl or Python). (Note: since SWIG is capable of producing
     language bindings for eleven different interpreted languages including
     Java, and Perl, it is expected that support for some of these languages
     will be added in the future.)

@@ -4,7 +4,7 @@
 \index{Installation}
 
 This section describes the process for installing ITK on your system. Keep in
-mind that ITK is a toolkit, as such, once it is installed in your computer
+mind that ITK is a toolkit, and as such, once it is installed in your computer
 there will be no application to run. Rather, you will use ITK to build your
 own applications. What ITK does provide---besides the toolkit proper---is a
 large set of test files and examples that will introduce you to ITK concepts
@@ -12,8 +12,9 @@ and will show you how to use ITK in your own projects.
 
 Some of the examples distributed with ITK require third party libraries that
 you may have to download. For an initial installation of ITK you may want to
-ignore these extra libraries and just built the toolkit itself. In the past,
-a large fraction of the traffic on the insight-users mailing list originates from
+ignore these extra libraries and just build the toolkit itself. In the past,
+a large fraction of the traffic on the insight-users mailing list has
+originated from
 difficulties in getting third party libraries compiled and installed rather
 than with actual problems building ITK.
 
@@ -37,7 +38,7 @@ use of CMake, a cross-platform, open-source build system. CMake is used to
 control the software compilation process using simple platform and compiler
 independent configuration files.  CMake generates native makefiles and
 workspaces that can be used in the compiler environment of your choice. CMake
-is quite sophisticated, it supports complex environments requiring system
+is quite sophisticated---it supports complex environments requiring system
 configuration, code pre-processing, code generation, and template
 instantiation.
 
@@ -45,7 +46,7 @@ CMake generates Makefiles under UNIX and Cygwin systems and generates Visual
 Studio workspaces under Windows (and appropriate build files for other
 compilers like Borland). The information used by CMake is provided by
 \code{CMakeLists.txt} files that are present in every directory of the ITK
-source tree. These files contains information that the user
+source tree. These files contain information that the user
 provides to CMake at configuration time. Typical information includes paths
 to utilities in the system and the selection of software options specified by
 the user.
@@ -93,7 +94,7 @@ GUI is used to specify the source and build directories (Figure
 
 CMake runs in an interactive mode in that you iteratively select options and
 configure according to these options. The iteration proceeds until no more
-options are selected. At this point, a generation step produces the appropriate
+options remain to be selected. At this point, a generation step produces the appropriate
 build files for your configuration.
 
 This interactive configuration process can be better understood if you
@@ -127,8 +128,8 @@ distributed with the toolkit are a helpful resource for learning how to use ITK
 components but are not essential for the use of the toolkit itself. The testing
 section includes a large number of small programs that exercise the
 capabilities of ITK classes. Due to the large number of tests, enabling the
-testing option will considerable increase the buliding time.  It is not
-desirable to enable this option for a first built of the toolkit.
+testing option will considerably increase the build time.  It is not
+desirable to enable this option for a first build of the toolkit.
 
 An additional resource is available at the \code{InsightApplications} module,
 which contains multiple applications incorporating GUIs and different levels
@@ -143,15 +144,15 @@ Windows, specify the source and binary directories in the GUI, then begin to
 set the build variables in the GUI as necessary.  Most variables should have
 default values that are sensible. Each time you change a set of variables in
 CMake, it is necessary to proceed to another configuration step. In the
-Windows version this is done by clicking on the ''Configure'' button. In the
+Windows version this is done by clicking on the ``Configure'' button. In the
 UNIX version this is done in a
 \code{curses} interface where you can select to configure by hitting the
-''c'' key.
+``c'' key.
 
 When no new options appear in CMake, you can proceed to generate Makefiles or
 Visual Studio projects (or appropriate buildfile(s) depending on your
-compiler). This is done in Windows by clicking on the ''Ok'' button.  In the
-UNIX version this is done by hitting the ''g'' key. After the generation
+compiler). This is done in Windows by clicking on the ``Ok'' button.  In the
+UNIX version this is done by hitting the ``g'' key. After the generation
 process CMake will quit silently. To initiate the build process on UNIX,
 simply type \code{make} in the binary directory. Under Windows, load the
 workspace named \code{ITK.dsw} (if using MSDEV) or \code{ITK.sln} (if using
@@ -159,7 +160,7 @@ the .NET compiler) from the binary directory you specified in the CMake GUI.
 
 The build process will typically take anywhere from 15 to 30 minutes depending
 on the performance of your system. If you decide to enable testing as part of
-the normal built process, about 500 small test programs will be compiled. This
+the normal build process, about 500 small test programs will be compiled. This
 will verify that the basic components of ITK have been correctly built on your
 system.
 
@@ -177,7 +178,7 @@ are described in the following section.
 
 Once both files are in your directory you can run CMake in order to configure
 your project. Under UNIX, you can \code{cd} to your newly created directory
-and type \code{"ccmake . "}. Note the "." in the command line for indicating
+and type ``\code{ccmake . }''. Note the ``.'' in the command line for indicating
 that the \code{CMakeLists.txt} file is in the current directory. The
 \code{curses} interface will require you to provide the directory where ITK
 was built. This is the same path that you indicated for the
