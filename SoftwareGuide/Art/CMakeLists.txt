@@ -103,6 +103,13 @@ SET(JPEG_IMAGES
   VectorCurvatureAnisotropicDiffusionImageFilterOutput
   VisibleWomanHeadSlice
   VisibleWomanEyeSlice
+  WatershedColorEdges
+  WatershedSpine1
+  WatershedSpine2
+  WatershedAbdomenSegmentation
+  WatershedArm1
+  WatershedArm2
+  WatershedRendering
 )
 
 
