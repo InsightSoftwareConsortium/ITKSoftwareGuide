@@ -9,6 +9,9 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\subsection{Introduction}
+\label{sec:HybridSegmentationIntroduction}
+
 
 It is sometimes convenient to combine several segmentation strategies with the
 aim of taking advantage of their qualities an compensate their vulnerabilities.
@@ -25,7 +28,74 @@ Details on the concepts behind those methods have been discussed in the
 litterature
 \cite{Angelini2002,Udupa2002,Jin2002,Imielinska2001,Imielinska2000a,Imielinska2000b}
 
-\input{HybridSegmentationFuzzyVoronoi.tex}
 
+
+\subsection{Background}
+\label{sec:HybridSegmentationBackground}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Here is an example of how to include an image in a figure
+%
+%  The file HybridSegmentationOutput1.jpg should be in the "Art"
+%  directory. CMake will convert it to EPS before running latex. 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}
+\center
+\includegraphics[width=12cm]{HybridSegmentationOutput1.eps}
+\caption{This is the image caption...}
+\label{fig:HybridSegmentationImage1}
+\end{figure}
+
+The Figure \ref{fig:HybridSegmentationImage1} present the results
+of the hybrid segmentation ...
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Here is an example of how to include diagram in a figure
+%
+%  The file HybridSegmentationDiagram1.fig should be in the "Art"
+%  directory. CMake will convert it to EPS before running latex. 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}
+\center
+\includegraphics[width=12cm]{HybridSegmentationDiagram1.eps}
+\caption{This is the diagram caption...}
+\label{fig:HybridSegmentationDiagram1}
+\end{figure}
+
+The Figure \ref{fig:HybridSegmentationDiagram1} illustrates the main
+components of the hybrid segmentation algorithm...
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Here is an example of how to include equations
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{equation}
+MS(A,B) = \frac{1}{N} \sum_i^N \left( A_i - B_i \right)^2
+\end{equation}
+
+
+
+
+
+\subsection{Example}
+\label{sec:HybridSegmentationExample1}
+
+\input{HybridSegmentationFuzzyVoronoi.tex}
 
 
