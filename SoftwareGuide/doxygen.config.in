@@ -237,7 +237,7 @@ WARN_FORMAT           = "$file:$line: $text"
 # or directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT    = "@ITK_SOURCE_DIR@/Examples" 
+INPUT    = "@SoftwareGuide_SOURCE_DIR@/Examples" 
 
 # If the value of the INPUT tag contains directories, you can use the 
 # FILE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp 
