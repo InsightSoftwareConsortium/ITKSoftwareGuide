@@ -42,8 +42,8 @@ Figure~\ref{fig:segment}.
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{WatershedCatchmentBasins.eps}
-\caption{A fuzzy-valued boundary map, from an image or set of images, 
-is segmented using local minima and catchment basins.}
+\caption[Watershed catchment basins]{A fuzzy-valued boundary map, from an image
+or set of images, is segmented using local minima and catchment basins.}
 \protect\label{fig:segment}
 \end{figure}
 That is, a segment consists of all points in $U$ whose paths of steepest
@@ -70,10 +70,10 @@ hierarchy of regions, as shown in Figure~\ref{fig:watersheds}.
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{WatershedsHierarchy.eps}
-\caption{A watershed segmentation combined with a saliency measure 
-(such as depth) produces a hierarchy of regions.  Structures can be 
-derived from images by either thresholding the saliency measure or 
-combining subtrees within the hierarchy}
+\caption[Watersheds hierarchy of regions]{A watershed segmentation combined
+with a saliency measure (such as depth) produces a hierarchy of regions.
+Structures can be derived from images by either thresholding the saliency
+measure or combining subtrees within the hierarchy}
 \protect\label{fig:watersheds}
 \end{figure}
 Previous work has shown the benefit of a user-assisted approach, which provides
@@ -105,24 +105,21 @@ changing the depth threshold or combining them under some user direction.
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{WatershedColorEdges.eps}
-\caption{
-A segmentation (white lines are segment boundaries) based on 
-the gradient magnitude of a color image that has been processed with 
-vector-valued anisotropic diffusion.}
+\caption[Watershed segmentation output]{ A segmentation (white lines are
+segment boundaries) based on the gradient magnitude of a color image that has
+been processed with vector-valued anisotropic diffusion.}
 \protect\label{fig:WatershedColorSegmentation1}
 \end{figure}
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{WatershedSpine1.eps}
 \includegraphics[width=0.4\textwidth]{WatershedSpine1.eps}
-\caption{
-Insets from the segmentation of the color image shown in 
-Figure~\protect\ref{fig:WatershedColorSegmentation1} at two different levels of 
-watershed depth.  Top) A lower threshold partitions the spinal cord
-into several distinct tracts.  Bottom) At a higher threshold the 
-vertebrae becomes a single segment and the parts of the 
-spinal cord merge.
-}
+\caption[Watershed segmentation output at two levels]{ Insets from the
+segmentation of the color image shown in
+Figure~\protect\ref{fig:WatershedColorSegmentation1} at two different levels of
+watershed depth.  Top) A lower threshold partitions the spinal cord into
+several distinct tracts.  Bottom) At a higher threshold the vertebrae becomes a
+single segment and the parts of the spinal cord merge.  }
 \protect\label{fig:WatershedColorSegmentation2}
 \end{figure}
 
@@ -130,10 +127,10 @@ spinal cord merge.
 \centering
 \includegraphics[width=0.4\textwidth]{WatershedColorInput.eps}
 \includegraphics[width=0.4\textwidth]{WatershedColorGradientMagnitude.eps}
-\caption{
-Inputs for the segmentation presented in \ref{fig:WatershedColorSegmentation3}.
-Left) Cryogenic data set after smoothing with anisotropic diffusion.  Right)
-Squared magnitude of gradients on every color channel.}
+\caption[Watershed segmentation inputs]{ Inputs for the segmentation presented
+in \ref{fig:WatershedColorSegmentation3}.  Left) Cryogenic data set after
+smoothing with anisotropic diffusion.  Right) Squared magnitude of gradients on
+every color channel.}
 \protect\label{fig:WatershedColorInput}
 \end{figure}
 
@@ -141,7 +138,7 @@ Squared magnitude of gradients on every color channel.}
 \centering
 \includegraphics[width=0.4\textwidth]{WatershedArm1.eps}
 \includegraphics[width=0.4\textwidth]{WatershedArm2.eps}
-\caption{
+\caption[Watershed segmentation output at two levels]{
 Insets from the segmentation of the color image shown in 
 Figure~\protect\ref{fig:WatershedColorSegmentation1} at two different levels of 
 watershed depth.  Top) The fat around the arm consists of many 
@@ -237,10 +234,10 @@ long label values of the output have been hashed into RGB colors.
 \begin{figure}
 \centering
 \includegraphics[width=.95\textwidth]{WatershedAbdomenSegmentation.eps}
-\caption{A slice from a segmentation of Visible Female cryosection data.
-The original is shown at the left and the segmented image is shown to the
-right. Colored regions in the segmented image correspond to structures in the
-original data. }
+\caption[Watershed segmenting the Visible Woman]{A slice from a segmentation of
+Visible Female cryosection data.  The original is shown at the left and the
+segmented image is shown to the right. Colored regions in the segmented image
+correspond to structures in the original data. }
 \protect\label{fig:colorVisWatersheds}
 \end{figure}
 
@@ -262,11 +259,11 @@ software.
 \begin{figure}
 \centering
 \includegraphics[width=0.95\textwidth]{WatershedRendering.eps}
-\caption{A surface rendering (right) of four anatomical structures in the Visible
-Female head and neck. A slice of the data from which the segmentation was
-created is shown at the left.  The right and left optic nerves and chiasm are
-shown in yellow.  The right eye is in transparent purple.  The lens is dark
-purple.  The structure in red is the lateral rectus muscle.}
-\protect\label{fig:surfaceRenderingWatersheds}
+\caption[Watershed segmentation rendered in $3D$]{A surface rendering (right)
+of four anatomical structures in the Visible Female head and neck. A slice of
+the data from which the segmentation was created is shown at the left.  The
+right and left optic nerves and chiasm are shown in yellow.  The right eye is
+in transparent purple.  The lens is dark purple.  The structure in red is the
+lateral rectus muscle.} \protect\label{fig:surfaceRenderingWatersheds}
 \end{figure}
 
