@@ -190,10 +190,13 @@ files can be found in the \code{Insight/Examples/Installation} directory. The
 \begin{verbatim}
 PROJECT(HelloWorld)
 
-INCLUDE (${CMAKE_ROOT}/Modules/FindITK.cmake)
-IF (USE_ITK_FILE)
-  INCLUDE(${USE_ITK_FILE})
-ENDIF(USE_ITK_FILE)
+FIND_PACKAGE(ITK)
+IF(ITK_FOUND)
+  INCLUDE(${ITK_USE_FILE})
+ELSE(ITK_FOUND)
+  MESSAGE(FATAL_ERROR
+          "ITK not found. Please set ITK_DIR.")
+ENDIF(ITK_FOUND)
 
 ADD_EXECUTABLE(HelloWorld HelloWorld.cxx )
 
