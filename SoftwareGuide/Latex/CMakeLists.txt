@@ -149,6 +149,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   ImageSliceIteratorWithIndex.tex
   ImageToListAdaptor.tex
   IsolatedConnectedImageFilter.tex
+  IsoSurfaceExtraction.tex
   KdTree.tex
   KdTreeBasedKMeansClustering.tex
   ListSample.tex
