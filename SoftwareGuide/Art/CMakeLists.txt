@@ -53,6 +53,7 @@ SET(XFIG_FIGURES
   ImageIOFactoriesClassDiagram
   ImageIOFactoriesUseCases
   ImageOriginAndSpacing
+  IteratorFigure1
   ImageOverlapedRegions
   ImageOverlap
   ImageOverlapInterpolator
@@ -184,6 +185,8 @@ SET(JPEG_IMAGES
   GradientAnisotropicDiffusionImageFilterOutput
   HybridSegmentationFuzzyVoronoiOutput
   HybridSegmentationFuzzyVoronoiOutput2
+  ImageRegionIteratorOutput
+  ImageRegionIteratorWithIndexOutput
   ImageRegistration1Output
   ImageRegistration2Output
   ImageRegistration4Output
