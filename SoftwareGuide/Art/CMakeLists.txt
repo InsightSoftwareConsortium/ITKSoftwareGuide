@@ -43,11 +43,13 @@ SET(JPEG_IMAGES
   MinMaxCurvatureFlowImageFilterOutput
   MeanImageFilterOutput
   MedianImageFilterOutput
+  ResampleImageFilterInput2x3
   ResampleImageFilterOutput1
   ResampleImageFilterOutput2
   ResampleImageFilterOutput3
   ResampleImageFilterOutput7
   ResampleImageFilterOutput7b
+  ResampleImageFilterOutput9
   RGBCurvatureAnisotropicDiffusionImageFilterOutput
   RGBCurvatureAnisotropicDiffusionImageFilterOutput2
   RGBGradientAnisotropicDiffusionImageFilterOutput
