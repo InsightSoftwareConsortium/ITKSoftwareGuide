@@ -8,24 +8,32 @@ input to another filter.
 
 
 \section{Thresholding}
+\ifitkFullVersion
 \label{sec:ThresholdingFiltering}
+\fi
 
 \subsection{Binary Thresholding}
 \label{sec:BinaryThresholdingImageFilter}
 
+\ifitkFullVersion
 \input{BinaryThresholdImageFilter.tex}
+\fi
 
 \subsection{Thresholding}
 \label{sec:ThresholdingImageFilter}
 
+\ifitkFullVersion
 \input{ThresholdImageFilter.tex}
+\fi
 
 
 
 \section{Casting}
 \label{sec:CastingImageFilters}
 
+\ifitkFullVersion
 \input{CastingImageFilters.tex}
+\fi
 
 
 \section{Gradients}
@@ -40,12 +48,16 @@ computing both the image of gradient vectors and the image of magnitudes.
 \subsection{Gradient Magnitude}
 \label{sec:GradientMagnitudeImageFilter}
 
+\ifitkFullVersion
 \input{GradientMagnitudeImageFilter.tex}
+\fi
 
 \subsection{Gradient Magnitude With Smoothing}
 \label{sec:GradientMagnitudeRecursiveGaussianImageFilter}
 
+\ifitkFullVersion
 \input{GradientMagnitudeRecursiveGaussianImageFilter.tex}
+\fi
 
 
 
@@ -72,12 +84,16 @@ of the commonly used filters that take advantage of this construction.
 \subsection{Mean Filter}
 \label{sec:MeanFilter}
 
+\ifitkFullVersion
 \input{MeanImageFilter.tex}
+\fi
 
 \subsection{Median Filter}
 \label{sec:MedianFilter}
 
+\ifitkFullVersion
 \input{MedianImageFilter.tex}
+\fi
 
 
 \subsection{Mathematical Morphology}
@@ -92,13 +108,17 @@ binary images and the ones that operate on grayscale images.
 \subsubsection{Binary Filters}
 \label{sec:MathematicalMorphologyBinaryFilters}
 
+\ifitkFullVersion
 \input{MathematicalMorphologyBinaryFilters.tex}
+\fi
 
 
 \subsubsection{Grayscale Filters}
 \label{sec:MathematicalMorphologyGrayscaleFilters}
 
+\ifitkFullVersion
 \input{MathematicalMorphologyGrayscaleFilters.tex}
+\fi
 
 
 
@@ -126,13 +146,24 @@ approximate the convolution with a Gaussian.
 \subsubsection{Discrete Gaussian}
 \label{sec:DiscreteGaussianImageFilter}
 
+\ifitkFullVersion
 \input{DiscreteGaussianImageFilter.tex}
+\fi
 
 
 \subsubsection{Binomial Blurring}
 \label{sec:BinomialBlurImageFilter}
 
+\ifitkFullVersion
 \input{BinomialBlurImageFilter.tex}
+\fi
+
+\subsubsection{Recursive Gaussian IIR}
+\label{sec:RecursiveGaussianImageFilter}
+
+\ifitkFullVersion
+\input{SmoothingRecursiveGaussianImageFilter.tex}
+\fi
 
 
 
@@ -140,44 +171,60 @@ approximate the convolution with a Gaussian.
 \label{sec:EdgePreservingSmoothingFilters}
 
 \subsubsection{Introduction to Anisotropic Diffusion}
+\ifitkFullVersion
 \input{AnisotropicDiffusionFiltering.tex}
+\fi
 
 \subsubsection{Curvature Flow}
+\ifitkFullVersion
 \label{sec:CurvatureFlowImageFilter}
+\fi
 
+\ifitkFullVersion
 \input{CurvatureFlowImageFilter.tex}
+\fi
 
 
 \subsubsection{MinMaxCurvature Flow}
 \label{sec:MinMaxCurvatureFlowImageFilter}
 
+\ifitkFullVersion
 \input{MinMaxCurvatureFlowImageFilter.tex}
+\fi
 
 
 
 \subsubsection{BinaryMinMaxCurvature Flow}
 \label{sec:BinaryMinMaxCurvatureFlowImageFilter}
 
+\ifitkFullVersion
 \input{BinaryMinMaxCurvatureFlowImageFilter.tex}
+\fi
 
 
 \subsubsection{Gradient Anisotropic Diffusion}
 \label{sec:GradientAnisotropicDiffusionImageFilter}
 
+\ifitkFullVersion
 \input{GradientAnisotropicDiffusionImageFilter.tex}
+\fi
 
 
 
 \subsubsection{Curvature Anisotropic Diffusion}
 \label{sec:CurvatureAnisotropicDiffusionImageFilter}
 
+\ifitkFullVersion
 \input{CurvatureAnisotropicDiffusionImageFilter.tex}
+\fi
 
 
 \subsubsection{Bilateral Filter}
 \label{sec:BilateralImageFilter}
 
+\ifitkFullVersion
 \input{BilateralImageFilter.tex}
+\fi
 
 
 
@@ -192,12 +239,16 @@ The following classes implement versions of anisotropic diffusion on vector imag
 \subsubsection{Vector Gradient Anisotropic Diffusion}
 \label{sec:VectorGradientAnisotropicDiffusionImageFilter}
 
+\ifitkFullVersion
 \input{VectorGradientAnisotropicDiffusionImageFilter.tex}
+\fi
 
 \subsubsection{Vector Curvature Anisotropic Diffusion}
 \label{sec:VectorCurvatureAnisotropicDiffusionImageFilter}
 
+\ifitkFullVersion
 \input{VectorCurvatureAnisotropicDiffusionImageFilter.tex}
+\fi
 
 
 
@@ -207,19 +258,25 @@ The following classes implement versions of anisotropic diffusion on vector imag
 \subsubsection{Gradient Anisotropic Diffusion}
 \label{sec:ColorGradientAnisotropicDiffusion}
 
+\ifitkFullVersion
 \input{RGBGradientAnisotropicDiffusionImageFilter.tex}
+\fi
 
 \subsubsection{Curvature Anisotropic Diffusion}
 \label{sec:ColorCurvatureAnisotropicDiffusion}
 
+\ifitkFullVersion
 \input{RGBCurvatureAnisotropicDiffusionImageFilter.tex}
+\fi
 
 
 
 \section{Distance Map}
 \label{sec:DistanceMap}
 
+\ifitkFullVersion
 \input{DanielssonDistanceMapImageFilter.tex}
+\fi
 
 
 
@@ -230,13 +287,29 @@ The following classes implement versions of anisotropic diffusion on vector imag
 \label{sec:ResampleImageFilter}
 
 \subsubsection{Introduction}
+
+\ifitkFullVersion
 \input{ResampleImageFilter.tex}
+\fi
 
 \subsubsection{Importance of Spacing and Origin}
+\ifitkFullVersion
 \input{ResampleImageFilter2.tex}
+\fi
 
 \subsubsection{A full example}
+\ifitkFullVersion
 \input{ResampleImageFilter3.tex}
+\fi
 
+\subsubsection{Rotating an Image}
+\ifitkFullVersion
+\input{ResampleImageFilter4.tex}
+\fi
+
+\subsubsection{Rotating and Scaling an Image}
+\ifitkFullVersion
+\input{ResampleImageFilter5.tex}
+\fi
 
 
