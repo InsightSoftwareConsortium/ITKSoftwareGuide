@@ -308,9 +308,10 @@ arbitrary magnitude and dynamic range.
 
 
 \subsection{Kullback-Leibler distance metric}
-Another information based metric is the \doxygen{KullbackLeiblerCompareHistogramImageToImageMetric} metric. Kullback-Leibler distance measures the relative entropy between two discrete 
-probability distributions. The distributions are obtained from the histograms of the two 
-input images, $A$ and $B$. 
+The \doxygen{KullbackLeiblerCompareHistogramImageToImageMetric} is yet another information based metric. 
+Kullback-Leibler distance measures the relative entropy between two 
+discrete probability distributions. The distributions are obtained from the 
+histograms of the two input images, $A$ and $B$. 
 
 The Kullback-Liebler distance between two histograms is given by
 \begin{equation}
@@ -322,7 +323,7 @@ are the same. Note that the distance is not symmetric. In other
 words, $KL(A,B) \neq KL(B,A)$. Nevertheless, if the distributions are not too dissimilar, 
 the difference betwween $KL(A,B)$ and $KL(B,A)$ is small.
 
-The implementation in ITK is based on \cite{Chung2002}
+The implementation in ITK is based on \cite{Chung2002}.
 
 \subsection{Normalized Mutual Information Metric}
 Given two images, $A$ and $B$, the normalized mutual information may be computed as 
