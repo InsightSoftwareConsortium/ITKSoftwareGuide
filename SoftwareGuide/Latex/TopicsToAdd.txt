@@ -241,5 +241,89 @@ Chapter 6 Filtering
 
   
 
+- Check with Andy : capture the command line used for running
+  the regression testing and paste it on Latex.
 
-  
+
+
+- Edge preserving filtering: move the Median filter here,
+  and show the effect of running many iterations of a median.
+  Explain its relationship to Voting filters.
+
+
+
+- MinMaxCurvatureFlowImage check this example,
+  Ask Lydia what was wrong with the example.
+
+
+
+
+
+
+New Chapter : Visualization
+
+
+   - Paraview 
+
+       display vector fields
+       scalar image
+
+
+   - VolView 
+
+       a bit of volume rendering
+       a bit about ITK Plugins
+
+
+   - Slicer
+
+       mention ITK filters 
+
+
+   - Analyze
+
+       mention ITK filters
+       
+       
+   - ImageViewer in InsightApplications
+
+
+   - ImageMagick
+
+
+   - MRICro
+
+   - MRIConvert (DICOM)
+
+   - Valmet (segmentation validation)
+
+   - SNAP (Insight Applications).
+
+
+   
+
+   
+
+New Chapter
+
+
+   connecting ITK with VTK
+
+   Take from the Tutorial
+
+
+
+   http://www.itk.org/CourseWare/Training/GettingStarted-II.pdf
+
+
+   Show the example in InsightApplications
+
+
+   itkReadITKImageShowVTK.cxx
+   itkReadITKImageSegmentShowVTK.cxx
+   itkReadITKImage3DSegmentShowVTK.cxx
+
+
+
+
+
