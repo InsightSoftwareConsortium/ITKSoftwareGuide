@@ -169,6 +169,10 @@ SET(JPEG_IMAGES
   FastMarchingImageFilterOutput7
   FastMarchingImageFilterOutput8
   FatMRISlice
+  GeodesicActiveContourImageFilterOutput1
+  GeodesicActiveContourImageFilterOutput2
+  GeodesicActiveContourImageFilterOutput3
+  GeodesicActiveContourImageFilterOutput4
   GeodesicActiveContourImageFilterOutput5
   GeodesicActiveContourImageFilterOutput6
   GeodesicActiveContourImageFilterOutput7
