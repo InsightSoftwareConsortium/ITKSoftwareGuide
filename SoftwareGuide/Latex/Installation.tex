@@ -5,25 +5,25 @@
 
 This section describes the process for installing ITK in your system. Keep in
 mind that ITK is a toolkit library, as such, once it is installed in your
-computer there will be no executable to run. The system provides a large set of
-test files and examples that will help you to get introduced to the concepts of
-ITK and will show you how to use ITK in your own projects.
+computer there will be no executable to run. The system provides a large set
+of test files and examples that will help you to get introduced to the
+concepts of ITK and will show you how to use ITK in your own projects.
 
 Some of the examples distributed with ITK require third party libraries that
 you may have to download. For a first installation of ITK you may want to
 ignore these extra libraries and just built the toolkit itself. A large
-fraction of the traffic on the users-mailing list originates from difficulties
-in getting third party libraries installed rather than on actual problems
-building ITK.
+fraction of the traffic on the users-mailing list originates from
+difficulties in getting third party libraries installed rather than on actual
+problems building ITK.
 
-ITK has been developed and tested over multiple platforms including MS-Windows,
-Linux, Solaris, IRIX and recently the Mac. Popular compilers like Visual Studio
-6.0, Visual Studio 7.0, gcc 2.95.2, gcc 2.96, gcc 3.04, gcc 3.1, gcc 3.2,
-Borland 5.5 and SGI-CC 6.5 are currently supported. Given the extensive use of
-state of the art C++ in the toolkit some compiler may have difficulties
-building the code. If you are currently using an outdated compiler here may be
-an excellent excuse for upgrading this old piece of software !
-
+ITK has been developed and tested over multiple platforms including
+MS-Windows, Linux, Solaris, IRIX and recently the Mac. Popular compilers like
+Visual Studio 6.0, Visual Studio 7.0, gcc 2.95.2, gcc 2.96, gcc 3.04, gcc
+3.1, gcc 3.2, Borland 5.5 and SGI-CC 6.5 are currently supported. Given the
+extensive use of state of the art C++ in the toolkit some compiler may have
+difficulties building the code. If you are currently using an outdated
+compiler here may be an excellent excuse for upgrading this old piece of
+software!
 
 \section{Downloading ITK}
 \label{sec:DownloadingITK}
@@ -88,23 +88,25 @@ important advantage for those who are interested in keeping up to date with the
 leading edge of the toolkit. Bug fixes can be obtained in this way as soon as
 they have been checked into the system.
 
-The CVS version of ITK contains the current state of the project. Since ITK is
-under active development the current version is not necessarily stable. If you
-decide to use this version it is important that you take a look at the on-line
-quality control dashboard first. The Dashboard indicates how the current
-version is being compiled and tested in a variety of platforms (see section
-\ref{sec:QualityDashboard} for details).
+The CVS version of ITK contains the current state of the project. Since ITK
+is under active development the current version is not necessarily stable. If
+you decide to use this version it is important that you take a look at the
+on-line quality control dashboard first. The Dashboard indicates how the
+current version is being compiled and tested in a variety of platforms (see
+section \ref{sec:QualityDashboard} for details).
 
 You will need to have CVS installed in your system. This is quite standard on
 UNIX systems, typing \code{cvs -version} on the command line should be enough
-to verify that cvs is installed. You will need CVS version 1.11 to download ITK.
-On MS-Windows systems you have two options for using CVS. The first one is to install
-\code{Cygwin} which is the equivalent of having a UNIX installation on top of
-Windows. Cygwin will provide most (if not all) of the current packages and utilities
-available in UNIX systems, including CVS. Cygwin can be downloaded for free from 
+to verify that cvs is installed. You will need CVS version 1.11 to download
+ITK.  On MS-Windows systems you have two options for using CVS. The first one
+is to install \code{Cygwin} which is the equivalent of having a UNIX
+installation on top of Windows. Cygwin will provide most (if not all) of the
+current packages and utilities available in UNIX systems, including
+CVS. Cygwin can be downloaded for free from
 \url{http://www.redhat.com}. The second option is to use \code{WinCVS} 
 which is a Windows native applications that provides a standard graphic user 
-interface to CVS. WinCVS can be downloaded for free from \url{http://www.wincvs.org/}.
+interface to CVS. WinCVS can be downloaded for free from 
+\url{http://www.wincvs.org/}.
 
 Once you find that the current state of the toolkit is stable you can download
 ITK by using the following commands (under UNIX and Cygwin): 
@@ -136,11 +138,12 @@ toolkit. You can subscribe to the users list on-line at
 \begin{center}
 \url{http://www.itk.org/HTML/MailingLists.htm}
 \end{center} 
+
 The insight-users mailing list is also the best mechanism for expressing your
-opinions about the toolkit and let developers know about the features that you
-find useful, desirable or eventually unnecessary in the toolkit. ITK developers 
-are committed to construct a self-sustained Open Source community. Feedback from
-users is fundamental to achieve this goal.
+opinions about the toolkit and let developers know about the features that
+you find useful, desirable or eventually unnecessary in the toolkit. ITK
+developers are committed to construct a self-sustained Open Source
+community. Feedback from users is fundamental to achieve this goal.
 
 \subsection{The Quality Dashboard}
 \label{sec:QualityDashboard}
@@ -149,10 +152,10 @@ users is fundamental to achieve this goal.
 \index{Quality Dashboard|textbf}
 \index{Dart|textbf}
 
-Quality Control is an important component of Open Source projects. It allows to
-keep the evolution of a project under control by detecting inconsistencies and
-errors early on when they are introduced in the system. ITK uses the Dart system
-for quality control.
+Quality Control is an important component of Open Source projects. It allows
+to keep the evolution of a project under control by detecting inconsistencies
+and errors early on when they are introduced in the system. ITK uses the Dart
+system for quality control.
  
 \begin{figure}[ht]
 \centering 
@@ -162,39 +165,41 @@ for quality control.
 \end{figure}
 
 Dart administers a Web site where the results of compiling the toolkit are
-submitted by multiple machines. ITK contains and extensive set of testing files
-that exercise all the classes and their methods.  The continuous compilation of
-these testing files acts as an early warning mechanism to spot the introduction
-of errors on the toolkit. Because the Dart dashboard can be seen on-line,
-developers and users can monitor the current state of the system and rapidly
-track problems down to their source.  Tracing history of every test is also
-possible from this web site.
+submitted by multiple machines. ITK contains and extensive set of testing
+files that exercise all the classes and their methods.  The continuous
+compilation of these testing files acts as an early warning mechanism to spot
+the introduction of errors on the toolkit. Because the Dart dashboard can be
+seen on-line, developers and users can monitor the current state of the
+system and rapidly track problems down to their source.  Tracing history of
+every test is also possible from this web site.
 
 The ITK Dashboard can be found on-line at
 \begin{center} 
 \url{http://www.itk.org/Testing/Dashboard/MostRecentResults-Nightly/Dashboard.html}
 \end{center} 
+
 Figure \ref{fig:Dashboard} shows the Dashboard HTML page. Each row in the
-Dashboard corresponds to a particular platforms (hardware + operating system +
-compiler). The data on the row indicates the number of compile errors and
+Dashboard corresponds to a particular platforms (hardware + operating system
++ compiler). The data on the row indicates the number of compile errors and
 warnings as well as the results of the execution of hundreds of small test
-programs. In this way the toolkit is tested both at compile time and run time.
+programs. In this way the toolkit is tested both at compile time and run
+time.
 
 When users decide to download the CVS version of ITK it is important for them
 to verify first that the current dashboard is in good shape. This can be
-rapidly judged by the general coloration of the Dashboard. A green state means
-that the software is building correctly and it is a good day to start with ITK
-or to get an upgrade. A red state, on the other hand, is an indication of
-instability on the system and hence users should better refrain from checking
-out or updrading. Red states are usually cleared the same day.
+rapidly judged by the general coloration of the Dashboard. A green state
+means that the software is building correctly and it is a good day to start
+with ITK or to get an upgrade. A red state, on the other hand, is an
+indication of instability on the system and hence users should better refrain
+from checking out or updrading. Red states are usually cleared the same day.
 
 Dart is independent of ITK and can be used for supporting quality control of
-any software project. It is itself an Open Source package and can be downloaded
-from 
+any software project. It is itself an Open Source package and can be
+downloaded from
+
 \begin{center} 
 \url{http://public.kitware.com/Dart/HTML/Index.shtml}
 \end{center} 
- 
 
 \section{Configuring ITK}
 \label{sec:ConfiguringITK}
@@ -209,15 +214,15 @@ process using simple platform and compiler independent configuration files.
 CMake generates native makefiles and workspaces that can be used in the
 compiler environment of your choice. CMake is quite sophisticated, it makes
 possible to support complex environments requiring system configuration,
-pre-processor generation, code generation, and template instantiation. 
+pre-processor generation, code generation, and template instantiation.
 
 CMake generates Makefiles under UNIX and Cygwin systems and generates Visual
 Studio workspaces under Windows. The information used by CMake is provided by
-files named \code{CMakeList.txt} which have been created on every directory of
-the ITK source tree. This information is complemented with parameters that the
-user should provide to CMake at configuration time. Typical information
-provided by the user includes paths to utilities in the system and selection of
-options that are associated to user's preferences.
+files named \code{CMakeList.txt} which have been created on every directory
+of the ITK source tree. This information is complemented with parameters that
+the user should provide to CMake at configuration time. Typical information
+provided by the user includes paths to utilities in the system and selection
+of options that are associated to user's preferences.
 
 \subsection{Preparing CMake}
 \label{sec:CMakeforITK}
@@ -240,22 +245,22 @@ you system in order to find its components, and mixing components from
 different version will produce inconsistent executables. Follow the
 instructions in the CMake web page for downloading and installing the system.
 
-Once CMake is built you will run its executable and provide the directory where
-resides the source code to be configured and the directory where the compiled
-binary code should be stored. The selection of this last directory is at your
-will according to your preferences for organizing your disk.
+Once CMake is built you will run its executable and provide the directory
+where resides the source code to be configured and the directory where the
+compiled binary code should be stored. The selection of this last directory
+is at your will according to your preferences for organizing your disk.
 
 CMake will run in an interactive mode in which you will progresively select
 options and configure according to these options. At each configuration
 iteration, CMake will evaluate if whether new options have to be presented to
 the user or not. This can be better understood if you imagine that you are
 walking through a decision tree.  Every option that you select may open the
-possibility for further options to become relevant. When this is the case, the
-new options will be presented by CMake at the top of the options list in its
-interface.  Only when no new options appear after a configuration step you will
-be sure that the necessary decisions have all been made and that you are ready
-for generating the Makefiles or Visual Studio project for the current
-configuration.
+possibility for further options to become relevant. When this is the case,
+the new options will be presented by CMake at the top of the options list in
+its interface.  Only when no new options appear after a configuration step
+you will be sure that the necessary decisions have all been made and that you
+are ready for generating the Makefiles or Visual Studio project for the
+current configuration.
 
 \subsection{Configuring ITK}
 \label{sec:ConfiguringITKwithVTK}
@@ -272,8 +277,8 @@ configuration.
 \end{figure}
 
 Figure \ref{fig:CMakeGUI} shows the CMake interface for UNIX and MS-Windows.
-In order to speed up the build process you may want to disable the compilation
-of the demo applications. This is done with the variable
+In order to speed up the build process you may want to disable the
+compilation of the demo applications. This is done with the variable
 \code{BUILD\_APPLICATIONS=OFF}. The demo applications  distributed with the
 toolkit are a helpful resource for learning how to write problem-oriented
 applications.  However, due to the large number of examples and the fact that
@@ -281,29 +286,29 @@ some of them rely on third party libraries that need to be installed and
 configured, enabling this option will considerably complicate the initial
 configuration of the toolkit.
 
-Each time you change a set of variables in CMake, it is necessary to proceed to
-another configuration step. In the Windows version this is done by clicking on
-the ''Configure'' button. In the UNIX version this is done in a \code{curses}
-interface where you can select to configure by hitting the ''c'' key. 
+Each time you change a set of variables in CMake, it is necessary to proceed
+to another configuration step. In the Windows version this is done by
+clicking on the ''Configure'' button. In the UNIX version this is done in a
+\code{curses} interface where you can select to configure by hitting the
+''c'' key.
 
 When no new options appear in CMake, you can proceed to generate Makefiles or
 Visual Studio projects. This is done in Windows by clicking on the ''Ok''
 button.  In the UNIX version this is done by hitting the ''g'' key. After the
 generation process is done CMake will quit silently. To initate the build
-process, you can under UNIX simply type \code{make} while under Window you will
-have to load the workspace named \code{ITK.dsw} from the directory that you
-provide to CMake as Binary directory.
+process, you can under UNIX simply type \code{make} while under Window you
+will have to load the workspace named \code{ITK.dsw} from the directory that
+you provide to CMake as Binary directory.
 
-The build process will typically take from 30 minutes to one hour depending on
-the performance of your system. As part of the normal built process, about 300
-small test programs are compiled. This allows to verify that the basic
+The build process will typically take from 30 minutes to one hour depending
+on the performance of your system. As part of the normal built process, about
+300 small test programs are compiled. This allows to verify that the basic
 components of ITK have been correctly built on your system.
-
 
 \section{Using ITK }
 \label{sec:UsingITK}
  
-The simplest way to get started with  ITK is to create a new directory
+The simplest way to get started with ITK is to create a new directory
 somewhere in your disk and write two files on it. The first one is a
 \code{CMakeList.txt} file which will be used by CMake to generate a Makefile
 (if you are using UNIX) or a Visual Studio workspace (if you are using
@@ -311,14 +316,15 @@ MS-Windows).  The second file is an actual C++ file that will exercise some of
 the multiple classes available in ITK.
 
 Once both files are in your directory you can run CMake in order to configure
-your project. Under UNIX, you can \code{cd} to your newly created directory and
-type \code{"ccmake . "}. Note the "." in the command line for indicating that
-the \code{CMakeList.txt} file is in the current directory. The \code{curses}
-interface will require you to provide the directory where ITK was built. This
-is the same path that you indicated for the \code{ITK\_BINARY\_DIR} variable at
-the time of configuring ITK. Under Windows you can run \code{CMakeSetup} and
-provide your newly created directory as being both the source directory and the
-binary directory for your new project. In CMake jargon this is called an
+your project. Under UNIX, you can \code{cd} to your newly created directory
+and type \code{"ccmake . "}. Note the "." in the command line for indicating
+that the \code{CMakeList.txt} file is in the current directory. The
+\code{curses} interface will require you to provide the directory where ITK
+was built. This is the same path that you indicated for the
+\code{ITK\_BINARY\_DIR} variable at the time of configuring ITK. Under
+Windows you can run \code{CMakeSetup} and provide your newly created
+directory as being both the source directory and the binary directory for
+your new project. In CMake jargon this is called an
 \emph{in-source} built. Then CMake will require you to provide the path to the
 binary directory where ITK was built. The ITK binary directory should contain a
 file named \code{UseITK.cmake} that was generated during the configuration
@@ -346,9 +352,9 @@ ADD_EXECUTABLE(SampleProject SampleProject.cxx )
 \end{verbatim}
 
 The first line will define the name of your project as it appears in Visual
-Studio (it will have no effect under UNIX). The second line loads a CMake file
-with a predefined strategy for finding ITK \footnote{Similar files are provided
-in CMake for other commonly used libraries, all of them named
+Studio (it will have no effect under UNIX). The second line loads a CMake
+file with a predefined strategy for finding ITK \footnote{Similar files are
+provided in CMake for other commonly used libraries, all of them named
 \code{Find*.cmake}}. If the strategy for finding ITK fails, CMake will prompt
 you for the directory where ITK is installed in your system. In that case you
 will write This information in the \code{ITK\_DIR} variable. The line \code{
@@ -373,8 +379,8 @@ int main()
 }
 \end{verbatim}
 
-This declares a 3D image \footnote{also known as a volume} whose pixels are of
-type \code{char}.  The Image class is explained in detail in section
+This declares a 3D image \footnote{also known as a volume} whose pixels are
+of type \code{char}.  The Image class is explained in detail in section
 \ref{sec:ImageSection}.
 
 
