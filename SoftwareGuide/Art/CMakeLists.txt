@@ -26,6 +26,7 @@ SET(JPEG_IMAGES
   MathematicalMorphologyBinaryDilationOutput
   MathematicalMorphologyGrayscaleErosionOutput
   MathematicalMorphologyGrayscaleDilationOutput
+  MinMaxCurvatureFlowImageFilterOutput
   MedianImageFilterOutput
   ThresholdImageFilterOutputAbove
   ThresholdImageFilterOutputBelow
