@@ -88,6 +88,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Registration/MultiResImageRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/MultiResImageRegistration2.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ConfidenceConnected.cxx
+  ${ITK_SOURCE_DIR}/Examples/Segmentation/HybridSegmentationFuzzyVoronoi.cxx
 )
 
 
