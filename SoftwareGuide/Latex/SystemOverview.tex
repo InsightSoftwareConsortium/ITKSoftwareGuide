@@ -161,7 +161,7 @@ In addition to class headers, there are a few other important header files.
 
         \item[\code{itkWin32Header.h}] is found in the \code{Code/Common} 
         and is used to define operating system parameters to control
-        the compilatilation process.
+        the compilation process.
 \end{description}
 
 \subsection{Object Factories}
@@ -222,7 +222,7 @@ so that the instance can store data attribute values and method pointers
 data structures during normal operation of the program. Typically during
 program execution all references to the instance may disappear at which point
 the instance must be deleted to recover memory resources. Knowing when to
-delete an instance, however, is diffuclt. Deleting the instance too soon
+delete an instance, however, is difficult. Deleting the instance too soon
 results in program crashes; deleting it too late and memory leaks (or
 excessive memory consumption) will occur. This process of allocating and
 releasing memory is known as memory management.
@@ -495,7 +495,7 @@ page~\pageref{sec:DataProcessingPipeline} for more information).
 
 \index{itk::Image}
 
-\doxygen{itk::Image} represents an \emph{n}-dimensional, regular sampling of
+\doxygen{Image} represents an \emph{n}-dimensional, regular sampling of
 data. The sampling direction is parallel to each of the coordinate axes, and
 the origin of the sampling, inter-pixel spacing, and the number of samples in
 each direction (i.e., image dimension) can be specified. The sample, or
@@ -720,8 +720,8 @@ combination of tools to produce language bindings.
     produces an XML description of an input C++ program.
   \item  CABLE processes XML information from gccxml and produces
     additional input to the next tool (i.e., CSWIG indicating what is
-    to be wrapped.
-  \item CSWIG is a modified version of SWIG that has has SWIG's usual
+    to be wrapped).
+  \item CSWIG is a modified version of SWIG that has SWIG's usual
     parser replaced with an XML parser (XML produced from CABLE and
     gccxml.) CSWIG produces the appropriate language bindings
     (either Tcl or Python). (Note: since SWIG is capable of producing
