@@ -106,12 +106,16 @@ SET(JPEG_IMAGES
   VisibleWomanHeadSlice
   VisibleWomanEyeSlice
   WatershedColorEdges
+  WatershedColorInput
+  WatershedColorGradientMagnitude
   WatershedSpine1
   WatershedSpine2
   WatershedAbdomenSegmentation
   WatershedArm1
   WatershedArm2
   WatershedRendering
+  WatershedsPreprocessing
+  WatershedsSegmentationApplicationGUI
 )
 
 
