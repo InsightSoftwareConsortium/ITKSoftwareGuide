@@ -258,6 +258,24 @@ Chapter 6 Filtering
 
 
 
+- Signed distance based on running Danielsson twice,
+
+  Mention that the same can be done with ReinitializeLevelSetImageFilter
+  ...maybe add an example...
+  http://www.itk.org/Insight/Doxygen/html/classitk_1_1ReinitializeLevelSetImageFilter.html
+
+  Check with Lydia (Brain Allen Institue) and/or Josh Cates (Utah)
+
+
+
+- Geometric Transform Filters
+
+  Double check that the changes in CenteredTransforms are not breaking
+  any code, and that the comments are appropriate.
+
+
+
+
 
 
 New Chapter : Visualization
