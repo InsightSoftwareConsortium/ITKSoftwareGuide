@@ -128,6 +128,29 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Segmentation/ThresholdSegmentationLevelSetImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/GeodesicActiveContourImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Segmentation/WatershedSegmentation1.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/BayesianPluginClassifier.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/EuclideanDistance.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/ExpectationMaximizationMixtureModelEstimator.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/GaussianDensityFunction.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/Histogram.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/ImageToListAdaptor.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/KdTree.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/KdTreeBasedKMeansClustering.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/ListSample.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/ListSampleToHistogramFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/ListSampleToHistogramGenerator.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/MaximumDecisionRule.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/MaximumRatioDecisionRule.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/MembershipSample.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/MinimumDecisionRule.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/NeighborhoodSampler.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/PointSetToListAdaptor.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/NormalVariateGenerator.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/SampleSorting.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/SampleStatistics.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/SampleToHistogramProjectionFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/Subsample.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/WeightedSampleStatistics.cxx
 )
 
 
