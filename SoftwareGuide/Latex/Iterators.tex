@@ -485,28 +485,37 @@ shade and the extent of the iterator is indicated by the hashing. }
 \index{Neighborhood iterators!radius of}
 In addition to the standard image pointer and iteration region
 (section~\ref{sec:IteratorsInterface}), neighborhood iterator constructors also
-require an argument to describe the extent of the neighborhood.  Neighborhood
+require an argument that defines the extent of the neighborhood.  Neighborhood
 extent is expressed as the symmetric distance from the center of the
 neighborhood in an ND array called the \emph{radius}. Each element $d$ of the
 radius, where $N$ is the dimensionality of the neighborhood and $0 < d < N$,
 gives the extent of the neighborhood in pixels for dimension $N$.  The length
 of each face of the resulting ND hypercube is $2d + 1$ pixels, a distance of
 $d$ on either side of the single pixel at the neighbor center.
-Figure~{\ref{fig:NeighborhoodIteratorRadius} illustrates these concepts for a
-2D iterator.
-
-\begin{figure}
-\centering
-%\includegraphics[width=0.4\textwidth]{NeighborhoodIteratorFigure2.eps}
-\itkcaption[]{  }
-\protect\label{fig:NeighborhoodIteratorRadius}
-\end{figure}
+Figure~{\ref{fig:NeighborhoodIteratorFig2} shows the relationship
+between the radius of the iterator and the size of the neighborhood for a
+variety of 2D iterator shapes.
 
 The radius of the neighborhood iterator is available after construction
 through the \code{GetRadius} method.  A few other methods provide some useful
 information about the iterator and its underlying image.
 
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{NeighborhoodIteratorFig2.eps}
+\itkcaption[Some possible neighborhood iterator shapes]{Several possible 2D
+neighborhood iterator shapes are shown along with their radii and sizes.  A
+neighborhood pixel can be dereferenced by its integer index (top) or its offset from
+the center (bottom).  The center pixel of each iterator is shaded.}
+\protect\label{fig:NeighborhoodIteratorFig2}
+\end{figure}
+
 \begin{itemize}
+
+\index{NeighborhoodIterator!GetRadius()}
+\item \textbf{\code{itk::Size GetRadius()}} Returns the ND radius of the
+neighborhood.
+
 \index{NeighborhoodIterator!GetImagePointer()}
 \item \textbf{\code{const ImageType *GetImagePointer()}} Returns the pointer to
 the image referenced by the iterator.
@@ -515,12 +524,7 @@ the image referenced by the iterator.
 \item \textbf{\code{unsigned long Size()}} Returns the size in pixels of the
 neighborhood.
 
-\index{NeighborhoodIterator!GetRadius()}
-\item \textbf{\code{itk::Size GetRadius()}} Returns the ND radius of the
-neighborhood.
-
 \end{itemize}
-
 
 The neighborhood iterator interface extends the normal ITK iterator interface
 for setting and getting pixel values.  The iterator stores references to all of
@@ -529,8 +533,8 @@ directly using their array positions.  The \code{Size} method above returns the
 size of this array.  Array positions are incremented along the fastest
 increasing image dimension: first column, then row, then slice, and so on.  The
 center pixel is always at position $n/2$, where $n$ is the size of the array.
-Figure~\ref{fig:NeighborhoodArray}a illustrates this idea in several 2D
-examples.
+In figure~\ref{fig:NeighborhoodIteratorFig2}, the linear array index is shown
+at the top of each pixel.
 
 \begin{itemize}
 
@@ -544,20 +548,12 @@ the value of the pixel at position \code{i} to \code{p}.
 
 \end{itemize}
 
-\begin{figure}
-\centering
-%\includegraphics[width=0.4\textwidth]{NeighborhoodIteratorFigure3.eps}
-\itkcaption[Memory layout and pixel access in a neighborhood iterator.]{Pixel references
-in a neighborhood iterator are stored in an array. The indicies of this array
-increase with the fastest increasing image dimension.}
-\protect\label{fig:NeighborhoodArray}
-\end{figure}
-
 Another way to think about a pixel location in a neighborhood is as an ND
 offset from the neighborhood center.  The upper-left corner of a $3x3x3$
 neighborhood, for example, can be described by offset $(-1, -1, -1)$. The
 bottom-right corner of the same neighborhood is at offset $(1, 1, 1)$.  
-Figure~\ref{fig:NeighborhoodArray}b illustrates several 2D examples.
+In figure~\ref{fig:NeighborhoodIteratorFig2}, the offset it given below the
+linear array index in each neighborhood pixel.
 
 \begin{itemize}
 
