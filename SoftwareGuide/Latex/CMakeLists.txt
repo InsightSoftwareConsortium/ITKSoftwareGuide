@@ -19,11 +19,7 @@ ${SoftwareGuide_SOURCE_DIR}/SoftwareGuideConfiguration.tex.in
 ${SoftwareGuide_BINARY_DIR}/SoftwareGuideConfiguration.tex
 )
 
-
-
 ADD_CUSTOM_TARGET(SoftwareGuideLatex  ALL echo)
-
-
 
 SET( Tex_SRCS 
   Abstract.tex
@@ -58,7 +54,7 @@ SET( SoftwareGuide_Tex_SRCS
 ENDFOREACH( file )
 
 
-SET( ITK_EXAMPLES_TEX_SRCS ${SoftwareGuide_BINARY_DIR}/Examples/*.tex )
+#SET( ITK_EXAMPLES_TEX_SRCS ${SoftwareGuide_BINARY_DIR}/Examples/*.tex )
 
 SET( CxxExamplesListFile  
   ${SoftwareGuide_BINARY_DIR}/Examples/ExamplesList.txt
@@ -68,15 +64,26 @@ SET( CxxExamplesListFile
 
 IF(LATEX_COMPILE)
 
-  SET(ITK_TEXINPUTS ${SoftwareGuide_SOURCE_DIR}:${SoftwareGuide_SOURCE_DIR}/Latex:${SoftwareGuide_SOURCE_DIR}/Art:${SoftwareGuide_BINARY_DIR}:${SoftwareGuide_BINARY_DIR}/Examples:${SoftwareGuide_BINARY_DIR}/Art:${SoftwareGuide_BINARY_DIR}/Latex)
+  IF (WIN32)
+    SET(ITK_TEXINPUTS ${SoftwareGuide_SOURCE_DIR}/../Latex;${SoftwareGuide_SOURCE_DIR};${SoftwareGuide_SOURCE_DIR}/Latex;${SoftwareGuide_SOURCE_DIR}/Art;${SoftwareGuide_BINARY_DIR};${SoftwareGuide_BINARY_DIR}/Examples;${SoftwareGuide_BINARY_DIR}/Art;${SoftwareGuide_BINARY_DIR}/Latex)
 
-  CONFIGURE_FILE(${SoftwareGuide_SOURCE_DIR}/LaTeXWrapper.sh.in
-                 ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh)
+    CONFIGURE_FILE(${SoftwareGuide_SOURCE_DIR}/LaTeXWrapper.bat.in
+                   ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.bat)
+    SET (LATEX_WRAPPER1 ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.bat)
+    SET (LATEX_WRAPPER2 "")
+  ELSE (WIN32)
+    SET(ITK_TEXINPUTS ${SoftwareGuide_SOURCE_DIR}/../Latex;${SoftwareGuide_SOURCE_DIR}:${SoftwareGuide_SOURCE_DIR}/Latex:${SoftwareGuide_SOURCE_DIR}/Art:${SoftwareGuide_BINARY_DIR}:${SoftwareGuide_BINARY_DIR}/Examples:${SoftwareGuide_BINARY_DIR}/Art:${SoftwareGuide_BINARY_DIR}/Latex)
+
+    CONFIGURE_FILE(${SoftwareGuide_SOURCE_DIR}/LaTeXWrapper.sh.in
+                   ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh)
+    SET (LATEX_WRAPPER1 /bin/sh)
+    SET (LATEX_WRAPPER2 ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh)
+  ENDIF (WIN32)
 
   ADD_CUSTOM_COMMAND( 
     SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS} ${ITK_EXAMPLES_TEX_SRCS}
-    COMMAND   /bin/sh
-    ARGS      ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh
+    COMMAND   ${LATEX_WRAPPER1}
+    ARGS      ${LATEX_WRAPPER2} 
               ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex
     TARGET    SoftwareGuideLatex
     DEPENDS   ${SoftwareGuide_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS}
@@ -103,8 +110,8 @@ IF(LATEX_COMPILE)
   IF(MAKEINDEX_COMPILE)
     ADD_CUSTOM_COMMAND( 
       SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS} 
-      COMMAND   /bin/sh
-      ARGS      ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh
+      COMMAND   ${LATEX_WRAPPER1}
+      ARGS      ${LATEX_WRAPPER2} 
                 ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex
       TARGET    SoftwareGuideLatex
       OUTPUTS   SoftwareGuide.idx
