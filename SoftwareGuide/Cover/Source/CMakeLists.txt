@@ -24,6 +24,7 @@ ADD_EXECUTABLE( DilateFilter DilateFilter.cxx )
 ADD_EXECUTABLE( NegateFilter NegateFilter.cxx )
 ADD_EXECUTABLE( VectorGradientAnisotropicDiffusionFilter VectorGradientAnisotropicDiffusionFilter.cxx )
 ADD_EXECUTABLE( BinaryThresholdFilter BinaryThresholdFilter.cxx )
+ADD_EXECUTABLE( RescaleIntensityFilter RescaleIntensityFilter.cxx )
 
 TARGET_LINK_LIBRARIES( VWHistogramRGB ITKIO ITKBasicFilters ITKCommon ITKStatistics )
 TARGET_LINK_LIBRARIES( VWHistogramHSV ITKIO ITKBasicFilters ITKCommon ITKStatistics )
@@ -36,3 +37,4 @@ TARGET_LINK_LIBRARIES( DilateFilter  ITKIO ITKBasicFilters ITKCommon ITKStatisti
 TARGET_LINK_LIBRARIES( NegateFilter  ITKIO ITKBasicFilters ITKCommon ITKStatistics )
 TARGET_LINK_LIBRARIES( VectorGradientAnisotropicDiffusionFilter  ITKIO ITKBasicFilters ITKCommon ITKStatistics )
 TARGET_LINK_LIBRARIES( BinaryThresholdFilter  ITKIO ITKBasicFilters ITKCommon ITKStatistics )
+TARGET_LINK_LIBRARIES( RescaleIntensityFilter  ITKIO ITKBasicFilters ITKCommon ITKStatistics )
