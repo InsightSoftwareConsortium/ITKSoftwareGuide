@@ -49,11 +49,11 @@ First we begin with some simple registration examples.
 
 \section{Hello World Registration}
 \label{sec:IntroductionImageRegistration}
-\input{ImageRegistration1.tex}
+%\input{ImageRegistration1.tex}
 
 \section{Monitoring Registration}
 \label{sec:MonitoringImageRegistration}
-\input{ImageRegistration3.tex}
+%\input{ImageRegistration3.tex}
 
 
 
@@ -61,10 +61,12 @@ First we begin with some simple registration examples.
 \label{sec:MultiModalityRegistration}
 
 \subsection{Viola-Wells Mutual Information}
-\input{ImageRegistration2.tex}
+\label{sec:MultiModalityRegistrationViolaWells}
+%\input{ImageRegistration2.tex}
 
 \subsection{Mattes Mutual Information}
-\input{ImageRegistration4.tex}
+\label{sec:MultiModalityRegistrationMattes}
+%\input{ImageRegistration4.tex}
 
 
 
@@ -75,7 +77,7 @@ to improve speed, accuracy and robustness. The basic idea is that registration
 is first performed at a coarse scale where the images have fewer pixels.
 The spatial mapping determined at the coarse level is the used to initialize
 registration at the next finer scale. This process is repeated until it
-reaches the finest possible scale. This coarse-to-fine stragtegy greatly
+reaches the finest possible scale. This coarse-to-fine strategy greatly
 increases the capture range of the registration and also increases robustness
 by eliminating local optima at coarser scales.
 
@@ -98,35 +100,35 @@ We now present the main capbilities of the multi-resolution framework by
 way of an example.
 
 \subsection{Fundamentals}
-\input{MultiResImageRegistration1.tex}
+%\input{MultiResImageRegistration1.tex}
 
 \subsection{Parameter Tunnig}
-\input{MultiResImageRegistration1.tex}
+\input{MultiResImageRegistration2.tex}
 
 Let's review now the main characteristics of the registration framework components. 
 
 \section{Transforms}
 \label{sec:Transforms}
-\input{Transforms.tex}
+%\input{Transforms.tex}
 
 \section{Interpolators}
 \label{sec:Interpolators}
-\input{ImageInterpolators.tex}
+%\input{ImageInterpolators.tex}
 
 \section{Metrics}
 \label{sec:Metrics}
-\input{ImageMetrics.tex}
+%\input{ImageMetrics.tex}
 
 \section{Optimizers}
 \label{sec:Optimizers}
-\input{Optimizers.tex}
+%\input{Optimizers.tex}
 
 \subsection{Image Pyramids}
 \label{sec:ImagePyramids}
-\input{ImagePyramids.tex}
+%\input{ImagePyramids.tex}
 
 \section{Deformable Registration}
 \label{sec:DeformableRegistration}
-\input{DeformableRegistration1.tex}
+%\input{DeformableRegistration1.tex}
 
 
