@@ -137,6 +137,13 @@ SET(JPEG_IMAGES
   DeformableRegistration2CheckerboardAfter
   DiscreteGaussianImageFilterOutput
   FivePoints
+  FastMarchingImageFilterOutput1
+  FastMarchingImageFilterOutput2
+  FastMarchingImageFilterOutput3
+  FastMarchingImageFilterOutput5
+  FastMarchingImageFilterOutput6
+  FastMarchingImageFilterOutput7
+  FastMarchingImageFilterOutput8
   FatMRISlice
   GradientMagnitudeImageFilterOutput
   GradientMagnitudeRecursiveGaussianImageFilterOutput3
