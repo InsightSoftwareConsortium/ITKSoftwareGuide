@@ -134,7 +134,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellVisitor.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Mesh/MeshCellVisitor2.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Path/PolyLineParametricPath1.cxx
-  ${ITK_SOURCE_DIR}/Examples/DataRepresentation/COntainers/TreeContainer.cxx
+  ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Containers/TreeContainer.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BilateralImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinaryThresholdImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinaryMedianImageFilter.cxx
