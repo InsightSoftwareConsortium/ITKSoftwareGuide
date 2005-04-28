@@ -57,6 +57,17 @@ sections.  First, we begin with some simple registration examples.
 
 \section{Registration is done in Physical Space}
 
+\begin{figure}
+\center
+\includegraphics[width=0.8\textwidth]{ImageRegistrationCoordinateSystemsDiagram.eps}
+\itkcaption[Registration Coordinate Systems]{Different coordinate systems
+involved in the image registration process. Note that the transform being
+optimized is the one mapping from the physical space of the fixed image
+into the physical space of the moving image.}
+\label{fig:ImageRegistrationCoordinateSystemsDiagram}
+\end{figure}
+
+
 This section presents a discussion on the two most common difficulties that
 users encounter when they start using the ITK registration framework. They are,
 in order of difficulty
@@ -96,7 +107,7 @@ the grid of the fixed image. The nature of the resampling process is such that
 an algorithm must go through every pixel of the \textbf{fixed} image and
 compute the intensity that should be assigned to this pixel from the mapping of
 the moving image. This computation involves to take the integral coordinates of
-the pixel in the image grid, usually 2 the ``i,j'' coordinates, map them
+the pixel in the image grid, usually called the ``(i,j)'' coordinates, map them
 into the physical space of the fixed image, then map those physical coordinates
 into the physical space of the moving image, then mapping the physical
 coordinates of the moving image in to the integral coordinates of the discrete
@@ -124,17 +135,6 @@ section~\ref{sec:GeometricalTransformationFilters}
 
 
 \subsection{Registration is done in physical space}
-
-\begin{figure}
-\center
-\includegraphics[width=0.8\textwidth]{ImageRegistrationCoordinateSystemsDiagram.eps}
-\itkcaption[Registration Coordinate Systems]{Different coordinate systems
-involved in the image registration process. Note that the transform being
-optimized is the one mapping from one the physical space of the fixed image
-into the physical space of the moving image.}
-\label{fig:ImageRegistrationCoordinateSystemsDiagram}
-\end{figure}
-
 
 \section{Monitoring Registration}
 \label{sec:MonitoringImageRegistration}
