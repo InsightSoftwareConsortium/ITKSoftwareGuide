@@ -357,9 +357,7 @@ sub GetArgsAndFilenames {
         { $filepath = $generatedPath;  }
       else {  $filepath = $examplesdir; }
       print @byrpoducts;
-      $substring = $cmdlineoutfile;
-      $substring =~ m/(.*)\./; $substring = $1;
-      if ( ($substring =~ /$lateximgFilebase/) )
+      if ( ($cmdlineoutfile =~ /$lateximgFilebase/) )
         {
         # One of the files on the command line matches the file being included using \includegraphicstag
         
