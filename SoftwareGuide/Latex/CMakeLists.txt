@@ -146,6 +146,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   ImageRegistration7.tex
   ImageRegistration8.tex
   ImageRegistration9.tex
+  ImageRegistrationHistogramPlotter.tex
   ImageSliceIteratorWithIndex.tex
   ImageToListAdaptor.tex
   IsolatedConnectedImageFilter.tex
