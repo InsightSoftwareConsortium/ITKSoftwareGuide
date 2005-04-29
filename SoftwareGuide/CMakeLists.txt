@@ -104,6 +104,7 @@ IF (BUILD_FIGURES)
     VentricleModel
     FivePoints
     ThresholdSegmentationLevelSetImageFilterVentricle
+    BrainProtonDensitySliceShifted13x17y
   )
   # END FLIP_INPUTS LIST
 
