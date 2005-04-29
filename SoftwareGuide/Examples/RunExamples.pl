@@ -212,7 +212,10 @@ sub GetArgsAndFilenames {
           }
         if (-e $flipfilename)
           {
+          # Check to see if the inputs have dependencies on files that need to be flipped. If so, the
+          # output also incurs this dependency.
           CheckForFlippedImages(\@inputs, \@outputs, $flipfilename);
+          CheckForFlippedImages(\@generatedinputfile, \@outputs, $flipfilename);
           }
         }
       
@@ -356,6 +359,8 @@ sub GetArgsAndFilenames {
         { $filepath = $generatedPath;  }
       else {  $filepath = $examplesdir; }
       print @byrpoducts;
+      #$substring = $cmdlineoutfile;
+      #$substring =~ m/(.*)\./; $substring = $1;
       if ( ($cmdlineoutfile =~ /$lateximgFilebase/) )
         {
         # One of the files on the command line matches the file being included using \includegraphicstag
