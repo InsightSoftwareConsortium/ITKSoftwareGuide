@@ -60,7 +60,6 @@ use File::Find; #for platform independent recursive search of input images in
 use File::Copy;
 use IO::File;
 
-
 #
 # Tag defs
 # 
@@ -382,7 +381,21 @@ sub GetArgsAndFilenames {
       }
     }
 
-  if ((!($cmakelinesold)) | (@cmakelines != $cmakelinesold)) {
+  # Compare CMake file present in the directory and the one currently generated.
+  # Check if they are the same. If they are the same do not write one.. This
+  # is to get around a problem the CMake problem as follows: You cannot generate
+  # a .cmake file through a custom command and include it in the same CMakeLists.txt
+  # file. This creates a circular dependency. Since we don't have a dependency that
+  # drives the generation of the .cmake file (its is generated unconditionally), we 
+  # check here if the .cmake file to be written is the same as the one already present.
+  # If it is, we do not write a new one. This avoids unnecessary rebuilding.
+  my $str1 = join('^G', @cmakelines);
+  my $str2 = join('^G', @cmakelinesold);
+  $isequal = 0;
+  if ($str1 eq $str2) { $isequal = 1; } 
+
+  if ( !( $isequal ))
+    {
     $cmakefilehandle = new IO::File $cmakeFile, "w";
     if (!(defined $cmakefilehandle)) { die "Could not open file $cmakeFile\n"; }
     foreach $cmakeline (@cmakelines) {
