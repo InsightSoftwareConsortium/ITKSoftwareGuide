@@ -224,6 +224,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration11.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration12.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistration13.cxx
+  ${ITK_SOURCE_DIR}/Examples/Registration/ImageRegistrationHistogramPlotter.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/MeanSquaresImageMetric1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/DeformableRegistration1.cxx
   ${ITK_SOURCE_DIR}/Examples/Registration/DeformableRegistration2.cxx
