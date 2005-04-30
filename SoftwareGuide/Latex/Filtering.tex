@@ -200,6 +200,8 @@ become background if the numbers of background neighbors is greater or equal
 than 1. In this context, you could imagine variations of Erosion in which the
 count could be changed to require at least 3 foreground.
 
+\subsubsection{Binary Median Filter}
+
 One of the particular cases of Voting filters is the BinaryMedianImageFilter.
 This filter is equivalent to applying a Median filter over a binary image. The
 fact of having a binary image as input makes possible to optimize the execution
@@ -224,16 +226,29 @@ Figure \ref{fig:BinaryMedianImageFilterOutputMultipleIterations} below shows the
 \end{figure}.
 
 
-Other variation of Voting filters is the Hole Filling filter. This filter
+\subsubsection{Hole Filling Filter}
+
+Another variation of Voting filters is the Hole Filling filter. This filter
 converts background pixels into foreground only when the number of foreground
 pixels is a majority of the neighbors. By selecting the size of the majority,
 this filter can be tunned to fill-in holes of different size. To be more
 precise, the effect of the filter is actually related to the curvature of the
 edge in which the pixel is located.
 
+\ifitkFullVersion
+\input{VotingBinaryHoleFillingImageFilter.tex}
+\fi
+
+
+\subsubsection{Iterative Hole Filling Filter}
+
 The Hole Filling filter can be used in an iterative way, by applying it
 repeatedly until no pixel changes. In this context, the filter can be seen as a
 binary variation of a Level Set filter.
+
+\ifitkFullVersion
+\input{VotingBinaryIterativeHoleFillingImageFilter.tex}
+\fi
 
 \section{Smoothing Filters}
 \label{sec:SmoothingFilters}
