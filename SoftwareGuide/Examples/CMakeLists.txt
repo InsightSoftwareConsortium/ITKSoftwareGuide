@@ -181,6 +181,8 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/SubsampleVolume.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/VectorCurvatureAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/VectorGradientAnisotropicDiffusionImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/VotingBinaryHoleFillingImageFilter.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/VotingBinaryIterativeHoleFillingImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/DicomImageReadWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/DicomSeriesReadImageWrite2.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/DicomSeriesReadSeriesWrite.cxx
