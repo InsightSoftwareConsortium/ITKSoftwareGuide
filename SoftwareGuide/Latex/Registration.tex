@@ -59,7 +59,7 @@ sections.  First, we begin with some simple registration examples.
 
 \begin{figure}
 \center
-\includegraphics[width=0.8\textwidth]{ImageRegistrationCoordinateSystemsDiagram.eps}
+\includegraphics[width=0.75\textwidth]{ImageRegistrationCoordinateSystemsDiagram.eps}
 \itkcaption[Registration Coordinate Systems]{Different coordinate systems
 involved in the image registration process. Note that the transform being
 optimized is the one mapping from the physical space of the fixed image
@@ -189,6 +189,21 @@ correctly the results of a registration process performed with ITK.
 
 \section{Multi-Modality Registration}
 \label{sec:MultiModalityRegistration}
+
+Some of the most challenging cases of image registration arise when images of
+different modalities are involved. In such cases, metrics based on direct
+comparison of gray levels are not applicable. It has been extensively shown
+that metrics based on the evaluation of mutual information is the best way to
+overcome the difficulties of multi-modality registration.
+
+\index{itk::Image\-Registration\-Method!Multi-Modality}
+
+The concept of Mutual Information is derived from Information Theory and its
+application to image registration has been proposed in different forms by
+different groups \cite{Collignon1995,Maes97,Viola1997}, a more detailed review
+can be found in \cite{Hajnal2001,Pluim2003}. The Insight Toolkit currently
+provides five different implementations of Mutual Information metrics. The
+following examples illustrate the practical use of some of these metrics.
 
 \subsection{Viola-Wells Mutual Information}
 \label{sec:MultiModalityRegistrationViolaWells}
