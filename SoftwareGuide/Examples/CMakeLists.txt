@@ -367,7 +367,8 @@ IF( BUILD_FIGURES )
         ARGS      ${RUN_EXAMPLES_SCRIPT} ${example} ${ITK_EXECUTABLES_DIR} "${ITK_DATA_PATHS}" ${ExampleCmakeFile} ${TEX_FILE} ${GeneratedFolder}
       ) 
       # Include each of the generated .cmake files in dependencies list
-      INCLUDE(${ExampleCmakeFile})
+      # only if the file is generated (if it has command line tags)
+      INCLUDE(${ExampleCmakeFile} OPTIONAL)
 
     ENDIF(PERL_FOUND AND RUN_EXAMPLES_SCRIPT)
   ENDFOREACH(example)
