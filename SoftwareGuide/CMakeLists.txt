@@ -88,14 +88,17 @@ IF (BUILD_FIGURES)
   # ADD THE LIST OF INPUT IMAGES YOU WANT FLIPPED HERE. 
   # 
   # NOTE:
-  # If ON, all input images in the list and all outputs that use these images as inputs in cmd line args will be flipped about 'y'. The 
-  # command line argument itself does not run using the flipped images; instead the eps images corresponding to the inputs mentioned in the list
-  # and their output dependencies are flipped for inclusion in the TEX document.
+  # If ON, all input images in the list and all outputs that use these images
+  # as inputs in cmd line args will be flipped about 'y'. The command line
+  # argument itself does not run using the flipped images; instead the eps
+  # images corresponding to the inputs mentioned in the list and their output
+  # dependencies are flipped for inclusion in the TEX document.
 
   OPTION(ITK_FLIP_INPUTS_AND_THEIR_OUTPUTS "Flip the input images specified in CMakeLists and their corresponding outputs" ON)
   SET(ITK_FLIP_IMG
     BrainProtonDensitySlice
     BrainT1Slice
+    BrainT1SliceBorder20
     BrainProtonDensitySliceBorder20
     VisibleWomanEyeSlice
     VisibleWomanHeadSlice
