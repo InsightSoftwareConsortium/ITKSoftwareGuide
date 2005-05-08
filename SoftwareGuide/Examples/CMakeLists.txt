@@ -310,9 +310,12 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Statistics/GaussianDensityFunction.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/Histogram.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/ImageToListAdaptor.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/ImageEntropy1.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/ImageHistogram1.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/ImageHistogram2.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/ImageHistogram3.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/ImageHistogram4.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/ImageMutualInformation1.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/KdTree.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/KdTreeBasedKMeansClustering.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/ListSample.cxx
@@ -321,14 +324,17 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Statistics/MaximumDecisionRule.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/MaximumRatioDecisionRule.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/MembershipSample.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/MembershipSampleGenerator.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/MinimumDecisionRule.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/NeighborhoodSampler.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/PointSetToListAdaptor.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/PointSetToAdaptor.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/NormalVariateGenerator.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/SampleSorting.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/SampleStatistics.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/SampleToHistogramProjectionFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/Subsample.cxx
+  ${ITK_SOURCE_DIR}/Examples/Statistics/SelectiveSubsampleGenerator.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/WeightedSampleStatistics.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/ScalarImageKmeansModelEstimator.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/ScalarImageKmeansClassifier.cxx
