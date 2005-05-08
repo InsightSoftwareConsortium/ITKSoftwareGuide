@@ -318,15 +318,20 @@ measures that have some relevance in terms of Information Theory
 \subsubsection{Computing Image Entropy}
 \label{sec:ComputingImageEntropy}
 
+\index{Entropy!What's wrong in images}
+
 The concept of Entropy has been introduced into image processing as a crude
 mapping from its application in Communications. The notions of Information
 Theory can be decepting and misleading when applied to images because their
 language from Communication Theory does not necessarily maps to what people in
 the Imaging Community use.
 
-For example, it is commonly said that \textrm{the Entropy of an image is a
-measure of the amount of information contained in an image}. This statement is
-fundamentally \textbf{incorrect}. 
+For example, it is commonly said that
+
+\emph{``The Entropy of an image is a measure of the amount of information
+contained in an image''}. 
+
+This statement is fundamentally \textbf{incorrect}. 
 
 The way the notion of Entropy is commonly measured in images is by first
 assuming that the spatial location of a pixel in an image is irrelevant!  That
@@ -338,12 +343,12 @@ commonly considered for communication purposes.
 
 Once the frequency of every pixel value has been estimated, Information Theory
 defines that the amount of uncertainty that an observer will lose by taking one
-pixel and finding its real value to be the one associated with bin $i$ of the
-histogram, is given by $\log_2{p_i}$, where $p_i$ is the frequency in that
+pixel and finding its real value to be the one associated with the i-th bin of the
+histogram, is given by $-\log_2{(p_i)}$, where $p_i$ is the frequency in that
 histogram bin. Since a reduction in uncertainty is equivalent to an increase in
 the amount of information in the observer, we conclude that measuring one pixel
-and finding its level to be in the bin $i$ results in an acquisition of
-$log_2{p_i}$ bits of information\footnote{Note that \textbf{bit} is the unit of
+and finding its level to be in the i-th bin results in an acquisition of
+$-\log_2{(p_i)}$ bits of information\footnote{Note that \textbf{bit} is the unit of
 amount of information. Our modern culture has vulgarized the bit and its
 multiples, the Byte, KiloByte, MegaByte, GigaByte and so on as simple measures
 of the amount of RAM memory and capacity of a hard drive in a computer. In that
@@ -353,6 +358,44 @@ letters will take one million bytes in a hard disk, but it does not necessariy
 has one million bytes of information, since in many cases parts of the file can
 be predicted from others. This is the reason why data compression can manage to
 compact files.}.
+
+Since we could have picked any pixel at random, our chances or picking the ones
+that are associated to the i-th histogram bin are given by $p_i$. Therefore,
+the expected reduction in uncertainty that we can get from measuring the value
+of one pixel is given by
+
+\begin{equation}
+H = - \sum_i{ p_i  \cdot \log_2{(p_i)} }
+\end{equation}
+
+This quantity $H$ is what is usually defined as the Entropy of the image. The
+fact that $H$ is unrelated to the spatial arrangement of the pixels in an image
+shows how little of the real \emph{Image Information} is $H$ actually
+representing. The Entropy of an image, as mesure above, is only a crude
+indication of how the intensity values are spread in the dynamic range of
+intensites. For example, an image with maximum entropy will be the one that has
+a large dynamic range and every value in that range is equally probable. 
+
+The common acceptation of $H$ as a representation of image information has
+terribly undermined the enormous potential on the application of Information
+Theory to image processing and analysis.
+
+The real concepts of Information Theory would require that we define the amount
+of information in an image based on our expectations and prior knowledge from
+that image. In particular, the \emph{Amount of Information} provided by an
+image should measure the number of features that we are not able to predict
+based on our prior knowledge about that image. For example, if we know that we
+are going to analyze a CT scan of the abdomen of an adult human male in the age
+range of 40 to 45, there is already a good deal that we could predict about the
+content of that image.  The real amount of information in the image is the
+representation of the features in the image that we could not predict from
+knowing that it is a CT scan from a human adult male.
+
+The application of Information Theory to image analysis is still in its early
+infancy and it is an exciting an promising field to be explored further. All
+that being said, let's now look closer at how the concept of Entropy (which is
+not the amount of information in an image) can be measured with the ITK
+statistics framework.
 
 \ifitkFullVersion 
 \input{ImageEntropy1.tex}
