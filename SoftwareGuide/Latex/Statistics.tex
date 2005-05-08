@@ -308,13 +308,54 @@ the distribution form of the random variable generation class.
 \subsection{Image Information Theory}
 \label{sec:ComputingImageEntropy}
 
+Many concepts from Information Theory have been used successfully in the domain
+of image processing. This section introduces some of such concepts and
+illustrates how the statistical framework in ITK can be used for computing
+measures that have some relevance in terms of Information Theory.
+
+
 \subsubsection{Computing Image Entropy}
 \label{sec:ComputingImageEntropy}
+
+The concept of Entropy has been introduced into image processing as a crude
+mapping from its application in communications theory. The notions of
+Information Theory can be decepting and misleading when applied to images
+because their language from Communication Theory does not necessarily maps to
+what people in the Imaging Community use.
+
+For example, it is commonly said that \textrm{the Entropy of an image is a
+measure of the amount of information contained in an image}. This statement is
+fundamentally \textbf{incorrect}. 
+
+The way the notion of Entropy is commonly measured in images is by first
+assuming that the spatial location of a pixel in an image is irrelevant!  That
+is, we simply take the statistical distribution of the pixel values as it can
+be evaluated in a histogram and from that histogram we estimate the frequency
+of the value associated to each bin. In other words, we simply assume that the
+image is a set of pixels that are passing through a channel, just as things are
+commonly considered for communication purposes.
+
+Once the frequency of every pixel value has been estimated, Information Theory
+defines that the amount of uncertainty that an observer will lose by taking one
+pixel and finding its real value to be the one associated with bin $i$ of the
+histogram, is given by $\log_2{p_i}$, where $p_i$ is the frequency in that
+histogram bin. Since a reduction in uncertainty is equivalent to an increase in
+the amount of information in the observer, we conclude that measuring one pixel
+and finding its level to be in the bin $i$ results in an acquisition of
+$log_2{p_i}$ bits of information\footnote{Note that \textbf{bit} is the unit of
+amount of information. Our modern culture has vulgarized the bit and its
+multiples, the Byte, KiloByte, MegaByte, GigaByte and so on as simple measures
+of the amount of RAM memory and capacity of a hard drive in a computer. In that
+sense, a confusion is created between the encoding of a piece of data and its
+actual amount of information. For example a file composed of one million
+letters will take one million bytes in a hard disk, but it does not necessariy
+has one million bytes of information, since in many cases parts of the file can
+be predicted from others. This is the reason why data compression can manage to
+compact files.}.
 
 \ifitkFullVersion 
 \input{ImageEntropy1.tex}
 \fi
-
 
 \subsubsection{Computing Images Mutual Information}
 \label{sec:ComputingImagesMutualInformation}
