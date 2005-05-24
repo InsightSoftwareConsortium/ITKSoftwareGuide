@@ -309,8 +309,7 @@ int main( int argc, char *argv[] )
   optimizer->SetMaximumIteration( 1000 );
 
  
-  TransformType::ParametersType parametersScale;
-  parametersScale.resize(Dimension);
+  TransformType::ParametersType parametersScale(Dimension);
 
   parametersScale.Fill( 2.0 );
 
