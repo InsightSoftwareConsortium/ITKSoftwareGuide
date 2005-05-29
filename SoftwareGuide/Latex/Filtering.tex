@@ -475,38 +475,41 @@ patiens whose images you may endup processing.
 \fi
 
 
-\subsubsection{Typical uses of resampling}
-
-These section describes two very common uses of resampling.
-
-First subsampling a volume in order to reduce its memory size, second resample
-the volume in order to have isotropic pixel spacings.
-
-In both cases, it is required to apply a low-pass filter before resampling the
-image. The purpose of this filter is to attenuate the content of high spatial
-frequencies on the input image and therefore prevent aliasing artifacts during
-the resampling. 
+\subsubsection{Subsampling and image in the same space}
+\label{SubsampleVolume}
 
 \ifitkFullVersion
 \input{SubsampleVolume.tex}
 \fi
 
 
+
+\subsubsection{Resampling an Anisotropic image to make it Isotropic}
+\label{ResampleVolumesToBeIsotropic}
+
 \ifitkFullVersion
 \input{ResampleVolumesToBeIsotropic.tex}
 \fi
 
 
+
 \section{Frequency Domain}
 \label{sec:FrequencyDomain}
+
+
+\subsection{Computing a Fast Fourier Transfofm (FFT)}
 
 \ifitkFullVersion
 \input{FFTImageFilter.tex}
 \fi
 
+
+\subsection{Filtering on the Frequency Domain}
+
 \ifitkFullVersion
 \input{FFTImageFilterFourierDomainFiltering.tex}
 \fi
+
 
 
 \section{Extracting Surfaces}
