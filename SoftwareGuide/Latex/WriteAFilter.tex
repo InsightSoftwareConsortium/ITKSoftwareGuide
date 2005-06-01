@@ -120,6 +120,34 @@ a single image as input, and produce a single image on output. The
 superclass \doxygen{ImageToImageFilter} is a convenience class that
 provide most of the functionality needed for such a filter.
 
+Some common base classes for new filters include:
+
+\begin{itemize}
+
+  \item \code{ImageToImageFilter}: the most common filter base for
+    segmentation algorithms.  Takes an image and produces a new image, by
+    default of the same dimensions.  Override
+    \code{GenerateOutputInformation} to produce a different size.
+
+  \item \code{UnaryFunctorImageFilter}: used when defining a filter that
+  applies a function to an image.
+
+  \item \code{BinaryFunctorImageFilter}: used when defining a filter that
+  applies an operation to two images.
+
+  \item \code{ImageFunction}: a functor that can be applied to an image,
+  evaluating $f(x) $ at each point in the image.
+
+  \item \code{MeshToMeshFilter}: a filter that transforms meshes, such as
+  tesselation, polygon reduction, and so on.
+
+  \item \code{LightObject}: abstract base for filters that don't fit well
+  anywhere else in the class hierarchy.  Also useful for ``calculator''
+  filters; ie. a sink filter that takes an input and calculates a result
+  which is retrieved using a \code{Get()} method.
+
+\end{itemize}
+
 Once the appropriate superclass is identified, the filter writer
 implements the class defining the methods required by most all ITK
 objects: \code{New()}, \code{PrintSelf()}, and protected constructor,
@@ -447,3 +475,106 @@ passed as argument into \code{ThreadedGenerateData()}).  If more than one
 thread tries to write to the same place at the same time, the program can
 behave badly, and possibly even deadlock or crash.
 
+
+\section{Filter Conventions}
+
+In order to fully participate in the ITK pipeline, filters are expected to
+follow certain conventions, and provide certain interfaces.  This section
+describes the minimum requirements for a filter to integrate into the ITK
+framework.
+
+The class declaration for a filter should include the macro
+\code{ITK\_EXPORT}, so that on certain platforms an export declaration can be
+included. 
+
+A filter should define public types for the class itself (\code{Self}) and
+its \code{Superclass}, and \code{const} and non-\code{const} smart pointers,
+thus:
+
+\begin{verbatim}
+  typedef ExampleImageFilter                Self;
+  typedef ImageToImageFilter<TImage,TImage> Superclass;
+  typedef SmartPointer<Self>                Pointer;
+  typedef SmartPointer<const Self>          ConstPointer;
+\end{verbatim}
+
+The \code{Pointer} type is particularly useful, as it is a smart pointer
+that will be used by all client code to hold a reference-counted
+instantiation of the filter. 
+
+Once the above types have been defined, you can use the following
+convenience macros, which permit your filter to participate in the object
+factory mechanism, and to be created using the canonical \code{::New()}:
+
+\begin{verbatim}
+  /** Method for creation through the object factory. */
+  itkNewMacro(Self);  
+
+  /** Run-time type information (and related methods). */
+  itkTypeMacro(ExampleImageFilter, ImageToImageFilter);
+\end{verbatim}
+
+The default constructor should be \code{protected}, and provide sensible
+defaults (usually zero) for all parameters.  The copy constructor and
+assignment operator should be declared \code{private} and not implemented,
+to prevent instantiating the filter without the factory methods (above). 
+
+Finally, the template implementation code (in the \code{.txx} file) should
+be included, bracketed by a test for manual instantiation, thus:
+
+\begin{verbatim}
+#ifndef ITK_MANUAL_INSTANTIATION
+#include "itkExampleFilter.txx"
+#endif
+\end{verbatim}
+
+\subsection{Optional}
+
+A filter can be printed to an \code{std::ostream} (such as \code{std::cout})
+by implementing the following method:
+
+\begin{verbatim}
+  void PrintSelf( std::ostream& os, Indent indent ) const;
+\end{verbatim}
+
+\noindent and writing the name-value pairs of the filter parameters to the
+supplied output stream.  This is particularly useful for debugging.
+
+\subsection{Useful Macros}
+
+Many convenience macros are provided by ITK, to simplify filter coding. 
+Some of these are described below:
+
+\begin{itemize}
+\item [itkStaticConstMacro] Declares a static variable of the given type,
+  with the specified initial value. 
+\item [itkGetMacro] Defines an accessor method for the specified scalar data
+  member.  The convention is for data members to have a prefix of
+  \code{m\_}. 
+\item [itkSetMacro] Defines a mutator method for the specified scalar data
+  member, of the supplied type.  This will automatically set the
+  \code{Modified} flag, so the filter stage will be executed on the next
+  \code{Update()}. 
+\item [itkBooleanMacro] Defines a pair of \code{OnFlag} and \code{OffFlag}
+  methods for a boolean variable \code{m\_Flag}.
+\item [itkGetObjectMacro, itkSetObjectMacro] Defines an accessor and mutator
+  for an ITK object.  The Get form returns a smart pointer to the object.
+\end{itemize}
+
+Much more useful information can be learned from browsing the source in
+\code{Code/Common/itkMacro.h} and for the \doxygen{Object} and
+\doxygen{LightObject} classes. 
+
+
+
+%
+% Section on how to write composite filters
+%
+\ifitkFullVersion
+\input{WriteACompositeFilter.tex}
+\fi
+
+
+%
+% TODO: include useful tips from mailing list as flagged
+%
