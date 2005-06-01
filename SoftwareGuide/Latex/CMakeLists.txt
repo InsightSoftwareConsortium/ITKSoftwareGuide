@@ -150,7 +150,6 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   ImageSliceIteratorWithIndex.tex
   ImageToListAdaptor.tex
   IsolatedConnectedImageFilter.tex
-  IsoSurfaceExtraction.tex
   IterativeClosestPoint1.tex
   IterativeClosestPoint2.tex
   IterativeClosestPoint3.tex
@@ -212,6 +211,7 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   SigmoidImageFilter.tex
   SampleSorting.tex
   Subsample.tex
+  SurfaceExtraction.tex
   ThresholdImageFilter.tex
   VectorCurvatureAnisotropicDiffusionImageFilter.tex
   VectorGradientAnisotropicDiffusionImageFilter.tex
