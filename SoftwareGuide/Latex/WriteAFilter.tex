@@ -545,7 +545,7 @@ supplied output stream.  This is particularly useful for debugging.
 Many convenience macros are provided by ITK, to simplify filter coding. 
 Some of these are described below:
 
-\begin{itemize}
+\begin{description}
 \item [itkStaticConstMacro] Declares a static variable of the given type,
   with the specified initial value. 
 \item [itkGetMacro] Defines an accessor method for the specified scalar data
@@ -559,7 +559,7 @@ Some of these are described below:
   methods for a boolean variable \code{m\_Flag}.
 \item [itkGetObjectMacro, itkSetObjectMacro] Defines an accessor and mutator
   for an ITK object.  The Get form returns a smart pointer to the object.
-\end{itemize}
+\end{description}
 
 Much more useful information can be learned from browsing the source in
 \code{Code/Common/itkMacro.h} and for the \doxygen{Object} and
