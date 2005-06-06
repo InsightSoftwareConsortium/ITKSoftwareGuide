@@ -57,14 +57,32 @@ factories.}
 \label{sec:ImagReadExtractWrite}
 \input{ImageReadExtractWrite.tex}
 
+
 \section{Reading and Writing Vector Images}
 \label{sec:VectorImagReadWrite}
 
+Images whose pixel type is a Vector, a CovariantVector, an Array, or a Complex
+are quite common in image processing. It is convenient then to describe rapidly
+how those images can be saved into files and how they can be read from those
+files later on.
+
+\subsection{The Minimal Example}
+\label{VectorImageReadWrite}
+\input{VectorImageReadWrite.tex}
+
+\subsection{Producing and Writing Covariant Images}
+\label{CovariantVectorImageWrite}
 \input{CovariantVectorImageWrite.tex}
 
+\subsection{Reading Covariant Images}
+\label{CovariantVectorImageRead}
 Let's now take the image that we just created and read it into another program.
-
 \input{CovariantVectorImageRead.tex}
+
+
+\section{Reading and Writing Complex Images}
+\label{sec:ComplexImagReadWrite}
+\input{ComplexImageReadWrite.tex}
 
 
 \section{Extracting Components from Vector Images}
