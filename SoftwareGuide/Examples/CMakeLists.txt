@@ -162,6 +162,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/BinomialBlurImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/ThresholdImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/CastingImageFilters.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/CompositeFilterExample.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/CurvatureFlowImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/CurvatureAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/CannyEdgeDetectionImageFilter.cxx
@@ -177,7 +178,7 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientRecursiveGaussianImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GradientAnisotropicDiffusionImageFilter.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/GaussianBlurImageFunction.cxx
-  ${ITK_SOURCE_DIR}/Examples/Filtering/IsoSurfaceExtraction.cxx
+  ${ITK_SOURCE_DIR}/Examples/Filtering/SurfaceExtraction.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/LaplacianRecursiveGaussianImageFilter1.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/LaplacianRecursiveGaussianImageFilter2.cxx
   ${ITK_SOURCE_DIR}/Examples/Filtering/MathematicalMorphologyBinaryFilters.cxx
@@ -220,6 +221,8 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/IO/CovariantVectorImageWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/CovariantVectorImageRead.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/CovariantVectorImageExtractComponent.cxx
+  ${ITK_SOURCE_DIR}/Examples/IO/VectorImageReadWrite.cxx
+  ${ITK_SOURCE_DIR}/Examples/IO/ComplexImageReadWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/Installation/HelloWorld.cxx
   ${ITK_SOURCE_DIR}/Examples/Iterators/ImageLinearIteratorWithIndex.cxx
   ${ITK_SOURCE_DIR}/Examples/Iterators/ImageLinearIteratorWithIndex2.cxx
