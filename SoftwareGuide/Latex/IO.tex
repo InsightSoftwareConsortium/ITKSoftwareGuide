@@ -89,48 +89,79 @@ Let's now take the image that we just created and read it into another program.
 \label{sec:VectorImageExtractComponent}
 \input{CovariantVectorImageExtractComponent.tex}
 
-\section{Reading Image Series}
+
+\section{Reading and Writing Image Series}
+
+It is still quite common to store 3D medical images in sets of files each one
+containing a single slice of a volume dataset. Those 2D files can be read as
+individual 2D images, or can be grouped together in order to reconstruct a 3D
+dataset. The same practice can be extended to higher dimensions, for example
+for managing 4D datasets by using sets of files each one containing a 3D image.
+This practice is common in the domain of cardiac imaging, perfusion, functional
+MRI and PET. This section illustrates the functionalities available in ITK for
+dealing with reading and writing series of images.
+
+\index{Series!Reading}
+\index{Series!Writing}
+\index{Image Series!Reading}
+\index{Image Series!Writing}
+
+\subsection{Reading Image Series}
 \label{sec:ReadingImageSeries}
 \input{ImageSeriesReadWrite.tex}
-\input{RGBImageSeriesReadWrite.tex}
 
-
-\section{Writing Image Series}
+\subsection{Writing Image Series}
 \label{sec:WritingImageSeries}
 \input{ImageReadImageSeriesWrite.tex}
+
+\subsection{Reading and Writing Series of RGB Images}
+\label{sec:ReadingWritingRGBImageSeries}
+\input{RGBImageSeriesReadWrite.tex}
+
 
 \section{Reading and Writing DICOM Images}
 \label{sec:ReadingDicomImageSeries2}
 
 % Small intro to DICOM file format
+\index{DICOM}
+\index{DICOM!Standard}
+\index{DICOM!Series}
+\index{DICOM!Introduction}
 
 \subsection{Foreword}
-ACR (American College of Radiology) and NEMA (National Electrical Manufacturers Association)
-formed a joint committee to develop a standard for Digital Imaging and COmmunications in Medicine (DICOM).
-This standard is developed in liaison with other Standardization Organizations such as CEN TC251, JIRA including IEEE, HL7 and ANSI USA as reviewers.
+ACR (American College of Radiology) and NEMA (National Electrical Manufacturers
+Association) formed a joint committee to develop a standard for Digital Imaging
+and COmmunications in Medicine (DICOM).  This standard is developed in liaison
+with other Standardization Organizations such as CEN TC251, JIRA including
+IEEE, HL7 and ANSI USA as reviewers.
 
-With the introduction of computed tomography (CT) followed by other digital diagnostic imaging modalities such as MRI in the 1970's, and the increasing use of computers in clinical applications, the American
-College of Radiology and the National Electrical Manufacturers Association recognized
-the need for a standard method for transferring images as well as associated information between
-devices manufactured from various vendors.
+With the introduction of computed tomography (CT) followed by other digital
+diagnostic imaging modalities such as MRI in the 1970's, and the increasing use
+of computers in clinical applications, the American College of Radiology and
+the National Electrical Manufacturers Association recognized the need for a
+standard method for transferring images as well as associated information
+between devices manufactured from various vendors.
 
-This DICOM standard was developed based on the previous NEMA specification. 
-DICOM is a comprehensive set of standards for handling, storing and transmitting information in 
-medical imaging. It specify a file format definition as well as a network communication protocol.
-DICOM was developed to enable integration of scanners, servers, workstations and network hardware from
+This DICOM standard was developed based on the previous NEMA specification.
+DICOM is a comprehensive set of standards for handling, storing and
+transmitting information in medical imaging. It specify a file format
+definition as well as a network communication protocol.  DICOM was developed to
+enable integration of scanners, servers, workstations and network hardware from
 multiple vendors into an image archiving and communication system.
 
-DICOM files consist of a header with standardized (also call the public DICOM dictionary, see 
-Insight/Utilities/gdcm/Dict/dicomV3.dic) as well as free-form fields (also called the shadow dictionary) 
-and a body of image data. A single DICOM file can contain multiples frames, 
-allowing storage of volumes or animations. Image data can be compressed using a large variety of 
-standards, including JPEG (both lossy and lossless), LZW and Run-length encoding.
+DICOM files consist of a header with standardized (also call the public DICOM
+dictionary, see Insight/Utilities/gdcm/Dict/dicomV3.dic) as well as free-form
+fields (also called the shadow dictionary) and a body of image data. A single
+DICOM file can contain multiples frames, allowing storage of volumes or
+animations. Image data can be compressed using a large variety of standards,
+including JPEG (both lossy and lossless), LZW and Run-length encoding.
 
-The DICOM Standard is an evolving standard and it is maintained in accordance with the Procedures of
-the DICOM Standards Committee. Proposals for enhancements are forthcoming from the DICOM
-Committee member organizations based on input from users of the Standard. These proposals are
-considered for inclusion in future editions of the Standard. A requirement in updating the Standard is to
-maintain effective compatibility with previous editions.
+The DICOM Standard is an evolving standard and it is maintained in accordance
+with the Procedures of the DICOM Standards Committee. Proposals for
+enhancements are forthcoming from the DICOM Committee member organizations
+based on input from users of the Standard. These proposals are considered for
+inclusion in future editions of the Standard. A requirement in updating the
+Standard is to maintain effective compatibility with previous editions.
 
 For a more detailed description of the DICOM standard see~\cite{DICOMStandard}.
 
