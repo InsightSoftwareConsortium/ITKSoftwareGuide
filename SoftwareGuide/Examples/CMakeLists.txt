@@ -209,6 +209,9 @@ SET( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/IO/DicomImageReadWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/DicomSeriesReadImageWrite2.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/DicomSeriesReadSeriesWrite.cxx
+  ${ITK_SOURCE_DIR}/Examples/IO/DicomImageReadChangeHeaderWrite.cxx
+  ${ITK_SOURCE_DIR}/Examples/IO/DicomImageReadPrintTags.cxx
+  ${ITK_SOURCE_DIR}/Examples/IO/DicomSeriesReadPrintTags.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/ImageReadWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/ImageReadCastWrite.cxx
   ${ITK_SOURCE_DIR}/Examples/IO/ImageReadExtractWrite.cxx
