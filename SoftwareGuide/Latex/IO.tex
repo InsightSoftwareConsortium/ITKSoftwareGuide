@@ -144,9 +144,9 @@ IEEE, HL7 and ANSI USA as reviewers.
 
 DICOM is a comprehensive set of standards for handling, storing and
 transmitting information in medical imaging. The DICOM standard was developed
-based on the previous NEMA specification.  It specify a file format definition
-as well as a network communication protocol. DICOM was developed to enable
-integration of scanners, servers, workstations and network hardware from
+based on the previous NEMA specification.  The standard specifies a file format
+definition as well as a network communication protocol. DICOM was developed to
+enable integration of scanners, servers, workstations and network hardware from
 multiple vendors into an image archiving and communication system.
 
 DICOM files consist of a header and a body of image data. The header contains
@@ -171,8 +171,8 @@ For a more detailed description of the DICOM standard see~\cite{DICOMStandard}.
 
 The following sections illustrate how to use the functionalities that ITK
 provides for reading and writing DICOM files. This is extremely important in
-the domain of medical imaging since most all the images that are acquired a
-clinical setting are stored and transported using the DICOM specification.
+the domain of medical imaging since most of the images that are acquired a
+clinical setting are stored and transported using the DICOM standard.
 
 DICOM functionalities in ITK are provided by the GDCM library. This open source
 library was developed by the Creatis Laboratory~\footnote{INSA Lyon:
@@ -182,7 +182,11 @@ License\footnote{http://www.gnu.org/copyleft/lesser.html}, the Creatis group
 was lucid enough to understand the limitations of that license and agreed to
 adopt the more open BSD-like
 License\footnote{http://www.opensource.org/licenses/bsd-license.php} that is
-used by ITK. This change made possible to distribute GDCM along with ITK.
+used by ITK. This change in their licensing made possible to distribute GDCM
+along with ITK.
+
+GDCM is still being maintained and improved at the original Creatis site and
+the version in ITK gets updated with major releases of the GDCM library.
 
 \subsection{Reading and writing a 2D image}
 \label{DicomImageReadWrite}
