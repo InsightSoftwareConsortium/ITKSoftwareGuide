@@ -41,6 +41,68 @@ factories.}
 \label{fig:ImageIOFactoriesClassDiagram}
 \end{figure}
 
+
+The following section describes the internals of the IO architecture provided
+in the toolkit.
+
+\section{Pluggable Factories}
+\label{sec:ImageIOPluggableFactories}
+
+The principle behind the input/output mechanism used in ITK is known as
+\emph{pluggable-factories} \cite{Gamma1995}. This concept is illustrated in
+the UML diagram in Figure~\ref{fig:ImageIOCollaborationDiagram}. From the
+user's point of view the objects responsible for reading and writing files
+are the \doxygen{ImageFileReader} and \doxygen{ImageFileWriter}
+classes. These two classes, however, are not aware of the details involved in
+reading or writing particular file formats like PNG or DICOM.  What they do
+is to dispatch the user's requests to a set of specific classes that are
+aware of the details of image file formats. These classes are the
+\doxygen{ImageIO} classes. The ITK delegation mechanism enables users to
+extend the number of supported file formats by just adding new classes to the
+ImageIO hierarchy.
+
+Each instance of ImageFileReader and ImageFileWriter has
+a pointer to an ImageIO object. If this pointer is empty, it will
+be impossible to read or write an image and the image file reader/writer must
+determine which ImageIO class to use to perform IO operations.
+This is done basically by passing the filename to a centralized class, the
+\doxygen{ImageIOFactory} and asking it to identify any subclass of
+ImageIO capable of reading or writing the user-specified file. This
+is illustrated by the use cases on the right side of
+Figure~\ref{fig:ImageIOFactoriesUseCases}.
+
+Each class derived from ImageIO must provide an associated factory
+class capable of producing an instance of the ImageIO class. For
+example, for PNG files, there is a \doxygen{PNGImageIO} object that knows how
+to read this image files and there is a \doxygen{PNGImageIOFactory} class
+capable of constructing a PNGImageIO object and returning a pointer
+to it.  Each time a new file format is added (i.e., a new ImageIO
+subclass is created), a factory must be implemented as a derived class of the
+ImageIOFactory class as illustrated in
+Figure~\ref{fig:ImageIOFactoriesClassDiagram}.
+
+For example, in order to read PNG files, a PNGImageIOFactory is
+created and registered with the central ImageIOFactory
+singleton\footnote{\emph{Singleton} means that there is only one instance of
+this class in a particular application} class as illustrated in the left side
+of Figure~\ref{fig:ImageIOFactoriesUseCases}. When the ImageFileReader asks
+the ImageIOFactory for an ImageIO capable of reading the
+file identified with \emph{filename} the ImageIOFactory will iterate over the
+list of registered factories and will ask each one of them is they know how
+to read the file. The factory that responds affirmatively will be used to
+create the specific ImageIO instance that will be returned to the
+ImageFileReader and used to perform the read operations.
+
+In most cases the mechanism is transparent to the user who onlt interacts
+with the ImageFileReader and ImageFileWriter. It is
+possible, however, to explicitly select the type of ImageIO object
+to use.  This is illustrated by the following example.
+
+\section{Using ImageIO Classes Explicitly}
+\label{sec:ImageReadExportVTK}
+\input{ImageReadExportVTK.tex}
+
+
 \section{Reading and Writing RGB Images}
 \label{sec:RGBImagReadWrite}
 \input{RGBImageReadWrite.tex}
@@ -203,79 +265,16 @@ library.
 \input{DicomSeriesReadSeriesWrite.tex}
 
 \subsection{Printing out DICOM tags from one slice}
-\label{DicomSeriesReadPrintTags}
-\input{DicomSeriesReadPrintTags.tex}
-
-\subsection{Printing out DICOM tags from a serie}
 \label{DicomImageReadPrintTags}
 \input{DicomImageReadPrintTags.tex}
+
+\subsection{Printing out DICOM tags from a serie}
+\label{DicomSeriesReadPrintTags}
+\input{DicomSeriesReadPrintTags.tex}
 
 \subsection{Changing a DICOM header}
 \label{DicomImageReadChangeHeaderWrite}
 \input{DicomImageReadChangeHeaderWrite.tex}
-
-
-
-The following section describes the internals of the IO architecture provided
-in the toolkit.
-
-\section{Pluggable Factories}
-\label{sec:ImageIOPluggableFactories}
-
-The principle behind the input/output mechanism used in ITK is known as
-\emph{pluggable-factories} \cite{Gamma1995}. This concept is illustrated in
-the UML diagram in Figure~\ref{fig:ImageIOCollaborationDiagram}. From the
-user's point of view the objects responsible for reading and writing files
-are the \doxygen{ImageFileReader} and \doxygen{ImageFileWriter}
-classes. These two classes, however, are not aware of the details involved in
-reading or writing particular file formats like PNG or DICOM.  What they do
-is to dispatch the user's requests to a set of specific classes that are
-aware of the details of image file formats. These classes are the
-\doxygen{ImageIO} classes. The ITK delegation mechanism enables users to
-extend the number of supported file formats by just adding new classes to the
-ImageIO hierarchy.
-
-Each instance of ImageFileReader and ImageFileWriter has
-a pointer to an ImageIO object. If this pointer is empty, it will
-be impossible to read or write an image and the image file reader/writer must
-determine which ImageIO class to use to perform IO operations.
-This is done basically by passing the filename to a centralized class, the
-\doxygen{ImageIOFactory} and asking it to identify any subclass of
-ImageIO capable of reading or writing the user-specified file. This
-is illustrated by the use cases on the right side of
-Figure~\ref{fig:ImageIOFactoriesUseCases}.
-
-Each class derived from ImageIO must provide an associated factory
-class capable of producing an instance of the ImageIO class. For
-example, for PNG files, there is a \doxygen{PNGImageIO} object that knows how
-to read this image files and there is a \doxygen{PNGImageIOFactory} class
-capable of constructing a PNGImageIO object and returning a pointer
-to it.  Each time a new file format is added (i.e., a new ImageIO
-subclass is created), a factory must be implemented as a derived class of the
-ImageIOFactory class as illustrated in
-Figure~\ref{fig:ImageIOFactoriesClassDiagram}.
-
-For example, in order to read PNG files, a PNGImageIOFactory is
-created and registered with the central ImageIOFactory
-singleton\footnote{\emph{Singleton} means that there is only one instance of
-this class in a particular application} class as illustrated in the left side
-of Figure~\ref{fig:ImageIOFactoriesUseCases}. When the ImageFileReader asks
-the ImageIOFactory for an ImageIO capable of reading the
-file identified with \emph{filename} the ImageIOFactory will iterate over the
-list of registered factories and will ask each one of them is they know how
-to read the file. The factory that responds affirmatively will be used to
-create the specific ImageIO instance that will be returned to the
-ImageFileReader and used to perform the read operations.
-
-In most cases the mechanism is transparent to the user who onlt interacts
-with the ImageFileReader and ImageFileWriter. It is
-possible, however, to explicitly select the type of ImageIO object
-to use.  This is illustrated by the following example.
-
-
-\section{Using ImageIO Classes Explicitly}
-\label{sec:ImageReadExportVTK}
-\input{ImageReadExportVTK.tex}
 
 
 
