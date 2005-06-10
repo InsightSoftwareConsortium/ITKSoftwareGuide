@@ -129,7 +129,7 @@ in order to map the moving image into the discrete grid of the fixed image.
 
 There are exceptional cases in which the transform that you want is actually
 the inverse transform of the one computed by the ITK registration framework.
-Only in those cases you may have to recur to invoking the \code{GetInverse}
+Only in those cases you may have to recur to invoking the \code{GetInverse()}
 method that most transform offer.  Make sure that before you consider following
 that dark path, you interact with the examples of resampling illustrated in
 section~\ref{sec:GeometricalTransformationFilters} in order to get familiar
@@ -177,7 +177,7 @@ image.
 In order to better understand this concepts, it is very useful to draw sketches
 of the fixed and moving image {\em at scale} in the same physical coordinate
 system. That is the geometrical configuration that the ITK registration
-framework uses as context. Keeping this in mind help a lot for interpreting
+framework uses as context. Keeping this in mind helps a lot for interpreting
 correctly the results of a registration process performed with ITK.
 
 \section{Monitoring Registration}
