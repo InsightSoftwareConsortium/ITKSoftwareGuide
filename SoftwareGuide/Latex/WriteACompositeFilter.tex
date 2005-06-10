@@ -1,29 +1,36 @@
 
 \section{How To Write A Composite Filter}
 
-In general, most ITK filters implement one particular algorithm, whether it
-be image filtering, an information metric, or a segmentation algorithm.  In
-the previous section, we saw how to write new filters from scratch.
-However, it is often very useful to be able to make a new filter by
-combining two or more existing filters, which can then be used as a building
-block in a complex pipeline.  This approach follows the Composite pattern
-\cite{Gamma1995}, whereby the composite filter itself behaves just as a
-regular filter, providing its own (potentially higher level) interface and
-using other filters (whose detail is hidden to users of the class) for the
-implementation.  This composite structure is shown in
-Figure~\ref{fig:compostruct}, where the various \code{Stage-n} filters are
-combined into one by the \code{Composite} filter.  The \code{Source} and
-\code{Sink} filters only see the interface published by the
-\code{Composite}.  Using the Composite pattern, a composite filter can
+In general, most ITK filters implement one particular algorithm, whether it be
+image filtering, an information metric, or a segmentation algorithm.  In the
+previous section, we saw how to write new filters from scratch.  However, it is
+often very useful to be able to make a new filter by combining two or more
+existing filters, which can then be used as a building block in a complex
+pipeline.  This approach follows the Composite pattern \cite{Gamma1995},
+whereby the composite filter itself behaves just as a regular filter, providing
+its own (potentially higher level) interface and using other filters (whose
+detail is hidden to users of the class) for the implementation.  This composite
+structure is shown in Figure~\ref{fig:CompositeFilterStages}, where the various
+\code{Stage-n} filters are combined into one by the \code{Composite} filter.
+The \code{Source} and \code{Sink} filters only see the interface published by
+the \code{Composite}.  Using the Composite pattern, a composite filter can
 encapsulate a pipeline of arbitrary complexity.  These can in turn be nested
 inside other pipelines.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{CompositeExamplePipeline.eps}
+  \includegraphics[width=0.8\textwidth]{CompositeFilterStages.eps}
   \caption{A Composite filter encapsulates a number of other filters.} 
-  \label{fig:compstruct}
+  \label{fig:CompositeFilterStages}
 \end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{CompositeExamplePipeline.eps}
+  \caption{Example of a typical composite filter. Note that the output of the last filter in the internal pipeline must be grafted into the output of the composite filter.} 
+  \label{fig:CompositeExamplePipeline}
+\end{figure}
+
 
 \subsection{Implementing a Composite Filter}
 
@@ -58,7 +65,7 @@ discussed above), but the following guidelines should be considered:
 
 \end{enumerate}
 
-This grafting process is illustrated in Figure~\ref{fig:CompositeGraft}. 
+This grafting process is illustrated in Figure~\ref{fig:CompositeExamplePipeline}. 
 
 \subsubsection{A Simple Example}
 
