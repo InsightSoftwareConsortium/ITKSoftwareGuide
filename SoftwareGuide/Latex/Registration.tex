@@ -18,13 +18,13 @@ application.
 
 
 \section{Registration Framework}
-The components of the registration framework and their interconnections 
-are shown in Figure \ref{fig:RegistrationComponents}. The basic
-input data to the registration process are two images: one
-is defined as the \emph{fixed} image $f(\bf{X})$ and the other as the
-\emph{moving} image $m(\bf{X})$. Registration is treated as an optimization problem
-with the goal of finding the spatial mapping that will bring the moving image into 
-alignment with the fixed image.
+The components of the registration framework and their interconnections are
+shown in Figure \ref{fig:RegistrationComponents}. The basic input data to the
+registration process are two images: one is defined as the \emph{fixed} image
+$f(\bf{X})$ and the other as the \emph{moving} image $m(\bf{X})$. Where
+$\bf{X}$ represents a position in N-dimensional space. Registration is treated
+as an optimization problem with the goal of finding the spatial mapping that
+will bring the moving image into alignment with the fixed image.
 
 \begin{figure}
 \center
@@ -36,15 +36,13 @@ interpolator and an optimizer.}
 \end{figure}
 
 The \emph{transform} component $T(\bf{X})$ represents the spatial mapping of
-points from the fixed image space to points in the moving image space. Note
-that this definition is inverse to the usual view of image transformation.
-Using the \emph{inverse} transform is typical in registration as it avoids the
-potential problems of ``holes'' with the forward transform. The \emph{interpolator}
-is used to evaluate moving image intensity at non-grid positions. The
-\emph{metric} component $S(f,m \circ T)$ provides a measure of how well the
-fixed image is matched by the transformed moving image. This measure forms the
-quantitative criterion to be optimized by the \emph{optimizer} over the search
-space defined by the parameters of the \emph{transform}.
+points from the fixed image space to points in the moving image space. The
+\emph{interpolator} is used to evaluate moving image intensities at non-grid
+positions. The \emph{metric} component $S(f,m \circ T)$ provides a measure of
+how well the fixed image is matched by the transformed moving image. This
+measure forms the quantitative criterion to be optimized by the
+\emph{optimizer} over the search space defined by the parameters of the
+\emph{transform}.
 
 These various ITK registration components will be described in later
 sections.  First, we begin with some simple registration examples.
