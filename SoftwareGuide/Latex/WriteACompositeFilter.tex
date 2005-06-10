@@ -19,18 +19,10 @@ inside other pipelines.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{CompositeFilterStages.eps}
+  \includegraphics[width=0.9\textwidth]{CompositeFilterStages.eps}
   \caption{A Composite filter encapsulates a number of other filters.} 
   \label{fig:CompositeFilterStages}
 \end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.8\textwidth]{CompositeExamplePipeline.eps}
-  \caption{Example of a typical composite filter. Note that the output of the last filter in the internal pipeline must be grafted into the output of the composite filter.} 
-  \label{fig:CompositeExamplePipeline}
-\end{figure}
-
 
 \subsection{Implementing a Composite Filter}
 
@@ -40,12 +32,13 @@ discussed above), but the following guidelines should be considered:
 
 \begin{enumerate}
 
-\item The template arguments it takes must be sufficient to instantiate all
-  of the component filters.  Each component filter needs a type supplied by
-  either the implementor or the enclosing class.  For example, an
-  \code{ImageToImageFilter} normally takes an input and output image type
-  (which may be the same).  But if the output of the composite filter is a
-  classified image, we need to either decide on the output type
+\item The template arguments it takes must be sufficient to instantiate all of
+the component filters.  Each component filter needs a type supplied by either
+the implementor or the enclosing class.  For example, an
+\code{ImageToImageFilter} normally takes an input and output image type (which
+may be the same).  But if the output of the composite filter is a classified
+image, we need to either decide on the output type inside the composite filter,
+or restrict the choices of the user when she/he instantiates the filter.
 
 \item The types of the component filters should be declared in the header,
   preferably with \code{protected} visibility.  This is because the
@@ -67,7 +60,15 @@ discussed above), but the following guidelines should be considered:
 
 This grafting process is illustrated in Figure~\ref{fig:CompositeExamplePipeline}. 
 
-\subsubsection{A Simple Example}
+
+\subsection{A Simple Example}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.9\textwidth]{CompositeExamplePipeline.eps}
+  \caption{Example of a typical composite filter. Note that the output of the last filter in the internal pipeline must be grafted into the output of the composite filter.} 
+  \label{fig:CompositeExamplePipeline}
+\end{figure}
 
 \input{CompositeFilterExample.tex}
 
