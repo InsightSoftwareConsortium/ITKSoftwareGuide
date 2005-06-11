@@ -2,13 +2,13 @@
 set xlabel "Iteration No."
 set ylabel "Mutual Information Viola-Wells"
 
-set terminal postscript color 
+set terminal postscript portrait eps color 
 
 set output "ImageRegistration2TraceMetric.eps"
-plot "ImageRegistration2OutputCleaned.txt" using 1:2 notitle with lines lt 1, "ImageRegistration2OutputCleaned.txt" using 1:2 notitle with points lt 0 pt 12 ps 2
+plot "ImageRegistration2OutputCleaned.txt" using 1:2 notitle with lines lt 1, "ImageRegistration2OutputCleaned.txt" using 1:2 notitle with points lt 0 pt 12 ps 1
  
 set output "ImageRegistration2TraceMetric2.eps"
-plot [0:99] "ImageRegistration2OutputCleaned.txt" using 1:2 notitle with lines lt 1, "ImageRegistration2OutputCleaned.txt" using 1:2 notitle with points lt 0 pt 12 ps 2
+plot [150:200] "ImageRegistration2OutputCleaned.txt" using 1:2 notitle with lines lt 1, "ImageRegistration2OutputCleaned.txt" using 1:2 notitle with points lt 0 pt 12 ps 1
 
 
 
