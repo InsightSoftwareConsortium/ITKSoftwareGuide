@@ -1,0 +1,34 @@
+set terminal postscript portrait eps color "Times Roman" 12
+
+
+
+set xlabel "Iteration No."
+set ylabel "Mutual Information Mattes"
+
+set output "ImageRegistration4TraceMetric.eps"
+plot "ImageRegistration4OutputCleaned.txt" using 1:2 notitle with lines lt 1, "ImageRegistration4OutputCleaned.txt" using 1:2 notitle with points lt 0 pt 12 ps 1
+ 
+#set output "ImageRegistration4TraceMetric2.eps"
+#plot [150:200] "ImageRegistration4OutputCleaned.txt" using 1:2 notitle with lines lt 1, "ImageRegistration4OutputCleaned.txt" using 1:2 notitle with points lt 0 pt 12 ps 1
+
+
+
+
+set xlabel "X Translations (mm)"
+set ylabel "Y Translations (mm)"
+
+set parametric
+set size square
+
+set output "ImageRegistration4TraceTranslations.eps"
+plot "ImageRegistration4OutputCleaned.txt" using 3:4 notitle with lines lt 1, "ImageRegistration4OutputCleaned.txt" using 3:4 notitle with points lt 0 pt 12 ps 1
+
+set trange [150:200]
+set xrange [12.5:13.5] 
+set yrange [16.5:17.5]
+
+#set output "ImageRegistration4TraceTranslations2.eps"
+#plot "ImageRegistration4OutputCleaned.txt" using 3:4 notitle with lines lt 1, "ImageRegistration4OutputCleaned.txt" using 3:4 notitle with points lt 0 pt 12 ps 1
+
+
+

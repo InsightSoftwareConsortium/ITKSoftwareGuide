@@ -1,0 +1,35 @@
+set terminal postscript portrait eps color "Times Roman" 12
+
+
+set xlabel "X Translations (mm)"
+set ylabel "Y Translations (mm)"
+
+set parametric
+set size square
+
+set output "ImageRegistration4TraceTranslationsNumberOfBins.eps"
+
+plot "ImageRegistration4OutputCleaned10.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned11.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned12.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned13.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned14.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned15.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned16.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned17.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned18.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned19.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned20.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned21.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned22.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned23.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned24.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned25.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned26.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned27.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned28.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned29.txt" using 3:4 notitle with lines lt 1, \
+     "ImageRegistration4OutputCleaned30.txt" using 3:4 notitle with lines lt 1
+
+
+
