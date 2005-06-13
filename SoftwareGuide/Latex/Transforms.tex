@@ -1,6 +1,7 @@
 
 \def\tableconfiguration{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} | }
 
+
 \index{itk::Transform}
 
 \index{Vector!Geometrical Concept}
@@ -155,7 +156,6 @@ by their correct name.
 A \doxygen{FixedArray} is an enumerated collection with a fixed number of
 elements. You can instantiate a fixed array of letters, or a fixed array of
 images, or a fixed array of transforms, or a fixed array of geometrical shapes.
-
 Therefore, the FixedArray only implements the functionality that is necesary to
 access those enumerated elements. No assumptions can be made at this point on
 any other operations required by the elements of the FixedArray, except the
@@ -227,13 +227,13 @@ parameters.
 
 Another requirement that the registration framework imposes on the transform
 classes is the computation of their Jacobians. In general, metrics require
-the knowledge of the Jacobian in order to compute the metric derivatives.
+the knowledge of the Jacobian in order to compute Metric derivatives.
 The Jacobian is a matrix whose element are the partial derivatives of the
 output point with respect to the array of parameters that defines the
 transform:\footnote{Note that the term \emph{Jacobian} is also commonly used
 for the matrix representing the derivatives of output point coordinates with
 respect to input point coordinates. Sometimes the term is loosely used to
-refer to the determinant of such a matrix.}
+refer to the determinant of such a matrix.~\cite{Dodson1997}}
 
 \begin{equation}
 J=\left[ \begin{array}{cccc}
