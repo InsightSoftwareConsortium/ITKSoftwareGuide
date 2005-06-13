@@ -52,8 +52,51 @@ a file.
 
 
 \subsection{RGB Images}
-\label{sec:DefiningRGBImages}
 
+ RGB is a representation a human physiological capability to
+analyze visual light using three sprectral
+sensors~\cite{Malacara2002,Wyszecki2000}.  The RGB space is not a vector space.
+For example, negative numbers are not appropriate in a color space because they
+will be the equivalent of 'negative stimulation' on the human eye. People in
+colorimetry use negative color values as an artificial construct for color
+comparision in the sense that
+
+         ColorA = ColorB - ColorC
+
+just as a way of saying that they can produce ColorB by combining ColorA and
+ColorB.  But they are aware that (at least in emitted light) it is not possible
+to \emph{substract light}. So when we say
+
+         ColorA = ColorB - ColorC
+
+we actually mean
+
+         ColorB = ColorA + ColorC
+
+On the other hand, when dealing with printed color and with paint
+(as opposed to emmitted light like in computer screens) the physical
+behavior of color allows for subtraction, because strictly speaking
+the objects that you see as red are those that absorb all light
+frequencies except those in the red section of the spectrum.
+
+The concept of addition and subtraction of colors has to be carefully
+interpreted. In fact, RGB has a different definition regarding you are talking
+about the channels associated to the three color sensors of the human eye, or
+to the three phosphors found in most computer screeens or to the color inks
+that are used for printing reproduction.  Color spaces are usually non linear
+and do not even from a group~\cite{Wyszecki2000}.
+
+The \doxygen{RGBPixel} type, embodies a different concept from the ones of
+\doxygen{Vectors} in space.
+
+When you anticipate to perform the operation of "Mean" on a RGB type
+you are assuming that in the color space provides the action of finding
+a color "in the middle" of two colors, can be found by using a linear
+operation between their numerical representation. This is unfortunately
+not the case in  color spaces due to the fact that they are based on
+human perception.
+
+\label{sec:DefiningRGBImages}
 \input{RGBImage.tex}
 
 
