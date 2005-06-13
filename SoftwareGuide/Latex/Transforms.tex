@@ -133,15 +133,8 @@ The Insight Toolkit deals with real objects that inhabit the physical space.
 This is particularly true in the context of the image registration framework.
 We chose to give the appropriate name to the mathematical objects that describe
 geometrical relationships in N-Dimensional space. Is for this reason that we
-explicitly make clear the distincion between
-
-\begin{itemize}
-\item Point
-\item Vector
-\item CovariantVector
-\end{itemize}
-
-Despite de fact that most people would be happy with a simple use of
+explicitly make clear the distincion between Point, Vector and CovariantVector,
+despite the fact that most people would be happy with a simple use of
 \code{double[3]} for the three concepts and then will proceed to perform all
 sort of conceptually flawed operations such as 
 
@@ -202,7 +195,7 @@ points. Therefore a Vector must satisfy the following basic operations:
 \item Vector = Vector - Vector
 \end{itemize}
 
-A \doxygen{Vector} object is intended to be instantiated over elements that
+An \doxygen{Vector} object is intended to be instantiated over elements that
 support matematical operation such as addition, subtraction and multiplication
 by scalars.
 
