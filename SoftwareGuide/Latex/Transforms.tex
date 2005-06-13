@@ -21,7 +21,7 @@ in ITK for representing basic spatial concepts.
 
 \begin{figure}
 \center
-\includegraphics[width=0.8\textwidth]{GeometricalObjects.eps}
+\includegraphics[width=0.9\textwidth]{GeometricalObjects.eps}
 \itkcaption[Geometrical representation objects in ITK]{Geometric
 representation objects in ITK.}
 \label{fig:GeometricalObjects}
@@ -30,11 +30,11 @@ representation objects in ITK.}
 ITK implements a consistent geometric representation of the space. The
 characteristics of classes involved in this representation are summarized in
 Table~\ref{tab:GeometricalConcepts}. In this regard, ITK takes full advantage
-of the capabilities of Object Oriented programming and resisted the temptation
-of using simple arrays of \code{float} or \code{doubles} in order to represent
+of the capabilities of Object Oriented programming and resists the temptation
+of using simple arrays of \code{float} or \code{double} in order to represent
 geometrical objects. The use of basic arrays would have blurred the important
-distinction between the different geometrical objects and would have allowed
-for the inumerable conceptual and programming errors that result from using a
+distinction between the different geometrical concepts and would have allowed
+for the innumerable conceptual and programming errors that result from using a
 vector where a point is needed or viceversa.
 
 \index{itk::Point!Concept}
@@ -53,18 +53,21 @@ Position in space. In $N$-dimensional space it is represented by an array of
 $N$ numbers associated with space coordinates. \\
 \hline
 \doxygen{Vector} & 
-Relative position between two points. In $N$-dimensional space it is represented
-by an array of $N$ numbers, each one associated with the distance along a
-coordinate axis. Vectors do not have a position in space.\\
+Relative position between two points. In $N$-dimensional space it is
+represented by an array of $N$ numbers, each one associated with the distance
+along a coordinate axis. Vectors do not have a position in space. A vector is
+defined as the subtraction of two points.\\
 \hline
 \doxygen{CovariantVector} & Orthogonal direction to a $(N-1)$-dimensional
 manifold in space. For example, in $3D$ it corresponds to the vector orthogonal
-to a surface. This is the appropriate class for representing gradients of
-functions. Covariant vectors do not have a position in space.\\
+to a surface. This is the appropriate class for representing Gradients of
+functions. Covariant vectors do not have a position in space. Covariant vector
+should not be added to Points, nor to Vectors.\\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Geometrical Elementary Objects]{Summary of objects representing geometrical concepts in ITK.\label{tab:GeometricalConcepts}}
+\itkcaption[Geometrical Elementary Objects]{Summary of objects representing
+geometrical concepts in ITK.\label{tab:GeometricalConcepts}}
 \end{table}
 
 
@@ -89,12 +92,13 @@ are transformed using the methods \code{TransformPoint()},
 One of the classes that deserve further comments is the \doxygen{Vector}. This
 ITK class tend to be misinterpreted as a container of elements instead of a
 geometrical object. This is a common misconception originated by the fact that
-Computer Scientist and Software Engineers misuse the term ``Vector''.  The word
-"Vector" was coined by William Hamilton in his book ``emph{Elements of
-Quaternions}'' published in 1886 (post-mortem)\cite{Hamilton1866}.  In the same
-text Hamilton coined the terms: ``\emph{Scalar}'', ``\emph{Versor}'' and
-``\emph{Tensor}''.  Although the modern term of ``\emph{Tensor}'' is used in
-Calculus in a different sense of what Hamilton defined at the time.
+Computer Scientist and Software Engineers misuse the term ``Vector''.  The
+actual word ``Vector'' is relatively young. It was coined by William Hamilton
+in his book ``\emph{Elements of Quaternions}'' published in 1886
+(post-mortem)\cite{Hamilton1866}.  In the same text Hamilton coined the terms:
+``\emph{Scalar}'', ``\emph{Versor}'' and ``\emph{Tensor}''.  Although the
+modern term of ``\emph{Tensor}'' is used in Calculus in a different sense of
+what Hamilton defined in his book at the time~\cite{Dodson1997}.
 
 A ``\emph{Vector}'' is, by definition, a mathematical object that embodies the
 concept of ``direction in space''. Strictly speaking, a Vector describes the
@@ -105,10 +109,10 @@ Computer scientists and software engineers missused the term vector in order to
 represent the concept of an ``Indexed Set''~\cite{Austern1999}.  Mechanical
 Engineers and Civil Engineers, who deal with the real world of physical objects
 will not commit this mistake and will keep the word ``\emph{Vector}'' attached
-to a geometrical concept.  Biologist, on the other hand will associate
+to a geometrical concept.  Biologists, on the other hand, will associate
 ``\emph{Vector}'' to a ``vehicle'' that allows them to direct something in a
-particular direction, for example, a virus that allows to insert pieces of code
-in a DNA strand~\cite{Lodish2000}.
+particular direction, for example, a virus that allows them to insert pieces of
+code into a DNA strand~\cite{Lodish2000}.
 
 Textbooks in programming do not help to clarify those concepts and losely use
 the term ``\emph{Vector}'' for the purpose of representing an ``Enumerated set
