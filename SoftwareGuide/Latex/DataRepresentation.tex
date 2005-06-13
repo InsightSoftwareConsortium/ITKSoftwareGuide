@@ -53,31 +53,49 @@ a file.
 
 \subsection{RGB Images}
 
- RGB is a representation a human physiological capability to
-analyze visual light using three sprectral
-sensors~\cite{Malacara2002,Wyszecki2000}.  The RGB space is not a vector space.
-For example, negative numbers are not appropriate in a color space because they
-will be the equivalent of 'negative stimulation' on the human eye. People in
-colorimetry use negative color values as an artificial construct for color
-comparision in the sense that
+The term RGB (Red, Green, Blue) stands for a color representation commonly used
+in digital imaging. RGB is a representation of the human physiological
+capability to analyze visual light using three sprectral
+sensors~\cite{Malacara2002,Wyszecki2000}. The human retina possess different
+types of light sensitive cells. Three of them, known as \emph{cones}, are
+sensitive to color~\cite{Gray2003}. The \emph{rods} on the other hand provide
+no color discrimination and favor high resolution and high
+sensitivity\footnote{The human eye is capable of perceiving a single photon}.
+A fifth type of receptors, the \emph{ganglion cells}, also known as
+circadian\footnote{Circadian refers to the cycle of day and night} receptors
+are sensitive to the lighthing conditions that differentiate day from night.
+These receptors evolved as a mechanism for syncronizing the physiology with the
+time of the day. Cellular controls for circadian rithms are present in every
+cell of an organism and are known to be exquisitively
+precise~\cite{Lodish2000}.  
 
+The RGB space has been constructed as a representation of a physiological
+response to light by tthe three types of \emph{cones} in the human eye. RGB is
+not a vector space. For example, negative numbers are not appropriate in a
+color space because they will be the equivalent of 'negative stimulation' on
+the human eye.  In the context of colorimetry, negative color values are used
+as an artificial construct for color comparision in the sense that
+
+\begin{equation}
+\label{eqn:ColorSubtraction}
          ColorA = ColorB - ColorC
+\end{equation}
 
-just as a way of saying that they can produce ColorB by combining ColorA and
-ColorB.  But they are aware that (at least in emitted light) it is not possible
-to \emph{substract light}. So when we say
+just as a way of saying that we can produce ColorB by combining ColorA and
+ColorB.  However, we must be aware that (at least in emitted light) it is not
+possible to \emph{substract light}. So when we mention
+Equation~\ref{eqn:ColorSubtraction} we actually mean
 
-         ColorA = ColorB - ColorC
-
-we actually mean
-
+\begin{equation}
+\label{eqn:ColorAddition}
          ColorB = ColorA + ColorC
+\end{equation}
 
-On the other hand, when dealing with printed color and with paint
-(as opposed to emmitted light like in computer screens) the physical
-behavior of color allows for subtraction, because strictly speaking
-the objects that you see as red are those that absorb all light
-frequencies except those in the red section of the spectrum.
+On the other hand, when dealing with printed color and with paint, as opposed
+to emmitted light like in computer screens, the physical behavior of color
+allows for subtraction. This is because strictly speaking the objects that you
+see as red are those that absorb all light frequencies except those in the red
+section of the spectrum~\cite{Wyszecki2000}.
 
 The concept of addition and subtraction of colors has to be carefully
 interpreted. In fact, RGB has a different definition regarding you are talking
@@ -86,15 +104,26 @@ to the three phosphors found in most computer screeens or to the color inks
 that are used for printing reproduction.  Color spaces are usually non linear
 and do not even from a group~\cite{Wyszecki2000}.
 
-The \doxygen{RGBPixel} type, embodies a different concept from the ones of
-\doxygen{Vectors} in space.
+ITK introduces the \doxygen{RGBPixel} type as a support for representing the
+values of an RGB color space. As such, the RGBPixel class embodies a different
+concept from the ones of \doxygen{Vectors} in space. For this reason, the
+RGBPixel lack many of the operators that may be naively expected from it. In
+particular, there are no defined operations for subtraction or addition.
 
-When you anticipate to perform the operation of "Mean" on a RGB type
-you are assuming that in the color space provides the action of finding
-a color "in the middle" of two colors, can be found by using a linear
-operation between their numerical representation. This is unfortunately
-not the case in  color spaces due to the fact that they are based on
-human perception.
+When you anticipate to perform the operation of ``Mean'' on a RGB type you are
+assuming that in the color space provides the action of finding a color in the
+middle of two colors, can be found by using a linear operation between their
+numerical representation. This is unfortunately not the case in  color spaces
+due to the fact that they are based on a human physiological
+response~\cite{Malacara2002}.
+
+If you decide to interpret RGB images as simply three independent channels then
+you should rather use the \doxygen{Vector} type as pixel type. In this way, you
+will have accesss to the set of operations that are defined in Vector spaces.
+The current implementation of the RGBPixel in ITK presumes that RGB color
+images are intended to be used in applications where a formal interpretation of
+color is desired, therefore only the operations that are valid in a color space
+are available in the RGBPixel class.
 
 \label{sec:DefiningRGBImages}
 \input{RGBImage.tex}
