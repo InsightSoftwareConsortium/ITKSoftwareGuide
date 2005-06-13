@@ -11,7 +11,7 @@ OUTPUTDATAFILECLEANED1="ImageRegistration5OutputCleaned1.txt"
 #
 $EXAMPLESBINDIR/ImageRegistration5 $DATADIR/BrainProtonDensitySliceBorder20.png $DATADIR/BrainProtonDensitySliceRotated10.png ImageRegistration5Output.png ImageRegistration5DifferenceAfter.png ImageRegistration5DifferenceBefore.png 0.1 | tee $OUTPUTDATAFILE1
 #
-# Take the first 200 lines, and remove the characters "["  "]"  ","
+# Take the first N lines, and remove the characters "["  "]"  ","
 #
 head -n 20 $OUTPUTDATAFILE1 | sed "s/\]/ /g"  | sed "s/\,/ /g"  | sed "s/\[/ /g"  > $OUTPUTDATAFILECLEANED1
 
@@ -23,11 +23,11 @@ OUTPUTDATAFILECLEANED2="ImageRegistration5OutputCleaned2.txt"
 #
 # Execute the example and capture the output.
 #
-$EXAMPLESBINDIR/ImageRegistration5 $DATADIR/BrainProtonDensitySliceBorder20.png $DATADIR/BrainProtonDensitySliceRotated10.png ImageRegistration5Output.png ImageRegistration5DifferenceAfter.png ImageRegistration5DifferenceBefore.png 0.1 | tee $OUTPUTDATAFILE2
+$EXAMPLESBINDIR/ImageRegistration5 $DATADIR/BrainProtonDensitySliceBorder20.png $DATADIR/BrainProtonDensitySliceR10X13Y17.png ImageRegistration5Output.png ImageRegistration5DifferenceAfter.png ImageRegistration5DifferenceBefore.png 1.0 | tee $OUTPUTDATAFILE2
 #
-# Take the first 200 lines, and remove the characters "["  "]"  ","
+# Take the first N lines, and remove the characters "["  "]"  ","
 #
-head -n 20 $OUTPUTDATAFILE2 | sed "s/\]/ /g"  | sed "s/\,/ /g"  | sed "s/\[/ /g"  > $OUTPUTDATAFILECLEANED2
+head -n 46 $OUTPUTDATAFILE2 | sed "s/\]/ /g"  | sed "s/\,/ /g"  | sed "s/\[/ /g"  > $OUTPUTDATAFILECLEANED2
 
 
 #
