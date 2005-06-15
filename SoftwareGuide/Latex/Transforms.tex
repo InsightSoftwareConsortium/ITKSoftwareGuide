@@ -133,7 +133,7 @@ and delete elements, and that may have large numbers of elements.
 The Insight Toolkit deals with real objects that inhabit the physical space.
 This is particularly true in the context of the image registration framework.
 We chose to give the appropriate name to the mathematical objects that describe
-geometrical relationships in N-Dimensional space. Is for this reason that we
+geometrical relationships in N-Dimensional space. It is for this reason that we
 explicitly make clear the distincion between Point, Vector and CovariantVector,
 despite the fact that most people would be happy with a simple use of
 \code{double[3]} for the three concepts and then will proceed to perform all
@@ -147,13 +147,13 @@ sort of conceptually flawed operations such as
 \end{itemize}
 
 In order to enforce the correct use of the Geometrical concepts in ITK we
-organized this classes in a hierarchy that supported reuse of code and yet
+organized these classes in a hierarchy that supports reuse of code and yet
 compartamentalize the behavior of the individual classes.  The use of the
 \doxygen{FixedArray} as base class of the \doxygen{Point}, the \doxygen{Vector}
 and the \doxygen{CovariantVector} was a design decision based on calling things
 by their correct name.
 
-A \doxygen{FixedArray} is an enumerated collection with a fixed number of
+An \doxygen{FixedArray} is an enumerated collection with a fixed number of
 elements. You can instantiate a fixed array of letters, or a fixed array of
 images, or a fixed array of transforms, or a fixed array of geometrical shapes.
 Therefore, the FixedArray only implements the functionality that is necesary to
@@ -179,9 +179,9 @@ In other words, you could do in ITK operations such as:
 and you cannot (because you \textbf{should not}) do operation such as
 
 \begin{itemize}
-\item Point = Point * Scalar    // Invalid Operation !
-\item Point = Point + Point     // Invalid Operation !
-\item Point = Point / Scalar    // Invalid Operation !
+\item Point = Point * Scalar    
+\item Point = Point + Point    
+\item Point = Point / Scalar  
 \end{itemize}
 
 The \doxygen{Vector} is, by Hamilton's definition, the subtraction between two
@@ -250,19 +250,19 @@ J=\left[ \begin{array}{cccc}
 \end{array}\right]
 \end{equation}
 
-$\{p_i\}$ are the transform parameters and $\{x_i\}$ are the
-coordinates of the output point.  Within this framework, the Jacobian is
-represented by an
-Array2D of doubles and is obtained from the transform by method
+where $\{p_i\}$ are the transform parameters and $\{x_i\}$ are the coordinates
+of the output point.  Within this framework, the Jacobian is represented by an
+\doxygen{Array2D} of doubles and is obtained from the transform by method
 \code{GetJacobian()}. The Jacobian can be interpreted as a matrix that
 indicates for a point in the input space how much its mapping on the output
 space will change as a response to a small variation in one of the transform
-parameters. Note that the values of the Jacobian matrix depend on the point
-in the input space. So actually the Jacobian can be noted as $J(\bf{X})$. The
-use of transform Jacobians enables the efficient computation of metric
-derivatives. When Jacobians are not available, metrics derivatives have to be
-computed using finite difference at a price of $2M$ evaluations of the metric
-value, where $M$ is the number of transform parameters.
+parameters. Note that the values of the Jacobian matrix depend on the point in
+the input space. So actually the Jacobian can be noted as $J(\bf{X})$, where
+$\bf{X}=\{x_i\}$. The use of transform Jacobians enables the efficient
+computation of metric derivatives.  When Jacobians are not available, metrics
+derivatives have to be computed using finite difference at a price of $2M$
+evaluations of the metric value, where $M$ is the number of transform
+parameters.
 
 The following sections describe the main characteristics of the transform
 classes available in ITK.
