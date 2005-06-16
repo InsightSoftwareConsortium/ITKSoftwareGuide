@@ -258,7 +258,7 @@ indicates for a point in the input space how much its mapping on the output
 space will change as a response to a small variation in one of the transform
 parameters. Note that the values of the Jacobian matrix depend on the point in
 the input space. So actually the Jacobian can be noted as $J(\bf{X})$, where
-$\bf{X}=\{x_i\}$. The use of transform Jacobians enables the efficient
+${\bf{X}}=\{x_i\}$. The use of transform Jacobians enables the efficient
 computation of metric derivatives.  When Jacobians are not available, metrics
 derivatives have to be computed using finite difference at a price of $2M$
 evaluations of the metric value, where $M$ is the number of transform
@@ -291,11 +291,11 @@ Only defined when the input and output space has the same number of dimensions. 
 \label{tab:IdentityTransformCharacteristics}}
 \end{table}
 
-The identity transform \doxygen{IdentityTransform} is mainly used for
-debugging purposes. It is provided to methods that require one with the
-certainty that the transform will have no effect whatsoever in the outcome of
-the process. It is just a \code{NULL} operation. The main characteristics of
-the identity transform are summarized in
+The identity transform \doxygen{IdentityTransform} is mainly used for debugging
+purposes. It is provided to methods that require a transform and in cases where
+we want to have the certainty that the transform will have no effect whatsoever
+in the outcome of the process. It is just a \code{NULL} operation. The main
+characteristics of the identity transform are summarized in
 Table~\ref{tab:IdentityTransformCharacteristics}
 
 
@@ -324,18 +324,17 @@ Only defined when the input and output space has the same number of dimensions. 
 \label{tab:TranslationTransformCharacteristics}}
 \end{table}
 
-The \doxygen{TranslationTransform} is probably the
-simplest yet one of the most useful transformations.  It maps all points by
-adding a constant value to their coordinates.  Vector and covariant vectors
-remain unchanged under this transformation since they are not associated with
-a particular position in space. Translation is the best transform with which to start a
-registration method. Before attempting to solve for rotations or scaling it
-is important to overlap the anatomical objects in both images as much as
-possible. This is done by resolving the translational misalignment between
-the images. Translations also have the advantage of being fast to compute
-and having parameters that are easy to interpret. The main characteristics of
-the translation transform are presented in
-Table~\ref{tab:TranslationTransformCharacteristics}.
+The \doxygen{TranslationTransform} is probably the simplest yet one of the most
+useful transformations.  It maps all Points by adding a Vector to them.  Vector
+and covariant vectors remain unchanged under this transformation since they are
+not associated with a particular position in space. Translation is the best
+transform to use when starting a registration method. Before attempting to
+solve for rotations or scaling it is important to overlap the anatomical
+objects in both images as much as possible. This is done by resolving the
+translational misalignment between the images. Translations also have the
+advantage of being fast to compute and having parameters that are easy to
+interpret. The main characteristics of the translation transform are presented
+in Table~\ref{tab:TranslationTransformCharacteristics}.
 
 \subsection{Scale Transform}
 \label{sec:ScaleTransform}
@@ -385,9 +384,9 @@ effect of the transform on the basic geometric objects.
 \end{equation}
 
 where $\bf{P}_i$, $\bf{V}_i$ and $\bf{C}_i$ are the point, vector and covariant
-vector $i$-th components while $S_i$ is the scaling factor along dimension $i$.
-The following equation illustrates the effect of the scaling transform on a
-$3D$ point.
+vector $i$-th components while $\bf{S}_i$ is the scaling factor along dimension
+$i-th$.  The following equation illustrates the effect of the scaling transform
+on a $3D$ point.
 
 \begin{equation}
 \left[ 
