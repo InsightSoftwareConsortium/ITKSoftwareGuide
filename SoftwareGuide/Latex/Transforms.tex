@@ -646,9 +646,9 @@ Represents a $2D$ rotation, homogeneous scaling and a $2D$ translation. Note tha
 the translation component has no effect on the transformation of vectors and
 covariant vectors. & 
 4 &
-The first parameter is the angle in radians, the second the scaling factor for
-all dimensions and the last two parameters are the translation in each
-dimension. & 
+The first parameter is the scaling factor for all dimensions, the second is the
+angle in radians, and the last two parameters are the translations in $(x,y)$
+respectively. & 
 Only defined for two-dimensional input and output spaces. \\
 \hline
 \end{tabular}
@@ -657,14 +657,14 @@ Only defined for two-dimensional input and output spaces. \\
 \label{tab:Similarity2DTransformCharacteristics}}
 \end{table}
 
-The \doxygen{Similarity2DTransform} preserves angles. It can be seen as a
-rigid transform plus an isotropic scaling factor. In its $2D$ implementation,
-the four parameters of this transformation combine the characteristics of the
-\doxygen{ScaleTransform} and \doxygen{Euler2DTransform} relating to the
-non-linearity of the parameter space and the non-uniformity of the
-measurement units. Gradient descent optimizers should be used with caution on
-such parameter spaces since the notion of gradient direction and step length
-are ill-defined.
+The \doxygen{Similarity2DTransform} preserves angles. It can be seen as a rigid
+transform plus an isotropic scaling factor. In its $2D$ implementation, the
+four parameters of this transformation combine the characteristics of the
+\doxygen{ScaleTransform} and \doxygen{Euler2DTransform}. In particular, those
+relating to the non-linearity of the parameter space and the non-uniformity of
+the measurement units. Gradient descent optimizers should be used with caution
+on such parameter spaces since the notions of gradient direction and step
+length are ill-defined.
 
 The following equation illustrates the effect of the transform on an input
 point $(x,y)$ that maps to the output point $(x',y')$,
@@ -707,10 +707,10 @@ T_y + C_y \\
 \end{equation}
 
 where $\lambda$ is the scale factor, $\theta$ is the rotation angle,
-$(C_x,C_y)$ are the coordinates of the rotation center and $(T_x,T_y)$ are
-the components of the translation. Note that the center coordinates are
-subtracted before the rotation and scaling, and it is added back afterwards.
-The main features of the Similarity2DTransform are presented in
+$(C_x,C_y)$ are the coordinates of the rotation center and $(T_x,T_y)$ are the
+components of the translation. Note that the center coordinates are subtracted
+before the rotation and scaling, and they are added back afterwards.  The main
+features of the Similarity2DTransform are presented in
 Table~\ref{tab:Similarity2DTransformCharacteristics}.
 
 
