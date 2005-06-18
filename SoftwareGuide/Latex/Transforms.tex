@@ -544,7 +544,7 @@ are presented in Table~\ref{tab:Euler2DTransformCharacteristics}.
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
 \hline\hline
-Represents a $2D$ rotation around an arbitrary center followed by a $2D$ translation.&
+Represents a $2D$ rotation around a user-provided center followed by a $2D$ translation.&
 5 &
 The first parameter is the angle in radians. Second and third are the center of
 rotation coordinates and the last two parameters are the translation in each
@@ -557,37 +557,35 @@ Only defined for two-dimensional input and output spaces. \\
 \label{tab:CenteredRigid2DTransformCharacteristics}}
 \end{table}
 
-\doxygen{CenteredRigid2DTransform} implements a rigid transformation in $2D$. 
+\doxygen{CenteredRigid2DTransform} implements a rigid transformation in $2D$.
 The main difference between this transform and the \doxygen{Euler2DTransform}
 is that here we can specify an arbitrary center of rotation, while the
-Euler2DTransform always uses the origin of the coordinate system as
-the center of rotation. This distinction is quite important in image
-registration since ITK images usually have their origin in the corner of the
-image rather than the middle.  Rotational mis-registrations usually
-exist, however, as rotations around the center of the image, or at least as rotations
-around a point in the middle of the anatomical structure captured by the
-image. Using gradient descent optimizers, it is almost imposible to solve
-non-origin rotations using origin rotations since the deep basin of the real
-solution is across a high ridge in the topography of the cost function.
+Euler2DTransform always uses the origin of the coordinate system as the center
+of rotation. This distinction is quite important in image registration since
+ITK images usually have their origin in the corner of the image rather than the
+middle.  Rotational mis-registrations usually exist, however, as rotations
+around the center of the image, or at least as rotations around a point in the
+middle of the anatomical structure captured by the image. Using gradient
+descent optimizers, it is almost imposible to solve non-origin rotations using
+a transform with origin rotations since the deep basin of the real solution is
+usually located across a high ridge in the topography of the cost function.
 
-In practice, the user must supply the center of
-rotation in the input space, the angle of rotation and a translation to be
-applied after the rotation.
-
-With these parameters, the transform initializes a rotation matrix and a
-transform that performs the equivalent of translating the center of
+In practice, the user must supply the center of rotation in the input space,
+the angle of rotation and a translation to be applied after the rotation. With
+these parameters, the transform initializes a rotation matrix and a translation
+vector that together perform the equivalent of translating the center of
 rotation to the origin of coordinates, rotating by the specified angle,
 translating back to the center of rotation and finally translating by the
 user-specified vector.
 
-As with the Euler2DTransform, this transform suffers from the
-difference in units used for rotations and translations. Rotations are
-measured in radians; hence, their values are in the range $[-\pi,\pi]$. The
-center of rotation and the translations are measured in millimeters, and their
-actual values vary depending on the image modality being considered.
-Registrations involving angles and translations should take advantage of the
-scale normalization functionality in order to get the best performance from 
-the optimizers.
+As with the Euler2DTransform, this transform suffers from the difference in
+units used for rotations and translations. Rotations are measured in radians;
+hence, their values are in the range $[-\pi,\pi]$. The center of rotation and
+the translations are measured in millimeters, and their actual values vary
+depending on the image modality being considered.  Registrations involving
+angles and translations should take advantage of the scale normalization
+functionality of the optimizers in order to get the best performance out of
+them.
 
 The following equation illustrates the effect of the transform on an input
 point $(x,y)$ that maps to the output point $(x',y')$,
