@@ -847,8 +847,9 @@ computing the Jacobian.
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
 \hline\hline
-Represents a $3D$ rotation and a $3D$ translation. The rotation is specified by a
-versor or unit quaternion, while the translation is represented by a vector. &
+Represents a $3D$ rotation and a $3D$ translation. The rotation is specified by
+a versor or unit quaternion, while the translation is represented by a vector.
+Users can specify the coordinates of the center of rotation. &
 6 &
 The first three parameters define the versor and the last three parameters the
 translation in each dimension. &
@@ -860,16 +861,121 @@ Only defined for three-dimensional input and output spaces. \\
 \label{tab:VersorRigid3DTransformCharacteristics}}
 \end{table}
 
-\doxygen{VersorRigid3DTransform} is a close variant of the
-\doxygen{QuaternionRigidTransform}. It can be seen as a 
-\doxygen{VersorTransform} plus a translation defined by a vector. In general
-terms, it implements a rigid transform in $3D$.  The advantage of this class
-with respect to the QuaternionRigidTransform is that it exposes only six
-parameters, three for the versor components and three for the translational
-components. This reduces the search space for the optimizer to six dimensions
-instead of the seven dimensional used by the QuaternionRigidTransform. The
+The \doxygen{VersorRigid3DTransform} implements a rigid transformation in $3D$
+space. It is a variant of the \doxygen{QuaternionRigidTransform} and the
+\doxygen{VersorTransform}. It can be seen as a \doxygen{VersorTransform} plus a
+translation defined by a vector. The advantage of this class with respect to
+the QuaternionRigidTransform is that it exposes only six parameters, three for
+the versor components and three for the translational components. This reduces
+the search space for the optimizer to six dimensions instead of the seven
+dimensional used by the QuaternionRigidTransform.  This transform also allows
+the users to set a specific center of rotation. The center coodinates are not
+modified during the optimization performed in a registration process.  The main
+features of this transform are summarized in
+Table\ref{tab:VersorRigid3DTransformCharacteristics}.  This transform is
+probably the best option to use when dealing with rigid transformations in
+$3D$. 
+
+Given that the space of Versors is not a Vector space, typical gradient descent
+optimizers are not well suited for exploring the parametric space of this
+transform. The \doxygen{itk::VersorRigid3DTranformOptimizer} has been
+introduced in the ITK toolkit with the purpose of providing an optimizer that
+is aware of the Versor space properties on the rotational part of this
+transform, as well as the Vector space properties on the translational part of
+the transform.
+
+
+\subsection{Euler3DTransform}
+\label{sec:Euler3DTransform}
+\index{itk::Euler3DTransform}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{\tableconfiguration}
+\hline
+\textbf{Behavior} &
+\textbf{Number of Parameters} &
+\textbf{Parameter Ordering} &
+\textbf{Restrictions} \\
+\hline\hline
+Represents a rigid rotation in $3D$ space. That is, a rotation followed by a
+$3D$ translation. The scaling factor is specified by a scalar, the rotation is
+specified by a versor, and the translation is represented by a vector.  Users
+can also specify the coordinates of the center of rotation, that is the same
+center used for scaling. &
+7 &
+The first parameter is the scaling factor, the next three parameters define the
+versor and the last three parameters the translation in each dimension. &
+Only defined for three-dimensional input and output spaces. \\
+\hline
+\end{tabular}
+\end{center}
+\itkcaption[Euler3D Transform Characteristics]{Characteristics of the Euler3DTransform class.
+\label{tab:Euler3DTransformCharacteristics}}
+\end{table}
+
+The \doxygen{Euler3DTransform} implements a rigid transformation in $3D$ space.
+It can be seen as a rotation followed by a translation. This class exposes six
+parameters, three for the Euler angles that represent the rotation and three
+for the translational components. This transform also allows the users to set a
+specific center of rotation. The center coodinates are not modified during the
+optimization performed in a registration process. The main features of this
+transform are summarized in Table\ref{tab:Euler3DTransformCharacteristics}.  
+
+The fact that the three rotational parameters are non-linears and do not behave
+like Vector spaces must be taken into account when selecting an optimizer to
+work with this transform and when fine tunning the parameters of such
+optimizer. It is strongly recommended to use this transform by introducing very
+small variations on the rotaional components. A small rotation will be in the
+range of 1 degree, which in radians is approximately $0.0.1745$.
+
+
+\subsection{Similarity3DTransform}
+\label{sec:Similarity3DTransform}
+\index{itk::Similarity3DTransform}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{\tableconfiguration}
+\hline
+\textbf{Behavior} &
+\textbf{Number of Parameters} &
+\textbf{Parameter Ordering} &
+\textbf{Restrictions} \\
+\hline\hline
+Represents a $3D$ rotation, a $3D$ translation and homogeneous scaling. The
+scaling factor is specified by a scalar, the rotation is specified by a versor,
+and the translation is represented by a vector.  Users can also specify the
+coordinates of the center of rotation, that is the same center used for
+scaling. &
+7 &
+The first parameter is the scaling factor, the next three parameters define the
+versor and the last three parameters the translation in each dimension. &
+Only defined for three-dimensional input and output spaces. \\
+\hline
+\end{tabular}
+\end{center}
+\itkcaption[Similarity3D Transform Characteristics]{Characteristics of the Similarity3DTransform class.
+\label{tab:Similarity3DTransformCharacteristics}}
+\end{table}
+
+The \doxygen{Similarity3DTransform} implements a similarity transformation in
+$3D$ space. It can be seen as an homogeneous scaling followed by a
+\doxygen{VersorRigid3DTransform}. This class exposes seven parameters, one for
+the scaling factor, three for the versor components and three for the
+translational components. This transform also allows the users to set a
+specific center of rotation. The center coodinates are not modified during the
+optimization performed in a registration process.  Both the rotation and
+scaling operations are performed with respect to the center of rotation. The
 main features of this transform are summarized in
-Table\ref{tab:VersorRigid3DTransformCharacteristics}.
+Table\ref{tab:VersorRigid3DTransformCharacteristics}.  
+
+The fact that the scaling and rotational spaces are non-linears and do not
+behave like Vector spaces must be taken into account when selecting an
+optimizer to work with this transform and when fine tunning the parameters of
+such optimizer.
+
+
 
 
 \subsection{AffineTransform}
