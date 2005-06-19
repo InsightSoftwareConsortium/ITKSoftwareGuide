@@ -655,14 +655,14 @@ Only defined for two-dimensional input and output spaces. \\
 \label{tab:Similarity2DTransformCharacteristics}}
 \end{table}
 
-The \doxygen{Similarity2DTransform} preserves angles. It can be seen as a rigid
-transform plus an isotropic scaling factor. In its $2D$ implementation, the
-four parameters of this transformation combine the characteristics of the
-\doxygen{ScaleTransform} and \doxygen{Euler2DTransform}. In particular, those
-relating to the non-linearity of the parameter space and the non-uniformity of
-the measurement units. Gradient descent optimizers should be used with caution
-on such parameter spaces since the notions of gradient direction and step
-length are ill-defined.
+The \doxygen{Similarity2DTransform} can be seen as a rigid transform combined
+with an isotropic scaling factor. This transform preserves angles between
+lines. In its $2D$ implementation, the four parameters of this transformation
+combine the characteristics of the \doxygen{ScaleTransform} and
+\doxygen{Euler2DTransform}. In particular, those relating to the non-linearity
+of the parameter space and the non-uniformity of the measurement units.
+Gradient descent optimizers should be used with caution on such parameter
+spaces since the notions of gradient direction and step length are ill-defined.
 
 The following equation illustrates the effect of the transform on an input
 point $(x,y)$ that maps to the output point $(x',y')$,
@@ -766,6 +766,14 @@ scaling is applied.  The main characteristics of the
 QuaternionRigidTransform are presented in
 Table~\ref{tab:QuaternionRigidTransformCharacteristics}.
 
+The Quaternion rigid transform also accepts a user-defined center of rotation.
+In this way, the transform can easily be used for registering images where the
+rotation is mostly relative to the center of the image instead one of the
+corners. The coordinates of this rotation center are not subject to
+optimization. They only participate in the computation of the mappings for
+Points, Vectors and Covariant Vectors, as well as in the computation of the
+Jacobian.
+
 
 
 \subsection{VersorTransform}
@@ -783,8 +791,9 @@ Table~\ref{tab:QuaternionRigidTransformCharacteristics}.
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
 \hline\hline
-Represents a $3D$ rotation. The rotation is specified by a
-versor or unit quaternion. &
+Represents a $3D$ rotation. The rotation is specified by a versor or unit
+quaternion. The rotation is performed around a user-specified center of
+rotation.&
 3 &
 The three parameters define the versor.&
 Only defined for three-dimensional input and output spaces. \\
@@ -796,38 +805,34 @@ Only defined for three-dimensional input and output spaces. \\
 \end{table}
 
 
-By definition, a \emph{versor} is the rotational part of a quaternion. It can
+By definition, a \emph{Versor} is the rotational part of a Quaternion. It can
 also be defined as a \emph{unit-quaternion} \cite{Hamilton1866,Joly1905}.
 Versors only have three independent components, since they are restricted to
 reside in the space of unit-quaternions. The implementation of versors in the
 toolkit uses a set of three numbers.  These three numbers correspond to the
-first three components of a quaternion.  The fourth component of the
-quaternion is computed internally such that the quaternion is of unit
-length. The main characteristics of the 
-\doxygen{VersorTransform} are presented in
+first three components of a quaternion.  The fourth component of the quaternion
+is computed internally such that the quaternion is of unit length. The main
+characteristics of the \doxygen{VersorTransform} are presented in
 Table~\ref{tab:VersorTransformCharacteristics}.
 
 This transform exclusively represents rotations in $3D$. It is intended to
-rapidly solve the rotational component of a more general misalignment.  It is
-desirable to first remove first any translation in order to superimpose the
-gravity centers of the images. The efficiency of this transform comes from
-using a parameter space of reduced dimensionality. Versors are the best
-possible representation for rotations in $3D$ space. Sequences of versors
-allow the creation of smooth rotational trajectories; for this reason, they
-behave stably under optimization methods.
+rapidly solve the rotational component of a more general misalignment.  The
+efficiency of this transform comes from using a parameter space of reduced
+dimensionality. Versors are the best possible representation for rotations in
+$3D$ space. Sequences of versors allow the creation of smooth rotational
+trajectories; for this reason, they behave stably under optimization methods.
 
-The space formed by versor parameters is not a vector space. Standard
-gradient descent algorithms are not appropriate for exploring this parameter
-space. An optimizer specialized for the versor space is available in the
-toolkit under the name of \doxygen{VersorTransformOptimizer}. This optimizer
-implements versor derivatives as originally defined by Hamilton
-\cite{Hamilton1866}.
+The space formed by versor parameters is not a vector space. Standard gradient
+descent algorithms are not appropriate for exploring this parameter space. An
+optimizer specialized for the versor space is available in the toolkit under
+the name of \doxygen{VersorTransformOptimizer}. This optimizer implements
+versor derivatives as originally defined by Hamilton \cite{Hamilton1866}.
 
-Note that the coordinate systems in ITK are determined by the settings of the
-origin defined in the image class. Rotations will be applied in this
-coordinate space, not with respect to the center of the image as might be
-naively expected.
-
+The center of rotation can be especified by the user with the
+\code{SetCenter()} method. The center is not part of the parameters to be
+optimized, therefore it remains the same during an optimization process. Its
+value is used during the computations for transforming Points and when
+computing the Jacobian.
 
 \subsection{VersorRigid3DTransform}
 \label{sec:VersorRigid3DTransform}
