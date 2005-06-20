@@ -458,18 +458,19 @@ Table~\ref{tab:ScaleTransformCharacteristics}.
 Points are transformed by multiplying each one of their coordinates by the
 corresponding scale factor for the dimension.  Vectors are transformed as
 points.  Covariant vectors are transformed by \emph{dividing} their components
-by the scale factor in the corresponding dimension. The difference between this
-transform and the ScaleTransform is that here the scaling factors are passed as
-logarithms, in this way their behavior is closer to the one of a Vector space.
+by the scale factor in the corresponding dimension. 
 &
 Same as the input space dimension. &
 The $i$-th parameter represents the scaling in the $i$-th dimension. &
-Only defined when the input and output space has the same number of dimensions. \\
+Only defined when the input and output space has the same number of dimensions.
+The difference between this transform and the ScaleTransform is that here the
+scaling factors are passed as logarithms, in this way their behavior is closer
+to the one of a Vector space.  \\
 \hline
 \end{tabular}
 \end{center}
 \itkcaption[Scale Logarithmic Transform Characteristics]{Characteristics of the ScaleLogarithmicTransform class.
-\label{tab:ScaleTransformCharacteristics}}
+\label{tab:ScaleLogarithmicTransformCharacteristics}}
 \end{table}
 
 The \doxygen{ScaleLogarithmicTransform} is a simple variation of the
@@ -1058,9 +1059,9 @@ The \doxygen{Rigid3DPerspectiveTransform} implements a rigid transformation in
 $3D$ space followed by a perspective projection. This transform is intended to
 be used in $3D/2D$ registration problems where a 3D object is projected onto a
 2D plane. This is the case of Fluoroscopic images used for image guided
-intervention, and it is also the case for classical radiography.  The use must
+intervention, and it is also the case for classical radiography.  Users must
 provide a value for the focal distance to be used during the computation of the
-perspective transform. This transform also allows the users to set a specific
+perspective transform. This transform also allows users to set a specific
 center of rotation. The center coodinates are not modified during the
 optimization performed in a registration process.  The main features of this
 transform are summarized in
@@ -1068,9 +1069,9 @@ Table~\ref{tab:VersorRigid3DTransformCharacteristics}.  This transform is also
 used when creating Digitally Reconstructed Radiographs (DRRs).
 
 The strategies for optimizing the parameters of this transform are the same
-used for optimizing the VersorRigid3DTransform. In particular, you can use the
-same Versor\-Rigid3D\-Tranform\-Optimizer in order to optimize the parameters
-of this class.
+ones used for optimizing the VersorRigid3DTransform. In particular, you can use
+the same Versor\-Rigid3D\-Tranform\-Optimizer in order to optimize the
+parameters of this class.
 
 
 \subsection{AffineTransform}
@@ -1088,11 +1089,11 @@ of this class.
 \hline\hline
 Represents an affine transform composed of rotation, scaling, shearing and
 translation. The transform is specified by a $N \times N$ matrix and a $N
-\times 1$ vector where $N$ is space dimension. &
+\times 1$ vector where $N$ is the space dimension. &
 $(N+1) \times N$ &
-The first $N \times N$ parameters defines the matrix in column-major order
-(where the column index varies the fastest).  The last $N$ parameters defines
-the translate for each dimension. &
+The first $N \times N$ parameters define the matrix in column-major order
+(where the column index varies the fastest).  The last $N$ parameters define
+the translations for each dimension. &
 Only defined when the input and output space have the same dimension. \\
 \hline
 \end{tabular}
@@ -1106,14 +1107,13 @@ for image registration. Its main advantage comes from the fact that it is
 represented as a linear transformation. The main features of this
 transform are presented in Table~\ref{tab:AffineTransformCharacteristics}.
 
-The set of AffineTransform coefficients can actually be represented
-in a vector space of dimension $(N+1) \times N$. This makes it possible for
-optimizers to be used appropriately on this search space. However, the high
-dimensionality of the search space also implies a high computational cost
-of cost-function derivatives. The best compromise in
-the reduction of this computational time is to use the transform Jacobian in
-combination with the image gradient for computing the cost-function
-derivatives.
+The set of AffineTransform coefficients can actually be represented in a vector
+space of dimension $(N+1) \times N$. This makes it possible for optimizers to
+be used appropriately on this search space. However, the high dimensionality of
+the search space also implies a high computational complexity of cost-function
+derivatives. The best compromise in the reduction of this computational time is
+to use the transform's Jacobian in combination with the image gradient for
+computing the cost-function derivatives.
 
 The coefficients of the $N \times N$ matrix can represent rotations,
 anisotropic scaling and shearing. These coefficients are usually of a very
@@ -1124,9 +1124,8 @@ hand, can be on the order of $10$ to $100$, and are basically related to the
 image size and pixel spacing.
 
 This difference in scale makes it necessary to take advantage of the
-functionality offered by the optimizer for rescaling the parameter
-space. This is particularly relevant for optimizers based on gradient descent
-approaches.
+functionality offered by the optimizers for rescaling the parameter space. This
+is particularly relevant for optimizers based on gradient descent approaches.
 
 A registration based on the affine transform may be more effective when
 applied after simpler transformations have been used to remove the major
@@ -1198,5 +1197,38 @@ position between two points.
 The BSplineDeformableTransform has a very large number of parameters and
 therefore is well suited for the \doxygen{LBFGSOptimizer} and
 \doxygen{LBFGSBOptimizer}.
+
+
+
+
+\subsection{KernelTransforms}
+\label{sec:KernelTransforms}
+\index{itk::KernelTransforms}
+
+Kernel Transforms are a set of Transform also suitable for performing
+deformable registration. These transform compute on the fly the displacemente
+corresponding to a deformation field. The displacement values corresponding to
+every point in space are computed by interpolation from the vectors defined by
+a set of \emph{Source Landmarks} and a set of \emph{Target Landmarks}.
+
+Several variations of these transforms are available in the toolkit. They
+differ on the type of interpolation kernel that is used when computing the the
+deformation in a particular point of space. Note that these transforms are
+computationaly expensive and that they computational complexity is proportional
+to the number of landmarks and the space dimension.
+
+The following is the list of Transforms based on the KernelTransform.
+
+\begin{itemize}
+\item \doxygen{ElasticBodySplineKernelTransform}
+\item \doxygen{ElasticBodyReciprocalSplineKernelTransform}
+\item \doxygen{ThinPlateSplineKernelTransform}
+\item \doxygen{ThinPlateR2LogRSplineKernelTransform}
+\item \doxygen{VolumeSplineKernelTransform}
+\end{itemize}
+
+Details about the mathematical background of these transform can be found in
+the paper by Davis \emph{et. al}~\cite{Davis1997} and the papers by Rohr
+\emph{et. al}~\cite{Rohr1999,Rohr2001}.
 
 
