@@ -442,6 +442,46 @@ independently. The main characteristics of the scale transform are presented in
 Table~\ref{tab:ScaleTransformCharacteristics}.
 
 
+\subsection{Scale Logarithmic Transform}
+\label{sec:ScaleLogarithmicTransform}
+\index{itk::ScaleLogarithmicTransform}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{\tableconfiguration}
+\hline
+\textbf{Behavior} &
+\textbf{Number of Parameters} &
+\textbf{Parameter Ordering} &
+\textbf{Restrictions} \\
+\hline\hline
+Points are transformed by multiplying each one of their coordinates by the
+corresponding scale factor for the dimension.  Vectors are transformed as
+points.  Covariant vectors are transformed by \emph{dividing} their components
+by the scale factor in the corresponding dimension. The difference between this
+transform and the ScaleTransform is that here the scaling factors are passed as
+logarithms, in this way their behavior is closer to the one of a Vector space.
+&
+Same as the input space dimension. &
+The $i$-th parameter represents the scaling in the $i$-th dimension. &
+Only defined when the input and output space has the same number of dimensions. \\
+\hline
+\end{tabular}
+\end{center}
+\itkcaption[Scale Logarithmic Transform Characteristics]{Characteristics of the ScaleLogarithmicTransform class.
+\label{tab:ScaleTransformCharacteristics}}
+\end{table}
+
+The \doxygen{ScaleLogarithmicTransform} is a simple variation of the
+\doxygen{ScaleTransform}. It is intended to improve the behavior of the scaling
+parameters when they are modified by optimizers. The difference between this
+transform and the ScaleTransform is that the parameter factors are passed here
+as logarithms. In this way, multiplicative variations in the scale become
+additive variations in the logarithm of the scaling factors.
+
+
+
+
 \subsection{Euler2DTransform}
 \label{sec:Euler2DTransform}
 \index{itk::Euler2DTransform}
@@ -1104,5 +1144,59 @@ transform coefficients generally does not offer a clear picture of the current
 behavior and trend of the optimization.  A better implementation uses
 the affine transform to deform wire-frame cube which is shown in a $3D$
 visualization display.
+
+
+
+\subsection{BSPlineDeformableTransform}
+\label{sec:BSPlineDeformableTransform}
+\index{itk::BSPlineDeformableTransform}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{\tableconfiguration}
+\hline
+\textbf{Behavior} &
+\textbf{Number of Parameters} &
+\textbf{Parameter Ordering} &
+\textbf{Restrictions} \\
+\hline\hline
+Represents a free from deformation by providing a deformation field from the
+interpolation of deformations in a coarse grid. 
+&
+$M \times N$ &
+Where $M$ is the number of nodes in the BSpline grid and $N$ is the dimension of the space. &
+Only defined when the input and output space have the same dimension. This
+transform has the advantage of allowing to compute deformable registration. It
+also has the disadvantge of having a very high dimensional parametric space,
+and therefore requiring long computation times.\\
+\hline
+\end{tabular}
+\end{center}
+\itkcaption[BSpline Deformable Transform Characteristics]{Characteristics of the BSPlineDeformableTransform class.
+\label{tab:BSplineDeformableTransformCharacteristics}}
+\end{table}
+
+The \doxygen{BSPlineDeformableTransform} is designed to be used for solving
+deformable registration problems. This transform is equivalent to generation a
+deformation field where a deformation vector is assigned to every point in
+space.  The deformation vectors are computed using BSpline interpolation from
+the deformation values of points located in a coarse grid, that is usually
+refered to as the BSpline grid.
+
+The BSplineDeformableTransform is not flexible enough for accounting for large
+rotations or shearing, or scaling differences. In order to compensate for this
+limitation, it provides the functionality of being composed with an arbitrary
+transform. This transform is known as the \emph{Bulk} transform and it is
+applied to points before they are mapped with the displacement field.
+
+This transform do not provide funcionalities for maping Vectors nor
+CovariantVectors, only Points can be mapped. The reason is that the variations
+of a vector under a deformable transform actually depend on the location of the
+vector in space. In other words, Vector only make sense as the relative
+position between two points.
+
+The BSplineDeformableTransform has a very large number of parameters and
+therefore is well suited for the \doxygen{LBFGSOptimizer} and
+\doxygen{LBFGSBOptimizer}.
 
 
