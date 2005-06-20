@@ -33,20 +33,31 @@ region of the fixed image. Each one of the iterator positions is mapped by the
 transform onto the moving image space in order to find the homologous pixel.
 
 Figure \ref{fig:ImageOverlapInterpolator} presents a detailed view of the
-mapping from the fixed image to the moving image. In general, the grid positions
-of the fixed image will not be mapped onto grid positions of the moving image.
-Interpolation is needed for estimating the intensity of the moving image at
-these non-grid positions.
+mapping from the fixed image to the moving image. In general, the grid
+positions of the fixed image will not be mapped onto grid positions of the
+moving image.  Interpolation is needed for estimating the intensity of the
+moving image at these non-grid positions. The service is provided in ITK by
+interpolator classes that can be plugged into the registration method.
 
+\index{NearestNeighborInterpolateImageFunction}
+\index{LinearInterpolateImageFunction}
+\index{BSplineInterpolateImageFunction}
+\index{WindowedSincInterpolateImageFunction}
 
-ITK currently offers three different interpolation schemes: nearest neighbor
-via the \doxygen{NearestNeighborInterpolateImageFunction}, linear via the
-\doxygen{LinearInterpolateImageFunction} and B-spline interpolation via the 
-\doxygen{BSplineInterpolateImageFunction}. In the context of registration,
-the interpolation method affects the smoothness of the optimization search
-space and the overall computation time. On the other hand, interpolations are
-executed thousands of times in a single optimization cycle. Hence, the user
-has to balance the simplicity of computation with the smoothness of the optimization when selecting the interpolation scheme.
+The following interpolators are available:
+
+\begin{itemize}
+\item \doxygen{NearestNeighborInterpolateImageFunction}
+\item \doxygen{LinearInterpolateImageFunction}
+\item \doxygen{BSplineInterpolateImageFunction}
+\item \doxygen{WindowedSincInterpolateImageFunction}
+\end{itemize}
+
+In the context of registration, the interpolation method affects the smoothness
+of the optimization search space and the overall computation time. On the other
+hand, interpolations are executed thousands of times in a single optimization
+cycle. Hence, the user has to balance the simplicity of computation with the
+smoothness of the optimization when selecting the interpolation scheme.
 
 \index{itk::InterpolateImageFunction}
 \index{itk::InterpolateImageFunction!SetInputImage()}
@@ -72,6 +83,7 @@ intensity is piecewise constant with jumps mid-way between grid positions.
 This interpolation scheme is cheap as it does not require any floating point
 computations.
 
+
 \subsection{Linear Interpolation}
 \label{sec:LinearInterpolation}
 \index{itk::Linear\-Interpolate\-Image\-Function}
@@ -80,6 +92,7 @@ The \doxygen{LinearInterpolateImageFunction} assumes that intensity varies
 linearly between grid positions. Unlike nearest neighbor interpolation, the
 interpolated intensity is spatially continuous. However, the intensity
 gradient will be discontinuous at grid positions.
+
 
 \subsection{B-Spline Interpolation}
 \label{sec:BSplineInterpolation}
@@ -102,5 +115,127 @@ It is important to note that when using this scheme, the interpolated
 value may lie outside the range of input image intensities. This is
 especially important when handling unsigned data, as it is possible
 that the interpolated value is negative.
+
+
+\subsection{Windowed Sinc Interpolation}
+\label{sec:WindowedSincInterpolation}
+\index{itk::Windowed\-Sinc\-Interpolate\-Image\-Function}
+
+The \doxygen{WindowedSincInterpolateImageFunction} is the best possible
+interpolator for data that has been digitized in a discrete grid. This
+interpolator has been developed based on Fourier Analysis considerations. It
+is well known in signal processing that the process of sampling a spatial
+function using a periodic discrete grid results in a replication of the
+spectrum of that signal in the frequency domain.
+
+The process of recovering the continuous signal from the discrete sampling is
+equivalent to the removal of the replicated spectra in the frequency domain.
+This can be done by multiplying the spectra with a box function that will set
+to zero all the frequencies above the highest frequency in the original signal.
+Multiplying the spectrum with a box function is equivalent to convolving the
+spatial discrete signal with a sinc function
+
+\begin{equation}
+sinc(x) = \sin{(x)} / x  
+\end{equation}
+
+The sinc function has infinite support, which of course in practice can not
+really be implemented. Therefore, the sinc is usually truncated by multipliying
+it with a Window function. The Windowed Sinc interpolator is the result of such
+operation. 
+
+This interpolator presents a series of trade-offs in its utilization. Probably
+the most significant is that the larger the window, the more precise will be
+the resulting interpolation. However, large windows will also result in long
+computation times. Since the user can select the window size in this
+interpolator, it is up to the user to detemine how much interpolation quality
+is required in her/his application and how much computation time can be
+justified. 
+
+For details on the signal processing theory behind this interpolator, please
+refer to Meijering \emph{et. al}~\cite{SignalReconstruction}.
+
+The windows that can be used with this interpolator are
+
+Cosinus window
+\begin{equation}
+w(x) = cos ( \frac{\pi x}{2 m} ) 
+\end{equation}
+
+
+Hamming window
+\begin{equation}
+w(x) = 0.54 + 0.46 cos ( \frac{\pi x}{m} ) 
+\end{equation}
+
+
+Welch window
+\begin{equation}
+w(x) = 1 - ( \frac{x^2}{m^2} )
+\end{equation}
+
+
+Lancos window
+\begin{equation}
+w(x) = \textrm{sinc} ( \frac{x}{m} ) 
+\end{equation}
+
+
+Blackman window
+\begin{equation}
+w(x) = 0.42 + 0.5 cos(\frac{\pi x}{m}) + 0.08 cos(\frac{2 \pi x}{m}) 
+\end{equation}
+
+The region of the image used for computing the interpolator is determined by
+the window \emph{radius}. For example, in a $2D$ image where we want to
+interpolate the value at position $(x,y)$ the following computation will be
+performed.
+
+\begin{equation}
+I(x,y) = 
+\sum_{i = \lfloor x \rfloor + 1 - m}^{\lfloor x \rfloor + m} 
+\sum_{j = \lfloor y \rfloor + 1 - m}^{\lfloor y \rfloor + m}
+I_{i,j} K(x-i) K(y-j)
+\end{equation}
+
+where $m$ is the \emph{radius} of the window. Typically, values such as 3 or 4
+are reasonable for the window radius. The function kernel $K(t)$ is composed by
+the $sinc$ function and one of the windows listed above.
+
+\begin{equation}
+K(t) = w(t) \textrm{sinc}(t) = w(t) \frac{\sin(\pi t)}{\pi t}
+\end{equation}
+
+
+The window functions listed above are available inside the itk::Function
+namespace. The conclusions of the referenced paper suggest to use the Welch,
+Cosine, Kaiser, and Lancos windows for m = 4,5. These are based on error in
+rotating medical images w.r.t. the linear interpolation method. In some cases
+the results achieve a 20-fold improvement in accuracy.
+
+This filter can be used in the same way you would use any
+ImageInterpolationFunction. For instance, you can plug it into the
+ResampleImageFilter class.  In order to initialize the filter you must choose
+several template parameters. 
+
+\code{
+}
+
+\code{TInputImage} is the image type, as for any other interpolator. 
+
+\code{VRadius} is the radius of the kernel, i.e., the $m$ from the
+formula above. 
+
+\code{TWindowFunction} is the window function object, which you can choose from
+about five different functions defined in this header. The default is the
+Hamming window, which is commonly used but not optimal according to the cited
+paper. 
+
+\code{TBoundaryCondition} is the boundary condition class used to determine the
+values of pixels that fall off the image boundary. This class has the same
+meaning here as in the \doxygen{NeighborhoodIterator} classes. 
+
+\code{TCoordRep} is again standard for interpolating functions, and should be
+float or double.
 
 
