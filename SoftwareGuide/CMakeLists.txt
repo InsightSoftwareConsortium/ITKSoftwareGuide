@@ -102,6 +102,7 @@ IF (BUILD_FIGURES)
     BrainProtonDensitySliceBorder20
     BrainProtonDensitySliceRotated10
     BrainProtonDensitySliceR10X13Y17
+    BrainProtonDensitySliceR10X13Y17S12
     VisibleWomanEyeSlice
     VisibleWomanHeadSlice
     FatMRISlice
