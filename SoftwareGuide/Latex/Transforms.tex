@@ -1146,9 +1146,9 @@ visualization display.
 
 
 
-\subsection{BSPlineDeformableTransform}
-\label{sec:BSPlineDeformableTransform}
-\index{itk::BSPlineDeformableTransform}
+\subsection{BSplineDeformableTransform}
+\label{sec:BSplineDeformableTransform}
+\index{itk::BSplineDeformableTransform}
 
 \begin{table}
 \begin{center}
@@ -1171,11 +1171,11 @@ and therefore requiring long computation times.\\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[BSpline Deformable Transform Characteristics]{Characteristics of the BSPlineDeformableTransform class.
+\itkcaption[BSpline Deformable Transform Characteristics]{Characteristics of the BSplineDeformableTransform class.
 \label{tab:BSplineDeformableTransformCharacteristics}}
 \end{table}
 
-The \doxygen{BSPlineDeformableTransform} is designed to be used for solving
+The \doxygen{BSplineDeformableTransform} is designed to be used for solving
 deformable registration problems. This transform is equivalent to generation a
 deformation field where a deformation vector is assigned to every point in
 space.  The deformation vectors are computed using BSpline interpolation from
@@ -1196,7 +1196,8 @@ position between two points.
 
 The BSplineDeformableTransform has a very large number of parameters and
 therefore is well suited for the \doxygen{LBFGSOptimizer} and
-\doxygen{LBFGSBOptimizer}.
+\doxygen{LBFGSBOptimizer}. The use of this transform for was proposed in the
+following papers~\cite{Rueckert1999,Mattes2001,Mattes2003}.
 
 
 
@@ -1205,14 +1206,14 @@ therefore is well suited for the \doxygen{LBFGSOptimizer} and
 \label{sec:KernelTransforms}
 \index{itk::KernelTransforms}
 
-Kernel Transforms are a set of Transform also suitable for performing
-deformable registration. These transform compute on the fly the displacemente
+Kernel Transforms are a set of Transforms that are also suitable for performing
+deformable registration. These transforms compute on the fly the displacements
 corresponding to a deformation field. The displacement values corresponding to
 every point in space are computed by interpolation from the vectors defined by
 a set of \emph{Source Landmarks} and a set of \emph{Target Landmarks}.
 
 Several variations of these transforms are available in the toolkit. They
-differ on the type of interpolation kernel that is used when computing the the
+differ on the type of interpolation kernel that is used when computing the
 deformation in a particular point of space. Note that these transforms are
 computationaly expensive and that they computational complexity is proportional
 to the number of landmarks and the space dimension.
