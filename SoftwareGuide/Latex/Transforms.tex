@@ -981,6 +981,56 @@ optimizer to work with this transform and when fine tunning the parameters of
 such optimizer.
 
 
+\subsection{Rigid3DPerspectiveTransform}
+\label{sec:Rigid3DPerspectiveTransform}
+\index{itk::Rigid3DPerspectiveTransform}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{\tableconfiguration}
+\hline
+\textbf{Behavior} &
+\textbf{Number of Parameters} &
+\textbf{Parameter Ordering} &
+\textbf{Restrictions} \\
+\hline\hline 
+Represents a rigid $3D$ transformation followed by a perspective projection.
+The rotation is specified by a Versor, while the translation is represented by
+a Vector.  Users can specify the coordinates of the center of rotation. They
+must specifiy a focal distance to be used for the perspective projection. The
+rotation center and the focal distance parameters are not modified during the
+optimization process. &
+6 &
+The first three parameters define the Versor and the last three parameters the
+Translation in each dimension. &
+Only defined for three-dimensional input and two-dimensional output spaces.
+This is one of the few transforms where the input space has a different
+dimension from the output space.\\
+\hline
+\end{tabular}
+\end{center}
+\itkcaption[Rigid3DPerspective Transform Characteristics]{Characteristics of
+the Rigid3DPerspectiveTransform class.
+\label{tab:VersorRigid3DTransformCharacteristics}}
+\end{table}
+
+The \doxygen{Rigid3DPerspectiveTransform} implements a rigid transformation in
+$3D$ space followed by a perspective projection. This transform is intended to
+be used in $3D/2D$ registration problems where a 3D object is projected onto a
+2D plane. This is the case of Fluoroscopic images used for image guided
+intervention, and it is also the case for classical radiography.  The use must
+provide a value for the focal distance to be used during the computation of the
+perspective transform. This transform also allows the users to set a specific
+center of rotation. The center coodinates are not modified during the
+optimization performed in a registration process.  The main features of this
+transform are summarized in
+Table~\ref{tab:VersorRigid3DTransformCharacteristics}.  This transform is also
+used when creating Digitally Reconstructed Radiographs (DRRs).
+
+The strategies for optimizing the parameters of this transform are the same
+used for optimizing the VersorRigid3DTransform. In particular, you can use the
+same Versor\-Rigid3D\-Tranform\-Optimizer in order to optimize the parameters
+of this class.
 
 
 \subsection{AffineTransform}
