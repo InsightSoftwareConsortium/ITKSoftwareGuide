@@ -1126,6 +1126,46 @@ image size and pixel spacing.
 This difference in scale makes it necessary to take advantage of the
 functionality offered by the optimizers for rescaling the parameter space. This
 is particularly relevant for optimizers based on gradient descent approaches.
+This transform lets the user set an arbitrary center of rotation. The
+coordinates of the rotation center do not make part of the parameters array
+passed to the optimizer. Equation~\ref{eqn:AffineTransform} illustrates the
+effect of applying the AffineTransform in a point in $3D$ space.
+
+\begin{equation}
+\label{eqn:AffineTransform}
+\left[ 
+\begin{array}{c}
+x' \\
+y' \\
+z' \\
+\end{array}
+\right]
+=
+\left[ 
+\begin{array}{ccc}
+M_{00} & M_{01} & M_{02} \\
+M_{10} & M_{11} & M_{12} \\
+M_{20} & M_{21} & M_{22} \\
+\end{array}
+\right]
+\cdot
+\left[ 
+\begin{array}{c}
+x - C_x \\
+y - C_y \\
+z - C_z \\
+\end{array}
+\right]
++ 
+\left[ 
+\begin{array}{c}
+T_x + C_x \\
+T_y + C_y \\
+T_z + C_z \\
+\end{array}
+\right]
+\end{equation}
+
 
 A registration based on the affine transform may be more effective when
 applied after simpler transformations have been used to remove the major
@@ -1205,6 +1245,11 @@ following papers~\cite{Rueckert1999,Mattes2001,Mattes2003}.
 \subsection{KernelTransforms}
 \label{sec:KernelTransforms}
 \index{itk::KernelTransforms}
+\index{itk::ElasticBodySplineKernelTransform}
+\index{itk::ElasticBodyReciprocalSplineKernelTransform}
+\index{itk::ThinPlateSplineKernelTransform}
+\index{itk::ThinPlateR2LogRSplineKernelTransform}
+\index{itk::VolumeSplineKernelTransform}
 
 Kernel Transforms are a set of Transforms that are also suitable for performing
 deformable registration. These transforms compute on the fly the displacements
@@ -1215,7 +1260,7 @@ a set of \emph{Source Landmarks} and a set of \emph{Target Landmarks}.
 Several variations of these transforms are available in the toolkit. They
 differ on the type of interpolation kernel that is used when computing the
 deformation in a particular point of space. Note that these transforms are
-computationaly expensive and that they computational complexity is proportional
+computationaly expensive and that their numerical complexity is proportional
 to the number of landmarks and the space dimension.
 
 The following is the list of Transforms based on the KernelTransform.
