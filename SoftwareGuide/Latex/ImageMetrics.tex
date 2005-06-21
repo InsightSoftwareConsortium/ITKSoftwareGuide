@@ -373,9 +373,9 @@ computation of the metric, only foreground pixels are considered.
 
 This \doxygen{GradientDifferenceImageToImageMetric} metric evaluates the
 difference in the derivatives of the moving and fixed images. The derivatives
-are then added them after passing them through a function $\frac{1}{1+x}$. The
+are passed through a function $\frac{1}{1+x}$ and then they are added. The
 purpose of this metric is to focus the registration on the edges of structures
-in the images.  In this way the borders excert larger influence on the result
-of the registration than the inside of the homogeneous regions on the image.
+in the images.  In this way the borders exert larger influence on the result
+of the registration than do the inside of the homogeneous regions on the image.
 
 
