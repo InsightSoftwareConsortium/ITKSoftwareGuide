@@ -98,12 +98,29 @@ gradient will be discontinuous at grid positions.
 \label{sec:BSplineInterpolation}
 \index{itk::BSpline\-Interpolate\-Image\-Function}
 
+\begin{figure}
+\center
+\includegraphics[width=0.9\textwidth]{BSplineInterpolation.eps}
+\itkcaption[BSpline Interpolation Concepts]{The left side illustrates the
+BSpline grid and the deformations that are known on those nodes. The right side
+illustrates the region where interpolation is possible when the BSpline is the
+cubic order. The small arrows represent deformation values that were
+interpolated from the grid deformations shown on the left side of the diagram.}
+\label{fig:BSplineInterpolation}
+\end{figure}
+
+
 The \doxygen{BSplineInterpolateImageFunction} represents the image intensity
 using B-spline basis functions. When an input image is first connected to the
 interpolator, B-spline coefficients are computed using recursive filtering
 (assuming mirror boundary conditions). Intensity at a non-grid position is
-computed by multiplying the B-spline coefficients with shifted B-spline
-kernels within a small support region of the requested position.
+computed by multiplying the B-spline coefficients with shifted B-spline kernels
+within a small support region of the requested position.
+Figure~\ref{fig:BSplineInterpolation} illustrates on the left how the
+deformation values on the BSpline grid nodes are used for computing
+interpolated deformations in the rest of space. Note for example that when a
+cubic BSpline is used, the grid must have one extra node in one side of the
+image and two extra nodes on the other side, this along every dimension.
 
 Currently, this interpolator supports splines of order $0$ to $5$. Using a
 spline of order $0$ is almost identical to nearest neighbor interpolation; a
@@ -150,12 +167,31 @@ the resulting interpolation. However, large windows will also result in long
 computation times. Since the user can select the window size in this
 interpolator, it is up to the user to detemine how much interpolation quality
 is required in her/his application and how much computation time can be
-justified. 
+justified. For details on the signal processing theory behind this
+interpolator, please refer to Meijering \emph{et.
+al}~\cite{SignalReconstruction}.
 
-For details on the signal processing theory behind this interpolator, please
-refer to Meijering \emph{et. al}~\cite{SignalReconstruction}.
+The region of the image used for computing the interpolator is determined by
+the window \emph{radius}. For example, in a $2D$ image where we want to
+interpolate the value at position $(x,y)$ the following computation will be
+performed.
 
-The windows that can be used with this interpolator are
+\begin{equation}
+I(x,y) = 
+\sum_{i = \lfloor x \rfloor + 1 - m}^{\lfloor x \rfloor + m} 
+\sum_{j = \lfloor y \rfloor + 1 - m}^{\lfloor y \rfloor + m}
+I_{i,j} K(x-i) K(y-j)
+\end{equation}
+
+where $m$ is the \emph{radius} of the window. Typically, values such as 3 or 4
+are reasonable for the window radius. The function kernel $K(t)$ is composed by
+the $sinc$ function and one of the windows listed above.
+
+\begin{equation}
+K(t) = w(t) \textrm{sinc}(t) = w(t) \frac{\sin(\pi t)}{\pi t}
+\end{equation}
+
+Some of the windows that can be used with this interpolator are
 
 Cosinus window
 \begin{equation}
@@ -186,39 +222,22 @@ Blackman window
 w(x) = 0.42 + 0.5 cos(\frac{\pi x}{m}) + 0.08 cos(\frac{2 \pi x}{m}) 
 \end{equation}
 
-The region of the image used for computing the interpolator is determined by
-the window \emph{radius}. For example, in a $2D$ image where we want to
-interpolate the value at position $(x,y)$ the following computation will be
-performed.
-
-\begin{equation}
-I(x,y) = 
-\sum_{i = \lfloor x \rfloor + 1 - m}^{\lfloor x \rfloor + m} 
-\sum_{j = \lfloor y \rfloor + 1 - m}^{\lfloor y \rfloor + m}
-I_{i,j} K(x-i) K(y-j)
-\end{equation}
-
-where $m$ is the \emph{radius} of the window. Typically, values such as 3 or 4
-are reasonable for the window radius. The function kernel $K(t)$ is composed by
-the $sinc$ function and one of the windows listed above.
-
-\begin{equation}
-K(t) = w(t) \textrm{sinc}(t) = w(t) \frac{\sin(\pi t)}{\pi t}
-\end{equation}
-
 
 The window functions listed above are available inside the itk::Function
 namespace. The conclusions of the referenced paper suggest to use the Welch,
 Cosine, Kaiser, and Lancos windows for m = 4,5. These are based on error in
-rotating medical images w.r.t. the linear interpolation method. In some cases
-the results achieve a 20-fold improvement in accuracy.
+rotating medical images with respect to the linear interpolation method. In
+some cases the results achieve a 20-fold improvement in accuracy.
 
 This filter can be used in the same way you would use any
 ImageInterpolationFunction. For instance, you can plug it into the
-ResampleImageFilter class.  In order to initialize the filter you must choose
+ResampleImageFilter class.  In order to instantiate the filter you must choose
 several template parameters. 
 
 \code{
+typedef WindowedSincInterpolateImageFunction<
+           TInputImage, VRadius, TWindowFunction, 
+           TBoundaryCondition, TCoordRep >    InterpolatorType;
 }
 
 \code{TInputImage} is the image type, as for any other interpolator. 
