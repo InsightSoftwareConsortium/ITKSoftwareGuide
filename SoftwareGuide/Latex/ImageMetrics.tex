@@ -47,13 +47,15 @@ used to obtain the gradient information.
 
 The following is the list of metrics currently available in ITK:
 \begin{itemize}
-\item mean squares\\ \doxygen{MeanSquaresImageToImageMetric}
-\item normalized correlation \\ \doxygen{NormalizedCorrelationImageToImageMetric}
-\item mean reciprocal squared difference \\ \doxygen{MeanReciprocalSquareDifferenceImageToImageMetric} 
-\item mutual information by Viola and Wells \\ \doxygen{MutualInformationImageToImageMetric}
-\item mutual information by Mattes \\ \doxygen{MattesMutualInformationImageToImageMetric}
+\item Mean squares\\ \doxygen{MeanSquaresImageToImageMetric}
+\item Normalized correlation \\ \doxygen{NormalizedCorrelationImageToImageMetric}
+\item Mean reciprocal squared difference \\ \doxygen{MeanReciprocalSquareDifferenceImageToImageMetric} 
+\item Mutual information by Viola and Wells \\ \doxygen{MutualInformationImageToImageMetric}
+\item Mutual information by Mattes \\ \doxygen{MattesMutualInformationImageToImageMetric}
 \item Kullback Liebler distance metric by Kullback and Liebler \\ \doxygen{KullbackLeiblerCompareHistogramImageToImageMetric}
 \item Normalized mutual information \\ \doxygen{NormalizedMutualInformationHistogramImageToImageMetric}
+\item Mean squares histogram \\ \doxygen{MeanSquaresHistogramImageToImageMetric}
+\item Correlation coefficient histogram \\ \doxygen{CorrelationCoefficientHistogramImageToImageMetric}
 \item Cardinality Match metric \\ \doxygen{MatchCardinalityImageToImageMetric}
 \item Kappa Statistics metric\\ \doxygen{KappaStatisticImageToImageMetric}
 \item Gradient Difference metric \\ \doxygen{GradientDifferenceImageToImageMetric}
@@ -240,9 +242,10 @@ smoothing parameter will depend on the data and the number of samples used.
 
 \subsubsection{Viola and Wells Implementation}
 
-The Insight Toolkit has two mutual information metric implementations. The
-first is \doxygen{MutualInformationImageToImageMetric} and follows the method
-specified by Viola and Wells in \cite{Viola1997}.
+The Insight Toolkit has multiple implementations of the mutual information
+metric. One of the most commonly used is
+\doxygen{MutualInformationImageToImageMetric} and follows the method specified
+by Viola and Wells in \cite{Viola1997}.
 
 \index{itk::Mutual\-Information\-Image\-To\-Image\-Metric}
 
