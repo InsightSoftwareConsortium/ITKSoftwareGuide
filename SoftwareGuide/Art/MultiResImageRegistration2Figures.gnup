@@ -1,0 +1,16 @@
+set terminal postscript portrait eps color "Times Roman" 22
+
+set xlabel "Iteration No."
+set ylabel "Metric "
+
+set output "MultiResImageRegistration2TraceMetric.eps"
+plot "MultiResImageRegistration2OutputCleaned.txt" using 9:2 notitle with lines lt 1, "MultiResImageRegistration2OutputCleaned.txt" using 9:2 notitle with points lt 0 pt 12 ps 1
+ 
+set xlabel "X Translations (mm)"
+set ylabel "Y Translations (mm)"
+
+set parametric
+set size square
+
+set output "MultiResImageRegistration2TraceTranslations.eps"
+plot "MultiResImageRegistration2OutputCleaned.txt" using 7:8 notitle with lines lt 1, "MultiResImageRegistration2OutputCleaned.txt" using 7:8 notitle with points lt 0 pt 12 ps 1
