@@ -1,0 +1,20 @@
+set dgrid3d 50,50,2
+set contour both
+set cntrparam bspline
+set cntrparam levels incremental 0,1000,12000
+set noclabel 
+
+set terminal postscript portrait eps color "Times Roman" 12
+set output "MeanSquaresMetricPlot1.eps"
+splot "MeanSquaresMetricOutput.txt" notitle with lines
+
+set nosurface
+set contour base
+set view 0,90,1,1
+set size square
+set cntrparam levels incremental 0,500,12000
+
+set terminal postscript portrait eps color "Times Roman" 12
+set output "MeanSquaresMetricPlot2.eps"
+splot "MeanSquaresMetricOutput.txt" notitle with lines
+
