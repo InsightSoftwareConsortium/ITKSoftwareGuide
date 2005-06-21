@@ -338,6 +338,62 @@ inoformation, $I(A,B)$ and the joint entropy $H(A,B)$ are computed as mentioned
 in \ref{sec:MutualInformationMetric}. Details of the implementation may be found in 
 the \cite{Hajnal2001}.
 
+\subsection{Mean Squares Histogram}
+\index{itk::Mean\-Squares\-Histogram\-Image\-To\-Image\-Metric}
+
+The \doxygen{MeanSquaresHistogramImageToImageMetric} is an alternative
+implementation of the Mean Squares Metric. In this implementation the joint
+histogram of the fixed and the mapped moving image is built first. The user
+selects the number of bins to use in this joint histogram. Once the joint
+histogram is computed, the bins are visited with an iterator. Given that each
+bin is associated to a pair of intensities of the form: \{fixed intensity,
+moving intensity\}, along with the number of pixels pairs in the images that
+fell in this bin, it is then possible to compute the sum of square distances
+between the intensities of both images at the quantization levels defined by
+the joint histogram bins.
+
+This metric can be represented with
+Equation~\ref{eqn:MeanSquaresHistogramImageToImageMetric}
+
+\begin{equation}
+\label{eqn:MeanSquaresHistogramImageToImageMetric}
+MSH = \sum_f \sum_m { H(f,m) { \left( f - m \right) } ^ 2 }
+\end{equation}
+
+where $H(f,m)$ is the count on the histogram bin identified with fixed image
+intensity $f$ and moving image intensity $m$.
+
+
+\subsection{Correlation Coefficient Histogram}
+\index{itk::Correlation\-Coefficient\-Histogram\-Image\-To\-Image\-Metric}
+
+The \doxygen{CorrelationCoefficientHistogramImageToImageMetric} computes the
+cross correlation coefficient between the intensities in the fixed image and
+the intensities on the mapped moving image. This metric is intended to be used
+in images of the same modality where the relationship between the intensities
+of the fixed image and the intensities on the moving images is given by a
+linear equation. 
+
+The correlation coefficient is computed from the Joint histogran as
+
+\begin{equation}
+\label{eqn:CorrelationCoefficientHistogramImageToImageMetric}
+CC = \frac{ \sum_f \sum_m { \
+            H(f,m) \left( f \cdot m - \
+            \overline{f} \cdot \overline{m} \right)  } }{ \
+            \sum_f { H(f) \left( (f - \overline{f})^2 \right) } \cdot \
+            \sum_m { H(m) \left( (m - \overline{m})^2 \right) } }
+\end{equation}
+
+Where $H(f,m)$ is the histogram count for the bin identified with the fixed
+image intensity $f$ and the moving image intensity $m$. The values
+$\overline{f}$, $\overline{m}$ are the mean values of the fixed and moving
+images respectively.  $H(f)$ and $H(m)$ are the histogram counts of the fixed
+and moving images respectively. The optimal value of the correlation
+coefficient is $1$,
+which would indicate a perfect straight line in the histogram.
+
+
 \subsection{Cardinality Match Metric}
 \index{itk::Match\-Cardinality\-Image\-To\-Image\-Metric}
 The \doxygen{MatchCardinalityImageToImageMetric} computes cardinality of the set of pixels 
