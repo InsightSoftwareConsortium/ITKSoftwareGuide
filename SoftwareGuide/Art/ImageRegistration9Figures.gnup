@@ -1,0 +1,21 @@
+set terminal postscript portrait eps color "Times Roman" 22
+
+set xlabel "Iteration No."
+set ylabel "Square Differences Metric"
+
+set output "ImageRegistration9TraceMetric.eps"
+plot "ImageRegistration9OutputCleaned.txt" using 1:2 notitle with lines lt 1, "ImageRegistration9OutputCleaned.txt" using 1:2 notitle with points lt 0 pt 12 ps 1
+
+
+set xlabel "Iteration No."
+set ylabel "Angle (degrees)" 
+
+set output "ImageRegistration9TraceAngle.eps"
+plot "ImageRegistration9OutputCleaned.txt" using 1:9 notitle with lines lt 1, "ImageRegistration9OutputCleaned.txt" using 1:9 notitle with points lt 0 pt 12 ps 1
+
+
+set xlabel "X Translations (mm)"
+set ylabel "Y Translations (mm)"
+
+set output "ImageRegistration9TraceTranslations.eps"
+plot "ImageRegistration9OutputCleaned.txt" using 7:8 notitle with lines lt 1, "ImageRegistration9OutputCleaned.txt" using 7:8 notitle with points lt 0 pt 12 ps 1
