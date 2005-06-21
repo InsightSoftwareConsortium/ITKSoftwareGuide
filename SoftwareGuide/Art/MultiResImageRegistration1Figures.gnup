@@ -13,4 +13,4 @@ set parametric
 set size square
 
 set output "MultiResImageRegistration1TraceTranslations.eps"
-plot "MultiResImageRegistration1OutputCleaned.txt" using 3:4 notitle with lines lt 1, "MultiResImageRegistration1OutputCleaned.txt" using 3:4 notitle with points lt 0 pt 12 ps 1
+plot "MultiResImageRegistration1OutputCleaned2.txt" using 3:4 notitle with lines lt 1, "MultiResImageRegistration1OutputCleaned2.txt" using 3:4 notitle with points lt 0 pt 12 ps 1

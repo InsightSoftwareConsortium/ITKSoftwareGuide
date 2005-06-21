@@ -13,6 +13,8 @@ $EXAMPLESBINDIR/MultiResImageRegistration1 $DATADIR/BrainProtonDensitySliceShift
 #
 head -n 6 MultiResImageRegistration1Output.txt | sed "s/\]/ /g"  | sed "s/\,/ /g"  | sed "s/\[/ /g"  > MultiResImageRegistration1OutputCleanedQuarterRes.txt
 
+head -n 100 MultiResImageRegistration1Output.txt | sed "s/\]/ /g"  | sed "s/\,/ /g"  | sed "s/\[/ /g"  > MultiResImageRegistration1OutputCleaned2.txt
+
 #
 # Take the metric and translation data and generate plots with GNUPlot
 #
