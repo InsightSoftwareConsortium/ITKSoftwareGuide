@@ -3,6 +3,9 @@ set contour both
 set cntrparam bspline
 set cntrparam levels incremental 0,1000,12000
 set noclabel 
+set zlabel "Mean Squares Metric"
+set xlabel "Translation in X (mm)"
+set ylabel "Translation in Y (mm)"
 
 set terminal postscript portrait eps color "Times Roman" 12
 set output "MeanSquaresMetricPlot1.eps"
@@ -13,6 +16,8 @@ set contour base
 set view 0,90,1,1
 set size square
 set cntrparam levels incremental 0,500,12000
+set xlabel
+set ylabel
 
 set terminal postscript portrait eps color "Times Roman" 12
 set output "MeanSquaresMetricPlot2.eps"
