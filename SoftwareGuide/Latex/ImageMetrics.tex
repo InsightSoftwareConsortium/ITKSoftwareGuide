@@ -95,8 +95,12 @@ intensity result in a poor match value.
 \label{sec:ExploringAMetric}
 
 Getting familiar with the characteristics of the Metric as a cost function is
-fundamental in order to find the best way of seting up an optimization process
-that will use this metric for solving a registration problem. 
+fundamental in order to find the best way of setting up an optimization process
+that will use this metric for solving a registration problem. The following
+example illustrates a typical mechanism for studying the characteristics of a
+Metric. Although the example is using the Mean Squares metric, the same
+methodology can be applied to any of the other metrics available in the
+toolkit.
 
 \ifitkFullVersion
 \input{MeanSquaresImageMetric1.tex}
@@ -360,7 +364,7 @@ Equation~\ref{eqn:MeanSquaresHistogramImageToImageMetric}
 MSH = \sum_f \sum_m { H(f,m) { \left( f - m \right) } ^ 2 }
 \end{equation}
 
-where $H(f,m)$ is the count on the histogram bin identified with fixed image
+where $H(f,m)$ is the count on the joint histogram bin identified with fixed image
 intensity $f$ and moving image intensity $m$.
 
 
@@ -385,24 +389,24 @@ CC = \frac{ \sum_f \sum_m { \
             \sum_m { H(m) \left( (m - \overline{m})^2 \right) } }
 \end{equation}
 
-Where $H(f,m)$ is the histogram count for the bin identified with the fixed
-image intensity $f$ and the moving image intensity $m$. The values
-$\overline{f}$, $\overline{m}$ are the mean values of the fixed and moving
+Where $H(f,m)$ is the joint histogram count for the bin identified with the
+fixed image intensity $f$ and the moving image intensity $m$. The values
+$\overline{f}$ and $\overline{m}$ are the mean values of the fixed and moving
 images respectively.  $H(f)$ and $H(m)$ are the histogram counts of the fixed
 and moving images respectively. The optimal value of the correlation
-coefficient is $1$,
-which would indicate a perfect straight line in the histogram.
+coefficient is $1$, which would indicate a perfect straight line in the
+histogram.
 
 
 \subsection{Cardinality Match Metric}
 \index{itk::Match\-Cardinality\-Image\-To\-Image\-Metric}
-The \doxygen{MatchCardinalityImageToImageMetric} computes cardinality of the set of pixels 
-that match exactly between the moving and fixed images. In other words, it computes the 
-number of pixel matches and mismatches between the two images. The match is designed for 
-label maps. All pixel mismatches are considered equal whether they are between label 1 
-and label 2 or between label 1 and label 500. In other words, the magnitude of an 
-individual label mismatch is not relevant, or the occurence of a label mismatch 
-is important. 
+The \doxygen{MatchCardinalityImageToImageMetric} computes cardinality of the
+set of pixels that match exactly between the moving and fixed images. In other
+words, it computes the number of pixel matches and mismatches between the two
+images. The match is designed for label maps. All pixel mismatches are
+considered equal whether they are between label 1 and label 2 or between label
+1 and label 500. In other words, the magnitude of an individual label mismatch
+is not relevant, or the occurence of a label mismatch is important. 
 
 The spatial correspondance between the fixed and moving images is established using 
 a \doxygen{Transform} using the \code{SetTransform()} method and an interpolator 
