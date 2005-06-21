@@ -277,9 +277,9 @@ using methods
 \code{SetFixedImageStandardDeviation()} and \code{SetMovingImageStandardDeviation()}.
 
 \subsubsection{Mattes et al. Implementation}
-The second form of mutual information metric available in ITK follows the
-method specified by Mattes et al. in \cite{Mattes2001} and is implemented by
-the \doxygen{MattesMutualInformationImageToImageMetric} class.
+Another form of mutual information metric available in ITK follows the method
+specified by Mattes et al. in \cite{Mattes2001} and is implemented by the
+\doxygen{MattesMutualInformationImageToImageMetric} class.
 
 \index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metric}
 In this implementation, only one set of intensity samples is drawn from the
@@ -364,13 +364,18 @@ Given two images $A$ and $B$, the $\kappa$ coefficient is computed as
 \kappa = \frac{|A| \cap |B|}{|A| + |B|}
 \end{equation}
 
-This computes the fraction of area in the two images that is common to both 
-the images. In the computation of the metric, only foreground pixels are considered.
+where $|A|$ is the number of foreground pixels in image $A$.  This computes the
+fraction of area in the two images that is common to both the images. In the
+computation of the metric, only foreground pixels are considered.
 
 \subsection{Gradient Difference Metric}
 \index{it::Gradient\-Difference\-Image\-To\-Image\-Metric}
-This \doxygen{GradientDifferenceImageToImageMetric} metric evaluates the 
-difference in the derivatives of the moving and fixed images. and adds 
-them after passing them through a function $\frac{1}{1+x}$.
+
+This \doxygen{GradientDifferenceImageToImageMetric} metric evaluates the
+difference in the derivatives of the moving and fixed images. The derivatives
+are then added them after passing them through a function $\frac{1}{1+x}$. The
+purpose of this metric is to focus the registration on the edges of structures
+in the images.  In this way the borders excert larger influence on the result
+of the registration than the inside of the homogeneous regions on the image.
 
 
