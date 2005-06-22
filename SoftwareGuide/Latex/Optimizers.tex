@@ -64,6 +64,7 @@ The types of single valued optimizer currently available in ITK are:
 \index{itk::LBFGS\-Optimizer}
 \index{itk::LBFGSB\-Optimizer}
 \index{itk::One\-Plus\-One\-Evolutionary\-Optimizer}
+\index{itk::Powell\-Optimizer}
 \index{itk::Regular\-Step\-Gradient\-Descent\-Optimizer}
 \index{itk::SPSA\-Optimizer}
 \index{itk::Versor\-Transform\-Optimizer}
@@ -109,6 +110,11 @@ found in~\cite{Styner2000}.
 \item \textbf{Regular Step Gradient Descent}: Advances parameters in the
 direction of the gradient where a bipartition scheme is used to compute
 the step size (\doxygen{RegularStepGradientDescentOptimizer}). 
+
+\item \textbf{Powell Optimizer}: Powell optimization method.  For an
+N-dimensional parameter space, each iteration minimizes(maximizes) the function
+in N (initially orthogonal) directions. This optimizer is described
+in~\cite{Press1992}.  (\doxygen{PowellOptimizer}).
 
 \item \textbf{SPSA Optimizer}: Simultaneous Perturbation Stochastic
 Approximation Method. This optimizer is described in
