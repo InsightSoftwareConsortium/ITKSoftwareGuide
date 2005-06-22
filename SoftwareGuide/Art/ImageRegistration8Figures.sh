@@ -17,7 +17,7 @@ $EXAMPLESBINDIR/ImageRegistration8 $BRAINWEBDATADIR/brainweb1e1a10f20.mha $BRAIN
 #
 # Take the first N lines, and remove the characters "["  "]"  ","
 #
-head -n 23 $OUTPUTDATAFILE | sed "s/\]/ /g"  | sed "s/\,/ /g"  | sed "s/\[/ /g"  > $OUTPUTDATAFILECLEANED
+head -n 24 $OUTPUTDATAFILE | sed "s/\]/ /g"  | sed "s/\,/ /g"  | sed "s/\[/ /g"  > $OUTPUTDATAFILECLEANED
 
 #
 # Take the metric and translation data and generate plots with GNUPlot
