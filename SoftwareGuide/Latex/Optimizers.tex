@@ -22,7 +22,7 @@ criterion with respect to the transform parameters.
 \index{itk::Optimizer!GetCurrentPosition()}
 
 The basic input to an optimizer is a cost function object. In the context
-of registration, \doxygen{ImageToImageMetric} provides this functionality.
+of registration, \doxygen{ImageToImageMetric} classes provides this functionality.
 The initial parameters are set using \code{SetInitialPosition()} and
 the optimization algorithm is invoked by \code{StartOptimization()}.
 Once the optimization has finished, the final parameters can be obtained
@@ -59,7 +59,6 @@ The types of single valued optimizer currently available in ITK are:
 
 \index{itk::Amoeba\-Optimizer}
 \index{itk::Conjugate\-Gradient\-Optimizer}
-\index{itk::Cumulative\-Gaussian\-Optimizer}
 \index{itk::Gradient\-Descent\-Optimizer}
 \index{itk::Quaternion\-Rigid\-Transform\-Gradient\-Descent\-Optimizer}
 \index{itk::LBFGS\-Optimizer}
@@ -82,8 +81,6 @@ of the conjugate gradient with or without preconditioning
 (\doxygen{ConjugateGradientOptimizer}). It is also an adaptor to an optimizer in
 \code{vnl}.
 
-\item \textbf{Cumulative Gaussian}: FIXME
-
 \item \textbf{Gradient Descent}: Advances parameters in the direction of the
 gradient where the step size is governed by a learning rate
 (\doxygen{GradientDescentOptimizer}). 
@@ -104,9 +101,10 @@ optimizer in \code{netlib}. Details on this optimizer can be found
 in~\cite{Byrd1995,Zhu1997} (\doxygen{LBFGSBOptimizer}).
 
 \item \textbf{One Plus One Evolutionary}: Strategy that simulates the
-biological evolution of a set of samples in the search space. This optimizer
-is mainly used in the process of bias correction of MRI images
-(\doxygen{OnePlusOneEvolutionaryOptimizer.}).
+biological evolution of a set of samples in the search space. This optimizer is
+mainly used in the process of bias correction of MRI images
+(\doxygen{OnePlusOneEvolutionaryOptimizer.}). Details on this optimizer can be
+found in~\cite{Styner2000}.
 
 \item \textbf{Regular Step Gradient Descent}: Advances parameters in the
 direction of the gradient where a bipartition scheme is used to compute
@@ -143,6 +141,7 @@ is:
 
 \item \textbf{Levenberg Marquardt}: Non-linear least squares minimization.
 Adapted to an optimizer in \code{vnl} (\doxygen{LevenbergMarquardtOptimizer}).
+This optimizer is described in~\cite{Press1992}.
 
 \end{itemize}
 
