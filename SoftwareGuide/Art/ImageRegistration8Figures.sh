@@ -22,4 +22,4 @@ head -n 24 $OUTPUTDATAFILE | sed "s/\]/ /g"  | sed "s/\,/ /g"  | sed "s/\[/ /g" 
 #
 # Take the metric and translation data and generate plots with GNUPlot
 #
-# gnuplot ImageRegistration8Figures.gnup
+gnuplot ImageRegistration8Figures.gnup
