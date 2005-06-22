@@ -29,28 +29,46 @@ Once the optimization has finished, the final parameters can be obtained
 using \code{GetCurrentPosition()}.
 
 \index{itk::Optimizer!SetScales()}
-Some optimizers also allow rescaling of their individual parameters. This
-is convenient for normalizing parameters spaces where some parameters
-have different dynamic ranges. For example, the first parameter of
+Some optimizers also allow rescaling of their individual parameters. This is
+convenient for normalizing parameters spaces where some parameters have
+different dynamic ranges. For example, the first parameter of
 \doxygen{Euler2DTransform} represents an angle while the last two parameters
-the translation. A unit change in angle has a much greater impact on
-an image than a unit change in translation. This difference in scale appears
-as long narrow valleys in the search space making the optimization problem
+represent translations. A unit change in angle has a much greater impact on an
+image than a unit change in translation. This difference in scale appears as
+long narrow valleys in the search space making the optimization problem more
 diffcult. Rescaling the translation parameters can help to fix this problem.
 Scales are represented as an \doxygen{Array} of doubles and set defined using
 \code{SetScales()}.
 
-The types of SingleValuedNonLinearOptimizers currently available
-in ITK are:
+There are two main types of optimizers in ITK. In the first type we find
+optimizers that are suitable for dealing with cost functions that return a
+single value. These are indeed the most common type of cost functions, and are
+known as \emph{Single Valued} functions, therefore the corresponding optimizers
+are known as \emph{Single Valued} optimizers. The second type of optimizers are
+those suitable for managing cost functions that return multiple values at each
+evaluation. These cost functions are common in model-fitting problems and are
+known as \emph{Multi Valued} or \emph{Multivariate} functions.  The
+corresponding optimizers are therefore called \emph{MultipleValued} optimizers
+in ITK.
+
+The \doxygen{SingleValuedNonLinearOptimizer} is the base class for the first
+type of optimizers while the \doxygen{MultipleValuedNonLinearOptimizer} is the
+base class for the second type of optimizers.
+
+The types of single valued optimizer currently available in ITK are:
 
 \index{itk::Amoeba\-Optimizer}
 \index{itk::Conjugate\-Gradient\-Optimizer}
+\index{itk::Cumulative\-Gaussian\-Optimizer}
 \index{itk::Gradient\-Descent\-Optimizer}
 \index{itk::Quaternion\-Rigid\-Transform\-Gradient\-Descent\-Optimizer}
 \index{itk::LBFGS\-Optimizer}
+\index{itk::LBFGSB\-Optimizer}
 \index{itk::One\-Plus\-One\-Evolutionary\-Optimizer}
 \index{itk::Regular\-Step\-Gradient\-Descent\-Optimizer}
+\index{itk::SPSA\-Optimizer}
 \index{itk::Versor\-Transform\-Optimizer}
+\index{itk::Versor\-Rigid3D\-Transform\-Optimizer}
 \index{itk::Levenberg\-Marquardt\-Optimizer}
 
 \begin{itemize}
@@ -64,18 +82,26 @@ of the conjugate gradient with or without preconditioning
 (\doxygen{ConjugateGradientOptimizer}). It is also an adaptor to an optimizer in
 \code{vnl}.
 
-\item \textbf{Gradient Descent}: Advances parameters in the direction of the
-gradient where the step size is governed by a learning rate (\doxygen{GradientDescentOptimizer}). 
+\item \textbf{Cumulative Gaussian}: FIXME
 
-\item \textbf{Quaternion Rigid Transform Gradient Descent}: 
-A specialized version of GradientDescentOptimizer for
-QuaternionRigidTransform parameters, where the parameters representing
-the quaternion are normalized to a magnitude of one at each iteration to
-represent a pure rotation (\doxygen{QuaternionRigidTransformGradientDescent}).
+\item \textbf{Gradient Descent}: Advances parameters in the direction of the
+gradient where the step size is governed by a learning rate
+(\doxygen{GradientDescentOptimizer}). 
+
+\item \textbf{Quaternion Rigid Transform Gradient Descent}: A specialized
+version of GradientDescentOptimizer for QuaternionRigidTransform parameters,
+where the parameters representing the quaternion are normalized to a magnitude
+of one at each iteration to represent a pure rotation
+(\doxygen{QuaternionRigidTransformGradientDescent}).
 
 \item \textbf{LBFGS}: Limited memory Broyden, Fletcher, Goldfarb
 and Shannon minmization. It is an adaptor to an optimizer in \code{vnl}
 (\doxygen{LBFGSOptimizer}).
+
+\item \textbf{LBFGSB}: A modified version of the LBFGS optimizer that allows to
+specify bounds for the parameters in the search space.  It is an adaptor to an
+optimizer in \code{netlib}. Details on this optimizer can be found
+in~\cite{Byrd1995,Zhu1997} (\doxygen{LBFGSBOptimizer}).
 
 \item \textbf{One Plus One Evolutionary}: Strategy that simulates the
 biological evolution of a set of samples in the search space. This optimizer
@@ -86,12 +112,25 @@ is mainly used in the process of bias correction of MRI images
 direction of the gradient where a bipartition scheme is used to compute
 the step size (\doxygen{RegularStepGradientDescentOptimizer}). 
 
+\item \textbf{SPSA Optimizer}: Simultaneous Perturbation Stochastic
+Approximation Method. This optimizer is described in
+\url{http://www.jhuapl.edu/SPSA} and in~\cite{Spall1998}.
+(\doxygen{SPSAOptimizer}). 
+
 \item \textbf{Versor Transform Optimizer}: A specialized version of the 
 RegularStepGradientDescentOptimizer for VersorTransform
 parameters, where the current rotation is composed with the gradient rotation
-to produce the new rotation vector. It follows the definition of versor
+to produce the new rotation versor. It follows the definition of versor
 gradients defined by Hamilton~\cite{Hamilton1866}
 (\doxygen{VersorTransformOptimizer}).
+
+\item \textbf{Versor Rigid3D Transform Optimizer}: A specialized version of the
+RegularStepGradientDescentOptimizer for VersorRigid3DTransform parameters,
+where the current rotation is composed with the gradient rotation to produce
+the new rotation versor. The translational part of the transform parameters are
+updated as usually done in a vector space.
+(\doxygen{VersorRigid3DTransformOptimizer}).
+
 
 \end{itemize}
 
