@@ -15,7 +15,7 @@ $EXAMPLESBINDIR/ImageRegistration9 $DATADIR/BrainProtonDensitySliceBorder20.png 
 #
 # Take the first N lines, and remove the characters "["  "]"  ","
 #
-head -n 67 $OUTPUTDATAFILE | sed "s/\]/ /g"  | sed "s/\,/ /g"  | sed "s/\[/ /g"  | sed "s/AffineAngle://g" > $OUTPUTDATAFILECLEANED
+head -n 134 $OUTPUTDATAFILE | sed "s/\]/ /g"  | sed "s/\,/ /g"  | sed "s/\[/ /g"  | sed "s/AffineAngle://g" > $OUTPUTDATAFILECLEANED
 
 #
 # Take the metric and translation data and generate plots with GNUPlot
