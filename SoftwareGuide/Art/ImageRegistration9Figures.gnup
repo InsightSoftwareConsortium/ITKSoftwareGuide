@@ -14,6 +14,7 @@ set output "ImageRegistration9TraceAngle.eps"
 plot "ImageRegistration9OutputCleaned.txt" using 1:9 notitle with lines lt 1, "ImageRegistration9OutputCleaned.txt" using 1:9 notitle with points lt 0 pt 12 ps 1
 
 
+set size square
 set xlabel "X Translations (mm)"
 set ylabel "Y Translations (mm)"
 
