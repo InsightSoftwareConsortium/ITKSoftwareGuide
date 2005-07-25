@@ -480,6 +480,26 @@ features of the components forming the registration framework.
 \section{Point Set Registration}
 \label{sec:PointSetRegistration}
 
+The two most common scenarios in PointSet to PointSet registration are
+
+\begin{itemize}
+\item Two PointSets with the same number of points, and where each point in one
+set has a known correspondance to one and only one point in the second set.
+\item Two PointSets without known correspondances between the points of one set
+and the points of the other. In this case the PointSets may have different
+numbers of points.
+\end{itemize}
+
+The first case can be solved with a closed form solution when we are dealing
+with a Rigid or an Affine Transform~\cite{Horn1987}. This is done in ITK with
+the class \doxygen{LandmarkBasedTransformInitializer}. If we are interested in
+a deformable Transformation then the problem can be solved with the
+\doxygen{KernelTransform} family of classes, which includes Thin Plate Splines
+among others~\cite{Rohr2001}. In both circumstances, the availability o f
+correspondances between the points make possible to apply a straight forward
+solution to the problem.
+
+
 The classical algorithm for performing PointSet to PointSet registration is the
 Iterative Closest Point (ICP) algorithm.  The following examples illustrate how
 this can be used in ITK.
