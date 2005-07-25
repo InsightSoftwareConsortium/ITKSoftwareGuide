@@ -480,11 +480,20 @@ features of the components forming the registration framework.
 \section{Point Set Registration}
 \label{sec:PointSetRegistration}
 
+PointSet-to-PointSet registration is a common problem in medical image
+analysis. It usually arises in cases where landmarks are extracted from images
+and are used for establishing the spatial correspondance between the images.
+This type of registration can be considered to be the simplest case of
+feature-based registration. In general terms, feature-based registration is
+more efficient than the intensity based method that we have presented so far.
+However, feature-base registration brings the new problem of identifying and
+extracting the features from the images, which is not a minor challenge. 
+
 The two most common scenarios in PointSet to PointSet registration are
 
 \begin{itemize}
 \item Two PointSets with the same number of points, and where each point in one
-set has a known correspondance to one and only one point in the second set.
+set has a known correspondance to exactly one point in the second set.
 \item Two PointSets without known correspondances between the points of one set
 and the points of the other. In this case the PointSets may have different
 numbers of points.
