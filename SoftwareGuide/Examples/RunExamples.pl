@@ -184,7 +184,19 @@ sub GetArgsAndFilenames {
     $thisline=$_; 
     if ($thisline)
       {
+
+      
+      # Some of the CommandLine tags have C++ code intersparced between them.
+      # The space between the tags is meant only for command line arguments and
+      # dependency generation for the software guide. Below, we will weed out
+      # some kinds of C++ code if found.
+      # TODO: Remove this ugly hack when we get a chance
+      if ( ($thisline =~ "__BORLANDC__") || ($thisline =~ "ITK_LEAN_AND_MEAN") || ($thisline =~ "#endif"))
+        {  next;  }
         
+        
+      # If the "BeginCommandLineArgs" tag is found, set the "$tagfound" var and 
+      # initialize a few variables and arrays.
       if ($thisline =~ /$beginCmdLineArgstag/)
         { 
         $tagfound = 1;
