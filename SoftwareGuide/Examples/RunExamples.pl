@@ -82,11 +82,11 @@ if( $numArgs < 5 )
   "  Cmake file to be generated\n".
   "  Name of the TEX file generated, so dependencies can be specified\n".
   "  Ouput folder to store generated images\n".
-  "  Colon separated list of possible include directories for input images\n".
+  "  Double Colon separated list of possible include directories for input images\n".
   die;
   }
 
-@searchdir = split(/:/, $ARGV[2]);
+@searchdir = split(/::/, $ARGV[2]);
 foreach $eachpath (@searchdir)
   {
     if (-d File::Spec->canonpath($eachpath))   # if the directory is valid
