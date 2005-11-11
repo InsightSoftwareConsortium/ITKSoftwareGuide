@@ -92,17 +92,25 @@ The following is the process to configure the build process using CMAKE.
 
 3) Make sure the the following CMake variables are correctly setup
 
-  - LATEX_COMPILE       pointing to the "latex"   executable
-  - BIBTEX_COMPILE      pointing to the "bibtex"  executable
-  - DVIPDF_COMPILE      pointing to the "dvipdf"  executable
+  - LATEX_COMPILER       pointing to the "latex"   executable
+  - BIBTEX_COMPILER      pointing to the "bibtex"  executable
+  - DVIPDF_COMPILER      pointing to the "dvipdf"  executable
   - FIG2DEV_EXECUTABLE  pointing to the "fig2dev" executable
   - MAKEINDEX_COMPILE   pointing to the "makeindex" executable
-
   - IMAGEMAGICK_CONVERT_EXECUTABLE pointing to the "convert" executable
-
   - PERLCXXPARSER       pointing to the perl script ParseCxxExamples.pl
-
   - ITK_SOURCE_DIR      pointing to the directory where you have ITK sources.
+  - ITK_EXECUTABLES_DIR pointing to the directory where you have the ITK executables. 
+                        (This path specifies the directories where the built examples are,
+                        so they can be executed and figures and text and graphs 
+                        extracted from them)
+  - ITK_DATA_PATHS      Additional paths where you might find input data for the examples
+                        By default you will find the string ${ITK_SOURCE_DIR}/Examples/Data
+                        While this should be sufficient for the examples currently in the 
+                        ITK toolkit, other paths containing data may in future be added in 
+                        a double colon seperated list such as
+                        c:/ITK/src/Examples/Data::c:/Data/BrainWebData/
+                        Note that you need the BrainWeb data to run.
 
 
 4) configure and generete the Makefiles
@@ -161,4 +169,131 @@ be updated.
 
 
 
+-------------------------------------------------------------------------------
 
+Building on Windows
+-------------------
+
+The Software Guide builds on Windows and Unix.
+
+On Windows, you may have go through a few inconveniences as below:
+
+1. Installing tools required
+
+ - Install Latex, BibTeX (www.miktex.org) 
+ - Install Perl (may use cygwin's perl or Active perl, make sure its in the path). 
+ - Install ImageMagick (may use cygwin tools or windows tools)
+ - Install fig2dev (convenient to use cygwin tools)
+ - Install transfig
+ - Install ps2pdf, dvipdf, ps2pdf, dvips, Ghostscript libraries
+
+2. Building "Insight"
+   
+   Build ITK examples including the ones in the Patented directory 
+   Configure ITK with BUILD_EXAMPLES=ON and ITK_USE_PATENTED=ON and build
+
+3. Getting Data
+   
+   Most of the data to run the examples is in Insight/Examples/Data
+   Upon requests from users, examples which run on 3D data were added. The data
+   was taken from the BrainWeb repository. You may get it from
+ 
+   ftp://public.kitware.com/pub/itk/Data/BrainWeb/
+
+   The ones you need are BrainPart1.tgz and BrainPart1Rotated10Translated15.tgz 
+
+   Unzip them. 
+
+4. Building the Software Guide:
+
+   Configure the Guide using CMake. 
+
+   Pay attention to the following variables
+
+   ITK_EXECUTABLES_DIR : Where the examples executables are. 
+                         On unix this might be /ITK/binaries/
+                         On windows this might be c:/ITK/bin/Release
+                         
+   ITK_DATA_PATHS :  A double colon seperated list such as
+                     c:/ITK/src/Examples/Data::c:/Data/BrainWebData/
+                     Make sure you have the paths for the BrainWebData
+                     you just extracted as well.
+
+   BUILD_FIGURES : Set this to ON.. Recommended, to ensure that the figures
+                   are in sync with the toolkit to ensure reproducability.
+   
+
+5. Open the generated project in VS and build it.
+-------------------------------------------------------------------------------
+
+KNOWN issues:
+
+1. Miktex seems to ignore the TEXINPUTS env var on Windows. A workaround is to 
+   go through Steps 1 to 5 above. Watch your build fail. And open LaTeXWrapper.bat 
+   file present in the binary folder. 
+
+   Copy the list of paths and append them to the LaTeX and BibTeX paths manually in
+   c:\texmf\miktex\config\miktex.ini
+   
+   This file should now contain lines like
+
+   <snip>
+   [BibTeX]
+
+    ;; where BiBTeX searches for input files (both databases and style
+    ;; files)
+    Input Dirs=.;%R\bibtex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\..\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Art//;C:\cygwin\ITK\binaries\InsightDocuments2;C:\cygwin\ITK\binaries\InsightDocuments2\Examples//;C:\cygwin\ITK\binaries\InsightDocuments2\Art//;C:\cygwin\ITK\binaries\InsightDocuments2\Latex//
+   </snip>
+
+   <snip>
+   [LaTeX]
+
+    ;; input file name extensions recognized by LaTeX
+    Extensions=.tex;.src;.ltx
+
+    ;; where LaTeX searches for input files
+    Input Dirs=.
+    Input Dirs+=;%R\etex\latex//
+    Input Dirs+=;%R\etex\generic//
+    Input Dirs+=;%R\etex//
+    Input Dirs+=;%R\tex\latex//
+    Input Dirs+=;%R\tex\generic//
+    Input Dirs+=;%R\tex//
+    Input Dirs+=;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\..\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Art//;C:\cygwin\ITK\binaries\InsightDocuments2;C:\cygwin\ITK\binaries\InsightDocuments2\Examples//;C:\cygwin\ITK\binaries\InsightDocuments2\Art//;C:\cygwin\ITK\binaries\InsightDocuments2\Latex//
+   </snip>
+
+   
+  Thanks to  http://www.murdoch-sutherland.com/Rtools/miktex.html
+
+
+-------------------------------------------------------------------------------
+
+ISSUES YOU MAY RUN INTO:
+
+1. Cannot find InsightSoftwareGuide.cls
+    
+   Look at the known issues above.
+
+2. Build error in ImageRegistrationHistogramPlotter
+
+   - Update your "Insight" repository and build ITK. There was a bug in one of the examples
+
+3. Build error in ImageRegistration8
+
+   - Do you have the BrainWeb data and its path specified correctly. Open Examples/ImageRegistration8.cmake
+     in the binary folder and ensure that you can run the line commented out:
+   # Cmake macro to invoke: LineThatWillBeRun 
+
+   If the line does not run, make sure that you can find all the brainweb data specified in that line.
+
+4. The pdf built fine.. I cannot see the references or the Index. 
+   
+    Rerun the project "SoftwareGuideLatex". 
+    on unix, run "make" again
+
+   LaTeX has some cross-referencing issues which require the dependencies to be generated prior to build.
+
+5. Frustrated that the build takes a long time
+  
+    - no solution here... 
+                          
