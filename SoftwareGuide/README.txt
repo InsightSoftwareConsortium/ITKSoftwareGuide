@@ -226,7 +226,9 @@ On Windows, you may have go through a few inconveniences as below:
 5. Open the generated project in VS and build it.
 -------------------------------------------------------------------------------
 
-KNOWN issues:
+
+CAVEATS:
+--------
 
 1. Miktex seems to ignore the TEXINPUTS env var on Windows. A workaround is to 
    go through Steps 1 to 5 above. Watch your build fail. And open LaTeXWrapper.bat 
@@ -264,6 +266,22 @@ KNOWN issues:
 
    
   Thanks to  http://www.murdoch-sutherland.com/Rtools/miktex.html
+
+
+2. If you use Cygwin tools, you are responsible for managing the paths on windows.
+   For VS to be able to use them, you need to provided it with the directory to 
+   find the cygwin1.dll and the X11 dlls in tools->Options. Also, cygwin tools 
+   like ImageMagick will accept only unix style paths. As a rule of thumb, 
+   use the windows versions of the tools.
+
+3. While building SoftwareGuideLatex, you might find that the DVI and the PS documents
+   built fine. However on windows, you might not be able to succefully build the PDF.
+   This is a known issue with ps2pdf.exe on some versions on MikTex. Either update
+   your version or, manually invoke the build rule as 
+      c:\texmf\miktex\bin\ps2pdf.exe SoftwareGuide.ps
+   For some reason, 
+      c:\texmf\miktex\bin\ps2pdf.exe -dPDFSETTINGS=/screen -r600 SoftwareGuide.ps
+   does not seem to work. (This generates screen sized PDF's)
 
 
 -------------------------------------------------------------------------------
