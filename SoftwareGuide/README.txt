@@ -234,7 +234,8 @@ CAVEATS:
    go through Steps 1 to 5 above. Watch your build fail. And open LaTeXWrapper.bat 
    file present in the binary folder. 
 
-   Copy the list of paths and append them to the LaTeX and BibTeX paths manually in
+   Copy the list of paths and append them to the LaTeX and BibTeX paths and the 
+   Dvips and GraphicsPaths (4 places) manually in
    c:\texmf\miktex\config\miktex.ini
    
    This file should now contain lines like
@@ -264,7 +265,21 @@ CAVEATS:
     Input Dirs+=;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\..\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Art//;C:\cygwin\ITK\binaries\InsightDocuments2;C:\cygwin\ITK\binaries\InsightDocuments2\Examples//;C:\cygwin\ITK\binaries\InsightDocuments2\Art//;C:\cygwin\ITK\binaries\InsightDocuments2\Latex//
    </snip>
 
-   
+  
+   <snip>
+   ;; where Dvips searches for graphics files (*.png, *.jpeg, *.tiff)
+   GraphicsPath+=;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\..\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Art//;C:\cygwin\ITK\binaries\InsightDocuments2;C:\cygwin\ITK\binaries\InsightDocuments2\Examples//;C:\cygwin\ITK\binaries\InsightDocuments2\Art//;C:\cygwin\ITK\binaries\InsightDocuments2\Latex//
+   </snip>
+
+   <snip>
+   [MiKTeX]
+   ......
+
+   ;; used to locate graphics files
+   GraphicsPath+=;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\..\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Art//;C:\cygwin\ITK\binaries\InsightDocuments2;C:\cygwin\ITK\binaries\InsightDocuments2\Examples//;C:\cygwin\ITK\binaries\InsightDocuments2\Art//;C:\cygwin\ITK\binaries\InsightDocuments2\Latex//
+   </snip>
+
+
   Thanks to  http://www.murdoch-sutherland.com/Rtools/miktex.html
 
 
@@ -276,12 +291,11 @@ CAVEATS:
 
 3. While building SoftwareGuideLatex, you might find that the DVI and the PS documents
    built fine. However on windows, you might not be able to succefully build the PDF.
-   This is a known issue with ps2pdf.exe on some versions on MikTex. Either update
-   your version or, manually invoke the build rule as 
+   Just invoke the command manually from the cmd prompt as
       c:\texmf\miktex\bin\ps2pdf.exe SoftwareGuide.ps
    For some reason, 
       c:\texmf\miktex\bin\ps2pdf.exe -dPDFSETTINGS=/screen -r600 SoftwareGuide.ps
-   does not seem to work. (This generates screen sized PDF's)
+   does not seem to work. 
 
 
 -------------------------------------------------------------------------------
@@ -306,8 +320,8 @@ ISSUES YOU MAY RUN INTO:
 
 4. The pdf built fine.. I cannot see the references or the Index. 
    
-    Rerun the project "SoftwareGuideLatex". 
-    on unix, run "make" again
+    Rerun the project "SoftwareGuideLatex" twice.
+    on unix, run "make && make" again
 
    LaTeX has some cross-referencing issues which require the dependencies to be generated prior to build.
 
