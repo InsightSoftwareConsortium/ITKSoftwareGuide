@@ -14,11 +14,11 @@ were combined in the same scene.
 \begin{description}
 
 \item [Removing the Gel.]
-The body of the Visible Woman was inmersed in a block of gel during the
+The body of the Visible Woman was immersed in a block of gel during the
 freezing process. This gel appears as a blue material in the cryogenic data.
 To remove the gel, the joint histogram of RGB values was computed. This
 resulted in an 3D image of $256\times256\times256$ pixels. The histogram
-image was visualized in VolView.\footnote{VolView is a commerical product
+image was visualized in VolView.\footnote{VolView is a commercial product
 from Kitware. It supports ITK plug-ins and is available as a free viewer or
 may be licensed with advanced functionality. See
 http://www.kitware.com/products/volview.html for information.} The cluster
@@ -49,7 +49,7 @@ passed through a mathematical morphology dilation in order to close holes and
 then through a binary median filter. The binary median filter has the
 outstanding characteristic of being very simple in implementation by applying
 a sophisticated effect on the image. Qualitatively it is equivalent to a
-curvature flow evolution of the iso-contouors. In fact the binary median
+curvature flow evolution of the iso-contours. In fact the binary median
 filter as implemented in ITK is equivalent to the majority filter that
 belongs to the family of voting filters classified as a subset of the
 \emph{Larger than Life} cellular automata. Finally, the volume resulting from

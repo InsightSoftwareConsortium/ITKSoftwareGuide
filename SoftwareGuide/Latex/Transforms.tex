@@ -36,7 +36,7 @@ of using simple arrays of \code{float} or \code{double} in order to represent
 geometrical objects. The use of basic arrays would have blurred the important
 distinction between the different geometrical concepts and would have allowed
 for the innumerable conceptual and programming errors that result from using a
-vector where a point is needed or viceversa.
+vector where a point is needed or vice versa.
 
 \index{itk::Point!Concept}
 \index{itk::Vector!Concept}
@@ -106,7 +106,7 @@ concept of ``direction in space''. Strictly speaking, a Vector describes the
 relationship between two Points in space, and captures both their relative
 distance and orientation.
 
-Computer scientists and software engineers missused the term vector in order to
+Computer scientists and software engineers misused the term vector in order to
 represent the concept of an ``Indexed Set''~\cite{Austern1999}.  Mechanical
 Engineers and Civil Engineers, who deal with the real world of physical objects
 will not commit this mistake and will keep the word ``\emph{Vector}'' attached
@@ -115,12 +115,12 @@ to a geometrical concept.  Biologists, on the other hand, will associate
 particular direction, for example, a virus that allows them to insert pieces of
 code into a DNA strand~\cite{Lodish2000}.
 
-Textbooks in programming do not help to clarify those concepts and losely use
-the term ``\emph{Vector}'' for the purpose of representing an ``Enumerated set
+Textbooks in programming do not help to clarify those concepts and loosely use
+the term ``\emph{Vector}'' for the purpose of representing an ``enumerated set
 of common elements''. STL follows this trend and continue using the word
 ``\emph{Vector}'' for what it was not supposed to be
-used~\cite{Austern1999,Alexandrescu2001}. Linear Algebra devoids the
-``\emph{Vector}'' from its notion of Geometrical reality and makes it an
+used~\cite{Austern1999,Alexandrescu2001}. Linear algebra separates the
+``\emph{Vector}'' from its notion of geometric reality and makes it an
 abstract set of numbers with arithmetic operations associated.
 
 For those of you who are looking for the ``\emph{Vector}'' in the Software
@@ -134,7 +134,7 @@ The Insight Toolkit deals with real objects that inhabit the physical space.
 This is particularly true in the context of the image registration framework.
 We chose to give the appropriate name to the mathematical objects that describe
 geometrical relationships in N-Dimensional space. It is for this reason that we
-explicitly make clear the distincion between Point, Vector and CovariantVector,
+explicitly make clear the distinction between Point, Vector and CovariantVector,
 despite the fact that most people would be happy with a simple use of
 \code{double[3]} for the three concepts and then will proceed to perform all
 sort of conceptually flawed operations such as 
@@ -148,7 +148,7 @@ sort of conceptually flawed operations such as
 
 In order to enforce the correct use of the Geometrical concepts in ITK we
 organized these classes in a hierarchy that supports reuse of code and yet
-compartamentalize the behavior of the individual classes.  The use of the
+compartmentalize the behavior of the individual classes.  The use of the
 \doxygen{FixedArray} as base class of the \doxygen{Point}, the \doxygen{Vector}
 and the \doxygen{CovariantVector} was a design decision based on calling things
 by their correct name.
@@ -156,7 +156,7 @@ by their correct name.
 An \doxygen{FixedArray} is an enumerated collection with a fixed number of
 elements. You can instantiate a fixed array of letters, or a fixed array of
 images, or a fixed array of transforms, or a fixed array of geometrical shapes.
-Therefore, the FixedArray only implements the functionality that is necesary to
+Therefore, the FixedArray only implements the functionality that is necessary to
 access those enumerated elements. No assumptions can be made at this point on
 any other operations required by the elements of the FixedArray, except the
 fact of having a default constructor.
@@ -196,7 +196,7 @@ points. Therefore a Vector must satisfy the following basic operations:
 \end{itemize}
 
 An \doxygen{Vector} object is intended to be instantiated over elements that
-support matematical operation such as addition, subtraction and multiplication
+support mathematical operation such as addition, subtraction and multiplication
 by scalars.
 
 
@@ -607,7 +607,7 @@ ITK images usually have their origin in the corner of the image rather than the
 middle.  Rotational mis-registrations usually exist, however, as rotations
 around the center of the image, or at least as rotations around a point in the
 middle of the anatomical structure captured by the image. Using gradient
-descent optimizers, it is almost imposible to solve non-origin rotations using
+descent optimizers, it is almost impossible to solve non-origin rotations using
 a transform with origin rotations since the deep basin of the real solution is
 usually located across a high ridge in the topography of the cost function.
 
@@ -869,7 +869,7 @@ optimizer specialized for the versor space is available in the toolkit under
 the name of \doxygen{VersorTransformOptimizer}. This optimizer implements
 versor derivatives as originally defined by Hamilton \cite{Hamilton1866}.
 
-The center of rotation can be especified by the user with the
+The center of rotation can be specified by the user with the
 \code{SetCenter()} method. The center is not part of the parameters to be
 optimized, therefore it remains the same during an optimization process. Its
 value is used during the computations for transforming Points and when
@@ -910,7 +910,7 @@ the QuaternionRigidTransform is that it exposes only six parameters, three for
 the versor components and three for the translational components. This reduces
 the search space for the optimizer to six dimensions instead of the seven
 dimensional used by the QuaternionRigidTransform.  This transform also allows
-the users to set a specific center of rotation. The center coodinates are not
+the users to set a specific center of rotation. The center coordinates are not
 modified during the optimization performed in a registration process.  The main
 features of this transform are summarized in
 Table~\ref{tab:VersorRigid3DTransformCharacteristics}.  This transform is
@@ -959,15 +959,15 @@ The \doxygen{Euler3DTransform} implements a rigid transformation in $3D$ space.
 It can be seen as a rotation followed by a translation. This class exposes six
 parameters, three for the Euler angles that represent the rotation and three
 for the translational components. This transform also allows the users to set a
-specific center of rotation. The center coodinates are not modified during the
+specific center of rotation. The center coordinates are not modified during the
 optimization performed in a registration process. The main features of this
 transform are summarized in Table~\ref{tab:Euler3DTransformCharacteristics}.  
 
-The fact that the three rotational parameters are non-linears and do not behave
+The fact that the three rotational parameters are non-linear and do not behave
 like Vector spaces must be taken into account when selecting an optimizer to
-work with this transform and when fine tunning the parameters of such
+work with this transform and when fine tuning the parameters of such
 optimizer. It is strongly recommended to use this transform by introducing very
-small variations on the rotaional components. A small rotation will be in the
+small variations on the rotational components. A small rotation will be in the
 range of 1 degree, which in radians is approximately $0.0.1745$.
 
 You should not expect this transform to be able to compensate for large
@@ -1010,15 +1010,15 @@ $3D$ space. It can be seen as an homogeneous scaling followed by a
 \doxygen{VersorRigid3DTransform}. This class exposes seven parameters, one for
 the scaling factor, three for the versor components and three for the
 translational components. This transform also allows the users to set a
-specific center of rotation. The center coodinates are not modified during the
+specific center of rotation. The center coordinates are not modified during the
 optimization performed in a registration process.  Both the rotation and
 scaling operations are performed with respect to the center of rotation. The
 main features of this transform are summarized in
 Table~\ref{tab:Similarity3DTransformCharacteristics}.  
 
-The fact that the scaling and rotational spaces are non-linears and do not
+The fact that the scaling and rotational spaces are non-linear and do not
 behave like Vector spaces must be taken into account when selecting an
-optimizer to work with this transform and when fine tunning the parameters of
+optimizer to work with this transform and when fine tuning the parameters of
 such optimizer.
 
 
@@ -1038,7 +1038,7 @@ such optimizer.
 Represents a rigid $3D$ transformation followed by a perspective projection.
 The rotation is specified by a Versor, while the translation is represented by
 a Vector.  Users can specify the coordinates of the center of rotation. They
-must specifiy a focal distance to be used for the perspective projection. The
+must specifically a focal distance to be used for the perspective projection. The
 rotation center and the focal distance parameters are not modified during the
 optimization process. &
 6 &
@@ -1062,7 +1062,7 @@ be used in $3D/2D$ registration problems where a 3D object is projected onto a
 intervention, and it is also the case for classical radiography.  Users must
 provide a value for the focal distance to be used during the computation of the
 perspective transform. This transform also allows users to set a specific
-center of rotation. The center coodinates are not modified during the
+center of rotation. The center coordinates are not modified during the
 optimization performed in a registration process.  The main features of this
 transform are summarized in
 Table~\ref{tab:VersorRigid3DTransformCharacteristics}.  This transform is also
@@ -1206,7 +1206,7 @@ $M \times N$ &
 Where $M$ is the number of nodes in the BSpline grid and $N$ is the dimension of the space. &
 Only defined when the input and output space have the same dimension. This
 transform has the advantage of allowing to compute deformable registration. It
-also has the disadvantge of having a very high dimensional parametric space,
+also has the disadvantage of having a very high dimensional parametric space,
 and therefore requiring long computation times.\\
 \hline
 \end{tabular}
@@ -1220,7 +1220,7 @@ deformable registration problems. This transform is equivalent to generation a
 deformation field where a deformation vector is assigned to every point in
 space.  The deformation vectors are computed using BSpline interpolation from
 the deformation values of points located in a coarse grid, that is usually
-refered to as the BSpline grid.
+referred to as the BSpline grid.
 
 The BSplineDeformableTransform is not flexible enough for accounting for large
 rotations or shearing, or scaling differences. In order to compensate for this
@@ -1228,7 +1228,7 @@ limitation, it provides the functionality of being composed with an arbitrary
 transform. This transform is known as the \emph{Bulk} transform and it is
 applied to points before they are mapped with the displacement field.
 
-This transform do not provide funcionalities for maping Vectors nor
+This transform do not provide functionalities for mapping Vectors nor
 CovariantVectors, only Points can be mapped. The reason is that the variations
 of a vector under a deformable transform actually depend on the location of the
 vector in space. In other words, Vector only make sense as the relative
@@ -1260,7 +1260,7 @@ a set of \emph{Source Landmarks} and a set of \emph{Target Landmarks}.
 Several variations of these transforms are available in the toolkit. They
 differ on the type of interpolation kernel that is used when computing the
 deformation in a particular point of space. Note that these transforms are
-computationaly expensive and that their numerical complexity is proportional
+computationally expensive and that their numerical complexity is proportional
 to the number of landmarks and the space dimension.
 
 The following is the list of Transforms based on the KernelTransform.

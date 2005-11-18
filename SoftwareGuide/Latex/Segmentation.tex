@@ -23,12 +23,12 @@ sections.
 Region growing algorithms have proven to be an effective approach for image
 segmentation. The basic approach of a region growing algorithm is to start
 from a seed region (typically one or more pixels) that are considered to be
-inside the object to be segmented. The pixels neigboring this region are
+inside the object to be segmented. The pixels neighboring this region are
 evaluated to determine if they should also be considered part of the
 object. If so, they are added to the region and the process continues as long
 as new pixels are added to the region.  Region growing algorithms vary
 depending on the criteria used to decide whether a pixel should be included
-in the region or not, the type connectivity used to detemine neighbors, and
+in the region or not, the type connectivity used to determine neighbors, and
 the strategy used to visit neighboring pixels.
 
 Several implementations of region growing are available in ITK.  This section
@@ -46,7 +46,7 @@ intensity value inside a specific interval.
 
 \subsection{Otsu Segmentation}
 Another criterion for classifying pixels is to minimize the error of misclassification.
-The goal is to find a threshold that classfies the image into two clusters such that 
+The goal is to find a threshold that classifies the image into two clusters such that 
 we minimize the area under the histogram for one cluster that lies on the other cluster's 
 side of the threshold. This is equivalent to minimizing the within class variance
 or equivalently maximizing the between class variance.

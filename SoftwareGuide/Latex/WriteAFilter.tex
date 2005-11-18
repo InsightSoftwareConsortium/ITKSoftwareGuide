@@ -64,7 +64,7 @@ information.
         \index{LargestPossibleRegion}
 
         \item The \textbf{BufferedRegion} is a contiguous block of memory
-        that is lesss than or equal to in size to the
+        that is less than or equal to in size to the
         LargestPossibleRegion. The buffered region is what has actually been
         allocated by a filter to hold its output.
         \index{BufferedRegion}
@@ -139,7 +139,7 @@ Some common base classes for new filters include:
   evaluating $f(x) $ at each point in the image.
 
   \item \code{MeshToMeshFilter}: a filter that transforms meshes, such as
-  tesselation, polygon reduction, and so on.
+  tessellation, polygon reduction, and so on.
 
   \item \code{LightObject}: abstract base for filters that don't fit well
   anywhere else in the class hierarchy.  Also useful for ``calculator''
@@ -250,7 +250,7 @@ The pipeline execution process performs several important functions.
         ``cache''. If the cache is allowed to remain (\code{ReleaseDataFlagOff()}) 
         between pipeline execution, and the filter, or the input to the 
         filter, never changes, then process objects downstream of the filter 
-        just reuse the filter's cache to reexecute.)
+        just reuse the filter's cache to re-execute.)
 \end{enumerate}
 
 To perform these functions, the execution process negotiates with the

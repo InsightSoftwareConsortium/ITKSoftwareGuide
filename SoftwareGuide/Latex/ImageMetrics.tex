@@ -328,7 +328,7 @@ KL(A,B) =  \sum_i^N p_A(i) \times \log \frac{ p_A(i) }{p_B(i) }
 The distance is always non-negative and is zero only if the two distributions 
 are the same. Note that the distance is not symmetric. In other 
 words, $KL(A,B) \neq KL(B,A)$. Nevertheless, if the distributions are not too dissimilar, 
-the difference betwween $KL(A,B)$ and $KL(B,A)$ is small.
+the difference between $KL(A,B)$ and $KL(B,A)$ is small.
 
 The implementation in ITK is based on \cite{Chung2002}.
 
@@ -338,7 +338,7 @@ Given two images, $A$ and $B$, the normalized mutual information may be computed
 NMI(A,B) = 1 + \frac{I(A,B)}{H(A,B)} = \frac{H(A) + H(B)}{H(A,B)}
 \end{equation}
 where the entropy of the images, $H(A)$, $H(B)$, the mutual 
-inoformation, $I(A,B)$ and the joint entropy $H(A,B)$ are computed as mentioned 
+information, $I(A,B)$ and the joint entropy $H(A,B)$ are computed as mentioned 
 in \ref{sec:MutualInformationMetric}. Details of the implementation may be found in 
 the \cite{Hajnal2001}.
 
@@ -378,7 +378,7 @@ in images of the same modality where the relationship between the intensities
 of the fixed image and the intensities on the moving images is given by a
 linear equation. 
 
-The correlation coefficient is computed from the Joint histogran as
+The correlation coefficient is computed from the Joint histogram as
 
 \begin{equation}
 \label{eqn:CorrelationCoefficientHistogramImageToImageMetric}
@@ -406,9 +406,9 @@ words, it computes the number of pixel matches and mismatches between the two
 images. The match is designed for label maps. All pixel mismatches are
 considered equal whether they are between label 1 and label 2 or between label
 1 and label 500. In other words, the magnitude of an individual label mismatch
-is not relevant, or the occurence of a label mismatch is important. 
+is not relevant, or the occurrence of a label mismatch is important. 
 
-The spatial correspondance between the fixed and moving images is established using 
+The spatial correspondence between the fixed and moving images is established using 
 a \doxygen{Transform} using the \code{SetTransform()} method and an interpolator 
 using \code{SetInterpolator()}. Given that we are matching pixels with labels, 
 it is advisable to use Nearest Neighbor interpolation.

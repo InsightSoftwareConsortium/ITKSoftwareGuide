@@ -2,7 +2,7 @@
 \chapter{Cellular Aggregates}
 
 This chapter introduces the use of Cellular Aggregates for performing image
-analysis tasks. Cellular Aggregates are an abtraction and simplification of
+analysis tasks. Cellular Aggregates are an abstraction and simplification of
 groups of biological cells. The emulation of cellular behavior is used for
 taking advantage of their natural capabilities for generating shapes, exploring
 space and cooperating for solving complex situations. 
@@ -35,14 +35,14 @@ a control region
 The control region is composed of regulatory domains. Each domain is a section
 of DNA with enough specific characteristics to make it identifiable among all
 other domains.  Regulatory domains can be promoters, enhancers, silencers or
-represors.  In the ITK model, the categories have been reduced to just
-enhancers and represors.  Proteins in the cell, have domains that exibith
+repressors.  In the ITK model, the categories have been reduced to just
+enhancers and repressors.  Proteins in the cell, have domains that exhibit
 certain level of affinity for the regulatory domains of the gene. The affinity
 of a particular protein domain for a regulatory domain of a gene will define
 the probability of a molecule of the protein to be bound to the regulatory
 domain for a certain period of time.  During this time, the regulatory domain
 will influence the expression of the gene. Since we simplified the categories
-of regulatory domains to just \emph{enhancers} and \emph{represors}, the
+of regulatory domains to just \emph{enhancers} and \emph{repressors}, the
 actions of the regulatory domains can be represented by the following generic
 expression
 
@@ -50,7 +50,7 @@ expression
 \frac{\partial{G}}{\partial t} = \left[ ABCDE + A\over{B} \right]
 \end{equation}
 
-Where the $\over{B}$ represent the repressors and the normal letters represents
+Where the $\over{B}$ represents the repressors and the normal letters represents
 the enhancers. It is known from boolean algebra that any boolean polynomial can
 be expressed as a sum of products composed by the polynomial terms and their
 negations.
@@ -60,8 +60,8 @@ regulatory domains to be bound by a protein at a particular time. This probabili
 is estimated as the weighted sum of protein concentrations. The weights are the
 affinities of each of the protein domains for the particular regulatory domain.
 
-For example, for the regulatory domain $A$, we compute the probability o a
-proteing to be bound on this domain as the sum over all the proteins, of
+For example, for the regulatory domain $A$, we compute the probability of a
+protein to be bound on this domain as the sum over all the proteins, of
 $A$-complementary domains affinities by the protein concentration.
 
 
@@ -69,7 +69,7 @@ $A$-complementary domains affinities by the protein concentration.
 A = \sum_i P_i \cdot \sum_j D  \cdot Aff
 \end{equation}
 
-Where Aff is the affinity of the Domain $j-th$ of the $i-th$ protein for the
+Where $Aff$ is the affinity of the Domain $j-th$ of the $i-th$ protein for the
 $A$ regulatory domain. By considering only one-to-one domains, that is, a domain
 of a protein has affinity only for a single type of regulatory domain. The affinity
 may be of any value in the range [0,1] but it will be limited to a single domain.
