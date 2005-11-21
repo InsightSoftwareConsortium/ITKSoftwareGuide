@@ -37,11 +37,14 @@
 %
 \LoadClass[\itk@paper,\itk@ptsize,twoside,titlepage,openright]{book}
 
-\paperheight 9.50in
+%\paperheight 9.50in
+%\paperwidth  7.25in
+
+\paperheight 9.375in
 \paperwidth  7.25in
 
-\topmargin 0.625in
-\setlength{\voffset}{-0.625in}
+\topmargin 0.5625in
+\setlength{\voffset}{-0.5625in}
 
 % Increase printable page size (copied from fullpage.sty)
 \advance \topmargin by -\headheight
