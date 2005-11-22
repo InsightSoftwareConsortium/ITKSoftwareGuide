@@ -43,8 +43,9 @@
 \paperheight 9.375in
 \paperwidth  7.25in
 
-\topmargin 0.5625in
-\setlength{\voffset}{-0.5625in}
+\topmargin 0.625in
+\setlength{\voffset}{-0.625in}
+
 
 % Increase printable page size (copied from fullpage.sty)
 \advance \topmargin by -\headheight
@@ -53,8 +54,13 @@
 \oddsidemargin   0.625in
 \evensidemargin -0.625in
 
+
 \setcounter{secnumdepth}{2}
 
+% Print out the values just for verification
+\typeout{Dimension textheight  = \the\textheight}
+\typeout{Dimension paperheight = \the\paperheight}
+\typeout{Dimension topmargin   = \the\topmargin}
 
 
 % Optional packages:
