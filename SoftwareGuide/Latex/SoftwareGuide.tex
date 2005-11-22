@@ -14,11 +14,21 @@
 \usepackage[dvips]{graphicx}
 \usepackage{times}
 
+\newif\ifitkFullVersion
+\itkFullVersiontrue
+%\itkFullVersionfalse
+
+\newif\ifitkPrintedVersion
+\itkPrintedVersiontrue
+%\itkPrintedVersionfalse
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %  hyperref should be the last package to be loaded.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifitkPrintedVersion
 \usepackage[dvips,
 pdftitle={ITK Software Guide},
 pdfauthor={Luis Ibanez and Will Schroeder},
@@ -30,7 +40,19 @@ pdfstartview={FitH},
 backref,
 colorlinks,linkcolor={black},citecolor={black},urlcolor={black},
 ]{hyperref}
-
+\else
+\usepackage[dvips,
+pdftitle={ITK Software Guide},
+pdfauthor={Luis Ibanez and Will Schroeder},
+pdfsubject={Medical Image Segmentation and Registration Toolkit},
+pdfkeywords={Registration,Segmentation,Guide},
+pdfpagemode={UseOutlines},
+bookmarks,bookmarksopen,
+pdfstartview={FitH},
+backref,
+colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
+]{hyperref}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -62,15 +84,6 @@ and the \emph{Insight Software Consortium}}
 }
 
 \date{\today}
-
-
-\newif\ifitkFullVersion
-\itkFullVersiontrue
-%\itkFullVersionfalse
-
-\newif\ifitkPrintedVersion
-\itkPrintedVersiontrue
-%\itkPrintedVersionfalse
 
 
 % actually write the .idx file
