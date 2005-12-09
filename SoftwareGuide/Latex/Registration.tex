@@ -424,9 +424,12 @@ features of the components forming the registration framework.
 \ifitkFullVersion
 \input{ImageRegistration13.tex}
 \fi
+
+
 % the clearpage command helps to avoid orphans in the title of the next
 % section.
 \clearpage
+
 
 \section{Image Pyramids}
 \label{sec:ImagePyramids}
@@ -469,6 +472,8 @@ features of the components forming the registration framework.
 % the clearpage command helps to avoid orphans in the title of the next
 % section.
 \clearpage
+
+
 
 \section{Model Based Registration}
 \label{sec:ModelBasedRegistration}
@@ -513,13 +518,29 @@ The classical algorithm for performing PointSet to PointSet registration is the
 Iterative Closest Point (ICP) algorithm.  The following examples illustrate how
 this can be used in ITK.
 
+
+
+\subsection{Point Set Registration in 2D}
+\label{sec:PointSetRegistrationIn2D}
+
 \ifitkFullVersion
 \input{IterativeClosestPoint1.tex}
 \fi
 
+
+
+
+\subsection{Point Set Registration in 3D}
+\label{sec:PointSetRegistrationIn3D}
+
 \ifitkFullVersion
 \input{IterativeClosestPoint2.tex}
 \fi
+
+
+
+\subsection{Point Set to Distance Map Metric}
+\label{sec:PointSetToDistanceMapMetric}
 
 \ifitkFullVersion
 \input{IterativeClosestPoint3.tex}
