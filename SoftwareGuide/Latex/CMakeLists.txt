@@ -31,6 +31,7 @@ ENDIF(NOT MAKEINDEX_COMPILER)
 
 
 
+SET (PDF_QUALITY_LEVEL "Screen" CACHE STRING "PDF Quality. Options are: Screen, Printer, PrePress")
 #
 # Options for PDF generation. 
 # resolution in dpi.  
@@ -40,11 +41,24 @@ ENDIF(NOT MAKEINDEX_COMPILER)
 #  /printer  = high   resolution = Distiller "Print" optimized  
 #  /prepress = high   resolution = Distiller like "Print" with some error checking differences
 #
-#SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/printer" -r600)
-SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/prepress" "-dColorImageResolution=600" "-dGrayImageResolution=600" -r600)
-#SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/screen" -r600)
+IF( PDF_QUALITY_LEVEL STREQUAL "Screen" )
+  SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/screen" -r600)
+  SET(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersionfalse")
+ENDIF( PDF_QUALITY_LEVEL STREQUAL "Screen" )
+
+IF( PDF_QUALITY_LEVEL STREQUAL "Printer" )
+  SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/printer" -r600)
+  SET(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersiontrue")
+ENDIF( PDF_QUALITY_LEVEL STREQUAL "Printer" )
+
+IF( PDF_QUALITY_LEVEL STREQUAL "PrePress" )
+  SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/prepress" "-dColorImageResolution=600" "-dGrayImageResolution=600" -r600)
+  SET(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersiontrue")
+ENDIF( PDF_QUALITY_LEVEL STREQUAL "PrePress" )
 
 SET(DVIPS_CONVERTER_OPTIONS  -D600)
+
+
 
 #
 # File that defines the path to .cxx examples in ITK sources
