@@ -69,7 +69,9 @@ This is done basically by passing the filename to a centralized class, the
 \doxygen{ImageIOFactory} and asking it to identify any subclass of
 ImageIO capable of reading or writing the user-specified file. This
 is illustrated by the use cases on the right side of
-Figure~\ref{fig:ImageIOFactoriesUseCases}.
+Figure~\ref{fig:ImageIOFactoriesUseCases}. The ImageIOFactory acts here as a
+dispatcher that help to locate the actual IO factory classes corresponding to
+each file format.
 
 Each class derived from ImageIO must provide an associated factory
 class capable of producing an instance of the ImageIO class. For
@@ -78,7 +80,7 @@ to read this image files and there is a \doxygen{PNGImageIOFactory} class
 capable of constructing a PNGImageIO object and returning a pointer
 to it.  Each time a new file format is added (i.e., a new ImageIO
 subclass is created), a factory must be implemented as a derived class of the
-ImageIOFactory class as illustrated in
+ObjectFactoryBase class as illustrated in
 Figure~\ref{fig:ImageIOFactoriesClassDiagram}.
 
 For example, in order to read PNG files, a PNGImageIOFactory is
