@@ -315,6 +315,7 @@ IF(LATEX_COMPILER)
       ARGS      ${LATEX_WRAPPER2} 
                 ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex
       TARGET    SoftwareGuideLatex
+      DEPENDS   SoftwareGuide.ind SoftwareGuide.bbl
       OUTPUTS   SoftwareGuide.idx
     )
     ADD_CUSTOM_COMMAND( 
@@ -329,10 +330,11 @@ IF(LATEX_COMPILER)
 
   IF(BIBTEX_COMPILER)
     ADD_CUSTOM_COMMAND( 
-      SOURCE    SoftwareGuide.aux
+      SOURCE    ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex
       COMMAND   ${BIBTEX_COMPILER}
       ARGS      SoftwareGuide
       TARGET    SoftwareGuideLatex
+      DEPENDS   ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
       OUTPUTS   SoftwareGuide.bbl
     )
   ENDIF(BIBTEX_COMPILER)
