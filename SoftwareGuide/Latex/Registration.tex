@@ -547,3 +547,205 @@ this can be used in ITK.
 \fi
 
 
+
+\section{Registration Troubleshooting}
+So you read the previous sections, you wrote the code, it compiles and links fine,
+but when you run it the registration results are not what you were expecting.
+In that case, this section is for you. This is a compilation of the most common
+problems that users face when performing image registration. It provides explanations
+on the potential sources of the problems, and advice on how to deal with those problems.
+
+Most of the material in this section has been taken from frequently asked questions of 
+the ITK users list.
+
+
+\subsection{Too many samples outside moving image buffer}
+
+
+http://public.kitware.com/pipermail/insight-users/2007-March/021442.html
+
+This is a common error message in image registration.
+
+It means that at the current iteration of the optimization,
+the two images as so off-registration that their spatial
+overlap is not large enough for bringing them back into
+registration.
+
+The common causes of this problem are:
+
+\begin{itemize}
+\item Poor initialization:    You must initialize the transform properly.
+Please read the ITK Software Guide http://www.itk.org/ItkSoftwareGuide.pdf  for
+a description of the use of the CenteredTransformInitializer class.
+\item Optimzer steps too large. If you optimizer takes steps that are too
+large, it risks to become unstable and to send the images too far appart.  You
+may want to start the optimizer with a maximum step lenght of 1.0, and only
+increase it once you have managed to fine tune all other registration
+parameters.
+
+Increasing the step length makes your program faster, but it also makes it more
+unstable.
+
+
+
+\item Poor set up o the transform parameters scaling.  This is extremely
+critical in registration. You must make sure that you balance the relative
+difference of scale between the rotation parameters and the translation
+parameters.
+
+In typical medical datasets such as CT and MR, translations are measured in
+millimeters, and therefore are in the range of -100:100, while rotations are
+measured in radians, and therefore they tend to be in the range of   -1:1.
+
+
+A rotation of 3 radians is catastrophic, while a translation of 3 millimeters
+is rather inoffensive.  That difference in scale is the one that must be
+accounted for.  
+\end{itemize}
+
+
+
+\subsection{General heuristics for parameter fine-tunning}
+
+
+
+
+
+http://public.kitware.com/pipermail/insight-users/2007-March/021435.html
+
+Here is some advice on how to fine tune the parameters
+of the registration process.
+
+
+1) Set Maximum step length to 0.1 and do not change it
+   until all other parameters are stable.
+
+2) Set Minimum step length to 0.001 and do not change it.
+
+   You could interpret these two parameters as if their
+   units were radians. So, 0.1 radian = 5.7 degrees.
+
+
+3) Number of histogram bins:
+
+    First plot the histogram of your image using the
+    example program in
+
+    Insight/Examples/Statistics/ImageHistogram2.cxx
+
+    In that program use first a large number  of bins
+    (for example 2000) and identify the different
+    populations of intensity level and to what anatomical
+    structures they correspond.
+
+    Once you identify the anatomical structures in the
+    histogram, then rerun that same program with less
+    and less number of bins, until you reach the minimun
+    number of bins for which all the tissues that are important
+    for your application, are still distinctly differentiated in the
+    histogram.  At that point, take that number of bins and
+    us it for your Mutual Information metric.
+
+
+4)  Number of Samples:
+    The trade-off with the number of samples is the following:
+
+    a) computation time of registration is linearly proportional
+       to the number of samples
+                                                                                                                        b) the samples must be enough to significantly populate
+                                                                                                                           the joint histogram.
+                                                                                                                        c) Once the histogram is populated, there is not much
+                                                                                                                           use in adding more samples.
+Therefore do the following:
+
+Plot the joint histogram of both images, using the number
+of bins that you selected in item (3). You can do this by
+modifying the code of the example:
+
+Insight/Examples/Statistics/
+ImageMutualInformation1.cxx
+you have to change the code to print out the values
+of the bins. Then use a plotting program such as gnuplot,
+or Matlab, or even Excel and look at the distribution.
+The number of samples to take must be enough
+for producing the same "appearance" of the joint histogram.
+As an arbitrary rule of thumb you may want to start using
+a high number of samples (80% ~ 100%). And do not
+change it until you have mastered the other parameters
+of the registration.  Once you get your registration to converge
+you can revisit the number of samples and reduce it in order
+to make the registration run faster. You can simply reduce it
+until you find that the registration becomes unstable. That's
+your critical bound for the minimum number of samples.
+Take that number and multiply it by the magic number 1.5,
+to send it back to a stable region, or if your application is
+really critical, then use an even higher magic number x2.0.
+
+This is just engineering: you figure out what is the minimal
+size of a piece of steel that will support a bridge, and then
+you enlarge it to keep it away from the critical value.
+
+5)  The MOST critical values of the registration process are the
+scaling parameters that define the proportions between
+the parameters of the transform. In your case, for an Affine
+Transform in 2D, you have 6 parameters. The first four are
+the ones of the Matrix, and the last two are the translation.
+The rotation matrix value must be in the ranges of radians
+which is typically [ -1 to 1 ], while the translation values are
+in the ranges of millimeters (your image size units).
+You want to start by setting the scaling of the matrix
+parameters to 1.0, and the scaling of the Translation
+parameters to the holy esoteric values:
+
+1.0   /  (  10.0 * pixelspacing[0]  *  imagesize[0]  )
+1.0   /  (  10.0 * pixelspacing[1]  *  imagesize[1]  )
+
+This is telling the optimizer that you consider that rotating
+the image by 57 degrees is as "significant" as translating
+the image by half its physical extent.
+
+Note that esoteric value has included the arbitrary number
+10.0 in the denominator, for no other reason that we have
+been lucky when using that factor. This of course is just a
+supersticion, so you should feel free to experiment with
+different values of this number.
+
+Just keep in mind that what the optimizer will do is to
+"jump" in a paramteric space of 6 dimension, and that the
+component of the jump on every dimension will be proporitional
+to 1/scaling factor * OptimizerStepLenght.     Since you put
+the optimizer Step Length to 0.1, then the optimizer will start
+by exploring the rotations at jumps of about 5degrees, which
+is a conservative rotation for most medical applications.
+
+If you have reasons to think that your rotations are larger or
+smaller, then you should modify the scaling factor of the  matrix
+parameters accordingly.
+
+In the same way, if you thinkl that 1/10 of the image size is too
+large as the first step for exploring the translations, then you
+should modify the scaling of  translation parameters accordingly.
+
+
+
+In order to drive all these you need to analyze the feedback that
+the observer is providing you. For example, plot the metric values,
+and plot the translation coordinates so that you can get a feeling
+of how the registration is behaving.
+
+
+Note also that image registration is not a science. it is a pure
+engineerig practice, and therefore, there are no correct answers,
+nor "truths" to be found. It is all about how much quality your want,
+and how must computation time, and development time are you
+willing to pay for that quality. The "satisfying" answer for your
+specific application must be found by exploring the trade-offs
+between the different parameters that regulate the image
+registration process.
+
+If you are proficient in VTK you may want to consider attaching
+some visualization to the Event observer, so that you can have
+a visual feedback on the progress of the registration. This is a
+lot more productive than trying to interpret the values printed
+out on the console by the observer.
+
