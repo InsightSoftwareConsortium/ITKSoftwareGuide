@@ -175,10 +175,10 @@ mechanism. That is, rather than using the standard C++ class constructor and
 destructor, instances of an ITK class are created with the static class
 \code{New()} method. In fact, the constructor and destructor are
 \code{protected:} so it is generally not possible to construct an ITK
-instance on the heap. (Note: this behavior pertains to classes that are
+instance on the stack. (Note: this behavior pertains to classes that are
 derived from \doxygen{LightObject}. In some cases the need for speed or
 reduced memory footprint dictates that a class not be derived from
-LightObject and in this case instances may be created on the heap. An
+LightObject and in this case instances may be created on the stack. An
 example of such a class is \doxygen{EventObject}.)
 
 The object factory enables users to control run-time instantiation of classes
