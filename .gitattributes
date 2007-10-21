@@ -1,5 +1,6 @@
 .git*            export-ignore
 
+*.dia           -crlf
 *.jpg           -crlf
 *.png           -crlf
 *.sh             crlf=input
