@@ -297,7 +297,7 @@ Chapter 6 Filtering
   Check with Lydia (Brain Allen Institue) and/or Josh Cates (Utah)
 
   [Status: Done]
-  [Added Insight/Code/BasicFilters/itkSignedDanielssonDistanceMapImageFilter.txx, 
+  [Added Insight/Code/BasicFilters/itkSignedDanielssonDistanceMapImageFilter.hxx, 
          Insight/Code/BasicFilters/itkSignedDanielssonDistanceMapImageFilter.h
          Testing/BasicFilters/SignedDanielssonDistanceMapImageFilterTest.cxx
           to repository]
