@@ -1,76 +1,76 @@
 
-# 
+#
 # Find LaTeX
 #
-INCLUDE (${CMAKE_ROOT}/Modules/FindLATEX.cmake)
+include(${CMAKE_ROOT}/Modules/FindLATEX.cmake)
 
 
 #
 # Verify that we found all the components we need
 #
-IF(NOT LATEX_COMPILER)
-  MESSAGE("Latex compiler was not found. Please pass to advanced mode and provide its full path")
-ENDIF(NOT LATEX_COMPILER)
+if(NOT LATEX_COMPILER)
+  message("Latex compiler was not found. Please pass to advanced mode and provide its full path")
+endif(NOT LATEX_COMPILER)
 
-IF(NOT BIBTEX_COMPILER)
-  MESSAGE("BibTeX executable was not found. Please pass to advanced mode and provide its full path")
-ENDIF(NOT BIBTEX_COMPILER)
+if(NOT BIBTEX_COMPILER)
+  message("BibTeX executable was not found. Please pass to advanced mode and provide its full path")
+endif(NOT BIBTEX_COMPILER)
 
-IF(NOT DVIPS_CONVERTER)
-  MESSAGE("dvips executable was not found. Please pass to advanced mode and provide its full path")
-ENDIF(NOT DVIPS_CONVERTER)
+if(NOT DVIPS_CONVERTER)
+  message("dvips executable was not found. Please pass to advanced mode and provide its full path")
+endif(NOT DVIPS_CONVERTER)
 
-IF(NOT PS2PDF_CONVERTER)
-  MESSAGE("ps2pdf executable was not found. Please pass to advanced mode and provide its full path")
-ENDIF(NOT PS2PDF_CONVERTER)
+if(NOT PS2PDF_CONVERTER)
+  message("ps2pdf executable was not found. Please pass to advanced mode and provide its full path")
+endif(NOT PS2PDF_CONVERTER)
 
-IF(NOT MAKEINDEX_COMPILER)
-  MESSAGE("makeindex executable was not found. Please pass to advanced mode and provide its full path")
-ENDIF(NOT MAKEINDEX_COMPILER)
-
-
+if(NOT MAKEINDEX_COMPILER)
+  message("makeindex executable was not found. Please pass to advanced mode and provide its full path")
+endif(NOT MAKEINDEX_COMPILER)
 
 
-SET (PDF_QUALITY_LEVEL "Screen" CACHE STRING "PDF Quality. Options are: Screen, Printer, PrePress")
+
+
+set(PDF_QUALITY_LEVEL "Screen" CACHE STRING "PDF Quality. Options are: Screen, Printer, PrePress")
 #
-# Options for PDF generation. 
-# resolution in dpi.  
+# Options for PDF generation.
+# resolution in dpi.
 #
 #  /screen   = low    resolution = Distiller "Screen" optimized
-#  /ebook    = medium resolution = Distiller "eBook"  
-#  /printer  = high   resolution = Distiller "Print" optimized  
+#  /ebook    = medium resolution = Distiller "eBook"
+#  /printer  = high   resolution = Distiller "Print" optimized
 #  /prepress = high   resolution = Distiller like "Print" with some error checking differences
 #
-IF( PDF_QUALITY_LEVEL STREQUAL "Screen" )
-  SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/screen" -r600)
-  SET(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersionfalse")
-ENDIF( PDF_QUALITY_LEVEL STREQUAL "Screen" )
+if( PDF_QUALITY_LEVEL STREQUAL "Screen" )
+  set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/screen" -r600)
+  set(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersionfalse")
+endif( PDF_QUALITY_LEVEL STREQUAL "Screen" )
 
-IF( PDF_QUALITY_LEVEL STREQUAL "Printer" )
-  SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/printer" -r600)
-  SET(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersiontrue")
-ENDIF( PDF_QUALITY_LEVEL STREQUAL "Printer" )
+if( PDF_QUALITY_LEVEL STREQUAL "Printer" )
+  set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/printer" -r600)
+  set(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersiontrue")
+endif( PDF_QUALITY_LEVEL STREQUAL "Printer" )
 
-IF( PDF_QUALITY_LEVEL STREQUAL "PrePress" )
-  SET(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/prepress" "-dColorImageResolution=600" "-dGrayImageResolution=600" -r600)
-  SET(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersiontrue")
-ENDIF( PDF_QUALITY_LEVEL STREQUAL "PrePress" )
+if( PDF_QUALITY_LEVEL STREQUAL "PrePress" )
+  set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/prepress" "-dColorImageResolution=600" "-dGrayImageResolution=600" -r600)
+  set(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersiontrue")
+endif( PDF_QUALITY_LEVEL STREQUAL "PrePress" )
 
-SET(DVIPS_CONVERTER_OPTIONS  -D600)
+set(DVIPS_CONVERTER_OPTIONS  -D600)
 
 
 
 #
 # File that defines the path to .cxx examples in ITK sources
 #
-CONFIGURE_FILE(
-${SoftwareGuide_SOURCE_DIR}/SoftwareGuideConfiguration.tex.in 
+configure_file(
+${SoftwareGuide_SOURCE_DIR}/SoftwareGuideConfiguration.tex.in
 ${SoftwareGuide_BINARY_DIR}/SoftwareGuideConfiguration.tex
 )
 
-ADD_CUSTOM_TARGET(SoftwareGuideLatex  ALL echo)
+add_custom_target(SoftwareGuideLatex  ALL echo)
 
-SET( Tex_SRCS 
+set( Tex_SRCS
   Abstract.tex
   Applications.tex
   AnisotropicDiffusionFiltering.tex
@@ -100,15 +100,15 @@ SET( Tex_SRCS
   WatershedSegmentation.tex
 )
 
-FOREACH( file ${Tex_SRCS})
-SET( SoftwareGuide_Tex_SRCS  
+foreach( file ${Tex_SRCS})
+set( SoftwareGuide_Tex_SRCS
    ${SoftwareGuide_Tex_SRCS} ${SoftwareGuide_SOURCE_DIR}/Latex/${file}
  )
-ENDFOREACH( file )
+endforeach( file )
 
 
 
-SET( ITK_EXAMPLES_TEX_SRCS_NAMES 
+set( ITK_EXAMPLES_TEX_SRCS_NAMES
   BayesianPluginClassifier.tex
   BilateralImageFilter.tex
   BinaryMinMaxCurvatureFlowImageFilter.tex
@@ -235,53 +235,53 @@ SET( ITK_EXAMPLES_TEX_SRCS_NAMES
   WeightedSampleStatistics.tex
   )
 
-FOREACH( exampletexname ${ITK_EXAMPLES_TEX_SRCS_NAMES})
-  SET( ITK_EXAMPLES_TEX_SRCS ${ITK_EXAMPLES_TEX_SRCS} ${SoftwareGuide_BINARY_DIR}/Examples/${exampletexname} )
-ENDFOREACH( exampletexname )
+foreach( exampletexname ${ITK_EXAMPLES_TEX_SRCS_NAMES})
+  set( ITK_EXAMPLES_TEX_SRCS ${ITK_EXAMPLES_TEX_SRCS} ${SoftwareGuide_BINARY_DIR}/Examples/${exampletexname} )
+endforeach( exampletexname )
 
 
 
 
-IF(LATEX_COMPILER)
+if(LATEX_COMPILER)
 
-  IF (NOT UNIX)
-    SET(ITK_TEXINPUTS ${SoftwareGuide_SOURCE_DIR}/../Latex;${SoftwareGuide_SOURCE_DIR};${SoftwareGuide_SOURCE_DIR}/Latex;${SoftwareGuide_SOURCE_DIR}/Art;${SoftwareGuide_BINARY_DIR};${SoftwareGuide_BINARY_DIR}/Examples;${SoftwareGuide_BINARY_DIR}/Art;${SoftwareGuide_BINARY_DIR}/Latex)
+  if(NOT UNIX)
+    set(ITK_TEXINPUTS ${SoftwareGuide_SOURCE_DIR}/../Latex;${SoftwareGuide_SOURCE_DIR};${SoftwareGuide_SOURCE_DIR}/Latex;${SoftwareGuide_SOURCE_DIR}/Art;${SoftwareGuide_BINARY_DIR};${SoftwareGuide_BINARY_DIR}/Examples;${SoftwareGuide_BINARY_DIR}/Art;${SoftwareGuide_BINARY_DIR}/Latex)
 
-    CONFIGURE_FILE(${SoftwareGuide_SOURCE_DIR}/LaTeXWrapper.bat.in
+    configure_file(${SoftwareGuide_SOURCE_DIR}/LaTeXWrapper.bat.in
                    ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.bat)
-    SET (LATEX_WRAPPER1 ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.bat)
-    SET (LATEX_WRAPPER2 "")
+    set(LATEX_WRAPPER1 ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.bat)
+    set(LATEX_WRAPPER2 "")
 
-    CONFIGURE_FILE(${SoftwareGuide_SOURCE_DIR}/DvipsWrapper.bat.in
+    configure_file(${SoftwareGuide_SOURCE_DIR}/DvipsWrapper.bat.in
                    ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.bat)
-    SET (DVIPS_WRAPPER1 ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.bat)
-    SET (DVIPS_WRAPPER2 "")
-  ELSE (NOT UNIX)
-    SET(ITK_TEXINPUTS ${SoftwareGuide_SOURCE_DIR}/../Latex:${SoftwareGuide_SOURCE_DIR}:${SoftwareGuide_SOURCE_DIR}/Latex:${SoftwareGuide_SOURCE_DIR}/Art:${SoftwareGuide_BINARY_DIR}:${SoftwareGuide_BINARY_DIR}/Examples:${SoftwareGuide_BINARY_DIR}/Art:${SoftwareGuide_BINARY_DIR}/Latex)
+    set(DVIPS_WRAPPER1 ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.bat)
+    set(DVIPS_WRAPPER2 "")
+  else(NOT UNIX)
+    set(ITK_TEXINPUTS ${SoftwareGuide_SOURCE_DIR}/../Latex:${SoftwareGuide_SOURCE_DIR}:${SoftwareGuide_SOURCE_DIR}/Latex:${SoftwareGuide_SOURCE_DIR}/Art:${SoftwareGuide_BINARY_DIR}:${SoftwareGuide_BINARY_DIR}/Examples:${SoftwareGuide_BINARY_DIR}/Art:${SoftwareGuide_BINARY_DIR}/Latex)
 
-    CONFIGURE_FILE(${SoftwareGuide_SOURCE_DIR}/LaTeXWrapper.sh.in
+    configure_file(${SoftwareGuide_SOURCE_DIR}/LaTeXWrapper.sh.in
                    ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh)
-    SET (LATEX_WRAPPER1 /bin/sh)
-    SET (LATEX_WRAPPER2 ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh)
+    set(LATEX_WRAPPER1 /bin/sh)
+    set(LATEX_WRAPPER2 ${SoftwareGuide_BINARY_DIR}/LaTeXWrapper.sh)
 
-    CONFIGURE_FILE(${SoftwareGuide_SOURCE_DIR}/DvipsWrapper.sh.in
+    configure_file(${SoftwareGuide_SOURCE_DIR}/DvipsWrapper.sh.in
                    ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.sh)
-    SET (DVIPS_WRAPPER1 /bin/sh)
-    SET (DVIPS_WRAPPER2 ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.sh)
-  ENDIF (NOT UNIX)
+    set(DVIPS_WRAPPER1 /bin/sh)
+    set(DVIPS_WRAPPER2 ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.sh)
+  endif(NOT UNIX)
 
-  ADD_CUSTOM_COMMAND( 
+  add_custom_command(
     SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS} ${ITK_EXAMPLES_TEX_SRCS}
     COMMAND   ${LATEX_WRAPPER1}
-    ARGS      ${LATEX_WRAPPER2} 
+    ARGS      ${LATEX_WRAPPER2}
               ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex
     TARGET    SoftwareGuideLatex
     DEPENDS   ${SoftwareGuide_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS}
     OUTPUTS   SoftwareGuide.dvi
   )
 
-  IF(DVIPS_CONVERTER)
-    ADD_CUSTOM_COMMAND( 
+  if(DVIPS_CONVERTER)
+    add_custom_command(
       SOURCE    SoftwareGuide.dvi
       COMMAND   ${DVIPS_WRAPPER1}
       ARGS      ${DVIPS_WRAPPER2}
@@ -290,35 +290,35 @@ IF(LATEX_COMPILER)
       DEPENDS   SoftwareGuide.ind SoftwareGuide.bbl
       OUTPUTS   SoftwareGuide.ps
     )
-  ENDIF(DVIPS_CONVERTER)
-  
-  IF(PS2PDF_CONVERTER)
-    ADD_CUSTOM_COMMAND( 
+  endif(DVIPS_CONVERTER)
+
+  if(PS2PDF_CONVERTER)
+    add_custom_command(
       SOURCE    SoftwareGuide.ps
       COMMAND   ${PS2PDF_CONVERTER}
       ARGS      ${PS2PDF_CONVERTER_OPTIONS} SoftwareGuide.ps
       TARGET    SoftwareGuideLatex
       OUTPUTS   SoftwareGuide.pdf
     )
-    ADD_CUSTOM_COMMAND( 
+    add_custom_command(
       SOURCE    SoftwareGuideLatex
       COMMAND   echo
       TARGET    SoftwareGuideLatex
       DEPENDS   SoftwareGuide.pdf
     )
-  ENDIF(PS2PDF_CONVERTER)
+  endif(PS2PDF_CONVERTER)
 
-  IF(MAKEINDEX_COMPILER)
-    ADD_CUSTOM_COMMAND( 
-      SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS} 
+  if(MAKEINDEX_COMPILER)
+    add_custom_command(
+      SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS}
       COMMAND   ${LATEX_WRAPPER1}
-      ARGS      ${LATEX_WRAPPER2} 
+      ARGS      ${LATEX_WRAPPER2}
                 ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex
       TARGET    SoftwareGuideLatex
       DEPENDS   SoftwareGuide.ind SoftwareGuide.bbl
       OUTPUTS   SoftwareGuide.idx
     )
-    ADD_CUSTOM_COMMAND( 
+    add_custom_command(
       SOURCE    SoftwareGuide.idx
       COMMAND   ${MAKEINDEX_COMPILER}
       ARGS      SoftwareGuide
@@ -326,10 +326,10 @@ IF(LATEX_COMPILER)
       OUTPUTS   SoftwareGuide.ind
     )
 
-  ENDIF(MAKEINDEX_COMPILER)
+  endif(MAKEINDEX_COMPILER)
 
-  IF(BIBTEX_COMPILER)
-    ADD_CUSTOM_COMMAND( 
+  if(BIBTEX_COMPILER)
+    add_custom_command(
       SOURCE    ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex
       COMMAND   ${BIBTEX_COMPILER}
       ARGS      SoftwareGuide
@@ -337,10 +337,10 @@ IF(LATEX_COMPILER)
       DEPENDS   ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
       OUTPUTS   SoftwareGuide.bbl
     )
-  ENDIF(BIBTEX_COMPILER)
+  endif(BIBTEX_COMPILER)
 
 
-ENDIF(LATEX_COMPILER)
+endif(LATEX_COMPILER)
 
 
 

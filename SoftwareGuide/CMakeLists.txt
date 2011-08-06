@@ -5,48 +5,48 @@
 #####################################################
 #
 # To Build the ITK Software Guide,
-# 
-# Compile and build the ITK binaries. You will need to build the Examples in 
+#
+# Compile and build the ITK binaries. You will need to build the Examples in
 # the Insight directory with the CMakeLists.txt file in Insight/
 #
-# Run this CMakeLists.txt file and set BUILD_FIGURES  'ON'. Specify the 
+# Run this CMakeLists.txt file and set BUILD_FIGURES  'ON'. Specify the
 # directory containing the Insight executables. Specify ITK data paths.
 # The default data path inferred is Insight/Examples/Data. This should suffice
 # for building the SoftwareGuide. Should more paths be need add them in a colon
-# seperated list. 
+# seperated list.
 #
 # Make
 # Make
-# 
+#
 # More than one make may be necessary to ensure generation of the index
-# 
-# If BUILD_FIGURES is set to ON, the examples source files are parsed for 
-# command line argument tags and if found executed to generate output 
-# images, if not the images are expected to be present in the Art/ folder
-# in PNG/XFIG/JPEG/EPS format. 
-# 
-# Since generating figures may take a while, you may set BUILD_FIGURES to 
-# OFF. In this case, all figures are expected to be present in the Art/
-# folder in PNG/XFIG/JPEG/EPS format. 
-#  
 #
-CMAKE_MINIMUM_REQUIRED(VERSION 1.6)
+# If BUILD_FIGURES is set to ON, the examples source files are parsed for
+# command line argument tags and if found executed to generate output
+# images, if not the images are expected to be present in the Art/ folder
+# in PNG/XFIG/JPEG/EPS format.
+#
+# Since generating figures may take a while, you may set BUILD_FIGURES to
+# OFF. In this case, all figures are expected to be present in the Art/
+# folder in PNG/XFIG/JPEG/EPS format.
+#
+#
+cmake_minimum_required(VERSION 1.6)
 
-PROJECT(SoftwareGuide C)
+project(SoftwareGuide C)
 
 
 
 #
 # File that defines the path to .cxx examples in ITK sources
 #
-CONFIGURE_FILE(
-${SoftwareGuide_SOURCE_DIR}/SoftwareGuideConfiguration.tex.in 
+configure_file(
+${SoftwareGuide_SOURCE_DIR}/SoftwareGuideConfiguration.tex.in
 ${SoftwareGuide_BINARY_DIR}/SoftwareGuideConfiguration.tex
 IMMEDIATE
 )
 
 # Find ITK Sources
-FIND_PATH(ITK_SOURCE_DIR UseITK.cmake.in
+find_path(ITK_SOURCE_DIR UseITK.cmake.in
    ../Insight
    ../../Insight
    ../../../Insight
@@ -55,38 +55,38 @@ FIND_PATH(ITK_SOURCE_DIR UseITK.cmake.in
    ../../../../../../Insight
   )
 
-IF( NOT ITK_SOURCE_DIR )
-  MESSAGE(FATAL_ERROR "ITK source directory is not set")
-ENDIF( NOT ITK_SOURCE_DIR )
+if( NOT ITK_SOURCE_DIR )
+  message(FATAL_ERROR "ITK source directory is not set")
+endif( NOT ITK_SOURCE_DIR )
 
 # ITK_DATA_PATHS is searched recursively.. you need not enter sub-directories
-SET(ITK_DATA_PATHS "${ITK_SOURCE_DIR}/Examples/Data" CACHE STRING "Where the ITK data is. Enter a colon seperated list.")
+set(ITK_DATA_PATHS "${ITK_SOURCE_DIR}/Examples/Data" CACHE STRING "Where the ITK data is. Enter a colon seperated list.")
 
 #
 # Rebuild the Software Guide figures or not ?
-SET(BUILD_FIGURES ON CACHE BOOL "Build Software Guide figures")
-IF( BUILD_FIGURES )
-  SET(ITK_EXECUTABLES_DIR "" CACHE PATH "Where the ITK examples executables are")
-  SET(RUN_EXAMPLES_SCRIPT "${SoftwareGuide_SOURCE_DIR}/Examples/RunExamples.pl" CACHE FILEPATH "Where the RunExamples Script is")
-ENDIF( BUILD_FIGURES )
+set(BUILD_FIGURES ON CACHE BOOL "Build Software Guide figures")
+if( BUILD_FIGURES )
+  set(ITK_EXECUTABLES_DIR "" CACHE PATH "Where the ITK examples executables are")
+  set(RUN_EXAMPLES_SCRIPT "${SoftwareGuide_SOURCE_DIR}/Examples/RunExamples.pl" CACHE FILEPATH "Where the RunExamples Script is")
+endif( BUILD_FIGURES )
 
 
-# 
+#
 # Find ImageMagick tools
 # This is used to convert image formats
 #
-INCLUDE (${CMAKE_ROOT}/Modules/FindImageMagick.cmake)
-IF(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
-  MESSAGE("ImageMagick convert utility was not found. Please pass to advanced mode and provide its full path")
-ENDIF(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
+include(${CMAKE_ROOT}/Modules/FindImageMagick.cmake)
+if(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
+  message("ImageMagick convert utility was not found. Please pass to advanced mode and provide its full path")
+endif(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
 
 
-IF (BUILD_FIGURES)
+if(BUILD_FIGURES)
 
-  # 
   #
-  # ADD THE LIST OF INPUT IMAGES YOU WANT FLIPPED HERE. 
-  # 
+  #
+  # ADD THE LIST OF INPUT IMAGES YOU WANT FLIPPED HERE.
+  #
   # NOTE:
   # If ON, all input images in the list and all outputs that use these images
   # as inputs in cmd line args will be flipped about 'y'. The command line
@@ -94,8 +94,8 @@ IF (BUILD_FIGURES)
   # images corresponding to the inputs mentioned in the list and their output
   # dependencies are flipped for inclusion in the TEX document.
 
-  OPTION(ITK_FLIP_INPUTS_AND_THEIR_OUTPUTS "Flip the input images specified in CMakeLists and their corresponding outputs" ON)
-  SET(ITK_FLIP_IMG
+  option(ITK_FLIP_INPUTS_AND_THEIR_OUTPUTS "Flip the input images specified in CMakeLists and their corresponding outputs" ON)
+  set(ITK_FLIP_IMG
     BrainProtonDensitySlice
     BrainT1Slice
     BrainT1SliceBorder20
@@ -114,20 +114,20 @@ IF (BUILD_FIGURES)
   )
   # END FLIP_INPUTS LIST
 
-  SUBDIRS(Examples)
-  SUBDIRS(Art)
-  SUBDIRS(Latex)
-ELSE( BUILD_FIGURES )
-  SUBDIRS(Art)
-  SUBDIRS(Examples)
-  SUBDIRS(Latex)
-ENDIF( BUILD_FIGURES )
+  subdirs(Examples)
+  subdirs(Art)
+  subdirs(Latex)
+else( BUILD_FIGURES )
+  subdirs(Art)
+  subdirs(Examples)
+  subdirs(Latex)
+endif( BUILD_FIGURES )
 
-# 
-# Examples Directory is where .cxx files are converted 
+#
+# Examples Directory is where .cxx files are converted
 # into .tex by a perl script.
 #
 # Art Directory with images and diagrams
 #
-# Latex Directory with tex files 
+# Latex Directory with tex files
 #
