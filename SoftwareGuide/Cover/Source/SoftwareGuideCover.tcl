@@ -17,7 +17,7 @@ vtkPolyDataMapper grayMatterMapper
 vtkActor grayMatterActor
     grayMatterActor SetMapper grayMatterMapper
     eval [grayMatterActor GetProperty] SetColor 0.9  0.7  0.6
-    
+
 
 #
 #  Skull
@@ -48,7 +48,7 @@ vtkActor neckMusclesActor
     neckMusclesActor SetMapper neckMusclesMapper
     eval [neckMusclesActor GetProperty] SetColor  0.530 0.448 0.448
     neckMusclesActor SetPosition  0 0 -374
- 
+
 
 #
 #  Right Eye
@@ -67,8 +67,8 @@ vtkActor rightEyeActor
 vtkSphereSource eyeballSource
     eyeballSource SetRadius 14
     eyeballSource SetCenter 65 51 122
-    eyeballSource SetThetaResolution 40 
-    eyeballSource SetPhiResolution 40 
+    eyeballSource SetThetaResolution 40
+    eyeballSource SetPhiResolution 40
 
 vtkPolyDataMapper eyeballMapper
     eyeballMapper SetInput [eyeballSource GetOutput]
@@ -76,15 +76,15 @@ vtkPolyDataMapper eyeballMapper
 vtkActor eyeballActor
     eyeballActor SetMapper eyeballMapper
     eval [eyeballActor GetProperty] SetColor   1.0 1.0 1.0
-    eval [eyeballActor GetProperty] SetOpacity 0.5 
+    eval [eyeballActor GetProperty] SetOpacity 0.5
     eyeballActor SetPosition  0 0 -150
 
 
 vtkSphereSource lensSource
     lensSource SetRadius 3
     lensSource SetCenter 65 37 122
-    lensSource SetThetaResolution 40 
-    lensSource SetPhiResolution 40 
+    lensSource SetThetaResolution 40
+    lensSource SetPhiResolution 40
 
 vtkPolyDataMapper lensMapper
     lensMapper SetInput [lensSource GetOutput]
@@ -92,7 +92,7 @@ vtkPolyDataMapper lensMapper
 vtkActor lensActor
     lensActor SetMapper lensMapper
     eval [lensActor GetProperty] SetColor   0.3 0.3 0.3
-    lensActor SetScale     1 0.2 1 
+    lensActor SetScale     1 0.2 1
     lensActor SetPosition  0 -40 -150
 
 
@@ -110,7 +110,7 @@ vtkActor skinActor
     skinActor SetMapper skinMapper
     eval [skinActor GetProperty] SetColor  0.9  0.8  0.7
     skinActor SetPosition  0 0 -200
- 
+
 
 #
 #  Rendering pipeline shared among the anatomical structures
@@ -160,7 +160,7 @@ eval [ren1 GetActiveCamera] Zoom 1.35
 vtkWindowToImageFilter grabber
   grabber SetInput renWin
   grabber SetMagnification 3
-  
+
 vtkPNGWriter writer
   writer SetInput [ grabber GetOutput ]
   writer SetFileName "SoftwareGuideCover.png"

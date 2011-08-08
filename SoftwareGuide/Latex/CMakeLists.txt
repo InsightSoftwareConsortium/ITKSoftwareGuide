@@ -185,7 +185,7 @@ if(LATEX_COMPILER)
       ARGS      ${LATEX_WRAPPER2}
                 ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex
       TARGET    SoftwareGuideLatex
-      DEPENDS   SoftwareGuide.ind SoftwareGuide.bbl
+      DEPENDS   SoftwareGuide.bbl
       OUTPUTS   SoftwareGuide.idx
     )
     add_custom_command(

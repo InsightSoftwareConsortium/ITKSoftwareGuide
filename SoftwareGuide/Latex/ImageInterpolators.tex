@@ -13,10 +13,13 @@ are mapped onto the moving image.}
 \end{figure}
 
 
-\itkpiccaption[Need for interpolation in Registration]{Grid positions of the fixed
+\begin{floatingfigure}[rlp]{0.5\textwidth}
+ \centering
+ \includegraphics[width=7.5cm]{ImageOverlapInterpolator.eps}
+ \caption[Need for interpolation in Registration]{Grid positions of the fixed
 image map to non-grid positions of the moving
-image.\label{fig:ImageOverlapInterpolator}}
-\parpic(8cm,6cm)[r]{\includegraphics[width=7.5cm]{ImageOverlapInterpolator.eps}}
+image.  \label{fig:ImageOverlapInterpolator}}
+\end{floatingfigure}
 
 In the registration process, the metric typically compares intensity values
 in the fixed image against the corresponding values in the transformed moving
