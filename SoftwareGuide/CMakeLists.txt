@@ -7,11 +7,11 @@
 # To Build the ITK Software Guide,
 #
 # Compile and build the ITK binaries. You will need to build the Examples in
-# the Insight directory with the CMakeLists.txt file in Insight/
+# the Insight directory with the CMakeLists.txt file in ITK/
 #
 # Run this CMakeLists.txt file and set BUILD_FIGURES  'ON'. Specify the
 # directory containing the Insight executables. Specify ITK data paths.
-# The default data path inferred is Insight/Examples/Data. This should suffice
+# The default data path inferred is ITK/Examples/Data. This should suffice
 # for building the SoftwareGuide. Should more paths be need add them in a colon
 # seperated list.
 #
@@ -30,11 +30,9 @@
 # folder in PNG/XFIG/JPEG/EPS format.
 #
 #
-cmake_minimum_required(VERSION 1.6)
+cmake_minimum_required(VERSION 2.8.4)
 
 project(SoftwareGuide C)
-
-
 
 #
 # File that defines the path to .cxx examples in ITK sources
@@ -47,12 +45,12 @@ IMMEDIATE
 
 # Find ITK Sources
 find_path(ITK_SOURCE_DIR UseITK.cmake.in
-   ../Insight
-   ../../Insight
-   ../../../Insight
-   ../../../../Insight
-   ../../../../../Insight
-   ../../../../../../Insight
+   ../ITK
+   ../../ITK
+   ../../../ITK
+   ../../../../ITK
+   ../../../../../ITK
+   ../../../../../../ITK
   )
 
 if( NOT ITK_SOURCE_DIR )
@@ -60,7 +58,7 @@ if( NOT ITK_SOURCE_DIR )
 endif( NOT ITK_SOURCE_DIR )
 
 # ITK_DATA_PATHS is searched recursively.. you need not enter sub-directories
-set(ITK_DATA_PATHS "${ITK_SOURCE_DIR}/Examples/Data" CACHE STRING "Where the ITK data is. Enter a colon seperated list.")
+set(ITK_DATA_PATHS "${ITK_SOURCE_DIR}/Testing/Data" CACHE STRING "Where the ITK data is. Enter a colon seperated list.")
 
 #
 # Rebuild the Software Guide figures or not ?
@@ -113,16 +111,11 @@ if(BUILD_FIGURES)
     BrainProtonDensitySliceShifted13x17y
   )
   # END FLIP_INPUTS LIST
-
-  subdirs(Examples)
-  subdirs(Art)
-  subdirs(Latex)
-else( BUILD_FIGURES )
-  subdirs(Art)
-  subdirs(Examples)
-  subdirs(Latex)
 endif( BUILD_FIGURES )
 
+add_subdirectory(Examples)
+add_subdirectory(Art)
+add_subdirectory(Latex)
 #
 # Examples Directory is where .cxx files are converted
 # into .tex by a perl script.

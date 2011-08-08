@@ -3,7 +3,7 @@
 #
 #
 # This Script is used to infer figure dependencies from the .cxx/.hxx source
-# files in the Insight/Examples directory.
+# files in the ITK/Examples directory.
 # 
 # This automatic generation mechanism guaranties that the figures 
 # presented on the SoftwareGuide book match exactly the code
@@ -28,7 +28,7 @@
 # Please do not specify paths along with the file names. A list of search paths 
 # where input data files may be found is specified through CMAKE. Paths are 
 # specified in a colon seperated list such as
-#     /Insight/Examples/Data:/VTK/VTKData
+#     /ITK/Examples/Data:/VTK/VTKData
 # Specifying the root path will suffice. A recursive search for input data 
 # is done.
 #
@@ -706,9 +706,9 @@ sub ShouldBeNormalized{
 # - \$path_ptr - A reference to a path string. This is the path containing 
 #                the $file, if found. The trailing "/" is not present in the 
 #                path. So on windows the returned variable will look like
-#                C:/ITK/src/Insight/Nightly/Examples/Data
+#                C:/ITK/src/ITK/Nightly/Examples/Data
 #                On *nix, it will look like
-#                /ITK/src/Insight/Nightly/Examples/Data
+#                /ITK/src/ITK/Nightly/Examples/Data
 # - Returns    - 0 if $file is not found. 1 if $file is found               
 # 
 # The function searches to see of '$file' is found in the paths specified by

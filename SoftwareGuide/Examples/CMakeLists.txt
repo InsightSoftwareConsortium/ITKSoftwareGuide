@@ -27,7 +27,6 @@ macro(ADD_GENERATED_FIG_DEPS OUTPUT_IMG GENERATED_FIG)
   set( GENERATED_FIGURE_DEPS ${GENERATED_FIGURE_DEPS} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${GENERATED_FIG}" )
 endmacro( ADD_GENERATED_FIG_DEPS )
 
-
 # Some images need normalization for proper display in the book.
 # Create a convenience macro that normalizes SOME_IMG and produces
 # a rescaled EPS_IMG using ImageMagick tools.
@@ -148,9 +147,9 @@ add_custom_target(SoftwareGuideExamples  ALL echo)
 # At some point we should replace the manual ITK_EXAMPLES_SRCS with
 # this FILE GLOB_RECURSE expression.
 #
-#file( GLOB_RECURSE ITK_EXAMPLES_SRCS  ${ITK_SOURCE_DIR}/Examples/*.cxx)
-
-
+if(1)
+file( GLOB_RECURSE ITK_EXAMPLES_SRCS  ${ITK_SOURCE_DIR}/Examples/*.cxx)
+else()
 set( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/Image1.cxx
   ${ITK_SOURCE_DIR}/Examples/DataRepresentation/Image/Image2.cxx
@@ -374,6 +373,7 @@ set( ITK_EXAMPLES_SRCS
   ${ITK_SOURCE_DIR}/Examples/Statistics/ScalarImageKmeansClassifier.cxx
   ${ITK_SOURCE_DIR}/Examples/Statistics/ScalarImageMarkovRandomField1.cxx
 )
+endif()
 
 
 # It is recommended that the user build the figures from the Insight executables
