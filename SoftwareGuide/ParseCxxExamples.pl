@@ -108,7 +108,7 @@ sub ParseCxxFile {
     if( !$tagfound ) {
       if( $dumpinglatex ) {
         my $outline = $_;
-        $outline =~ s/\/\///; 
+        $outline =~ s/\/\/ *//; 
         print OUTFILE "$outline";
         }
       if( $dumpingcode ) {
