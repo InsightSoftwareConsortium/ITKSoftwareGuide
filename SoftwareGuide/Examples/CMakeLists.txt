@@ -31,74 +31,92 @@ endmacro( ADD_GENERATED_FIG_DEPS )
 # Create a convenience macro that normalizes SOME_IMG and produces
 # a rescaled EPS_IMG using ImageMagick tools.
 macro(CONVERT_AND_NORMALIZE_IMG SOME_IMG EPS_IMG PATH)
-  add_custom_command(
-      SOURCE      "${PATH}/${SOME_IMG}"
-      COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
-      ARGS        "-normalize" "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-      DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}"
-      OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-  )
+  if( NOT DEFINED ${EPS_IMG}_HAS_CUSTOM_COMMAND)
+    add_custom_command(
+        SOURCE      "${PATH}/${SOME_IMG}"
+        COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
+        ARGS        "-normalize" "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+        DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}"
+        OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+    )
+    set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
+  endif()
 endmacro(CONVERT_AND_NORMALIZE_IMG)
 
 # Same as before.. also flip the image in the process.
 macro(CONVERT_AND_FLIP_AND_NORMALIZE_IMG SOME_IMG EPS_IMG PATH)
-  add_custom_command(
-      SOURCE      "${PATH}/${SOME_IMG}"
-      COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
-      ARGS        "-flip" "-normalize" "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-      DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}"
-      OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-  )
+  if( NOT DEFINED ${EPS_IMG}_HAS_CUSTOM_COMMAND)
+    add_custom_command(
+        SOURCE      "${PATH}/${SOME_IMG}"
+        COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
+        ARGS        "-flip" "-normalize" "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+        DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}"
+        OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+    )
+    set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
+  endif()
 endmacro(CONVERT_AND_FLIP_AND_NORMALIZE_IMG)
 
 # Convert an image from some file format to EPS for inclusion in Latex using
 # ImageMagick
 macro(CONVERT_IMG SOME_IMG EPS_IMG PATH)
-  add_custom_command(
-      SOURCE      "${PATH}/${SOME_IMG}"
-      COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
-      ARGS        "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-      DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}"
-      OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-  )
+  if( NOT DEFINED ${EPS_IMG}_HAS_CUSTOM_COMMAND)
+    add_custom_command(
+        SOURCE      "${PATH}/${SOME_IMG}"
+        COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
+        ARGS        "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+        DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}"
+        OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+    )
+    set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
+  endif()
 endmacro(CONVERT_IMG)
 
 # Convert an image from some file format to EPS for inclusion in Latex using
 # ImageMagick.. also flip in the process.
 macro(CONVERT_AND_FLIP_IMG SOME_IMG EPS_IMG PATH)
-  add_custom_command(
-      SOURCE      "${PATH}/${SOME_IMG}"
-      COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
-      ARGS        "-flip" "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-      DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}"
-      OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-  )
+  if( NOT DEFINED ${EPS_IMG}_HAS_CUSTOM_COMMAND)
+    add_custom_command(
+        SOURCE      "${PATH}/${SOME_IMG}"
+        COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
+        ARGS        "-flip" "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+        DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}"
+        OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+    )
+    set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
+  endif()
 endmacro(CONVERT_AND_FLIP_IMG)
 
 # Convert an image from some file format to EPS for inclusion in Latex using
 # ImageMagick.. This image is an input image. A seperate macro is necessary
 # cause input images do not have any dependecies
 macro(CONVERT_INPUT_IMG SOME_IMG EPS_IMG PATH)
-  add_custom_command(
-      SOURCE      "${PATH}/${SOME_IMG}"
-      COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
-      ARGS        "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-      DEPENDS     ${RUN_EXAMPLES_SCRIPT}
-      OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-  )
+  if( NOT DEFINED ${EPS_IMG}_HAS_CUSTOM_COMMAND)
+    add_custom_command(
+        SOURCE      "${PATH}/${SOME_IMG}"
+        COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
+        ARGS        "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+        DEPENDS     ${RUN_EXAMPLES_SCRIPT}
+        OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+    )
+    set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
+  endif()
 endmacro(CONVERT_INPUT_IMG)
 
 # Convert an image from some file format to EPS for inclusion in Latex using
 # ImageMagick.. This image is an input image. A seperate macro is necessary
 # cause input images do not have any dependecies. Also flip
 macro(CONVERT_AND_FLIP_INPUT_IMG SOME_IMG EPS_IMG PATH)
-  add_custom_command(
-      SOURCE      "${PATH}/${SOME_IMG}"
-      COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
-      ARGS        "-flip" "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-      DEPENDS     ${RUN_EXAMPLES_SCRIPT}
-      OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-  )
+  if( NOT DEFINED ${EPS_IMG}_HAS_CUSTOM_COMMAND)
+    add_custom_command(
+        SOURCE      "${PATH}/${SOME_IMG}"
+        COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
+        ARGS        "-flip" "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+        DEPENDS     ${RUN_EXAMPLES_SCRIPT}
+        OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
+    )
+    set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
+  endif()
 endmacro(CONVERT_AND_FLIP_INPUT_IMG)
 
 
