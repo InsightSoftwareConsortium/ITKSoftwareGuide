@@ -88,7 +88,7 @@ class OneCodeBlock():
         return True
     else:
         return False
-    
+
   def GetCommandLine(self):
     commandLine = self.progFullPath + " "
     lineparse = re.compile(' *(.*): *(.*)')
@@ -151,7 +151,7 @@ class OneCodeBlock():
             pass
         else:
             print("ERROR:  INVALID LINE IDENTIFIER {0} at line {1} in {2}".format(parseGroups.group(1), lineNumber, self.sourceFile ) )
-            
+
   def Print(self):
     blockline = self.id
     print("="*80)
@@ -175,7 +175,7 @@ def ParseOneFile(sourceFile,pathFinder):
     thisFileCommandBlocks = []
     for thisline in INFILE:
       parseLine += 1
-    
+
       thisline=thisline.replace('//','')
       thisline=thisline.replace('{','').replace('}','')
       thisline=thisline.rstrip().rstrip('/').rstrip().lstrip().lstrip('/').lstrip()
@@ -196,9 +196,9 @@ def ParseOneFile(sourceFile,pathFinder):
 
 import os, os.path, stat, time
 from datetime import date, timedelta
- 
+
 dirsNotUsed = []
- 
+
 def datecheck(root, age):
     basedate = date.today() - timedelta(days=age)
     used = os.stat(root).st_mtime # st_mtime=modified, st_atime=accessed
@@ -211,7 +211,7 @@ def getdirs(basedir, age):
         basedate, lastused = datecheck(root, age)
         if lastused < basedate: #Gets files older than (age) days
             dirsNotUsed.append(root)
- 
+
 class ITKPathFinder:
     def __init__(self):
         self.execDir='/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2/bin/'
@@ -222,18 +222,18 @@ class ITKPathFinder:
         #Check if there are any input files that need to be flipped.
         self.outPicDir =  os.path.realpath(self.outPicDir);
         self.outPicDir =  self.outPicDir.rstrip('/')
-        
+
         ##HACK:  Need beter search criteria
         searchPaths='/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//ExternalData/Brain:/Users/johnsonhj/Dashboard/src/ITK/Testing/Data/Input/:/Users/johnsonhj/Dashboard/src/ITK/Testing/Data/Baseline/Review:/Users/johnsonhj/Dashboard/src/ITK/Testing/Data/Baseline/Iterators:/Users/johnsonhj/Dashboard/src/ITK/Testing/Data/Baseline/IO:/Users/johnsonhj/Dashboard/src/ITK/Testing/Data/Baseline/Filtering:/Users/johnsonhj/Dashboard/src/ITK/Testing/Data/Baseline/BasicFilters:/Users/johnsonhj/Dashboard/src/ITK/Testing/Data/Baseline/Algorithms:/Users/johnsonhj/Dashboard/src/ITK/Examples/Data:/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//Testing/Temporary:/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//Modules/Nonunit/Review/test:/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//ExternalData/Modules/Segmentation/LevelSetsv4/test/Baseline:/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//ExternalData/Modules/IO/GE/test/Baseline:/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//ExternalData/Examples/Filtering/test/Baseline:/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//ExternalData/Examples/Data/BrainWeb:/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//Examples/Segmentation/test:'
         dirtyDirPaths = searchPaths.split(':')
-        
+
         self.searchDirList=[]
         for eachpath in dirtyDirPaths:
           if os.path.isdir(eachpath):
             self.searchDirList.append( os.path.realpath(eachpath) )
-        
+
         print self.searchDirList
-        
+
     def GetProgramPath(self,execfilenamebase):
         testPath = self.execDir+'/'+execfilenamebase
         if os.path.exists(testPath):
@@ -241,42 +241,42 @@ class ITKPathFinder:
         else:
             print("ERROR:  {0} does not exists".format(testPath))
             sys.exit(-1)
-            
+
     def GetInputPath(self,inputBaseName):
         for checkPath in self.searchDirList:
             testPath=checkPath+'/'+inputBaseName
             if os.path.exists(testPath):
                 return testPath
         return inputBaseName
-        
+
     def GetOutputPath(self,outputBaseName):
         outPath=self.outPicDir+'/'+outputBaseName
         outPath = outPath.replace(self.outPicDir+'/'+self.outPicDir, self.outPicDir ) #Avoid multiple path concatenations
         return outPath
-    
+
 if __name__ == "__main__":
     import sys
-            
+
     pathFinder = ITKPathFinder()
-    
+
     allCommandBlocks = []
     for rootDir,dirList,fileList in os.walk('/Users/johnsonhj/Dashboard/src/ITK/'):
         if rootDir.count('ThirdParty') >= 1:
             #print("Passing on: {0}".format(rootDir))
             continue
-                
+
         for currFile in fileList:
             if currFile[-4:] != ".cxx": ## Only parse cxx files
                 #print("NOT PARSING: {0} because it has wrong extension {1}".format(currFile,currFile[-r:]))
                 continue
             sourceFile = os.path.realpath(rootDir+'/'+currFile)
-    
-            
+
+
             ## A dictionary indexed by starting line to the command blocks
             allCommandBlocks += ParseOneFile(sourceFile,pathFinder)
-            
+
     for depth in range(0,4): # Only look 4 items deep, then assume failures occured
-        remainingCommandBlocks=[]            
+        remainingCommandBlocks=[]
         print("Ruinning depth level {0} with {1} codeblocks".format(depth,len(allCommandBlocks)))
         for blockstart in allCommandBlocks:
           if blockstart.DoInputsExists() == False:

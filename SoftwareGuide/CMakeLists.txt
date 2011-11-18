@@ -65,7 +65,7 @@ set(ITK_DATA_PATHS "${ITK_SOURCE_DIR}/Testing/Data" CACHE STRING "Where the ITK 
 set(BUILD_FIGURES ON CACHE BOOL "Build Software Guide figures")
 if( BUILD_FIGURES )
   set(ITK_EXECUTABLES_DIR "" CACHE PATH "Where the ITK examples executables are")
-  set(RUN_EXAMPLES_SCRIPT "${SoftwareGuide_SOURCE_DIR}/Examples/RunExamples.pl" CACHE FILEPATH "Where the RunExamples Script is")
+  set(RUN_EXAMPLES_SCRIPT "${SoftwareGuide_SOURCE_DIR}/Examples/RunExamples.py" CACHE FILEPATH "Where the RunExamples Script is")
 endif( BUILD_FIGURES )
 
 
