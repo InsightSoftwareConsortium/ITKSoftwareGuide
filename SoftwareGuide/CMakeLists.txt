@@ -118,7 +118,7 @@ add_subdirectory(Art)
 add_subdirectory(Latex)
 #
 # Examples Directory is where .cxx files are converted
-# into .tex by a perl script.
+# into .tex by a python script.
 #
 # Art Directory with images and diagrams
 #
