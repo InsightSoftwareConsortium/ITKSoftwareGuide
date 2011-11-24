@@ -68,7 +68,7 @@ applied to each one of the component listed above.
       EndCodeSnippet
 
 
-   A PerlScript (provided in SoftwareGuide/ParseCxxExamples.pl)
+   A python (provided in SoftwareGuide/ParseCxxExamples.pl)
    is invoked by CMake in order to extract these comments and
    generate latex files (with .tex extension) that will be copied
    onto the Binary directory on the "Examples" subdirectory.
@@ -98,7 +98,7 @@ The following is the process to configure the build process using CMAKE.
   - FIG2DEV_EXECUTABLE  pointing to the "fig2dev" executable
   - MAKEINDEX_COMPILE   pointing to the "makeindex" executable
   - IMAGEMAGICK_CONVERT_EXECUTABLE pointing to the "convert" executable
-  - PERLCXXPARSER       pointing to the perl script ParseCxxExamples.pl
+  - PYTHONCXXPARSER     pointing to the python script ParseCxxExamples.py
   - ITK_SOURCE_DIR      pointing to the directory where you have ITK sources.
   - ITK_EXECUTABLES_DIR pointing to the directory where you have the ITK executables. 
                         (This path specifies the directories where the built examples are,
@@ -181,7 +181,7 @@ On Windows, you may have go through a few inconveniences as below:
 1. Installing tools required
 
  - Install Latex, BibTeX (www.miktex.org) 
- - Install Perl (may use cygwin's perl or Active perl, make sure its in the path). 
+ - Install python (may use cygwin's python or Active python, make sure its in the path). 
  - Install ImageMagick (may use cygwin tools or windows tools)
  - Install fig2dev (convenient to use cygwin tools)
  - Install transfig
