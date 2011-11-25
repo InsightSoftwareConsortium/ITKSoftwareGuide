@@ -148,19 +148,20 @@ expectation-maximization parameter estimation process.
 \subsection{Sample Generation}
 \label{sec:SampleGeneration}
 
-\subsubsection{ListSampleToHistogramFilter}
-\label{sec:ListSampleToHistogramFilter}
+\subsubsection{SampleToHistogramFilter}
+\label{sec:SampleToHistogramFilter}
 
 \ifitkFullVersion 
-\input{ListSampleToHistogramFilter.tex}
+\input{SampleToHistogramFilter.tex}
 \fi
 
-\subsubsection{ListSampleToHistogramGenerator}
-\label{sec:ListSampleToHistogramGenerator}
-
-\ifitkFullVersion 
-\input{ListSampleToHistogramGenerator.tex}
-\fi
+% TODO HACK Determine where this code went
+%REMOVED \subsubsection{ListSampleToHistogramGenerator}
+%REMOVED \label{sec:ListSampleToHistogramGenerator}
+%REMOVED 
+%REMOVED \ifitkFullVersion 
+%REMOVED \input{ListSampleToHistogramGenerator.tex}
+%REMOVED \fi
 
 \subsubsection{NeighborhoodSampler}
 \label{sec:NeighborhoodSampler}
@@ -169,15 +170,13 @@ expectation-maximization parameter estimation process.
 \input{NeighborhoodSampler.tex}
 \fi
 
-\subsubsection{SampleToHistogramProjectionFilter}
-\label{sec:SampleToHistogramProjectionFilter}
-
-\ifitkFullVersion 
-\input{SampleToHistogramProjectionFilter.tex}
-\fi
-
-
-
+% TODO HACK Determine where this code went
+%REMOVED \subsubsection{SampleToHistogramProjectionFilter}
+%REMOVED \label{sec:SampleToHistogramProjectionFilter}
+%REMOVED 
+%REMOVED \ifitkFullVersion 
+%REMOVED \input{SampleToHistogramProjectionFilter.tex}
+%REMOVED \fi
 
 \subsection{Sample Sorting}
 \label{sec:SampleSorting}
@@ -197,20 +196,20 @@ parameters. Before calling the \code{Evaluate()} method, make sure to set the
 proper values for the distribution parameters.
 
 \subsubsection{Gaussian Distribution}
-\label{sec:GaussianDensityFunction}
+\label{sec:GaussianMembershipFunction}
 
 \ifitkFullVersion 
-\input{GaussianDensityFunction.tex}
+\input{GaussianMembershipFunction.tex}
 \fi
 
 \subsection{Distance Metric}
 \label{sec:DistanceMetric}
 
 \subsubsection{Euclidean Distance}
-\label{sec:EuclideanDistance}
+\label{sec:EuclideanDistanceMetric}
 
 \ifitkFullVersion 
-\input{EuclideanDistance.tex}
+\input{EuclideanDistanceMetric.tex}
 \fi
 
 \subsection{Decision Rules}

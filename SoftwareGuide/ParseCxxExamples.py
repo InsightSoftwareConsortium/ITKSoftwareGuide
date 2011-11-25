@@ -33,7 +33,7 @@ class OneDocBlock():
       blockline += 1
       print("{0}  : {1}".format(blockline,blocktext))
     print("^"*80)
-    
+
   def GetCodeBlockString(self):
     blockstring = ""
     if self.blockType == 'Latex':
@@ -41,12 +41,14 @@ class OneDocBlock():
         blockstring += "{0}\n".format(blocktext)
       pass
     elif self.blockType == 'CodeSnippet':
-      blockstring += "\\small\n"
-      blockstring += "\\begin{verbatim}\n"
+      #blockstring += "\\small\n"
+      #blockstring += "\\begin{verbatim}\n"
+      blockstring += "\\begin{lstlisting}[language=C++]\n"
       for blocktext in self.codeblock:
         blockstring += "{0}\n".format(blocktext)
-      blockstring += "\\end{verbatim}\n";
-      blockstring += "\\normalsize\n";
+      blockstring += "\\end{lstlisting}\n";
+      #blockstring += "\\end{verbatim}\n";
+      #blockstring += "\\normalsize\n";
       pass
     return blockstring
 
@@ -63,7 +65,7 @@ def ParseOneFile(sourceFile):
     thisFileCommandBlocks = []
     for thisline in INFILE:
       parseLine += 1
-      
+
       thisline=thisline.replace('//','')
       #thisline=thisline.rstrip().rstrip('/').rstrip().lstrip().lstrip('/').lstrip()
       thisline=thisline.lstrip().rstrip()
@@ -100,7 +102,7 @@ def GetPreambleString(examplefilename):
 % It has been automatically generated
 % by a perl script from the original cxx sources
 % in the Insight/Examples directory
-  
+
 % Any changes should be made in the file
 % {0}
 
@@ -115,13 +117,13 @@ if __name__ == "__main__":
   if len(sys.argv) < 2:
      print("Usage: {0} <input file> <output file>".format(argv[0]))
      sys.exit(-1)
-  
+
   inputfilename = sys.argv[1]
   outputfilename = sys.argv[2]
   print("Processing {0} into {1}  ... \n".format(inputfilename,outputfilename))
 
   thisCodeBlocks = ParseOneFile(inputfilename)
-   
+
   outPtr = open(outputfilename,'w')
   outPtr.write( GetPreambleString(inputfilename) )
   for cb in thisCodeBlocks:
