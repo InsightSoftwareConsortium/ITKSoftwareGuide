@@ -219,18 +219,16 @@ def getdirs(basedir, age):
             dirsNotUsed.append(root)
 
 class ITKPathFinder:
-    def __init__(self):
-        self.execDir='/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2/bin/'
+    def __init__(self,itkSourceDir,itkBinaryDir,SWGuidBaseOutput):
+        self.execDir=itkBinaryDir+'/bin'
         self.execDir=self.execDir.rstrip('/')
-        self.outCmakeFile='/Users/johnsonhj/Dashboard/src/SoftwareGuide-build/Examples/MultiResImageRegistration1.cmake'
-        self.outTexFile='/Users/johnsonhj/Dashboard/src/SoftwareGuide-build/Examples/MultiResImageRegistration1.tex'
-        self.outPicDir='/Users/johnsonhj/Dashboard/src/SoftwareGuide-build/Art/Generated'
+        self.outPicDir=SWGuidBaseOutput+'/Art/Generated'
         #Check if there are any input files that need to be flipped.
         self.outPicDir =  os.path.realpath(self.outPicDir);
         self.outPicDir =  self.outPicDir.rstrip('/')
 
         ##HACK:  Need beter search criteria
-        searchPaths='/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//ExternalData/Brain:/Users/johnsonhj/Dashboard/src/ITK/Testing/Data/Input/:/Users/johnsonhj/Dashboard/src/ITK/Testing/Data/Baseline/Review:/Users/johnsonhj/Dashboard/src/ITK/Testing/Data/Baseline/Iterators:/Users/johnsonhj/Dashboard/src/ITK/Testing/Data/Baseline/IO:/Users/johnsonhj/Dashboard/src/ITK/Testing/Data/Baseline/Filtering:/Users/johnsonhj/Dashboard/src/ITK/Testing/Data/Baseline/BasicFilters:/Users/johnsonhj/Dashboard/src/ITK/Testing/Data/Baseline/Algorithms:/Users/johnsonhj/Dashboard/src/ITK/Examples/Data:/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//Testing/Temporary:/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//Modules/Nonunit/Review/test:/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//ExternalData/Modules/Segmentation/LevelSetsv4/test/Baseline:/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//ExternalData/Modules/IO/GE/test/Baseline:/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//ExternalData/Examples/Filtering/test/Baseline:/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//ExternalData/Examples/Data/BrainWeb:/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2//Examples/Segmentation/test:/Users/johnsonhj/Dashboard/src/SoftwareGuide-build/Art/Generated:/Users/johnsonhj/Dashboard/src/ITK-gcc-4.2/ExternalData/Testing/Data/Input'
+        searchPaths='{0}/ExternalData/Testing/Data/Input:{0}/ExternalData/Brain:{1}/Testing/Data/Input/:{1}/Testing/Data/Baseline/Review:{1}/Testing/Data/Baseline/Iterators:{1}/Testing/Data/Baseline/IO:{1}/Testing/Data/Baseline/Filtering:{1}/Testing/Data/Baseline/BasicFilters:{1}/Testing/Data/Baseline/Algorithms:{1}/Examples/Data:{0}/Testing/Temporary:{0}/Modules/Nonunit/Review/test:{0}/ExternalData/Modules/Segmentation/LevelSetsv4/test/Baseline:{0}/ExternalData/Modules/IO/GE/test/Baseline:{0}/ExternalData/Examples/Filtering/test/Baseline:{0}/ExternalData/Examples/Data/BrainWeb:{0}/Examples/Segmentation/test:{2}/Art/Generated:{0}ExternalData/Testing/Data/Input'.format(itkBinaryDir,itkSourceDir,SWGuidBaseOutput)
         dirtyDirPaths = searchPaths.split(':')
 
         self.searchDirList=[]
@@ -266,67 +264,86 @@ class ITKPathFinder:
         return outPath
 
 if __name__ == "__main__":
-    import sys
+  import sys
+  import argparse
 
-    pathFinder = ITKPathFinder()
+  parser = argparse.ArgumentParser(description='Load a CSV file into a database.')
+  parser.add_argument('--itkSourceDir', dest='itkSourceDir', action='store', default=None,
+                      help='The path to the ITK source tree.')
+  parser.add_argument('--itkExecDir', dest='itkExecDir', action='store', default=None,
+                      help='The path to the ITK binary tree bin directory were executables are found.')
+  parser.add_argument('--SWGuidBaseOutput', dest='SWGuidBaseOutput', action='store', default=None,
+                      help="The base directory of the output directory.")
 
-    allCommandBlocks = []
-    for rootDir,dirList,fileList in os.walk('/Users/johnsonhj/Dashboard/src/ITK/'):
-        if rootDir.count('ThirdParty') >= 1:
-            #print("Passing on: {0}".format(rootDir))
-            continue
+  args = parser.parse_args()
 
-        for currFile in fileList:
-            if currFile[-4:] != ".cxx": ## Only parse cxx files
-                #print("NOT PARSING: {0} because it has wrong extension {1}".format(currFile,currFile[-r:]))
-                continue
-            sourceFile = os.path.realpath(rootDir+'/'+currFile)
+  itkBinaryDir= os.path.dirname( args.itkExecDir )
+  pathFinder = ITKPathFinder(args.itkSourceDir,itkBinaryDir, args.SWGuidBaseOutput)
+
+  allCommandBlocks = []
+  for rootDir,dirList,fileList in os.walk(args.itkSourceDir):
+      if rootDir.count('ThirdParty') >= 1:
+          #print("Passing on: {0}".format(rootDir))
+          continue
+
+      for currFile in fileList:
+          if currFile[-4:] != ".cxx": ## Only parse cxx files
+              #print("NOT PARSING: {0} because it has wrong extension {1}".format(currFile,currFile[-r:]))
+              continue
+          sourceFile = os.path.realpath(rootDir+'/'+currFile)
 
 
-            ## A dictionary indexed by starting line to the command blocks
-            allCommandBlocks += ParseOneFile(sourceFile,pathFinder)
+          ## A dictionary indexed by starting line to the command blocks
+          allCommandBlocks += ParseOneFile(sourceFile,pathFinder)
 
-    for depth in range(0,4): # Only look 4 items deep, then assume failures occured
-        remainingCommandBlocks=[]
-        print("Running depth level {0} with {1} codeblocks".format(depth,len(allCommandBlocks)))
-        for blockstart in allCommandBlocks:
-          if blockstart.DoInputsExists() == False:
-            blockstart.AreOutputsNewer()
-            print(' '*80+"\nJob Not Yet Ready To Run")
-            print(blockstart.inputs)
-            print('*'*80)
-            remainingCommandBlocks.append(blockstart)
+  max_depth=4
+  for depth in range(0,max_depth): # Only look 4 items deep, then assume failures occured
+      if len(allCommandBlocks) == 0:
+        print("ALL WORK COMPLETED!")
+        break
+      if depth == max_depth-1:
+        print("FAILED TO COMPLETE ALL PROCESSING.")
+        sys.exit(-1)
+      remainingCommandBlocks=[]
+      print("Running depth level {0} with {1} codeblocks".format(depth,len(allCommandBlocks)))
+      for blockstart in allCommandBlocks:
+        if blockstart.DoInputsExists() == False:
+          blockstart.AreOutputsNewer()
+          print(' '*80+"\nJob Not Yet Ready To Run")
+          print(blockstart.inputs)
+          print('*'*80)
+          remainingCommandBlocks.append(blockstart)
+          runCommand = blockstart.GetCommandLine()
+          #print(runCommand)
+          #print('*'*80)
+          continue
+        else:
+          completedAlready=blockstart.AreOutputsNewer()
+          if completedAlready == True:
+            print(' '*80+"\nJob Already Done")
+            #runCommand = blockstart.GetCommandLine()
+          #print(runCommand)
+            print('-'*80)
+          elif completedAlready == False:
+            print(' '*80+"\nNeed to run")
+            pass
+            blockstart.Print()
             runCommand = blockstart.GetCommandLine()
-            #print(runCommand)
-            #print('*'*80)
-            continue
+            try:
+              retcode = subprocess.call(runCommand, shell=True)
+              if retcode < 0:
+                  print >>sys.stderr, "Child was terminated by signal", -retcode
+              else:
+                  print >>sys.stderr, "Child returned", retcode
+            except OSError, e:
+              print >>sys.stderr, "Execution failed:", e
+            runCommand = blockstart.GetCommandLine()
+            print(runCommand)
+            print('+'*80+"\nNeed to run")
           else:
-            completedAlready=blockstart.AreOutputsNewer()
-            if completedAlready == True:
-              print(' '*80+"\nJob Already Done")
-              #runCommand = blockstart.GetCommandLine()
-              #print(runCommand)
-              print('-'*80)
-            elif completedAlready == False:
-              print(' '*80+"\nNeed to run")
-              pass
-              blockstart.Print()
-              runCommand = blockstart.GetCommandLine()
-              try:
-                retcode = subprocess.call(runCommand, shell=True)
-                if retcode < 0:
-                    print >>sys.stderr, "Child was terminated by signal", -retcode
-                else:
-                    print >>sys.stderr, "Child returned", retcode
-              except OSError, e:
-                print >>sys.stderr, "Execution failed:", e
-              runCommand = blockstart.GetCommandLine()
-              print(runCommand)
-              print('+'*80+"\nNeed to run")
-            else:
-              print("ERROR:  Invalid status given.")
-              sys.exit(-1)
-        allCommandBlocks = remainingCommandBlocks
+            print("ERROR:  Invalid status given.")
+            sys.exit(-1)
+      allCommandBlocks = remainingCommandBlocks
 
 
 

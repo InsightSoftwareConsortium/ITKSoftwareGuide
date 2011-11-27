@@ -165,6 +165,22 @@ add_custom_target(SoftwareGuideExamples  ALL echo)
 #
 file( GLOB_RECURSE ITK_EXAMPLES_SRCS  ${ITK_SOURCE_DIR}/Examples/*.cxx)
 
+message(STATUS "PRE_RUN_PYTHNON ART GENERATION.")
+message(STATUS "Running: ${PYTHON_EXECUTABLE} ${RUN_EXAMPLES_SCRIPT} --itkSource ${ITK_SOURCE_DIR} --itkExecDir ${ITK_EXECUTABLES_DIR} --SWGuidBaseOutput ${SoftwareGuide_BINARY_DIR}" )
+execute_process(
+  COMMAND ${PYTHON_EXECUTABLE}
+  ${RUN_EXAMPLES_SCRIPT}
+  --itkSource ${ITK_SOURCE_DIR}
+  --itkExecDir ${ITK_EXECUTABLES_DIR}
+  --SWGuidBaseOutput ${SoftwareGuide_BINARY_DIR}
+  WORKING_DIRECTORY "${SoftwareGuide_BINARY_DIR}/Art/Generated"
+  RESULT_VARIABLE    RUN_EXAMPLES_RESULT
+    )
+if( NOT ${RUN_EXAMPLES_RESULT} EQUAL 0)
+  message(FATAL_ERROR "POST_RUN_PYTHNON ART GENERATION ${RUN_EXAMPLES_RESULT}.")
+endif()
+
+
 # It is recommended that the user build the figures from the Insight executables
 # to generate the guide to ensure consistency.
 if( BUILD_FIGURES )
@@ -214,11 +230,6 @@ if( BUILD_FIGURES )
       include(${ExampleCmakeFile} OPTIONAL)
   endforeach(example)
 
-  exec_program(/Library/Frameworks/EPD64.framework/Versions/Current/bin/python "${SoftwareGuide_BINARY_DIR}/Art/Generated"
-        ${Examples_BINARY_DIR}
-        ARGS      ${RUN_EXAMPLES_SCRIPT} "dummy" ${ITK_EXECUTABLES_DIR} "${ITK_DATA_PATHS}" "dummy" "dummy" ${GeneratedFolder}
-      )
-
   #
   # Parse Latex file for latex includes
   #
@@ -232,7 +243,7 @@ if( BUILD_FIGURES )
     #message("File ${TEX_FILE} depends on: ${deps}")
     add_custom_command(
       SOURCE    ${example}
-      COMMAND   ${PYTHONINTERP_EXECUTABLE}
+      COMMAND   ${PYTHON_EXECUTABLE}
       ARGS      ${PYTHONCXXPARSER} ${example} ${TEX_FILE}
       TARGET    SoftwareGuideExamples
       DEPENDS   ${PYTHONCXXPARSER} ${example} ${deps}
@@ -253,7 +264,7 @@ else( BUILD_FIGURES )
     set(TEX_FILE ${SoftwareGuide_BINARY_DIR}/Examples/${TEX_FILE}.tex)
     add_custom_command(
       SOURCE    ${example}
-      COMMAND   ${PYTHONINTERP_EXECUTABLE}
+      COMMAND   ${PYTHON_EXECUTABLE}
       ARGS      ${PYTHONCXXPARSER} ${example} ${TEX_FILE}
       TARGET    SoftwareGuideExamples
       DEPENDS   ${PYTHONCXXPARSER} ${example}
