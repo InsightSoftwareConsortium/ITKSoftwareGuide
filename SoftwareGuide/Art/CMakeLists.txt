@@ -62,58 +62,55 @@ if(BUILD_FIGURES)
 endif(BUILD_FIGURES)
 
 
-
-
-
 foreach(image ${JPEG_IMAGES})
   get_filename_component(Imagebase ${image} NAME)
-  get_filename_component(ImageBase ${Imagebase} NAME_WE)
+  get_filename_component(ImageBaseNoExt ${Imagebase} NAME_WE)
   add_custom_command(
-  SOURCE    ${SoftwareGuide_SOURCE_DIR}/Art/${ImageBase}.jpg
+  SOURCE    ${SoftwareGuide_SOURCE_DIR}/Art/${ImageBaseNoExt}.jpg
   COMMAND   ${IMAGEMAGICK_CONVERT_EXECUTABLE}
-  ARGS      ${SoftwareGuide_SOURCE_DIR}/Art/${ImageBase}.jpg
-            ${ImageBase}.eps
+  ARGS      ${SoftwareGuide_SOURCE_DIR}/Art/${ImageBaseNoExt}.jpg
+            ${ImageBaseNoExt}.eps
   TARGET    SoftwareGuideArt
-  OUTPUTS   ${SoftwareGuide_BINARY_DIR}/Art/${ImageBase}.eps
+  OUTPUTS   ${SoftwareGuide_BINARY_DIR}/Art/${ImageBaseNoExt}.eps
   )
-  set(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${ImageBase}.eps)
+  set(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${ImageBaseNoExt}.eps)
 endforeach(image)
 
 foreach(image ${PNG_IMAGES})
   get_filename_component(Imagebase ${image} NAME)
-  get_filename_component(ImageBase ${Imagebase} NAME_WE)
+  get_filename_component(ImageBaseNoExt ${Imagebase} NAME_WE)
   add_custom_command(
-  SOURCE    ${SoftwareGuide_SOURCE_DIR}/Art/${ImageBase}.png
+  SOURCE    ${SoftwareGuide_SOURCE_DIR}/Art/${ImageBaseNoExt}.png
   COMMAND   ${IMAGEMAGICK_CONVERT_EXECUTABLE}
-  ARGS      ${SoftwareGuide_SOURCE_DIR}/Art/${ImageBase}.png
-            ${ImageBase}.eps
+  ARGS      ${SoftwareGuide_SOURCE_DIR}/Art/${ImageBaseNoExt}.png
+            ${ImageBaseNoExt}.eps
   TARGET    SoftwareGuideArt
-  OUTPUTS   ${SoftwareGuide_BINARY_DIR}/Art/${ImageBase}.eps
+  OUTPUTS   ${SoftwareGuide_BINARY_DIR}/Art/${ImageBaseNoExt}.eps
   )
-  set(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${ImageBase}.eps)
+  set(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${ImageBaseNoExt}.eps)
 endforeach(image)
 
 foreach(image ${XFIG_FIGURES})
   get_filename_component(Imagebase ${image} NAME)
-  get_filename_component(ImageBase ${Imagebase} NAME_WE)
+  get_filename_component(ImageBaseNoExt ${Imagebase} NAME_WE)
   add_custom_command(
-  SOURCE    ${SoftwareGuide_SOURCE_DIR}/Art/${ImageBase}.fig
+  SOURCE    ${SoftwareGuide_SOURCE_DIR}/Art/${ImageBaseNoExt}.fig
   COMMAND   ${FIG2DEV_EXECUTABLE}
-  ARGS      -L eps ${SoftwareGuide_SOURCE_DIR}/Art/${ImageBase}.fig ${SoftwareGuide_BINARY_DIR}/Art/${ImageBase}.eps
+  ARGS      -L eps ${SoftwareGuide_SOURCE_DIR}/Art/${ImageBaseNoExt}.fig ${SoftwareGuide_BINARY_DIR}/Art/${ImageBaseNoExt}.eps
   TARGET    SoftwareGuideArt
-  OUTPUTS   ${SoftwareGuide_BINARY_DIR}/Art/${ImageBase}.eps
+  OUTPUTS   ${SoftwareGuide_BINARY_DIR}/Art/${ImageBaseNoExt}.eps
   )
-  set(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${ImageBase}.eps)
+  set(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${ImageBaseNoExt}.eps)
 endforeach(image)
 
 foreach(image ${EPS_IMAGES})
   get_filename_component(Imagebase ${image} NAME)
-  get_filename_component(ImageBase ${Imagebase} NAME_WE)
+  get_filename_component(ImageBaseNoExt ${Imagebase} NAME_WE)
   configure_file(
-                "${SoftwareGuide_SOURCE_DIR}/Art/${ImageBase}.eps"
-                "${SoftwareGuide_BINARY_DIR}/Art/${ImageBase}.eps"
+                "${SoftwareGuide_SOURCE_DIR}/Art/${ImageBaseNoExt}.eps"
+                "${SoftwareGuide_BINARY_DIR}/Art/${ImageBaseNoExt}.eps"
                 COPYONLY IMMEDIATE)
-  set(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${ImageBase}.eps)
+  set(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${ImageBaseNoExt}.eps)
 endforeach(image)
 
 add_custom_command(
