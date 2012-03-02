@@ -1,3 +1,8 @@
+Curvature Anisotropic Diffusion
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+{sec:ColorCurvatureAnisotropicDiffusion}
+
 The source code for this section can be found in the file
 ``RGBCurvatureAnisotropicDiffusionImageFilter.cxx``.
 

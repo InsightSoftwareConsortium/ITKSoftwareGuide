@@ -1,3 +1,8 @@
+Gradient Anisotropic Diffusion
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+{sec:ColorGradientAnisotropicDiffusion}
+
 The source code for this section can be found in the file
 ``RGBGradientAnisotropicDiffusionImageFilter.cxx``.
 

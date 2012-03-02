@@ -1,3 +1,8 @@
+Curvature Flow
+^^^^^^^^^^^^^^
+
+{sec:CurvatureFlowImageFilter}
+
 The source code for this section can be found in the file
 ``CurvatureFlowImageFilter.cxx``.
 

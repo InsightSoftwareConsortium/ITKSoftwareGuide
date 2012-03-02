@@ -1,3 +1,8 @@
+Vector Curvature Anisotropic Diffusion
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+{sec:VectorCurvatureAnisotropicDiffusionImageFilter}
+
 The source code for this section can be found in the file
 ``VectorCurvatureAnisotropicDiffusionImageFilter.cxx``.
 

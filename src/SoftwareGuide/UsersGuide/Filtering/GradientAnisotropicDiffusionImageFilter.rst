@@ -1,3 +1,8 @@
+Gradient Anisotropic Diffusion
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+{sec:GradientAnisotropicDiffusionImageFilter}
+
 The source code for this section can be found in the file
 ``GradientAnisotropicDiffusionImageFilter.cxx``. The
 {GradientAnisotropicDiffusionImageFilter} implements an

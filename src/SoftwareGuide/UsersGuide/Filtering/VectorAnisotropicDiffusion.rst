@@ -8,35 +8,23 @@ vectors. In this case the diffusion is computed independently for each
 vector component. The following classes implement versions of
 anisotropic diffusion on vector images.
 
-Vector Gradient Anisotropic Diffusion
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-{sec:VectorGradientAnisotropicDiffusionImageFilter}
+.. toctree::
+   :maxdepth: 2
 
-.. include:: VectorGradientAnisotropicDiffusionImageFilter.rst
+   VectorGradientAnisotropicDiffusionImageFilter
+   VectorCurvatureAnisotropicDiffusionImageFilter
+   RGBGradientAnisotropicDiffusionImageFilter
+   RGBCurvatureAnisotropicDiffusionImageFilter
 
-Vector Curvature Anisotropic Diffusion
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-{sec:VectorCurvatureAnisotropicDiffusionImageFilter}
-
-.. include:: VectorCurvatureAnisotropicDiffusionImageFilter.rst
 
 Edge Preserving Smoothing in Color Images
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 {sec:ColorAnisotropicDiffusion}
 
-Gradient Anisotropic Diffusion
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. toctree::
+   :maxdepth: 2
 
-{sec:ColorGradientAnisotropicDiffusion}
-
-.. include:: RGBGradientAnisotropicDiffusionImageFilter.rst
-
-Curvature Anisotropic Diffusion
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-{sec:ColorCurvatureAnisotropicDiffusion}
-
-.. include:: RGBCurvatureAnisotropicDiffusionImageFilter.rst
+   RGBGradientAnisotropicDiffusionImageFilter
+   RGBCurvatureAnisotropicDiffusionImageFilter

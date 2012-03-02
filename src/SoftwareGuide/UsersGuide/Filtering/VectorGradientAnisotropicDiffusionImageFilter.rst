@@ -1,3 +1,8 @@
+Vector Gradient Anisotropic Diffusion
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+{sec:VectorGradientAnisotropicDiffusionImageFilter}
+
 The source code for this section can be found in the file
 ``VectorGradientAnisotropicDiffusionImageFilter.cxx``.
 
