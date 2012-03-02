@@ -1,3 +1,8 @@
+Computing a Fast Fourier Transform (FFT)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+{sec:FFTImageFilter}
+
 The source code for this section can be found in the file
 ``FFTImageFilter.cxx``.
 

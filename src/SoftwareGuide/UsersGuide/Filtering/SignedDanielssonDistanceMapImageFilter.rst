@@ -1,3 +1,6 @@
+Signed Danielsson Distance Map
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 The source code for this section can be found in the file
 ``SignedDanielssonDistanceMapImageFilter.cxx``.
 

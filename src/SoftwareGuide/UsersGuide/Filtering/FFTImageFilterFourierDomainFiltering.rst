@@ -1,3 +1,8 @@
+Filtering on the Frequency Domain
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+{sec:FFTImageFilterFourierDomainFiltering}
+
 The source code for this section can be found in the file
 ``FFTImageFilterFourierDomainFiltering.cxx``.
 
