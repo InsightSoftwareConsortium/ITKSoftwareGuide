@@ -1,3 +1,8 @@
+.. _sec-BinaryThresholdingImageFilter:
+
+Binary Thresholding
+~~~~~~~~~~~~~~~~~~~
+
 The source code for this section can be found in the file
 ``BinaryThresholdImageFilter.cxx``.
 

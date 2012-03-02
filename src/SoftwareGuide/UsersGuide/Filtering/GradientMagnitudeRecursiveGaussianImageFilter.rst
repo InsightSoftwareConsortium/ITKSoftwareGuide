@@ -1,3 +1,8 @@
+Gradient Magnitude With Smoothing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+{sec:GradientMagnitudeRecursiveGaussianImageFilter}
+
 The source code for this section can be found in the file
 ``GradientMagnitudeRecursiveGaussianImageFilter.cxx``.
 

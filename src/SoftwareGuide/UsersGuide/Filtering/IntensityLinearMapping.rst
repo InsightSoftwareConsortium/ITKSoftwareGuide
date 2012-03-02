@@ -1,3 +1,8 @@
+.. _sec-IntensityLinearMapping:
+
+Linear Mappings
+~~~~~~~~~~~~~~~
+
 The source code for this section can be found in the file
 ``CastingImageFilters.cxx``.
 

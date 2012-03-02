@@ -1,3 +1,8 @@
+.. _sec-CannyEdgeDetection:
+
+Canny Edge Detection
+~~~~~~~~~~~~~~~~~~~~
+
 The source code for this section can be found in the file
 ``CannyEdgeDetectionImageFilter.cxx``.
 

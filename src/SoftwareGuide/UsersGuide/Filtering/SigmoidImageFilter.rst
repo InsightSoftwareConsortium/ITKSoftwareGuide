@@ -1,3 +1,12 @@
+.. _sec-IntensityNonLinearMapping:
+
+Non Linear Mappings
+~~~~~~~~~~~~~~~~~~~
+
+The following filter can be seen as a variant of the casting filters.
+Its main difference is the use of a smooth and continuous transition
+function of non-linear form.
+
 The source code for this section can be found in the file
 ``SigmoidImageFilter.cxx``.
 

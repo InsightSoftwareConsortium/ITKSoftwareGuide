@@ -1,3 +1,8 @@
+Second Order Recursive Gaussian
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+{sec:SecondDerivativeRecursiveGaussian}
+
 The source code for this section can be found in the file
 ``SecondDerivativeRecursiveGaussianImageFilter.cxx``.
 

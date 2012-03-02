@@ -9,124 +9,14 @@ output of one filter is passed as input to another filter. (See Section
 {sec:DataProcessingPipeline} on page {sec:DataProcessingPipeline} for
 more information.)
 
-Thresholding
-------------
+.. toctree::
+   :maxdepth: 2
 
-{sec:ThresholdingFiltering}
-
-The thresholding operation is used to change or identify pixel values
-based on specifying one or more values (called the *threshold* value).
-The following sections describe how to perform thresholding operations
-using ITK.
-
-Binary Thresholding
-~~~~~~~~~~~~~~~~~~~
-
-{sec:BinaryThresholdingImageFilter}
-
-{BinaryThresholdImageFilter.tex}
-
-General Thresholding
-~~~~~~~~~~~~~~~~~~~~
-
-{sec:ThresholdingImageFilter}
-
-{ThresholdImageFilter.tex}
-
-Edge Detection
---------------
-
-Canny Edge Detection
-~~~~~~~~~~~~~~~~~~~~
-
-{CannyEdgeDetectionImageFilter.tex}
-
-Casting and Intensity Mapping
------------------------------
-
-{sec:CastingImageFilters}
-
-The filters discussed in this section perform pixel-wise intensity
-mappings. Casting is used to convert one pixel type to another, while
-intensity mappings also take into account the different intensity ranges
-of the pixel types.
-
-Linear Mappings
-~~~~~~~~~~~~~~~
-
-{sec:IntensityLinearMapping}
-
-{CastingImageFilters.tex}
-
-Non Linear Mappings
-~~~~~~~~~~~~~~~~~~~
-
-{sec:IntensityNonLinearMapping}
-
-The following filter can be seen as a variant of the casting filters.
-Its main difference is the use of a smooth and continuous transition
-function of non-linear form.
-
-{SigmoidImageFilter.tex}
-
-Gradients
----------
-
-{sec:GradientFiltering}
-
-Computation of gradients is a fairly common operation in image
-processing. The term “gradient” may refer in some contexts to the
-gradient vectors and in others to the magnitude of the gradient vectors.
-ITK filters attempt to reduce this ambiguity by including the
-*magnitude* term when appropriate. ITK provides filters for computing
-both the image of gradient vectors and the image of magnitudes.
-
-Gradient Magnitude
-~~~~~~~~~~~~~~~~~~
-
-{sec:GradientMagnitudeImageFilter}
-
-{GradientMagnitudeImageFilter.tex}
-
-Gradient Magnitude With Smoothing
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-{sec:GradientMagnitudeRecursiveGaussianImageFilter}
-
-{GradientMagnitudeRecursiveGaussianImageFilter.tex}
-
-Derivative Without Smoothing
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-{sec:DerivativeImageFilter}
-
-{DerivativeImageFilter.tex}
-
-Second Order Derivatives
-------------------------
-
-{sec:SecondOrderDerivatives}
-
-Second Order Recursive Gaussian
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-{sec:SecondDerivativeRecursiveGaussian}
-
-{SecondDerivativeRecursiveGaussianImageFilter.tex}
-
-Laplacian Filters
-~~~~~~~~~~~~~~~~~
-
-{sec:LaplacianFilters}
-
-Laplacian Filter Finite Difference
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Laplacian Filter Recursive Gaussian
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-{LaplacianRecursiveGaussianImageFilter1.tex}
-{LaplacianRecursiveGaussianImageFilter2.tex}
+   Thresholding
+   EdgeDetection
+   CastImageFilters
+   GradientsFiltering
+   SecondOrderDerivatives
 
 Neighborhood Filters
 --------------------
