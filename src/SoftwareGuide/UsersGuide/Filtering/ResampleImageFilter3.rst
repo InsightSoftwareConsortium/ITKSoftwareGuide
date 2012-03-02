@@ -1,3 +1,6 @@
+A Complete Example
+^^^^^^^^^^^^^^^^^^
+
 The source code for this section can be found in the file
 ``ResampleImageFilter3.cxx``.
 

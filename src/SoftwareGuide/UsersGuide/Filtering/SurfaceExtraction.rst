@@ -1,3 +1,8 @@
+Surface extraction
+~~~~~~~~~~~~~~~~~~
+
+{sec:SufaceExtraction}
+
 The source code for this section can be found in the file
 ``SurfaceExtraction.cxx``.
 

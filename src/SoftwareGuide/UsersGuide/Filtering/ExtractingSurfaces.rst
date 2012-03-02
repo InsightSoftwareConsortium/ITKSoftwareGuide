@@ -3,10 +3,7 @@ Extracting Surfaces
 
 {sec:ExtractingSurfaces}
 
-Surface extraction
-~~~~~~~~~~~~~~~~~~
+.. toctree::
+   :maxdepth: 2
 
-{sec:SufaceExtraction}
-
-.. include:: SurfaceExtraction.rst
-
+   SurfaceExtraction

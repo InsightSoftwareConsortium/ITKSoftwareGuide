@@ -1,3 +1,6 @@
+Importance of Spacing and Origin
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 The source code for this section can be found in the file
 ``ResampleImageFilter2.cxx``.
 

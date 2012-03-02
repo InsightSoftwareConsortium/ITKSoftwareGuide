@@ -1,3 +1,8 @@
+Subsampling and image in the same space
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+{sec:SubsampleVolume}
+
 The source code for this section can be found in the file
 ``SubsampleVolume.cxx``.
 

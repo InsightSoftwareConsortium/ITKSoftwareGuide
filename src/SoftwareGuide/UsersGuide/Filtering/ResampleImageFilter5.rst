@@ -1,3 +1,6 @@
+Rotating and Scaling an Image
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 The source code for this section can be found in the file
 ``ResampleImageFilter5.cxx``.
 

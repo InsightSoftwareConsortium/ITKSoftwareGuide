@@ -1,3 +1,6 @@
+Resampling using a deformation field
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 The source code for this section can be found in the file
 ``WarpImageFilter1.cxx``.
 
@@ -14,8 +17,7 @@ The deformation field is represented as an image of vector pixel types.
 The dimension of the vectors is the same as the dimension of the input
 image. Each vector in the deformation field represents the distance
 between a geometric point in the input space and a point in the output
-space such that: :math:`p_{in} = p_{out} + distance
-`
+space such that: :math:`p_{in} = p_{out} + distance`
 
 ::
 
@@ -82,4 +84,3 @@ SetOutputOrigin(). This is taken from the deformation field.
     filter->SetOutputDirection(  deformationField->GetDirection() );
 
     filter->SetDisplacementField( deformationField );
-

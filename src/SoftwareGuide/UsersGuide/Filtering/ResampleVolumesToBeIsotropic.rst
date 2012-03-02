@@ -1,3 +1,8 @@
+Resampling an Anisotropic image to make it Isotropic
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+{ResampleVolumesToBeIsotropic}
+
 The source code for this section can be found in the file
 ``ResampleVolumesToBeIsotropic.cxx``.
 
