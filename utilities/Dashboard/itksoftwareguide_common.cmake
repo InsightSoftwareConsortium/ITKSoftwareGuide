@@ -1,4 +1,4 @@
-# ITK Examples Common Dashboard Script
+# ITK SoftwareGuide Common Dashboard Script
 #
 # This script contains basic dashboard driver code common to all
 # clients.
@@ -28,8 +28,8 @@
 #   dashboard_model           = Nightly | Experimental | Continuous
 #   dashboard_loop            = Repeat until N seconds have elapsed
 #   dashboard_root_name       = Change name of "My Tests" directory
-#   dashboard_source_name     = Name of source directory (ITKExamples)
-#   dashboard_binary_name     = Name of binary directory (ITKExamples-build)
+#   dashboard_source_name     = Name of source directory (ITKSoftwareGuide)
+#   dashboard_binary_name     = Name of binary directory (ITKSoftwareGuide-build)
 #   dashboard_data_name       = Name of ExternalData store (ExternalData)
 #   dashboard_cache           = Initial CMakeCache.txt file content
 #   dashboard_do_coverage     = True to enable coverage (ex: gcov)
@@ -133,7 +133,7 @@ endif()
 
 # Select Git source to use.
 if(NOT DEFINED dashboard_git_url)
-  set(dashboard_git_url "git@github.com:thewtex/ITKExamples.git")
+  set(dashboard_git_url "git@github.com:InsightSoftwareConsortium/ITKSoftwareGuide.git")
 endif()
 if(NOT DEFINED dashboard_git_branch)
   if("${dashboard_model}" STREQUAL "Nightly")
@@ -164,7 +164,7 @@ if(NOT DEFINED CTEST_SOURCE_DIRECTORY)
   if(DEFINED dashboard_source_name)
     set(CTEST_SOURCE_DIRECTORY ${CTEST_DASHBOARD_ROOT}/${dashboard_source_name})
   else()
-    set(CTEST_SOURCE_DIRECTORY ${CTEST_DASHBOARD_ROOT}/ITKExamples)
+    set(CTEST_SOURCE_DIRECTORY ${CTEST_DASHBOARD_ROOT}/ITKSoftwareGuide)
   endif()
 endif()
 
@@ -173,7 +173,7 @@ if(NOT DEFINED CTEST_BINARY_DIRECTORY)
   if(DEFINED dashboard_binary_name)
     set(CTEST_BINARY_DIRECTORY ${CTEST_DASHBOARD_ROOT}/${dashboard_binary_name})
   else()
-    set(CTEST_BINARY_DIRECTORY ${CTEST_DASHBOARD_ROOT}/ITKExamples-build)
+    set(CTEST_BINARY_DIRECTORY ${CTEST_DASHBOARD_ROOT}/ITKSoftwareGuide-build)
   endif()
 endif()
 
@@ -191,7 +191,7 @@ if(EXISTS ${CTEST_SOURCE_DIRECTORY})
   if(NOT EXISTS "${CTEST_SOURCE_DIRECTORY}/.git")
     set(vcs_refresh "because it is not managed by git.")
   endif()
-  if(vcs_refresh AND "${CTEST_SOURCE_DIRECTORY}" MATCHES "/(ITKExamples|Insight)[^/]*")
+  if(vcs_refresh AND "${CTEST_SOURCE_DIRECTORY}" MATCHES "/(ITKSoftwareGuide|Insight)[^/]*")
     message("Deleting source tree\n  ${CTEST_SOURCE_DIRECTORY}\n${vcs_refresh}")
     file(REMOVE_RECURSE "${CTEST_SOURCE_DIRECTORY}")
   endif()
@@ -244,8 +244,8 @@ endif()
   # CTestConfig.cmake info here.
   set(CTEST_NIGHTLY_START_TIME "01:00:00 UTC")
   set(CTEST_DROP_METHOD "http")
-  set(CTEST_DROP_SITE "mmmccormick.com")
-  set(CTEST_DROP_LOCATION "/CDash/submit.php?project=ITKExamples")
+  set(CTEST_DROP_SITE "itk.org")
+  set(CTEST_DROP_LOCATION "/CDash/submit.php?project=ITKSofwareGuide")
   set(CTEST_DROP_SITE_CDASH TRUE)
 endif()
 

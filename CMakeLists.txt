@@ -84,11 +84,11 @@ if( BUILD_DOCUMENTATION )
   # was built before build_html.
   add_dependencies( copy_sources ITKSoftwareGuideData )
 
-  execute_process( COMMAND ${ITKSoftwareGuide_SOURCE_DIR}/utilities/ext/gitstats/gitstats --rst
-    ${ITKSoftwareGuide_SOURCE_DIR} ${ITKSoftwareGuide_BINARY_DIR}/src/gitstats
-    WORKING_DIRECTORY ${ITKSoftwareGuide_BINARY_DIR}
-    OUTPUT_QUIET
-    )
+#  execute_process( COMMAND ${ITKSoftwareGuide_SOURCE_DIR}/utilities/ext/gitstats/gitstats --rst
+#    ${ITKSoftwareGuide_SOURCE_DIR} ${ITKSoftwareGuide_BINARY_DIR}/src/gitstats
+#    WORKING_DIRECTORY ${ITKSoftwareGuide_BINARY_DIR}
+#    OUTPUT_QUIET
+#    )
 
   configure_file( ${ITKSoftwareGuide_SOURCE_DIR}/utilities/CodeSwarm.sh.in
     ${ITKSoftwareGuide_BINARY_DIR}/utilities/CodeSwarm.sh

@@ -1,13 +1,20 @@
-==============
-Software Guide
-==============
+.. ITK Examples documentation master file, created by
+   sphinx-quickstart on Thu Dec 22 23:30:02 2011.
+
+Welcome to the ITK Examples documentation!
+==========================================
+
+Contents:
 
 .. toctree::
-   :maxdepth: 2
+  :maxdepth: 2
 
-   Abstract
-   Contributors
-   Introduction/index
-   UsersGuide/index
-   DevelopersGuide/index
+  Build/build
+  Contribute/index
+  download
+  SoftwareGuide/index
 
+Index
+=====
+
+* :ref:`genindex`

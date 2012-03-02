@@ -1,0 +1,3 @@
+[submodule "utilities/ext/gitstats"]
+	path = utilities/ext/gitstats
+	url = https://arnaudgelas@github.com/arnaudgelas/gitstats.git
