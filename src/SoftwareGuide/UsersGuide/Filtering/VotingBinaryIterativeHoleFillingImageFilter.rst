@@ -1,3 +1,10 @@
+Iterative Hole Filling Filter
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The Hole Filling filter can be used in an iterative way, by applying it
+repeatedly until no pixel changes. In this context, the filter can be
+seen as a binary variation of a Level Set filter.
+
 The source code for this section can be found in the file
 ``VotingBinaryIterativeHoleFillingImageFilter.cxx``.
 

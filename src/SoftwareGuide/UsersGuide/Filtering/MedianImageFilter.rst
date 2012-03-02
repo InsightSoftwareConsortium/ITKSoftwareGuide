@@ -1,3 +1,8 @@
+Median Filter
+~~~~~~~~~~~~~
+
+{sec:MedianFilter}
+
 The source code for this section can be found in the file
 ``MedianImageFilter.cxx``.
 

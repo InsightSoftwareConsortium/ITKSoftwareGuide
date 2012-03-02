@@ -1,3 +1,12 @@
+Hole Filling Filter
+^^^^^^^^^^^^^^^^^^^
+
+Another variation of Voting filters is the Hole Filling filter. This
+filter converts background pixels into foreground only when the number
+of foreground pixels is a majority of the neighbors. By selecting the
+size of the majority, this filter can be tuned to fill-in holes of
+different size. To be more precise, the effect of the filter is actually
+related to the curvature of the edge in which the pixel is located.
 The source code for this section can be found in the file
 ``VotingBinaryHoleFillingImageFilter.cxx``.
 

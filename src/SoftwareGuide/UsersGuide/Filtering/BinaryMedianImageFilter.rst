@@ -1,3 +1,13 @@
+Binary Median Filter
+^^^^^^^^^^^^^^^^^^^^
+
+One of the particular cases of Voting filters is the
+BinaryMedianImageFilter. This filter is equivalent to applying a Median
+filter over a binary image. The fact of having a binary image as input
+makes possible to optimize the execution of the filter since there is no
+real need for sorting the pixels according to their frequency in the
+neighborhood.
+
 The source code for this section can be found in the file
 ``BinaryMedianImageFilter.cxx``.
 
@@ -93,3 +103,21 @@ contours of the regions.
 
 .. |image| image:: BinaryThresholdImageFilterOutput.eps
 .. |image1| image:: BinaryMedianImageFilterOutput.eps
+
+The typical effect of median filtration on a noisy digital image is a
+dramatic reduction in impulse noise spikes. The filter also tends to
+preserve brightness differences across signal steps, resulting in
+reduced blurring of regional boundaries. The filter also tends to
+preserve the positions of boundaries in an image.
+
+Figure {fig:BinaryMedianImageFilterOutputMultipleIterations} below shows
+the effect of running the median filter with a 3x3 classical window size
+1, 10 and 50 times. There is a tradeoff in noise reduction and the
+sharpness of the image when the window size is increased
+
+    |image| |image1| |image2| [Effect of many iterations on the
+    BinaryMedian filter.] {Effect of 1, 10 and 50 iterations of the
+    BinaryMedianImageFilter using a 3x3 window.}
+    {fig:BinaryMedianImageFilterOutputMultipleIterations}
+
+.

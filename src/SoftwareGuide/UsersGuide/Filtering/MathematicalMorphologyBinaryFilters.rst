@@ -1,3 +1,8 @@
+Binary Filters
+^^^^^^^^^^^^^^
+
+{sec:MathematicalMorphologyBinaryFilters}
+
 The source code for this section can be found in the file
 ``MathematicalMorphologyBinaryFilters.cxx``.
 
