@@ -73,7 +73,12 @@ endif( BUILD_FIGURES )
 # Find ImageMagick tools
 # This is used to convert image formats
 #
-include(${CMAKE_ROOT}/Modules/FindImageMagick.cmake)
+#
+# Find ImageMagick tools
+# This is used to convert image formats
+#
+#include(${CMAKE_ROOT}/Modules/FindImageMagick.cmake)
+find_package(ImageMagick REQUIRED)
 if(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
   message("ImageMagick convert utility was not found. Please pass to advanced mode and provide its full path")
 endif(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)

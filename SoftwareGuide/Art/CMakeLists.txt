@@ -14,22 +14,6 @@ find_program(FIG2DEV_EXECUTABLE
 )
 
 
-#
-# Find ImageMagick tools
-# This is used to convert image formats
-#
-include(${CMAKE_ROOT}/Modules/FindImageMagick.cmake)
-
-
-#
-#
-#  Error checking for the components we need
-#
-#
-if(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
-  message("ImageMagick convert utility was not found. Please pass to advanced mode and provide its full path")
-endif(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
-
 
 
 
