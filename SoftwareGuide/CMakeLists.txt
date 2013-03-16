@@ -16,7 +16,6 @@
 # seperated list.
 #
 # Make
-# Make
 #
 # More than one make may be necessary to ensure generation of the index
 #
@@ -30,7 +29,7 @@
 # folder in PNG/XFIG/JPEG/EPS format.
 #
 #
-cmake_minimum_required(VERSION 2.8.4)
+cmake_minimum_required(VERSION 2.8.10)
 
 project(SoftwareGuide C)
 

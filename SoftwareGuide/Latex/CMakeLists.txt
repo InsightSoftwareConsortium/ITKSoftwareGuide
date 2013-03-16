@@ -28,9 +28,6 @@ if(NOT MAKEINDEX_COMPILER)
   message("makeindex executable was not found. Please pass to advanced mode and provide its full path")
 endif(NOT MAKEINDEX_COMPILER)
 
-
-
-
 set(PDF_QUALITY_LEVEL "Screen" CACHE STRING "PDF Quality. Options are: Screen, Printer, PrePress")
 #
 # Options for PDF generation.
@@ -58,8 +55,6 @@ endif( PDF_QUALITY_LEVEL STREQUAL "PrePress" )
 
 set(DVIPS_CONVERTER_OPTIONS  -D600)
 
-
-
 #
 # File that defines the path to .cxx examples in ITK sources
 #
@@ -77,6 +72,8 @@ set( Tex_SRCS
   Contributors.tex
   DataRepresentation.tex
   Filtering.tex
+)
+set( NOT_YET_SRCS # This needs to be added one at a time as they are cleaned up
   GUI.tex
   ImageMetrics.tex
   ImageInterpolators.tex

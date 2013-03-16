@@ -1,10 +1,13 @@
 % Define where in the disk is the Insight source tree 
 \def\ITKSOURCEDIR{@ITK_SOURCE_DIR@}
-\graphicspath{{@SoftwareGuide_SOURCE_DIR@/Art/}{@SoftwareGuide_BINARY_DIR@/Art/}}
+\graphicspath{{@SoftwareGuide_SOURCE_DIR@/Art/}{@SoftwareGuide_BINARY_DIR@/Art/}{@SoftwareGuide_BINARY_DIR@/Art/Generated/}}
 \def\bibtexdatabasepath{@SoftwareGuide_SOURCE_DIR@/../Latex/Insight}
 
 \newif\ifitkPrintedVersion
 @SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN@
+
+\newif\ifitkFullVersion
+\itkFullVersiontrue
 
 % Define command to make reference to on-line Doxygen documentation
 \newcommand{\doxygen}[1]{
