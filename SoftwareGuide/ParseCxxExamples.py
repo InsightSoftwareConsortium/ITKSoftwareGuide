@@ -2,102 +2,107 @@
 import sys
 import os
 import re
-import shlex, subprocess
+import shlex
+import subprocess
 
 #
 # Tag defs
 #
 beginLatexTag = "BeginLatex"
-endLatexTag   = "EndLatex"
+endLatexTag = "EndLatex"
 
 beginCodeBlockTag = "BeginCodeSnippet"
 endCodeBlockTag = "EndCodeSnippet"
 
-validCodeBlockTypes = ['Latex','CodeSnippet']
+validCodeBlockTypes = ['Latex', 'CodeSnippet']
 
 ## This class is initialized with a the starting line of
 ## the command processing, and the block of text for
 ## this command invocation
+
+
 class OneDocBlock():
-  def __init__(self,sourceFile,id,codeblock):
-    self.sourceFile = sourceFile
-    self.id = id
-    self.codeblock = codeblock
-    self.blockType = 'Unknown' # Something other than items in validCodeBlockTypes
+    def __init__(self, sourceFile, id, codeblock):
+        self.sourceFile = sourceFile
+        self.id = id
+        self.codeblock = codeblock
+        self.blockType = 'Unknown'  # Something other than items in validCodeBlockTypes
 
-  def Print(self):
-    blockline = self.id
-    print("="*80)
-    print("{0} : {1}".format(self.blockType,self.sourceFile))
-    for blocktext in self.codeblock:
-      blockline += 1
-      print("{0}  : {1}".format(blockline,blocktext))
-    print("^"*80)
+    def Print(self):
+        blockline = self.id
+        print("=" * 80)
+        print("{0} : {1}".format(self.blockType, self.sourceFile))
+        for blocktext in self.codeblock:
+            blockline += 1
+            print("{0}  : {1}".format(blockline, blocktext))
+        print("^" * 80)
 
-  def GetCodeBlockString(self):
-    blockstring = ""
-    if self.blockType == 'Latex':
-      for blocktext in self.codeblock:
-        blockstring += "{0}\n".format(blocktext)
-      pass
-    elif self.blockType == 'CodeSnippet':
-      #blockstring += "\\small\n"
-      #blockstring += "\\begin{verbatim}\n"
-      blockstring += "\\begin{lstlisting}[language=C++]\n"
-      for blocktext in self.codeblock:
-        blockstring += "{0}\n".format(blocktext)
-      blockstring += "\\end{lstlisting}\n";
-      #blockstring += "\\end{verbatim}\n";
-      #blockstring += "\\normalsize\n";
-      pass
-    return blockstring
+    def GetCodeBlockString(self):
+        blockstring = ""
+        if self.blockType == 'Latex':
+            for blocktext in self.codeblock:
+                blockstring += "{0}\n".format(blocktext)
+            pass
+        elif self.blockType == 'CodeSnippet':
+            # blockstring += "\\small\n"
+            # blockstring += "\\begin{verbatim}\n"
+            blockstring += "\\begin{lstlisting}[language=C++]\n"
+            for blocktext in self.codeblock:
+                blockstring += "{0}\n".format(blocktext)
+            blockstring += "\\end{lstlisting}\n"
+            # blockstring += "\\end{verbatim}\n";
+            # blockstring += "\\normalsize\n";
+            pass
+        return blockstring
+
 
 def ParseOneFile(sourceFile):
-    #
-    #Read each line and Parse the input file
-    #
-    #Get the command line args from the source file
-    sf=open(sourceFile,'r')
-    INFILE=sf.readlines()
+        #
+        # Read each line and Parse the input file
+        #
+        # Get the command line args from the source file
+    sf = open(sourceFile, 'r')
+    INFILE = sf.readlines()
     sf.close()
-    parseLine=0
-    starttagline=0
+    parseLine = 0
+    starttagline = 0
     thisFileCommandBlocks = []
     for thisline in INFILE:
-      parseLine += 1
+        parseLine += 1
 
-      thisline=thisline.replace('//','')
-      #thisline=thisline.rstrip().rstrip('/').rstrip().lstrip().lstrip('/').lstrip()
-      thisline=thisline.lstrip().rstrip()
+        thisline = thisline.replace('//', '')
+        # thisline=thisline.rstrip().rstrip('/').rstrip().lstrip().lstrip('/').lstrip()
+        thisline = thisline.lstrip().rstrip()
 
-      # If the "BeginCommandLineArgs" tag is found, set the "starttagline" var and
-      # initialize a few variables and arrays.
-      if thisline.count(beginLatexTag) == 1: #start of LatexCodeBlock
-        starttagline = parseLine
-        codeBlock=[]
-      elif thisline.count(endLatexTag) == 1: #end of LatexCodeBlock
-        ocb=OneDocBlock(sourceFile,starttagline,codeBlock)
-        ocb.blockType = 'Latex'
-        thisFileCommandBlocks.append(ocb)
-        starttagline = 0
-      elif thisline.count(beginCodeBlockTag) == 1: #start of CodeSnippet
-        starttagline = parseLine
-        codeBlock=[]
-      elif thisline.count(endCodeBlockTag) == 1: #end of CodeSnippet
-        ocb=OneDocBlock(sourceFile,starttagline,codeBlock)
-        ocb.blockType = 'CodeSnippet'
-        thisFileCommandBlocks.append(ocb)
-        starttagline = 0
-      elif starttagline > 0: #Inside a codeBlock
-        codeBlock.append(thisline)
-      else:  # non-codeBlock line
-        pass
+        # If the "BeginCommandLineArgs" tag is found, set the "starttagline" var and
+        # initialize a few variables and arrays.
+        if thisline.count(beginLatexTag) == 1:  # start of LatexCodeBlock
+            starttagline = parseLine
+            codeBlock = []
+        elif thisline.count(endLatexTag) == 1:  # end of LatexCodeBlock
+            ocb = OneDocBlock(sourceFile, starttagline, codeBlock)
+            ocb.blockType = 'Latex'
+            thisFileCommandBlocks.append(ocb)
+            starttagline = 0
+        elif thisline.count(beginCodeBlockTag) == 1:  # start of CodeSnippet
+            starttagline = parseLine
+            codeBlock = []
+        elif thisline.count(endCodeBlockTag) == 1:  # end of CodeSnippet
+            ocb = OneDocBlock(sourceFile, starttagline, codeBlock)
+            ocb.blockType = 'CodeSnippet'
+            thisFileCommandBlocks.append(ocb)
+            starttagline = 0
+        elif starttagline > 0:  # Inside a codeBlock
+            codeBlock.append(thisline)
+        else:  # non-codeBlock line
+            pass
     return thisFileCommandBlocks
 
+
 def GetPreambleString(examplefilename):
-  # The following message is a warning writen on the generated .tex
-  # files for preventing them from being manualy edited.
-  preamble = """
+    # The following message is a warning writen on the generated .tex
+    # files for preventing them from being manualy edited.
+    preamble = """
 % Please do NOT edit this file.
 % It has been automatically generated
 % by a perl script from the original cxx sources
@@ -108,24 +113,24 @@ def GetPreambleString(examplefilename):
 
 The source code for this section can be found in the file
 \\texttt{2}{1}{3}.
-""".format(examplefilename,os.path.basename(examplefilename),'{','}')
-  return preamble
+""".format(examplefilename, os.path.basename(examplefilename), '{', '}')
+    return preamble
 
 if __name__ == "__main__":
-  import sys
-  print sys.argv
-  if len(sys.argv) < 2:
-     print("Usage: {0} <input file> <output file>".format(argv[0]))
-     sys.exit(-1)
+    import sys
+    print sys.argv
+    if len(sys.argv) < 2:
+        print("Usage: {0} <input file> <output file>".format(argv[0]))
+        sys.exit(-1)
 
-  inputfilename = sys.argv[1]
-  outputfilename = sys.argv[2]
-  print("Processing {0} into {1}  ... \n".format(inputfilename,outputfilename))
+    inputfilename = sys.argv[1]
+    outputfilename = sys.argv[2]
+    print("Processing {0} into {1}  ... \n".format(inputfilename, outputfilename))
 
-  thisCodeBlocks = ParseOneFile(inputfilename)
+    thisCodeBlocks = ParseOneFile(inputfilename)
 
-  outPtr = open(outputfilename,'w')
-  outPtr.write( GetPreambleString(inputfilename) )
-  for cb in thisCodeBlocks:
-    outPtr.write( cb.GetCodeBlockString() )
-  outPtr.close()
+    outPtr = open(outputfilename, 'w')
+    outPtr.write(GetPreambleString(inputfilename))
+    for cb in thisCodeBlocks:
+        outPtr.write(cb.GetCodeBlockString())
+    outPtr.close()
