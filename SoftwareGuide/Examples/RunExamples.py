@@ -3,7 +3,7 @@ import sys
 import os
 import re
 import shlex, subprocess
-
+import errno
 
 #
 # Tag defs
@@ -15,6 +15,18 @@ endCmdLineArgstag   = "EndCommandLineArgs"
 fileinputstag = "INPUTS:"
 fileoutputstag = "OUTPUTS:"
 normalizedoutputstag = "NORMALIZE_EPS_OUTPUT_OF:"
+
+def mkdir_p(path):
+    """ Safely make a new directory, checking if it already exists"""
+    try:
+        os.makedirs(path)
+    except OSError as exc:  # Python >2.5
+        if exc.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        else:
+            raise
+
+
 
 def GetFilesInThisLine( line, tag ):
   line.replace(fileoutputstag,"") #Strip the tag away
@@ -217,7 +229,6 @@ def getdirs(basedir, age):
         basedate, lastused = datecheck(root, age)
         if lastused < basedate: #Gets files older than (age) days
             dirsNotUsed.append(root)
-
 class ITKPathFinder:
     def __init__(self,itkSourceDir,itkBinaryDir,SWGuidBaseOutput):
         self.execDir=itkBinaryDir+'/bin'
@@ -226,6 +237,7 @@ class ITKPathFinder:
         #Check if there are any input files that need to be flipped.
         self.outPicDir =  os.path.realpath(self.outPicDir);
         self.outPicDir =  self.outPicDir.rstrip('/')
+        mkdir_p(self.outPicDir)
 
         ##HACK:  Need beter search criteria
         searchPaths='{0}/ExternalData/Testing/Data/Input:{0}/ExternalData/Brain:{1}/Testing/Data/Input/:{1}/Testing/Data/Baseline/Review:{1}/Testing/Data/Baseline/Iterators:{1}/Testing/Data/Baseline/IO:{1}/Testing/Data/Baseline/Filtering:{1}/Testing/Data/Baseline/BasicFilters:{1}/Testing/Data/Baseline/Algorithms:{1}/Examples/Data:{0}/Testing/Temporary:{0}/Modules/Nonunit/Review/test:{0}/ExternalData/Modules/Segmentation/LevelSetsv4/test/Baseline:{0}/ExternalData/Modules/IO/GE/test/Baseline:{0}/ExternalData/Examples/Filtering/test/Baseline:{0}/ExternalData/Examples/Data/BrainWeb:{0}/Examples/Segmentation/test:{2}/Art/Generated:{0}ExternalData/Testing/Data/Input'.format(itkBinaryDir,itkSourceDir,SWGuidBaseOutput)
@@ -267,7 +279,7 @@ if __name__ == "__main__":
   import sys
   import argparse
 
-  parser = argparse.ArgumentParser(description='Load a CSV file into a database.')
+  parser = argparse.ArgumentParser(description='Parse an ITK source tree and run programs in order to make output files for Software Guide.')
   parser.add_argument('--itkSourceDir', dest='itkSourceDir', action='store', default=None,
                       help='The path to the ITK source tree.')
   parser.add_argument('--itkExecDir', dest='itkExecDir', action='store', default=None,
@@ -292,11 +304,10 @@ if __name__ == "__main__":
               continue
           sourceFile = os.path.realpath(rootDir+'/'+currFile)
 
-
           ## A dictionary indexed by starting line to the command blocks
           allCommandBlocks += ParseOneFile(sourceFile,pathFinder)
 
-  max_depth=4
+  max_depth=6
   for depth in range(0,max_depth): # Only look 4 items deep, then assume failures occured
       if len(allCommandBlocks) == 0:
         print("ALL WORK COMPLETED!")

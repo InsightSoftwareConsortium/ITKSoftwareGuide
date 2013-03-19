@@ -56,8 +56,9 @@ if( NOT ITK_SOURCE_DIR )
   message(FATAL_ERROR "ITK source directory is not set")
 endif( NOT ITK_SOURCE_DIR )
 
-# ITK_DATA_PATHS is searched recursively.. you need not enter sub-directories
-set(ITK_DATA_PATHS "${ITK_SOURCE_DIR}/Testing/Data" CACHE STRING "Where the ITK data is. Enter a colon seperated list.")
+# -- HACK NO LONGER USED ITK_DATA_PATHS is searched recursively. you need not enter sub-directories
+# -- HACK NO LONGER USED set(ITK_DATA_PATHS "${ITK_SOURCE_DIR}/Testing/Data" CACHE STRING "Where the ITK data is. Enter a colon seperated list.")
+# -- HACK NO LONGER USED set(ITK_DATA_PATHS "${ITK_BINARY_DIR}/ExternalData" CACHE STRING "Where the ITK data is. Enter a colon seperated list.")
 
 #
 # Rebuild the Software Guide figures or not ?

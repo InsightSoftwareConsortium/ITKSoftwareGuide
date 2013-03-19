@@ -104,6 +104,7 @@ The following is the process to configure the build process using CMAKE.
                         (This path specifies the directories where the built examples are,
                         so they can be executed and figures and text and graphs 
                         extracted from them)
+  -- HACK  ITK_DATA_PATHS is no longer used
   - ITK_DATA_PATHS      Additional paths where you might find input data for the examples
                         By default you will find the string ${ITK_SOURCE_DIR}/Examples/Data
                         While this should be sufficient for the examples currently in the 
