@@ -4,6 +4,6 @@ TEXINPUTS=$TEXINPUTS:${ITK_TEXINPUTS}
 export TEXINPUTS
 
 # NOTE: Run 3 times just to get all dependancies resolved. 
-${PDFLATEX_COMPILER} "$@" && \
-${PDFLATEX_COMPILER} "$@" && \
-${PDFLATEX_COMPILER} "$@"
+${LATEX_COMPILER} "$@" && \
+${LATEX_COMPILER} "$@" && \
+${LATEX_COMPILER} "$@"

@@ -13,12 +13,7 @@ find_program(FIG2DEV_EXECUTABLE
   NAMES fig2dev
 )
 
-
-
-
-
 add_custom_target(SoftwareGuideArt  ALL echo)
-
 
 #
 #  At some point we should replace XFIG_FIGURES with the FILE GLOB expression.
@@ -28,6 +23,7 @@ file(GLOB PNG_IMAGES *.png)
 file(GLOB JPEG_IMAGES *.jpg)
 file(GLOB EPS_IMAGES *.eps)
 
+if ( 0 ) ## HACK REMOVE THIS
 #
 # If we built the figures, remove figures that were already generated
 # from the list
@@ -42,6 +38,7 @@ if(GENERATED_FILES)
   remove(JPEG_IMAGES ${FILES_TO_REMOVE})
   remove(EPS_IMAGES ${FILES_TO_REMOVE})
 endif(GENERATED_FILES)
+endif()
 
 
 foreach(image ${JPEG_IMAGES})

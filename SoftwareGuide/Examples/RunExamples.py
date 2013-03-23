@@ -16,7 +16,6 @@ endCmdLineArgstag = "EndCommandLineArgs"
 fileinputstag = "INPUTS:"
 fileoutputstag = "OUTPUTS:"
 
-
 def mkdir_p(path):
     """ Safely make a new directory, checking if it already exists"""
     try:
@@ -145,26 +144,9 @@ class OneCodeBlock():
 
     def GetOutputPaths(self):
         return self.outputs
-        ## HACK REMOVE BELOW
-        cmakeDependancyLine = ""
-        lineparse = re.compile(' *(.*): *(.*)')
-        currLineNumber = self.id
-        for currLine in self.codeblock:
-            currLineNumber = currLineNumber + 1
-            parseGroups = lineparse.search(currLine)
-            if parseGroups == None:
-                print("ERROR: Invalid parsing of {0} at line {1}".format(self.sourceFile, currLineNumber))
-                sys.exit(-1)
-            if parseGroups.group(1) == 'INPUTS':
-                pass
-            elif parseGroups.group(1) == 'OUTPUTS':
-                cmakeDependancyLine += "set({0} --> {1})".format(self.sourceFile,self.outputs)
-            elif parseGroups.group(1) == 'ARGUMENTS':
-                pass
-            elif parseGroups.group(1) == 'NOT_IMPLEMENTED':
-                pass
-        print "XXXXXXXX {0}".format(cmakeDependancyLine)
-        return cmakeDependancyLine
+
+    def GetInputPaths(self):
+        return self.inputs
 
     def MakeAllFileLists(self):
         self.inputs = []
@@ -191,6 +173,7 @@ class OneCodeBlock():
                 pass
             else:
                 print("ERROR:  INVALID LINE IDENTIFIER {0} at line {1} in {2}".format(parseGroups.group(1), lineNumber, self.sourceFile))
+                sys.exit(-1)
 
     def Print(self):
         blockline = self.id
@@ -360,6 +343,9 @@ if __name__ == "__main__":
             if dependacyDictionary.get(baseName) is None:
                 dependacyDictionary[baseName] = list() ## Initialize list
             dependacyDictionary[baseName].extend(blockstart.GetOutputPaths())
+            for ispng in blockstart.GetInputPaths():
+                if ispng[-4:] == ".png":
+                     dependacyDictionary[baseName].append(ispng)
 
             if blockstart.DoInputsExists() == False:
                 blockstart.AreOutputsNewer()
@@ -368,15 +354,11 @@ if __name__ == "__main__":
                 print('*' * 80)
                 remainingCommandBlocks.append(blockstart)
                 runCommand = blockstart.GetCommandLine()
-                # print(runCommand)
-                # print('*'*80)
                 continue
             else:
                 completedAlready = blockstart.AreOutputsNewer()
                 if completedAlready == True:
                     print(' ' * 80 + "\nJob Already Done")
-                    # runCommand = blockstart.GetCommandLine()
-                # print(runCommand)
                     print('-' * 80)
                 elif completedAlready == False:
                     print(' ' * 80 + "\nNeed to run")
@@ -406,14 +388,20 @@ if __name__ == "__main__":
                     sys.exit(-1)
 
         outputCMakeDependancies = os.path.join(args.SWGuidBaseOutput,'Examples',"GeneratedDependancies.cmake")
+        outputEPSDirectory = os.path.join(args.SWGuidBaseOutput,'Art','Generated')
         outPtr = open(outputCMakeDependancies, 'w')
+        allDependancies = 'set(allEPS-DEPS '
         for baseName in dependacyDictionary.keys():
             outstring = 'set("{name}-DEPS" '.format(name=baseName)
+            allDependancies += ' "${'+'{name}-DEPS'.format(name=baseName)+'}" '
             for output in dependacyDictionary[baseName]:
-               epsOutput = output.replace('.png','.eps')
+               epsOutput = os.path.join( outputEPSDirectory, os.path.basename(output.replace('.png','.eps')))
                outstring += ' "{epsOutput}"'.format(epsOutput=epsOutput)
+               outPtr.write('CONVERT_INPUT_IMG("{0}" "{1}" "{2}")\n'.format(output, epsOutput, ""))
             outstring += ')\n'
             outPtr.write(outstring)
+        allDependancies += ')\n'
+        outPtr.write(allDependancies)
         outPtr.close()
         allCommandBlocks = remainingCommandBlocks
 

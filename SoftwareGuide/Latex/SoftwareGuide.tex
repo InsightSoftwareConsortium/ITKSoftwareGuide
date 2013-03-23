@@ -15,6 +15,11 @@
 \usepackage{times}
 \usepackage{color}
 \usepackage{listings}
+\usepackage{setspace}
+
+\lstnewenvironment{itklisting}
+{\singlespacing\lstset{language=C++}}
+{}
 
 \definecolor{ltgray}{rgb}{0.90,0.90,0.90}
 
@@ -23,7 +28,7 @@
          %numbers=left,               % Ort der Zeilennummern
          numberstyle=\tiny,          % Stil der Zeilennummern
          %stepnumber=2,               % Abstand zwischen den Zeilennummern
-         numbersep=5pt,              % Abstand der Nummern zum Text
+         numbersep=2pt,              % Abstand der Nummern zum Text
          tabsize=2,                  % Groesse von Tabs
          extendedchars=true,         %
          breaklines=true,            % Zeilen werden Umgebrochen
@@ -60,7 +65,6 @@
 \DeclareCaptionFont{white}{\color{white}}
 \DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35, 0.35,0.01}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
 \captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
-
 
 \newif\ifitkFullVersion
 \itkFullVersiontrue

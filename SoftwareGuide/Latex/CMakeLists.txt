@@ -102,18 +102,13 @@ set( Tex_SRCS
 
 set ( SoftwareGuide_Tex_SRCS "" )
 foreach( file ${Tex_SRCS})
-  message(STATUS "APPENDING: ${SoftwareGuide_SOURCE_DIR}/Latex/${file}")
-set( SoftwareGuide_Tex_SRCS
+#message(STATUS "APPENDING: ${SoftwareGuide_SOURCE_DIR}/Latex/${file}")
+  set( SoftwareGuide_Tex_SRCS
    ${SoftwareGuide_Tex_SRCS} ${SoftwareGuide_SOURCE_DIR}/Latex/${file}
  )
 endforeach( file )
 
-file( GLOB_RECURSE ITK_EXAMPLES_TEX_SRCS_NAMES ${CMAKE_CURRENT_SOURCE_DIR}/Examples/*.tex)
-
-set( ITK_EXAMPLES_TEX_SRCS "")
-foreach( exampletexname ${ITK_EXAMPLES_TEX_SRCS_NAMES})
-  set( ITK_EXAMPLES_TEX_SRCS ${ITK_EXAMPLES_TEX_SRCS} ${SoftwareGuide_BINARY_DIR}/Examples/${exampletexname} )
-endforeach( exampletexname )
+file( GLOB_RECURSE ITK_EXAMPLES_TEX_SRCS_NAMES ${SoftwareGuide_BINARY_DIR}/Examples/*.tex)
 
 if(LATEX_COMPILER)
 
@@ -144,12 +139,12 @@ if(LATEX_COMPILER)
   endif(NOT UNIX)
 
   add_custom_command(
-    SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS} ${ITK_EXAMPLES_TEX_SRCS}
+    SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS_NAMES}
     COMMAND   ${LATEX_WRAPPER1}
     ARGS      ${LATEX_WRAPPER2}
               ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex
     TARGET    SoftwareGuideLatex
-    DEPENDS   ${SoftwareGuide_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS}
+    DEPENDS   ${SoftwareGuide_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES} ${allEPS-DEPS}
     OUTPUTS   SoftwareGuide.dvi
   )
 
@@ -184,12 +179,12 @@ if(LATEX_COMPILER)
 
   if(MAKEINDEX_COMPILER)
     add_custom_command(
-      SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS}
+      SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS_NAMES}
       COMMAND   ${LATEX_WRAPPER1}
       ARGS      ${LATEX_WRAPPER2}
                 ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex
       TARGET    SoftwareGuideLatex
-      DEPENDS   SoftwareGuide.bbl
+      DEPENDS   SoftwareGuide.bbl ${allEPS-DEPS}
       OUTPUTS   SoftwareGuide.idx
     )
     add_custom_command(

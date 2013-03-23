@@ -98,6 +98,84 @@ set(ITK_FLIP_IMG
 )
 # END FLIP_INPUTS LIST
 
+# Convert an image from some file format to EPS for inclusion in Latex using
+# ImageMagick.. This image is an input image. A seperate macro is necessary
+# cause input images do not have any dependecies
+macro(CONVERT_INPUT_IMG SOME_IMG EPS_IMG IMAGEMAGICK_FLAGS)
+  if( NOT DEFINED ${EPS_IMG}_HAS_CUSTOM_COMMAND)
+    add_custom_command(
+        SOURCE      "${SOME_IMG}"
+        COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
+        ARGS        ${FLAGS} "${SOME_IMG}" "${EPS_IMG}"
+        DEPENDS     ${RUN_EXAMPLES_SCRIPT}
+        OUTPUT      "${EPS_IMG}"
+    )
+    set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
+  else()
+    message(STATUS "STATUS: ##### ${EPS_IMG}_HAS_CUSTOM_COMMAND was defined, so skipping standard macro behavior.")
+  endif()
+endmacro(CONVERT_INPUT_IMG)
+
+
+#
+# Find Python executable
+include(${CMAKE_ROOT}/Modules/FindPythonInterp.cmake)
+if( NOT PYTHONINTERP_FOUND )
+  message(FATAL_ERROR "Python executable was not found")
+endif( NOT PYTHONINTERP_FOUND )
+find_program(PYTHONCXXPARSER NAMES ${SoftwareGuide_SOURCE_DIR}/ParseCxxExamples.py)
+if( NOT EXISTS ${SoftwareGuide_SOURCE_DIR}/ParseCxxExamples.py )
+  message(FATAL_ERROR "Missing script: ${SoftwareGuide_SOURCE_DIR}/ParseCxxExamples.py")
+endif()
+
+add_custom_target(SoftwareGuideExamples  ALL echo)
+
+#
+# Search for all the example sources
+#
+file( GLOB_RECURSE ITK_EXAMPLES_SRCS  ${ITK_SOURCE_DIR}/Examples/*.cxx)
+
+message(STATUS "PRE_RUN_PYTHNON ART GENERATION.")
+message(STATUS "Running: ${PYTHON_EXECUTABLE} ${RUN_EXAMPLES_SCRIPT} --itkSource ${ITK_SOURCE_DIR} --itkBuildDir ${ITK_BINARY_DIR} --itkExecDir ${ITK_EXECUTABLES_DIR} --SWGuidBaseOutput ${SoftwareGuide_BINARY_DIR} "
+  )
+execute_process(
+  COMMAND ${PYTHON_EXECUTABLE}
+  ${RUN_EXAMPLES_SCRIPT}
+  --itkSource ${ITK_SOURCE_DIR}
+  --itkBuildDir ${ITK_BINARY_DIR}
+  --itkExecDir ${ITK_EXECUTABLES_DIR}
+  --SWGuidBaseOutput ${SoftwareGuide_BINARY_DIR}
+  WORKING_DIRECTORY "${ART_GENERATED_FOLDER}"
+  RESULT_VARIABLE    RUN_EXAMPLES_RESULT
+    )
+if( NOT ${RUN_EXAMPLES_RESULT} EQUAL 0)
+  message(FATAL_ERROR "POST_RUN_PYTHNON ART GENERATION ${RUN_EXAMPLES_RESULT}.")
+endif()
+
+include(${SoftwareGuide_BINARY_DIR}/Examples/GeneratedDependancies.cmake)
+
+#
+# Parse Latex file for latex includes
+#
+set(TEX_DEPENDENCIES "")
+foreach(example ${ITK_EXAMPLES_SRCS})
+  get_filename_component(TEX_FILE_BASE ${example} NAME_WE)
+  set(TEX_FILE ${SoftwareGuide_BINARY_DIR}/Examples/${TEX_FILE_BASE}.tex)
+  #message(STATUS "File ${TEX_FILE} depends on: ${${TEX_FILE_BASE}-DEPS}")
+  add_custom_command(
+    SOURCE    ${example}
+    COMMAND   ${PYTHON_EXECUTABLE}
+    ARGS      ${PYTHONCXXPARSER} ${example} ${TEX_FILE}
+    TARGET    SoftwareGuideExamples
+    DEPENDS   ${PYTHONCXXPARSER} ${example} ${${TEX_FILE_BASE}-DEPS}
+    OUTPUTS   ${TEX_FILE}
+  )
+  set(TEX_DEPENDENCIES ${TEX_DEPENDENCIES} ${TEX_FILE})
+endforeach(example)
+
+add_custom_target(BuildTexFiles ALL DEPENDS ${TEX_DEPENDENCIES})
+
+
 add_subdirectory(Examples)
 add_subdirectory(Art)
 add_subdirectory(Latex)

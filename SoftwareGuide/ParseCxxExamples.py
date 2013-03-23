@@ -46,10 +46,10 @@ class OneDocBlock():
         elif self.blockType == 'CodeSnippet':
             # blockstring += "\\small\n"
             # blockstring += "\\begin{verbatim}\n"
-            blockstring += "\\begin{lstlisting}[language=C++]\n"
+            blockstring += "\\begin{itklisting}[language=C++]\n"
             for blocktext in self.codeblock:
-                blockstring += "{0}\n".format(blocktext)
-            blockstring += "\\end{lstlisting}\n"
+                blockstring += "{0}".format(blocktext)
+            blockstring += "\\end{itklisting}\n"
             # blockstring += "\\end{verbatim}\n";
             # blockstring += "\\normalsize\n";
             pass
@@ -67,16 +67,14 @@ def ParseOneFile(sourceFile):
     parseLine = 0
     starttagline = 0
     thisFileCommandBlocks = []
+    isLatexBlock = True
     for thisline in INFILE:
         parseLine += 1
-
-        thisline = thisline.replace('//', '')
-        # thisline=thisline.rstrip().rstrip('/').rstrip().lstrip().lstrip('/').lstrip()
-        thisline = thisline.lstrip().rstrip()
 
         # If the "BeginCommandLineArgs" tag is found, set the "starttagline" var and
         # initialize a few variables and arrays.
         if thisline.count(beginLatexTag) == 1:  # start of LatexCodeBlock
+            isLatexBlock = True
             starttagline = parseLine
             codeBlock = []
         elif thisline.count(endLatexTag) == 1:  # end of LatexCodeBlock
@@ -85,6 +83,7 @@ def ParseOneFile(sourceFile):
             thisFileCommandBlocks.append(ocb)
             starttagline = 0
         elif thisline.count(beginCodeBlockTag) == 1:  # start of CodeSnippet
+            isLatexBlock = False
             starttagline = parseLine
             codeBlock = []
         elif thisline.count(endCodeBlockTag) == 1:  # end of CodeSnippet
@@ -93,6 +92,11 @@ def ParseOneFile(sourceFile):
             thisFileCommandBlocks.append(ocb)
             starttagline = 0
         elif starttagline > 0:  # Inside a codeBlock
+            if isLatexBlock == True:
+                thisline = thisline.replace('//', '')
+                # thisline=thisline.rstrip().rstrip('/').rstrip().lstrip().lstrip('/').lstrip()
+                thisline = thisline.lstrip().rstrip()
+
             codeBlock.append(thisline)
         else:  # non-codeBlock line
             pass
