@@ -4,10 +4,13 @@
 #
 include(${CMAKE_ROOT}/Modules/FindLATEX.cmake)
 
-
 #
 # Verify that we found all the components we need
 #
+if(NOT PDFLATEX_COMPILER)
+  message("PDFLatex compiler was not found. Please pass to advanced mode and provide its full path")
+endif(NOT PDFLATEX_COMPILER)
+
 if(NOT LATEX_COMPILER)
   message("Latex compiler was not found. Please pass to advanced mode and provide its full path")
 endif(NOT LATEX_COMPILER)

@@ -15,7 +15,6 @@ endCmdLineArgstag = "EndCommandLineArgs"
 # endCmdLineArgstag   = "EndCommandLineArgsTest"
 fileinputstag = "INPUTS:"
 fileoutputstag = "OUTPUTS:"
-normalizedoutputstag = "NORMALIZE_EPS_OUTPUT_OF:"
 
 
 def mkdir_p(path):
@@ -41,13 +40,9 @@ def GetOutputFilesInThisLine(line):
 def GetInputFilesInThisLine(line):
     return GetFilesInThisLine(line, fileinputstag)
 
-def GetNormalizedFilesInThisLine(line):
-    return GetFilesInThisLine(line, normalizedoutputstag)
-
 ## This class is initialized with a the starting line of
 ## the command processing, and the block of text for
 ## this command invocation
-
 
 class OneCodeBlock():
     def __init__(self, sourceFile, id, codeblock, pathFinder):
@@ -58,11 +53,14 @@ class OneCodeBlock():
         self.outputs = []
         self.MakeAllFileLists()
         self.pathFinder = pathFinder
-        progBaseName = os.path.basename(self.sourceFile)[:-4]
-        self.progFullPath = pathFinder.GetProgramPath(progBaseName)
+        self.progBaseName = os.path.basename(self.sourceFile)[:-4]
+        self.progFullPath = pathFinder.GetProgramPath(self.progBaseName)
         if not os.path.exists(self.progFullPath):
             print("ERROR:  Required program {0} does not exists.  Please rebuild ITK".format(self.progBaseName))
             sys.exit(-1)
+
+    def GetProgBaseName(self):
+        return self.progBaseName
 
     def DoInputsExists(self):
         for i in self.inputs:
@@ -139,14 +137,34 @@ class OneCodeBlock():
                 outputFileName = pathFinder.GetOutputPath(parseGroups.group(2))
                 commandLine = commandLine + " " + outputFileName
                 self.outputs.append(outputFileName)
-            elif parseGroups.group(1) == 'NORMALIZE_EPS_OUTPUT_OF':
-                print('WARNING: WARNING: WARNING: NORMALIZE_EPS_OUTPUT_OF not yet implemented  ')
-                pass  # HACK:  We need to figure out what to do with this, and when
             elif parseGroups.group(1) == 'ARGUMENTS':
                 commandLine = commandLine + " " + parseGroups.group(2)
             elif parseGroups.group(1) == 'NOT_IMPLEMENTED':
                 pass
         return commandLine
+
+    def GetOutputPaths(self):
+        return self.outputs
+        ## HACK REMOVE BELOW
+        cmakeDependancyLine = ""
+        lineparse = re.compile(' *(.*): *(.*)')
+        currLineNumber = self.id
+        for currLine in self.codeblock:
+            currLineNumber = currLineNumber + 1
+            parseGroups = lineparse.search(currLine)
+            if parseGroups == None:
+                print("ERROR: Invalid parsing of {0} at line {1}".format(self.sourceFile, currLineNumber))
+                sys.exit(-1)
+            if parseGroups.group(1) == 'INPUTS':
+                pass
+            elif parseGroups.group(1) == 'OUTPUTS':
+                cmakeDependancyLine += "set({0} --> {1})".format(self.sourceFile,self.outputs)
+            elif parseGroups.group(1) == 'ARGUMENTS':
+                pass
+            elif parseGroups.group(1) == 'NOT_IMPLEMENTED':
+                pass
+        print "XXXXXXXX {0}".format(cmakeDependancyLine)
+        return cmakeDependancyLine
 
     def MakeAllFileLists(self):
         self.inputs = []
@@ -168,8 +186,6 @@ class OneCodeBlock():
                 outputFile = pathFinder.GetOutputPath(outputFile)
                 self.outputs.append(outputFile)
             elif parseKey == 'ARGUMENTS':
-                pass
-            elif parseKey == 'NORMALIZE_EPS_OUTPUT_OF':
                 pass
             elif parseKey == 'NOT_IMPLEMENTED':
                 pass
@@ -281,7 +297,7 @@ class ITKPathFinder:
             if os.path.exists(testPath):
                 return testPath
             else:
-                print('##Warning: Missing input {0}'.format(testPath))
+                #print('##STATUS: Not yet found input {0}'.format(testPath))
                 pass
         print("WARNING:  MISSING INPUT PATH FOR {0}, Searched in {1}".format(inputBaseName,self.searchDirList))        
         return inputBaseName
@@ -329,6 +345,7 @@ if __name__ == "__main__":
             allCommandBlocks += ParseOneFile(sourceFile, pathFinder)
 
     max_depth = 6
+    dependacyDictionary = dict()
     for depth in range(0, max_depth):  # Only look 6 items deep, then assume failures occured
         if len(allCommandBlocks) == 0:
             print("ALL WORK COMPLETED!")
@@ -339,6 +356,11 @@ if __name__ == "__main__":
         remainingCommandBlocks = []
         print("Running depth level {0} with {1} codeblocks".format(depth, len(allCommandBlocks)))
         for blockstart in allCommandBlocks:
+            baseName=blockstart.GetProgBaseName()
+            if dependacyDictionary.get(baseName) is None:
+                dependacyDictionary[baseName] = list() ## Initialize list
+            dependacyDictionary[baseName].extend(blockstart.GetOutputPaths())
+
             if blockstart.DoInputsExists() == False:
                 blockstart.AreOutputsNewer()
                 print(' ' * 80 + "\nJob Not Yet Ready To Run")
@@ -361,21 +383,38 @@ if __name__ == "__main__":
                     pass
                     blockstart.Print()
                     runCommand = blockstart.GetCommandLine()
+                    completedSuccessfully = True
                     try:
                         retcode = subprocess.call(runCommand, shell=True)
                         if retcode < 0:
                             print >>sys.stderr, "Child was terminated by signal", -retcode
+                            completedSuccessfully = False
                         else:
                             print >>sys.stderr, "Child returned", retcode
+                            completedSuccessfully = True
                     except OSError, e:
                         print >>sys.stderr, "Execution failed:", e
-                    runCommand = blockstart.GetCommandLine()
+                        completedSuccessfully = False
+                    if completedSuccessfully == False:
+                        print("ERROR:"*20)
+                        print("Failing to run all tests, This should never happen because all tests outputs must run successfully exists.")
+                        sys.exit(-1)  # This should never happen because you should only run this function once all inputs exists.
                     print(runCommand)
                     print('+' * 80 + "\nNeed to run")
                 else:
                     print("ERROR:  Invalid status given.")
                     sys.exit(-1)
-        allCommandBlocks = remainingCommandBlocks
 
+        outputCMakeDependancies = os.path.join(args.SWGuidBaseOutput,'Examples',"GeneratedDependancies.cmake")
+        outPtr = open(outputCMakeDependancies, 'w')
+        for baseName in dependacyDictionary.keys():
+            outstring = 'set("{name}-DEPS" '.format(name=baseName)
+            for output in dependacyDictionary[baseName]:
+               epsOutput = output.replace('.png','.eps')
+               outstring += ' "{epsOutput}"'.format(epsOutput=epsOutput)
+            outstring += ')\n'
+            outPtr.write(outstring)
+        outPtr.close()
+        allCommandBlocks = remainingCommandBlocks
 
 print('$^&!' * 20)

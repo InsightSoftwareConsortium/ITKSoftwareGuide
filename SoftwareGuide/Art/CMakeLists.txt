@@ -32,18 +32,16 @@ file(GLOB EPS_IMAGES *.eps)
 # If we built the figures, remove figures that were already generated
 # from the list
 #
-if(BUILD_FIGURES)
-  find_file(GENERATED_FILES "GeneratedFiles.txt" "${SoftwareGuide_BINARY_DIR}/Art/Generated")
-  set(GENERATED_FILES "${GENERATED_FILES}" CACHE INTERNAL "These files were generated" FORCE) #Just make the variable internal
-  if(GENERATED_FILES)
-    file(READ ${GENERATED_FILES} REGULAR_EXPRESSIONS)
-    file(GLOB FILES_TO_REMOVE ${REGULAR_EXPRESSIONS})
-    remove(XFIG_FIGURES ${FILES_TO_REMOVE})
-    remove(PNG_IMAGES ${FILES_TO_REMOVE})
-    remove(JPEG_IMAGES ${FILES_TO_REMOVE})
-    remove(EPS_IMAGES ${FILES_TO_REMOVE})
-  endif(GENERATED_FILES)
-endif(BUILD_FIGURES)
+find_file(GENERATED_FILES "GeneratedFiles.txt" "${SoftwareGuide_BINARY_DIR}/Art/Generated")
+set(GENERATED_FILES "${GENERATED_FILES}" CACHE INTERNAL "These files were generated" FORCE) #Just make the variable internal
+if(GENERATED_FILES)
+  file(READ ${GENERATED_FILES} REGULAR_EXPRESSIONS)
+  file(GLOB FILES_TO_REMOVE ${REGULAR_EXPRESSIONS})
+  remove(XFIG_FIGURES ${FILES_TO_REMOVE})
+  remove(PNG_IMAGES ${FILES_TO_REMOVE})
+  remove(JPEG_IMAGES ${FILES_TO_REMOVE})
+  remove(EPS_IMAGES ${FILES_TO_REMOVE})
+endif(GENERATED_FILES)
 
 
 foreach(image ${JPEG_IMAGES})

@@ -9,7 +9,7 @@
 # Compile and build the ITK binaries. You will need to build the Examples in
 # the Insight directory with the CMakeLists.txt file in ITK/
 #
-# Run this CMakeLists.txt file and set BUILD_FIGURES  'ON'. Specify the
+# Run this CMakeLists.txt file and specify the
 # directory containing the Insight executables. Specify ITK data paths.
 # The default data path inferred is ITK/Examples/Data. This should suffice
 # for building the SoftwareGuide. Should more paths be need add them in a colon
@@ -19,15 +19,10 @@
 #
 # More than one make may be necessary to ensure generation of the index
 #
-# If BUILD_FIGURES is set to ON, the examples source files are parsed for
+# The examples source files are parsed for
 # command line argument tags and if found executed to generate output
 # images, if not the images are expected to be present in the Art/ folder
 # in PNG/XFIG/JPEG/EPS format.
-#
-# Since generating figures may take a while, you may set BUILD_FIGURES to
-# OFF. In this case, all figures are expected to be present in the Art/
-# folder in PNG/XFIG/JPEG/EPS format.
-#
 #
 cmake_minimum_required(VERSION 2.8.10)
 
@@ -54,11 +49,8 @@ set(ART_GENERATED_FOLDER "${SoftwareGuide_BINARY_DIR}/Art/Generated" )
 make_directory( "${ART_GENERATED_FOLDER}" )
 
 #
-# Rebuild the Software Guide figures or not ?
-set(BUILD_FIGURES ON CACHE BOOL "Build Software Guide figures")
-if( BUILD_FIGURES )
-  set(RUN_EXAMPLES_SCRIPT "${SoftwareGuide_SOURCE_DIR}/Examples/RunExamples.py" CACHE FILEPATH "Where the RunExamples Script is")
-endif( BUILD_FIGURES )
+# Rebuild the Software Guide figures
+set(RUN_EXAMPLES_SCRIPT "${SoftwareGuide_SOURCE_DIR}/Examples/RunExamples.py" CACHE FILEPATH "Where the RunExamples Script is")
 
 
 #
@@ -76,38 +68,35 @@ if(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
 endif(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
 
 
-if(BUILD_FIGURES)
-  #
-  #
-  # ADD THE LIST OF INPUT IMAGES YOU WANT FLIPPED HERE.
-  #
-  # NOTE:
-  # If ON, all input images in the list and all outputs that use these images
-  # as inputs in cmd line args will be flipped about 'y'. The command line
-  # argument itself does not run using the flipped images; instead the eps
-  # images corresponding to the inputs mentioned in the list and their output
-  # dependencies are flipped for inclusion in the TEX document.
+#
+# ADD THE LIST OF INPUT IMAGES YOU WANT FLIPPED HERE.
+#
+# NOTE:
+# All input images in the list and all outputs that use these images
+# as inputs in cmd line args will be flipped about 'y'. The command line
+# argument itself does not run using the flipped images; instead the eps
+# images corresponding to the inputs mentioned in the list and their output
+# dependencies are flipped for inclusion in the TEX document.
 
-  option(ITK_FLIP_INPUTS_AND_THEIR_OUTPUTS "Flip the input images specified in CMakeLists and their corresponding outputs" ON)
-  set(ITK_FLIP_IMG
-    BrainProtonDensitySlice
-    BrainT1Slice
-    BrainT1SliceBorder20
-    BrainProtonDensitySliceBorder20
-    BrainProtonDensitySliceRotated10
-    BrainProtonDensitySliceR10X13Y17
-    BrainProtonDensitySliceR10X13Y17S12
-    VisibleWomanEyeSlice
-    VisibleWomanHeadSlice
-    FatMRISlice
-    BinaryImage
-    VentricleModel
-    FivePoints
-    ThresholdSegmentationLevelSetImageFilterVentricle
-    BrainProtonDensitySliceShifted13x17y
-  )
-  # END FLIP_INPUTS LIST
-endif( BUILD_FIGURES )
+option(ITK_FLIP_INPUTS_AND_THEIR_OUTPUTS "Flip the input images specified in CMakeLists and their corresponding outputs" ON)
+set(ITK_FLIP_IMG
+  BrainProtonDensitySlice
+  BrainT1Slice
+  BrainT1SliceBorder20
+  BrainProtonDensitySliceBorder20
+  BrainProtonDensitySliceRotated10
+  BrainProtonDensitySliceR10X13Y17
+  BrainProtonDensitySliceR10X13Y17S12
+  VisibleWomanEyeSlice
+  VisibleWomanHeadSlice
+  FatMRISlice
+  BinaryImage
+  VentricleModel
+  FivePoints
+  ThresholdSegmentationLevelSetImageFilterVentricle
+  BrainProtonDensitySliceShifted13x17y
+)
+# END FLIP_INPUTS LIST
 
 add_subdirectory(Examples)
 add_subdirectory(Art)

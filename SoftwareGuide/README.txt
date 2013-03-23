@@ -220,10 +220,6 @@ On Windows, you may have go through a few inconveniences as below:
                      Make sure you have the paths for the BrainWebData
                      you just extracted as well.
 
-   BUILD_FIGURES : Set this to ON.. Recommended, to ensure that the figures
-                   are in sync with the toolkit to ensure reproducability.
-   
-
 5. Open the generated project in VS and build it.
 -------------------------------------------------------------------------------
 
