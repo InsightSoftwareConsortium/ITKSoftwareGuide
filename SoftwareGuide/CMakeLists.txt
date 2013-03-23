@@ -33,6 +33,10 @@ cmake_minimum_required(VERSION 2.8.10)
 
 project(SoftwareGuide C)
 
+find_package(ITK 4 REQUIRED)
+include(${ITK_USE_FILE})
+set(ITK_EXECUTABLES_DIR "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" CACHE PATH "Where the ITK examples executables are")
+
 #
 # File that defines the path to .cxx examples in ITK sources
 #
@@ -42,29 +46,17 @@ ${SoftwareGuide_BINARY_DIR}/SoftwareGuideConfiguration.tex
 IMMEDIATE
 )
 
-# Find ITK Sources
-find_path(ITK_SOURCE_DIR UseITK.cmake.in
-   ../ITK
-   ../../ITK
-   ../../../ITK
-   ../../../../ITK
-   ../../../../../ITK
-   ../../../../../../ITK
-  )
-
-if( NOT ITK_SOURCE_DIR )
-  message(FATAL_ERROR "ITK source directory is not set")
-endif( NOT ITK_SOURCE_DIR )
-
-# -- HACK NO LONGER USED ITK_DATA_PATHS is searched recursively. you need not enter sub-directories
-# -- HACK NO LONGER USED set(ITK_DATA_PATHS "${ITK_SOURCE_DIR}/Testing/Data" CACHE STRING "Where the ITK data is. Enter a colon seperated list.")
-# -- HACK NO LONGER USED set(ITK_DATA_PATHS "${ITK_BINARY_DIR}/ExternalData" CACHE STRING "Where the ITK data is. Enter a colon seperated list.")
+#
+# Generate .cmake files containing those macros defined above.
+#
+# First make a directory to store generated images
+set(ART_GENERATED_FOLDER "${SoftwareGuide_BINARY_DIR}/Art/Generated" )
+make_directory( "${ART_GENERATED_FOLDER}" )
 
 #
 # Rebuild the Software Guide figures or not ?
 set(BUILD_FIGURES ON CACHE BOOL "Build Software Guide figures")
 if( BUILD_FIGURES )
-  set(ITK_EXECUTABLES_DIR "" CACHE PATH "Where the ITK examples executables are")
   set(RUN_EXAMPLES_SCRIPT "${SoftwareGuide_SOURCE_DIR}/Examples/RunExamples.py" CACHE FILEPATH "Where the RunExamples Script is")
 endif( BUILD_FIGURES )
 
@@ -85,7 +77,6 @@ endif(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
 
 
 if(BUILD_FIGURES)
-
   #
   #
   # ADD THE LIST OF INPUT IMAGES YOU WANT FLIPPED HERE.

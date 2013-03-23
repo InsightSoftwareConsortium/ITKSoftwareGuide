@@ -63,17 +63,17 @@ ${SoftwareGuide_SOURCE_DIR}/SoftwareGuideConfiguration.tex.in
 ${SoftwareGuide_BINARY_DIR}/SoftwareGuideConfiguration.tex
 )
 
-add_custom_target(SoftwareGuideLatex  ALL echo)
+add_custom_target(SoftwareGuideLatex ALL echo)
 
 set( Tex_SRCS
   Abstract.tex
   Applications.tex
-  AnisotropicDiffusionFiltering.tex
   Contributors.tex
   DataRepresentation.tex
+## -- HACK TODO
+#set( NOT_YET_SRCS # This needs to be added one at a time as they are cleaned up
+  AnisotropicDiffusionFiltering.tex
   Filtering.tex
-)
-set( NOT_YET_SRCS # This needs to be added one at a time as they are cleaned up
   GUI.tex
   ImageMetrics.tex
   ImageInterpolators.tex
@@ -97,7 +97,9 @@ set( NOT_YET_SRCS # This needs to be added one at a time as they are cleaned up
   WatershedSegmentation.tex
 )
 
+set ( SoftwareGuide_Tex_SRCS "" )
 foreach( file ${Tex_SRCS})
+  message(STATUS "APPENDING: ${SoftwareGuide_SOURCE_DIR}/Latex/${file}")
 set( SoftwareGuide_Tex_SRCS
    ${SoftwareGuide_Tex_SRCS} ${SoftwareGuide_SOURCE_DIR}/Latex/${file}
  )
@@ -105,6 +107,7 @@ endforeach( file )
 
 file( GLOB_RECURSE ITK_EXAMPLES_TEX_SRCS_NAMES ${CMAKE_CURRENT_SOURCE_DIR}/Examples/*.tex)
 
+set( ITK_EXAMPLES_TEX_SRCS "")
 foreach( exampletexname ${ITK_EXAMPLES_TEX_SRCS_NAMES})
   set( ITK_EXAMPLES_TEX_SRCS ${ITK_EXAMPLES_TEX_SRCS} ${SoftwareGuide_BINARY_DIR}/Examples/${exampletexname} )
 endforeach( exampletexname )
@@ -154,7 +157,7 @@ if(LATEX_COMPILER)
       ARGS      ${DVIPS_WRAPPER2}
                 SoftwareGuide.dvi ${DVIPS_CONVERTER_OPTIONS} -o  SoftwareGuide.ps
       TARGET    SoftwareGuideLatex
-      DEPENDS   SoftwareGuide.ind SoftwareGuide.bbl
+      DEPENDS   SoftwareGuide.idx SoftwareGuide.ind SoftwareGuide.bbl SoftwareGuide.dvi
       OUTPUTS   SoftwareGuide.ps
     )
   endif(DVIPS_CONVERTER)
@@ -165,6 +168,7 @@ if(LATEX_COMPILER)
       COMMAND   ${PS2PDF_CONVERTER}
       ARGS      ${PS2PDF_CONVERTER_OPTIONS} SoftwareGuide.ps
       TARGET    SoftwareGuideLatex
+      DEPENDS   SoftwareGuide.idx SoftwareGuide.ind SoftwareGuide.bbl SoftwareGuide.ps
       OUTPUTS   SoftwareGuide.pdf
     )
     add_custom_command(
@@ -190,12 +194,14 @@ if(LATEX_COMPILER)
       COMMAND   ${MAKEINDEX_COMPILER}
       ARGS      SoftwareGuide
       TARGET    SoftwareGuideLatex
+      DEPENDS   SoftwareGuide.idx
       OUTPUTS   SoftwareGuide.ind
     )
 
   endif(MAKEINDEX_COMPILER)
 
   if(BIBTEX_COMPILER)
+    message(STATUS "Running: ${BIBTEX_COMPILER} SoftwareGuide ")
     add_custom_command(
       SOURCE    ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex
       COMMAND   ${BIBTEX_COMPILER}

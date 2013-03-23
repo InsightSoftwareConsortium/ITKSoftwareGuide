@@ -28,7 +28,6 @@ def mkdir_p(path):
         else:
             raise
 
-
 def GetFilesInThisLine(line, tag):
     line.replace(fileoutputstag, "")  # Strip the tag away
     # squish more than one space into one
@@ -36,14 +35,11 @@ def GetFilesInThisLine(line, tag):
     outputfilesInThisLine = line.split(' ')
     return outputfilesInThisLine
 
-
 def GetOutputFilesInThisLine(line):
     return GetFilesInThisLine(line, fileoutputstag)
 
-
 def GetInputFilesInThisLine(line):
     return GetFilesInThisLine(line, fileinputstag)
-
 
 def GetNormalizedFilesInThisLine(line):
     return GetFilesInThisLine(line, normalizedoutputstag)
@@ -75,6 +71,7 @@ class OneCodeBlock():
             if i == None:
                 continue
             if not os.path.exists(i):
+                print("ERROR:  XXXXXXXXXXXX MISSING {0}".format(i))
                 return False
         return True
 
@@ -104,6 +101,9 @@ class OneCodeBlock():
                     newest_input = this_input_time
             else:
                 print("Missing input {0}".format(i))
+                print("Searched {0}".format(self.inputs))
+                print("ERROR:"*20)
+                print("Failing to process all data, This should never happen because you should only run this function once all inputs exists.")
                 sys.exit(-1)  # This should never happen because you should only run this function once all inputs exists.
         print("Newest Input: {0}, Oldest Output: {1}".format(newest_input, oldest_output))
         if newest_input < oldest_output:
@@ -244,8 +244,8 @@ def getdirs(basedir, age):
 
 
 class ITKPathFinder:
-    def __init__(self, itkSourceDir, itkBinaryDir, SWGuidBaseOutput):
-        self.execDir = itkBinaryDir + '/bin'
+    def __init__(self, itkSourceDir, itkExecutablesDir, itkBuildDir, SWGuidBaseOutput):
+        self.execDir = itkExecutablesDir
         self.execDir = self.execDir.rstrip('/')
         self.outPicDir = SWGuidBaseOutput + '/Art/Generated'
         # Check if there are any input files that need to be flipped.
@@ -254,13 +254,16 @@ class ITKPathFinder:
         mkdir_p(self.outPicDir)
 
         # HACK:  Need beter search criteria
-        searchPaths = '{0}/ExternalData/Testing/Data/Input:{0}/ExternalData/Brain:{1}/Testing/Data/Input/:{1}/Testing/Data/Baseline/Review:{1}/Testing/Data/Baseline/Iterators:{1}/Testing/Data/Baseline/IO:{1}/Testing/Data/Baseline/Filtering:{1}/Testing/Data/Baseline/BasicFilters:{1}/Testing/Data/Baseline/Algorithms:{1}/Examples/Data:{0}/Testing/Temporary:{0}/Modules/Nonunit/Review/test:{0}/ExternalData/Modules/Segmentation/LevelSetsv4/test/Baseline:{0}/ExternalData/Modules/IO/GE/test/Baseline:{0}/ExternalData/Examples/Filtering/test/Baseline:{0}/ExternalData/Examples/Data/BrainWeb:{0}/Examples/Segmentation/test:{2}/Art/Generated:{0}ExternalData/Testing/Data/Input'.format(itkBinaryDir, itkSourceDir, SWGuidBaseOutput)
+        searchPaths = '{0}/ExternalData/Testing/Data/Input:{0}/ExternalData/Examples/Data/BrainWeb:{0}/Testing/Temporary:{0}/Modules/Nonunit/Review/test:{0}/ExternalData/Modules/Segmentation/LevelSetsv4/test/Baseline:{0}/ExternalData/Modules/IO/GE/test/Baseline:{0}/ExternalData/Examples/Filtering/test/Baseline:{0}/Examples/Segmentation/test:{1}/Art/Generated:{2}/Examples/Data'.format(itkBuildDir, SWGuidBaseOutput, itkSourceDir)
         dirtyDirPaths = searchPaths.split(':')
 
         self.searchDirList = []
         for eachpath in dirtyDirPaths:
             if os.path.isdir(eachpath):
                 self.searchDirList.append(os.path.realpath(eachpath))
+            else:
+                print("WARNING: MISSING search path {0} ".format(eachpath))
+                sys.exit(-1)
 
         print self.searchDirList
 
@@ -278,8 +281,9 @@ class ITKPathFinder:
             if os.path.exists(testPath):
                 return testPath
             else:
+                print('##Warning: Missing input {0}'.format(testPath))
                 pass
-                # print('##Warning: Missing input {0}'.format(testPath))
+        print("WARNING:  MISSING INPUT PATH FOR {0}, Searched in {1}".format(inputBaseName,self.searchDirList))        
         return inputBaseName
 
     def GetOutputPath(self, outputBaseName):
@@ -296,6 +300,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Parse an ITK source tree and run programs in order to make output files for Software Guide.')
     parser.add_argument('--itkSourceDir', dest='itkSourceDir', action='store', default=None,
                         help='The path to the ITK source tree.')
+    parser.add_argument('--itkBuildDir', dest='itkBuildDir', action='store', default=None,
+                        help='The path to the ITK build tree where test data is found.')
     parser.add_argument('--itkExecDir', dest='itkExecDir', action='store', default=None,
                         help='The path to the ITK binary tree bin directory were executables are found.')
     parser.add_argument('--SWGuidBaseOutput', dest='SWGuidBaseOutput', action='store', default=None,
@@ -303,8 +309,9 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    itkBinaryDir = os.path.dirname(args.itkExecDir)
-    pathFinder = ITKPathFinder(args.itkSourceDir, itkBinaryDir, args.SWGuidBaseOutput)
+    itkExecutablesDir = os.path.realpath(args.itkExecDir)
+    itkBuildDir = os.path.realpath(args.itkBuildDir)
+    pathFinder = ITKPathFinder(args.itkSourceDir, itkExecutablesDir, itkBuildDir, args.SWGuidBaseOutput)
 
     allCommandBlocks = []
     for rootDir, dirList, fileList in os.walk(args.itkSourceDir):
@@ -322,7 +329,7 @@ if __name__ == "__main__":
             allCommandBlocks += ParseOneFile(sourceFile, pathFinder)
 
     max_depth = 6
-    for depth in range(0, max_depth):  # Only look 4 items deep, then assume failures occured
+    for depth in range(0, max_depth):  # Only look 6 items deep, then assume failures occured
         if len(allCommandBlocks) == 0:
             print("ALL WORK COMPLETED!")
             break

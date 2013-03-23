@@ -12,7 +12,7 @@ project(Examples C)
 # are created. This results in the example running 3 times, instead of once.
 macro(RUN_EXAMPLE EXECUTABLE OUTPUT_IMG SOURCE_FILE)
   add_custom_command(
-      OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/Generated/${OUTPUT_IMG}"
+      OUTPUT      "${ART_GENERATED_FOLDER}/${OUTPUT_IMG}"
       COMMAND     "${ITK_EXECUTABLES_DIR}/${EXECUTABLE}"
       ARGS        ${ARGN}
       DEPENDS     ${RUN_EXAMPLES_SCRIPT} ${SOURCE_FILE} ${GENERATED_FIGURE_DEPS}
@@ -24,7 +24,7 @@ endmacro(RUN_EXAMPLE)
 # state that dependency so that makefile rules fire in the right
 # order.
 macro(ADD_GENERATED_FIG_DEPS OUTPUT_IMG GENERATED_FIG)
-  set( GENERATED_FIGURE_DEPS ${GENERATED_FIGURE_DEPS} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${GENERATED_FIG}" )
+  set( GENERATED_FIGURE_DEPS ${GENERATED_FIGURE_DEPS} "${ART_GENERATED_FOLDER}/${GENERATED_FIG}" )
 endmacro( ADD_GENERATED_FIG_DEPS )
 
 # Some images need normalization for proper display in the book.
@@ -36,10 +36,12 @@ macro(CONVERT_AND_NORMALIZE_IMG SOME_IMG EPS_IMG PATH)
         SOURCE      "${PATH}/${SOME_IMG}"
         COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
         ARGS        "-normalize" "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-        DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}"
+        DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${ART_GENERATED_FOLDER}/${SOME_IMG}"
         OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
     )
     set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
+  else()
+    message(STATUS "STATUS: ##### ${EPS_IMG}_HAS_CUSTOM_COMMAND was defined, so skipping standard macro behavior.")
   endif()
 endmacro(CONVERT_AND_NORMALIZE_IMG)
 
@@ -50,10 +52,12 @@ macro(CONVERT_AND_FLIP_AND_NORMALIZE_IMG SOME_IMG EPS_IMG PATH)
         SOURCE      "${PATH}/${SOME_IMG}"
         COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
         ARGS        "-flip" "-normalize" "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-        DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}"
+        DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${ART_GENERATED_FOLDER}/${SOME_IMG}"
         OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
     )
     set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
+  else()
+    message(STATUS "STATUS: ##### ${EPS_IMG}_HAS_CUSTOM_COMMAND was defined, so skipping standard macro behavior.")
   endif()
 endmacro(CONVERT_AND_FLIP_AND_NORMALIZE_IMG)
 
@@ -65,10 +69,12 @@ macro(CONVERT_IMG SOME_IMG EPS_IMG PATH)
         SOURCE      "${PATH}/${SOME_IMG}"
         COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
         ARGS        "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-        DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}"
+        DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${ART_GENERATED_FOLDER}/${SOME_IMG}"
         OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
     )
     set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
+  else()
+    message(STATUS "STATUS: ##### ${EPS_IMG}_HAS_CUSTOM_COMMAND was defined, so skipping standard macro behavior.")
   endif()
 endmacro(CONVERT_IMG)
 
@@ -80,10 +86,12 @@ macro(CONVERT_AND_FLIP_IMG SOME_IMG EPS_IMG PATH)
         SOURCE      "${PATH}/${SOME_IMG}"
         COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
         ARGS        "-flip" "${PATH}/${SOME_IMG}" "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
-        DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${SoftwareGuide_BINARY_DIR}/Art/Generated/${SOME_IMG}"
+        DEPENDS     ${RUN_EXAMPLES_SCRIPT} "${ART_GENERATED_FOLDER}/${SOME_IMG}"
         OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
     )
     set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
+  else()
+    message(STATUS "STATUS: ##### ${EPS_IMG}_HAS_CUSTOM_COMMAND was defined, so skipping standard macro behavior.")
   endif()
 endmacro(CONVERT_AND_FLIP_IMG)
 
@@ -100,6 +108,8 @@ macro(CONVERT_INPUT_IMG SOME_IMG EPS_IMG PATH)
         OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
     )
     set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
+  else()
+    message(STATUS "STATUS: ##### ${EPS_IMG}_HAS_CUSTOM_COMMAND was defined, so skipping standard macro behavior.")
   endif()
 endmacro(CONVERT_INPUT_IMG)
 
@@ -116,6 +126,8 @@ macro(CONVERT_AND_FLIP_INPUT_IMG SOME_IMG EPS_IMG PATH)
         OUTPUT      "${SoftwareGuide_BINARY_DIR}/Art/${EPS_IMG}"
     )
     set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
+  else()
+    message(STATUS "STATUS: ##### ${EPS_IMG}_HAS_CUSTOM_COMMAND was defined, so skipping standard macro behavior.")
   endif()
 endmacro(CONVERT_AND_FLIP_INPUT_IMG)
 
@@ -171,38 +183,33 @@ execute_process(
   COMMAND ${PYTHON_EXECUTABLE}
   ${RUN_EXAMPLES_SCRIPT}
   --itkSource ${ITK_SOURCE_DIR}
+  --itkBuildDir ${ITK_BINARY_DIR}
   --itkExecDir ${ITK_EXECUTABLES_DIR}
   --SWGuidBaseOutput ${SoftwareGuide_BINARY_DIR}
-  WORKING_DIRECTORY "${SoftwareGuide_BINARY_DIR}/Art/Generated"
+  WORKING_DIRECTORY "${ART_GENERATED_FOLDER}"
   RESULT_VARIABLE    RUN_EXAMPLES_RESULT
     )
-  #if( NOT ${RUN_EXAMPLES_RESULT} EQUAL 0)
-  #message(FATAL_ERROR "POST_RUN_PYTHNON ART GENERATION ${RUN_EXAMPLES_RESULT}.")
-  #endif()
+if( NOT ${RUN_EXAMPLES_RESULT} EQUAL 0)
+  message(FATAL_ERROR "POST_RUN_PYTHNON ART GENERATION ${RUN_EXAMPLES_RESULT}.")
+endif()
 
 
 # It is recommended that the user build the figures from the Insight executables
 # to generate the guide to ensure consistency.
 if( BUILD_FIGURES )
-  #
-  # Generate .cmake files containing those macros defined above.
-  #
-  # First make a directory to store generated images
-  make_directory( "${SoftwareGuide_BINARY_DIR}/Art/Generated" )
-  set( GeneratedFolder "${SoftwareGuide_BINARY_DIR}/Art/Generated" )
 
   # Earlier versions of the book had all the images flipped upside down, legacy
-  # issue.. So if this flag is set to ON, they will be flipped prior to inclusion
+  # issue. So if this flag is set to ON, they will be flipped prior to inclusion
   # in the SW guide.
   if(ITK_FLIP_INPUTS_AND_THEIR_OUTPUTS)
-    set(FILENAME "${SoftwareGuide_BINARY_DIR}/Art/Generated/Flipped_files.txt")
+    set(FILENAME "${ART_GENERATED_FOLDER}/Flipped_files.txt")
     file(WRITE ${FILENAME} "")
     foreach(FLIPIMG ${ITK_FLIP_IMG})
       file(APPEND ${FILENAME} "${FLIPIMG} ")
     endforeach(FLIPIMG)
   endif(ITK_FLIP_INPUTS_AND_THEIR_OUTPUTS)
 
-  set(FILENAME2 "${SoftwareGuide_BINARY_DIR}/Art/Generated/GeneratedFiles.txt")
+  set(FILENAME2 "${ART_GENERATED_FOLDER}/GeneratedFiles.txt")
   file(WRITE ${FILENAME2} "")
 
 
