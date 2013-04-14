@@ -46,10 +46,12 @@ class OneDocBlock():
         elif self.blockType == 'CodeSnippet':
             # blockstring += "\\small\n"
             # blockstring += "\\begin{verbatim}\n"
-            blockstring += "\\begin{itklisting}[language=C++]\n"
+            # blockstring += "\\begin{itklisting}[language=C++]\n"
+            blockstring += "\\begin{minted}[linenos=false,bgcolor=ltgray]{c++}\n"
             for blocktext in self.codeblock:
                 blockstring += "{0}".format(blocktext)
-            blockstring += "\\end{itklisting}\n"
+            blockstring += "\\end{minted}\n"
+            # blockstring += "\\end{itklisting}\n"
             # blockstring += "\\end{verbatim}\n";
             # blockstring += "\\normalsize\n";
             pass
