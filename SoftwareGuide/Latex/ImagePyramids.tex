@@ -27,7 +27,7 @@ by a factor of 4 in the column dimension, 4 in the row dimension and
 The method \code{SetNumberOfLevels()} is used to set the number of
 resolution levels in the pyramid. This method will allocate memory
 for the schedule and generate a default table with the starting
-(coarsest) shrink factors for all dimensions set to $(M-1)^2$, 
+(coarsest) shrink factors for all dimensions set to $2^(M-1)$, 
 where $M$ is the number of levels. All factors are halved for
 all subsequent levels. For example, if we set the number of levels
 to 4, the default schedule is then:
