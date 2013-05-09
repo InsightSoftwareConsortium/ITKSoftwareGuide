@@ -1,9 +1,9 @@
 %!PS-Adobe-3.0 EPSF-3.0
-%%Title: ./SoftwareGuide/Art/DataPipelineOneConnection.fig
+%%Title: ./SoftwareGuide/Art/ImageOverlapIterator.fig
 %%Creator: /Users/johnsonhj/src/fig2dev Version 3.2 Patchlevel 5d
 %%CreationDate: Tue May  7 21:05:15 2013
 %%For: johnsonhj@hjAIR.local (Hans Johnson)
-%%BoundingBox: 0 0 194 50
+%%BoundingBox: 0 0 207 106
 %Magnification: 1.0000
 %%EndComments
 %%BeginProlog
@@ -95,8 +95,8 @@ end
 
 /pageheader {
 save
-newpath 0 50 moveto 0 0 lineto 194 0 lineto 194 50 lineto closepath clip newpath
--56.2 273.1 translate
+newpath 0 106 moveto 0 0 lineto 207 0 lineto 207 106 lineto closepath clip newpath
+-16.6 123.4 translate
 1 -1 scale
 $F2psBegin
 10 setmiterlimit
@@ -113,62 +113,93 @@ pageheader
 % Fig objects follow
 %
 % 
-% here starts figure with depth 50
-/Times-Roman ff 120.00 scf sf
-1434 4285 m
-gs 1 -1 sc (ProcessObject) dup sw pop 2 div neg 0 rm  col0 sh gr
-/Times-Roman ff 180.00 scf sf
-1423 3970 m
-gs 1 -1 sc (Reader) dup sw pop 2 div neg 0 rm  col0 sh gr
-% Ellipse
-7.500 slw
-n 3398 3919 552 231 0 360 DrawEllipse gs col0 s gr
-
-/Times-Roman ff 180.00 scf sf
-3387 3890 m
-gs 1 -1 sc (Gaussian) dup sw pop 2 div neg 0 rm  col0 sh gr
-/Times-Roman ff 180.00 scf sf
-3404 4073 m
-gs 1 -1 sc (Filter) dup sw pop 2 div neg 0 rm  col0 sh gr
-% Arc
-0 slc
-n 2376.1 3919.4 122.6 -92.8717 91.4686 arc
-gs col0 s gr
-
-% Ellipse
-n 2362 3909 50 50 0 360 DrawEllipse gs 0.00 setgray ef gr gs col0 s gr
-
+% here starts figure with depth 61
 % Polyline
 0 slj
-gs  clippath
-2233 3940 m 2385 3938 l 2384 3878 l 2232 3880 l 2232 3880 l 2353 3909 l 2233 3940 l cp
-eoclip
-n 1981 3913 m
- 2370 3909 l gs col0 s gr gr
-
-% arrowhead
-n 2233 3940 m 2353 3909 l 2232 3880 l  col0 s
+0 slc
+7.500 slw
+n 426 819 m 676 1495 l 1424 1208 l 1424 819 l
+ cp gs col7 0.85 shd ef gr gs col0 s gr 
+% here ends figure;
+% 
+% here starts figure with depth 50
 % Polyline
+0 slj
+0 slc
+7.500 slw
+n 2419 1342 m 2419 1662 l 2819 1662 l 2820 1342 l
+ cp gs col0 s gr 
+% Polyline
+n 2457 1388 m 2774 1388 l 2774 1444 l 2462 1445 l 2462 1502 l 2776 1502 l
+ 2776 1562 l 2463 1562 l 2463 1617 l
+ 2778 1617 l gs col0 s gr 
+% Ellipse
+gs
+646 1166 tr
+-20.002 rot
+n 0 0 15 15 0 360 DrawEllipse 20.002 rot
+gs 0.00 setgray ef gr gs col0 s gr
+gr
+
+% Polyline
+n 588 1137 m 698 1439 l 1072 1301 l 966 1000 l
+ cp gs col0 s gr 
+% Polyline
+n 640 1168 m 938 1059 l 957 1112 l 665 1219 l 685 1273 l 979 1165 l
+ 999 1222 l 706 1330 l 724 1380 l
+ 1020 1273 l gs col0 s gr 
+% Arc
 gs  clippath
-2708 3945 m 2860 3947 l 2861 3887 l 2709 3885 l 2709 3885 l 2829 3917 l 2708 3945 l cp
+1106 961 m 986 975 l 991 1020 l 1111 1006 l 1111 1006 l 1020 994 l 1106 961 l cp
 eoclip
-n 2494 3913 m
- 2846 3917 l gs col0 s gr gr
+n 1390.3 3998.9 3027.7 -62.7201 -97.3302 arcn
+gs col0 s gr
+ gr
 
 % arrowhead
-n 2708 3945 m 2829 3917 l 2709 3885 l  col0 s
-/Times-Roman ff 180.00 scf sf
-2194 3705 m
-gs 1 -1 sc (Image) col0 sh gr
-/Times-Roman ff 120.00 scf sf
-3421 4282 m
-gs 1 -1 sc (ProcessObject) dup sw pop 2 div neg 0 rm  col0 sh gr
-/Times-Roman ff 120.00 scf sf
-2407 4218 m
-gs 1 -1 sc (DataObject) dup sw pop 2 div neg 0 rm  col0 sh gr
-% Ellipse
-n 1440 3915 540 180 0 360 DrawEllipse gs col0 s gr
+n 1106 961 m 1020 994 l 1111 1006 l  col0 s
+% Arc
+gs  clippath
+828 1417 m 706 1425 l 709 1470 l 831 1462 l 831 1462 l 740 1446 l 828 1417 l cp
+eoclip
+n 1055.1 5521.8 4088.3 -71.7113 -94.6591 arcn
+gs col0 s gr
+ gr
 
+% arrowhead
+n 828 1417 m 740 1446 l 831 1462 l  col0 s
+% Polyline
+15.000 slw
+n 286 796 m 286 1678 l 1444 1678 l 1444 796 l
+ cp gs col0 s gr 
+% Polyline
+7.500 slw
+ [60] 0 sd
+n 355 692 m 656 1521 l 1745 1125 l 1442 296 l
+ cp gs col0 s gr  [] 0 sd
+% Polyline
+15.000 slw
+n 2364 825 m 2364 1707 l 3522 1707 l 3522 825 l
+ cp gs col0 s gr 
+/Times-Roman ff 180.00 scf sf
+2970 1890 m
+gs 1 -1 sc (Fixed Image) dup sw pop 2 div neg 0 rm  col0 sh gr
+/Times-Roman ff 180.00 scf sf
+1665 675 m
+gs 1 -1 sc (Transform T\(x\)) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+900 1890 m
+gs 1 -1 sc (Moving Image) dup sw pop 2 div neg 0 rm  col0 sh gr
+/Times-Roman ff 180.00 scf sf
+2880 1575 m
+gs 1 -1 sc (Walk) col0 sh gr
+% Ellipse
+7.500 slw
+n 2463 1389 15 15 0 360 DrawEllipse gs 0.00 setgray ef gr gs col0 s gr
+
+/Times-Roman ff 180.00 scf sf
+2880 1395 m
+gs 1 -1 sc (Iterator) col0 sh gr
 % here ends figure;
 pagefooter
 showpage
