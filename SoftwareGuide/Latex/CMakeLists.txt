@@ -89,7 +89,7 @@ set( Tex_SRCS
   Numerics.tex
   Registration.tex
   Segmentation.tex
-  SoftwareGuide.tex
+  00-SoftwareGuide.tex
   SoftwareProcess.tex
   SpatialObjects.tex
   Statistics.tex
@@ -142,38 +142,38 @@ if(LATEX_COMPILER)
     SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS_NAMES}
     COMMAND   ${LATEX_WRAPPER1}
     ARGS      ${LATEX_WRAPPER2}
-              ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex
+              ${SoftwareGuide_SOURCE_DIR}/Latex/00-SoftwareGuide.tex
     TARGET    SoftwareGuideLatex
     DEPENDS   ${SoftwareGuide_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES} ${allEPS-DEPS}
-    OUTPUTS   SoftwareGuide.dvi
+    OUTPUTS   00-SoftwareGuide.dvi
   )
 
   if(DVIPS_CONVERTER)
     add_custom_command(
-      SOURCE    SoftwareGuide.dvi
+      SOURCE    00-SoftwareGuide.dvi
       COMMAND   ${DVIPS_WRAPPER1}
       ARGS      ${DVIPS_WRAPPER2}
-                SoftwareGuide.dvi ${DVIPS_CONVERTER_OPTIONS} -o  SoftwareGuide.ps
+                00-SoftwareGuide.dvi ${DVIPS_CONVERTER_OPTIONS} -o  00-SoftwareGuide.ps
       TARGET    SoftwareGuideLatex
-      DEPENDS   SoftwareGuide.idx SoftwareGuide.ind SoftwareGuide.bbl SoftwareGuide.dvi
-      OUTPUTS   SoftwareGuide.ps
+      DEPENDS   00-SoftwareGuide.idx 00-SoftwareGuide.ind 00-SoftwareGuide.bbl 00-SoftwareGuide.dvi
+      OUTPUTS   00-SoftwareGuide.ps
     )
   endif(DVIPS_CONVERTER)
 
   if(PS2PDF_CONVERTER)
     add_custom_command(
-      SOURCE    SoftwareGuide.ps
+      SOURCE    00-SoftwareGuide.ps
       COMMAND   ${PS2PDF_CONVERTER}
-      ARGS      ${PS2PDF_CONVERTER_OPTIONS} SoftwareGuide.ps
+      ARGS      ${PS2PDF_CONVERTER_OPTIONS} 00-SoftwareGuide.ps
       TARGET    SoftwareGuideLatex
-      DEPENDS   SoftwareGuide.idx SoftwareGuide.ind SoftwareGuide.bbl SoftwareGuide.ps
-      OUTPUTS   SoftwareGuide.pdf
+      DEPENDS   00-SoftwareGuide.idx 00-SoftwareGuide.ind 00-SoftwareGuide.bbl 00-SoftwareGuide.ps
+      OUTPUTS   00-SoftwareGuide.pdf
     )
     add_custom_command(
       SOURCE    SoftwareGuideLatex
       COMMAND   echo
       TARGET    SoftwareGuideLatex
-      DEPENDS   SoftwareGuide.pdf
+      DEPENDS   00-SoftwareGuide.pdf
     )
   endif(PS2PDF_CONVERTER)
 
@@ -182,31 +182,31 @@ if(LATEX_COMPILER)
       SOURCE    ${SoftwareGuide_Tex_SRCS}  ${ITK_EXAMPLES_TEX_SRCS_NAMES}
       COMMAND   ${LATEX_WRAPPER1}
       ARGS      ${LATEX_WRAPPER2}
-                ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex
+                ${SoftwareGuide_SOURCE_DIR}/Latex/00-SoftwareGuide.tex
       TARGET    SoftwareGuideLatex
-      DEPENDS   SoftwareGuide.bbl ${allEPS-DEPS}
-      OUTPUTS   SoftwareGuide.idx
+      DEPENDS   00-SoftwareGuide.bbl ${allEPS-DEPS}
+      OUTPUTS   00-SoftwareGuide.idx
     )
     add_custom_command(
-      SOURCE    SoftwareGuide.idx
+      SOURCE    00-SoftwareGuide.idx
       COMMAND   ${MAKEINDEX_COMPILER}
-      ARGS      SoftwareGuide
+      ARGS      00-SoftwareGuide
       TARGET    SoftwareGuideLatex
-      DEPENDS   SoftwareGuide.idx
-      OUTPUTS   SoftwareGuide.ind
+      DEPENDS   00-SoftwareGuide.idx
+      OUTPUTS   00-SoftwareGuide.ind
     )
 
   endif(MAKEINDEX_COMPILER)
 
   if(BIBTEX_COMPILER)
-    message(STATUS "Running: ${BIBTEX_COMPILER} SoftwareGuide ")
+    message(STATUS "Running: ${BIBTEX_COMPILER} 00-SoftwareGuide ")
     add_custom_command(
-      SOURCE    ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex
+      SOURCE    ${SoftwareGuide_SOURCE_DIR}/Latex/00-SoftwareGuide.tex
       COMMAND   ${BIBTEX_COMPILER}
-      ARGS      SoftwareGuide
+      ARGS      00-SoftwareGuide
       TARGET    SoftwareGuideLatex
-      DEPENDS   ${SoftwareGuide_SOURCE_DIR}/Latex/SoftwareGuide.tex ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
-      OUTPUTS   SoftwareGuide.bbl
+      DEPENDS   ${SoftwareGuide_SOURCE_DIR}/Latex/00-SoftwareGuide.tex ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
+      OUTPUTS   00-SoftwareGuide.bbl
     )
   endif(BIBTEX_COMPILER)
 

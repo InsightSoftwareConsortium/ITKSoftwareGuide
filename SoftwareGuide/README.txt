@@ -27,9 +27,9 @@ The following are, in general lines, the processes
 applied to each one of the component listed above.
 
 1) Latex files are included in a tree hierarchy which
-   has "SoftwareGuide.tex" at the top. All of them
+   has "00-SoftwareGuide.tex" at the top. All of them
    are ultimately processed by latex to generate a 
-   SoftwareGuide.dvi file. Thid DVI file is then converted
+   00-SoftwareGuide.dvi file. Thid DVI file is then converted
    to PDF.
 
 2) JPEG files are converted to EPS (encapsulated postscript)
@@ -145,18 +145,18 @@ stored in a file called "SoftwareGuide.idx" and put in the
 "makeindex" is used to generate a "SoftwareGuide.ind" which is
 the final database of index entries. The circularity arises 
 because the file "SoftwareGuide.ind" is included in the main
-SoftwareGuide.tex file. The way to avoid the circularity is
-to first comment out the inclusion of SoftwareGuide.ind on the
-file SoftwareGuide.tex, run latex three times, to resolve all
+00-SoftwareGuide.tex file. The way to avoid the circularity is
+to first comment out the inclusion of 00-SoftwareGuide.ind on the
+file 00-SoftwareGuide.tex, run latex three times, to resolve all
 the references, then run makeindex and finally include 
-SoftwareGuide.ind back into SoftwareGuide.tex.
+SoftwareGuide.ind back into 00-SoftwareGuide.tex.
 
 A similar circularity arises with bibliographic references since
 bibtex is used here. The actual bibliographic reference is stored
 in InsightDocuments/Latex/Insight.bib.
 
 The citations are collected in the first latex passes and stored
-in the "SoftwareGuide.aux" file. Then the "bibtex" program is used
+in the "00-SoftwareGuide.aux" file. Then the "bibtex" program is used
 to generate a "SoftwareGuide.bbl" file that is finally included by
 latex.
 
@@ -289,9 +289,9 @@ CAVEATS:
 3. While building SoftwareGuideLatex, you might find that the DVI and the PS documents
    built fine. However on windows, you might not be able to succefully build the PDF.
    Just invoke the command manually from the cmd prompt as
-      c:\texmf\miktex\bin\ps2pdf.exe SoftwareGuide.ps
+      c:\texmf\miktex\bin\ps2pdf.exe 00-SoftwareGuide.ps
    For some reason, 
-      c:\texmf\miktex\bin\ps2pdf.exe -dPDFSETTINGS=/screen -r600 SoftwareGuide.ps
+      c:\texmf\miktex\bin\ps2pdf.exe -dPDFSETTINGS=/screen -r600 00-SoftwareGuide.ps
    does not seem to work. 
 
 
