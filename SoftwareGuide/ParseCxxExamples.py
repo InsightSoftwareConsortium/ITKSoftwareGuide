@@ -47,7 +47,8 @@ class OneDocBlock():
             # blockstring += "\\small\n"
             # blockstring += "\\begin{verbatim}\n"
             # blockstring += "\\begin{itklisting}[language=C++]\n"
-            blockstring += "\\begin{minted}[linenos=false,bgcolor=ltgray]{c++}\n"
+            blockstring += "\\begin{minted}[baselinestretch=1,fontsize=\\footnotesize,linenos=false,bgcolor=ltgray]{c++}\n"
+#blockstring += "\\begin{minted}[baselinestretch=1,fontsize=\small,linenos=false,bgcolor=ltgray]{c++}\n"
             for blocktext in self.codeblock:
                 blockstring += "{0}".format(blocktext)
             blockstring += "\\end{minted}\n"
@@ -99,6 +100,12 @@ def ParseOneFile(sourceFile):
                 # thisline=thisline.rstrip().rstrip('/').rstrip().lstrip().lstrip('/').lstrip()
                 thisline = thisline.lstrip().rstrip()
 
+            if len(thisline) > 80:
+                print("{filename}:{line}:80: warning: Line length too long for LaTeX printing".format(
+                       filename=sourceFile,
+                       line=parseLine
+                     )
+                )
             codeBlock.append(thisline)
         else:  # non-codeBlock line
             pass
