@@ -387,8 +387,10 @@ if __name__ == "__main__":
                     print("ERROR:  Invalid status given.")
                     sys.exit(-1)
 
+        mkdir_p(os.path.join(args.SWGuidBaseOutput,'Examples'))
         outputCMakeDependancies = os.path.join(args.SWGuidBaseOutput,'Examples',"GeneratedDependancies.cmake")
         outputEPSDirectory = os.path.join(args.SWGuidBaseOutput,'Art','Generated')
+        mkdir_p(os.path.join(args.SWGuidBaseOutput,'Art','Generated'))
         outPtr = open(outputCMakeDependancies, 'w')
         allDependancies = 'set(allEPS-DEPS '
         for baseName in dependacyDictionary.keys():
