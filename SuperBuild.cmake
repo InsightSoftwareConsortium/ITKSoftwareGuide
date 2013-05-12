@@ -190,13 +190,6 @@ else()
     )
 endif()
 
-if( NOT IS_DIRECTORY "${ITK_SOURCE_DIR}" )
-  message(FATAL_ERROR "ITK source directory is not set :${ITK_SOURCE_DIR}:")
-endif( )
-if( NOT IS_DIRECTORY "${ITK_BINARY_DIR}" )
-  message(FATAL_ERROR "ITK build directory is not set :${ITK_BINARY_DIR}:")
-endif( )
-
 _expand_external_project_vars()
 set(COMMON_EXTERNAL_PROJECT_ARGS ${${CMAKE_PROJECT_NAME}_SUPERBUILD_EP_ARGS})
 set(extProjName ${PRIMARY_PROJECT_NAME})

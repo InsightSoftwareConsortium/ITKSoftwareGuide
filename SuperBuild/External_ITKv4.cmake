@@ -110,7 +110,7 @@ if(NOT ( DEFINED "${extProjName}_DIR" OR ( DEFINED "USE_SYSTEM_${extProjName}" A
     )
   ### --- End Project specific additions
   set(${proj}_REPOSITORY ${git_protocol}://itk.org/ITK.git)
-  set(${proj}_GIT_TAG 3c03e162c7e287b81115e2175898482998b50a34) #2013-01-30 New FFTW for DWIConvert with clang
+  set(${proj}_GIT_TAG 05eff7a29c1633a5462a094884646a66c0bc3410)
   ExternalProject_Add(${proj}
     GIT_REPOSITORY ${${proj}_REPOSITORY}
     GIT_TAG ${${proj}_GIT_TAG}
