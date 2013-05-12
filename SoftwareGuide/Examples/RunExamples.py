@@ -389,14 +389,19 @@ if __name__ == "__main__":
 
         mkdir_p(os.path.join(args.SWGuidBaseOutput,'Examples'))
         outputCMakeDependancies = os.path.join(args.SWGuidBaseOutput,'Examples',"GeneratedDependancies.cmake")
+
         outputEPSDirectory = os.path.join(args.SWGuidBaseOutput,'Art','Generated')
         mkdir_p(os.path.join(args.SWGuidBaseOutput,'Art','Generated'))
+
         outPtr = open(outputCMakeDependancies, 'w')
         allDependancies = 'set(allEPS-DEPS '
         for baseName in dependacyDictionary.keys():
             outstring = 'set("{name}-DEPS" '.format(name=baseName)
             allDependancies += ' "${'+'{name}-DEPS'.format(name=baseName)+'}" '
             for output in dependacyDictionary[baseName]:
+               if output[0] != "/": ## HACK_TEST
+                  print("ERROR: Full path required {0} {1} {2}".format(output,baseName,dependacyDictionary[baseName]) ) 
+                  sys.exit(-1)
                epsOutput = os.path.join( outputEPSDirectory, os.path.basename(output.replace('.png','.eps')))
                outstring += ' "{epsOutput}"'.format(epsOutput=epsOutput)
                outPtr.write('CONVERT_INPUT_IMG("{0}" "{1}" "{2}")\n'.format(output, epsOutput, ""))
