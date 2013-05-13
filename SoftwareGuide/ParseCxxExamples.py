@@ -60,10 +60,15 @@ class OneDocBlock():
 
 
 def ParseOneFile(sourceFile):
-        #
-        # Read each line and Parse the input file
-        #
-        # Get the command line args from the source file
+    # Some embedded formatting from latex is pushing lines over the limit.
+    # Create a pattern that removes most latex formatting before testing line length
+    latexPattern = re.compile("\\[a-z]+")
+    # Comment line begin regular expression
+    commentPattern = re.compile("^ *//")
+    #
+    # Read each line and Parse the input file
+    #
+    # Get the command line args from the source file
     sf = open(sourceFile, 'r')
     INFILE = sf.readlines()
     sf.close()
@@ -96,11 +101,10 @@ def ParseOneFile(sourceFile):
             starttagline = 0
         elif starttagline > 0:  # Inside a codeBlock
             if isLatexBlock == True:
-                thisline = thisline.replace('//', '')
-                # thisline=thisline.rstrip().rstrip('/').rstrip().lstrip().lstrip('/').lstrip()
+                thisline = commentPattern.sub("",thisline)
                 thisline = thisline.lstrip().rstrip()
 
-            if len(thisline) > 80:
+            if not isLatexBlock and ( len(thisline) > 80 ):
                 print("{filename}:{line}:80: warning: Line length too long for LaTeX printing".format(
                        filename=sourceFile,
                        line=parseLine
