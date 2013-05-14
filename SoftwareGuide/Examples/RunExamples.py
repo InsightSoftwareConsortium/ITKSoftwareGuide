@@ -13,8 +13,6 @@ beginCmdLineArgstag = "BeginCommandLineArgs"
 endCmdLineArgstag = "EndCommandLineArgs"
 # beginCmdLineArgstag = "BeginCommandLineArgsTest"
 # endCmdLineArgstag   = "EndCommandLineArgsTest"
-fileinputstag = "INPUTS:"
-fileoutputstag = "OUTPUTS:"
 
 def mkdir_p(path):
     """ Safely make a new directory, checking if it already exists"""
@@ -25,19 +23,22 @@ def mkdir_p(path):
             pass
         else:
             raise
-
-def GetFilesInThisLine(line, tag):
-    line.replace(fileoutputstag, "")  # Strip the tag away
+"""
+def GetFilesInThisLine(line, IOtag):
+    line.replace(IOtag, "")  # Strip the tag away
     # squish more than one space into one
     line.replace("  ", " ").rstrip().lstrip()  # strip leading and trailing spaces
     outputfilesInThisLine = line.split(' ')
     return outputfilesInThisLine
 
+fileoutputstag = "OUTPUTS:"
 def GetOutputFilesInThisLine(line):
     return GetFilesInThisLine(line, fileoutputstag)
 
+fileinputstag = "INPUTS:"
 def GetInputFilesInThisLine(line):
     return GetFilesInThisLine(line, fileinputstag)
+"""
 
 ## This class is initialized with a the starting line of
 ## the command processing, and the block of text for
@@ -246,7 +247,7 @@ class ITKPathFinder:
     def __init__(self, itkSourceDir, itkExecutablesDir, itkBuildDir, SWGuidBaseOutput):
         self.execDir = itkExecutablesDir
         self.execDir = self.execDir.rstrip('/')
-        self.outPicDir = SWGuidBaseOutput + '/Art/Generated'
+        self.outPicDir = os.path.join(SWGuidBaseOutput,'Art','Generated')
         # Check if there are any input files that need to be flipped.
         self.outPicDir = os.path.realpath(self.outPicDir)
         self.outPicDir = self.outPicDir.rstrip('/')
@@ -282,8 +283,8 @@ class ITKPathFinder:
             else:
                 #print('##STATUS: Not yet found input {0}'.format(testPath))
                 pass
-        print("WARNING:  MISSING INPUT PATH FOR {0}, Searched in {1}".format(inputBaseName,self.searchDirList))        
-        return inputBaseName
+        print("WARNING:  MISSING INPUT PATH FOR {0}, Assuming output from another test. Searched in {1}".format(inputBaseName,self.searchDirList))        
+        return self.GetOutputPath(inputBaseName)
 
     def GetOutputPath(self, outputBaseName):
         outPath = self.outPicDir + '/' + outputBaseName
