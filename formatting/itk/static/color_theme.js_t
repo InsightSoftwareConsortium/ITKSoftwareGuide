@@ -15,7 +15,7 @@ function setDarkTheme()
   $( 'div.sphinxsidebar h4' ).css({ 'color':'{{theme_sidebartextcolor}}', 'background-color':'{{theme_sidebarbgcolor}}' });
   $( 'div.sphinxsidebar a' ).css({ 'color':'{{theme_sidebarlinkcolor}}', 'background-color':'{{theme_sidebarbgcolor}}' });
   $( 'div.sphinxsidebar input' ).css({ 'color':'{{theme_sidebartextcolor}}', 'background-color':'{{theme_sidebarbtncolor}}' });
-  createCookie( 'color_theme', 'dark', 365 )
+  createCookie( 'color_theme', 'dark', 365 );
 }
 function setLightTheme()
 {
@@ -34,7 +34,7 @@ function setLightTheme()
   $( 'div.sphinxsidebar h3' ).css({ 'color':'{{theme_sidebartextcolor}}', 'background-color':'{{theme_sidebarbgcolor}}' });
   $( 'div.sphinxsidebar h4' ).css({ 'color':'{{theme_sidebartextcolor}}', 'background-color':'{{theme_sidebarbgcolor}}' });
   $( 'div.sphinxsidebar input' ).css({ 'color':'{{theme_sidebartextcolor}}', 'background-color':'{{theme_sidebarbtncolor}}' });
-  createCookie( 'color_theme', 'light', 365 )
+  createCookie( 'color_theme', 'light', 365 );
 }
 $(document).ready(function(){
   var color_theme = readCookie( 'color_theme' );
