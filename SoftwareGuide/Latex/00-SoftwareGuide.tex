@@ -17,6 +17,8 @@
 \usepackage{listings}
 \usepackage{minted}
 \usepackage{setspace}
+\usepackage{hyphenat}
+%\allowhyphens
 
 \lstnewenvironment{itklisting}
 {\singlespacing\lstset{language=C++}}
@@ -250,7 +252,6 @@ and the \emph{Insight Software Consortium}}
 
 \ifitkFullVersion
 \input{IO.tex}
-%%% \input{Numerics.tex}
 \fi
 
 \ifitkFullVersion
@@ -265,12 +266,9 @@ and the \emph{Insight Software Consortium}}
 \input{Statistics.tex}
 \fi
 
-%%% \input{Applications.tex}
 
 
 \part{Developer's Guide}
-
-%%% \input{Infrastructure.tex}
 
 \ifitkFullVersion
 \input{Iterators.tex}
@@ -284,16 +282,11 @@ and the \emph{Insight Software Consortium}}
 \input{WriteAFilter.tex}
 \fi
 
-
-%%% \input{GUI.tex}
-%%% \input{Wrapping.tex}
-
 \ifitkFullVersion
 \input{SoftwareProcess.tex}
 \fi
 
 \backmatter
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %

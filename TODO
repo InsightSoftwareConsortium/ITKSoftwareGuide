@@ -15,5 +15,22 @@ Get output images only produced in BINARY_DIR.
 -- Suport "USE_SYSTEM_ITK"
 
 
-
-
+%%% More topics to consider in future releases
+%%% \chapter{Application}
+%%% 
+%%% Pointers and a brief description of the available ITK applications.
+%%% 
+%%% \chapter{Infrastructure}
+%%% \label{chapter:Infrastructure}
+%%% 
+%%% Smart pointers, exceptions, events, object factories.
+%%% \chapter{GUI}
+%%% 
+%%% Interface to GUI's such as FLTK, Qt, and wxWindows.
+%%% \chapter{Wrapping}
+%%% 
+%%% Using wrappers and generating wrappers.
+%%%
+%%%\chapter{Numerics}
+%%%
+%%%Making use of the numerics libraries; interface classes to the numerics classes

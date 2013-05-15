@@ -82,7 +82,6 @@ set( Tex_SRCS
   06-Installation.tex
   07-SystemOverview.tex
 ## Users Guide
-  Applications.tex
   DataRepresentation.tex
 ## -- HACK TODO
 #set( NOT_YET_SRCS # This needs to be added one at a time as they are cleaned up
@@ -91,7 +90,6 @@ set( Tex_SRCS
   ImageMetrics.tex
   ImageInterpolators.tex
   IO.tex
-  Numerics.tex
   Registration.tex
   Segmentation.tex
   SpatialObjects.tex
@@ -100,12 +98,9 @@ set( Tex_SRCS
   Visualization.tex
   WatershedSegmentation.tex
 ## Developers Guide
-  Infrastructure.tex
   ImageAdaptors.tex
   Iterators.tex
   WriteAFilter.tex
-  GUI.tex
-  Wrapping.tex
   SoftwareProcess.tex
 )
 
