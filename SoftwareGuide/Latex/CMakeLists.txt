@@ -68,36 +68,45 @@ ${SoftwareGuide_BINARY_DIR}/SoftwareGuideConfiguration.tex
 
 add_custom_target(SoftwareGuideLatex ALL echo)
 
+
+
 set( Tex_SRCS
-  Abstract.tex
+## Front Matter
+  00-SoftwareGuide.tex
+  01-PrintedPreamble.tex
+  02-Cover.tex
+  03-Abstract.tex
+  04-Contributors.tex
+## Introduction
+  05-Introduction.tex
+  06-Installation.tex
+  07-SystemOverview.tex
+## Users Guide
   Applications.tex
-  Contributors.tex
   DataRepresentation.tex
 ## -- HACK TODO
 #set( NOT_YET_SRCS # This needs to be added one at a time as they are cleaned up
   AnisotropicDiffusionFiltering.tex
   Filtering.tex
-  GUI.tex
   ImageMetrics.tex
   ImageInterpolators.tex
-  ImageAdaptors.tex
-  Infrastructure.tex
-  Installation.tex
-  Introduction.tex
   IO.tex
-  Iterators.tex
   Numerics.tex
   Registration.tex
   Segmentation.tex
-  00-SoftwareGuide.tex
-  SoftwareProcess.tex
   SpatialObjects.tex
   Statistics.tex
-  SystemOverview.tex
   Transforms.tex
   Visualization.tex
-  Wrapping.tex
   WatershedSegmentation.tex
+## Developers Guide
+  Infrastructure.tex
+  ImageAdaptors.tex
+  Iterators.tex
+  WriteAFilter.tex
+  GUI.tex
+  Wrapping.tex
+  SoftwareProcess.tex
 )
 
 set ( SoftwareGuide_Tex_SRCS "" )
