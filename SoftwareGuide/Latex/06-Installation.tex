@@ -205,20 +205,17 @@ Here is the content of the two files to write in your new project. These two
 files can be found in the \code{Insight/Examples/Installation} directory. The
 \code{CMakeLists.txt} file contains the following lines:
 
-\small
-\begin{verbatim}
-PROJECT(HelloWorld)
+% CMake looks similar to bash with regards to formatting.
+\begin{minted}[linenos=false]{bash}
+project(HelloWorld)
 
-FIND_PACKAGE(ITK REQUIRED)
-IF(ITK_FOUND)
-  INCLUDE(${ITK_USE_FILE})
-ENDIF(ITK_FOUND)
+find_package(ITK REQUIRED)
+include(${ITK_USE_FILE})
 
-ADD_EXECUTABLE(HelloWorld HelloWorld.cxx )
+add_executable(HelloWorld HelloWorld.cxx )
 
-TARGET_LINK_LIBRARIES(HelloWorld ITKCommon)
-\end{verbatim}
-\normalsize
+target_link_libraries(HelloWorld ${ITK_LIBRARIES})
+\end{minted}
 
 The first line defines the name of your project as it appears in Visual
 Studio (it will have no effect with UNIX Makefiles). The second line loads a CMake
@@ -227,12 +224,12 @@ provided in CMake for other commonly used libraries, all of them named
 \code{Find*.cmake}}. If the strategy for finding ITK fails, CMake will prompt
 you for the directory where ITK is installed in your system. In that case you
 will write this information in the \code{ITK\_BINARY\_DIR} variable. The line
-\code{INCLUDE(\$\{USE\_ITK\_FILE\})} loads the \code{UseITK.cmake} file to set
-all the configuration information from ITK. The line \code{ADD\_EXECUTABLE}
+\code{include(\$\{USE\_ITK\_FILE\})} loads the \code{UseITK.cmake} file to set
+all the configuration information from ITK. The line \code{add\_executable}
 defines as its first argument the name of the executable that will be produced
-as result of this project. The remaining arguments of \code{ADD\_EXECUTABLE}
+as result of this project. The remaining arguments of \code{add\_executable}
 are the names of the source files to be compiled and linked.  Finally, the
-\code{TARGET\_LINK\_LIBRARIES} line specifies which ITK libraries will be
+\code{target\_link\_libraries} line specifies which ITK libraries will be
 linked against this project.
 
 

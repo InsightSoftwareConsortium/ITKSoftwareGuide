@@ -106,7 +106,7 @@ macro(CONVERT_INPUT_IMG SOME_IMG EPS_IMG IMAGEMAGICK_FLAGS)
     add_custom_command(
         SOURCE      "${SOME_IMG}"
         COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
-        ARGS        ${FLAGS}  -quality 100 "${SOME_IMG}" "${EPS_IMG}"
+        ARGS        ${FLAGS} -flip -quality 100 "${SOME_IMG}" "${EPS_IMG}"
         DEPENDS     ${RUN_EXAMPLES_SCRIPT}
         OUTPUT      "${EPS_IMG}"
     )
