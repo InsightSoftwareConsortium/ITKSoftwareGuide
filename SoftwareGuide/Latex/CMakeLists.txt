@@ -81,28 +81,33 @@ set( Tex_SRCS
   05-Introduction.tex
   06-Installation.tex
   07-SystemOverview.tex
-## Users Guide
-  DataRepresentation.tex
 ## -- HACK TODO
 #set( NOT_YET_SRCS # This needs to be added one at a time as they are cleaned up
-  AnisotropicDiffusionFiltering.tex
-  Filtering.tex
   ImageMetrics.tex
   ImageInterpolators.tex
-  IO.tex
-  Registration.tex
-  Segmentation.tex
-  SpatialObjects.tex
-  Statistics.tex
   Transforms.tex
   Visualization.tex
   WatershedSegmentation.tex
+
+## Users Guide
+UG01-DataRepresentation.tex
+UG02-SpatialObjects.tex
+UG03-Filtering.tex
+UG03a-AnisotropicDiffusionFiltering.tex
+UG04-IO.tex
+UG05-Registration.tex
+UG06-Segmentation.tex
+UG07-Statistics.tex
+
 ## Developers Guide
-  ImageAdaptors.tex
-  Iterators.tex
-  WriteAFilter.tex
-  SoftwareProcess.tex
+DG01-Iterators.tex
+DG02-ImageAdaptors.tex
+DG03-WriteAFilter.tex
+DG04-SoftwareProcess.tex
+DG05-MarketingMaterial.tex
+
 )
+
 
 set ( SoftwareGuide_Tex_SRCS "" )
 foreach( file ${Tex_SRCS})
