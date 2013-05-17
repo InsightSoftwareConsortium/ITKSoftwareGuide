@@ -5,10 +5,10 @@ An outstanding feature of ITK is the software process used to develop,
 maintain and test the toolkit. The Insight Toolkit software continues to
 evolve rapidly due to the efforts of developers and users located around the
 world, so the software process is essential to maintaining its quality. If
-you are planning to contribute to ITK, or use the CVS source code repository,
+you are planning to contribute to ITK, or use the GIT source code repository,
 you need to know something about this process (see
 \ref{sec:ObtainingTheSoftware} on page \pageref{sec:ObtainingTheSoftware} to
-learn more about obtaining ITK using CVS). This information will help you
+learn more about obtaining ITK using GIT). This information will help you
 know when and how to update and work with the software as it changes. The
 following sections describe key elements of the process.
 
@@ -18,31 +18,31 @@ following sections describe key elements of the process.
 \index{ITK!GIT repository}
 \index{GIT}
 
-The Concurrent Versions System (CVS) is a tool for version control
+The Concurrent Versions System (GIT) is a tool for version control
 \cite{Fogel1999}. It is a very valuable resource for software projects
-involving multiple developers.  The primary purpose of CVS is to keep
-track of changes to software. CVS date and version stamps every
+involving multiple developers.  The primary purpose of GIT is to keep
+track of changes to software. GIT date and version stamps every
 addition to files in the repository. Additionally, a user may set a
 tag to mark a particular of the whole software. Thus, it is possible
 to return to a particular state or point of time whenever desired. The
 differences between any two points is represented by a ``diff'' file,
-that is a compact, incremental representation of change. CVS supports
+that is a compact, incremental representation of change. GIT supports
 concurrent development so that two developers can edit the same file
 at the same time, that are then (usually) merged together without
 incident (and marked if there is a conflict). In addition, branches
 off of the main development trunk provide parallel development of
 software.
 
-Developers and users can check out the software from the CVS repository. When
-developers introduce changes in the system,  CVS facilitates to update the
+Developers and users can check out the software from the GIT repository. When
+developers introduce changes in the system,  GIT facilitates to update the
 local copies of other developers and users by downloading only the differences
 between their local copy and the version on the repository.  This is an
 important advantage for those who are interested in keeping up to date with the
 leading edge of the toolkit. Bug fixes can be obtained in this way as soon as
 they have been checked into the system.
 
-ITK source code, data, and examples are maintained in a CVS repository.  The
-principal advantage of a system like CVS is that it frees developers to try
+ITK source code, data, and examples are maintained in a GIT repository.  The
+principal advantage of a system like GIT is that it frees developers to try
 new ideas and introduce changes without fear of losing a previous working
 version of the software. It also provides a simple way to incrementally
 update code as new features are added to the repository.
@@ -68,7 +68,7 @@ Figure~\ref{fig:Dashboard}. The most recent dashboard is accessible from
 ITK can view the Web page, the DART dashboard serves as a vehicle for
 developer communication, especially when new additions to the software is
 found to be faulty.  The dashboard should be consulted before considering
-updating software via CVS.
+updating software via GIT.
 
 
 \begin{figure}[ht]
@@ -134,7 +134,7 @@ errors and warnings as well as the results of running hundreds of
 small test programs. In this way the toolkit is tested both at compile time
 and run time.
 
-When a user or developer decides to update ITK source code from CVS it is
+When a user or developer decides to update ITK source code from GIT it is
 important to first verify that the current dashboard is in good shape. This
 can be rapidly judged by the general coloration of the dashboard. A green
 state means that the software is building correctly and it is a good day to
@@ -143,7 +143,7 @@ indication of instability on the system and hence users should refrain from
 checking out or upgrading the source code.
 
 Another nice feature of DART is that it maintains a history of changes to the
-source code (by coordinating with CVS) and summarizes the changes as part of
+source code (by coordinating with GIT) and summarizes the changes as part of
 the dashboard. This is useful for tracking problems and keeping up to date
 with new additions to ITK.
 
@@ -154,7 +154,7 @@ The ITK software process functions across three cycles---the continuous
 cycle, the daily cycle, and the release cycle.
 
 The continuous cycle revolves around the actions of developers as they check
-code into CVS. When changed or new code is checked into CVS, the DART
+code into GIT. When changed or new code is checked into GIT, the DART
 continuous testing process kicks in. A small number of tests are performed
 (including compilation), and if something breaks, email is sent to all
 developers who checked code in during the continuous cycle. Developers are
@@ -171,13 +171,13 @@ including regression, memory, PrintSelf, and Set/Get. Again, developers are
 expected to fix problems immediately.
 
 The release cycle occurs a small number of times a year. This requires
-tagging and branching the CVS repository, updating documentation, and
+tagging and branching the GIT repository, updating documentation, and
 producing new release packages. Although additional testing is performed to
-insure the consistency of the package, keeping the daily CVS build error free
+insure the consistency of the package, keeping the daily GIT build error free
 minimizes the work required to cut a release.
 
 ITK users typically work with releases, since they are the most
-stable. Developers work with the CVS repository, or sometimes with periodic
+stable. Developers work with the GIT repository, or sometimes with periodic
 release snapshots, in order to take advantage of newly-added features. It is
 extremely important that developers watch the dashboard carefully, and
 \emph{update their software only when the dashboard is in good condition
@@ -196,7 +196,7 @@ point of release is to wait too long, since the causal relationship between a
 code change or addition and a bug is lost. The process is so powerful that it
 routinely catches errors in vendor's graphics drivers (e.g., OpenGL drivers)
 or changes to external subsystems such as the VXL/VNL numerics library. All
-of these tools that make up the process (CMake, CVS, and DART) are
+of these tools that make up the process (CMake, GIT, and DART) are
 open-source. Many large and small systems such as VTK (The Visualization
 Toolkit \url{http://www.vtk.org}) use the same process with similar
 results. We encourage the adoption of the process in your environment.

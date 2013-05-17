@@ -2,7 +2,7 @@
 \label{chapter:Introduction}
 
 Welcome to the \emph{Insight Segmentation and Registration Toolkit (ITK)
-Software Guide}. This book has been updated for ITK 2.4 and later versions of
+Software Guide}. This book has been updated for ITK 4.0 and later versions of
 the Insight Toolkit software.
 
 ITK is an open-source, object-oriented software system for image processing,
@@ -95,26 +95,26 @@ There are three different ways to access the ITK source code
 \begin{enumerate}
 	\item	from periodic releases available on the ITK Web site,
 	\item	from CD-ROM, and
-	\item	from direct access to the CVS source code repository.
+	\item	from direct access to the GIT source code repository.
 \end{enumerate}
 Official releases are available a few times a year and announced on the ITK
 Web pages and mailing lists. However, they may not provide the latest and
 greatest features of the toolkit. In general, the periodic releases and
 CD-ROM releases are the same, except that the CD release typically contains
-additional resources and data. CVS access provides immediate access to the
+additional resources and data. GIT access provides immediate access to the
 latest toolkit additions, but on any given day the source code may not be
 stable as compared to the official releases---i.e., the code may not compile,
 it may crash, or it might even produce incorrect results.
 
 This software guide assumes that you are working with the official ITK
-version 2.4 release (available on the ITK Web site). If you are a new user,
+version 4.3 release (available on the ITK Web site). If you are a new user,
 we highly recommend that you use the released version of the software. It is
-stable, consistent, and better tested than the code available from the CVS
+stable, consistent, and better tested than the code available from the GIT
 repository. Later, as you gain experience with ITK, you may wish to work from
-the CVS repository. However, if you do so, please be aware of the ITK quality
+the GIT repository. However, if you do so, please be aware of the ITK quality
 testing dashboard. The Insight Toolkit is heavily tested using the
 open-source DART regression testing system
-(\url{http://public.kitware.com/dashboard.php}). Before updating the CVS
+(\url{http://public.kitware.com/dashboard.php?name=itk}). Before updating the GIT
 repository, make sure that the dashboard is \emph{green} indicating stable
 code. If not green it is likely that your software update is unstable. (Learn
 more about the ITK quality dashboard in Section
@@ -139,9 +139,9 @@ Once you fill out this form you will have access to the download page where two
 options for obtaining the software will be found. (This page can be
 book marked to facilitate subsequent visits to the download site without
 having to complete any form again.) You can get the tarball of a stable
-release or you can get the development version through CVS.  The release
+release or you can get the development version through GIT.  The release
 version is stable and dependable but may lack the latest features of the
-toolkit. The CVS version will have the latest additions but is inherently
+toolkit. The GIT version will have the latest additions but is inherently
 unstable and may contain components with work in progress.  The following
 sections describe the details of each one of these two alternatives.
 
@@ -151,7 +151,7 @@ sections describe the details of each one of these two alternatives.
 \index{ITK!downloading release}
 
 Please read the
-\code{GettingStarted.txt}\footnote{http://www.itk.org/HTML/GettingStarted.txt}
+\code{GettingStarted.txt}\footnote{http://www.itk.org/Wiki/ITK/Getting_Started}
 document first. It will give you an overview of the download and installation
 processes. Then choose the tarball that better fits your system. The options
 are \code{.zip} and \code{.tgz} files.  The first type is better suited for
@@ -162,21 +162,21 @@ created in your disk and you will be ready for starting the configuration
 process described in Section \ref{sec:CMakeforITK} on page 
 \pageref{sec:CMakeforITK}.
 
-\subsection{Downloading from CVS}
-\label{sec:DownloadingFromCVS}
+\subsection{Downloading from GIT}
+\label{sec:DownloadingFromGIT}
 
-\index{ITK!CVS repository}
+\index{ITK!GIT repository}
 
-The Concurrent Versions System (CVS) is a tool for software version control
-\cite{Fogel1999}. Generally only developers should be using CVS, so here we 
-assume that you know what CVS is and how to use it.  For more information
-about CVS please see Section \ref{sec:GITRepository} on page 
+The Concurrent Versions System (GIT) is a tool for software version control
+\cite{Fogel1999}. Generally only developers should be using GIT, so here we 
+assume that you know what GIT is and how to use it.  For more information
+about GIT please see Section \ref{sec:GITRepository} on page 
 \pageref{sec:GITRepository}. (Note: please make sure that you access the 
-software via CVS only when the ITK Quality Dashboard indicates that the 
+software via GIT only when the ITK Quality Dashboard indicates that the 
 code is stable. Learn more about the Quality Dashboard at
 \ref{sec:QualityDashboard} on page \pageref{sec:QualityDashboard}.)
 
-Access ITK via CVS using the following commands (under UNIX and Cygwin): 
+Access ITK via GIT using the following commands (under UNIX and Cygwin): 
 \begin{verbatim}
 cvs -d :pserver:anonymous@www.itk.org:/cvsroot/Insight login
 (respond with password "insight")
@@ -224,7 +224,7 @@ software organization and directory structure. Even if you are installing
 pre-compiled binaries, it is helpful to know enough to navigate through the
 code base to find examples, code, and documentation.
 
-ITK is organized into several different modules, or CVS checkouts. If you are
+ITK is organized into several different modules, or GIT checkouts. If you are
 using an official release or CD release, you will see three important modules:
 the \code{Insight}, \code{InsightDocuments} and \code{InsightApplications}
 modules. The source code, examples and applications are found in the
@@ -313,7 +313,7 @@ The \code{InsightDocuments} module contains the following subdirectories:
 \end{itemize}
 
 Similar to the \code{Insight} module, access to the \code{InsightDocuments}
-module is also available via CVS using the following commands (under UNIX and
+module is also available via GIT using the following commands (under UNIX and
 Cygwin):
 \begin{verbatim}
 cvs -d :pserver:anonymous@www.itk.org:/cvsroot/Insight co InsightDocuments
@@ -328,7 +328,7 @@ such as VTK (\emph{The Visualization Toolkit}
 until you have successfully built the core \code{Insight} module.
 
 Similar to the \code{Insight} and \code{InsightDocuments} module, access to 
-the \code{InsightApplications} module is also available via CVS using the 
+the \code{InsightApplications} module is also available via GIT using the 
 following commands (under UNIX and Cygwin):
 \begin{verbatim}
 cvs -d:pserver:anonymous@www.itk.org:/cvsroot/Insight \ 
