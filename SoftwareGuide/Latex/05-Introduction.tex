@@ -20,7 +20,7 @@ introduce you to important system concepts and lead you up the learning curve
 as fast and efficiently as possible. Once you master the basics, we suggest
 that you take advantage of the many resources available including the Doxygen
 documentation pages (\url{http://www.itk.org/HTML/Documentation.htm}) and
-the community of ITK users (see Section \ref{sec:AdditionalResources} on page 
+the community of ITK users (see Section \ref{sec:AdditionalResources} on page
 \pageref{sec:AdditionalResources}.)
 
 The Insight Toolkit is an open-source software system. What this means
@@ -28,7 +28,7 @@ is that the community of ITK users and developers has great impact on the
 evolution of the software. Users and developers can make significant
 contributions to ITK by providing bug reports, bug fixes, tests, new classes,
 and other feedback. Please feel free to contribute your ideas to the
-community (the ITK user mailing list is the preferred method; a developer's 
+community (the ITK user mailing list is the preferred method; a developer's
 mailing list is also available).
 
 \section{Organization}
@@ -71,14 +71,14 @@ the source code. Start by reading Chapter 3,
 which provides an overview of some of the key concepts in the system, and
 then review the examples in Part II. You may also wish to compile and run the
 dozens of examples distributed with the source code found in the directory
-\code{Insight/Examples}. (Please see the file 
+\code{Insight/Examples}. (Please see the file
 \code{Insight/Examples/README.txt} for
 a description of the examples contained in the various subdirectories.) There
-are also several hundred tests found in the source distribution in 
+are also several hundred tests found in the source distribution in
 \code{Insight/Testing/Code}, most of which are minimally documented
 testing code. However, they may be useful to see how classes are used
 together in ITK, especially since they are designed to exercise as
-much of the functionality of each class as possible.  
+much of the functionality of each class as possible.
 
 \section{Software Organization}
 \label{sec:SoftwareOrganization}
@@ -95,13 +95,13 @@ There are three different ways to access the ITK source code
 \begin{enumerate}
 	\item	from periodic releases available on the ITK Web site,
 	\item	from CD-ROM, and
-	\item	from direct access to the GIT source code repository.
+	\item	from direct access to the Git source code repository.
 \end{enumerate}
 Official releases are available a few times a year and announced on the ITK
 Web pages and mailing lists. However, they may not provide the latest and
 greatest features of the toolkit. In general, the periodic releases and
 CD-ROM releases are the same, except that the CD release typically contains
-additional resources and data. GIT access provides immediate access to the
+additional resources and data. Git access provides immediate access to the
 latest toolkit additions, but on any given day the source code may not be
 stable as compared to the official releases---i.e., the code may not compile,
 it may crash, or it might even produce incorrect results.
@@ -109,39 +109,39 @@ it may crash, or it might even produce incorrect results.
 This software guide assumes that you are working with the official ITK
 version 4.3 release (available on the ITK Web site). If you are a new user,
 we highly recommend that you use the released version of the software. It is
-stable, consistent, and better tested than the code available from the GIT
+stable, consistent, and better tested than the code available from the Git
 repository. Later, as you gain experience with ITK, you may wish to work from
-the GIT repository. However, if you do so, please be aware of the ITK quality
+the Git repository. However, if you do so, please be aware of the ITK quality
 testing dashboard. The Insight Toolkit is heavily tested using the
-open-source DART regression testing system
-(\url{http://public.kitware.com/dashboard.php?name=itk}). Before updating the GIT
+open-source CDash regression testing system
+(\url{http://public.kitware.com/dashboard.php?name=itk}). Before updating the Git
 repository, make sure that the dashboard is \emph{green} indicating stable
 code. If not green it is likely that your software update is unstable. (Learn
 more about the ITK quality dashboard in Section
-\ref{sec:DART} on page \pageref{sec:DART}.)
+\ref{sec:CDash} on page \pageref{sec:CDash}.)
 
 \section{Downloading ITK}
 \label{sec:DownloadingITK}
- 
+
 \index{Downloading}
 
 ITK can be downloaded without cost from the following web site:
-\begin{center} 
+\begin{center}
   \url{http://www.itk.org/HTML/Download.php}
 \end{center}
 In order to track the kind of applications for which ITK is being used, you
 will be asked to complete a form prior to downloading the software.
 The information you provide in this form will help developers to get a better
-idea of the interests and skills of the toolkit users. It also assists in 
+idea of the interests and skills of the toolkit users. It also assists in
 future funding requests to sponsoring agencies.
 
 Once you fill out this form you will have access to the download page where two
 options for obtaining the software will be found. (This page can be
 book marked to facilitate subsequent visits to the download site without
 having to complete any form again.) You can get the tarball of a stable
-release or you can get the development version through GIT.  The release
+release or you can get the development version through Git.  The release
 version is stable and dependable but may lack the latest features of the
-toolkit. The GIT version will have the latest additions but is inherently
+toolkit. The Git version will have the latest additions but is inherently
 unstable and may contain components with work in progress.  The following
 sections describe the details of each one of these two alternatives.
 
@@ -151,7 +151,7 @@ sections describe the details of each one of these two alternatives.
 \index{ITK!downloading release}
 
 Please read the
-\code{GettingStarted.txt}\footnote{http://www.itk.org/Wiki/ITK/Getting_Started}
+\code{GettingStarted.txt}\footnote{http://www.itk.org/Wiki/ITK/Getting\_Started}
 document first. It will give you an overview of the download and installation
 processes. Then choose the tarball that better fits your system. The options
 are \code{.zip} and \code{.tgz} files.  The first type is better suited for
@@ -159,42 +159,39 @@ MS-Windows while the second one is the preferred format for UNIX systems.
 
 Once you unzip or untar the file a directory called \code{Insight} will be
 created in your disk and you will be ready for starting the configuration
-process described in Section \ref{sec:CMakeforITK} on page 
+process described in Section \ref{sec:CMakeforITK} on page
 \pageref{sec:CMakeforITK}.
 
-\subsection{Downloading from GIT}
-\label{sec:DownloadingFromGIT}
+\subsection{Downloading using Git}
+\label{sec:DownloadingFromGit}
 
-\index{ITK!GIT repository}
+\index{ITK!Git repository}
 
-The Concurrent Versions System (GIT) is a tool for software version control
-\cite{Fogel1999}. Generally only developers should be using GIT, so here we 
-assume that you know what GIT is and how to use it.  For more information
-about GIT please see Section \ref{sec:GITRepository} on page 
-\pageref{sec:GITRepository}. (Note: please make sure that you access the 
-software via GIT only when the ITK Quality Dashboard indicates that the 
+Git is a free and open source distributed version control system.
+Generally only developers should be using Git, so here we
+assume that you know what Git is and how to use it.  For more information
+about Git please see Section \ref{sec:GitRepository} on page
+\pageref{sec:GitRepository}. (Note: please make sure that you access the
+software via Git only when the ITK Quality Dashboard indicates that the
 code is stable. Learn more about the Quality Dashboard at
 \ref{sec:QualityDashboard} on page \pageref{sec:QualityDashboard}.)
 
-Access ITK via GIT using the following commands (under UNIX and Cygwin): 
+Access ITK via Git using the following commands (under UNIX and Cygwin):
 \begin{verbatim}
-cvs -d :pserver:anonymous@www.itk.org:/cvsroot/Insight login
-(respond with password "insight")
-
-cvs -d :pserver:anonymous@www.itk.org:/cvsroot/Insight co Insight
+git clone git://itk.org/ITK.git
 \end{verbatim}
 
 This will trigger the download of the software into a directory named
-\code{Insight}.  Any time you want to update your version, it will be enough to
+\code{IITK}.  Any time you want to update your version, it will be enough to
 change into this directory \code{Insight} and type:
 \begin{verbatim}
-cvs update -d -P
+git pull
 \end{verbatim}
 
 Once you obtain the software you are ready to configure and compile it (see
 Section \ref{sec:CMakeforITK} on page \pageref{sec:CMakeforITK}). First,
 however, we recommend that you join the mailing list and read the following
-sections describing the organization of the software. 
+sections describing the organization of the software.
 
 \subsection{Join the Mailing List}
 \label{sec:JoinMailList}
@@ -203,12 +200,12 @@ sections describing the organization of the software.
 \index{mailing list}
 
 It is strongly recommended that you join the users mailing list. This is one
-of the primary resources for guidance and help regarding the use of the 
+of the primary resources for guidance and help regarding the use of the
 toolkit. You can subscribe to the users list online at
 
 \begin{center}
 \url{http://www.itk.org/HTML/MailingLists.htm}
-\end{center} 
+\end{center}
 
 The insight-users mailing list is also the best mechanism for expressing your
 opinions about the toolkit and to let developers know about features that you
@@ -224,7 +221,7 @@ software organization and directory structure. Even if you are installing
 pre-compiled binaries, it is helpful to know enough to navigate through the
 code base to find examples, code, and documentation.
 
-ITK is organized into several different modules, or GIT checkouts. If you are
+ITK is organized into several different modules, or Git checkouts. If you are
 using an official release or CD release, you will see three important modules:
 the \code{Insight}, \code{InsightDocuments} and \code{InsightApplications}
 modules. The source code, examples and applications are found in the
@@ -249,12 +246,12 @@ The \code{Insight} module contains the following subdirectories:
         ITK concepts.
         \item \code{Insight/Testing}---a large number of small programs used
         to test ITK. These examples tend to be minimally documented but may
-        be useful to demonstrate various system concepts. These tests are 
-        used by DART to produce the ITK Quality Dashboard 
-        (see Section \ref{sec:DART} on 
-        page \pageref{sec:DART}.)
+        be useful to demonstrate various system concepts. These tests are
+        used by DART to produce the ITK Quality Dashboard
+        (see Section \ref{sec:CDash} on
+        page \pageref{sec:CDash}.)
         \item \code{Insight/Utilities}---supporting software for the ITK
-        source code. For example, DART and Doxygen support, as well as 
+        source code. For example, CTest and Doxygen support, as well as
         libraries such as \code{png} and \code{zlib}.
         \item \code{Insight/Validation}---a series of validation case studies
         including the source code used to produce the results.
@@ -263,7 +260,7 @@ The \code{Insight} module contains the following subdirectories:
         various interpreted languages (currently Tcl and Python are supported).
 \end{itemize}
 
-The source code directory structure---found in \code{Insight/Code}---is 
+The source code directory structure---found in \code{Insight/Code}---is
 important to understand since other directory structures (such as the
 \code{Testing} and \code{Wrapping} directories) shadow the structure of the
 \code{Insight/Code} directory.
@@ -277,7 +274,7 @@ important to understand since other directory structures (such as the
         filters.
         \item \code{Insight/Code/IO}---classes that support the reading
         and writing of data.
-        \item \code{Insight/Code/Algorithms}---the location of most 
+        \item \code{Insight/Code/Algorithms}---the location of most
         segmentation and registration algorithms.
         \item \code{Insight/Code/SpatialObject}---classes that represent
         and organize data using spatial relationships (e.g., the leg bone
@@ -294,11 +291,11 @@ The \code{InsightDocuments} module contains the following subdirectories:
         \item \code{InsightDocuments/CourseWare}---material related to
         teaching ITK.
         \item \code{InsightDocuments/Developer}---historical documents covering
-        the design and creation of ITK including progress reports and 
+        the design and creation of ITK including progress reports and
         design documents.
         \item \code{InsightDocuments/Latex}---\LaTeX{} styles to produce this
         work as well as other documents.
-        \item \code{InsightDocuments/Marketing}---marketing flyers and 
+        \item \code{InsightDocuments/Marketing}---marketing flyers and
         literature used to succinctly describe ITK.
         \item \code{InsightDocuments/Papers}---papers related to the many
         algorithms, data representations, and software tools used in ITK.
@@ -313,25 +310,25 @@ The \code{InsightDocuments} module contains the following subdirectories:
 \end{itemize}
 
 Similar to the \code{Insight} module, access to the \code{InsightDocuments}
-module is also available via GIT using the following commands (under UNIX and
+module is also available via Git using the following commands (under UNIX and
 Cygwin):
 \begin{verbatim}
 cvs -d :pserver:anonymous@www.itk.org:/cvsroot/Insight co InsightDocuments
 \end{verbatim}
 
 The \code{InsightApplications} module contains large, relatively complex
-examples of ITK usage. See the web pages at 
-\url{http://www.itk.org/HTML/Applications.htm} for a description. Some of 
+examples of ITK usage. See the web pages at
+\url{http://www.itk.org/HTML/Applications.htm} for a description. Some of
 these applications require GUI toolkits such as Qt and FLTK or other packages
 such as VTK (\emph{The Visualization Toolkit}
 \url{http://www.vtk.org}). Do not attempt to compile and build this module
 until you have successfully built the core \code{Insight} module.
 
-Similar to the \code{Insight} and \code{InsightDocuments} module, access to 
-the \code{InsightApplications} module is also available via GIT using the 
+Similar to the \code{Insight} and \code{InsightDocuments} module, access to
+the \code{InsightApplications} module is also available via Git using the
 following commands (under UNIX and Cygwin):
 \begin{verbatim}
-cvs -d:pserver:anonymous@www.itk.org:/cvsroot/Insight \ 
+cvs -d:pserver:anonymous@www.itk.org:/cvsroot/Insight \
   co InsightApplications
 \end{verbatim}
 
@@ -361,7 +358,7 @@ aware of.
 \subsection{Data}
 \label{sec:Data}
 
-The Insight Toolkit was designed to support the Visible Human Project 
+The Insight Toolkit was designed to support the Visible Human Project
 and its associated data. This data is available from the National Library of
 Medicine at \url{http://www.nlm.nih.gov/research/visible/visible_human.html}.
 
@@ -436,8 +433,8 @@ Pittsburgh.
 
 In 2002 the first official public release of ITK was made available. In
 addition, the National Library of Medicine awarded thirteen contracts to
-several organizations to extend ITK's capabilities. NLM funding of 
+several organizations to extend ITK's capabilities. NLM funding of
 Insight Toolkit development is continuing through 2003, with additional
-application and maintenance support anticipated beyond 2003. If you are 
+application and maintenance support anticipated beyond 2003. If you are
 interested in potential funding opportunities, we suggest that you contact
 Dr. Terry Yoo at the National Library of Medicine for more information.

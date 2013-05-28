@@ -14,8 +14,7 @@ information contained in both.
 ITK is implemented in C++. It is cross-platform, using a build
 environment known as \href{http://www.cmake.org}{CMake} to manage the
 compilation process in a platform-independent way.
-In addition, an automated wrapping process
-(\href{http://public.kitware.com/Cable/HTML/Index.html}{Cable})
+In addition, an automated wrapping process implemented in python
 generates interfaces between C++ and interpreted programming languages
 such as
 \href{http://www.python.org}{Python}. This
@@ -29,6 +28,11 @@ happens to support the operations used. Such C++
 templating means that the code is highly efficient, and that many
 software problems are discovered at compile-time, rather than at
 run-time during program execution.
+
+In addition to the automated wrapping, the
+\href{http://www.itk.org/Wiki/SimpleITK}{Simple ITK} project provides
+a streamlined interface to ITK that is available for Python, Java,
+CSharp, R, Tcl and Ruby. 
 
 Because ITK is an open-source project, developers from around the
 world can use, debug, maintain, and extend the software. ITK uses a

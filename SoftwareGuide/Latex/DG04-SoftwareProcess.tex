@@ -5,81 +5,87 @@ An outstanding feature of ITK is the software process used to develop,
 maintain and test the toolkit. The Insight Toolkit software continues to
 evolve rapidly due to the efforts of developers and users located around the
 world, so the software process is essential to maintaining its quality. If
-you are planning to contribute to ITK, or use the GIT source code repository,
+you are planning to contribute to ITK, or use the Git source code repository,
 you need to know something about this process (see
 \ref{sec:ObtainingTheSoftware} on page \pageref{sec:ObtainingTheSoftware} to
-learn more about obtaining ITK using GIT). This information will help you
+learn more about obtaining ITK using Git). This information will help you
 know when and how to update and work with the software as it changes. The
 following sections describe key elements of the process.
 
-\section{GIT Source Code Repository}
-\label{sec:GITRepository}
+\section{Git Source Code Repository}
+\label{sec:GitRepository}
 
-\index{ITK!GIT repository}
-\index{GIT}
+\index{ITK!Git repository}
+\index{Git}
 
-The Concurrent Versions System (GIT) is a tool for version control
-\cite{Fogel1999}. It is a very valuable resource for software projects
-involving multiple developers.  The primary purpose of GIT is to keep
-track of changes to software. GIT date and version stamps every
-addition to files in the repository. Additionally, a user may set a
-tag to mark a particular of the whole software. Thus, it is possible
-to return to a particular state or point of time whenever desired. The
-differences between any two points is represented by a ``diff'' file,
-that is a compact, incremental representation of change. GIT supports
-concurrent development so that two developers can edit the same file
-at the same time, that are then (usually) merged together without
-incident (and marked if there is a conflict). In addition, branches
-off of the main development trunk provide parallel development of
-software.
+Git) is a tool for version control. It is a valuable resource for
+software projects involving multiple developers.  The primary purpose
+of Git is to keep track of changes to software. Git date and version
+stamps every addition to files in the repository. Additionally, a user
+may set a tag to mark a particular of the whole software. Thus, it is
+possible to return to a particular state or point of time whenever
+desired. The differences between any two points is represented by a
+``diff'' file, that is a compact, incremental representation of
+change. Git supports concurrent development so that two developers can
+edit the same file at the same time, that are then (usually) merged
+together without incident (and marked if there is a conflict). In
+addition, branches off of the main development trunk provide parallel
+development of software.
 
-Developers and users can check out the software from the GIT repository. When
-developers introduce changes in the system,  GIT facilitates to update the
+Developers and users can check out the software from the Git repository. When
+developers introduce changes in the system,  Git facilitates to update the
 local copies of other developers and users by downloading only the differences
 between their local copy and the version on the repository.  This is an
 important advantage for those who are interested in keeping up to date with the
 leading edge of the toolkit. Bug fixes can be obtained in this way as soon as
 they have been checked into the system.
 
-ITK source code, data, and examples are maintained in a GIT repository.  The
-principal advantage of a system like GIT is that it frees developers to try
+ITK source code, data, and examples are maintained in a Git repository.  The
+principal advantage of a system like Git is that it frees developers to try
 new ideas and introduce changes without fear of losing a previous working
 version of the software. It also provides a simple way to incrementally
 update code as new features are added to the repository.
 
+The ITK community use Git, and the Google web software tool Gerrit
+(\url{http://code.google.com/p/gerrit/}) to facilitate a structured,
+orderly method for developers to contribute new code and bug fixes to
+ITK. The Gerrit review process allows anyone to submit a proposed
+change to ITK, after which it will be reviewed by other developers
+before being approved and merged into ITK.  For more information, see
+\ur{http://www.itk.org/Wiki/ITK/Git/Develope}.
 
 
-\section{DART Regression Testing System}
-\label{sec:DART}
+\section{CDash Regression Testing System}
+\label{sec:CDash}
 \label{sec:QualityDashboard}
 
 \index{Dashboard}
 \index{Quality Dashboard}
 \index{Dart}
 
-One of the unique features of the ITK software process is its use of the DART
-regression testing system (\url{http://public.kitware.com/Dart}). In a
-nutshell, what DART does is to provide quantifiable feedback to developers as
+One of the unique features of the ITK software process is its use of the CDash
+regression testing system (\url{http://www.cdash.org}). In a
+nutshell, what CDash does is to provide quantifiable feedback to developers as
 they check in new code and make changes. The feedback consists of the results
 of a variety of tests, and the results are posted on a publicly-accessible
 Web page (to which we refer as a \emph{dashboard}) as shown in
 Figure~\ref{fig:Dashboard}. The most recent dashboard is accessible from
-\url{http://www.itk.org/HTML/Testing.htm}). Since all users and developers of
-ITK can view the Web page, the DART dashboard serves as a vehicle for
+\url{http://www.itk.org/ITK/resources/testing.html}). Since all users and developers of
+ITK can view the Web page, the CDash dashboard serves as a vehicle for
 developer communication, especially when new additions to the software is
 found to be faulty.  The dashboard should be consulted before considering
-updating software via GIT.
+updating software via Git.
 
 
 \begin{figure}[ht]
 \centering 
 \includegraphics[width=0.7\textwidth]{Dashboard.eps}
 \itkcaption[Dart Quality Dashboard]{On-line presentation of the quality
-dashboard generated by DART.}
+dashboard generated by CDash.}
 \label{fig:Dashboard}
 \end{figure}
 
-Note that DART is independent of ITK and can be used to manage quality
+Note that CDash is independent of ITK and can be used to manage quality
 control for any software project. It is itself an open-source package and can
 be obtained from
 
@@ -87,7 +93,7 @@ be obtained from
 \url{http://public.kitware.com/Dart/HTML/Index.shtml}
 \end{center} 
 
-DART supports a variety of test types. These include the following.
+CDash supports a variety of test types. These include the following.
 \begin{description}
         \item[Compilation.] All source and test code is compiled and linked. 
         Any resulting errors and warnings are reported on the dashboard.
@@ -134,7 +140,7 @@ errors and warnings as well as the results of running hundreds of
 small test programs. In this way the toolkit is tested both at compile time
 and run time.
 
-When a user or developer decides to update ITK source code from GIT it is
+When a user or developer decides to update ITK source code from Git it is
 important to first verify that the current dashboard is in good shape. This
 can be rapidly judged by the general coloration of the dashboard. A green
 state means that the software is building correctly and it is a good day to
@@ -142,8 +148,8 @@ start with ITK or to get an upgrade. A red state, on the other hand, is an
 indication of instability on the system and hence users should refrain from
 checking out or upgrading the source code.
 
-Another nice feature of DART is that it maintains a history of changes to the
-source code (by coordinating with GIT) and summarizes the changes as part of
+Another nice feature of CDash is that it maintains a history of changes to the
+source code (by coordinating with Git) and summarizes the changes as part of
 the dashboard. This is useful for tracking problems and keeping up to date
 with new additions to ITK.
 
@@ -154,30 +160,30 @@ The ITK software process functions across three cycles---the continuous
 cycle, the daily cycle, and the release cycle.
 
 The continuous cycle revolves around the actions of developers as they check
-code into GIT. When changed or new code is checked into GIT, the DART
+code into Git. When changed or new code is checked into Git, the CDash
 continuous testing process kicks in. A small number of tests are performed
 (including compilation), and if something breaks, email is sent to all
 developers who checked code in during the continuous cycle. Developers are
 expected to fix the problem immediately.
 
 The daily cycle occurs over a 24-hour period. Changes to the source base made
-during the day are extensively tested by the nightly DART regression testing
+during the day are extensively tested by the nightly CDash regression testing
 sequence. These tests occur on different combinations of computers and
 operating systems located around the world, and the results are posted every
-day to the DART dashboard. Developers who checked in code are expected to
+day to the CDash dashboard. Developers who checked in code are expected to
 visit the dashboard and ensure their changes are acceptable---that is, they
 do not introduce compilation errors or warnings, or break any other tests
 including regression, memory, PrintSelf, and Set/Get. Again, developers are
 expected to fix problems immediately.
 
 The release cycle occurs a small number of times a year. This requires
-tagging and branching the GIT repository, updating documentation, and
+tagging and branching the Git repository, updating documentation, and
 producing new release packages. Although additional testing is performed to
-insure the consistency of the package, keeping the daily GIT build error free
+insure the consistency of the package, keeping the daily Git build error free
 minimizes the work required to cut a release.
 
 ITK users typically work with releases, since they are the most
-stable. Developers work with the GIT repository, or sometimes with periodic
+stable. Developers work with the Git repository, or sometimes with periodic
 release snapshots, in order to take advantage of newly-added features. It is
 extremely important that developers watch the dashboard carefully, and
 \emph{update their software only when the dashboard is in good condition
@@ -196,7 +202,7 @@ point of release is to wait too long, since the causal relationship between a
 code change or addition and a bug is lost. The process is so powerful that it
 routinely catches errors in vendor's graphics drivers (e.g., OpenGL drivers)
 or changes to external subsystems such as the VXL/VNL numerics library. All
-of these tools that make up the process (CMake, GIT, and DART) are
+of these tools that make up the process (CMake, Git, and CDash) are
 open-source. Many large and small systems such as VTK (The Visualization
 Toolkit \url{http://www.vtk.org}) use the same process with similar
 results. We encourage the adoption of the process in your environment.
