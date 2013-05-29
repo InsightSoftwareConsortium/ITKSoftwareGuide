@@ -20,16 +20,20 @@ than with actual problems building ITK.
 
 ITK has been developed and tested across different combinations of
 operating systems, compilers, and hardware platforms including
-MS-Windows, Linux on Intel-compatible hardware, Solaris, IRIX, Mac
+MS-Windows, Linux on Intel-compatible hardware, Solaris, Mac
 OSX, and Cygwin.  It is known to work with the following compilers:
 
 %TODO Need to update this list
 \begin{itemize}
-\item Visual Studio 6, .NET 2002, .NET 2003
-\item GCC 2.95.x, 2.96, 3.x
-\item SGI MIPSpro 7.3x
-\item Borland 5.5
+\item Visual Studio 8 SP 1, 9, 10
+\item Intel Compiler Suite 11.x, 12.x
+\item Darwin-c++-4.2 PPC (Until 2015), x86_64
+\item SunOS-CC amd64, i386, amd64
+\item Win32-mingw-gcc-4.5
 \end{itemize}
+
+While not officially supported, CLang beta 3.3 & later
+(\url{http://clang.llvm.org/}) have been reported to work as well.
 
 Given the advanced usage of C++ features in the toolkit, some
 compilers may have difficulties processing the code. If you are
@@ -40,8 +44,8 @@ for upgrading this old piece of software!
 \label{sec:ConfiguringITK}
 
 \index{Configuration}
- 
-The challenge of supporting ITK across platforms has been solved through the
+
+ challenge of supporting ITK across platforms has been solved through the
 use of CMake, a cross-platform, open-source build system. CMake is used to
 control the software compilation process using simple platform and compiler
 independent configuration files.  CMake generates native makefiles and
@@ -60,18 +64,18 @@ the user.
 
 \subsection{Preparing CMake}
 \label{sec:CMakeforITK}
- 
+
 \index{CMake}
 \index{CMake!downloading}
 
-CMake can be downloaded at no cost from 
-\begin{center} 
+CMake can be downloaded at no cost from
+\begin{center}
   \url{http://www.cmake.org}
 \end{center}
 
 ITK requires at least CMake version 2.0. You can download binary
 versions for most of the popular platforms including Windows, Solaris,
-IRIX, HP, Mac and Linux. Alternatively you can download the source
+HP, Mac and Linux. Alternatively you can download the source
 code and build CMake on your system. Follow the instructions in the
 CMake Web page for downloading and installing the software.
 
@@ -112,11 +116,11 @@ this point build files are generated for the current configuration.
 
 \subsection{Configuring ITK}
 \label{sec:ConfiguringITKwithVTK}
-  
+
 \index{Configuration!with VTK}
 
 \begin{figure}[ht]
-\centering 
+\centering
 \includegraphics[width=0.8\textwidth]{ccmakeScreenShot.eps}
 \includegraphics[width=0.8\textwidth]{CMakeSetupScreenShot.eps}
 \itkcaption[CMake user interface]{CMake interface. Top) \texttt{ccmake}, the UNIX
@@ -141,7 +145,7 @@ which contains multiple applications incorporating GUIs and different levels
 of visualization.  However, due to the large number of applications and the
 fact that some of them rely on third party libraries, building this module
 should be postponed until you are familiar with the basic structure of the
-toolkit and the building process. 
+toolkit and the building process.
 
 Begin running CMake by using
 ccmake on Unix, and CMakeSetup on
@@ -151,7 +155,7 @@ set the build variables in the GUI as necessary.  Most variables should have
 default values that are sensible. Each time you change a set of variables in
 CMake, it is necessary to proceed to another configuration step. In the
 Windows version this is done by clicking on the ``Configure'' button. In the
-UNIX version this is done in an interface using the 
+UNIX version this is done in an interface using the
 curses library, where you can configure by hitting the ``c'' key.
 
 When no new options appear in CMake, you can proceed to generate Makefiles or
@@ -172,7 +176,7 @@ system.
 
 \section{Getting Started With ITK }
 \label{sec:GettingStartedWithITK}
- 
+
 The simplest way to create a new project with ITK is to create a new directory
 somewhere in your disk and create two files in it. The first one is a
 \code{CMakeLists.txt} file that will be used by CMake to generate a Makefile
