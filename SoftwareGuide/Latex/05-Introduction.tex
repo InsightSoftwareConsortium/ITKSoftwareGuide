@@ -19,7 +19,7 @@ all ITK objects and their methods in this text. Instead, this guide will
 introduce you to important system concepts and lead you up the learning curve
 as fast and efficiently as possible. Once you master the basics, we suggest
 that you take advantage of the many resources available including the Doxygen
-documentation pages (\url{http://www.itk.org/HTML/Documentation.htm}) and
+documentation pages (\url{http://www.itk.org/ITK/help/documentation.html}) and
 the community of ITK users (see Section \ref{sec:AdditionalResources} on page
 \pageref{sec:AdditionalResources}.)
 
@@ -90,35 +90,33 @@ data.
 \subsection{Obtaining the Software}
 \label{sec:ObtainingTheSoftware}
 
-There are three different ways to access the ITK source code
+There are two different ways to access the ITK source code
 (see Section \ref{sec:DownloadingITK} on page \pageref{sec:DownloadingITK}).
 \begin{enumerate}
 	\item	from periodic releases available on the ITK Web site,
-	\item	from CD-ROM, and
 	\item	from direct access to the Git source code repository.
 \end{enumerate}
 Official releases are available a few times a year and announced on the ITK
 Web pages and mailing lists. However, they may not provide the latest and
-greatest features of the toolkit. In general, the periodic releases and
-CD-ROM releases are the same, except that the CD release typically contains
-additional resources and data. Git access provides immediate access to the
+greatest features of the toolkit. Git access provides immediate access to the
 latest toolkit additions, but on any given day the source code may not be
 stable as compared to the official releases---i.e., the code may not compile,
 it may crash, or it might even produce incorrect results.
 
-This software guide assumes that you are working with the official ITK
-version 4.3 release (available on the ITK Web site). If you are a new user,
-we highly recommend that you use the released version of the software. It is
-stable, consistent, and better tested than the code available from the Git
-repository. Later, as you gain experience with ITK, you may wish to work from
-the Git repository. However, if you do so, please be aware of the ITK quality
-testing dashboard. The Insight Toolkit is heavily tested using the
-open-source CDash regression testing system
-(\url{http://public.kitware.com/dashboard.php?name=itk}). Before updating the Git
-repository, make sure that the dashboard is \emph{green} indicating stable
-code. If not green it is likely that your software update is unstable. (Learn
-more about the ITK quality dashboard in Section
-\ref{sec:CDash} on page \pageref{sec:CDash}.)
+This software guide assumes that you are using the current released
+version of ITK, available on the ITK Web site. If you are a new user,
+we highly recommend that you use the released version of the
+software. It is stable, consistent, and better tested than the code
+available from the Git repository. Later, as you gain experience with
+ITK, you may wish to work from the Git repository. However, if you do
+so, please be aware of the ITK quality testing dashboard. The Insight
+Toolkit is heavily tested using the open-source CDash regression
+testing system
+(\url{http://public.kitware.com/dashboard.php?name=itk}). Before
+updating the Git repository, make sure that the dashboard is
+\emph{green} indicating stable code. If not green it is likely that
+your software update is unstable. (Learn more about the ITK quality
+dashboard in Section \ref{sec:CDash} on page \pageref{sec:CDash}.)
 
 \section{Downloading ITK}
 \label{sec:DownloadingITK}
@@ -127,23 +125,15 @@ more about the ITK quality dashboard in Section
 
 ITK can be downloaded without cost from the following web site:
 \begin{center}
-  \url{http://www.itk.org/HTML/Download.php}
+  \url{http://www.itk.org/ITK/resources/software.html}
 \end{center}
-In order to track the kind of applications for which ITK is being used, you
-will be asked to complete a form prior to downloading the software.
-The information you provide in this form will help developers to get a better
-idea of the interests and skills of the toolkit users. It also assists in
-future funding requests to sponsoring agencies.
 
-Once you fill out this form you will have access to the download page where two
-options for obtaining the software will be found. (This page can be
-book marked to facilitate subsequent visits to the download site without
-having to complete any form again.) You can get the tarball of a stable
-release or you can get the development version through Git.  The release
-version is stable and dependable but may lack the latest features of the
-toolkit. The Git version will have the latest additions but is inherently
-unstable and may contain components with work in progress.  The following
-sections describe the details of each one of these two alternatives.
+You can get the tarball of a stable release or you can get the
+development version through Git.  The release version is stable and
+dependable but may lack the latest features of the toolkit. The Git
+version will have the latest additions but is inherently unstable and
+may contain components with work in progress.  The following sections
+describe the details of each one of these two alternatives.
 
 \subsection{Downloading Packaged Releases}
 \label{sec:DownloadingReleases}
@@ -151,13 +141,13 @@ sections describe the details of each one of these two alternatives.
 \index{ITK!downloading release}
 
 Please read the
-\code{GettingStarted.txt}\footnote{http://www.itk.org/Wiki/ITK/Getting\_Started}
-document first. It will give you an overview of the download and installation
+\code{Getting Started}\footnote{http://www.itk.org/Wiki/ITK/Getting\_Started}
+Wiki pages first. It will give you an overview of the download and installation
 processes. Then choose the tarball that better fits your system. The options
 are \code{.zip} and \code{.tgz} files.  The first type is better suited for
 MS-Windows while the second one is the preferred format for UNIX systems.
 
-Once you unzip or untar the file a directory called \code{Insight} will be
+Once you unzip or untar the file a directory called \code{InsightToolkit-4.3.2} will be
 created in your disk and you will be ready for starting the configuration
 process described in Section \ref{sec:CMakeforITK} on page
 \pageref{sec:CMakeforITK}.
@@ -204,7 +194,7 @@ of the primary resources for guidance and help regarding the use of the
 toolkit. You can subscribe to the users list online at
 
 \begin{center}
-\url{http://www.itk.org/HTML/MailingLists.htm}
+\url{http://www.itk.org/ITK/help/mailing.html}
 \end{center}
 
 The insight-users mailing list is also the best mechanism for expressing your
@@ -216,120 +206,92 @@ fundamental to achieving this goal.
 \subsection{Directory Structure}
 \label{sec:DirectoryStructure}
 
-To begin your ITK odyssey, you will first need to know something about ITK's
-software organization and directory structure. Even if you are installing
-pre-compiled binaries, it is helpful to know enough to navigate through the
-code base to find examples, code, and documentation.
+To begin your ITK odyssey, you will first need to know something about
+ITK's software organization and directory structure. It is helpful to
+know enough to navigate through the code base to find examples, code,
+and documentation.
 
-ITK is organized into several different modules, or Git checkouts. If you are
-using an official release or CD release, you will see three important modules:
-the \code{Insight}, \code{InsightDocuments} and \code{InsightApplications}
-modules. The source code, examples and applications are found in the
-\code{Insight} module; documentation, tutorials, and material related to the
-design and marketing of ITK are found in \code{InsightDocuments}; and fairly
-complex applications using ITK (and other systems such as VTK, Qt, and FLTK)
-are available from \code{InsightApplications}. Usually you will work with the
-\code{Insight} module unless you are a developer, are teaching a course, or
-are looking at the details of various design documents. The
-\code{InsightApplications} module should only be downloaded and
-compiled once
-the \code{Insight} module is functioning properly.
+ITK is organized into Git Repositories. The source code, examples and
+applications are found in the
+\code{ITK}\footnote{http://http://itk.org/ITK.git} git
+repository. Fairly complex applications using ITK (and other systems
+such as VTK, Qt, and FLTK) are available from
+\code{InsightApplications}\footnote{http://itk.org/ITKApps.git}. Usually
+you will work with the \code{ITK} module. The \code{InsightApplications} module should
+only be downloaded and compiled once the \code{Insight} module is
+functioning properly.
 
-The \code{Insight} module contains the following subdirectories:
+The \code{ITK} repository contains the following subdirectories:
 \begin{itemize}
-        \item \code{Insight/Code}---the heart of the software; the location
+        \item \code{ITK/Modules} ---the heart of the software; the location
         of the majority of the source code.
-        \item \code{Insight/Documentation}---a compact subset of documentation
+        \item \code{ITK/Documentation}---a compact subset of documentation
         to get users started with ITK.
-        \item \code{Insight/Examples}---a suite of simple, well-documented
+        \item \code{ITK/Examples}---a suite of simple, well-documented
         examples used by this guide and to illustrate important
         ITK concepts.
-        \item \code{Insight/Testing}---a large number of small programs used
-        to test ITK. These examples tend to be minimally documented but may
-        be useful to demonstrate various system concepts. These tests are
-        used by DART to produce the ITK Quality Dashboard
+        \item \code{ITK/Testing}---Contains the MD5 files, which are used
+        to link with the ITK MIDAS server to download test data. This test data
+        is used by tests in \code{ITK/Modules} to produce the ITK Quality Dashboard using CDash.
         (see Section \ref{sec:CDash} on
         page \pageref{sec:CDash}.)
         \item \code{Insight/Utilities}---supporting software for the ITK
-        source code. For example, CTest and Doxygen support, as well as
-        libraries such as \code{png} and \code{zlib}.
-        \item \code{Insight/Validation}---a series of validation case studies
-        including the source code used to produce the results.
-        \item \code{Insight/Wrapping}---support for the CABLE wrapping tool.
-        CABLE is used by ITK to build interfaces between the C++ library and
+        source code. For example, CTest and Doxygen support.
+        \item \code{Insight/Wrapping}---support for ITK wrapping.
+        It is used by ITK to build interfaces between the C++ library and
         various interpreted languages (currently Tcl and Python are supported).
 \end{itemize}
 
-The source code directory structure---found in \code{Insight/Code}---is
+The source code directory structure---found in \code{ITK/Modules}---is
 important to understand since other directory structures (such as the
 \code{Testing} and \code{Wrapping} directories) shadow the structure of the
 \code{Insight/Code} directory.
 \begin{itemize}
-        \item \code{Insight/Code/Common}---core classes, macro definitions,
-        typedefs, and other software constructs central to ITK.
-        \item \code{Insight/Code/Numerics}---mathematical library and
-        supporting classes. (Note: ITK's mathematical library is based
+        \item \code{ITK/Modules/Core}---core classes, macro definitions,
+        typedefs, and other software constructs central to ITK. The classes
+        in \code{Core} are the only ones always compiled as part of ITK.
+        \item \code{ITK/Modules/ThirdParty}--various third-party libraries
+        that are used to implement Image File I/O and mathematical algorithms.
+        (Note: ITK's mathematical library is based
         on the VXL/VNL software package \url{http://vxl.sourceforge.net}.)
-        \item \code{Insight/Code/BasicFilters}---basic image processing
+        \item \code{ITK/Modules/Filtering}--image processing
         filters.
-        \item \code{Insight/Code/IO}---classes that support the reading
-        and writing of data.
-        \item \code{Insight/Code/Algorithms}---the location of most
-        segmentation and registration algorithms.
-        \item \code{Insight/Code/SpatialObject}---classes that represent
-        and organize data using spatial relationships (e.g., the leg bone
-        is connected to the hip bone, etc.)
-        \item \code{Insight/Code/Patented}---any patented algorithms are
-        placed here. Using this code in commercial application requires
-        a patent license.
-        \item \code{Insight/Code/Local}---an empty directory used by developers
-        and users to experiment with new code.
+        \item \code{ITK/Modules/IO}---classes that support the reading
+        and writing of images, transforms, and geometry
+        \item \code{ITK/Modules/Bridge}---classes used to connect with the
+        VTK Imaging toolkit \url{http://www.vtk.org}, which is used for
+        graphic visualization of image.
+        \item \code{ITK/Modules/Registration}---classes for registration of
+        images to each other.
+        \item \code{ITK/Modules/Segmentation}---classes for segmentation of
+        images.
+        \item \code{ITK/Modules/Video}---classes that implement time-based
+        imaging.
+        \item \code{ITK/Modules/Compatibility}---collects together classes
+        for backwards compatibility with ITK Version 3, and classes that are
+        deprecated -- i.e. scheduled for removal from future versions of ITK.
+        \item \code{ITK/Modules/External}---a special module that implements a
+        method using CMake to download and include modules from outside the
+        ITK Git repository.
+        \item \code{ITK/Modules/Numerics}---a collection of numeric tools used
+        by ITK classes to implement algorithms. Includes classes for FEM,
+        Optimization, Statistics, Neural Networks, etc
 \end{itemize}
 
-The \code{InsightDocuments} module contains the following subdirectories:
-\begin{itemize}
-        \item \code{InsightDocuments/CourseWare}---material related to
-        teaching ITK.
-        \item \code{InsightDocuments/Developer}---historical documents covering
-        the design and creation of ITK including progress reports and
-        design documents.
-        \item \code{InsightDocuments/Latex}---\LaTeX{} styles to produce this
-        work as well as other documents.
-        \item \code{InsightDocuments/Marketing}---marketing flyers and
-        literature used to succinctly describe ITK.
-        \item \code{InsightDocuments/Papers}---papers related to the many
-        algorithms, data representations, and software tools used in ITK.
-        \item \code{InsightDocuments/SoftwareGuide}---\LaTeX{} files used to
-        create this guide. (Note that the code found in
-        \code{Insight/Examples} is used in conjunction with these \LaTeX{}
-        files.)
-        \item \code{InsightDocuments/Validation}---validation case studies
-        using ITK.
-        \item \code{InsightDocuments/Web}---the source HTML and other material
-        used to produce the Web pages found at \url{http://www.itk.org}.
-\end{itemize}
 
-Similar to the \code{Insight} module, access to the \code{InsightDocuments}
-module is also available via Git using the following commands (under UNIX and
-Cygwin):
-\begin{verbatim}
-cvs -d :pserver:anonymous@www.itk.org:/cvsroot/Insight co InsightDocuments
-\end{verbatim}
-
-The \code{InsightApplications} module contains large, relatively complex
+The \code{ITKApps} module contains large, relatively complex
 examples of ITK usage. See the web pages at
-\url{http://www.itk.org/HTML/Applications.htm} for a description. Some of
+\url{http://www.itk.org/ITK/resources/applications.html} for a description. Some of
 these applications require GUI toolkits such as Qt and FLTK or other packages
 such as VTK (\emph{The Visualization Toolkit}
 \url{http://www.vtk.org}). Do not attempt to compile and build this module
-until you have successfully built the core \code{Insight} module.
+until you have successfully built the \code{ITK} libraries.
 
-Similar to the \code{Insight} and \code{InsightDocuments} module, access to
-the \code{InsightApplications} module is also available via Git using the
+Similar to \code{ITK}, access to
+the \code{ITKApps} module is also available via Git using the
 following commands (under UNIX and Cygwin):
 \begin{verbatim}
-cvs -d:pserver:anonymous@www.itk.org:/cvsroot/Insight \
-  co InsightApplications
+git clone http://itk.org/ITKApps.git
 \end{verbatim}
 
 \subsection{Documentation}
@@ -344,7 +306,7 @@ aware of.
         documentation also contains inheritance and collaboration diagrams,
         listing of event invocations, and data members. The documentation is
         heavily hyper-linked to other classes and to the source code. The
-        Doxygen documentation is available on the companion CD, or on-line at
+        Doxygen documentation is on-line at
         \url{http://www.itk.org}. Make sure that you have the right documentation
         for your version of the source code.
 
