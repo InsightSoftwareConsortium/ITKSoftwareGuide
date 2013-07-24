@@ -18,6 +18,15 @@
 \usepackage{minted}
 \usepackage{setspace}
 \usepackage{hyphenat}
+
+\usepackage{draftwatermark}
+%\usepackage[firstpage]{draftwatermark}
+\SetWatermarkText{DRAFT-ITK}%default is DRAFT
+\SetWatermarkLightness{0.90}%default is 0.8
+\SetWatermarkScale{0.8}%default is 1.2
+
+
+
 %\allowhyphens
 
 \lstnewenvironment{itklisting}
@@ -50,7 +59,7 @@
          framexrightmargin=5pt,
          framexbottommargin=4pt,
          backgroundcolor=\color{ltgray},
-         showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
+         showstringspaces=false      % Leerzeichen in Strings anzeigen ?
  }
 
  \lstloadlanguages{% Check Dokumentation for further languages ...
@@ -62,7 +71,7 @@
          %HTML
          %Java
  }
-%\DeclareCaptionFont{blue}{\color{blue}} 
+%\DeclareCaptionFont{blue}{\color{blue}}
 
 %\captionsetup[lstlisting]{singlelinecheck=false, labelfont={blue}, textfont={blue}}
 \usepackage{caption}
@@ -126,10 +135,10 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{The ITK Software Guide\\Fourth Edition\\ \emph{Updated for ITK version 4.4.0}}
+\title{The ITK Software Guide\\Fourth Edition\\ \emph{Updated for ITK version 4.5.0}}
 
 %%%TODO \author{Luis Ib\'{a}\~{n}ez\\Will Schroeder\\Lydia Ng\\Josh Cates\\ and the \emph{Insight Software Consortium}}
-\author{TBD and the \emph{Insight Software Consortium}}
+\author{Hans J. Johnson, Matt McCormick, Luis Ib\'{a}\~{n}ez, and the \emph{Insight Software Consortium}}
 
 \authoraddress{
   \url{http://www.itk.org}\\
@@ -308,10 +317,10 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 \InputIfFileExists{SoftwareGuide.ind}
 
 
-\ifitkPrintedVersion
-\cleardoublepage
-\input{MarketingMaterial.tex}
-\fi
+%\ifitkPrintedVersion
+%\cleardoublepage
+%\input{DG05-MarketingMaterial.tex}
+%\fi
 
 %% Begin of comment out block
 \iffalse
