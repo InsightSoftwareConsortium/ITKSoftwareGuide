@@ -35,13 +35,7 @@ set(${proj}_DEPENDENCIES "")
 # Include dependent projects if any
 SlicerMacroCheckExternalProjectDependency(${proj})
 
-  message(STATUS "ZZZZZZZZZZZZZ ${__indent}Adding project ${proj}")
-  message(STATUS "YYYYYYYYYYYYY ${__indent}Adding project ${extProjName}")
-  message(STATUS "YYYYYYYYYYYYY ${__indent}Adding project ${${extProjName}_DIR}")
-  message(STATUS "YYYYYYYYYYYYY ${__indent}Adding project USE_SYSTEM_${extProjName}")
-  message(STATUS "YYYYYYYYYYYYY ${__indent}Adding project ${USE_SYSTEM_${extProjName}}")
 if(NOT ( DEFINED "${extProjName}_DIR" OR ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" ) ) )
-  message(STATUS "-YYYYYYYYYYYYY ${__indent}Adding project ${proj}")
 
   # Set CMake OSX variable to pass down the external project
   set(CMAKE_OSX_EXTERNAL_PROJECT_ARGS)
