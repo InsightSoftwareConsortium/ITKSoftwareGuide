@@ -1,0 +1,6 @@
+[hooks]
+	url = http://public.kitware.com/GitSetup.git
+[gerrit]
+	project = ITKSoftwareGuide
+	site = http://review.source.kitware.com
+	pushurl = $username@review.source.kitware.com:ITKSoftwareGuide
