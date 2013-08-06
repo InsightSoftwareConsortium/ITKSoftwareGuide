@@ -135,7 +135,7 @@ add_custom_target(SoftwareGuideExamples  ALL echo)
 #
 file( GLOB_RECURSE ITK_EXAMPLES_SRCS  ${ITK_SOURCE_DIR}/Examples/*.cxx)
 
-message(STATUS "PRE_RUN_PYTHNON ART GENERATION.")
+message(STATUS "PRE_RUN_PYTHON ART GENERATION.")
 message(STATUS "Running: ${PYTHON_EXECUTABLE} ${RUN_EXAMPLES_SCRIPT} --itkSource ${ITK_SOURCE_DIR} --itkBuildDir ${ITK_BINARY_DIR} --itkExecDir ${ITK_EXECUTABLES_DIR} --SWGuidBaseOutput ${SoftwareGuide_BINARY_DIR} "
   )
 execute_process(
@@ -149,7 +149,7 @@ execute_process(
   RESULT_VARIABLE    RUN_EXAMPLES_RESULT
     )
 if( NOT ${RUN_EXAMPLES_RESULT} EQUAL 0)
-  message(FATAL_ERROR "POST_RUN_PYTHNON ART GENERATION ${RUN_EXAMPLES_RESULT}.")
+  message(FATAL_ERROR "POST_RUN_PYTHON ART GENERATION ${RUN_EXAMPLES_RESULT}.")
 endif()
 
 include(${SoftwareGuide_BINARY_DIR}/Examples/GeneratedDependancies.cmake)
