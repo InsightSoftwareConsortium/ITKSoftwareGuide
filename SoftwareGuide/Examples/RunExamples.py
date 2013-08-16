@@ -63,13 +63,13 @@ class OneCodeBlock():
         return self.progBaseName
 
     def DoInputsExists(self):
-        for i in self.inputs:
-            if i[0] != '/':  # if not a full path designation
-                i = pathFinder.GetInputPath(i)
-            if i == None:
+        for ii in self.inputs:
+            if os.path.isabs(ii):
+                ii = pathFinder.GetInputPath(ii)
+            if ii == None:
                 continue
-            if not os.path.exists(i):
-                print("ERROR:  XXXXXXXXXXXX MISSING {0}".format(i))
+            if not os.path.exists(ii):
+                print("ERROR:  XXXXXXXXXXXX MISSING {0}".format(ii))
                 return False
         return True
 
@@ -254,8 +254,8 @@ class ITKPathFinder:
         mkdir_p(self.outPicDir)
 
         # HACK:  Need beter search criteria
-        searchPaths = '{0}/ExternalData/Testing/Data/Input:{0}/ExternalData/Examples/Data/BrainWeb:{0}/Testing/Temporary:{0}/Modules/Nonunit/Review/test:{0}/ExternalData/Modules/Segmentation/LevelSetsv4/test/Baseline:{0}/ExternalData/Modules/IO/GE/test/Baseline:{0}/ExternalData/Examples/Filtering/test/Baseline:{0}/Examples/Segmentation/test:{1}/Art/Generated:{2}/Examples/Data'.format(itkBuildDir, SWGuidBaseOutput, itkSourceDir)
-        dirtyDirPaths = searchPaths.split(':')
+        searchPaths = '{0}/ExternalData/Testing/Data/Input#{0}/ExternalData/Examples/Data/BrainWeb#{0}/Testing/Temporary#{0}/Modules/Nonunit/Review/test#{0}/ExternalData/Modules/Segmentation/LevelSetsv4/test/Baseline#{0}/ExternalData/Modules/IO/GE/test/Baseline#{0}/ExternalData/Examples/Filtering/test/Baseline#{0}/Examples/Segmentation/test#{1}/Art/Generated#{2}/Examples/Data'.format(itkBuildDir, SWGuidBaseOutput, itkSourceDir)
+        dirtyDirPaths = searchPaths.split('#')
 
         self.searchDirList = []
         for eachpath in dirtyDirPaths:
@@ -265,10 +265,10 @@ class ITKPathFinder:
                 print("WARNING: MISSING search path {0} ".format(eachpath))
                 sys.exit(-1)
 
-        print self.searchDirList
-
     def GetProgramPath(self, execfilenamebase):
-        testPath = self.execDir + '/' + execfilenamebase
+        testPath = os.path.join(self.execDir, execfilenamebase)
+        if os.name == 'nt':
+            testPath += '.exe'
         if os.path.exists(testPath):
             return testPath
         else:
@@ -277,7 +277,7 @@ class ITKPathFinder:
 
     def GetInputPath(self, inputBaseName):
         for checkPath in self.searchDirList:
-            testPath = checkPath + '/' + inputBaseName
+            testPath = os.path.join(checkPath, inputBaseName)
             if os.path.exists(testPath):
                 return testPath
             else:
@@ -287,7 +287,7 @@ class ITKPathFinder:
         return self.GetOutputPath(inputBaseName)
 
     def GetOutputPath(self, outputBaseName):
-        outPath = self.outPicDir + '/' + outputBaseName
+        outPath = os.path.join(self.outPicDir, outputBaseName)
         # outPath = outPath.replace(self.outPicDir+'/'+self.outPicDir, self.outPicDir ) #Avoid multiple path concatenations
         # if not os.path.exists(outPath):
             # print("@@Warning: Output missing {0}".format(outPath))
@@ -400,12 +400,10 @@ if __name__ == "__main__":
             outstring = 'set("{name}-DEPS" '.format(name=baseName)
             allDependancies += ' "${'+'{name}-DEPS'.format(name=baseName)+'}" '
             for output in dependacyDictionary[baseName]:
-#               if output[0] != "/": ## HACK_TEST
-#                  print("ERROR: Full path required {0} {1} {2}".format(output,baseName,dependacyDictionary[baseName]) ) 
-#                  sys.exit(-1)
-               epsOutput = os.path.join( outputEPSDirectory, os.path.basename(output.replace('.png','.eps')))
-               outstring += ' "{epsOutput}"'.format(epsOutput=epsOutput)
-               outPtr.write('CONVERT_INPUT_IMG("{0}" "{1}" "{2}")\n'.format(output, epsOutput, ""))
+               epsOutput = os.path.join(outputEPSDirectory, os.path.basename(output.replace('.png','.eps')))
+               outstring += ' "{epsOutput}"'.format(epsOutput=epsOutput.replace('\\', '/'))
+               outPtr.write('CONVERT_INPUT_IMG("{0}" "{1}" "{2}")\n'.format(output.replace('\\', '/'),
+                   epsOutput.replace('\\', '/'), ""))
             outstring += ')\n'
             outPtr.write(outstring)
         allDependancies += ')\n'

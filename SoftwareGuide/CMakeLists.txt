@@ -30,7 +30,16 @@ project(SoftwareGuide C)
 
 find_package(ITK 4 REQUIRED)
 include(${ITK_USE_FILE})
-set(ITK_EXECUTABLES_DIR "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" CACHE PATH "Where the ITK examples executables are")
+find_file(ITK_EXECUTABLES_DIR
+  NAMES ImageReadWrite
+  PATHS
+  "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+  "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release"
+  "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug"
+  "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/RelWithDebInfo"
+  "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/MinSizeRel"
+  DOC "Where the ITK examples executables are"
+  )
 
 #
 # File that defines the path to .cxx examples in ITK sources
@@ -99,7 +108,7 @@ set(ITK_FLIP_IMG
 # END FLIP_INPUTS LIST
 
 # Convert an image from some file format to EPS for inclusion in Latex using
-# ImageMagick.. This image is an input image. A seperate macro is necessary
+# ImageMagick. This image is an input image. A seperate macro is necessary
 # cause input images do not have any dependecies
 macro(CONVERT_INPUT_IMG SOME_IMG EPS_IMG IMAGEMAGICK_FLAGS)
   if( NOT DEFINED ${EPS_IMG}_HAS_CUSTOM_COMMAND)
@@ -111,8 +120,6 @@ macro(CONVERT_INPUT_IMG SOME_IMG EPS_IMG IMAGEMAGICK_FLAGS)
         OUTPUT      "${EPS_IMG}"
     )
     set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
-  else()
-    message(STATUS "STATUS: ##### ${EPS_IMG}_HAS_CUSTOM_COMMAND was defined, so skipping standard macro behavior.")
   endif()
 endmacro(CONVERT_INPUT_IMG)
 

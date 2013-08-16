@@ -186,14 +186,10 @@ On Windows, you may have go through a few inconveniences as below:
  - Install ImageMagick (may use cygwin tools or windows tools)
  - Install fig2dev (convenient to use cygwin tools)
  - Install transfig
- - Install ps2pdf, dvipdf, ps2pdf, dvips, Ghostscript libraries
+ - Install ps2pdf, dvipdf, ps2pdf, dvips, Ghostscript libraries (These are included with MikTeX)
+ - Install pygments per http://tex.stackexchange.com/questions/108661/how-to-use-minted-under-miktex-and-windows-7
 
-2. Building "Insight"
-   
-   Build ITK examples including the ones in the Patented directory 
-   Configure ITK with BUILD_EXAMPLES=ON and ITK_USE_PATENTED=ON and build
-
-3. Getting Data
+2. Getting Data
    
    Most of the data to run the examples is in Insight/Examples/Data
    Upon requests from users, examples which run on 3D data were added. The data
@@ -205,7 +201,7 @@ On Windows, you may have go through a few inconveniences as below:
 
    Unzip them. 
 
-4. Building the Software Guide:
+3. Building the Software Guide:
 
    Configure the Guide using CMake. 
 
@@ -303,11 +299,7 @@ ISSUES YOU MAY RUN INTO:
     
    Look at the known issues above.
 
-2. Build error in ImageRegistrationHistogramPlotter
-
-   - Update your "Insight" repository and build ITK. There was a bug in one of the examples
-
-3. Build error in ImageRegistration8
+2. Build error in ImageRegistration8
 
    - Do you have the BrainWeb data and its path specified correctly. Open Examples/ImageRegistration8.cmake
      in the binary folder and ensure that you can run the line commented out:
@@ -315,14 +307,13 @@ ISSUES YOU MAY RUN INTO:
 
    If the line does not run, make sure that you can find all the brainweb data specified in that line.
 
-4. The pdf built fine.. I cannot see the references or the Index. 
+3. The pdf built fine.. I cannot see the references or the Index.
    
     Rerun the project "SoftwareGuideLatex" twice.
     on unix, run "make && make" again
 
    LaTeX has some cross-referencing issues which require the dependencies to be generated prior to build.
 
-5. Frustrated that the build takes a long time
-  
-    - no solution here... 
-                          
+4. Frustrated that the build takes a long time
+
+    - no solution here...
