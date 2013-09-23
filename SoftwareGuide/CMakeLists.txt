@@ -30,8 +30,8 @@ project(SoftwareGuide C)
 
 find_package(ITK 4 REQUIRED)
 include(${ITK_USE_FILE})
-find_file(ITK_EXECUTABLES_DIR
-  NAMES ImageReadWrite
+find_path(ITK_EXECUTABLES_DIR
+  NAMES ImageReadWrite ImageReadWrite.exe
   PATHS
   "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
   "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release"
