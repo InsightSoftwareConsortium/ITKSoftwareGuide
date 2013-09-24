@@ -28,6 +28,8 @@ cmake_minimum_required(VERSION 2.8.10)
 
 project(SoftwareGuide C)
 
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake ${CMAKE_MODULE_PATH})
+
 find_package(ITK 4 REQUIRED)
 include(${ITK_USE_FILE})
 find_path(ITK_EXECUTABLES_DIR

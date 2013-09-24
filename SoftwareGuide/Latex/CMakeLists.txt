@@ -2,7 +2,7 @@
 #
 # Find LaTeX
 #
-include(${CMAKE_ROOT}/Modules/FindLATEX.cmake)
+find_package(LATEX)
 
 #
 # Verify that we found all the components we need
