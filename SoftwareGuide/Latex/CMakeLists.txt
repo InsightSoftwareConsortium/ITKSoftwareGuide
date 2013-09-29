@@ -41,18 +41,25 @@ set(PDF_QUALITY_LEVEL "Screen" CACHE STRING "PDF Quality. Options are: Screen, P
 #  /printer  = high   resolution = Distiller "Print" optimized
 #  /prepress = high   resolution = Distiller like "Print" with some error checking differences
 #
+
+if(NOT UNIX)
+  set(PS2PDF_CONVERTER_VAL_DELIM "#")
+else(NOT UNIX)
+  set(PS2PDF_CONVERTER_VAL_DELIM "=")
+endif(NOT UNIX)
+
 if( PDF_QUALITY_LEVEL STREQUAL "Screen" )
-  set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/screen" -r600)
+  set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS${PS2PDF_CONVERTER_VAL_DELIM}/screen" -r600)
   set(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersionfalse")
 endif( PDF_QUALITY_LEVEL STREQUAL "Screen" )
 
 if( PDF_QUALITY_LEVEL STREQUAL "Printer" )
-  set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/printer" -r600)
+  set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS${PS2PDF_CONVERTER_VAL_DELIM}/printer" -r600)
   set(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersiontrue")
 endif( PDF_QUALITY_LEVEL STREQUAL "Printer" )
 
 if( PDF_QUALITY_LEVEL STREQUAL "PrePress" )
-  set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS=/prepress" "-dColorImageResolution=600" "-dGrayImageResolution=600" -r600)
+  set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS${PS2PDF_CONVERTER_VAL_DELIM}/prepress" "-dColorImageResolution${PS2PDF_CONVERTER_VAL_DELIM}600" "-dGrayImageResolution${PS2PDF_CONVERTER_VAL_DELIM}600" -r600)
   set(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersiontrue")
 endif( PDF_QUALITY_LEVEL STREQUAL "PrePress" )
 
@@ -157,7 +164,7 @@ if(LATEX_COMPILER)
       OUTPUT    00-SoftwareGuide.ps
       COMMAND   ${DVIPS_WRAPPER1}
       ARGS      ${DVIPS_WRAPPER2}
-                00-SoftwareGuide.dvi ${DVIPS_CONVERTER_OPTIONS} -o  00-SoftwareGuide.ps
+                00-SoftwareGuide.dvi ${DVIPS_CONVERTER_OPTIONS} -o 00-SoftwareGuide.ps
       DEPENDS   00-SoftwareGuide.idx 00-SoftwareGuide.ind 00-SoftwareGuide.bbl 00-SoftwareGuide.dvi
     )
   endif(DVIPS_CONVERTER)
@@ -166,7 +173,7 @@ if(LATEX_COMPILER)
     add_custom_command(
       OUTPUT    00-SoftwareGuide.pdf
       COMMAND   ${PS2PDF_CONVERTER}
-      ARGS      ${PS2PDF_CONVERTER_OPTIONS} 00-SoftwareGuide.ps
+      ARGS      ${PS2PDF_CONVERTER_OPTIONS} 00-SoftwareGuide.ps 00-SoftwareGuide.pdf
       DEPENDS   00-SoftwareGuide.idx 00-SoftwareGuide.ind 00-SoftwareGuide.bbl 00-SoftwareGuide.ps
     )
   endif(PS2PDF_CONVERTER)
