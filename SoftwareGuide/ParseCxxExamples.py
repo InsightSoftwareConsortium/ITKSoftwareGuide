@@ -135,7 +135,6 @@ The source code for this section can be found in the file
 
 if __name__ == "__main__":
     import sys
-    print sys.argv
     if len(sys.argv) < 2:
         print("Usage: {0} <input file> <output file>".format(argv[0]))
         sys.exit(-1)

@@ -183,7 +183,7 @@ class OneCodeBlock():
         for blocktext in self.codeblock:
             blockline += 1
             print("{0}  : {1}".format(blockline, blocktext))
-        print self.GetCommandLine()
+        print(self.GetCommandLine())
         print("^" * 80)
 
 
@@ -370,13 +370,13 @@ if __name__ == "__main__":
                     try:
                         retcode = subprocess.call(runCommand, shell=True)
                         if retcode < 0:
-                            print >>sys.stderr, "Child was terminated by signal", -retcode
+                            print("Child was terminated by signal " + str(-retcode))
                             completedSuccessfully = False
                         else:
-                            print >>sys.stderr, "Child returned", retcode
+                            print("Child returned " + str(retcode))
                             completedSuccessfully = True
-                    except OSError, e:
-                        print >>sys.stderr, "Execution failed:", e
+                    except OSError as e:
+                        print("Execution failed: " + str(e))
                         completedSuccessfully = False
                     if completedSuccessfully == False:
                         print("ERROR:"*20)
