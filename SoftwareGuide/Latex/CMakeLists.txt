@@ -110,6 +110,9 @@ DG03-WriteAFilter.tex
 DG04-SoftwareProcess.tex
 DG05-MarketingMaterial.tex
 
+## Appendix
+AP01-Licenses.tex
+
 )
 
 

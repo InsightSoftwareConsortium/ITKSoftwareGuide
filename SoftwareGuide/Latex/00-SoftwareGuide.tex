@@ -18,6 +18,8 @@
 \usepackage{minted}
 \usepackage{setspace}
 \usepackage{hyphenat}
+\usepackage[toc,page]{appendix}
+\usepackage{verbatim}
 
 \usepackage{draftwatermark}
 %\usepackage[firstpage]{draftwatermark}
@@ -316,6 +318,12 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 
 \InputIfFileExists{SoftwareGuide.ind}
 
+
+\begin{appendices}
+
+\input{AP01-Licenses.tex}
+
+\end{appendices}
 
 %\ifitkPrintedVersion
 %\cleardoublepage
