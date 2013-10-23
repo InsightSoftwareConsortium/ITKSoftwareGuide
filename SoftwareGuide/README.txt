@@ -1,319 +1,131 @@
-
-
-   Insight Toolkit Software Guide
-
-
-Here are some instructions describing how to build
-the Software Guide Document.
-
-This document is generated with Latex by using input
-from a variety of source. Among them:
-
-1) Latex files in InsightDocuments/SoftwareGuide/Latex
-2) JPEG  files in InsightDocuments/SoftwareGuide/Art
-3) XFig  files in InsightDocuments/SoftwareGuide/Art
-4) Cxx   files in Insight/Examples
-
-
-The whole build process is orchestrated by CMake.
-CMakeLists.txt files are placed in the directories
-involved on the build process.
-
-As any other CMake-managed process, the results of the
-build process are put in a Binary tree that is in
-general independent of the source tree.
-
-The following are, in general lines, the processes 
-applied to each one of the component listed above.
-
-1) Latex files are included in a tree hierarchy which
-   has "00-SoftwareGuide.tex" at the top. All of them
-   are ultimately processed by latex to generate a 
-   00-SoftwareGuide.dvi file. Thid DVI file is then converted
-   to PDF.
-
-2) JPEG files are converted to EPS (encapsulated postscript)
-   and then included in the latex files. The ImageMagick 
-   tools are used to perform this conversion.
-   http://www.imagemagick.org/
-
-   When configuring with CMake, the path to this tools 
-   should be provided. In particular the "convert" tool
-   is extensively used to convert between image formats.
-
-   The resulting EPS files are writen on the Binary directory
-   on the "Art" subdirectory.
-
-3) XFig files are converted to EPS (encapsulated postscript)
-   using "fig2dev". When configuring with CMake, the path
-   to fig2dev should be provided.
-
-   The resulting EPS files are writen on the Binary directory
-   on the "Art" subdirectory.
-
-4) The Cxx files on the Insight/Examples directory has been 
-   writen to integrate closely with the software guide document.
-   They contain a large amount of documentation in the form
-   of C++ comments "//".
-
-   Some of those comments have been delimited with the following
-   tags:  
-
-      BeginLatex
-      EndLatex  
-
-   and  
- 
-      BeginCodeSnippet
-      EndCodeSnippet
-
-
-   A python (provided in SoftwareGuide/ParseCxxExamples.pl)
-   is invoked by CMake in order to extract these comments and
-   generate latex files (with .tex extension) that will be copied
-   onto the Binary directory on the "Examples" subdirectory.
-
-   The regular latex files in SoftwareGuide/Latex will include 
-   the generated files in Binary/Examples.
-
-
-
-CONFIGURING WITH CMAKE
-
-
-The following is the process to configure the build process using CMAKE.
-
-1) Select the binary directory where the final text is 
-   going to be written.
-
-2) move to this directory and execute "ccmake  source_dir "
-   where source_dir is the full path to the directory "SoftwareGuide"
-   (e.g.   /home/johndoe/documents/InsightDocuments/SoftwareGuide )
-
-3) Make sure the the following CMake variables are correctly setup
-
-  - LATEX_COMPILER       pointing to the "latex"   executable
-  - BIBTEX_COMPILER      pointing to the "bibtex"  executable
-  - DVIPDF_COMPILER      pointing to the "dvipdf"  executable
-  - FIG2DEV_EXECUTABLE  pointing to the "fig2dev" executable
-  - MAKEINDEX_COMPILE   pointing to the "makeindex" executable
-  - IMAGEMAGICK_CONVERT_EXECUTABLE pointing to the "convert" executable
-  - PYTHONCXXPARSER     pointing to the python script ParseCxxExamples.py
-  - ITK_SOURCE_DIR      pointing to the directory where you have ITK sources.
-  - ITK_EXECUTABLES_DIR pointing to the directory where you have the ITK executables. 
-                        (This path specifies the directories where the built examples are,
-                        so they can be executed and figures and text and graphs 
-                        extracted from them)
-  -- HACK  ITK_DATA_PATHS is no longer used
-  - ITK_DATA_PATHS      Additional paths where you might find input data for the examples
-                        By default you will find the string ${ITK_SOURCE_DIR}/Examples/Data
-                        While this should be sufficient for the examples currently in the 
-                        ITK toolkit, other paths containing data may in future be added in 
-                        a double colon seperated list such as
-                        c:/ITK/src/Examples/Data::c:/Data/BrainWebData/
-                        Note that you need the BrainWeb data to run.
-
-
-4) configure and generete the Makefiles
-
-5) type "make"
-
-   This should initiate the build process. In particular, 
-
-   - parse all the cxx examples and generate tex files in an
-     "Examples" subdirectory
-
-   - convert all the JPEG images into EPS images in a "Art"
-     subdirectory
-
-   - convert all the FIG figures into EPS images in a "Art"
-     subdirectory
-
-   - run latex
-
-
-
-Due to inavoidable circular dependencies in Latex it may be
-required from time to time to build manually some components.
-
-In particular the index generation and the bibliography can
-lead to circular dependencies. The reason is that first, latex
-needs to parse the tex code in order to collect citation 
-references and to collect index entries. The index entries are
-stored in a file called "SoftwareGuide.idx" and put in the 
-"Latex" subdirectory of the binary directory. Then the program 
-"makeindex" is used to generate a "SoftwareGuide.ind" which is
-the final database of index entries. The circularity arises 
-because the file "SoftwareGuide.ind" is included in the main
-00-SoftwareGuide.tex file. The way to avoid the circularity is
-to first comment out the inclusion of 00-SoftwareGuide.ind on the
-file 00-SoftwareGuide.tex, run latex three times, to resolve all
-the references, then run makeindex and finally include 
-SoftwareGuide.ind back into 00-SoftwareGuide.tex.
-
-A similar circularity arises with bibliographic references since
-bibtex is used here. The actual bibliographic reference is stored
-in InsightDocuments/Latex/Insight.bib.
-
-The citations are collected in the first latex passes and stored
-in the "00-SoftwareGuide.aux" file. Then the "bibtex" program is used
-to generate a "SoftwareGuide.bbl" file that is finally included by
-latex.
-
-
-Once the system has been build the first time, the circularity
-shouldn't be a mayor issue.  It is important however to keep
-in mind that CMake will only run latex once, while it should
-in fact be executed in several passes. The result of which is
-that sometimes the full set of references and citations may not
-be updated.
-
-
-
--------------------------------------------------------------------------------
-
-Building on Windows
--------------------
-
-The Software Guide builds on Windows and Unix.
-
-On Windows, you may have go through a few inconveniences as below:
-
-1. Installing tools required
-
- - Install Latex, BibTeX (www.miktex.org) 
- - Install python (may use cygwin's python or Active python, make sure its in the path). 
- - Install ImageMagick (may use cygwin tools or windows tools)
- - Install fig2dev (convenient to use cygwin tools)
- - Install transfig
- - Install ps2pdf, dvipdf, ps2pdf, dvips, Ghostscript libraries (These are included with MikTeX)
- - Install pygments per http://tex.stackexchange.com/questions/108661/how-to-use-minted-under-miktex-and-windows-7
-
-2. Getting Data
-   
-   Most of the data to run the examples is in Insight/Examples/Data
-   Upon requests from users, examples which run on 3D data were added. The data
-   was taken from the BrainWeb repository. You may get it from
- 
-   ftp://public.kitware.com/pub/itk/Data/BrainWeb/
-
-   The ones you need are BrainPart1.tgz and BrainPart1Rotated10Translated15.tgz 
-
-   Unzip them. 
-
-3. Building the Software Guide:
-
-   Configure the Guide using CMake. 
-
-   Pay attention to the following variables
-
-   ITK_EXECUTABLES_DIR : Where the examples executables are. 
-                         On unix this might be /ITK/binaries/
-                         On windows this might be c:/ITK/bin/Release
-                         
-   ITK_DATA_PATHS :  A double colon seperated list such as
-                     c:/ITK/src/Examples/Data::c:/Data/BrainWebData/
-                     Make sure you have the paths for the BrainWebData
-                     you just extracted as well.
-
-5. Open the generated project in VS and build it.
--------------------------------------------------------------------------------
-
-
-CAVEATS:
---------
-
-1. Miktex seems to ignore the TEXINPUTS env var on Windows. A workaround is to 
-   go through Steps 1 to 5 above. Watch your build fail. And open LaTeXWrapper.bat 
-   file present in the binary folder. 
-
-   Copy the list of paths and append them to the LaTeX and BibTeX paths and the 
-   Dvips and GraphicsPaths (4 places) manually in
-   c:\texmf\miktex\config\miktex.ini
-   
-   This file should now contain lines like
-
-   <snip>
-   [BibTeX]
-
-    ;; where BiBTeX searches for input files (both databases and style
-    ;; files)
-    Input Dirs=.;%R\bibtex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\..\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Art//;C:\cygwin\ITK\binaries\InsightDocuments2;C:\cygwin\ITK\binaries\InsightDocuments2\Examples//;C:\cygwin\ITK\binaries\InsightDocuments2\Art//;C:\cygwin\ITK\binaries\InsightDocuments2\Latex//
-   </snip>
-
-   <snip>
-   [LaTeX]
-
-    ;; input file name extensions recognized by LaTeX
-    Extensions=.tex;.src;.ltx
-
-    ;; where LaTeX searches for input files
-    Input Dirs=.
-    Input Dirs+=;%R\etex\latex//
-    Input Dirs+=;%R\etex\generic//
-    Input Dirs+=;%R\etex//
-    Input Dirs+=;%R\tex\latex//
-    Input Dirs+=;%R\tex\generic//
-    Input Dirs+=;%R\tex//
-    Input Dirs+=;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\..\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Art//;C:\cygwin\ITK\binaries\InsightDocuments2;C:\cygwin\ITK\binaries\InsightDocuments2\Examples//;C:\cygwin\ITK\binaries\InsightDocuments2\Art//;C:\cygwin\ITK\binaries\InsightDocuments2\Latex//
-   </snip>
-
-  
-   <snip>
-   ;; where Dvips searches for graphics files (*.png, *.jpeg, *.tiff)
-   GraphicsPath+=;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\..\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Art//;C:\cygwin\ITK\binaries\InsightDocuments2;C:\cygwin\ITK\binaries\InsightDocuments2\Examples//;C:\cygwin\ITK\binaries\InsightDocuments2\Art//;C:\cygwin\ITK\binaries\InsightDocuments2\Latex//
-   </snip>
-
-   <snip>
-   [MiKTeX]
-   ......
-
-   ;; used to locate graphics files
-   GraphicsPath+=;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\..\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Latex//;c:\cygwin\ITK\src\InsightDocuments\SoftwareGuide\Art//;C:\cygwin\ITK\binaries\InsightDocuments2;C:\cygwin\ITK\binaries\InsightDocuments2\Examples//;C:\cygwin\ITK\binaries\InsightDocuments2\Art//;C:\cygwin\ITK\binaries\InsightDocuments2\Latex//
-   </snip>
-
-
-  Thanks to  http://www.murdoch-sutherland.com/Rtools/miktex.html
-
-
-2. If you use Cygwin tools, you are responsible for managing the paths on windows.
-   For VS to be able to use them, you need to provided it with the directory to 
-   find the cygwin1.dll and the X11 dlls in tools->Options. Also, cygwin tools 
-   like ImageMagick will accept only unix style paths. As a rule of thumb, 
-   use the windows versions of the tools.
-
-3. While building SoftwareGuideLatex, you might find that the DVI and the PS documents
-   built fine. However on windows, you might not be able to succefully build the PDF.
-   Just invoke the command manually from the cmd prompt as
-      c:\texmf\miktex\bin\ps2pdf.exe 00-SoftwareGuide.ps
-   For some reason, 
-      c:\texmf\miktex\bin\ps2pdf.exe -dPDFSETTINGS=/screen -r600 00-SoftwareGuide.ps
-   does not seem to work. 
-
-
--------------------------------------------------------------------------------
-
-ISSUES YOU MAY RUN INTO:
-
-1. Cannot find InsightSoftwareGuide.cls
-    
-   Look at the known issues above.
-
-2. Build error in ImageRegistration8
-
-   - Do you have the BrainWeb data and its path specified correctly. Open Examples/ImageRegistration8.cmake
-     in the binary folder and ensure that you can run the line commented out:
-   # Cmake macro to invoke: LineThatWillBeRun 
-
-   If the line does not run, make sure that you can find all the brainweb data specified in that line.
-
-3. The pdf built fine.. I cannot see the references or the Index.
-   
-    Rerun the project "SoftwareGuideLatex" twice.
+#TODO: Is it worth to reformat this file as Markdown?
+
+#TODO: Perhaps it would make sense to move the contents of this file to the
+top-level REAMDE file, because otherwise the information in this file is not
+immediately available and required some digging in the source tree.
+
+INSIGHT TOOLKIT SOFTWARE GUIDE BUILD OVERVIEW
+
+The generation of the ITK Software Guide is orchestrated as a CMake superubild
+process. CMakeLists.txt files are placed in the directories involved on the
+build process. As any other CMake-managed process, the results of the build
+process are put in a binary tree corresponding to the source tree.
+
+The following dependencies are required to build ITK Software Guide on Linux or
+Windows platforms:
+
+ - Git
+ - Python
+ - ImageMagick
+   Windows installer can be found here: http://www.imagemagick.org/.
+ - LaTeX and BibTeX
+   See the preamble of the LaTeX/00-SoftwareGuide.tex file for the full list of
+   required LaTeX packages. Among these packages Minted package for syntax
+   highlighting in its turn depends on a Python package Pygments. Instructions
+   for installing Minted and Pygments packages on Windows are available here:
+   https://minted.googlecode.com/files/minted.pdf.
+ - dvips, ps2pdf
+   While on Linux platforms these tools are usually included with most
+   distributions, on Windows platforms they are usually included in MikTex Latex
+   distribution.
+
+ITK Software Guide is generated with Latex by using input from a variety of
+source code files and images:
+
+ 1. LaTeX files found in SoftwareGuide/LaTeX
+ 2. JPEG, PNG and EPS files in SoftwareGuide/Art
+ 3. PNG files generated as the result of compiling and running the examples
+    included in the ITK source code
+ 3. ITK examples source code cxx files where the comments delimited with
+    BeginLaTeX, EndLaTeX and BeginCodeSnippet, EndCodeSnippet have been written
+    specifically to be included in the ITK Software Guide; the regular LaTeX
+    files in SoftwareGuide/LaTeX include the LaTeX files generated from the ITK
+    examples source code.
+
+Following is a brief description of the build process:
+
+ 1. The source code of ITK 4 is downloaded and built (including ITK examples)
+    in the binary output directory.
+ 2. JPEG and PNG files in the Art directory are converted to EPS using
+    ImageMagic tools; the resulting EPS files are saved in the Art directory in
+    the binary output directory.
+ 3. PNG files are generated by running ITK examples and converted to EPS using
+    MagicTools; the resulting EPS files are saved in Art/Generated directory of
+    the binary output directory.
+ 4. A Python script SoftwareGuide/ParseCxxExamples.py is invoked to extract the
+    comments in the ITK examples source file delimited with BeginLaTeX, EndLaTeX
+    and BeginCodeSnippet, EndCodeSnippet and generate LaTeX files which are
+    copied into the Examples subdirectory of the binary output directory.
+ 5. The top-level LaTeX file SoftwareGuide/LaTeX/00-SoftwareGuide.tex is
+    compiled with LaTeX, followed by running BibTeX to generate
+    00-SoftwareGuide.dvi file in the binary output directory. The third DVI file
+    is then converted to PDF.
+
+TODO: Perhaps the generation of the DVI file with correct cross-referencing can
+be made easier as it is suggested here:
+http://www.cmake.org/Wiki/CMakeUserUseLATEX.
+
+CONFIGURING AND BUILDING WITH CMAKE
+
+TODO: This section seems so trivial; anyone attempting to build the ITK
+Softwrare Guide would probably be fairly clear on how to use CMake, no?
+
+Following is the description how to configure and build ITK Software Guide using
+CMake:
+
+ 1. Run cmake-gui and specify input and binary output directories.
+    Alternatively, create the binary output directory and run
+    "ccmake source_dir" where source_dir is the full path of the
+    ITKSorftwareGuide directory.
+ 2. Configure and generate the project for the target platform.
+ 3. Build SuperBuild_ITKSoftwareGuide project as appropriate for the target
+    platform.
+
+TROUBLESHOOTING
+
+ 1. Build process will fail if CMake is unable to locate any of the
+    dependencies. In this case a close examination of the error messages might
+    provide a clue as to which dependency is failing.
+
+TODO: The following items (2 and 3) seem out of date. In general it should be a
+lot more straightforward to generate correct cross-referencing for citations and
+indexing in a LaTeX document. It is being looked into currently in order to
+simplify the generation of the final PDF file.
+ 2. Due to unavoidable circular dependencies in LaTeX it may be required from
+    time to time to build manually some components. In particular, the index
+    generation and the bibliography can lead to circular dependencies. The
+    reason is that first, LaTeX needs to parse the tex code in order to collect
+    citation references and to collect index entries. The index entries are
+    stored in a file called SoftwareGuide.idx and put in the LaTeX subdirectory
+    of the binary directory. Then the program makeindex is used to generate a
+    SoftwareGuide.ind which is the final database of index entries. The
+    circularity arises because the file SoftwareGuide.ind is included in the
+    main 00-SoftwareGuide.tex file. The way to avoid the circularity is to first
+    comment out the inclusion of 00-SoftwareGuide.ind on the file
+    00-SoftwareGuide.tex, run LaTeX three times, to resolve all the references,
+    then run makeindex and finally include SoftwareGuide.ind back into
+    00-SoftwareGuide.tex.
+
+    A similar circularity arises with bibliographic references since BibTeX is
+    used here. The actual bibliographic reference is stored in
+    LaTeX/Insight.bib. The citations are collected in the first LaTeX passes and
+    stored in the 00-SoftwareGuide.aux file. Then the "BibTeX" program is used
+    to generate a SoftwareGuide.bbl file that is finally included by LaTeX.
+
+    Once the system has been build the first time, the circularity shouldn't be
+    a major issue. It is important however to keep in mind that CMake will only
+    run LaTeX once, while it should in fact be executed in several passes. The
+    result of which is that sometimes the full set of references and citations
+    may not be updated.
+
+TODO: The following issue is related to the previous issue and it is still not
+resolved properly on Windows, not sure about Linux.
+ 3. The pdf built fine... I cannot see the references or the Index.
+    Rerun the project "SoftwareGuideLaTeX" twice.
     on unix, run "make && make" again
 
-   LaTeX has some cross-referencing issues which require the dependencies to be generated prior to build.
+    LaTeX has some cross-referencing issues which require the dependencies to be
+    generated prior to build.
 
-4. Frustrated that the build takes a long time
-
-    - no solution here...
+ 4. Frustrated by the build taking a long time to complete
+   ... no solution here. :)
