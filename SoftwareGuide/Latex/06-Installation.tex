@@ -25,7 +25,8 @@ OSX, and Cygwin.  It is known to work with the following compilers:
 
 %TODO Need to update this list
 \begin{itemize}
-\item Visual Studio 8 SP 1, 9, 10
+\item GCC 4.x
+\item Visual Studio  7.1 (Until 2012), 8 SP 1 (Until 2015), 9 (Until 2018), 10 (Until 2020)
 \item Intel Compiler Suite 11.x, 12.x
 \item Darwin-c++-4.2 PPC (Until 2015), x86\_64
 \item SunOS-CC amd64, i386, amd64
@@ -45,13 +46,13 @@ for upgrading this old piece of software!
 
 \index{Configuration}
 
- challenge of supporting ITK across platforms has been solved through the
-use of CMake, a cross-platform, open-source build system. CMake is used to
-control the software compilation process using simple platform and compiler
-independent configuration files.  CMake generates native makefiles and
-workspaces that can be used in the compiler environment of your choice. CMake
-is quite sophisticated---it supports complex environments requiring system
-configuration, compiler feature testing, and code generation.
+The challenge of supporting ITK across platforms has been solved through the
+use of CMake (\url{www.cmake.org}), a cross-platform, open-source build system.
+CMake is used to control the software compilation process using simple platform
+and compiler independent configuration files.  CMake generates native makefiles
+and workspaces that can be used in the compiler environment of your choice.
+CMake is quite sophisticated---it supports complex environments requiring
+system introspection, compiler feature testing, and code generation.
 
 CMake generates Makefiles under UNIX and Cygwin systems and generates Visual
 Studio workspaces under Windows (and appropriate build files for other
@@ -70,14 +71,15 @@ the user.
 
 CMake can be downloaded at no cost from
 \begin{center}
-  \url{http://www.cmake.org}
+  \url{http://www.cmake.org/cmake/resources/software.html}
 \end{center}
 
-ITK requires at least CMake version 2.0. You can download binary
-versions for most of the popular platforms including Windows, Solaris,
-HP, Mac and Linux. Alternatively you can download the source
-code and build CMake on your system. Follow the instructions in the
-CMake Web page for downloading and installing the software.
+The mininum version of CMake has been evolving along with the version of
+ITK. For example, the current latest version of ITK (4.5) requires the minimum
+CMake version to be 2.8.7. You can download binary versions for most of the popular
+platforms including Windows, Solaris, HP, Mac and Linux. Alternatively you can
+download the source code and build CMake on your system. Follow the
+instructions in the CMake web page for downloading and installing the software.
 
 Running CMake initially requires that you provide two pieces of
 information: where the source code directory is located
@@ -121,8 +123,8 @@ this point build files are generated for the current configuration.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.8\textwidth]{ccmakeScreenShot.eps}
-\includegraphics[width=0.8\textwidth]{CMakeSetupScreenShot.eps}
+\includegraphics[width=0.8\textwidth]{ITK_CMake_GUI_Ubuntu.png}
+\includegraphics[width=0.8\textwidth]{ITK_CMake_GUI_Windows.png}
 \itkcaption[CMake user interface]{CMake interface. Top) \texttt{ccmake}, the UNIX
 version based on \texttt{curses}. Bottom) \texttt{CMakeSetup}, the MS-Windows
 version based on MFC.}
@@ -167,11 +169,11 @@ simply type \code{make} in the binary directory. Under Windows, load the
 workspace named \code{ITK.dsw} (if using MSDEV) or \code{ITK.sln} (if using
 the .NET compiler) from the binary directory you specified in the CMake GUI.
 
-The build process will typically take anywhere from 15 to 30 minutes depending
-on the performance of your system. If you decide to enable testing as part of
-the normal build process, about 600 small test programs will be compiled. This
-will verify that the basic components of ITK have been correctly built on your
-system.
+The build process will typically take anywhere from 15 minutes to a couple of
+hours depending on the the build configuration and the performance of your
+system. If you decide to enable testing as part of the normal build process,
+about 2400 test programs will be compiled. This will verify that all the
+components of ITK have been correctly built on your system.
 
 
 \section{Getting Started With ITK }
