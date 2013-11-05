@@ -6,33 +6,23 @@
 # TODO: It is likely some images sitting in this directory are no longer in use.
 #
 
-add_custom_target(SoftwareGuideArt ALL echo)
-
-file(GLOB PNG_IMAGES *.png)
-file(GLOB JPEG_IMAGES *.jpg)
+file(GLOB PNGandJPG_IMAGES *.jpg *.png)
 file(GLOB EPS_IMAGES *.eps)
 
-foreach(ImageFile ${JPEG_IMAGES})
+set(OutputEPSFilePath "${SoftwareGuide_BINARY_DIR}/Art")
+foreach(ImageFile ${PNGandJPG_IMAGES})
   get_filename_component(ImageFileNoExt ${ImageFile} NAME_WE)
+  set(OutputEPSFile "${OutputEPSFilePath}/${ImageFileNoExt}.eps")
   add_custom_command(
-  COMMAND   ${IMAGEMAGICK_CONVERT_EXECUTABLE}
-  ARGS      ${ImageFile}
-            ${ImageFileNoExt}.eps
-  TARGET    SoftwareGuideArt
-  )
+    OUTPUT    ${OutputEPSFile}
+    COMMAND   ${IMAGEMAGICK_CONVERT_EXECUTABLE}
+              ${ImageFile}
+              ${OutputEPSFile}
+    DEPENDS   ${ImageFile}
+    )
   set(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${ImageFileNoExt}.eps)
 endforeach(ImageFile)
 
-foreach(ImageFile ${PNG_IMAGES})
-  get_filename_component(ImageFileNoExt ${ImageFile} NAME_WE)
-  add_custom_command(
-  COMMAND   ${IMAGEMAGICK_CONVERT_EXECUTABLE}
-  ARGS      ${ImageFile}
-            ${ImageFileNoExt}.eps
-  TARGET    SoftwareGuideArt
-  )
-  set(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${ImageFileNoExt}.eps)
-endforeach(ImageFile)
 
 # TODO: Use file(COPY ...) signature of the file manipulation command.
 foreach(ImageFile ${EPS_IMAGES})
@@ -44,10 +34,7 @@ foreach(ImageFile ${EPS_IMAGES})
   set(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${ImageFileNoExt}.eps)
 endforeach(ImageFile)
 
-add_custom_command(
-  SOURCE SoftwareGuideArt
-  COMMAND echo
-  TARGET SoftwareGuideArt
+add_custom_target(SoftwareGuideArt
+  ALL
   DEPENDS ${EPS_DEPS}
-)
-
+  )
