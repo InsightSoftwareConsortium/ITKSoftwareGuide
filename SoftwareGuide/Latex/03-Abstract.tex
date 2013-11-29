@@ -11,48 +11,50 @@ correspondences between data. For example, in the medical environment,
 a CT scan may be aligned with a MRI scan in order to combine the
 information contained in both.
 
-ITK is implemented in C++. It is cross-platform, using a build
-environment known as \href{http://cmake.org}{CMake} to manage the
-compilation process in a platform-independent way.
-In addition, an automated wrapping process
-generates interfaces between C++ and interpreted programming languages
-such as
-\href{http://www.python.org}{Python}.
-enables developers to create software using a variety of programming
-languages. ITK's C++ implementation style employs generic
-programming, which is to say that it uses templates so that the same
-code can be applied \emph{generically} to any class or type that
-happens to support the operations used. Such C++
-templating means that the code is highly efficient and many
-software problems are discovered at compile-time, rather than at
-run-time during program execution.  It also means that many of ITK's
+ITK is a cross-platform software. It uses a build environment known as
+\href{http://cmake.org}{CMake} to manage platform-specific project
+generation and compilation process in a platform-independent way. ITK is
+implemented in C++. ITK's implementation style employs generic programming,
+which involves the use of templates to generate, at compile-time, code that can
+be applied \emph{generically} to any class or data-type that supports the
+operations used by the template. The use of C++ templating means that the code
+is highly efficient and many issues are discovered at compile-time, rather than
+at run-time during program execution. It also means that many of ITK's
 algorithms can be applied to arbitrary spatial dimensions and pixel types.
 
-In addition to automated wrapping, the
-\href{http://www.itk.org/Wiki/SimpleITK}{SimpleITK} project provides
-a streamlined interface to ITK that is available for C++, Python, Java,
+An automated wrapping system integrated with ITK generates an interface between
+C++ and a high-level programming language \href{http://www.python.org}{Python}.
+This enables rapid prototyping and faster exploration of ideas by shortening the
+edit-compile-execute cycle. In addition to automated
+wrapping, the \href{http://www.itk.org/Wiki/SimpleITK}{SimpleITK} project
+provides a streamlined interface to ITK that is available for C++, Python, Java,
 CSharp, R, Tcl and Ruby.
 
-Because ITK is an open-source project, developers from around the
-world can use, debug, maintain, and extend the software. ITK uses a
-model of software development referred to as Extreme
-Programming. Extreme Programming collapses the usual software creation
-methodology into a simultaneous and iterative process of
+Developers from around the world can use, debug, maintain, and extend the
+software because ITK is an open-source project. ITK uses a
+model of software development known as Extreme
+Programming. Extreme Programming collapses the usual software development
+methodology into a simultaneous iterative process of
 design-implement-test-release. The key features of Extreme Programming
 are communication and testing. Communication among the members of the
 ITK community is what helps manage the rapid evolution of the
-software.  Testing is what keeps the software stable. In ITK, an
-extensive testing process (using a system known as
-\href{http://open.cdash.org/index.php?project=Insight}{CDash}) is in place that
-measures the quality on a daily basis. The ITK Testing Dashboard is
-posted continuously, reflecting the quality of the software at any
-moment.
+software. Testing is what keeps the software stable. An
+extensive testing process supported by the system known as
+\href{http://open.cdash.org/index.php?project=Insight}{CDash}
+measures the quality of ITK code on a daily basis. The ITK Testing Dashboard is
+updated continuously, reflecting the quality of the code at any moment.
 
-This book is a guide to development with ITK. It covers building and
-installation, architecture and design, theory and application, and
-contribution.
-The sample code in the main repository
-\href{http://itk.org/gitweb?p=ITK.git;a=tree;f=Examples}
-{Examples} directory provides a companion to the material presented here.
+This book is a guide to developing software with ITK. It covers building and
+installation, architecture and design, image analysis theory and its
+applications, as well as the process of contributing to the ITK community.
+
+%% It seems this sentence would be more appropriate further in the text
+%% because the level of detail goes beyond what's expected in an abstract.
+%% There's a section in the introduction that talks about the examples.
+%The sample code in the main repository
+%\href{http://itk.org/gitweb?p=ITK.git;a=tree;f=Examples}
+%{Examples} directory provides a companion to the material presented here.
+%
+
 The most recent version of this document is available online at
 \url{http://itk.org/ItkSoftwareGuide.pdf}.
