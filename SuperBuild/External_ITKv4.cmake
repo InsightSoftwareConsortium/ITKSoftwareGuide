@@ -87,7 +87,6 @@ if(NOT ( DEFINED "${extProjName}_DIR" OR ( DEFINED "USE_SYSTEM_${extProjName}" A
 
   set(${proj}_CMAKE_OPTIONS
       -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/${proj}-install
-      -DITK_BUILD_ALL_MODULES:BOOL=ON
       -DBUILD_TESTING:BOOL=ON
       -DBUILD_EXAMPLES:BOOL=ON
       -DITK_USE_BRAINWEB_DATA:BOOL=ON ## Need to build BRAINWEB for software guide
@@ -98,7 +97,6 @@ if(NOT ( DEFINED "${extProjName}_DIR" OR ( DEFINED "USE_SYSTEM_${extProjName}" A
       -DITK_BUILD_DEFAULT_MODULES:BOOL=ON
       -DKWSYS_USE_MD5:BOOL=ON # Required by SlicerExecutionModel
       -DITK_WRAPPING:BOOL=OFF #${BUILD_SHARED_LIBS} ## HACK:  QUICK CHANGE
-      -DITK_USE_REVIEW:BOOL=ON
       ${${proj}_WRAP_ARGS}
       ${${proj}_FFTWF_ARGS}
       ${${proj}_FFTWD_ARGS}
