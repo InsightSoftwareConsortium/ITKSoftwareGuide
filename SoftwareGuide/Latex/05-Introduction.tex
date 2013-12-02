@@ -49,36 +49,47 @@ participant in the project.
 \section{How to Learn ITK}
 \label{sec:HowToLearnITK}
 
-There are two broad categories of users of ITK. First are class
-developers, those who create classes in C++. The second, users, employ
-existing C++ classes to build applications. Class developers must be
-proficient in C++, and if they are extending or modifying ITK, they
-must also be familiar with ITK's internal structures and design
-(material covered in Part III). Users may or may not use C++, since
-the compiled C++ class library has been \emph{wrapped} with the Tcl
-and Python interpreted languages. However, as a user you must
-understand the external interface to ITK classes and the relationships
-between them.
-
 The key to learning how to use ITK is to become familiar with its palette of
-objects and the ways of combining them. If you are a new Insight
-Toolkit user, begin by installing the software. If you are a class
-developer, you'll want to install the source code and then compile it. Users
-may only need the precompiled binaries and executables. We recommend that you
-learn the system by studying the examples and then, if you are a class
-developer, study
-the source code. Start by reading Chapter 3,
-which provides an overview of some of the key concepts in the system, and
-then review the examples in Part II. You may also wish to compile and run the
-dozens of examples distributed with the source code found in the directory
-\code{Insight/Examples}. (Please see the file
-\code{Insight/Examples/README.txt} for
-a description of the examples contained in the various subdirectories.) There
-are also several hundred tests found in the source distribution in
-\code{Insight/Testing/Code}, most of which are minimally documented
-testing code. However, they may be useful to see how classes are used
-together in ITK, especially since they are designed to exercise as
-much of the functionality of each class as possible.
+objects and the ways to combine them. There are three categories of
+documentation to help with the learning process: high level guidance material
+(the Software Guide), "cookbook" demonstrations on how to achieve concrete objectives
+particular objectives (the examples), and detailed descriptions of the
+application programming interface (the
+Doxygen\footnote{\url{http://itk.org/Doxygen/index.html}} documentation). These
+resources are combined in the three recommended stages for learning ITK.
+
+In the first stage, thoroughly read this Introduction, which provides an
+overview of some of the key concepts of the system. It also provides guidance
+on how to build and install the software. After running your first "hello
+world" program, you are well on your way to advanced computational image
+analysis!
+
+The next stage is to execute a few examples and gain familiarity with the
+available documentation.  By running the examples, one can gain confidence
+in achieving results and is introduced the mechanics of the software system.
+There are three example resources,
+\begin{enumerate}
+  \item	the \code{Examples} directory of the ITK source code repository \footnote{\ref{sec:DownloadingITK}}.
+  \item the Examples pages on the ITK Wiki \footnote{\url{http://itk.org/Wiki/ITK/Examples}}
+  \item	the Sphinx documented ITK Examples \footnote{\url{http://itk.org/ITKExamples}}
+\end{enumerate}
+To gain familiarity with the available documentation, browse the sections
+available in Part II and Part III of this guide. Also, browse the Doxygen
+application programming interface (API) documentation for the classes applied
+in the examples.
+
+Finally, mastery of ITK involves integration of information from multiple
+sources. Part II of this guide is a reference to algorithms available, and
+Part III introduces how to extend them to your needs and participate in the
+community. Individual examples are a detailed starting point to achieve
+certain tasks.  In practice, the Doxygen documentation becomes a frequent
+reference as an index of the classes available, their descriptions, and the
+syntax and descriptions of their methods.  When examples and Doxygen
+documentation are insufficient, the software unit tests thoroughly demonstrate
+how the code is utilized. Last, but not least, the source code itself
+is an extremely valuable resource. The code is the most detailed, up-to-date, and
+definitive description of the software. A great deal of attention and effort
+is directed to the code's readability, and its value cannot be understated.
 
 \section{Software Organization}
 \label{sec:SoftwareOrganization}
