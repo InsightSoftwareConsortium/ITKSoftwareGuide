@@ -194,74 +194,69 @@ ITK's software organization and directory structure. It is helpful to
 know enough to navigate through the code base to find examples, code,
 and documentation.
 
-ITK is organized into multiple Git repositories. The library source code are
-found in the \code{ITK}\footnote{\url{http://itk.org/ITK.git}} Git repository.
-Examples are found in the
+ITK resources are organized into multiple Git repositories. The ITK library source
+code are in the \code{ITK}\footnote{\url{http://itk.org/ITK.git}} Git
+repository. The sphinx Examples are in the
 \code{ITKExamples}\footnote{\url{http://itk.org/ITKExamples.git}} repository.
 Fairly complex applications using ITK (and other systems such as VTK, Qt, and
 FLTK) are available from
-\code{InsightApplications}\footnote{\url{http://itk.org/ITKApps.git}} repository.
-The sources for this guide are found in the
-\code{ITKSoftwareGuide}\footnote{\url{http://itk.org/ITKSoftwareGuide.git}} repository.
-Usually, you will work with the \code{ITK} repository.
+\code{InsightApplications}\footnote{\url{http://itk.org/ITKApps.git}}
+repository.  The sources for this guide are in the
+\code{ITKSoftwareGuide}\footnote{\url{http://itk.org/ITKSoftwareGuide.git}}
+repository.
 
 The \code{ITK} repository contains the following subdirectories:
 \begin{itemize}
-        \item \code{ITK/Modules}---the heart of the software; the location
+        \item \code{ITK/Modules} --- the heart of the software; the location
         of the majority of the source code.
-        \item \code{ITK/Documentation}---some ancillary documentation
+        \item \code{ITK/Documentation} --- some ancillary documentation
         material.
-        \item \code{ITK/Examples}---a suite of simple, well-documented
+        \item \code{ITK/Examples} --- a suite of simple, well-documented
         examples used by this guide and to illustrate important
         ITK concepts.
-        \item \code{ITK/Testing}---Contains the MD5 files, which are used
-        to link with the ITK data servers to download test data. This test data
-        is used by tests in \code{ITK/Modules} to produce the ITK Quality Dashboard using CDash.
-        (see Section \ref{sec:CDash} on
-        page \pageref{sec:CDash}.)
-        \item \code{Insight/Utilities}---supporting software for the ITK
-        source code. For example, CTest and Doxygen support.
-        \item \code{Insight/Wrapping}---support for ITK wrapping.
-        It is used by ITK to build interfaces between the C++ library and
-        various interpreted languages (currently Python is supported).
+        \item \code{ITK/Testing} --- a collection of the MD5 files, which are
+used to link with the ITK data servers to download test data. This test data is
+used by tests in \code{ITK/Modules} to produce the ITK Quality Dashboard using
+CDash.
+        (see Section \ref{sec:CDash} on page \pageref{sec:CDash}.)
+        \item \code{Insight/Utilities} --- the scripts that support source code development. For example, CTest and Doxygen support.
+        \item \code{Insight/Wrapping} --- the wrapping code to build interfaces between the C++ library and various interpreted languages (currently Python is supported).
 \end{itemize}
 
 The source code directory structure---found in \code{ITK/Modules}---is
 the most important to understand.
 \begin{itemize}
-        \item \code{ITK/Modules/Core}---core classes, macro definitions,
+        \item \code{ITK/Modules/Core} --- core classes, macro definitions,
         typedefs, and other software constructs central to ITK. The classes
         in \code{Core} are the only ones always compiled as part of ITK.
-        \item \code{ITK/Modules/ThirdParty}--various third-party libraries
+        \item \code{ITK/Modules/ThirdParty} --- various third-party libraries
         that are used to implement image file I/O and mathematical algorithms.
         (Note: ITK's mathematical library is based
         on the VXL/VNL software
         package\footnote{\url{http://vxl.sourceforge.net}}.)
-        \item \code{ITK/Modules/Filtering}--image processing
-        filters.
-        \item \code{ITK/Modules/IO}---classes that support the reading
+        \item \code{ITK/Modules/Filtering} --- image processing filters.
+        \item \code{ITK/Modules/IO} --- classes that support the reading
         and writing of images, transforms, and geometry.
-        \item \code{ITK/Modules/Bridge}---classes used to connect with the
+        \item \code{ITK/Modules/Bridge} --- classes used to connect with the
         other analysis libraries or visualization libraries, such as
-        OpenCV\footnote{\url{http://opencv.org}} or
+        OpenCV\footnote{\url{http://opencv.org}} and
         VTK\footnote{\url{http://www.vtk.org}}.
-        \item \code{ITK/Modules/Registration}---classes for registration of
+        \item \code{ITK/Modules/Registration} --- classes for registration of
         images or other data structures to each other.
-        \item \code{ITK/Modules/Segmentation}---classes for segmentation of
+        \item \code{ITK/Modules/Segmentation} --- classes for segmentation of
         images or other data structures.
-        \item \code{ITK/Modules/Video}---classes for input, output and processing
+        \item \code{ITK/Modules/Video} --- classes for input, output and processing
         of static and real-time data with temporal components.
-        \item \code{ITK/Modules/Compatibility}---collects together classes
+        \item \code{ITK/Modules/Compatibility} --- collects together classes
         for backwards compatibility with ITK Version 3, and classes that are
         deprecated -- i.e. scheduled for removal from future versions of ITK.
-        \item \code{ITK/Modules/Remote}---a special group that implements a
-        method using CMake to download and include modules from outside the
-        ITK Git repository.
-        \item \code{ITK/Modules/External}---a special group to place in
-        development or non-publicized modules.
-        \item \code{ITK/Modules/Numerics}---a collection of numeric tools used
-        by ITK classes to implement algorithms. Includes classes for FEM,
-        Optimization, Statistics, Neural Networks, etc.
+        \item \code{ITK/Modules/Remote} --- a group of modules distributed outside
+        of the main ITK source repository (most of them are hosted on \url{github.com})
+        whose source code can be downloaded via CMake when configuring ITK.
+        \item \code{ITK/Modules/External} --- a directory to place in development
+        or non-publicized modules.
+        \item \code{ITK/Modules/Numerics} --- a collection of numeric modules, including
+        FEM, Optimization, Statistics, Neural Networks, etc.
 \end{itemize}
 
 The Doxygen documentation is an essential resource when working with ITK, but
@@ -279,7 +274,7 @@ and to the source code. The nightly generated Doxygen documentation is online at
 are also available online; for example, the documentation for the 4.4.0
 release are available at \url{http://itk.org/Doxygen44/html/}.
 
-The \code{InsightApplications} module contains large, relatively complex
+The \code{ITKApps} contains large, relatively complex
 examples of ITK usage. See the web pages at
 \url{http://www.itk.org/ITK/resources/applications.html} for a description. Some of
 these applications require GUI toolkits such as Qt and FLTK or other packages
@@ -287,12 +282,6 @@ such as VTK (\emph{The Visualization Toolkit}
 \footnote{\url{http://www.vtk.org}}). It is recommend to set the CMake source directory
 to \code{ITKApps/Superbuild} to build the dependent third-party applications.
 
-Similar to \code{ITK}, access to
-the \code{ITKApps} module is also available via Git using the
-following commands (under a Git Bash shell):
-\begin{verbatim}
-git clone http://itk.org/ITKApps.git
-\end{verbatim}
 
 \section{The Insight Community and Support}
 \label{sec:AdditionalResources}
