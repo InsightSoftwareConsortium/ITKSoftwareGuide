@@ -37,10 +37,10 @@ compilers may have difficulties processing the code. If you are
 currently using an outdated compiler this may be an excellent excuse
 for upgrading this old piece of software!
 
-\section{Configuring ITK}
-\label{sec:ConfiguringITK}
+\section{Building ITK}
+\label{sec:Build ITK}
 
-\index{Configuration}
+\index{Build}
 
 The challenge of supporting ITK across platforms has been solved through the
 use of CMake\footnote{\url{www.cmake.org}}, a cross-platform, open-source build system.
@@ -114,11 +114,9 @@ iteration can you be sure that the necessary decisions have all been made. At
 this point build files are generated for the current configuration.
 
 \subsection{Configuring ITK}
-\label{sec:ConfiguringITKwithVTK}
+\label{sec:ConfigureITK}
 
-\index{Configuration!with VTK}
-
-\begin{figure}[ht]
+\begin{figure}[htb!]
 \centering
 \includegraphics[width=0.8\textwidth]{ITK_CMake_GUI_Ubuntu.eps}
 \includegraphics[width=0.8\textwidth]{ITK_CMake_GUI_Windows.eps}
@@ -164,6 +162,83 @@ system. If testing is enabled as part of the normal build process,
 about 2400 test programs will be compiled. This will verify that all the
 components of ITK have been correctly built on your system.
 
+
+\subsection{Advanced Module Configuration}
+\label{sec:ModuleConfiguration}
+Following the default configuration introduced in \ref{sec:ConfigureITK},
+the majority of the toolkit will be built. The modern modular structure of the
+tookit makes it possible to customize the ITK library with choices of modules.
+ITK was officially modularized in version 4.0.0 released in December of 2011.
+Developers have been testing and improving the modular structure since then.
+The toolkit currently contains 137 regular/internal modules, four remote
+modules and counting.
+
+By default, most internal ITK modules except the ones that depend on external
+third party libraries (such as \code{ITKVtkGlue}, \code{ITKBridgeOpenCV},
+\code{ITKBridgeVXL}, etc.) and several  modules with legacy code
+(\code{ITKReview}, \code{ITKDeprecated} and \code{ITKv3Compatibility}),  will
+be built into the ITK library. All non-default modules have
+\code{EXCLUDE\_FROM\_DEFAULT} tag in their module definition file
+(itk-module.cmake), including the remote modules.
+
+\code{ITK\_BUILD\_DEFAULT\_MODULES} is the CMake option to request all the
+default modules in the toolkit, by default this option is ON as shown in Figure
+\ref{fig:CMakeGUI}.  In the advanced mode of the CMake GUI, you can manually
+toggle those non-default modules via the \code{Module\_\{module name\}}
+options.   All default modules’ \code{Module\_\{module name\}} options are not
+available  for toggle since they are requested and enabled via
+\code{ITK\_BUILD\_DEFAULT\_MODULES = ON} already, see Figure
+\ref{fig:ConfigITKDefault}.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\textwidth]{Configure_ITK_Default.eps}
+\itkcaption[Default ITK Configuration]{CMake GUI for configuring ITK: the
+advance mode shows options for non-default ITK Modules.}
+\label{fig:ConfigITKDefault}
+\end{figure}
+
+When \code{ITK\_BUILD\_DEFAULT\_MODULES} is toggled \code{OFF}, users can then
+customize the collection of default modules to be included in the ITK library by
+the "Group" and "Module" options.
+
+\code{ITKGroup\_\{group name\}} are visible to toggle when
+\code{ITK\_BUILD\_DEFAULT\_MODULES = OFF}. The source code repository is
+archived  in  such way so that a group of modules that have close relationships
+or similar functionalities stay in one subdirectory.  Currently there are 11
+groups (not including the External and Remote groups).  The CMake
+\code{ITKGroup\_\{group name\}} option is created for the convenience of
+enabling or disabling multiple modules at once. The Core group is turned on by
+default, see Figure \ref{fig:ConfigITKGroup}.When a group is ON, all the modules in the group
+and their depending modules are enabled. When a group is turned OFF, the
+modules in the group, except the ones that are required by other enabled
+modules, are OFF.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\textwidth]{Configure_ITK_Group.eps}
+\itkcaption[ITK Group Configuration]{CMake GUI shows the ITK Group options.}
+\label{fig:ConfigITKGroup}
+\end{figure}
+
+If you are not sure about which groups to turn on, but you do have a list of
+specific modules to be included in your ITK library, you can certainly skip the
+Group options and use the \code{Module\_\{module name\}} options only.
+Whatever modules you select, their dependent modules are automatically enabled.
+
+However, not all the modules will show up in the GUI for toggle due to the
+various levels of controls in the previous two modes.  If they are already
+enabled by other modes or enabled by other modules, they will become internal
+variable and be hidden from the GUI. For example,  \code{Module\_ITKFoo}
+option is hidden for toggle when the module \code{ITKFoo} itself is enabled either  by
+1) module dependencies: \code{ITKBar} depends on \code{ITKFoo},   or by 2) the
+\code{ITKGroup\_FooAndBar} option: \code{ITKFoo} belongs to the group,  or by 3)
+\code{ITK\_BUILD\_DEFAULT\_MODULES=ON} and \code{ITKFoo} is a default module.
+
+To find out why a particular module is enabled, check the CMake configuration
+messages where the module enablement information is displayed (Figure
+\ref{fig:ConfigITKDefault}). The enablement messages are sorted in alphabetical
+order by module names.
 
 \section{Getting Started With ITK }
 \label{sec:GettingStartedWithITK}
