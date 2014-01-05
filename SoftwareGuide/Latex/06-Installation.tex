@@ -153,8 +153,8 @@ compiler). This is done in Windows by clicking on the ``Ok'' button.  In the
 UNIX version this is done by hitting the ``g'' key. After the generation
 process CMake will quit silently. To initiate the build process on UNIX,
 simply type \code{make} in the binary directory. Under Windows, load the
-workspace named \code{ITK.dsw} (if using MSDEV) or \code{ITK.sln} (if using
-Visual Studio) from the binary directory specified in the CMake GUI.
+workspace named \code{ITK.sln} (if using Visual Studio) from the binary
+directory specified in the CMake GUI.
 
 The build process will typically take anywhere from 15 minutes to a couple of
 hours depending on the the build configuration and the performance of your
@@ -240,29 +240,49 @@ messages where the module enablement information is displayed (Figure
 \ref{fig:ConfigITKDefault}). The enablement messages are sorted in alphabetical
 order by module names.
 
-\section{Getting Started With ITK }
+\section{Getting Started With ITK}
 \label{sec:GettingStartedWithITK}
 
-The simplest way to create a new project with ITK is to create a new directory
-somewhere in your disk and create two files in it. The first one is a
-\code{CMakeLists.txt} file that will be used by CMake to generate a Makefile
-(if you are using UNIX) or a Visual Studio workspace (if you are using
-MS-Windows).  The second file is an actual C++ program that will exercise
-some of the large number of classes available in ITK. The details of these files
-are described in the following section.
+The simplest way to create a new project with ITK is to create two new
+directories somewhere in your disk, one to hold the source code and one to
+hold the binaries and other files that are created in the build process. For
+this example, create a \code{HelloWorldITK} directory to hold the source and a
+\code{HelloWorldITK-build} directory to hold the binaries. The first file to
+place in the source directory is a \code{CMakeLists.txt} file that will be
+used by CMake to generate a Makefile (if you are using UNIX) or a Visual
+Studio workspace (if you are using MS-Windows).  The second source file is an
+actual C++ program that will exercise some of the large number of classes
+available in ITK. The details of these files are described in the following
+section.
 
 Once both files are in your directory you can run CMake in order to configure
-your project. Under UNIX, you can \code{cd} to your newly created directory
-and type ``\code{ccmake .}''. Note the ``.'' in the command line for
-indicating that the \code{CMakeLists.txt} file is in the current directory.
-The curses interface will require you to provide the directory where ITK was
-built. This is the same path that you indicated for the
-\code{ITK\_BINARY\_DIR} variable at the time of configuring ITK. Then CMake
-will require you to provide the path to the binary directory where ITK was
-built. The ITK binary directory will contain a file named
-\code{ITKConfig.cmake} generated during the configuration process at the time
-ITK was built.  From this file, CMake will recover all the information
-required to configure your new ITK project.
+your project. Under UNIX, you can \code{cd} to your newly created build
+directory and type ``\code{ccmake ../HelloWorldITK}''. Note the
+``../HelloWorldITK'' in the command line to indicate that the
+\code{CMakeLists.txt} file is up one directory and in \code{HelloWorldITK}.
+Under MS-Windows, the CMake Qt GUI can be started, and the Hello World
+directories will again have to be specificed in the configuration and
+build file generation process.
+
+Both the curses interface and Qt GUI will require you to provide the directory
+where ITK was built, \code{ITK\_DIR}.  The ITK binary directory will contain a
+file named \code{ITKConfig.cmake} generated during the configuration process
+at the time ITK was built.  From this file, CMake will recover all the
+information required to configure your new ITK project.
+
+After generating the build files, the projects can be built again either with
+\code{make} in the binary directory on UNIX or by loading the
+workspace named \code{HelloWorldITK.sln} (if using Visual Studio) from the binary
+directory specified in the CMake GUI, right clicking on \code{ALL\_BUILD} and
+clicking \code{Build}.
+
+The resulting executable, which will be called \code{HelloWorld}, can be
+executed on the command line. If on MS-Windows, please note that double-clicking
+on the icon of the executable will quickly launch a command line window, run
+the executable and close the window right away, not giving you time to see the
+output. It is therefore preferable to run the executable from the DOS command
+line by starting the \code{cmd.exe} shell first.
+
 
 \subsection{Hello World !}
 \label{sec:HelloWorldITK}
