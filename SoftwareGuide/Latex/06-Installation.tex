@@ -1,66 +1,65 @@
-\chapter{Installation}
+\chapter{Configuring and Building ITK}
 \label{chapter:Installation}
 
-\index{Installation}
+This chapter describes the process for configuring and compiling ITK on your
+system. Keep in mind that ITK is a toolkit, and as such, once it is installed
+on your computer it does not provide an application to run. What ITK does
+provide is a large set of libraries which can be used to create your own
+applications. Besides the toolkit proper, ITK also includes an extensive set of
+examples and tests that introduce ITK concepts and show how to use ITK in your
+own projects.
 
-This section describes the process for installing ITK on your system. Keep in
-mind that ITK is a toolkit, and as such, once it is installed in your computer
-there will be no application to run. Rather, use ITK to build your own
-applications. What ITK does provide---besides the toolkit proper---is a large
-set of test files and examples that will introduce ITK concepts and will show
-how to use ITK in your own projects.
+Some of the examples distributed with ITK depend on third party libraries, some
+of which may need to be installed separately. For the initial build of ITK, you
+may want to ignore these extra libraries and just compile the toolkit itself.
 
-Some of the examples distributed with ITK require third party libraries that
-may require installation. For an initial installation of ITK, you may want to
-ignore these extra libraries and just build the toolkit itself.
+ITK has been developed and tested across different combinations of operating
+systems, compilers, and hardware platforms including Microsoft Windows, Linux on
+various architectures, Solaris/UNIX, Mac OSX, and Cygwin. Kitware is committed
+to support the following compilers for building ITK:
 
-ITK has been developed and tested across different combinations of
-operating systems, compilers, and hardware platforms including
-Microsoft Windows, Linux on various architectures, Solaris, Mac
-OSX, and Cygwin.  It is known to work with the following compilers:
+% List updated according to information provided here:
+% http://www.itk.org/Wiki/ITK_Release_4/Modern_C++#Fully_Committed_to_Support
 
-%TODO Need to update this list
 \begin{itemize}
 \item GCC 4.x
-\item Visual Studio 8 SP 1 (Until 2015), 9 (Until 2018), 10 (Until 2020)
-\item Intel Compiler Suite 11.x, 12.x
-\item Darwin-c++-4.2 PPC (Until 2015), x86\_64
+\item Visual Studio 8 SP 1 (until 2015), 9 (until 2018), 10 (until 2020)
+\item Intel Compiler Suite 11.x, 12.x (including Mac OS X release)
+\item Darwin-c++-4.2 PPC (until 2015), x86\_64
 \item Win32-mingw-gcc-4.5
 \item Clang 3.3 and later
 \end{itemize}
 
-Support for different platforms is evident on the ITK quality dashboard
-(see Section \ref{sec:CDash} on page \pageref{sec:CDash}).
+If you are currently using an outdated compiler this may be an excellent excuse
+for upgrading this old piece of software! Support for different platforms is
+evident on the ITK quality dashboard (see Section \ref{sec:CDash} on page
+\pageref{sec:CDash}).
 
-Given the advanced usage of C++ features in the toolkit, some
-compilers may have difficulties processing the code. If you are
-currently using an outdated compiler this may be an excellent excuse
-for upgrading this old piece of software!
-
-\section{Building ITK}
-\label{sec:Build ITK}
-
-\index{Build}
+\section{Using CMake for Configuring and Building ITK}
 
 The challenge of supporting ITK across platforms has been solved through the
-use of CMake\footnote{\url{www.cmake.org}}, a cross-platform, open-source build system.
-CMake is used to control the software compilation process using simple platform
-and compiler independent configuration files.  CMake generates native makefiles
-and workspaces that can be used in the compiler environment of your choice.
-CMake is quite sophisticated---it supports complex environments requiring
-system introspection, compiler feature testing, and code generation.
+use of CMake\footnote{\url{www.cmake.org}}, a cross-platform, open-source build
+system. CMake controls the software compilation process with simple platform
+and compiler-independent configuration files. CMake is quite sophisticated---it
+supports complex environments requiring system introspection, compiler feature
+testing, and code generation.
 
-CMake generates Makefiles under UNIX and Cygwin systems and generates Visual
-Studio workspaces under Windows (and appropriate build files for other systems
-like Eclipse). The information used by CMake is provided by
-\code{CMakeLists.txt} files that are present in every directory of the ITK
-source tree. These files contain information that the user provides to CMake
-at configuration time. Typical information includes paths to utilities in the
-system and the selection of software options specified by the user.
+CMake generates native Makefiles or workspaces to be used with the corresponding
+development environment of your choice. For example, on UNIX and Cygwin systems
+CMake generates Makefiles; under Microsoft Windows CMake generates Visual Studio
+workspaces; CMake is also capable of generateing appropriate build files for
+other development environments, e.g., Eclipse. The information used by CMake is
+provided in \code{CMakeLists.txt} files that are present in every directory of
+the ITK source tree. Along with the specification of project structure and code
+dependencies these files specify the information that need to be provided to
+CMake by the user during project configuration stage. Typical configuration
+options specified by the user include paths to utilities installed on your
+system and selection of software features to be included.
 
 An ITK build requires only CMake and a C++ compiler. ITK ships with all the
-third party library dependencies required, and these will be used unless the
-use of a system version is requested during CMake configuration.
+third party library dependencies required, and these dependencies are used
+during compilation unless the use of a system version is requested during CMake
+configuration.
 
 \subsection{Preparing CMake}
 \label{sec:CMakeforITK}
@@ -73,21 +72,40 @@ CMake can be downloaded at no cost from
   \url{http://www.cmake.org/cmake/resources/software.html}
 \end{center}
 
-The mininum version of CMake has been evolving along with the version of ITK.
-For example, the current latest version of ITK (\ITKVERSIONMAJORMINOR)
-requires the minimum CMake version to be 2.8.8. You can download binary
-versions for most of the popular platforms including Windows, Solaris, HP, Mac
-and Linux. Alternatively you can download the source code and build CMake on
-your system. Follow the instructions in the CMake web page for downloading and
-installing the software.
+You can download binary versions for most of the popular platforms including
+Microsoft Windows, Mac OSX, Linux, PowerPC and IRIX. Alternatively you can
+download the source code and build CMake on your system. Follow the instructions
+provided on the CMake web page for downloading and installing the software. The
+minimum version of CMake has been evolving along with the version of ITK. For
+example, the current version of ITK (\ITKVERSIONMAJORMINOR) requires the minimum
+CMake version to be 2.8.8.
 
-Running CMake initially requires that you provide two pieces of information:
-where the source code directory is located (ITK\_SOURCE\_DIR), and where the
-object code is to be produced (ITK\_BINARY\_DIR). These are referred to as the
-\emph{source directory} and the \emph{binary directory}. We recommend setting
-the binary directory to be different than the source directory (an
-\emph{out-of-source} build).  On Unix, the binary directory is created by the
-user and CMake is invoked with the path to the source directory. For example:
+CMake provides a terminal-based interface (Figure \ref{fig:CMakeGUI})
+on platforms support the \code{curses} library. For most platforms CMake also
+provides a GUI based on the Qt library. Figure \ref{fig:CMakeGUI} shows the
+terminal-based CMake interface for Linux and CMake GUI for Microsoft Windows.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\textwidth]{ccmake-2-8-screenshot.eps}
+\includegraphics[width=0.8\textwidth]{cmake-gui-2-8-win-screenshot.eps}
+\itkcaption[CMake user interface]{CMake user interfaces: at the top is the
+interface based on the \code{curses} library supported by UNIX/Linux systems,
+below is the Microsoft Windows version of the CMake GUI based on the Qt library
+(CMake GUI is also available on UNIX/Linux systems).}
+\label{fig:CMakeGUI}
+\end{figure}
+
+Running CMake to configure and prepare for compilation a new project initially
+requires two pieces of information: where the source code directory is located,
+and where the compiled code is to be produced. These are referred to as the
+\emph{source directory} and the \emph{binary directory} respectively.
+We recommend setting the binary directory to be different than the source
+directory in order to produce an \emph{out-of-source} build).
+
+If you choose to use the terminal-based version of CMake (\code{ccmake}) the
+binary directory needs to be created first and then CMake is invoked from the
+binary directory with the path to the source directory. For example:
 
 \small
 \begin{verbatim}
@@ -97,122 +115,105 @@ ccmake ../ITK
 \end{verbatim}
 \normalsize
 
-On Windows, the CMake GUI is used to specify the source and build
-directories (Figure \ref{fig:CMakeGUI}).
+In the GUI version of CMake (\code{cmake-gui}) the source and binary directories
+are specified in the appropriate input fields (Figure \ref{fig:CMakeGUI}) and
+the application will request a confirmation to create a new binary directory if
+it does not exist.
 
-CMake runs in an interactive mode in that you iteratively select options and
-configure according to these options. The iteration proceeds until no more
-options remain to be selected. At this point, a generation step produces the appropriate
-build files for your configuration.
+CMake runs in an interactive mode which allows iterative selection of options
+followed by configuration according to the updated options. This iterative
+process proceeds until no more options remain to be specified. At this point, a
+generation step produces the appropriate build files for your configuration.
 
-This interactive configuration process can be better understood if you
-imagine that you are walking through a decision tree.  Every option that you
-select introduces the possibility that new, dependent options may become
-relevant. These new options are presented by CMake at the top of the options
-list in its interface.  Only when no new options appear after a configuration
-iteration can you be sure that the necessary decisions have all been made. At
-this point build files are generated for the current configuration.
+This interactive configuration process can be better understood by imagining
+the traversal of a path in a decision tree. Every selected option introduces the
+possibility that new, dependent options may become relevant. These new options
+are presented by CMake at the top of the options list in its interface. Only
+when no new options appear after a configuration iteration can you be sure that
+the necessary decisions have all been made. At this point build files are
+generated for the current configuration.
 
 \subsection{Configuring ITK}
 \label{sec:ConfigureITK}
 
-\begin{figure}[htb!]
-\centering
-\includegraphics[width=0.8\textwidth]{ITK_CMake_GUI_Ubuntu.eps}
-\includegraphics[width=0.8\textwidth]{ITK_CMake_GUI_Windows.eps}
-\itkcaption[CMake user interface]{CMake interface. Top) \texttt{ccmake}, the UNIX
-version based on \texttt{curses}. Bottom) \texttt{CMakeSetup}, the MS-Windows
-version based on MFC.}
-\label{fig:CMakeGUI}
-\end{figure}
+\index{ITK!configuration}
 
-Figure \ref{fig:CMakeGUI} shows the CMake interface for UNIX and MS-Windows.
-In order to speed up the build process, disable the compilation
-of the unit tests and examples. This is done with the variables
-\code{BUILD\_TESTING=OFF} and \code{BUILD\_EXAMPLES=OFF}.  The examples
-distributed with the toolkit are a helpful resource for learning how to use ITK
-components but are not essential for the use of the toolkit itself. The testing
-section includes a large number of small programs that exercise the
-capabilities of ITK classes. Due to the large number of tests, enabling the
-testing option will considerably increase the build time.  It is not
-desirable to enable this option for a first build of the toolkit.
+Start terminal-based CMake interface \code{ccmake} on Linux and UNIX, or the
+graphical user interface \code{cmake-gui} on Microsoft Windows. Remember to run
+\code{ccmake} from the binary directory on Linux and UNIX. On Windows, specify
+the source and binary directories in the GUI, then set and modify the
+configuration and build option in the interface as necessary.
 
-Begin running CMake by using \code{ccmake} on Unix, and \code{CMakeSetup} on
-Windows.  Remember to run \code{ccmake} from the binary directory on Unix. On
-Windows, specify the source and binary directories in the GUI, then begin to
-set the build variables in the GUI as necessary.  Most variables should have
-default values that are sensible. Each time you change a set of variables in
-CMake, it is necessary to proceed to another configuration step. In the
-Windows version this is done by clicking on the ``Configure'' button. In the
-UNIX version this is done in an interface using the curses library, where you
-can configure by hitting the ``c'' key.
+The examples distributed with the toolkit provide a helpful resource for
+learning how to use ITK components but are not essential for compiling the
+toolkit itself. The testing section of the source tree includes a large number
+of small programs that exercise the capabilities of ITK classes. Enabling the
+compilation of the examples and unit tests will considerably increase the build
+time. In order to speed up the build process, you can disable the compilation of
+the unit tests and examples. This is done by setting the variables
+\code{BUILD\_TESTING} and \code{BUILD\_EXAMPLES} to \code{OFF}.
 
-When no new options appear in CMake, you can proceed to generate Makefiles or
-Visual Studio projects (or appropriate build file(s) depending on your
-compiler). This is done in Windows by clicking on the ``Ok'' button.  In the
-UNIX version this is done by hitting the ``g'' key. After the generation
-process CMake will quit silently. To initiate the build process on UNIX,
-simply type \code{make} in the binary directory. Under Windows, load the
-workspace named \code{ITK.sln} (if using Visual Studio) from the binary
-directory specified in the CMake GUI.
+Most CMake variables in ITK have sensible default values. Each time a CMake
+variable is changed, it is necessary to re-run the configuration step. In the
+terminal-based version of the interface the configuration step is triggered by
+hitting the ``c'' key. In the GUI version this is done by clicking on the
+``Configure'' button.
 
-The build process will typically take anywhere from 15 minutes to a couple of
-hours depending on the the build configuration and the performance of your
-system. If testing is enabled as part of the normal build process,
-about 2400 test programs will be compiled. This will verify that all the
-components of ITK have been correctly built on your system.
-
+When no new options appear highlighted in CMake, you can proceed to generate
+Makefiles, Visual Studio workspace or other appropriate build files depending
+on your preferred development environment. This is done in the GUI interface by
+clicking on the ``Generate'' button. In the terminal-based version this is done
+by hitting the ``g'' key. After the generation process the terminal-based
+version of CMake will quit silently. The GUI window of CMake can be left open
+for further refinement of configuration options as described in the next
+section. With this scenario it is important to generate new build files to
+reflect the latest configuration changes. In addition, the new build files need
+to be reloaded if the project is open in the integrated development environment
+such as Visual Studio or Eclipse.
 
 \subsection{Advanced Module Configuration}
 \label{sec:ModuleConfiguration}
+
+\index{ITK!advanced configuration}
+\index{ITK!modules}
+
 Following the default configuration introduced in \ref{sec:ConfigureITK},
 the majority of the toolkit will be built. The modern modular structure of the
-tookit makes it possible to customize the ITK library with choices of modules.
-ITK was officially modularized in version 4.0.0 released in December of 2011.
-Developers have been testing and improving the modular structure since then.
-The toolkit currently contains 137 regular/internal modules, four remote
-modules and counting.
+toolkit makes it possible to customize the ITK library by choosing which modules
+to include in the build. ITK was officially modularized in version 4.0.0
+released in December of 2011. Developers have been testing and improving the
+modular structure since then. The toolkit currently contains 137
+regular/internal modules and four remote modules, while new ITK modules are
+being developed.
 
-By default, most internal ITK modules except the ones that depend on external
-third party libraries (such as \code{ITKVtkGlue}, \code{ITKBridgeOpenCV},
-\code{ITKBridgeVXL}, etc.) and several  modules with legacy code
-(\code{ITKReview}, \code{ITKDeprecated} and \code{ITKv3Compatibility}),  will
-be built into the ITK library. All non-default modules have
+\code{ITK\_BUILD\_DEFAULT\_MODULES} is the CMake option to build all default
+modules in the toolkit, by default this option is \code{ON} as shown in Figure
+\ref{fig:CMakeGUI}. The default modules include most internal ITK modules except
+the ones that depend on external third party libraries (such as
+\code{ITKVtkGlue}, \code{ITKBridgeOpenCV}, \code{ITKBridgeVXL}, etc.) and
+several modules containing legacy code (\code{ITKReview}, \code{ITKDeprecated}
+and \code{ITKv3Compatibility}). All non-default modules have the
 \code{EXCLUDE\_FROM\_DEFAULT} tag in their module definition file
 (itk-module.cmake), including the remote modules.
 
-\code{ITK\_BUILD\_DEFAULT\_MODULES} is the CMake option to request all the
-default modules in the toolkit, by default this option is ON as shown in Figure
-\ref{fig:CMakeGUI}.  In the advanced mode of the CMake GUI, you can manually
-toggle those non-default modules via the \code{Module\_\{module name\}}
-options.   All default modules’ \code{Module\_\{module name\}} options are not
-available  for toggle since they are requested and enabled via
-\code{ITK\_BUILD\_DEFAULT\_MODULES = ON} already, see Figure
-\ref{fig:ConfigITKDefault}.
+Apart from the default mode of selecting the modules for building the ITK
+library there are two other approaches module selection: the group mode, and the
+advanced module mode. When \code{ITK\_BUILD\_DEFAULT\_MODULES} is set to
+\code{OFF}, the selection of modules to be included in the ITK library can be
+customized by changing the variables enabling group and advanced module
+selection.
 
-\begin{figure}[htb!]
-\centering
-\includegraphics[width=0.8\textwidth]{Configure_ITK_Default.eps}
-\itkcaption[Default ITK Configuration]{CMake GUI for configuring ITK: the
-advance mode shows options for non-default ITK Modules.}
-\label{fig:ConfigITKDefault}
-\end{figure}
-
-When \code{ITK\_BUILD\_DEFAULT\_MODULES} is toggled \code{OFF}, users can then
-customize the collection of default modules to be included in the ITK library by
-the "Group" and "Module" options.
-
-\code{ITKGroup\_\{group name\}} are visible to toggle when
-\code{ITK\_BUILD\_DEFAULT\_MODULES = OFF}. The source code repository is
-archived  in  such way so that a group of modules that have close relationships
-or similar functionalities stay in one subdirectory.  Currently there are 11
-groups (not including the External and Remote groups).  The CMake
-\code{ITKGroup\_\{group name\}} option is created for the convenience of
-enabling or disabling multiple modules at once. The Core group is turned on by
-default, see Figure \ref{fig:ConfigITKGroup}.When a group is ON, all the modules in the group
-and their depending modules are enabled. When a group is turned OFF, the
-modules in the group, except the ones that are required by other enabled
-modules, are OFF.
+\code{ITKGroup\_\{group name\}} variables for group module selection are visible
+when \code{ITK\_BUILD\_DEFAULT\_MODULES} is \code{OFF}. The ITK source code tree
+is organized in such way that a group of modules characterised by close
+relationships or similar functionalities stay in one subdirectory. Currently
+there are 11 groups (excluding the External and Remote groups). The CMake
+\code{ITKGroup\_\{group name\}} options are created for the convenient enabling
+or disabling multiple modules at once. The \code{ITKGroup\_Core} group is
+selected by default as shown in Figure \ref{fig:ConfigITKGroup}. When a group is
+selected, all modules in the group and their depending modules are enabled. When
+a group variable is set to \code{OFF}, all modules in the group, except the ones
+that are required by other enabled modules, are disabled.
 
 \begin{figure}[htb!]
 \centering
@@ -223,22 +224,84 @@ modules, are OFF.
 
 If you are not sure about which groups to turn on, but you do have a list of
 specific modules to be included in your ITK library, you can certainly skip the
-Group options and use the \code{Module\_\{module name\}} options only.
-Whatever modules you select, their dependent modules are automatically enabled.
+Group options and use the \code{Module\_\{module name\}} options only. Whatever
+modules you select, their dependent modules are automatically enabled. In the
+advanced mode of the CMake GUI, you can manually toggle the build of the
+non-default modules via the \code{Module\_\{module name\}} variables. In Figure
+\ref{fig:ConfigITKDefault} all default modules' \code{Module\_\{module name\}}
+variables are shown disabled for toggling since they are enabled via the
+\code{ITK\_BUILD\_DEFAULT\_MODULES} set to \code{ON} variable.
 
-However, not all the modules will show up in the GUI for toggle due to the
-various levels of controls in the previous two modes.  If they are already
-enabled by other modes or enabled by other modules, they will become internal
-variable and be hidden from the GUI. For example,  \code{Module\_ITKFoo}
-option is hidden for toggle when the module \code{ITKFoo} itself is enabled either  by
-1) module dependencies: \code{ITKBar} depends on \code{ITKFoo},   or by 2) the
-\code{ITKGroup\_FooAndBar} option: \code{ITKFoo} belongs to the group,  or by 3)
-\code{ITK\_BUILD\_DEFAULT\_MODULES=ON} and \code{ITKFoo} is a default module.
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\textwidth]{Configure_ITK_Default.eps}
+\itkcaption[Default ITK Configuration]{CMake GUI for configuring ITK: the
+advanced mode shows options for non-default ITK Modules.}
+\label{fig:ConfigITKDefault}
+\end{figure}
+
+However, not all modules will be visible in the CMake GUI at all times due to
+the various levels of controls in the previous two modes. If some modules are
+already enabled by other modes, these modules are set as internal variables and
+are hidden in the CMake GUI. For example, \code{Module\_ITKFoo} variable is
+hidden when the module \code{ITKFoo} is enabled in either of the following
+scenarios:
+\begin{enumerate}
+\item module \code{ITKBar} is enabled and depends on \code{ITKFoo},
+\item \code{ITKFoo} belongs to the group \code{ITKGroup\_FooAndBar} and the
+group is enabled
+\item \code{ITK\_BUILD\_DEFAULT\_MODULES} is \code{ON} and \code{ITKFoo} is a
+default module.
+\end{enumerate}
 
 To find out why a particular module is enabled, check the CMake configuration
-messages where the module enablement information is displayed (Figure
-\ref{fig:ConfigITKDefault}). The enablement messages are sorted in alphabetical
-order by module names.
+messages where the information about enabling or disabling the modules is
+displayed (Figure \ref{fig:ConfigITKDefault}); these messages are sorted in
+alphabetical order by module names.
+
+\subsection{Compiling ITK}
+\label{sec:BuildITK}
+
+\index{ITK!building}
+
+To initiate the build process after generating the build files on Linux or UNIX,
+simply type \code{make} in the terminal if the current directory is set to the
+ITK binary directory. If using Visual Studio, first load the workspace named
+\code{ITK.sln} from the binary directory specified in the CMake GUI and then
+select start the build by selecting ``Build Solution'' from the ``Build'' menu
+or right-clicking on the \code{ALL\_BUILD} target in the Solution Explorer pane
+and selecting the ``Build'' context menu item.
+
+The build process will typically take anything from 15 minutes to a couple of
+hours, depending on the the build configuration and the performance of your
+system. If testing is enabled as part of the normal build process,
+about 2400 test programs will be compiled. This will verify that all the
+components of ITK have been correctly built on your system.
+
+\subsection{Installing ITK on Your System}
+\label{sec:Installation}
+
+\index{ITK!installation}
+
+When the build process is complete an ITK binary distribution package can be
+generated for installation on your system or on a system with compatible
+specifications (such as hardware platform and operating system) as well as
+suitable development environment components (such as C++ compiler and CMake).
+The default prefix for installation destination directory needs to be specified
+during CMake configuration process prior to compiling ITK. The installation
+destination prefix can to be set through the CMake cache variable
+\code{CMAKE\_INSTALL\_PREFIX}.
+
+Typically distribution packages are generated to provide a ``clean'' form of the
+software which is isolated from the details of the build process (separate from
+the source and build trees). Due to the intended use of ITK as a toolkit for
+software development the step of generating ITK binary packages for installing
+ITK on other systems has limited application and thus it can be treated as
+optional. However, the step for generating binary distribution packages has a
+much wide application for distributing software developed with ITK. Further
+details on configuring and generating binary packages with CMake can be found in
+the CMake Tutorial\footnote{
+\url{http://www.cmake.org/cmake/help/cmake_tutorial.html}}.
 
 \section{Getting Started With ITK}
 \label{sec:GettingStartedWithITK}
@@ -249,49 +312,54 @@ hold the binaries and other files that are created in the build process. For
 this example, create a \code{HelloWorldITK} directory to hold the source and a
 \code{HelloWorldITK-build} directory to hold the binaries. The first file to
 place in the source directory is a \code{CMakeLists.txt} file that will be
-used by CMake to generate a Makefile (if you are using UNIX) or a Visual
-Studio workspace (if you are using MS-Windows).  The second source file is an
-actual C++ program that will exercise some of the large number of classes
-available in ITK. The details of these files are described in the following
-section.
+used by CMake to generate a Makefile (if you are using Linux or UNIX) or a
+Visual Studio workspace (if you are using Microsoft Windows). The second source
+file to be created is an actual C++ program that will exercise some of the large
+number of classes available in ITK. The details of these files are described in
+the following section.
 
 Once both files are in your directory you can run CMake in order to configure
-your project. Under UNIX, you can \code{cd} to your newly created build
-directory and type ``\code{ccmake ../HelloWorldITK}''. Note the
+your project. Under UNIX/Linux, you can \code{cd} to your newly created binary
+directory and launch the terminal-based version of CMake by entering
+``\code{ccmake ../HelloWorldITK}'' in the terminal. Note the
 ``../HelloWorldITK'' in the command line to indicate that the
 \code{CMakeLists.txt} file is up one directory and in \code{HelloWorldITK}.
-Under MS-Windows, the CMake Qt GUI can be started, and the Hello World
-directories will again have to be specificed in the configuration and
-build file generation process.
+In CMake GUI which can be used under Microsoft Windows and UNIX/Linux, the
+source and binary directories will have to be specified prior to the
+configuration and build file generation process.
 
-Both the curses interface and Qt GUI will require you to provide the directory
-where ITK was built, \code{ITK\_DIR}.  The ITK binary directory will contain a
-file named \code{ITKConfig.cmake} generated during the configuration process
-at the time ITK was built.  From this file, CMake will recover all the
-information required to configure your new ITK project.
+Both the terminal-based and GUI versions of CMake will require you to specify
+the directory where ITK was built in the CMake variable \code{ITK\_DIR}. The ITK
+binary directory will contain a file named \code{ITKConfig.cmake} generated
+during ITK configuration process with CMake. From this file, CMake will recover
+all information required to configure your new ITK project.
 
-After generating the build files, the projects can be built again either with
-\code{make} in the binary directory on UNIX or by loading the
-workspace named \code{HelloWorldITK.sln} (if using Visual Studio) from the binary
-directory specified in the CMake GUI, right clicking on \code{ALL\_BUILD} and
-clicking \code{Build}.
+After generating the build files, on UNIX/Linux systems the project can be
+compiled by typing \code{make} in the terminal provided the current directory
+is set to the project's binary directory. In Visual Studio on Microsoft Windows
+the project can be built by loading the workspace named \code{HelloWorldITK.sln}
+from the binary directory specified in the CMake GUI and selecting
+``Build Solution'' from the ``Build'' menu or by right-clicking on
+the \code{ALL\_BUILD} target in the Solution Explorer pane and selecting
+the ``Build'' context menu item.
 
 The resulting executable, which will be called \code{HelloWorld}, can be
-executed on the command line. If on MS-Windows, please note that double-clicking
-on the icon of the executable will quickly launch a command line window, run
-the executable and close the window right away, not giving you time to see the
-output. It is therefore preferable to run the executable from the DOS command
-line by starting the \code{cmd.exe} shell first.
+executed on the command line. If on Microsoft Windows, please note that
+double-clicking on the icon of the executable will quickly launch a command line
+window, run the executable and close the window right away, not giving you time
+to see the output. It is therefore preferable to run the executable from the DOS
+command line by starting the \code{cmd.exe} shell first.
 
-
-\subsection{Hello World !}
+\subsection{Hello World!}
 \label{sec:HelloWorldITK}
 
 \index{Hello World}
 
-Here is the content of the two files to write in your new project. These two
-files can be found in the \code{ITK/Examples/Installation} directory. The
-\code{CMakeLists.txt} file contains the following lines:
+This section provides and explains the contents of the two files which need to
+be created for your new project. These two files can be found in the
+\code{ITK/Examples/Installation} directory.
+
+The \code{CMakeLists.txt} file contains the following lines:
 
 % CMake looks similar to bash with regards to formatting.
 \begin{minted}[linenos=false]{bash}
@@ -300,28 +368,34 @@ project(HelloWorld)
 find_package(ITK REQUIRED)
 include(${ITK_USE_FILE})
 
-add_executable(HelloWorld HelloWorld.cxx )
+add_executable(HelloWorld HelloWorld.cxx)
 
 target_link_libraries(HelloWorld ${ITK_LIBRARIES})
 \end{minted}
 
-The first line defines the name of your project as it appears in Visual
-Studio (it will have no effect with UNIX Makefiles). The second line loads a CMake
-file with a predefined strategy for finding ITK. If the strategy for finding ITK fails, CMake will prompt
-you for the directory where ITK is installed in your system. In that case you
-will write this information in the \code{ITK\_BINARY\_DIR} variable. The line
-\code{include(\$\{USE\_ITK\_FILE\})} loads the \code{UseITK.cmake} file to set
-all the configuration information from ITK. The line \code{add\_executable}
-defines as its first argument the name of the executable that will be produced
-as result of this project. The remaining arguments of \code{add\_executable}
-are the names of the source files to be compiled and linked.  Finally, the
-\code{target\_link\_libraries} line specifies which ITK libraries will be
-linked against this project.
-
+The first line defines the name of your project as it appears in Visual Studio
+or Eclipse; this line will have no effect with UNIX/Linux Makefiles. The second
+line loads a CMake file with a predefined strategy for finding ITK. If the
+strategy for finding ITK fails, CMake will report an error which can be
+corrected by providing the location of the directory where ITK was compiled or
+installed on your system. In this case the path to the ITK's binary/installation
+directory needs to be specified as the value of the \code{ITK\_DIR} CMake
+variable. The line \code{include(\$\{USE\_ITK\_FILE\})} loads the
+\code{UseITK.cmake} file which contains the configuration information about the
+specified ITK build. The line starting with \code{add\_executable} call defines
+as its first argument the name of the executable that will be produced
+as result of this project. The remaining argument(s) of \code{add\_executable}
+are the names of the source files to be compiled. Finally, the
+\code{target\_link\_libraries} call specifies which ITK libraries will be
+linked against this project. Further details on creating and configuring CMake
+projects can be found in the CMake Tutorial\footnote{
+\url{http://www.cmake.org/cmake/help/cmake\_tutorial.html}} and CMake online
+documentation\footnote{\url{http://www.cmake.org/cmake/help/documentation.html}}.
 
 \input HelloWorld.tex
 
-At this point you have successfully installed and compiled ITK, and created
-your first simple program! If you have difficulties, please join the
-community mailing list (Section~\ref{sec:JoinMailList} on page
-\pageref{sec:JoinMailList}) and pose questions there.
+It is expected that by this point you would have successfully configured and
+compiled ITK, and created your first simple program! If you have experienced
+any difficulties with following the instructions provided in this section,
+please join the community mailing list (see Section~\ref{sec:JoinMailList} on
+page \pageref{sec:JoinMailList}) and post questions there.
