@@ -44,15 +44,6 @@ find_path(ITK_EXECUTABLES_DIR
   )
 
 #
-# File that defines the path to .cxx examples in ITK sources
-#
-configure_file(
-${SoftwareGuide_SOURCE_DIR}/SoftwareGuideConfiguration.tex.in
-${SoftwareGuide_BINARY_DIR}/SoftwareGuideConfiguration.tex
-IMMEDIATE
-)
-
-#
 # Generate .cmake files containing those macros defined above.
 #
 # First make a directory to store generated images
