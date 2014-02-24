@@ -5,11 +5,11 @@
 
 Creating the cover image demonstrating the capabilities of the toolkit was a
 challenging task.\footnote{The source code for the cover is available from
-InsightDocuments/SoftwareGuide/Cover/Source/.} Given that the origins of ITK
-are with the Visible Human Project it seemed appropriate to create an image
-utilizing the VHP data sets, and it was decided to use the more recently
-acquired Visible Woman dataset.  Both the RGB cryosections and the CT scans
-were combined in the same scene.
+SoftwareGuide/Cover/Source/ directory of the ITKSoftwareGuide repository.}
+Given that the origins of ITK are with the Visible Human Project, it was
+decided to create the cover image from the Visible Woman dataset, which is one
+of the more recently acquired datasets of the Visible Human Project.  Both the
+RGB cryosections and the CT scans were combined in the same scene.
 
 \begin{description}
 
@@ -33,7 +33,7 @@ The skin was easy to segment once the gel was removed. A simple region
 growing algorithm was used requiring seed points in the region previously
 occupied by the gel and then set to zero values. An anti-aliasing filter was
 applied in order to generate an image of pixel type float where the surface
-was represented by the zero set. This data set was exported to VTK where a
+was represented by the zero set. This dataset was exported to VTK where a
 contouring filter was used to extract the surface and introduce it in the VTK
 visualization pipeline.
 
@@ -68,20 +68,20 @@ AntiAliasBinaryImageFilter was used at the end to reduce the pixelization
 effects prior to the extraction of the iso-surface with vtkContourFilter.
 
 \item[The Skull.]
-The skull was segmented from the CT data set and registered to the cryogenic
+The skull was segmented from the CT dataset and registered to the cryogenic
 data. The segmentation was performed by simple thresholding, which was good
 enough for the cover image. As a result, most of the bone structures are
 actually fused together. This includes the jaw bone and the cervical
 vertebrae.
 
-\item[The Eye.] 
+\item[The Eye.]
 The eye is charged with symbolism in this image. This is due in part because
 the motivation for the toolkit is the analysis of the Visible Human data,
 and in part because the name of the toolkit is \emph{Insight}.
 
 The first step in processing the eye was to extract a sub-image of
 $60\times60\times60$ pixels centered around the eyeball from the RGB
-cryogenic data set. This small volume was then processed with the vector
+cryogenic dataset. This small volume was then processed with the vector
 gradient anisotropic diffusion filter in order to increase the homogeneity of
 the pixels in the eyeball.
 
