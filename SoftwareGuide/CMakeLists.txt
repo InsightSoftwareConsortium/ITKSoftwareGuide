@@ -134,10 +134,10 @@ add_custom_target(SoftwareGuideExamples  ALL echo)
 # Search for all the example sources
 #
 file( GLOB_RECURSE all_sources  ${ITK_SOURCE_DIR}/Examples/*.cxx)
-# Exclude the RegistrationITKv4 sources.
+# Exclude the RegistrationITKv3 sources.
 set( ITK_EXAMPLES_SRCS )
 foreach( source ${all_sources} )
-  if( NOT "${source}" MATCHES "RegistrationITKv4" )
+  if( NOT "${source}" MATCHES "RegistrationITKv3" )
     list( APPEND ITK_EXAMPLES_SRCS "${source}" )
   endif()
 endforeach()
