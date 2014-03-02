@@ -1,4 +1,3 @@
-
 #
 # Find LaTeX
 #
@@ -69,9 +68,9 @@ set(DVIPS_CONVERTER_OPTIONS  -D600)
 # File that defines the path to .cxx examples in ITK sources
 #
 configure_file(
-${SoftwareGuide_SOURCE_DIR}/SoftwareGuideConfiguration.tex.in
-${SoftwareGuide_BINARY_DIR}/SoftwareGuideConfiguration.tex
-)
+  ${SoftwareGuide_SOURCE_DIR}/SoftwareGuideConfiguration.tex.in
+  ${SoftwareGuide_BINARY_DIR}/SoftwareGuideConfiguration.tex
+  )
 
 
 set( Tex_SRCS
@@ -93,36 +92,33 @@ set( Tex_SRCS
   Visualization.tex
   WatershedSegmentation.tex
 
-## Users Guide
-UG01-DataRepresentation.tex
-UG02-SpatialObjects.tex
-UG03-IO.tex
-UG04-Filtering.tex
-UG04a-AnisotropicDiffusionFiltering.tex
-UG05-Registration.tex
-UG06-Segmentation.tex
-UG07-Statistics.tex
+  ## Users Guide
+  UG01-DataRepresentation.tex
+  UG02-SpatialObjects.tex
+  UG03-Filtering.tex
+  UG03a-AnisotropicDiffusionFiltering.tex
+  UG04-IO.tex
+  UG05-Registration.tex
+  UG06-Segmentation.tex
+  UG07-Statistics.tex
 
-## Developers Guide
-DG01-Iterators.tex
-DG02-ImageAdaptors.tex
-DG03-WriteAFilter.tex
-DG04-SoftwareProcess.tex
-DG05-MarketingMaterial.tex
+  ## Developers Guide
+  DG01-Iterators.tex
+  DG02-ImageAdaptors.tex
+  DG03-WriteAFilter.tex
+  DG04-SoftwareProcess.tex
+  DG05-MarketingMaterial.tex
 
-## Appendix
-AP01-Licenses.tex
+  ## Appendix
+  AP01-Licenses.tex
 
-)
+  )
 
 
-set ( SoftwareGuide_Tex_SRCS "" )
-foreach( file ${Tex_SRCS})
-#message(STATUS "APPENDING: ${SoftwareGuide_SOURCE_DIR}/Latex/${file}")
-  set( SoftwareGuide_Tex_SRCS
-   ${SoftwareGuide_Tex_SRCS} ${SoftwareGuide_SOURCE_DIR}/Latex/${file}
- )
-endforeach( file )
+set( SoftwareGuide_Tex_SRCS "" )
+foreach( _file ${Tex_SRCS})
+  list( APPEND SoftwareGuide_Tex_SRCS ${SoftwareGuide_SOURCE_DIR}/Latex/${_file} )
+endforeach()
 
 file( GLOB_RECURSE ITK_EXAMPLES_TEX_SRCS_NAMES ${SoftwareGuide_BINARY_DIR}/Examples/*.tex)
 
@@ -154,65 +150,43 @@ if(LATEX_COMPILER)
     set(DVIPS_WRAPPER2 ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.sh)
   endif(NOT UNIX)
 
-  add_custom_command(
-    OUTPUT    00-SoftwareGuide.dvi
-    COMMAND   ${LATEX_WRAPPER1}
-    ARGS      ${LATEX_WRAPPER2}
-              ${SoftwareGuide_SOURCE_DIR}/Latex/00-SoftwareGuide.tex
+  add_custom_command( OUTPUT    00-SoftwareGuide.dvi
+    COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/00-SoftwareGuide.tex
     DEPENDS   ${SoftwareGuide_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES} ${allEPS-DEPS}
-  )
+    )
 
   if(DVIPS_CONVERTER)
-    add_custom_command(
-      OUTPUT    00-SoftwareGuide.ps
-      COMMAND   ${DVIPS_WRAPPER1}
-      ARGS      ${DVIPS_WRAPPER2}
-                00-SoftwareGuide.dvi ${DVIPS_CONVERTER_OPTIONS} -o 00-SoftwareGuide.ps
+    add_custom_command( OUTPUT    00-SoftwareGuide.ps
+      COMMAND   ${DVIPS_WRAPPER1} ${DVIPS_WRAPPER2} 00-SoftwareGuide.dvi ${DVIPS_CONVERTER_OPTIONS} -o 00-SoftwareGuide.ps
       DEPENDS   00-SoftwareGuide.idx 00-SoftwareGuide.ind 00-SoftwareGuide.bbl 00-SoftwareGuide.dvi
-    )
-  endif(DVIPS_CONVERTER)
+      )
+  endif()
 
   if(PS2PDF_CONVERTER)
-    add_custom_command(
-      OUTPUT    00-SoftwareGuide.pdf
-      COMMAND   ${PS2PDF_CONVERTER}
-      ARGS      ${PS2PDF_CONVERTER_OPTIONS} 00-SoftwareGuide.ps 00-SoftwareGuide.pdf
+    add_custom_command( OUTPUT    00-SoftwareGuide.pdf
+      COMMAND   ${PS2PDF_CONVERTER} ${PS2PDF_CONVERTER_OPTIONS} 00-SoftwareGuide.ps 00-SoftwareGuide.pdf
       DEPENDS   00-SoftwareGuide.idx 00-SoftwareGuide.ind 00-SoftwareGuide.bbl 00-SoftwareGuide.ps
-    )
-  endif(PS2PDF_CONVERTER)
+      )
+  endif()
 
   if(MAKEINDEX_COMPILER)
-    add_custom_command(
-      OUTPUT    00-SoftwareGuide.idx
-      COMMAND   ${LATEX_WRAPPER1}
-      ARGS      ${LATEX_WRAPPER2}
-                ${SoftwareGuide_SOURCE_DIR}/Latex/00-SoftwareGuide.tex
+    add_custom_command( OUTPUT    00-SoftwareGuide.idx
+      COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/00-SoftwareGuide.tex
       DEPENDS   00-SoftwareGuide.bbl ${allEPS-DEPS}
-    )
-    add_custom_command(
-      OUTPUT    00-SoftwareGuide.ind
-      COMMAND   ${MAKEINDEX_COMPILER}
-      ARGS      00-SoftwareGuide
+      )
+    add_custom_command( OUTPUT    00-SoftwareGuide.ind
+      COMMAND   ${MAKEINDEX_COMPILER} 00-SoftwareGuide
       DEPENDS   00-SoftwareGuide.idx
-    )
-
-  endif(MAKEINDEX_COMPILER)
+      )
+  endif()
 
   if(BIBTEX_COMPILER)
-    message(STATUS "Running: ${BIBTEX_COMPILER} 00-SoftwareGuide ")
-    add_custom_command(
-      OUTPUT    00-SoftwareGuide.bbl
-      COMMAND   ${BIBTEX_COMPILER}
-      ARGS      00-SoftwareGuide
-      DEPENDS   ${SoftwareGuide_SOURCE_DIR}/Latex/00-SoftwareGuide.tex ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
-    )
-  endif(BIBTEX_COMPILER)
-
-
+    add_custom_command( OUTPUT    00-SoftwareGuide.bbl
+      COMMAND   ${BIBTEX_COMPILER} 00-SoftwareGuide DEPENDS   ${SoftwareGuide_SOURCE_DIR}/Latex/00-SoftwareGuide.tex ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
+      )
+  endif()
 endif(LATEX_COMPILER)
 
 add_custom_target(SoftwareGuideLatex ALL
   COMMAND ${CMAKE_COMMAND} -E echo "Building software Guide PDF"
   DEPENDS 00-SoftwareGuide.pdf )
-
-
