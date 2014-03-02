@@ -2,7 +2,7 @@
 %
 %
 %     This file is included from the file   Segmentation.tex
-% 
+%
 %     Section tag and label are placed in this top file.
 %
 %
@@ -26,7 +26,7 @@ equation.  At any time, the evolving contour can be obtained by extracting
 the zero level-set $\Gamma(\bf{X},t) =
 \{\psi(\bf{X},t) = 0\}$ from the output.  The main advantages of using level
 sets is that arbitrarily complex shapes can be modeled and topological
-changes such as merging and splitting are handled implicitly. 
+changes such as merging and splitting are handled implicitly.
 
 Level sets can be used for image segmentation by using image-based features
 such as mean intensity, gradient and edges in the governing differential
@@ -49,10 +49,10 @@ the solution $\psi$ of the partial differential equation.
 \begin{equation}
 \label{eqn:LevelSetEquation}
 \frac{d}{dt}\psi = -\alpha \mathbf{A}(\mathbf{x})\cdot\nabla\psi - \beta
-  P(\mathbf{x})\mid\nabla\psi\mid + 
+  P(\mathbf{x})\mid\nabla\psi\mid +
 \gamma Z(\mathbf{x})\kappa\mid\nabla\psi\mid
 \end{equation}
- 
+
 where $\mathbf{A}$ is an advection term, $P$ is a propagation (expansion) term,
 and $Z$ is a spatial modifier term for the mean curvature $\kappa$.  The scalar
 constants $\alpha$, $\beta$, and $\gamma$ weight the relative influence of
@@ -87,8 +87,8 @@ The solution $\Gamma$ is calculated to subpixel precision.  The best discrete
 approximation of the surface is therefore the set of grid positions closest to
 the zero-crossings in the image, as shown in
 Figure~\ref{fig:LevelSetSegmentationFigure1}.  The
-\doxygen{ZeroCrossingImageFilter} operates by finding exactly those grid 
-positions and can be used to extract the surface. 
+\doxygen{ZeroCrossingImageFilter} operates by finding exactly those grid
+positions and can be used to extract the surface.
 
 \begin{figure}
 \centering

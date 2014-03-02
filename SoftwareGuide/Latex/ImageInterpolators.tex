@@ -1,4 +1,4 @@
-% 
+%
 %  This file is included by Registration.tex
 %
 
@@ -72,7 +72,7 @@ The basic input to an \doxygen{InterpolateImageFunction} is the image to
 be interpolated. Once an image has been defined using \code{SetInputImage()},
 a user can interpolate either at a point using \code{Evaluate()} or
 an index using \code{EvaluateAtContinuousIndex()}.
- 
+
 Interpolators provide the method \code{IsInsideBuffer()} that tests whether a
 particular image index or a physical point falls inside the spatial domain for
 which image pixels exist.
@@ -156,13 +156,13 @@ Multiplying the spectrum with a box function is equivalent to convolving the
 spatial discrete signal with a sinc function
 
 \begin{equation}
-sinc(x) = \sin{(x)} / x  
+sinc(x) = \sin{(x)} / x
 \end{equation}
 
 The sinc function has infinite support, which of course in practice can not
 really be implemented. Therefore, the sinc is usually truncated by multiplying
 it with a Window function. The Windowed Sinc interpolator is the result of such
-operation. 
+operation.
 
 This interpolator presents a series of trade-offs in its utilization. Probably
 the most significant is that the larger the window, the more precise will be
@@ -180,8 +180,8 @@ interpolate the value at position $(x,y)$ the following computation will be
 performed.
 
 \begin{equation}
-I(x,y) = 
-\sum_{i = \lfloor x \rfloor + 1 - m}^{\lfloor x \rfloor + m} 
+I(x,y) =
+\sum_{i = \lfloor x \rfloor + 1 - m}^{\lfloor x \rfloor + m}
 \sum_{j = \lfloor y \rfloor + 1 - m}^{\lfloor y \rfloor + m}
 I_{i,j} K(x-i) K(y-j)
 \end{equation}
@@ -198,13 +198,13 @@ Some of the windows that can be used with this interpolator are
 
 Cosinus window
 \begin{equation}
-w(x) = cos ( \frac{\pi x}{2 m} ) 
+w(x) = cos ( \frac{\pi x}{2 m} )
 \end{equation}
 
 
 Hamming window
 \begin{equation}
-w(x) = 0.54 + 0.46 cos ( \frac{\pi x}{m} ) 
+w(x) = 0.54 + 0.46 cos ( \frac{\pi x}{m} )
 \end{equation}
 
 
@@ -216,13 +216,13 @@ w(x) = 1 - ( \frac{x^2}{m^2} )
 
 Lancos window
 \begin{equation}
-w(x) = \textrm{sinc} ( \frac{x}{m} ) 
+w(x) = \textrm{sinc} ( \frac{x}{m} )
 \end{equation}
 
 
 Blackman window
 \begin{equation}
-w(x) = 0.42 + 0.5 cos(\frac{\pi x}{m}) + 0.08 cos(\frac{2 \pi x}{m}) 
+w(x) = 0.42 + 0.5 cos(\frac{\pi x}{m}) + 0.08 cos(\frac{2 \pi x}{m})
 \end{equation}
 
 
@@ -235,27 +235,27 @@ some cases the results achieve a 20-fold improvement in accuracy.
 This filter can be used in the same way you would use any
 ImageInterpolationFunction. For instance, you can plug it into the
 ResampleImageFilter class.  In order to instantiate the filter you must choose
-several template parameters. 
+several template parameters.
 
 \code{
 typedef WindowedSincInterpolateImageFunction<
-           TInputImage, VRadius, TWindowFunction, 
+           TInputImage, VRadius, TWindowFunction,
            TBoundaryCondition, TCoordRep >    InterpolatorType;
 }
 
-\code{TInputImage} is the image type, as for any other interpolator. 
+\code{TInputImage} is the image type, as for any other interpolator.
 
 \code{VRadius} is the radius of the kernel, i.e., the $m$ from the
-formula above. 
+formula above.
 
 \code{TWindowFunction} is the window function object, which you can choose from
 about five different functions defined in this header. The default is the
 Hamming window, which is commonly used but not optimal according to the cited
-paper. 
+paper.
 
 \code{TBoundaryCondition} is the boundary condition class used to determine the
 values of pixels that fall off the image boundary. This class has the same
-meaning here as in the \doxygen{NeighborhoodIterator} classes. 
+meaning here as in the \doxygen{NeighborhoodIterator} classes.
 
 \code{TCoordRep} is again standard for interpolating functions, and should be
 float or double.

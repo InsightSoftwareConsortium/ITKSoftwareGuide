@@ -16,8 +16,8 @@ The metric component is perhaps the most critical element of the registration
 framework. The selection of which metric to use is highly dependent on the
 registration problem to be solved. For example, some metrics have a large
 capture range while others require initialization close to the optimal
-position.  In addition, some metrics are only suitable for comparing images 
-obtained from the same imaging modality, while others can handle 
+position.  In addition, some metrics are only suitable for comparing images
+obtained from the same imaging modality, while others can handle
 inter-modality comparisons.
 Unfortunately, there are no clear-cut rules as to how to choose a metric.
 
@@ -33,10 +33,10 @@ image.  For each point, the corresponding moving image position is computed
 using the transform with the specified parameters, then the interpolator is
 used to compute the moving image intensity at the mapped position. Details on
 this mapping are illustrated in Figures \ref{fig:ImageOverlapIterator} and
-\ref{fig:ImageOverlapInterpolator}. 
+\ref{fig:ImageOverlapInterpolator}.
 
-The metrics also support region based evaluation. The \code{SetFixedImageMask()} and 
-\code{SetMovingImageMask()} methods may be used to restrict evaluation of the metric 
+The metrics also support region based evaluation. The \code{SetFixedImageMask()} and
+\code{SetMovingImageMask()} methods may be used to restrict evaluation of the metric
 within a specified region. The masks may be of any type derived from \doxygen{SpatialObject}.
 
 Besides the measure value, gradient-based optimization schemes also require
@@ -49,7 +49,7 @@ The following is the list of metrics currently available in ITK:
 \begin{itemize}
 \item Mean squares\\ \doxygen{MeanSquaresImageToImageMetric}
 \item Normalized correlation \\ \doxygen{NormalizedCorrelationImageToImageMetric}
-\item Mean reciprocal squared difference \\ \doxygen{MeanReciprocalSquareDifferenceImageToImageMetric} 
+\item Mean reciprocal squared difference \\ \doxygen{MeanReciprocalSquareDifferenceImageToImageMetric}
 \item Mutual information by Viola and Wells \\ \doxygen{MutualInformationImageToImageMetric}
 \item Mutual information by Mattes \\ \doxygen{MattesMutualInformationImageToImageMetric}
 \item Kullback Liebler distance metric by Kullback and Liebler \\ \doxygen{KullbackLeiblerCompareHistogramImageToImageMetric}
@@ -61,8 +61,8 @@ The following is the list of metrics currently available in ITK:
 \item Gradient Difference metric \\ \doxygen{GradientDifferenceImageToImageMetric}
 \end{itemize}
 
-In the following sections, we describe each metric type in detail. 
-For ease of notation, we will refer to the fixed image $f(\bf{X})$ 
+In the following sections, we describe each metric type in detail.
+For ease of notation, we will refer to the fixed image $f(\bf{X})$
 and transformed moving image $(m \circ T(\bf{X}))$ as images $A$ and $B$.
 
 \subsection{Mean Squares Metric}
@@ -77,7 +77,7 @@ defined region:
 MS(A,B) = \frac{1}{N} \sum_{i=1}^N \left( A_i - B_i \right)^2
 \end{equation}
 \begin{center}
-$A_i$ is the i-th pixel of Image A\\ 
+$A_i$ is the i-th pixel of Image A\\
 $B_i$ is the i-th pixel of Image B\\
 $N$ is the number of pixels considered
 \end{center}
@@ -120,7 +120,7 @@ NC(A,B) = -1 \times \frac{ \sum_{i=1}^N \left( A_i \cdot B_i \right) }
         { \sqrt { \sum_{i=1}^N A_i^2  \cdot \sum_{i=1}^N B_i^2 } }
 \end{equation}
 \begin{center}
-$A_i$ is the i-th pixel of Image A\\ 
+$A_i$ is the i-th pixel of Image A\\
 $B_i$ is the i-th pixel of Image B\\
 $N$ is the number of pixels considered
 \end{center}
@@ -187,8 +187,8 @@ Mutual information is defined in terms of entropy. Let
 \begin{equation}
 H(A) = - \int p_A(a) \log p_A(a)\, da
 \end{equation}
-be the entropy of random variable $A$, $H(B)$ the entropy of 
-random variable $B$ and 
+be the entropy of random variable $A$, $H(B)$ the entropy of
+random variable $B$ and
 \begin{equation}
 H(A,B) = \int p_{AB}(a,b) \log p_{AB}(a,b)\,da\,db
 \end{equation}
@@ -221,12 +221,12 @@ superimposing kernel functions (Gaussian function in this case) centered on the
 intensity samples obtained from the image.\label{fig:ParzenWindowing}}
 \end{floatingfigure}
 
-In a typical registration problem, direct access to the marginal 
+In a typical registration problem, direct access to the marginal
 and joint probability densities is not available and hence the
-densities must be estimated from the image data. Parzen windows 
+densities must be estimated from the image data. Parzen windows
 (also known as kernel density estimators) can be used for this purpose.
-In this scheme, the densities are constructed by taking intensity 
-samples $S$ from the image and super-positioning kernel functions 
+In this scheme, the densities are constructed by taking intensity
+samples $S$ from the image and super-positioning kernel functions
 $K(\cdot)$ centered on the elements of $S$ as illustrated in
 Figure \ref{fig:ParzenWindowing}:
 
@@ -299,7 +299,7 @@ the bins.
 \index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metric!SetNumberOfSpatialSamples()}
 \index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metric!SetNumberOfHistogramBins()}
 
-The number of spatial samples used is set using method 
+The number of spatial samples used is set using method
 \code{SetNumberOfSpatialSamples()}. The number of bins used to compute
 the entropy values is set via \code{SetNumberOfHistogramBins()}.
 
@@ -319,31 +319,31 @@ arbitrary magnitude and dynamic range.
 
 
 \subsection{Kullback-Leibler distance metric}
-The \doxygen{KullbackLeiblerCompareHistogramImageToImageMetric} is yet another information based metric. 
-Kullback-Leibler distance measures the relative entropy between two 
-discrete probability distributions. The distributions are obtained from the 
-histograms of the two input images, $A$ and $B$. 
+The \doxygen{KullbackLeiblerCompareHistogramImageToImageMetric} is yet another information based metric.
+Kullback-Leibler distance measures the relative entropy between two
+discrete probability distributions. The distributions are obtained from the
+histograms of the two input images, $A$ and $B$.
 
 The Kullback-Liebler distance between two histograms is given by
 \begin{equation}
 KL(A,B) =  \sum_i^N p_A(i) \times \log \frac{ p_A(i) }{p_B(i) }
 \end{equation}
 
-The distance is always non-negative and is zero only if the two distributions 
-are the same. Note that the distance is not symmetric. In other 
-words, $KL(A,B) \neq KL(B,A)$. Nevertheless, if the distributions are not too dissimilar, 
+The distance is always non-negative and is zero only if the two distributions
+are the same. Note that the distance is not symmetric. In other
+words, $KL(A,B) \neq KL(B,A)$. Nevertheless, if the distributions are not too dissimilar,
 the difference between $KL(A,B)$ and $KL(B,A)$ is small.
 
 The implementation in ITK is based on \cite{Chung2002}.
 
 \subsection{Normalized Mutual Information Metric}
-Given two images, $A$ and $B$, the normalized mutual information may be computed as 
+Given two images, $A$ and $B$, the normalized mutual information may be computed as
 \begin{equation}
 NMI(A,B) = 1 + \frac{I(A,B)}{H(A,B)} = \frac{H(A) + H(B)}{H(A,B)}
 \end{equation}
-where the entropy of the images, $H(A)$, $H(B)$, the mutual 
-information, $I(A,B)$ and the joint entropy $H(A,B)$ are computed as mentioned 
-in \ref{sec:MutualInformationMetric}. Details of the implementation may be found in 
+where the entropy of the images, $H(A)$, $H(B)$, the mutual
+information, $I(A,B)$ and the joint entropy $H(A,B)$ are computed as mentioned
+in \ref{sec:MutualInformationMetric}. Details of the implementation may be found in
 the \cite{Hajnal2001}.
 
 \subsection{Mean Squares Histogram}
@@ -380,7 +380,7 @@ cross correlation coefficient between the intensities in the fixed image and
 the intensities on the mapped moving image. This metric is intended to be used
 in images of the same modality where the relationship between the intensities
 of the fixed image and the intensities on the moving images is given by a
-linear equation. 
+linear equation.
 
 The correlation coefficient is computed from the Joint histogram as
 
@@ -410,20 +410,20 @@ words, it computes the number of pixel matches and mismatches between the two
 images. The match is designed for label maps. All pixel mismatches are
 considered equal whether they are between label 1 and label 2 or between label
 1 and label 500. In other words, the magnitude of an individual label mismatch
-is not relevant, or the occurrence of a label mismatch is important. 
+is not relevant, or the occurrence of a label mismatch is important.
 
-The spatial correspondence between the fixed and moving images is established using 
-a \doxygen{Transform} using the \code{SetTransform()} method and an interpolator 
-using \code{SetInterpolator()}. Given that we are matching pixels with labels, 
+The spatial correspondence between the fixed and moving images is established using
+a \doxygen{Transform} using the \code{SetTransform()} method and an interpolator
+using \code{SetInterpolator()}. Given that we are matching pixels with labels,
 it is advisable to use Nearest Neighbor interpolation.
 
 \subsection{Kappa Statistics Metric}
 \index{itk::Kappa\-Statistic\-Image\-To\-Image\-Metric}
-The \doxygen{KappaStatisticImageToImageMetric} computes spatial intersection of 
-two binary images. The metric here is designed for matching pixels in two images 
-with the same exact value, which may be set using \code{SetForegroundValue()}. 
+The \doxygen{KappaStatisticImageToImageMetric} computes spatial intersection of
+two binary images. The metric here is designed for matching pixels in two images
+with the same exact value, which may be set using \code{SetForegroundValue()}.
 Given two images $A$ and $B$, the $\kappa$ coefficient is computed as
- 
+
 \begin{equation}
 \kappa = \frac{|A| \cap |B|}{|A| + |B|}
 \end{equation}

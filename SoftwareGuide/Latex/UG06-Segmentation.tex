@@ -10,7 +10,7 @@ modalities existing today.
 The most effective segmentation algorithms are obtained by carefully
 customizing combinations of components. The parameters of these components are
 tuned for the characteristics of the image modality used as input and the
-features of the anatomical structure to be segmented. 
+features of the anatomical structure to be segmented.
 
 The Insight Toolkit provides a basic set of algorithms that can be used to
 develop and customize a full segmentation application. Some of the most
@@ -40,37 +40,37 @@ A simple criterion for including pixels in a growing region is to evaluate
 intensity value inside a specific interval.
 
 \label{sec:ConnectedThreshold}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{ConnectedThresholdImageFilter.tex}
 \fi
 
 \subsection{Otsu Segmentation}
 Another criterion for classifying pixels is to minimize the error of misclassification.
-The goal is to find a threshold that classifies the image into two clusters such that 
-we minimize the area under the histogram for one cluster that lies on the other cluster's 
+The goal is to find a threshold that classifies the image into two clusters such that
+we minimize the area under the histogram for one cluster that lies on the other cluster's
 side of the threshold. This is equivalent to minimizing the within class variance
 or equivalently maximizing the between class variance.
 
 \label{sec:OtsuThreshold}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{OtsuThresholdImageFilter.tex}
 \fi
 
 \label{sec:OtsuMultipleThreshold}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{OtsuMultipleThresholdImageFilter.tex}
 \fi
 
 \subsection{Neighborhood Connected}
 \label{sec:NeighborhoodConnectedImageFilter}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{NeighborhoodConnectedImageFilter.tex}
 \fi
 
 
 \subsection{Confidence Connected}
 \label{sec:ConfidenceConnected}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{ConfidenceConnected.tex}
 \input{ConfidenceConnectedOnBrainWeb.tex}
 \fi
@@ -80,21 +80,21 @@ or equivalently maximizing the between class variance.
 
 \subsection{Isolated Connected}
 \label{sec:IsolatedConnected}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{IsolatedConnectedImageFilter.tex}
 \fi
 
 
 \subsection{Confidence Connected in Vector Images}
 \label{sec:VectorConfidenceConnected}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{VectorConfidenceConnected.tex}
 \fi
 
 
 \section{Segmentation Based on Watersheds}
 \label{sec:WatershedSegmentation}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input WatershedSegmentation.tex
 \fi
 
@@ -105,24 +105,24 @@ or equivalently maximizing the between class variance.
 
 \section{Level Set Segmentation}
 \label{sec:LevelSetsSegmentation}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{LevelSetsSegmentation.tex}
 \fi
 
 
 %HACK: TODO Review what happended to these.
-%REMOVED PATENTED: \section{Hybrid Methods} 
+%REMOVED PATENTED: \section{Hybrid Methods}
 %REMOVED PATENTED: \label{sec:HybridSegmentationMethods}
-%REMOVED PATENTED: 
-%REMOVED PATENTED: \ifitkFullVersion 
+%REMOVED PATENTED:
+%REMOVED PATENTED: \ifitkFullVersion
 %REMOVED PATENTED: \input{HybridSegmentationMethods.tex}
 %REMOVED PATENTED: \fi
 
 
-\section{Feature Extraction} 
+\section{Feature Extraction}
 \label{sec:FeatureExtractionMethods}
 
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{FeatureExtractionMethods.tex}
 \fi
 

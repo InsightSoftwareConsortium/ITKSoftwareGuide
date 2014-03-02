@@ -18,12 +18,12 @@ diffusion is closely related to the earlier work of Grossberg
 \cite{Grossberg1984}, who used similar nonlinear diffusion processes to model
 human vision.  The motivation for anisotropic diffusion (also called
 \emph{nonuniform} or \emph{variable conductance} diffusion) is that a Gaussian
-smoothed image is a single time slice of the solution to the heat equation, 
+smoothed image is a single time slice of the solution to the heat equation,
 that has the original image as its initial conditions.  Thus, the solution to
 \begin{equation} \frac{\partial g(x, y, t) }{\partial t} = \nabla \cdot \nabla
 g(x, y, t), \end{equation} where $g(x, y, 0) = f(x, y)$ is the input image, is
 $g(x, y, t) = G(\sqrt{2t}) \otimes f(x, y)$, where $G(\sigma)$ is a Gaussian
-with standard deviation $\sigma$.  
+with standard deviation $\sigma$.
 
 Anisotropic diffusion includes a variable conductance term that, in turn,
 depends on the differential structure of the image.  Thus, the variable
