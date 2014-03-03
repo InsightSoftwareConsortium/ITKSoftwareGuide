@@ -72,18 +72,52 @@ configure_file(
   ${SoftwareGuide_BINARY_DIR}/SoftwareGuideConfiguration.tex
   )
 
+set( CommonBook_Tex_SRCS
+## Front Matter
+  00-Preamble-Common.tex
+  01-PrintedPreamble-Common.tex
+  03-Abstract-Common.tex
+  04-Contributors.tex
+  )
+
+set( Book1_Tex_SRCS
+## Front Matter
+  000-ITKSoftwareGuide-Book1.tex
+  01-PrintedPreamble-Book1.tex
+  02-Cover-Book1.tex
+  03-Abstract-Book1.tex
+## Introduction
+  I01-Introduction.tex
+  I02-Installation.tex
+## Architecture
+  A01-SystemOverview.tex
+  A02-DataRepresentation.tex
+  A03-SpatialObjects.tex
+## Development Guidelines
+  DG01-Iterators.tex
+  DG02-ImageAdaptors.tex
+  DG03-WriteAFilter.tex
+  DG04-SoftwareProcess.tex
+## Appendix
+  AP01-Licenses.tex
+  )
+
+set( Book2_Tex_SRCS
+## Front Matter
+  001-ITKSoftwareGuide-Book2.tex
+  01-PrintedPreamble-Book2.tex
+  02-Cover-Book2.tex
+  03-Abstract-Book2.tex
+## Design and Functionality
+  DF01-IO.tex
+  DF02-Filtering.tex
+  #A03a-AnisotropicDiffusionFiltering.tex
+  DF03-Registration.tex
+  DF04-Segmentation.tex
+  DF05-Statistics.tex
+  )
 
 set( Tex_SRCS
-## Front Matter
-  00-SoftwareGuide.tex
-  01-PrintedPreamble.tex
-  02-Cover.tex
-  03-Abstract.tex
-  04-Contributors.tex
-## Introduction
-  05-Introduction.tex
-  06-Installation.tex
-  07-SystemOverview.tex
 ## -- HACK TODO
 #set   NOT_YET_SRCS # This needs to be added one at a time as they are cleaned up
   ImageMetrics.tex
@@ -92,32 +126,17 @@ set( Tex_SRCS
   Visualization.tex
   WatershedSegmentation.tex
 
-  ## Users Guide
-  UG01-DataRepresentation.tex
-  UG02-SpatialObjects.tex
-  UG03-Filtering.tex
-  UG03a-AnisotropicDiffusionFiltering.tex
-  UG04-IO.tex
-  UG05-Registration.tex
-  UG06-Segmentation.tex
-  UG07-Statistics.tex
-
-  ## Developers Guide
-  DG01-Iterators.tex
-  DG02-ImageAdaptors.tex
-  DG03-WriteAFilter.tex
-  DG04-SoftwareProcess.tex
   DG05-MarketingMaterial.tex
-
-  ## Appendix
-  AP01-Licenses.tex
-
   )
 
+set( SoftwareGuide_Book1_Tex_SRCS "" )
+foreach( _file ${Book1_Tex_SRCS} ${CommonBook_Tex_SRCS} )
+  list( APPEND SoftwareGuide_Book1_Tex_SRCS ${SoftwareGuide_SOURCE_DIR}/Latex/${_file} )
+endforeach()
 
-set( SoftwareGuide_Tex_SRCS "" )
-foreach( _file ${Tex_SRCS})
-  list( APPEND SoftwareGuide_Tex_SRCS ${SoftwareGuide_SOURCE_DIR}/Latex/${_file} )
+set( SoftwareGuide_Book2_Tex_SRCS "" )
+foreach( _file ${Book2_Tex_SRCS} ${CommonBook_Tex_SRCS} )
+  list( APPEND SoftwareGuide_Book2_Tex_SRCS ${SoftwareGuide_SOURCE_DIR}/Latex/${_file} )
 endforeach()
 
 file( GLOB_RECURSE ITK_EXAMPLES_TEX_SRCS_NAMES ${SoftwareGuide_BINARY_DIR}/Examples/*.tex)
@@ -150,43 +169,72 @@ if(LATEX_COMPILER)
     set(DVIPS_WRAPPER2 ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.sh)
   endif(NOT UNIX)
 
-  add_custom_command( OUTPUT    00-SoftwareGuide.dvi
-    COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/00-SoftwareGuide.tex
-    DEPENDS   ${SoftwareGuide_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES} ${allEPS-DEPS}
+  add_custom_command( OUTPUT    000-ITKSoftwareGuide-Book1.dvi
+    COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/000-ITKSoftwareGuide-Book1.tex
+    DEPENDS   ${SoftwareGuide_Book1_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES} ${allEPS-DEPS}
+    )
+  add_custom_command( OUTPUT    001-ITKSoftwareGuide-Book2.dvi
+    COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/001-ITKSoftwareGuide-Book2.tex
+    DEPENDS   ${SoftwareGuide_Book2_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES} ${allEPS-DEPS}
     )
 
-  if(DVIPS_CONVERTER)
-    add_custom_command( OUTPUT    00-SoftwareGuide.ps
-      COMMAND   ${DVIPS_WRAPPER1} ${DVIPS_WRAPPER2} 00-SoftwareGuide.dvi ${DVIPS_CONVERTER_OPTIONS} -o 00-SoftwareGuide.ps
-      DEPENDS   00-SoftwareGuide.idx 00-SoftwareGuide.ind 00-SoftwareGuide.bbl 00-SoftwareGuide.dvi
+  if(BIBTEX_COMPILER)
+    add_custom_command( OUTPUT    000-ITKSoftwareGuide-Book1.bbl
+      COMMAND   ${BIBTEX_COMPILER} 000-ITKSoftwareGuide-Book1
+      DEPENDS   ${SoftwareGuide_SOURCE_DIR}/Latex/000-ITKSoftwareGuide-Book1.tex ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
       )
-  endif()
-
-  if(PS2PDF_CONVERTER)
-    add_custom_command( OUTPUT    00-SoftwareGuide.pdf
-      COMMAND   ${PS2PDF_CONVERTER} ${PS2PDF_CONVERTER_OPTIONS} 00-SoftwareGuide.ps 00-SoftwareGuide.pdf
-      DEPENDS   00-SoftwareGuide.idx 00-SoftwareGuide.ind 00-SoftwareGuide.bbl 00-SoftwareGuide.ps
+    add_custom_command( OUTPUT    001-ITKSoftwareGuide-Book2.bbl
+      COMMAND   ${BIBTEX_COMPILER} 001-ITKSoftwareGuide-Book2
+      DEPENDS   ${SoftwareGuide_SOURCE_DIR}/Latex/001-ITKSoftwareGuide-Book2.tex ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
       )
   endif()
 
   if(MAKEINDEX_COMPILER)
-    add_custom_command( OUTPUT    00-SoftwareGuide.idx
-      COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/00-SoftwareGuide.tex
-      DEPENDS   00-SoftwareGuide.bbl ${allEPS-DEPS}
+    add_custom_command( OUTPUT    000-ITKSoftwareGuide-Book1.idx
+      COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/000-ITKSoftwareGuide-Book1.tex
+      DEPENDS   000-ITKSoftwareGuide-Book1.bbl ${allEPS-DEPS}
       )
-    add_custom_command( OUTPUT    00-SoftwareGuide.ind
-      COMMAND   ${MAKEINDEX_COMPILER} 00-SoftwareGuide
-      DEPENDS   00-SoftwareGuide.idx
+    add_custom_command( OUTPUT    001-ITKSoftwareGuide-Book2.idx
+      COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/001-ITKSoftwareGuide-Book2.tex
+      DEPENDS   001-ITKSoftwareGuide-Book2.bbl ${allEPS-DEPS}
+      )
+    add_custom_command( OUTPUT    000-ITKSoftwareGuide-Book1.ind
+      COMMAND   ${MAKEINDEX_COMPILER} 000-ITKSoftwareGuide-Book1
+      DEPENDS   000-ITKSoftwareGuide-Book1.idx
+      )
+    add_custom_command( OUTPUT    001-ITKSoftwareGuide-Book2.ind
+      COMMAND   ${MAKEINDEX_COMPILER} 001-ITKSoftwareGuide-Book2
+      DEPENDS   001-ITKSoftwareGuide-Book2.idx
       )
   endif()
 
-  if(BIBTEX_COMPILER)
-    add_custom_command( OUTPUT    00-SoftwareGuide.bbl
-      COMMAND   ${BIBTEX_COMPILER} 00-SoftwareGuide DEPENDS   ${SoftwareGuide_SOURCE_DIR}/Latex/00-SoftwareGuide.tex ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
+  if(DVIPS_CONVERTER)
+    add_custom_command( OUTPUT    000-ITKSoftwareGuide-Book1.ps
+      COMMAND   ${DVIPS_WRAPPER1} ${DVIPS_WRAPPER2} 000-ITKSoftwareGuide-Book1.dvi ${DVIPS_CONVERTER_OPTIONS} -o 000-ITKSoftwareGuide-Book1.ps
+      DEPENDS   000-ITKSoftwareGuide-Book1.ind 000-ITKSoftwareGuide-Book1.bbl 000-ITKSoftwareGuide-Book1.dvi
+      )
+    add_custom_command( OUTPUT    001-ITKSoftwareGuide-Book2.ps
+      COMMAND   ${DVIPS_WRAPPER1} ${DVIPS_WRAPPER2} 001-ITKSoftwareGuide-Book2.dvi ${DVIPS_CONVERTER_OPTIONS} -o 001-ITKSoftwareGuide-Book2.ps
+      DEPENDS   001-ITKSoftwareGuide-Book2.ind 001-ITKSoftwareGuide-Book2.bbl 001-ITKSoftwareGuide-Book2.dvi
       )
   endif()
+
+  if(PS2PDF_CONVERTER)
+    add_custom_command( OUTPUT    ITKSoftwareGuide-Book1.pdf
+      COMMAND   ${PS2PDF_CONVERTER} ${PS2PDF_CONVERTER_OPTIONS} 000-ITKSoftwareGuide-Book1.ps ITKSoftwareGuide-Book1.pdf
+      DEPENDS   000-ITKSoftwareGuide-Book1.ps
+      )
+    add_custom_command( OUTPUT    ITKSoftwareGuide-Book2.pdf
+      COMMAND   ${PS2PDF_CONVERTER} ${PS2PDF_CONVERTER_OPTIONS} 001-ITKSoftwareGuide-Book2.ps ITKSoftwareGuide-Book2.pdf
+      DEPENDS   001-ITKSoftwareGuide-Book2.ps
+      )
+  endif()
+
 endif(LATEX_COMPILER)
 
-add_custom_target(SoftwareGuideLatex ALL
-  COMMAND ${CMAKE_COMMAND} -E echo "Building software Guide PDF"
-  DEPENDS 00-SoftwareGuide.pdf )
+add_custom_target(SoftwareGuideBook1PDF ALL
+  COMMAND ${CMAKE_COMMAND} -E echo "Building Software Guide Book1 PDF"
+  DEPENDS ITKSoftwareGuide-Book1.pdf )
+add_custom_target(SoftwareGuideBook2PDF ALL
+  COMMAND ${CMAKE_COMMAND} -E echo "Building Software Guide Book2 PDF"
+  DEPENDS ITKSoftwareGuide-Book2.pdf )

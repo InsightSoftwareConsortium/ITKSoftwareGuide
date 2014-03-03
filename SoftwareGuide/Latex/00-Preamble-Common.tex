@@ -1,0 +1,135 @@
+\usepackage[dvips]{graphicx}
+\usepackage{times}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{setspace}
+\usepackage{hyphenat}
+\usepackage[toc,page]{appendix}
+\usepackage{verbatim}
+
+\usepackage{draftwatermark}
+%\usepackage[firstpage]{draftwatermark}
+\SetWatermarkText{DRAFT-ITK}%default is DRAFT
+\SetWatermarkLightness{0.90}%default is 0.8
+\SetWatermarkScale{0.8}%default is 1.2
+
+%\allowhyphens
+
+\lstnewenvironment{itklisting}
+{\singlespacing\lstset{language=C++}}
+{}
+
+\definecolor{ltgray}{rgb}{0.97,0.97,0.97}
+\usemintedstyle{emacs}
+
+\lstset{
+         basicstyle=\footnotesize\ttfamily, % Standardschrift
+         %numbers=left,               % Ort der Zeilennummern
+         numberstyle=\tiny,          % Stil der Zeilennummern
+         %stepnumber=2,               % Abstand zwischen den Zeilennummern
+         numbersep=2pt,              % Abstand der Nummern zum Text
+         tabsize=2,                  % Groesse von Tabs
+         extendedchars=true,         %
+         breaklines=true,            % Zeilen werden Umgebrochen
+         keywordstyle=\color{red},
+ %    frame=b,
+ %        keywordstyle=[1]\textbf,    % Stil der Keywords
+ %        keywordstyle=[2]\textbf,    %
+ %        keywordstyle=[3]\textbf,    %
+ %        keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
+         stringstyle=\color{black}\ttfamily, % Farbe der String
+         showspaces=false,           % Leerzeichen anzeigen ?
+         showtabs=false,             % Tabs anzeigen ?
+         xleftmargin=17pt,
+         framexleftmargin=17pt,
+         framexrightmargin=5pt,
+         framexbottommargin=4pt,
+         backgroundcolor=\color{ltgray},
+         showstringspaces=false      % Leerzeichen in Strings anzeigen ?
+ }
+
+ \lstloadlanguages{% Check Dokumentation for further languages ...
+         %[Visual]Basic
+         %Pascal
+         %C
+         C++
+         %XML
+         %HTML
+         %Java
+ }
+%\DeclareCaptionFont{blue}{\color{blue}}
+
+%\captionsetup[lstlisting]{singlelinecheck=false, labelfont={blue}, textfont={blue}}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35, 0.35,0.01}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
+
+\newif\ifitkFullVersion
+\itkFullVersiontrue
+%\itkFullVersionfalse
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%   Load configuration parameters prepared by CMake
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{SoftwareGuideConfiguration.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  hyperref should be the last package to be loaded.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifitkPrintedVersion
+\usepackage[dvips,
+pdftitle={ITK Software Guide},
+pdfauthor={Hans Johnson and Luis Ib'{a}~{n}ez and Matt McCormick and the Insight Software Consortium},
+pdfsubject={Medical Image Segmentation and Registration Toolkit}
+pdfkeywords={Registration,Segmentation,Guide},
+pdfpagemode={UseOutlines},
+bookmarks,bookmarksopen,
+pdfstartview={FitH},
+backref,
+colorlinks,linkcolor={black},citecolor={black},urlcolor={black},
+]{hyperref}
+\else
+\usepackage[dvips,
+pdftitle={ITK Software Guide},
+pdfauthor={Hans Johnson and Luis Ib'{a}~{n}ez and Matt McCormick and the Insight Software Consortium},
+pdfsubject={Medical Image Segmentation and Registration Toolkit},
+pdfkeywords={Registration,Segmentation,Guide},
+pdfpagemode={UseOutlines},
+bookmarks,bookmarksopen,
+pdfstartview={FitH},
+backref,
+colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
+]{hyperref}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%           The Insight Toolkit Software Guide
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\author{Hans J. Johnson, Matt McCormick, Luis Ib\'{a}\~{n}ez, and the \emph{Insight Software Consortium}}
+
+\authoraddress{
+  \url{http://itk.org}\\
+  Email: \email{community@itk.org}
+}
+
+\date{\today}
+
+% actually write the .idx file
+\makeindex
+
+\setcounter{tocdepth}{3}

@@ -4,9 +4,8 @@ This chapter introduces the most commonly used filters found in the toolkit.
 Most of these filters are intended to process images. They will accept one or
 more images as input and will produce one or more images as output. ITK is
 based on a data pipeline architecture in which the output of one filter is
-passed as input to another filter. (See Section
-\ref{sec:DataProcessingPipeline} on page \pageref{sec:DataProcessingPipeline}
-for more information.)
+passed as input to another filter. (See the Data Processing Pipeline section
+in Book 1 for more information.)
 
 
 \section{Thresholding}
@@ -142,9 +141,8 @@ pixels in an image and, for each position, it can address the pixels in a local
 neighborhood. Operators are defined that apply an algorithmic operation in the
 neighborhood of the input pixel to produce a value for the output pixel.  The
 following section describes some of the more commonly used filters that take
-advantage of this construction. (See Chapter
-\ref{sec:ImageIteratorsChapter} on page
-\pageref{sec:ImageIteratorsChapter} for more information about iterators.)
+advantage of this construction. (See the Iterators chapter
+in Book 1 for more information.)
 
 \subsection{Mean Filter}
 \label{sec:MeanFilter}
@@ -315,7 +313,7 @@ following sections describe options for applying local smoothing in images.
 \subsubsection{Introduction to Anisotropic Diffusion}
 \label{sec:IntroductionAnisotropicDiffusion}
 \ifitkFullVersion
-\input{UG04a-AnisotropicDiffusionFiltering.tex}
+\input{UG03a-AnisotropicDiffusionFiltering.tex}
 \fi
 
 
@@ -524,8 +522,3 @@ patient whose images you may end up processing.
 \ifitkFullVersion
 \input{SurfaceExtraction.tex}
 \fi
-
-
-
-
-

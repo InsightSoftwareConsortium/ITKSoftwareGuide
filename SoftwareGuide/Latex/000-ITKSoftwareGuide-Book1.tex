@@ -1,0 +1,196 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Complete documentation on the extended LaTeX markup used for Insight
+% documentation is available in ``Documenting Insight'', that is part
+% of the standard documentation for Insight.  It may be found online
+% at:
+%
+%                    http://www.itk.org
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{InsightSoftwareGuide}
+
+\input{00-Preamble-Common.tex}
+
+
+\title{The ITK Software Guide\\Book 1: Introduction and Development Guidelines\\Fourth Edition\\ \emph{Updated for ITK version
+\ITKVERSIONMAJORMINOR}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%           Begin Document
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\ifitkPrintedVersion
+
+  \begin{minipage}[t][3cm][b]{\textwidth}
+  \rule{14cm}{1pt}
+  \end{minipage}
+
+  \begin{minipage}[t][3cm][b]{\textwidth}
+  \Huge
+  The ITK Software Guide\\
+  Book 1: Introduction and Development Guidelines\\
+  \normalsize
+  \par
+  \emph{Updated for version \ITKVERSIONMAJORMINOR}\\
+
+  \end{minipage}
+
+  \input{01-PrintedPreamble-Common.tex}
+  \input{01-PrintedPreamble-Book1.tex}
+
+\fi
+
+\maketitle
+
+\frontmatter
+
+\hyperbaseurl{http://www.itk.org/Insight}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Page with Quote and ITK Logo
+o
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+
+\begin{minipage}[t][10cm][b]{\textwidth}
+\center
+\includegraphics[width=0.5\textwidth]{itkLogo.eps}
+\large
+\begin{center}
+\emph{The purpose of computing is Insight, not numbers.}\\
+\end{center}
+\hspace{8cm} Richard Hamming
+\normalsize
+\end{minipage}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% remove headings from the following material
+\pagestyle{plain}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\ifitkPrintedVersion
+  \input{02-Cover-Book1.tex}
+\fi
+
+\ifitkFullVersion
+  \input{03-Abstract-Common.tex}
+  \input{03-Abstract-Book1.tex}
+  \input{04-Contributors.tex}
+\fi
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Insert Table of Contents; List of Figures and Tables
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% enable headings from the following material
+\pagestyle{normal}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\small
+\tableofcontents
+\listoffigures
+\listoftables
+\normalsize
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Begin technical content
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+
+
+\part{Introduction}
+
+\ifitkFullVersion
+  \input{I01-Introduction.tex}
+  \input{I02-Installation.tex}
+\fi
+
+
+\part{Architecture}
+
+\ifitkFullVersion
+  \input{A01-SystemOverview.tex}
+  \input{A02-DataRepresentation.tex}
+  \input{A03-SpatialObjects.tex}
+\fi
+
+
+\part{Development Guidelines}
+
+\ifitkFullVersion
+  \input{DG01-Iterators.tex}
+  \input{DG02-ImageAdaptors.tex}
+  \input{DG03-WriteAFilter.tex}
+  \input{DG04-SoftwareProcess.tex}
+\fi
+
+
+\backmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Insert the bibliography using BibTeX
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{plain}
+\bibliography{\bibtexdatabasepath}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Insert the Index file
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\InputIfFileExists{000-ITKSoftwareGuide-Book1.ind}
+
+
+\begin{appendices}
+
+\input{AP01-Licenses.tex}
+
+\end{appendices}
+
+%\ifitkPrintedVersion
+%\cleardoublepage
+%\input{DG05-MarketingMaterial.tex}
+%\fi
+
+%% Begin of comment out block
+\iffalse
+XXXXXXXXX
+XXXXXXXXX
+Garbage text
+XXXXXXXXX
+XXXXXXXXX
+\fi
+%% End of comment out block
+
+\end{document}
