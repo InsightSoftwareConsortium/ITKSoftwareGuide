@@ -169,23 +169,27 @@ if(LATEX_COMPILER)
     set(DVIPS_WRAPPER2 ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.sh)
   endif(NOT UNIX)
 
-  add_custom_command( OUTPUT    000-ITKSoftwareGuide-Book1.dvi
+  add_custom_command( OUTPUT    000-ITKSoftwareGuide-Book1.dvi 000-ITKSoftwareGuide-Book1.aux
     COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/000-ITKSoftwareGuide-Book1.tex
     DEPENDS   ${SoftwareGuide_Book1_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES} ${allEPS-DEPS}
     )
-  add_custom_command( OUTPUT    001-ITKSoftwareGuide-Book2.dvi
+  add_custom_command( OUTPUT    001-ITKSoftwareGuide-Book2.dvi 001-ITKSoftwareGuide-Book2.aux
     COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/001-ITKSoftwareGuide-Book2.tex
     DEPENDS   ${SoftwareGuide_Book2_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES} ${allEPS-DEPS}
     )
 
   if(BIBTEX_COMPILER)
     add_custom_command( OUTPUT    000-ITKSoftwareGuide-Book1.bbl
-      COMMAND   ${BIBTEX_COMPILER} 000-ITKSoftwareGuide-Book1
-      DEPENDS   ${SoftwareGuide_SOURCE_DIR}/Latex/000-ITKSoftwareGuide-Book1.tex ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
+      COMMAND ${BIBTEX_COMPILER} 000-ITKSoftwareGuide-Book1
+      COMMAND ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/000-ITKSoftwareGuide-Book1.tex
+      COMMAND ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/000-ITKSoftwareGuide-Book1.tex
+      DEPENDS 000-ITKSoftwareGuide-Book1.aux ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
       )
     add_custom_command( OUTPUT    001-ITKSoftwareGuide-Book2.bbl
-      COMMAND   ${BIBTEX_COMPILER} 001-ITKSoftwareGuide-Book2
-      DEPENDS   ${SoftwareGuide_SOURCE_DIR}/Latex/001-ITKSoftwareGuide-Book2.tex ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
+      COMMAND ${BIBTEX_COMPILER} 001-ITKSoftwareGuide-Book2
+      COMMAND ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/001-ITKSoftwareGuide-Book2.tex
+      COMMAND ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/001-ITKSoftwareGuide-Book2.tex
+      DEPENDS 001-ITKSoftwareGuide-Book2.aux ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
       )
   endif()
 
