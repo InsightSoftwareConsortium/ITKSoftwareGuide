@@ -86,7 +86,7 @@ set( Tex_SRCS
   06-Installation.tex
   07-SystemOverview.tex
 ## -- HACK TODO
-#set( NOT_YET_SRCS # This needs to be added one at a time as they are cleaned up
+#set   NOT_YET_SRCS # This needs to be added one at a time as they are cleaned up
   ImageMetrics.tex
   ImageInterpolators.tex
   Transforms.tex
@@ -96,9 +96,9 @@ set( Tex_SRCS
 ## Users Guide
 UG01-DataRepresentation.tex
 UG02-SpatialObjects.tex
-UG03-Filtering.tex
-UG03a-AnisotropicDiffusionFiltering.tex
-UG04-IO.tex
+UG03-IO.tex
+UG04-Filtering.tex
+UG04a-AnisotropicDiffusionFiltering.tex
 UG05-Registration.tex
 UG06-Segmentation.tex
 UG07-Statistics.tex
