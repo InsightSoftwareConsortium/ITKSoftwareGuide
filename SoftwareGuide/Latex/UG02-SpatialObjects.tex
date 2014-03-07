@@ -8,14 +8,14 @@ This chapter introduces the basic classes that describe
 \section{Introduction}
 \label{Introduction}
 
-We promote the philosophy that many of the goals of medical image processing 
-are more effectively addressed if we consider them in the broader context 
-of object processing. ITK's Spatial Object class hierarchy provides a 
-consistent API for querying, manipulating, and interconnecting objects in 
-physical space.   Via this API, methods can be coded to be invariant to 
-the data structure used to store the objects being processed.   By 
-abstracting the representations of objects to support their representation 
-by data structures other than images, a broad range of medical image 
+We promote the philosophy that many of the goals of medical image processing
+are more effectively addressed if we consider them in the broader context
+of object processing. ITK's Spatial Object class hierarchy provides a
+consistent API for querying, manipulating, and interconnecting objects in
+physical space.   Via this API, methods can be coded to be invariant to
+the data structure used to store the objects being processed.   By
+abstracting the representations of objects to support their representation
+by data structures other than images, a broad range of medical image
 analysis research is supported; key examples are described in the following.
 
 \begin{description}
@@ -62,152 +62,152 @@ analysis research is supported; key examples are described in the following.
 In the remainder of this chapter several examples are used to demonstrate
 the many spatial objects found in ITK and how they can be organized into
 hierarchies using \doxygen{SceneSpatialObject}. Further the examples
-illustrate how to use SpatialObject transformations to control and 
+illustrate how to use SpatialObject transformations to control and
 calculate the position of objects in space.
 
 \section{Hierarchy}
 
 Spatial objects can be combined to form a hierarchy as a tree. By design, a SpatialObject can
-have one parent and only one. Moreover, each transform is stored within each object, 
+have one parent and only one. Moreover, each transform is stored within each object,
 therefore the hierarchy cannot
 be described as a Directed Acyclic Graph (DAG) but effectively as a tree.
 The user is responsible for maintaining the tree structure, no checking is done
 to ensure a cycle-free tree.
 
 \label{sec:SpatialObjectHierarchy}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{SpatialObjectHierarchy.tex}
 \fi
 
 \section{SpatialObject Tree Container}
 \label{sec:SpatialObjectTreeContainer}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{SpatialObjectTreeContainer.tex}
 \fi
 
 \section{Transformations}
 \label{sec:SpatialObjectTransforms}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{SpatialObjectTransforms.tex}
 \fi
 
 \section{Types of Spatial Objects}
 \label{sec:Principal Objects}
 
-This section describes in detail the variety of spatial objects 
-implemented in ITK. 
+This section describes in detail the variety of spatial objects
+implemented in ITK.
 
 \subsection{ArrowSpatialObject}
 \label{sec:ArrowSpatialObject}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{ArrowSpatialObject.tex}
 \fi
 
 \subsection{BlobSpatialObject}
 \label{sec:BlobSpatialObject}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{BlobSpatialObject.tex}
 \fi
 
 \subsection{CylinderSpatialObject}
 \label{sec:CylinderSpatialObject}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{CylinderSpatialObject.tex}
 \fi
 
 \subsection{EllipseSpatialObject}
 \label{sec:EllipseSpatialObject}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{EllipseSpatialObject.tex}
 \fi
 
 \subsection{GaussianSpatialObject}
 \label{sec:GaussianSpatialObject}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{GaussianSpatialObject.tex}
 \fi
 
 \subsection{GroupSpatialObject}
 \label{sec:GroupSpatialObject}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{GroupSpatialObject.tex}
 \fi
 
 \subsection{ImageSpatialObject}
 \label{sec:ImageSpatialObject}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{ImageSpatialObject.tex}
 \fi
 
 \subsection{ImageMaskSpatialObject}
 \label{sec:ImageMaskSpatialObject}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{ImageMaskSpatialObject.tex}
 \fi
 
 \subsection{LandmarkSpatialObject}
 \label{sec:LandmarkSpatialObject}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{LandmarkSpatialObject.tex}
 \fi
 
 \subsection{LineSpatialObject}
 \label{sec:LineSpatialObject}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{LineSpatialObject.tex}
 \fi
 
 \subsection{MeshSpatialObject}
 \label{sec:MeshSpatialObject}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{MeshSpatialObject.tex}
 \fi
 
 \subsection{SurfaceSpatialObject}
 \label{sec:SurfaceSpatialObject}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{SurfaceSpatialObject.tex}
 \fi
 
 \subsection{TubeSpatialObject}
 
 \doxygen{TubeSpatialObject} represents a base class for the representation
-of tubular structures using SpatialObjects. The classes \doxygen{VesselTubeSpatialObject} and 
+of tubular structures using SpatialObjects. The classes \doxygen{VesselTubeSpatialObject} and
 \doxygen{DTITubeSpatialObject} derive from this base class.
-VesselTubeSpatialObject represents blood vessels extracted for an image and 
+VesselTubeSpatialObject represents blood vessels extracted for an image and
 DTITubeSpatialObject is used to represent fiber tracts from diffusion tensor images.
 
 \label{sec:TubeSpatialObject}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{TubeSpatialObject.tex}
 \fi
 
 \subsubsection{VesselTubeSpatialObject}
 \label{sec:VesselTubeSpatialObject}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{VesselTubeSpatialObject.tex}
 \fi
 
 \subsubsection{DTITubeSpatialObject}
 \label{sec:DTITubeSpatialObject}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{DTITubeSpatialObject.tex}
 \fi
 
 \section{SceneSpatialObject}
 \label{sec:Scene}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{SceneSpatialObject.tex}
 \fi
 
 \section{Read/Write SpatialObjects}
 \label{sec:ReadWriteSpatialObjects}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{ReadWriteSpatialObject.tex}
 \fi
 
 \section{Statistics Computation via SpatialObjects}
 \label{sec:SpatialObjectToImageStatisticsCalculator}
-\ifitkFullVersion 
+\ifitkFullVersion
 \input{SpatialObjectToImageStatisticsCalculator.tex}
 \fi

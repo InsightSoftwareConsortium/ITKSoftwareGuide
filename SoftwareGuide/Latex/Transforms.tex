@@ -27,7 +27,7 @@ in ITK for representing basic spatial concepts.
 representation objects in ITK.}
 \label{fig:GeometricalObjects}
 \end{figure}
- 
+
 ITK implements a consistent geometric representation of the space. The
 characteristics of classes involved in this representation are summarized in
 Table~\ref{tab:GeometricalConcepts}. In this regard, ITK takes full advantage
@@ -49,11 +49,11 @@ vector where a point is needed or vice versa.
 \textbf{Class} &
 \textbf{Geometrical concept} \\
 \hline\hline
-\doxygen{Point} & 
+\doxygen{Point} &
 Position in space. In $N$-dimensional space it is represented by an array of
 $N$ numbers associated with space coordinates. \\
 \hline
-\doxygen{Vector} & 
+\doxygen{Vector} &
 Relative position between two points. In $N$-dimensional space it is
 represented by an array of $N$ numbers, each one associated with the distance
 along a coordinate axis. Vectors do not have a position in space. A vector is
@@ -137,7 +137,7 @@ geometrical relationships in N-Dimensional space. It is for this reason that we
 explicitly make clear the distinction between Point, Vector and CovariantVector,
 despite the fact that most people would be happy with a simple use of
 \code{double[3]} for the three concepts and then will proceed to perform all
-sort of conceptually flawed operations such as 
+sort of conceptually flawed operations such as
 
 \begin{itemize}
 \item Adding two Points
@@ -179,9 +179,9 @@ In other words, you could do in ITK operations such as:
 and you cannot (because you \textbf{should not}) do operation such as
 
 \begin{itemize}
-\item Point = Point * Scalar    
-\item Point = Point + Point    
-\item Point = Point / Scalar  
+\item Point = Point * Scalar
+\item Point = Point + Point
+\item Point = Point / Scalar
 \end{itemize}
 
 The \doxygen{Vector} is, by Hamilton's definition, the subtraction between two
@@ -212,9 +212,9 @@ Array of doubles to facilitate communication with generic
 optimizers. In the case of the Euler2DTransform, the transform is also
 defined by three doubles: the first representing the angle, and the last two the
 offset. The flat array of parameters is defined using \code{SetParameters()}. A
-description of the parameters and their ordering is documented in the 
+description of the parameters and their ordering is documented in the
 sections that follow.
- 
+
 In the context of registration, the transform parameters define the search
 space for optimizers. That is, the goal of the optimization is to find the set
 of parameters defining a transform that results in the best possible value of
@@ -237,15 +237,15 @@ refer to the determinant of such a matrix.~\cite{Dodson1997}}
 
 \begin{equation}
 J=\left[ \begin{array}{cccc}
-\frac{\partial x_{1}}{\partial p_{1}} & 
-\frac{\partial x_{1}}{\partial p_{2}} & 
+\frac{\partial x_{1}}{\partial p_{1}} &
+\frac{\partial x_{1}}{\partial p_{2}} &
 \cdots  & \frac{\partial x_{1}}{\partial p_{m}}\\
-\frac{\partial x_{2}}{\partial p_{1}} & 
-\frac{\partial x_{2}}{\partial p_{2}} & 
+\frac{\partial x_{2}}{\partial p_{1}} &
+\frac{\partial x_{2}}{\partial p_{2}} &
 \cdots  & \frac{\partial x_{2}}{\partial p_{m}}\\
 \vdots  & \vdots  & \ddots  & \vdots \\
-\frac{\partial x_{n}}{\partial p_{1}} & 
-\frac{\partial x_{n}}{\partial p_{2}} & 
+\frac{\partial x_{n}}{\partial p_{1}} &
+\frac{\partial x_{n}}{\partial p_{2}} &
 \cdots  & \frac{\partial x_{n}}{\partial p_{m}}
 \end{array}\right]
 \end{equation}
@@ -280,9 +280,9 @@ classes available in ITK.
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
 \hline\hline
-Maps every point to itself, every vector to itself and every covariant vector to itself.  & 
+Maps every point to itself, every vector to itself and every covariant vector to itself.  &
 0 &
-NA  &  
+NA  &
 Only defined when the input and output space has the same number of dimensions. \\
 \hline
 \end{tabular}
@@ -389,7 +389,7 @@ $i-th$.  The following equation illustrates the effect of the scaling transform
 on a $3D$ point.
 
 \begin{equation}
-\left[ 
+\left[
 \begin{array}{c}
 x' \\
 y' \\
@@ -397,7 +397,7 @@ z' \\
 \end{array}
 \right]
 =
-\left[ 
+\left[
 \begin{array}{ccc}
 S_1 &  0  &  0  \\
  0  & S_2 &  0  \\
@@ -405,7 +405,7 @@ S_1 &  0  &  0  \\
 \end{array}
 \right]
 \cdot
-\left[ 
+\left[
 \begin{array}{c}
 x  \\
 y  \\
@@ -458,7 +458,7 @@ Table~\ref{tab:ScaleTransformCharacteristics}.
 Points are transformed by multiplying each one of their coordinates by the
 corresponding scale factor for the dimension.  Vectors are transformed as
 points.  Covariant vectors are transformed by \emph{dividing} their components
-by the scale factor in the corresponding dimension. 
+by the scale factor in the corresponding dimension.
 &
 Same as the input space dimension. &
 The $i$-th parameter represents the scaling in the $i$-th dimension. &
@@ -509,35 +509,35 @@ Only defined for two-dimensional input and output spaces. \\
 \label{tab:Euler2DTransformCharacteristics}}
 \end{table}
 
-\doxygen{Euler2DTransform} implements a rigid transformation in $2D$. It is 
+\doxygen{Euler2DTransform} implements a rigid transformation in $2D$. It is
 composed of a plane rotation and a two-dimensional translation. The rotation
 is applied first, followed by the translation. The following equation
 illustrates the effect of this transform on a $2D$ point,
 
 
 \begin{equation}
-\left[ 
+\left[
 \begin{array}{c}
 x' \\
 y' \\
 \end{array}
 \right]
 =
-\left[ 
+\left[
 \begin{array}{cc}
 \cos{\theta} & -\sin{\theta} \\
 \sin{\theta} &  \cos{\theta} \\
 \end{array}
 \right]
 \cdot
-\left[ 
+\left[
 \begin{array}{c}
 x  \\
 y  \\
 \end{array}
 \right]
-+ 
-\left[ 
++
+\left[
 \begin{array}{c}
 T_x  \\
 T_y  \\
@@ -589,7 +589,7 @@ Represents a $2D$ rotation around a user-provided center followed by a $2D$ tran
 5 &
 The first parameter is the angle in radians. Second and third are the center of
 rotation coordinates and the last two parameters are the translation in each
-dimension. & 
+dimension. &
 Only defined for two-dimensional input and output spaces. \\
 \hline
 \end{tabular}
@@ -632,28 +632,28 @@ The following equation illustrates the effect of the transform on an input
 point $(x,y)$ that maps to the output point $(x',y')$,
 
 \begin{equation}
-\left[ 
+\left[
 \begin{array}{c}
 x' \\
 y' \\
 \end{array}
 \right]
 =
-\left[ 
+\left[
 \begin{array}{cc}
 \cos{\theta} & -\sin{\theta} \\
 \sin{\theta} &  \cos{\theta} \\
 \end{array}
 \right]
 \cdot
-\left[ 
+\left[
 \begin{array}{c}
 x - C_x \\
 y - C_y \\
 \end{array}
 \right]
-+ 
-\left[ 
++
+\left[
 \begin{array}{c}
 T_x + C_x \\
 T_y + C_y \\
@@ -664,7 +664,7 @@ T_y + C_y \\
 where $\theta$ is the rotation angle, $(C_x,C_y)$ are the coordinates of the
 rotation center and $(T_x,T_y)$ are the components of the translation. Note
 that the center coordinates are subtracted before the rotation and added back
-after the rotation. The main features of the CenteredRigid2DTransform are 
+after the rotation. The main features of the CenteredRigid2DTransform are
 presented in Table~\ref{tab:CenteredRigid2DTransformCharacteristics}.
 
 
@@ -683,11 +683,11 @@ presented in Table~\ref{tab:CenteredRigid2DTransformCharacteristics}.
 \hline\hline
 Represents a $2D$ rotation, homogeneous scaling and a $2D$ translation. Note that
 the translation component has no effect on the transformation of vectors and
-covariant vectors. & 
+covariant vectors. &
 4 &
 The first parameter is the scaling factor for all dimensions, the second is the
 angle in radians, and the last two parameters are the translations in $(x,y)$
-respectively. & 
+respectively. &
 Only defined for two-dimensional input and output spaces. \\
 \hline
 \end{tabular}
@@ -709,35 +709,35 @@ The following equation illustrates the effect of the transform on an input
 point $(x,y)$ that maps to the output point $(x',y')$,
 
 \begin{equation}
-\left[ 
+\left[
 \begin{array}{c}
 x' \\
 y' \\
 \end{array}
 \right]
 =
-\left[ 
+\left[
 \begin{array}{cc}
 \lambda &    0     \\
    0    &  \lambda \\
 \end{array}
 \right]
 \cdot
-\left[ 
+\left[
 \begin{array}{cc}
 \cos{\theta} & -\sin{\theta} \\
 \sin{\theta} &  \cos{\theta} \\
 \end{array}
 \right]
 \cdot
-\left[ 
+\left[
 \begin{array}{c}
 x - C_x \\
 y - C_y \\
 \end{array}
 \right]
-+ 
-\left[ 
++
+\left[
 \begin{array}{c}
 T_x + C_x \\
 T_y + C_y \\
@@ -915,7 +915,7 @@ modified during the optimization performed in a registration process.  The main
 features of this transform are summarized in
 Table~\ref{tab:VersorRigid3DTransformCharacteristics}.  This transform is
 probably the best option to use when dealing with rigid transformations in
-$3D$. 
+$3D$.
 
 Given that the space of Versors is not a Vector space, typical gradient descent
 optimizers are not well suited for exploring the parametric space of this
@@ -961,7 +961,7 @@ parameters, three for the Euler angles that represent the rotation and three
 for the translational components. This transform also allows the users to set a
 specific center of rotation. The center coordinates are not modified during the
 optimization performed in a registration process. The main features of this
-transform are summarized in Table~\ref{tab:Euler3DTransformCharacteristics}.  
+transform are summarized in Table~\ref{tab:Euler3DTransformCharacteristics}.
 
 The fact that the three rotational parameters are non-linear and do not behave
 like Vector spaces must be taken into account when selecting an optimizer to
@@ -1015,7 +1015,7 @@ specific center of rotation. The center coordinates are not modified during the
 optimization performed in a registration process.  Both the rotation and
 scaling operations are performed with respect to the center of rotation. The
 main features of this transform are summarized in
-Table~\ref{tab:Similarity3DTransformCharacteristics}.  
+Table~\ref{tab:Similarity3DTransformCharacteristics}.
 
 The fact that the scaling and rotational spaces are non-linear and do not
 behave like Vector spaces must be taken into account when selecting an
@@ -1035,7 +1035,7 @@ such optimizer.
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline 
+\hline\hline
 Represents a rigid $3D$ transformation followed by a perspective projection.
 The rotation is specified by a Versor, while the translation is represented by
 a Vector.  Users can specify the coordinates of the center of rotation. They
@@ -1104,7 +1104,7 @@ Only defined when the input and output space have the same dimension. \\
 \end{table}
 
 The \doxygen{AffineTransform} is one of the most popular transformations used
-for image registration. Its main advantage comes from the fact that it is 
+for image registration. Its main advantage comes from the fact that it is
 represented as a linear transformation. The main features of this
 transform are presented in Table~\ref{tab:AffineTransformCharacteristics}.
 
@@ -1134,7 +1134,7 @@ effect of applying the AffineTransform in a point in $3D$ space.
 
 \begin{equation}
 \label{eqn:AffineTransform}
-\left[ 
+\left[
 \begin{array}{c}
 x' \\
 y' \\
@@ -1142,7 +1142,7 @@ z' \\
 \end{array}
 \right]
 =
-\left[ 
+\left[
 \begin{array}{ccc}
 M_{00} & M_{01} & M_{02} \\
 M_{10} & M_{11} & M_{12} \\
@@ -1150,15 +1150,15 @@ M_{20} & M_{21} & M_{22} \\
 \end{array}
 \right]
 \cdot
-\left[ 
+\left[
 \begin{array}{c}
 x - C_x \\
 y - C_y \\
 z - C_z \\
 \end{array}
 \right]
-+ 
-\left[ 
++
+\left[
 \begin{array}{c}
 T_x + C_x \\
 T_y + C_y \\
@@ -1201,7 +1201,7 @@ visualization display.
 \textbf{Restrictions} \\
 \hline\hline
 Represents a free from deformation by providing a deformation field from the
-interpolation of deformations in a coarse grid. 
+interpolation of deformations in a coarse grid.
 &
 $M \times N$ &
 Where $M$ is the number of nodes in the BSpline grid and $N$ is the dimension of the space. &

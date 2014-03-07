@@ -11,7 +11,7 @@
 
 For the problem of intra-modality deformable registration, the Insight
 Toolkit provides an implementation of Thirion's ``demons'' algorithm
-\cite{Thirion1995b,Thirion1998}. 
+\cite{Thirion1995b,Thirion1998}.
 In this implementation, each image is viewed as a set of iso-intensity
 contours.  The main idea is that a regular grid of forces deform an image by
 pushing the contours in the normal direction.  The orientation and magnitude
@@ -23,9 +23,9 @@ of the displacement is derived from the instantaneous optical flow equation:
 \end{equation}
 
 In the above equation, $f(\bf{X})$ is the fixed image, $m(\bf{X})$
-is the moving image to be registered, and $\bf{D}(\bf{X})$ is the displacement 
+is the moving image to be registered, and $\bf{D}(\bf{X})$ is the displacement
 or optical flow between the images. It is well known in optical flow
-literature that Equation \ref{eqn:OpticalFlow} is insufficient to specify 
+literature that Equation \ref{eqn:OpticalFlow} is insufficient to specify
 $\bf{D}(\bf{X})$ locally and is usually determined using some form of
 regularization. For registration, the projection of the vector on the
 direction of the intensity gradient is used:
@@ -33,7 +33,7 @@ direction of the intensity gradient is used:
 \begin{equation}
 \bf{D}(\bf{X}) = - \frac
 {\left(  m(\bf{X}) - f(\bf{X}) \right) \nabla f(\bf{X})}
-{\left\|  \nabla f \right\|^2 } 
+{\left\|  \nabla f \right\|^2 }
 \end{equation}
 
 However, this equation becomes unstable for small values of the image gradient,
@@ -43,7 +43,7 @@ re-normalizes the equation such that:
 \begin{equation}
 \bf{D}(\bf{X}) = - \frac
 {\left(  m(\bf{X}) - f(\bf{X}) \right) \nabla f(\bf{X})}
-{\left\|  \nabla f \right\|^2 + \left(  m(\bf{X}) - f(\bf{X}) \right)^2 / K } 
+{\left\|  \nabla f \right\|^2 + \left(  m(\bf{X}) - f(\bf{X}) \right)^2 / K }
 \label{eqn:DemonsDisplacement}
 \end{equation}
 
@@ -59,11 +59,11 @@ given by:
 
 \begin{equation}
 \bf{D}^{N}(\bf{X}) = \bf{D}^{N-1}(\bf{X}) - \frac
-{\left(  m(\bf{X}+ \bf{D}^{N-1}(\bf{X})) 
+{\left(  m(\bf{X}+ \bf{D}^{N-1}(\bf{X}))
 - f(\bf{X}) \right) \nabla f(\bf{X})}
-{\left\|  \nabla f \right\|^2 + \left(  
+{\left\|  \nabla f \right\|^2 + \left(
 m(\bf{X}+ \bf{D}^{N-1}(\bf{X}) )
- - f(\bf{X}) \right)^2 } 
+ - f(\bf{X}) \right)^2 }
 \label{eqn:DemonsUpdateEquation}
 \end{equation}
 
@@ -81,7 +81,7 @@ solver (FDS) framework and its use is demonstrated in the following example.
 
 \subsection{Asymmetrical Demons Deformable Registration}
 \label{sec:AsymmetricalDemonsDeformableRegistration}
-\input{DeformableRegistration2.tex} 
+\input{DeformableRegistration2.tex}
 
 A variant of the force computation is also implemented in which the gradient of
 the deformed moving image is also involved. This provides a level of symmetry
@@ -91,7 +91,7 @@ used in this case is
 \begin{equation}
 \bf{D}(\bf{X}) = - \frac
 {2 \left(  m(\bf{X}) - f(\bf{X}) \right) \left(  \nabla f(\bf{X}) +  \nabla g(\bf{X}) \right) }
-{\left\|  \nabla f + \nabla g \right\|^2 + \left(  m(\bf{X}) - f(\bf{X}) \right)^2 / K } 
+{\left\|  \nabla f + \nabla g \right\|^2 + \left(  m(\bf{X}) - f(\bf{X}) \right)^2 / K }
 \label{eqn:DemonsDisplacement2}
 \end{equation}
 
@@ -100,7 +100,7 @@ method.
 
 \subsection{Symmetrical Demons Deformable Registration}
 \label{sec:SymmetricalDemonsDeformableRegistration}
-\input{DeformableRegistration3.tex} 
+\input{DeformableRegistration3.tex}
 
 
 

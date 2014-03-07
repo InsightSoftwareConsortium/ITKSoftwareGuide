@@ -30,7 +30,7 @@ functional independence from containers.
 
 The iterator is so named because it is used for \emph{iterative}, sequential
 access of container values.  Iterators appear in \code{for} and
-\code{while} loop constructs, visiting each data point in turn.  
+\code{while} loop constructs, visiting each data point in turn.
 A C pointer, for example, is a type of iterator.  It can be moved
 forward (incremented) and backward (decremented) through memory to
 sequentially reference elements of an array. Many iterator implementations
@@ -127,7 +127,7 @@ important to remember because attempting to dereference an iterator at its end
 position will have undefined results.
 
 %Moving iteators
-ITK iterators are moved back and forth across their iterations using the 
+ITK iterators are moved back and forth across their iterations using the
 decrement and increment operators.
 
 \index{Iterators!operator++()}
@@ -139,7 +139,7 @@ iterators.
 \index{Iterators!operator--}
 \item \textbf{\code{operator--()}} Decrements the iterator one position in the
 negative direction.  Only the prefix decrement operator is defined for ITK
-image iterators. 
+image iterators.
 \end{itemize}
 
 Figure~\ref{fig:WalkingIterator} illustrates typical iteration over
@@ -152,7 +152,7 @@ and so on.
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{IteratorFigure1.eps}
-\itkcaption[ITK image iteration]{Normal path of an iterator through a 
+\itkcaption[ITK image iteration]{Normal path of an iterator through a
 2D image.  The iteration region is shown in a darker shade.  An arrow denotes
 a single iterator step, the result of one \code{++} operation.}
 \protect\label{fig:WalkingIterator}
@@ -169,7 +169,7 @@ dimensionality of the image and the extent of the iteration region to use proper
 position at the current index plus specified \doxygen{Offset}.
 
 \index{Iterators!operator-=()}
-\item \textbf{\code{operator-=( OffsetType )}} Moves the iterator to 
+\item \textbf{\code{operator-=( OffsetType )}} Moves the iterator to
 the pixel position at the current index minus specified Offset.
 
 \index{Iterators!SetPosition()}
@@ -190,7 +190,7 @@ pixel location more than once.
 
 %Testing for location
 An iterator can be queried to determine if it is at the end or the beginning of
-its iteration region. 
+its iteration region.
 
 \begin{itemize}
 \index{Iterators!IsAtEnd()}
@@ -324,7 +324,7 @@ convenient to write reverse iteration in a \code{while} loop.
 
 %\begin{itemize}
 %\item \textbf{\code{operator==}}
-%\item \textbf{\code{operator<}} 
+%\item \textbf{\code{operator<}}
 %\item \textbf{\code{operator<=}}
 %\item \textbf{\code{operator>}}
 %\item \textbf{\code{operator>=}}
@@ -511,7 +511,7 @@ neighborhood as an \doxygen{Size}.
 the image referenced by the iterator.
 
 \index{NeighborhoodIterator!Size()}
-\item \textbf{\code{unsigned long Size()}} Returns the size in number of 
+\item \textbf{\code{unsigned long Size()}} Returns the size in number of
 pixels of the neighborhood.
 
 \end{itemize}
@@ -529,11 +529,11 @@ $n$ is the size of the array.
 \begin{itemize}
 
 \index{NeighborhoodIterator!GetPixel()}
-\item \textbf{\code{PixelType GetPixel(const unsigned int i)}} Returns the 
+\item \textbf{\code{PixelType GetPixel(const unsigned int i)}} Returns the
 value of the pixel at neighborhood position \code{i}.
 
 \index{NeighborhoodIterator!SetPixel()}
-\item \textbf{\code{void SetPixel(const unsigned int i, PixelType p)}} 
+\item \textbf{\code{void SetPixel(const unsigned int i, PixelType p)}}
 Sets the value of the pixel at position \code{i} to \code{p}.
 
 \end{itemize}
@@ -613,7 +613,7 @@ in the positive direction along the \code{d} axis to value \code{p}.
 \item \textbf{\code{PixelType GetPrevious(unsigned int d, unsigned int
 s)}} Get the value of the pixel located \code{s} pixels from the
 neighborhood center in the positive direction along the \code{d} axis.
- 
+
 \item \textbf{\code{void SetPrevious(unsigned int d, unsigned int s,
 PixelType p)}} Set the value of the pixel located \code{s} pixels from
 the neighborhood center in the positive direction along the \code{d}
@@ -652,7 +652,7 @@ Several methods are defined to provide information about the neighborhood.
 index of the center pixel of the neighborhood iterator.
 
 \item \textbf{\code{IndexType GetIndex(OffsetType o)}} Return the
-image index of the pixel at offset \code{o} from the neighborhood 
+image index of the pixel at offset \code{o} from the neighborhood
 center.
 
 \item \textbf{\code{IndexType GetIndex(unsigned int i)}} Return the
@@ -684,7 +684,7 @@ outside the image, pixel values for missing neighbors are supplied
 according to a rule, usually chosen to satisfy the numerical
 requirements of the algorithm.  A rule for supplying out-of-bounds
 values is called a \emph{boundary condition}.
- 
+
 ITK neighborhood iterators automatically detect out-of-bounds dereferences and
 will return values according to boundary conditions.  The boundary condition
 type is specified by the second, optional template parameter of the iterator.
@@ -722,7 +722,7 @@ bounds checking when it is needed will result in out-of-bounds reads and
 undefined results.
 
 \index{NeighborhoodIterator!OverrideBoundaryCondition()}
-\item \textbf{\code{void OverrideBoundaryCondition(BoundaryConditionType *b)}} 
+\item \textbf{\code{void OverrideBoundaryCondition(BoundaryConditionType *b)}}
 Overrides the templated boundary condition, using boundary condition
 object \code{b} instead. Object \code{b} should not be deleted until
 it has been released by the iterator.  This method can be used to
@@ -834,7 +834,7 @@ to the neighborhood center.
 \index{ShapedNeighborhoodIterator!DeactivateOffset()}
 \item \textbf{\code{void DeactivateOffset(OffsetType \&o)}} Remove the offset
 \code{o} from the stencil of active neighborhood positions.  Offsets are
-relative to the neighborhood center. 
+relative to the neighborhood center.
 
 \index{ShapedNeighborhoodIterator!ClearActiveList()}
 \item \textbf{\code{void ClearActiveList()}} Deactivate all positions in the
@@ -848,7 +848,7 @@ of pixel locations that are currently active in the shaped iterator stencil.
 
 Because the neighborhood is less rigidly defined in the shaped iterator, the
 set of pixel access methods is restricted.  Only the \code{GetPixel()} and
-\code{SetPixel()} methods are available, and calling these methods on an 
+\code{SetPixel()} methods are available, and calling these methods on an
 inactive neighborhood offset will return undefined results.
 
 For the common case of traversing all pixel offsets in a neighborhood, the

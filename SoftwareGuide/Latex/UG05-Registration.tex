@@ -101,7 +101,7 @@ image along the \textbf{negative} X direction. In the same way, when the
 Transform applies a \textbf{clock-wise} rotation to the fixed image points, the
 visual effect of this mapping once the moving image has been resampled is
 equivalent to {\em manually rotating} the moving image
-\textbf{counter-clock-wise}. 
+\textbf{counter-clock-wise}.
 
 The reason why this direction of mapping has been chosen for the ITK
 implementation of the registration framework is that this is the direction that
@@ -117,7 +117,7 @@ physical coordinates into the physical space of the moving image (Transform to
 be optimized), then mapping the physical coordinates of the moving image in to
 the integral coordinates of the discrete grid of the moving image (transform
 \textbf{T2} in the figure), where the value of the pixel intensity will be
-computed by interpolation. 
+computed by interpolation.
 
 If we have used the Transform that maps coordinates from the moving image
 physical space into the fixed image physical space, then the resampling process
@@ -160,7 +160,7 @@ have a pixel size in the order of 1 millimeter, while a PET image will have a
 pixel size in the order of 5 millimeters to 1 centimeter. Therefore, the CT
 will need about 500 pixels in order to cover the extent across a human brain, while
 the PET image will only have about 50 pixels for covering the same physical
-extent of a human brain. 
+extent of a human brain.
 
 A user performing registration between a PET image and a CT image may be
 naively expecting that because the PET image has less pixels, a {\em scaling}
@@ -327,7 +327,7 @@ of \emph{image pyramids} that are used to down-sample the fixed and moving
 images as illustrated in Figure \ref{fig:MultiResRegistrationComponents}.
 The pyramids smooth and subsample the images according to user-defined
 scheduling of shrink factors.
- 
+
 \begin{figure}
 \center
 \includegraphics[width=0.8\textwidth]{MultiResRegistrationComponents.eps}
@@ -335,7 +335,7 @@ scheduling of shrink factors.
 multi-resolution registration framework.}
 \label{fig:MultiResRegistrationComponents}
 \end{figure}
- 
+
 We now present the main capabilities of the multi-resolution framework by
 way of an example.
 
@@ -495,7 +495,7 @@ This type of registration can be considered to be the simplest case of
 feature-based registration. In general terms, feature-based registration is
 more efficient than the intensity based method that we have presented so far.
 However, feature-base registration brings the new problem of identifying and
-extracting the features from the images, which is not a minor challenge. 
+extracting the features from the images, which is not a minor challenge.
 
 The two most common scenarios in PointSet to PointSet registration are
 
@@ -558,7 +558,7 @@ In that case, this section is for you. This is a compilation of the most common
 problems that users face when performing image registration. It provides explanations
 on the potential sources of the problems, and advice on how to deal with those problems.
 
-Most of the material in this section has been taken from frequently asked questions of 
+Most of the material in this section has been taken from frequently asked questions of
 the ITK users list.
 
 
@@ -603,7 +603,7 @@ measured in radians, and therefore they tend to be in the range of   -1:1.
 
 A rotation of 3 radians is catastrophic, while a translation of 3 millimeters
 is rather inoffensive.  That difference in scale is the one that must be
-accounted for.  
+accounted for.
 \end{itemize}
 
 
