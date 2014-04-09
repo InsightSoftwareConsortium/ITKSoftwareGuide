@@ -1,7 +1,7 @@
 #TODO: Is it worth to reformat this file as Markdown?
 
 #TODO: Perhaps it would make sense to move the contents of this file to the
-top-level REAMDE file, because otherwise the information in this file is not
+top-level README file, because otherwise the information in this file is not
 immediately available and required some digging in the source tree.
 
 INSIGHT TOOLKIT SOFTWARE GUIDE BUILD OVERVIEW
@@ -56,19 +56,11 @@ Following is a brief description of the build process:
     comments in the ITK examples source file delimited with BeginLaTeX, EndLaTeX
     and BeginCodeSnippet, EndCodeSnippet and generate LaTeX files which are
     copied into the Examples subdirectory of the binary output directory.
- 5. The top-level LaTeX file SoftwareGuide/LaTeX/00-SoftwareGuide.tex is
-    compiled with LaTeX, followed by running BibTeX to generate
-    00-SoftwareGuide.dvi file in the binary output directory. The third DVI file
-    is then converted to PDF.
-
-TODO: Perhaps the generation of the DVI file with correct cross-referencing can
-be made easier as it is suggested here:
-http://www.cmake.org/Wiki/CMakeUserUseLATEX.
+ 5. The top-level LaTeX file SoftwareGuide/LaTeX/000-ITKSoftwareGuide-Book1.tex is
+    compiled with a series of calls to latex, bibtex, latex, makeindex, dvips,
+    and ps2pdf to generate the PDF file.
 
 CONFIGURING AND BUILDING WITH CMAKE
-
-TODO: This section seems so trivial; anyone attempting to build the ITK
-Softwrare Guide would probably be fairly clear on how to use CMake, no?
 
 Following is the description how to configure and build ITK Software Guide using
 CMake:
@@ -76,7 +68,7 @@ CMake:
  1. Run cmake-gui and specify input and binary output directories.
     Alternatively, create the binary output directory and run
     "ccmake source_dir" where source_dir is the full path of the
-    ITKSorftwareGuide directory.
+    ITKSoftwareGuide directory.
  2. Configure and generate the project for the target platform.
  3. Build SuperBuild_ITKSoftwareGuide project as appropriate for the target
     platform.
@@ -87,45 +79,5 @@ TROUBLESHOOTING
     dependencies. In this case a close examination of the error messages might
     provide a clue as to which dependency is failing.
 
-TODO: The following items (2 and 3) seem out of date. In general it should be a
-lot more straightforward to generate correct cross-referencing for citations and
-indexing in a LaTeX document. It is being looked into currently in order to
-simplify the generation of the final PDF file.
- 2. Due to unavoidable circular dependencies in LaTeX it may be required from
-    time to time to build manually some components. In particular, the index
-    generation and the bibliography can lead to circular dependencies. The
-    reason is that first, LaTeX needs to parse the tex code in order to collect
-    citation references and to collect index entries. The index entries are
-    stored in a file called SoftwareGuide.idx and put in the LaTeX subdirectory
-    of the binary directory. Then the program makeindex is used to generate a
-    SoftwareGuide.ind which is the final database of index entries. The
-    circularity arises because the file SoftwareGuide.ind is included in the
-    main 00-SoftwareGuide.tex file. The way to avoid the circularity is to first
-    comment out the inclusion of 00-SoftwareGuide.ind on the file
-    00-SoftwareGuide.tex, run LaTeX three times, to resolve all the references,
-    then run makeindex and finally include SoftwareGuide.ind back into
-    00-SoftwareGuide.tex.
-
-    A similar circularity arises with bibliographic references since BibTeX is
-    used here. The actual bibliographic reference is stored in
-    LaTeX/Insight.bib. The citations are collected in the first LaTeX passes and
-    stored in the 00-SoftwareGuide.aux file. Then the "BibTeX" program is used
-    to generate a SoftwareGuide.bbl file that is finally included by LaTeX.
-
-    Once the system has been build the first time, the circularity shouldn't be
-    a major issue. It is important however to keep in mind that CMake will only
-    run LaTeX once, while it should in fact be executed in several passes. The
-    result of which is that sometimes the full set of references and citations
-    may not be updated.
-
-TODO: The following issue is related to the previous issue and it is still not
-resolved properly on Windows, not sure about Linux.
- 3. The pdf built fine... I cannot see the references or the Index.
-    Rerun the project "SoftwareGuideLaTeX" twice.
-    on unix, run "make && make" again
-
-    LaTeX has some cross-referencing issues which require the dependencies to be
-    generated prior to build.
-
- 4. Frustrated by the build taking a long time to complete
+ 2. Frustrated by the build taking a long time to complete
    ... no solution here. :)
