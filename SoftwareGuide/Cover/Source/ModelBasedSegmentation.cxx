@@ -133,13 +133,13 @@ public:
   /** Connect the MovingSpatialObject */
   void SetMovingSpatialObject( const MovingSpatialObjectType * object)
   {
-    if(!m_FixedImage)
+    if(!this->GetFixedImage())
     {
       std::cout << "Please set the image before the moving spatial object" << std::endl;
       return;
     }
-    m_MovingSpatialObject = object;
-    m_PointList.clear();
+    this->m_MovingSpatialObject = object;
+    this->m_PointList.clear();
     typedef itk::ImageRegionConstIteratorWithIndex<TFixedImage> myIteratorType;
 
     RegionType region;
@@ -149,20 +149,20 @@ public:
       }
     else
       {
-      region = m_FixedImage->GetBufferedRegion();
+      region = this->m_FixedImage->GetBufferedRegion();
       }
 
-    myIteratorType it(m_FixedImage,region);
+    myIteratorType it(this->m_FixedImage,region);
 
     PointType point;
 
     while(!it.IsAtEnd())
       {
-      m_FixedImage->TransformIndexToPhysicalPoint( it.GetIndex(), point );
-      if(m_MovingSpatialObject->IsInside(point,99999))
-        { 
-        m_PointList.push_back(point);
-        }    
+      this->m_FixedImage->TransformIndexToPhysicalPoint( it.GetIndex(), point );
+      if(this->m_MovingSpatialObject->IsInside(point))
+        {
+        this->m_PointList.push_back(point);
+        }
       ++it;
       }
 
@@ -190,22 +190,22 @@ public:
   MeasureType    GetValue( const ParametersType & parameters ) const
   {   
     double value;
-    m_Transform->SetParameters( parameters );
+    this->m_Transform->SetParameters( parameters );
     
     typename PointListType::const_iterator it = m_PointList.begin();
     
-    typename TFixedImage::RegionType region = m_FixedImage->GetBufferedRegion();
+    typename TFixedImage::RegionType region = this->m_FixedImage->GetBufferedRegion();
 
     IndexType index;
 
     value = 0;
     while(it != m_PointList.end())
       {
-      PointType transformedPoint = m_Transform->TransformPoint(*it);
-      m_FixedImage->TransformPhysicalPointToIndex(transformedPoint,index);
+      PointType transformedPoint = this->m_Transform->TransformPoint(*it);
+      this->m_FixedImage->TransformPhysicalPointToIndex(transformedPoint,index);
       if( region.IsInside( index ) )
         {
-        value += m_FixedImage->GetPixel(index);
+        value += this->m_FixedImage->GetPixel(index);
         }
       it++;
       }
@@ -374,7 +374,6 @@ int main( int argc, char *argv[] )
 
   metric->SetFixedImageRegion( fixedRegion );
   
-  
   registration->SetFixedImage( reader->GetOutput() );
   registration->SetMovingSpatialObject( ellipse );
   registration->SetTransform( transform );
@@ -411,6 +410,3 @@ int main( int argc, char *argv[] )
   return 0;
 
 }
-
-
-
