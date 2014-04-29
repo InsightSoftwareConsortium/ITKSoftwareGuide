@@ -13,7 +13,7 @@ int main(int argc, char * argv[] )
     std::cerr << "VWSegmentation  inputFile histogramRGBFile" << std::endl;
     return -1;
   }
-  
+
   typedef unsigned char                        PixelComponentType;
   typedef itk::RGBPixel<PixelComponentType>    InputPixelType;
   typedef unsigned short                       OutputPixelType;
@@ -31,7 +31,7 @@ int main(int argc, char * argv[] )
   InputImageType::Pointer inputImage;
 
   { // local scope for destroying the reader
-    
+
     ReaderType::Pointer reader = ReaderType::New();
     reader->SetFileName( argv[1] );
     try
@@ -44,7 +44,7 @@ int main(int argc, char * argv[] )
       return -1;
       }
     inputImage = reader->GetOutput();
-  }  
+  }
 
   RegionType region;
   SizeType   size;
@@ -105,7 +105,7 @@ int main(int argc, char * argv[] )
     return -1;
     }
 
-  
+
   return 0;
 }
 

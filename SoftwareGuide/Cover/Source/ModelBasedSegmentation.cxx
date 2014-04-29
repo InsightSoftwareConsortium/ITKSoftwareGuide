@@ -9,8 +9,8 @@
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
 
-     This software is distributed WITHOUT ANY WARRANTY; without even 
-     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+     This software is distributed WITHOUT ANY WARRANTY; without even
+     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
@@ -23,7 +23,7 @@
 #include "itkTranslationTransform.h"
 #include "itkOnePlusOneEvolutionaryOptimizer.h"
 #include "itkDiscreteGaussianImageFilter.h"
-#include "itkNormalVariateGenerator.h" 
+#include "itkNormalVariateGenerator.h"
 #include "itkImageFileReader.h"
 #include "itkImageFileWriter.h"
 #include "itkCommand.h"
@@ -31,7 +31,7 @@
 
 
 template < class TOptimizer >
-class IterationCallback : public itk::Command 
+class IterationCallback : public itk::Command
 {
 
 public:
@@ -39,7 +39,7 @@ public:
   typedef itk::Command  Superclass;
   typedef itk::SmartPointer<Self>  Pointer;
   typedef itk::SmartPointer<const Self>  ConstPointer;
-  
+
   itkTypeMacro( IterationCallback, Superclass );
   itkNewMacro( Self );
 
@@ -48,7 +48,7 @@ public:
 
   /** Set Optimizer */
   void SetOptimizer( OptimizerType * optimizer )
-  { 
+  {
     m_Optimizer = optimizer;
     m_Optimizer->AddObserver( itk::IterationEvent(), this );
   }
@@ -66,7 +66,7 @@ public:
       {
       std::cout << std::endl << "Position              Value";
       std::cout << std::endl << std::endl;
-      }    
+      }
     else if( typeid( event ) == typeid( itk::IterationEvent ) )
       {
       std::cout << m_Optimizer->GetCurrentIteration() << "   ";
@@ -88,7 +88,7 @@ public:
 protected:
   IterationCallback() {};
   itk::WeakPointer<OptimizerType>   m_Optimizer;
- 
+
 };
 
 
@@ -97,14 +97,14 @@ protected:
 
 
 template <typename TFixedImage, typename TMovingSpatialObject>
-class SimpleImageToSpatialObjectMetric : 
+class SimpleImageToSpatialObjectMetric :
     public itk::ImageToSpatialObjectMetric<TFixedImage,TMovingSpatialObject>
 {
 public:
 
   /** Standard class typedefs. */
   typedef SimpleImageToSpatialObjectMetric  Self;
-  typedef itk::ImageToSpatialObjectMetric<TFixedImage,TMovingSpatialObject>  
+  typedef itk::ImageToSpatialObjectMetric<TFixedImage,TMovingSpatialObject>
                                                                      Superclass;
   typedef itk::SmartPointer<Self>   Pointer;
   typedef itk::SmartPointer<const Self>  ConstPointer;
@@ -124,7 +124,7 @@ public:
 
   /** Method for creation through the object factory. */
   itkNewMacro(Self);
-  
+
   /** Run-time type information (and related methods). */
   itkTypeMacro(SimpleImageToSpatialObjectMetric, ImageToSpatialObjectMetric);
 
@@ -188,12 +188,12 @@ public:
   /** Get the Value for SingleValue Optimizers */
 
   MeasureType    GetValue( const ParametersType & parameters ) const
-  {   
+  {
     double value;
     this->m_Transform->SetParameters( parameters );
-    
+
     typename PointListType::const_iterator it = m_PointList.begin();
-    
+
     typename TFixedImage::RegionType region = this->m_FixedImage->GetBufferedRegion();
 
     IndexType index;
@@ -209,7 +209,7 @@ public:
         }
       it++;
       }
-//    std::cout << "GetValue( " << parameters << " )  = " << value << std::endl; 
+//    std::cout << "GetValue( " << parameters << " )  = " << value << std::endl;
     return value;
   }
 
@@ -224,7 +224,7 @@ public:
 protected:
   SimpleImageToSpatialObjectMetric()
     {
-    m_FixedImageRegionSetByUser = false;  
+    m_FixedImageRegionSetByUser = false;
     }
   ~SimpleImageToSpatialObjectMetric() {}
 
@@ -282,7 +282,7 @@ int main( int argc, char *argv[] )
   MetricType::Pointer metric = MetricType::New();
 
 
-  typedef itk::LinearInterpolateImageFunction< 
+  typedef itk::LinearInterpolateImageFunction<
                                          ImageType,
                                          double     >  InterpolatorType;
 
@@ -294,11 +294,11 @@ int main( int argc, char *argv[] )
   OptimizerType::Pointer optimizer  = OptimizerType::New();
 
 
-  typedef itk::TranslationTransform< double, Dimension > TransformType; 
+  typedef itk::TranslationTransform< double, Dimension > TransformType;
   TransformType::Pointer transform = TransformType::New();
 
 
-  itk::Statistics::NormalVariateGenerator::Pointer generator 
+  itk::Statistics::NormalVariateGenerator::Pointer generator
                       = itk::Statistics::NormalVariateGenerator::New();
 
 
@@ -308,7 +308,7 @@ int main( int argc, char *argv[] )
   optimizer->Initialize( 5 );
   optimizer->SetMaximumIteration( 1000 );
 
- 
+
   TransformType::ParametersType parametersScale(Dimension);
 
   parametersScale.Fill( 2.0 );
@@ -332,16 +332,16 @@ int main( int argc, char *argv[] )
   typedef ImageType::IndexType IndexType;
   IndexType initialIndexPosition;
 
-  initialIndexPosition[0] = 26; 
+  initialIndexPosition[0] = 26;
   initialIndexPosition[1] = 18;
   initialIndexPosition[2] = 30;
 
   TransformType::InputPointType initialPhysicalPosition;
 
-  reader->GetOutput()->TransformIndexToPhysicalPoint( 
-                                  initialIndexPosition, 
+  reader->GetOutput()->TransformIndexToPhysicalPoint(
+                                  initialIndexPosition,
                                   initialPhysicalPosition );
-  
+
   EllipseType::TransformType::OffsetType offset;
   for(unsigned int i=0; i<Dimension; i++)
     {
@@ -368,12 +368,12 @@ int main( int argc, char *argv[] )
   fixedRegionSize[0] = 20;
   fixedRegionSize[1] = 10;
   fixedRegionSize[2] = 25;
-  
+
   fixedRegion.SetSize(  fixedRegionSize  );
   fixedRegion.SetIndex( fixedRegionStart );
 
   metric->SetFixedImageRegion( fixedRegion );
-  
+
   registration->SetFixedImage( reader->GetOutput() );
   registration->SetMovingSpatialObject( ellipse );
   registration->SetTransform( transform );
@@ -384,7 +384,7 @@ int main( int argc, char *argv[] )
   TransformType::ParametersType initialParameters = transform->GetParameters();
 
   initialParameters.Fill( 0.0 );
- 
+
 
   registration->SetInitialTransformParameters(initialParameters);
 
@@ -402,7 +402,7 @@ int main( int argc, char *argv[] )
     }
 
 
-  RegistrationType::ParametersType finalParameters 
+  RegistrationType::ParametersType finalParameters
                          = registration->GetLastTransformParameters();
 
   std::cout << "Final Solution is : " << finalParameters << std::endl;

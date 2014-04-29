@@ -9,8 +9,8 @@
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
 
-     This software is distributed WITHOUT ANY WARRANTY; without even 
-     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+     This software is distributed WITHOUT ANY WARRANTY; without even
+     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
@@ -26,8 +26,8 @@
 int main( int argc, char * argv[] )
 {
 
-  if( argc < 5 ) 
-    { 
+  if( argc < 5 )
+    {
     std::cerr << "Usage: " << std::endl;
     std::cerr << argv[0] << "  inputImageFile  outputGradientImageFile ";
     std::cerr << "numberOfIterations  timeStep  " << std::endl;
@@ -41,7 +41,7 @@ int main( int argc, char * argv[] )
   typedef itk::Image< PixelType, Dimension  >    ImageType;
 
   typedef itk::RGBPixel< unsigned char >         OutputPixelType;
-  typedef itk::Image< OutputPixelType, 
+  typedef itk::Image< OutputPixelType,
                                  Dimension  >    OutputImageType;
 
 
@@ -49,8 +49,8 @@ int main( int argc, char * argv[] )
 
   typedef itk::ImageFileWriter< OutputImageType >  WriterType;
 
-  typedef itk::VectorCastImageFilter< 
-                               ImageType, 
+  typedef itk::VectorCastImageFilter<
+                               ImageType,
                                OutputImageType > CasterType;
 
   typedef itk::VectorGradientAnisotropicDiffusionImageFilter<
@@ -70,7 +70,7 @@ int main( int argc, char * argv[] )
   filter->SetNumberOfIterations( numberOfIterations );
   filter->SetTimeStep( timeStep );
   filter->SetConductanceParameter( 3.0 );
-  
+
   filter->Update();
 
   CasterType::Pointer caster = CasterType::New();

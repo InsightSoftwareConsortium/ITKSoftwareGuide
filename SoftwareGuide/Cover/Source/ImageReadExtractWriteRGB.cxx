@@ -9,8 +9,8 @@
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
 
-     This software is distributed WITHOUT ANY WARRANTY; without even 
-     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+     This software is distributed WITHOUT ANY WARRANTY; without even
+     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
@@ -58,7 +58,7 @@ int main( int argc, char ** argv )
   FilterType::Pointer filter = FilterType::New();
 
 
-  
+
   ImageType::IndexType start;
 
   start[0] = atoi( argv[3] );
@@ -67,7 +67,7 @@ int main( int argc, char ** argv )
 
 
   ImageType::SizeType size;
-  
+
   size[0] = atoi( argv[6] );
   size[1] = atoi( argv[7] );
   size[2] = atoi( argv[8] );
@@ -113,16 +113,16 @@ int main( int argc, char ** argv )
 
 
 
-  try 
-    { 
-    writer->Update(); 
-    } 
-  catch( itk::ExceptionObject & err ) 
-    { 
-    std::cout << "ExceptionObject caught !" << std::endl; 
-    std::cout << err << std::endl; 
+  try
+    {
+    writer->Update();
+    }
+  catch( itk::ExceptionObject & err )
+    {
+    std::cout << "ExceptionObject caught !" << std::endl;
+    std::cout << err << std::endl;
     return -1;
-    } 
+    }
 
 
 
