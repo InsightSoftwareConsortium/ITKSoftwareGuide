@@ -15,7 +15,7 @@ int main(int argc, char * argv[] )
     std::cerr << "BinaryThresholdFilter  inputFile outputFile lowerThreshold upperThreshold" << std::endl;
     return -1;
   }
-  
+
   typedef signed short                          InputPixelType;
   typedef itk::Image< InputPixelType,     3 >   InputImageType;
 
@@ -26,7 +26,7 @@ int main(int argc, char * argv[] )
   typedef itk::ImageFileReader< InputImageType  >   ImageReaderType;
   typedef itk::ImageFileWriter< OutputImageType >   ImageWriterType;
 
-  typedef itk::BinaryThresholdImageFilter< 
+  typedef itk::BinaryThresholdImageFilter<
                                     InputImageType,
                                     OutputImageType
                                               >  FilterType;
@@ -62,7 +62,7 @@ int main(int argc, char * argv[] )
   filter->SetUpperThreshold( upperThreshold );
 
 
- 
+
   try
     {
     filter->Update();
@@ -90,7 +90,7 @@ int main(int argc, char * argv[] )
     return -1;
     }
 
- 
+
   return 0;
 }
 

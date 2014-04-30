@@ -13,7 +13,7 @@ int main(int argc, char * argv[] )
     std::cerr << "VWBlueRemoval  inputFile outputFile" << std::endl;
     return -1;
   }
-  
+
   typedef unsigned char                           PixelComponentType;
   typedef itk::RGBPixel<PixelComponentType>       ImagePixelType;
 
@@ -77,7 +77,7 @@ int main(int argc, char * argv[] )
 
     const double distanceToPlane =
                     A * red + B * green + C * blue + D;
-      
+
     const bool pixelIsOnBlueSide = ( distanceToPlane > 0 );
 
     if( pixelIsOnBlueSide )
@@ -104,7 +104,7 @@ int main(int argc, char * argv[] )
     return -1;
     }
 
-  
+
   return 0;
 }
 

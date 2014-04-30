@@ -10,7 +10,7 @@
 //
 void ConvertRGBToHSV( float R, float G, float B, float & H, float & S, float & V )
 {
-  
+
   const float max = 255.0;
 
   // Saturation
@@ -32,11 +32,11 @@ void ConvertRGBToHSV( float R, float G, float B, float & H, float & S, float & V
     {
     S = max * (1.0 - (3.0 * temp / sumRGB));
     }
-  
+
   temp = (float)(R + G + B);
   // Value is easy
   V = temp / 3.0;
-  
+
   // Hue
   temp = sqrt((R-G)*(R-G) + (R-B)*(G-B));
   if(temp != 0.0)
@@ -51,7 +51,7 @@ void ConvertRGBToHSV( float R, float G, float B, float & H, float & S, float & V
     {
     H = max * (1.0 - (temp / 6.2831853));
     }
-  
+
 }
 
 
@@ -65,7 +65,7 @@ int main(int argc, char * argv[] )
     std::cerr << "VWSegmentation  inputFile histogramHSVFile" << std::endl;
     return -1;
   }
-  
+
   typedef unsigned char                        PixelComponentType;
   typedef itk::RGBPixel<PixelComponentType>    InputPixelType;
   typedef unsigned short                       OutputPixelType;
@@ -83,7 +83,7 @@ int main(int argc, char * argv[] )
   InputImageType::Pointer inputImage;
 
   { // local scope for destroying the reader
-    
+
     ReaderType::Pointer reader = ReaderType::New();
     reader->SetFileName( argv[1] );
     try
@@ -96,7 +96,7 @@ int main(int argc, char * argv[] )
       return -1;
       }
     inputImage = reader->GetOutput();
-  }  
+  }
 
   RegionType region;
   SizeType   size;
@@ -143,7 +143,7 @@ int main(int argc, char * argv[] )
 
     ConvertRGBToHSV( red, green, blue, hue, saturation, value );
 
-    if( hue > hueMax ) 
+    if( hue > hueMax )
       {
       hueMax = hue;
       }
@@ -177,7 +177,7 @@ int main(int argc, char * argv[] )
 
     ConvertRGBToHSV( red, green, blue, hue, saturation, value );
 
-    index[0] = static_cast<int>( 255.0 * hue/ hueMax );  
+    index[0] = static_cast<int>( 255.0 * hue/ hueMax );
     index[1] = static_cast<int>( 255.0 * saturation / saturationMax );
     index[2] = static_cast<int>( 255.0 * value / valueMax );
 
@@ -205,7 +205,7 @@ int main(int argc, char * argv[] )
     return -1;
     }
 
-  
+
   return 0;
 }
 

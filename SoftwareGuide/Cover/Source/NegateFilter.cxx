@@ -9,8 +9,8 @@
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
 
-     This software is distributed WITHOUT ANY WARRANTY; without even 
-     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+     This software is distributed WITHOUT ANY WARRANTY; without even
+     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
@@ -22,7 +22,7 @@
 #include "itkUnaryFunctorImageFilter.h"
 #include "itkImage.h"
 
-namespace itk 
+namespace itk
 {
 
 class Negate
@@ -51,7 +51,7 @@ public:
 
   /** Method for creation through the object factory. */
   itkNewMacro(Self);
- 
+
 protected:
   NegateImageFilter() {}
   virtual ~NegateImageFilter() {}
@@ -112,16 +112,16 @@ int main( int argc, char ** argv )
   writer->SetInput( filter->GetOutput() );
 
 
-  try 
-    { 
-    writer->Update(); 
-    } 
-  catch( itk::ExceptionObject & err ) 
-    { 
-    std::cout << "ExceptionObject caught !" << std::endl; 
-    std::cout << err << std::endl; 
+  try
+    {
+    writer->Update();
+    }
+  catch( itk::ExceptionObject & err )
+    {
+    std::cout << "ExceptionObject caught !" << std::endl;
+    std::cout << err << std::endl;
     return -1;
-    } 
+    }
 
 
 

@@ -17,7 +17,7 @@ int main(int argc, char * argv[] )
     std::cerr << "VWColorSegmentation  inputFile outputFile seedsFile multiplier numberOfIterations" << std::endl;
     return -1;
   }
-  
+
   typedef unsigned char                         PixelComponentType;
   typedef itk::RGBPixel<PixelComponentType>     ImagePixelType;
   typedef itk::Image< ImagePixelType,     3 >   ImageType;
@@ -29,12 +29,12 @@ int main(int argc, char * argv[] )
   typedef itk::ImageFileReader< ImageType  >        ImageReaderType;
   typedef itk::ImageFileWriter< OutputImageType >   ImageWriterType;
 
-  typedef itk::VectorConfidenceConnectedImageFilter< 
+  typedef itk::VectorConfidenceConnectedImageFilter<
                                               ImageType,
                                               OutputImageType
                                               >  ConfidenceConnectedFilterType;
 
-  ConfidenceConnectedFilterType::Pointer 
+  ConfidenceConnectedFilterType::Pointer
                           confidenceFilter = ConfidenceConnectedFilterType::New();
 
   confidenceFilter->ReleaseDataFlagOn();
@@ -66,9 +66,9 @@ int main(int argc, char * argv[] )
 
   if( seedsFile.fail() )
     {
-    std::cerr << "Problem opening seeds file " << std::endl;  
+    std::cerr << "Problem opening seeds file " << std::endl;
     }
-      
+
   ImageType::IndexType index;
 
   float x;
@@ -89,9 +89,9 @@ int main(int argc, char * argv[] )
     index[1] = static_cast<signed long>( y );
     index[2] = static_cast<signed long>( z );
     }
-  
+
   seedsFile.close();
-  
+
   try
     {
     confidenceFilter->Update();
@@ -120,19 +120,19 @@ int main(int argc, char * argv[] )
     }
 
 
-  
+
   #ifdef DEBUGSEGFAULTING
-  const ConfidenceConnectedFilterType::CovarianceMatrixType & covariance = 
+  const ConfidenceConnectedFilterType::CovarianceMatrixType & covariance =
                                            confidenceFilter->GetCovariance();
 
-  const ConfidenceConnectedFilterType::MeanVectorType  & mean = 
+  const ConfidenceConnectedFilterType::MeanVectorType  & mean =
                                                  confidenceFilter->GetMean();
 
 
   // Write the mean and covariance to a file
   std::ofstream ofs;
   ofs.open("ConfidenceConnectedColorSegmentation.dat");
-  
+
   for(unsigned int ii=0; ii<VectorDimension; ii++)
     {
     ofs << mean[ii] << "  ";
@@ -154,7 +154,7 @@ int main(int argc, char * argv[] )
 
   ofs.close();
   #endif
- 
+
   return 0;
 }
 
