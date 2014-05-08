@@ -12,7 +12,7 @@ vtkXMLPolyDataReader grayMatterReader
     grayMatterReader SetFileName "Brain.vtp"
 
 vtkPolyDataMapper grayMatterMapper
-    grayMatterMapper SetInput [grayMatterReader GetOutput]
+    grayMatterMapper SetInputConnection [grayMatterReader GetOutputPort]
 
 vtkActor grayMatterActor
     grayMatterActor SetMapper grayMatterMapper
@@ -26,7 +26,7 @@ vtkXMLPolyDataReader skullReader
     skullReader SetFileName "Skull2.vtp"
 
 vtkPolyDataMapper skullMapper
-    skullMapper SetInput [ skullReader GetOutput ]
+    skullMapper SetInputConnection [ skullReader GetOutputPort ]
 
 vtkActor skullActor
     skullActor SetMapper skullMapper
@@ -42,7 +42,7 @@ vtkXMLPolyDataReader neckMusclesReader
     neckMusclesReader SetFileName "NeckMuscles.vtp"
 
 vtkPolyDataMapper neckMusclesMapper
-    neckMusclesMapper SetInput [neckMusclesReader GetOutput]
+    neckMusclesMapper SetInputConnection [neckMusclesReader GetOutputPort]
 
 vtkActor neckMusclesActor
     neckMusclesActor SetMapper neckMusclesMapper
@@ -57,7 +57,7 @@ vtkXMLPolyDataReader rightEyeReader
     rightEyeReader SetFileName "RightEye.vtp"
 
 vtkPolyDataMapper rightEyeMapper
-    rightEyeMapper SetInput [rightEyeReader GetOutput]
+    rightEyeMapper SetInputConnection [rightEyeReader GetOutputPort]
 
 vtkActor rightEyeActor
     rightEyeActor SetMapper rightEyeMapper
@@ -71,7 +71,7 @@ vtkSphereSource eyeballSource
     eyeballSource SetPhiResolution 40
 
 vtkPolyDataMapper eyeballMapper
-    eyeballMapper SetInput [eyeballSource GetOutput]
+    eyeballMapper SetInputConnection [eyeballSource GetOutputPort]
 
 vtkActor eyeballActor
     eyeballActor SetMapper eyeballMapper
@@ -87,7 +87,7 @@ vtkSphereSource lensSource
     lensSource SetPhiResolution 40
 
 vtkPolyDataMapper lensMapper
-    lensMapper SetInput [lensSource GetOutput]
+    lensMapper SetInputConnection [lensSource GetOutputPort]
 
 vtkActor lensActor
     lensActor SetMapper lensMapper
@@ -103,7 +103,7 @@ vtkXMLPolyDataReader skinReader
     skinReader SetFileName "SkinClipped.vtp"
 
 vtkPolyDataMapper skinMapper
-    skinMapper SetInput [skinReader GetOutput]
+    skinMapper SetInputConnection [skinReader GetOutputPort]
 
 
 vtkActor skinActor
@@ -162,7 +162,7 @@ vtkWindowToImageFilter grabber
   grabber SetMagnification 3
 
 vtkPNGWriter writer
-  writer SetInput [ grabber GetOutput ]
+  writer SetInputConnection [ grabber GetOutputPort ]
   writer SetFileName "SoftwareGuideCover.png"
 #  writer Write
 
