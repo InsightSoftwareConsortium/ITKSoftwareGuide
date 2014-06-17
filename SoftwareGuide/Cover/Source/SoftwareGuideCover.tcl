@@ -151,7 +151,12 @@ ren1 ResetCamera
 eval [ren1 GetActiveCamera] Zoom 1.35
 
 
+iren AddObserver UserEvent {wm deiconify .vtkInteract}
 
+iren Initialize
+
+renWin Render
+ren1   Render
 
 #
 #  Saving the rendered image
@@ -166,15 +171,5 @@ vtkPNGWriter writer
   writer SetFileName "SoftwareGuideCover.png"
 #  writer Write
 
-
-iren AddObserver UserEvent {wm deiconify .vtkInteract}
-
-iren Initialize
-
-renWin Render
-ren1   Render
-
 wm withdraw .
-
-
-
+#exit
