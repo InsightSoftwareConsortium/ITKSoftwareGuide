@@ -16,7 +16,7 @@ vtkPolyDataMapper grayMatterMapper
 
 vtkActor grayMatterActor
     grayMatterActor SetMapper grayMatterMapper
-    eval [grayMatterActor GetProperty] SetColor 0.9  0.7  0.6
+    eval [grayMatterActor GetProperty] SetColor 0.8  0.6  0.5
 
 
 #
@@ -30,7 +30,7 @@ vtkPolyDataMapper skullMapper
 
 vtkActor skullActor
     skullActor SetMapper skullMapper
-    eval [skullActor GetProperty] SetColor   1.0 0.96 0.86
+    eval [skullActor GetProperty] SetColor   1.0 1.0 0.9
     skullActor SetScale 1.50 1.50 1.50
     skullActor SetPosition  -105 10 -125
 
@@ -46,9 +46,8 @@ vtkPolyDataMapper neckMusclesMapper
 
 vtkActor neckMusclesActor
     neckMusclesActor SetMapper neckMusclesMapper
-    eval [neckMusclesActor GetProperty] SetColor  0.530 0.448 0.448
+    eval [neckMusclesActor GetProperty] SetColor  0.616 0.329 0.267
     neckMusclesActor SetPosition  0 0 -374
-
 
 #
 #  Right Eye
@@ -108,7 +107,7 @@ vtkPolyDataMapper skinMapper
 
 vtkActor skinActor
     skinActor SetMapper skinMapper
-    eval [skinActor GetProperty] SetColor  0.9  0.8  0.7
+    eval [skinActor GetProperty] SetColor  0.99  0.89  0.79
     skinActor SetPosition  0 0 -200
 
 
@@ -116,7 +115,7 @@ vtkActor skinActor
 #  Rendering pipeline shared among the anatomical structures
 #
 vtkRenderer ren1
-    ren1 SetBackground  0.70 0.74 0.70
+    ren1 SetBackground  1 1 1
 
 vtkRenderWindow renWin
     renWin AddRenderer ren1
@@ -144,7 +143,7 @@ ren1 AddActor skinActor
 #
 eval [ren1 GetActiveCamera] SetClippingRange 400 800
 eval [ren1 GetActiveCamera] SetFocalPoint    94  114  -60
-eval [ren1 GetActiveCamera] SetPosition    -526 -526  127
+eval [ren1 GetActiveCamera] SetPosition    -326 -526  127
 eval [ren1 GetActiveCamera] ComputeViewPlaneNormal
 eval [ren1 GetActiveCamera] SetViewUp   0  0   1
 ren1 ResetCamera
