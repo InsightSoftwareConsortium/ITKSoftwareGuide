@@ -58,6 +58,7 @@ class OneCodeBlock():
         self.pathFinder = pathFinder
         self.progBaseName = os.path.basename(self.sourceFile)[:-4]
         self.progFullPath = pathFinder.GetProgramPath(self.progBaseName)
+        self.verbose = False
         if not os.path.exists(self.progFullPath):
             print("ERROR:  Required program {0} does not exists.  Please rebuild ITK".format(self.progBaseName))
             sys.exit(-1)
@@ -78,26 +79,32 @@ class OneCodeBlock():
 
     def AreOutputsNewer(self):
         oldest_output = 100000000000000000000000
-        print("Self Outputs {0}".format(self.outputs))
-        print("Self Inputs {0}".format(self.inputs))
+        if self.verbose:
+            print("Self Outputs {0}".format(self.outputs))
+            print("Self Inputs {0}".format(self.inputs))
         for o in self.outputs:
-            print("CHECKING TIME FOR: {0}".format(o))
+            if self.verbose:
+                print("CHECKING TIME FOR: {0}".format(o))
             if os.path.exists(o):
                 this_output_time = os.path.getmtime(o)
-                print("This Ouptut Time: {0}".format(this_output_time))
+                if self.verbose:
+                    print("This Ouptut Time: {0}".format(this_output_time))
                 if this_output_time < oldest_output:
                     oldest_output = this_output_time
             else:
-                print("Missing Output: {0}".format(o))
+                if self.verbose:
+                    print("Missing Output: {0}".format(o))
                 return False
         newest_input = os.path.getmtime(self.progFullPath)
         for i in self.inputs:
             if i == None:
                 continue
-            print("CHECKING TIME FOR: {0}".format(i))
+            if self.verbose:
+                print("CHECKING TIME FOR: {0}".format(i))
             if os.path.exists(i):
                 this_input_time = os.path.getmtime(i)
-                print("This Input Time: {0}".format(this_input_time))
+                if self.verbose:
+                    print("This Input Time: {0}".format(this_input_time))
                 if this_input_time > newest_input:
                     newest_input = this_input_time
             else:
@@ -106,7 +113,8 @@ class OneCodeBlock():
                 print("ERROR:"*20)
                 print("Failing to process all data, This should never happen because you should only run this function once all inputs exists.")
                 sys.exit(-1)  # This should never happen because you should only run this function once all inputs exists.
-        print("Newest Input: {0}, Oldest Output: {1}".format(newest_input, oldest_output))
+        if self.verbose:
+            print("Newest Input: {0}, Oldest Output: {1}".format(newest_input, oldest_output))
         if newest_input < oldest_output:
             return True
         else:
@@ -356,11 +364,12 @@ if __name__ == "__main__":
             else:
                 completedAlready = blockstart.AreOutputsNewer()
                 if completedAlready == True:
-                    print(' ' * 80 + "\nJob Already Done")
-                    print('-' * 80)
+                    if blockstart.verbose:
+                        print(' ' * 80 + "\nJob Already Done")
+                        print('-' * 80)
                 elif completedAlready == False:
-                    print(' ' * 80 + "\nNeed to run")
-                    pass
+                    if blockstart.verbose:
+                        print(' ' * 80 + "\nNeed to run")
                     blockstart.Print()
                     runCommand = blockstart.GetCommandLine()
                     completedSuccessfully = True
@@ -407,5 +416,3 @@ if __name__ == "__main__":
         outPtr.write(allDependancies)
         outPtr.close()
         allCommandBlocks = remainingCommandBlocks
-
-print('$^&!' * 20)
