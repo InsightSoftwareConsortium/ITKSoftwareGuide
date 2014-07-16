@@ -2,9 +2,12 @@
 import sys
 import os
 import re
-import shlex
 import subprocess
 import errno
+import os.path
+import time
+from datetime import date, timedelta
+
 
 #
 # Tag defs
@@ -218,12 +221,6 @@ def ParseOneFile(sourceFile, pathFinder):
         else:  # non-codeBlock line
             pass
     return thisFileCommandBlocks
-
-import os
-import os.path
-import stat
-import time
-from datetime import date, timedelta
 
 dirsNotUsed = []
 
