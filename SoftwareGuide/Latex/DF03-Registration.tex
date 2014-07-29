@@ -363,9 +363,42 @@ way of an example.
 \input{MultiResImageRegistration1.tex}
 \fi
 
-\subsection{Parameter Tuning}
+\section{Multi-Stage Registration}
+\label{sec:MultiStageRegistration}
+In section \ref{sec:MultiResolutionRegistration} you noticed how to tweak
+component settings between multi-resolution levels and how it can benefit the
+registration process. That is, the matching metric gets close to the optimal
+value before final parameter adjustments in full resolution.
+By this approach we can save large amounts of time in most practical
+cases, since fewer iterations are required at the full resolution level.
+This is helpful in cases like a deformable registration process on a large
+dataset, e.g. a high-resolution 3D image.
+
+Another possible scheme is a simple rigid transform for the initial coarse
+registration, then upgrade to an affine transform at the finer level. Finally,
+proceed to a deformable transform at the last level when we are close enough to
+the optimal value.
+
+Fortunately, \doxygen{ImageRegistrationMethodv4} allows for multistage registration
+whereby each stage is characterized by possibly different transforms and different
+image metrics. As in the above situation, you may want to perform a linear registration
+followed by a deformable registration with both stages performed across multiple
+resolutions.
+
+Multiple stages are handled by linking multiple instantiations of this class.
+An optional composite transform can be used as a container to concatenate
+the output transforms of multiple stages.
+
+We now present the multistage capabilities of the framework by way of an example.
+
+\subsection{Fundamentals}
 \ifitkFullVersion
-\input{MultiResImageRegistration2.tex}
+\input{MultiStageImageRegistration1.tex}
+\fi
+
+\subsection{Cascaded Multistage Registration}
+\ifitkFullVersion
+\input{MultiStageImageRegistration2.tex}
 \fi
 
 With the completion of these examples, we will now review the main
