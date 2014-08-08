@@ -1,18 +1,18 @@
 % Configuration file #1 for DeformableRegistration1.cxx
-% 
-% This example demonstrates the setup of a basic registration 
-% problem that does NOT use multi-resolution strategies.  As a 
-% result, only one value for the parameters between 
+%
+% This example demonstrates the setup of a basic registration
+% problem that does NOT use multi-resolution strategies.  As a
+% result, only one value for the parameters between
 % (# of pixels per element) and (maximum iterations) is necessary.
 % If you were using multi-resolution, you would have to specify
-% values for those parameters at each level of the pyramid.  
+% values for those parameters at each level of the pyramid.
 %
-% Note: the paths in the parameters assume you have the traditional 
+% Note: the paths in the parameters assume you have the traditional
 % ITK file hierarchy as shown below:
 %
-% ITK/Insight/Examples/Registration/DeformableRegistration1.cxx
-% ITK/Insight/Examples/Data/RatLungSlice*
-% ITK/Insight-Bin/bin/DeformableRegistration1
+% ITK/Examples/RegistrationITKv4/DeformableRegistration1.cxx
+% ITK/Examples/Data/RatLungSlice*
+% ITK_Build_Dir/bin/DeformableRegistration1
 %
 % ---------------------------------------------------------
 % Parameters for the single- or multi-resolution techniques
@@ -43,7 +43,7 @@
 128     % Nx (image x dimension)
 128     % Ny (image y dimension)
 0       % Nz (image z dimension - not used if 2D)
-../../Insight/Examples/Data/RatLungSlice1.mha  % ReferenceFileName 
+../../Insight/Examples/Data/RatLungSlice1.mha  % ReferenceFileName
 ../../Insight/Examples/Data/RatLungSlice2.mha  % TargetFileName
 % -------------------------------------------------------------------
 % The actions below depend on the values of the flags preceding them.

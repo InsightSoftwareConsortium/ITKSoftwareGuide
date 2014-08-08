@@ -4,9 +4,9 @@
 %
 %
 
-\index{itk::Image\-To\-Image\-Metric}
+\index{itk::Image\-To\-Image\-Metricv4}
 
-In ITK, \doxygen{ImageToImageMetric} objects quantitatively measure how well
+In ITK, \doxygen{ImageToImageMetricv4} objects quantitatively measure how well
 the transformed moving image fits the fixed image by comparing the gray-scale
 intensity of the images. These metrics are very flexible and can work with any
 transform or interpolation method and do not require reduction of the
@@ -21,19 +21,23 @@ obtained from the same imaging modality, while others can handle
 inter-modality comparisons.
 Unfortunately, there are no clear-cut rules as to how to choose a metric.
 
-\index{itk::Image\-To\-Image\-Metric!GetValue()}
-\index{itk::Image\-To\-Image\-Metric!GetDerivatives()}
-\index{itk::Image\-To\-Image\-Metric!GetValueAndDerivatives()}
+\index{itk::Image\-To\-Image\-Metricv4!GetValue()}
+\index{itk::Image\-To\-Image\-Metricv4!GetDerivatives()}
+\index{itk::Image\-To\-Image\-Metricv4!GetValueAndDerivatives()}
 
-The basic inputs to a metric are: the fixed and moving images, a transform and
-an interpolator. The method \code{GetValue()} can be used to evaluate the
-quantitative criterion at the transform parameters specified in the argument.
-Typically, the metric samples points within a defined region of the fixed
-image.  For each point, the corresponding moving image position is computed
-using the transform with the specified parameters, then the interpolator is
-used to compute the moving image intensity at the mapped position. Details on
-this mapping are illustrated in Figures \ref{fig:ImageOverlapIterator} and
-\ref{fig:ImageOverlapInterpolator}.
+The matching Metric class controls most parts of the registration process
+since it handles fixed, moving and virtual images as well as fixed and moving
+transforms and interpolators.  The method \code{GetValue()} can be used to
+evaluate the quantitative criterion at the transform parameters specified in
+the argument.  Typically, the metric samples points within a defined region
+of the virtual lattice.  For each point, the corresponding fixed and moving
+image positions are computed using the fixed initial transform and the moving
+transform with the specified parameters. Then, the fixed and moving interpolators
+are used to compute the fixed and moving images intensities at the mapped
+positions. Details on this mapping are illustrated in Figures
+\ref{fig:ImageOverlapIterator} and \ref{fig:ImageOverlapInterpolator} assuming
+that virtual lattice is the same as the fixed image lattice, which is usually the
+case in practice.
 
 The metrics also support region based evaluation. The \code{SetFixedImageMask()} and
 \code{SetMovingImageMask()} methods may be used to restrict evaluation of the metric
@@ -45,7 +49,18 @@ methods \code{GetDerivatives()} and \code{GetValueAndDerivatives()} can be
 used to obtain the gradient information.
 
 
-The following is the list of metrics currently available in ITK:
+The following is the list of metrics currently available in ITKv4 registration framework:
+\begin{itemize}
+\item Mean squares\\ \doxygen{MeanSquaresImageToImageMetricv4}
+\item Correlation \\ \doxygen{CorrelationImageToImageMetricv4}
+\item Mutual information by Mattes \\ \doxygen{MattesMutualInformationImageToImageMetricv4}
+\item Joint histogram mutual information \\ \doxygen{JointHistogramMutualInformationHistogramImageToImageMetricv4}
+\item Demons metric \\ \doxygen{DemonsImageToImageMetricv4}
+\item ANTS neighborhood correlaiton metric \\ \doxygen{ANTSNeighborhoodCorrelationImageToImageMetricv4}
+\end{itemize}
+
+Also, in case you are interested in using the legacy ITK registration framework,
+the following is the list of metrics currently available in ITKv3:
 \begin{itemize}
 \item Mean squares\\ \doxygen{MeanSquaresImageToImageMetric}
 \item Normalized correlation \\ \doxygen{NormalizedCorrelationImageToImageMetric}
@@ -61,15 +76,17 @@ The following is the list of metrics currently available in ITK:
 \item Gradient Difference metric \\ \doxygen{GradientDifferenceImageToImageMetric}
 \end{itemize}
 
-In the following sections, we describe each metric type in detail.
+In the following sections, we describe the ITKv4 metric types in detail.
+You can check ITK descriptions in doxygen for details about ITKv3 metric classes.
+
 For ease of notation, we will refer to the fixed image $f(\bf{X})$
 and transformed moving image $(m \circ T(\bf{X}))$ as images $A$ and $B$.
 
 \subsection{Mean Squares Metric}
-\label{sec:MeanSquaresMetric}
-\index{itk::Mean\-Squares\-Image\-To\-Image\-Metric}
+\label{sec:MeanSquaresMetricv4}
+\index{itk::Mean\-Squares\-Image\-To\-Image\-Metricv4}
 
-The \doxygen{MeanSquaresImageToImageMetric} computes the mean squared
+The \doxygen{MeanSquaresImageToImageMetricv4} computes the mean squared
 pixel-wise difference in intensity between image $A$ and $B$ over a user
 defined region:
 
@@ -109,9 +126,9 @@ toolkit.
 
 \subsection{Normalized Correlation Metric}
 \label{sec:NormalizedCorrelationMetric}
-\index{itk::Normalized\-Correlation\-Image\-To\-Image\-Metric}
+\index{itk::Correlation\-Image\-To\-Image\-Metricv4}
 
-The \doxygen{NormalizedCorrelationImageToImageMetric} computes pixel-wise
+The \doxygen{CorrelationImageToImageMetricv4} computes pixel-wise
 cross-correlation and normalizes it by the square root of the autocorrelation
 of the images:
 
@@ -133,48 +150,11 @@ imaging modality.  The metric is insensitive to multiplicative factors between
 the two images.  This metric produces a cost function with sharp peaks and well
 defined minima.  On the other hand, it has a relatively small capture radius.
 
-\subsection{Mean Reciprocal Square Differences}
-\label{sec:MeanReciprocalSquareDifferenceMetric}
-\index{itk::Mean\-Reciprocal\-Square\-Difference\-Image\-To\-Image\-Metric}
-
-The \doxygen{MeanReciprocalSquareDifferenceImageToImageMetric} computes
-pixel-wise differences and adds them after passing them through a bell-shaped
-function $\frac{1}{1+x^2}$:
-
-\begin{equation}
-PI(A,B) =  \sum_{i=1}^N \frac{ 1 }{ 1 + \frac{ \left( A_i - B_i \right) ^ 2}{ \lambda^2 }  }
-\end{equation}
-\begin{center}
-$A_i$ is the i-th pixel of Image A \\
-$B_i$ is the i-th pixel of Image B \\
-$N$ is the number of pixels considered \\
-$\lambda$ controls the capture radius
-\end{center}
-
-The optimal value is $N$ and poor matches results in small measure values.
-The characteristics of this metric have been studied by Penney and Holden
-\cite{Holden1999}\cite{Penney1998}
-
-This image metric has the advantage of producing poor values when few pixels
-are considered.  This makes it consistent when its computation is subject to
-the size of the overlap region between the images. The capture radius of the
-metric can be regulated with the parameter $\lambda$.  The profile of this
-metric is very peaky. The sharp peaks of the metric help to measure spatial
-misalignment with high precision. Note that the notion of capture radius is
-used here in terms of the intensity domain, not the spatial domain. In that
-regard, $\lambda$ should be given in intensity units and be associated with
-the differences in intensity that will make drop the metric by $50\%$.
-
-The metric is limited to images of the same image modality.  The
-fact that its derivative is large at the central peak is a problem for some
-optimizers that rely on the derivative to decrease as the extrema are
-reached.  This metric is also sensitive to linear changes in intensity.
-
 
 \subsection{Mutual Information Metric}
 \label{sec:MutualInformationMetric}
 
-The \doxygen{MutualInformationImageToImageMetric} computes the mutual
+The \doxygen{MattesMutualInformationImageToImageMetricv4} computes the mutual
 information between image $A$ and image $B$.  Mutual information (MI)
 measures how much information one random variable (image intensity in one
 image) tells about another random variable (image intensity in the other
@@ -248,60 +228,25 @@ Choosing the optimal smoothing parameter is a difficult research problem and
 beyond the scope of this software guide.  Typically, the optimal value of the
 smoothing parameter will depend on the data and the number of samples used.
 
-\subsubsection{Viola and Wells Implementation}
-
-The Insight Toolkit has multiple implementations of the mutual information
-metric. One of the most commonly used is
-\doxygen{MutualInformationImageToImageMetric} and follows the method specified
-by Viola and Wells in \cite{Viola1997}.
-
-\index{itk::Mutual\-Information\-Image\-To\-Image\-Metric}
-
-In this implementation, two separate intensity samples $S$ and $R$ are drawn
-from the image: the first to compute the density, and the second to approximate
-the entropy as a sample mean:
-\begin{equation}
-H(A) = \frac{1}{N} \sum_{r_j \in R} \log P^{*}(r_j).
-\end{equation}
-Gaussian density is used as a smoothing kernel, where the standard deviation
-$\sigma$ acts as the smoothing parameter.
-
-\index{itk::Mutual\-Information\-Image\-To\-Image\-Metric!SetNumberOfSpatialSamples()}
-
-The number of spatial samples used for computation is defined using
-the \code{SetNumberOfSpatialSamples()} method. Typical values range from 50 to 100.
-Note that computation involves an $N \times N$ loop and hence, the computation
-burden becomes very expensive when a large number of samples is used.
-
-\index{itk::Mutual\-Information\-Image\-To\-Image\-Metric!SetFixedImageStandardDeviation()}
-\index{itk::Mutual\-Information\-Image\-To\-Image\-Metric!SetMovingImageStandardDeviation()}
-The quality of the density estimates depends on the choice of the standard
-deviation of the Gaussian kernel. The optimal choice will depend on the
-content of the images.  In our experience with the toolkit, we have found
-that a standard deviation of 0.4 works well for images that have been
-normalized to have a mean of zero and standard deviation of 1.0. The standard
-deviation of the fixed image and moving image kernel can be set separately
-using methods
-\code{SetFixedImageStandardDeviation()} and \code{SetMovingImageStandardDeviation()}.
-
 \subsubsection{Mattes et al. Implementation}
-Another form of mutual information metric available in ITK follows the method
-specified by Mattes et al. in \cite{Mattes2001} and is implemented by the
-\doxygen{MattesMutualInformationImageToImageMetric} class.
+The implementation of mutual information metric available in ITKv4 follows
+the method specified by Mattes et al. in \cite{Mattes2001} and is implemented
+by the \doxygen{MattesMutualInformationImageToImageMetricv4} class.
 
-\index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metric}
+\index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metricv4}
 In this implementation, only one set of intensity samples is drawn from the
 image.  Using this set, the marginal and joint probability density function
 (PDF) is evaluated at discrete positions or bins uniformly spread within the
 dynamic range of the images. Entropy values are then computed by summing over
 the bins.
 
-\index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metric!SetNumberOfSpatialSamples()}
-\index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metric!SetNumberOfHistogramBins()}
+\index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metricv4!SetNumberOfHistogramBins()}
 
-The number of spatial samples used is set using method
-\code{SetNumberOfSpatialSamples()}. The number of bins used to compute
-the entropy values is set via \code{SetNumberOfHistogramBins()}.
+The number of spatial samples used is a ratio of the total number of samples
+and is set using method \code{SetMetricSamplingPercentage()} directly from
+the registration framework \doxygen{ImageRegistrationMethodv4}. Also, The number
+of bins used to compute the entropy values is set in the metric class
+via \code{SetNumberOfHistogramBins()} method.
 
 Since the fixed image PDF does not contribute to the metric derivatives, it
 does not need to be smooth. Hence, a zero order (boxcar) B-spline kernel is
@@ -318,24 +263,6 @@ fixed B-spline kernel bandwidth of one can be used to handle image data with
 arbitrary magnitude and dynamic range.
 
 
-\subsection{Kullback-Leibler distance metric}
-The \doxygen{KullbackLeiblerCompareHistogramImageToImageMetric} is yet another information based metric.
-Kullback-Leibler distance measures the relative entropy between two
-discrete probability distributions. The distributions are obtained from the
-histograms of the two input images, $A$ and $B$.
-
-The Kullback-Liebler distance between two histograms is given by
-\begin{equation}
-KL(A,B) =  \sum_i^N p_A(i) \times \log \frac{ p_A(i) }{p_B(i) }
-\end{equation}
-
-The distance is always non-negative and is zero only if the two distributions
-are the same. Note that the distance is not symmetric. In other
-words, $KL(A,B) \neq KL(B,A)$. Nevertheless, if the distributions are not too dissimilar,
-the difference between $KL(A,B)$ and $KL(B,A)$ is small.
-
-The implementation in ITK is based on \cite{Chung2002}.
-
 \subsection{Normalized Mutual Information Metric}
 Given two images, $A$ and $B$, the normalized mutual information may be computed as
 \begin{equation}
@@ -346,100 +273,36 @@ information, $I(A,B)$ and the joint entropy $H(A,B)$ are computed as mentioned
 in \ref{sec:MutualInformationMetric}. Details of the implementation may be found in
 the \cite{Hajnal2001}.
 
-\subsection{Mean Squares Histogram}
-\index{itk::Mean\-Squares\-Histogram\-Image\-To\-Image\-Metric}
+\subsection{Demons metric}
+\index{itk::Demons\-Image\-To\-Image\-Metricv4}
 
-The \doxygen{MeanSquaresHistogramImageToImageMetric} is an alternative
-implementation of the Mean Squares Metric. In this implementation the joint
-histogram of the fixed and the mapped moving image is built first. The user
-selects the number of bins to use in this joint histogram. Once the joint
-histogram is computed, the bins are visited with an iterator. Given that each
-bin is associated to a pair of intensities of the form: \{fixed intensity,
-moving intensity\}, along with the number of pixels pairs in the images that
-fell in this bin, it is then possible to compute the sum of square distances
-between the intensities of both images at the quantization levels defined by
-the joint histogram bins.
+The implementation of the \doxygen{DemonsImageToImageMetricv4} metric is taken from
+\doxygen{DemonsRegistrationFunction}.
 
-This metric can be represented with
-Equation~\ref{eqn:MeanSquaresHistogramImageToImageMetric}
+The metric derivative can be calculated using image derivatives
+either from the fixed or moving images. The default is to use fixed-image
+gradients. See ObjectToObjectMetric::SetGradientSource to change
+this behavior.
 
-\begin{equation}
-\label{eqn:MeanSquaresHistogramImageToImageMetric}
-MSH = \sum_f \sum_m { H(f,m) { \left( f - m \right) } ^ 2 }
-\end{equation}
+an intensity threshold is used, below which image pixels are considered
+equal for the purpose of derivative calculation. The threshold can be
+changed by calling \code{SetIntensityDifferenceThreshold}.
 
-where $H(f,m)$ is the count on the joint histogram bin identified with fixed image
-intensity $f$ and moving image intensity $m$.
+Note that this metric supports only moving transforms with local support and
+with a number of local parameters that matches the moving image dimension.
+In particular, it's meant to be used with \doxygen{DisplacementFieldTransform}
+and derived classes.
 
 
-\subsection{Correlation Coefficient Histogram}
-\index{itk::Correlation\-Coefficient\-Histogram\-Image\-To\-Image\-Metric}
+\subsection{ANTS neighborhood correlation metric}
+\index{itk::ANTS\-Neighborhood\-Correlation\-Image\-To\-Image\-Metricv4}
 
-The \doxygen{CorrelationCoefficientHistogramImageToImageMetric} computes the
-cross correlation coefficient between the intensities in the fixed image and
-the intensities on the mapped moving image. This metric is intended to be used
-in images of the same modality where the relationship between the intensities
-of the fixed image and the intensities on the moving images is given by a
-linear equation.
+The \doxygen{ANTSNeighborhoodCorrelationImageToImageMetricv4} metric computes
+normalized cross correlation using a small neighborhood for each voxel between
+two images, with speed optimizations for dense registration.
 
-The correlation coefficient is computed from the Joint histogram as
-
-\begin{equation}
-\label{eqn:CorrelationCoefficientHistogramImageToImageMetric}
-CC = \frac{ \sum_f \sum_m { \
-            H(f,m) \left( f \cdot m - \
-            \overline{f} \cdot \overline{m} \right)  } }{ \
-            \sum_f { H(f) \left( (f - \overline{f})^2 \right) } \cdot \
-            \sum_m { H(m) \left( (m - \overline{m})^2 \right) } }
-\end{equation}
-
-Where $H(f,m)$ is the joint histogram count for the bin identified with the
-fixed image intensity $f$ and the moving image intensity $m$. The values
-$\overline{f}$ and $\overline{m}$ are the mean values of the fixed and moving
-images respectively.  $H(f)$ and $H(m)$ are the histogram counts of the fixed
-and moving images respectively. The optimal value of the correlation
-coefficient is $1$, which would indicate a perfect straight line in the
-histogram.
-
-
-\subsection{Cardinality Match Metric}
-\index{itk::Match\-Cardinality\-Image\-To\-Image\-Metric}
-The \doxygen{MatchCardinalityImageToImageMetric} computes cardinality of the
-set of pixels that match exactly between the moving and fixed images. In other
-words, it computes the number of pixel matches and mismatches between the two
-images. The match is designed for label maps. All pixel mismatches are
-considered equal whether they are between label 1 and label 2 or between label
-1 and label 500. In other words, the magnitude of an individual label mismatch
-is not relevant, or the occurrence of a label mismatch is important.
-
-The spatial correspondence between the fixed and moving images is established using
-a \doxygen{Transform} using the \code{SetTransform()} method and an interpolator
-using \code{SetInterpolator()}. Given that we are matching pixels with labels,
-it is advisable to use Nearest Neighbor interpolation.
-
-\subsection{Kappa Statistics Metric}
-\index{itk::Kappa\-Statistic\-Image\-To\-Image\-Metric}
-The \doxygen{KappaStatisticImageToImageMetric} computes spatial intersection of
-two binary images. The metric here is designed for matching pixels in two images
-with the same exact value, which may be set using \code{SetForegroundValue()}.
-Given two images $A$ and $B$, the $\kappa$ coefficient is computed as
-
-\begin{equation}
-\kappa = \frac{|A| \cap |B|}{|A| + |B|}
-\end{equation}
-
-where $|A|$ is the number of foreground pixels in image $A$.  This computes the
-fraction of area in the two images that is common to both the images. In the
-computation of the metric, only foreground pixels are considered.
-
-\subsection{Gradient Difference Metric}
-\index{it::Gradient\-Difference\-Image\-To\-Image\-Metric}
-
-This \doxygen{GradientDifferenceImageToImageMetric} metric evaluates the
-difference in the derivatives of the moving and fixed images. The derivatives
-are passed through a function $\frac{1}{1+x}$ and then they are added. The
-purpose of this metric is to focus the registration on the edges of structures
-in the images.  In this way the borders exert larger influence on the result
-of the registration than do the inside of the homogeneous regions on the image.
-
-
+Around each voxel, the neighborhood is defined as a N-Dimensional
+rectangle centered at the voxel. The size of the rectangle is 2*radius+1.
+normalized correlation between neighborhoods of fixed image and moving
+image are averaged over the whole image as the final metric.
+A radius less than 2 can be unstable. 2 is the default.

@@ -12,7 +12,7 @@ Vector deformation fields may be visualized using ParaView.
 ParaView \cite{ParaviewBook} is an open-source, multi-platform visualization application and uses the Visualization Toolkit as the data processing and rendering engine and has a user interface written using a unique blend of Tcl/Tk and C++. You may download it from http://paraview.org.
 
 \subsection{Visualizing 2D deformation fields}
-Let us visualize the deformation field obtained from Demons Registration algorithm generated from Insight/Examples/Registration/DeformableRegistration2.cxx.
+Let us visualize the deformation field obtained from Demons Registration algorithm generated from ITK/Examples/RegistrationITKv4/DeformableRegistration2.cxx.
 
 Load the Deformation field in Paraview. (The deformation field must be capable of handling vector data, such as MetaImages). Paraview shows a color map of the magnitudes of the deformation fields as shown in \ref{fig:ParaviewScreenshot1}.
 
@@ -53,7 +53,7 @@ I[f(x,y)] = \iint (f^2_{xx} + 2 f^2_{xy} + f^2_{yy}) dx dy
 \end{equation}
 where the subscripts denote partial derivatives of f.
 
-The code for this section can be found in Insight/Examples/Registration/ThinPlateSplineWarp.cxx
+The code for this section can be found in ITK/Examples/RegistrationITKv4/ThinPlateSplineWarp.cxx
 
 We may now proceed as before to visualize the deformation field using Paraview as shown in Figure \ref{fig:ParaviewScreenshot4}.
 

@@ -1,34 +1,34 @@
 
-\index{itk::Optimizer}
-\index{itk::Single\-Valued\-NonLinear\-Optimizer}
+\index{itk::ObjectToObjectOptimizer}
+\index{itk::Single\-Valued\-NonLinear\-Vnl\-Optimizerv4}
 
 
 \begin{figure}
 \center
-\includegraphics[width=\textheight,angle=90]{OptimizersHierarchy.eps}
-\itkcaption[Class diagram of the Optimizer hierarchy]{Class diagram of the
-optimizers hierarchy.}
-\label{fig:OptimizersHierarchy}
+\includegraphics[width=\textheight,angle=90]{Optimizersv4Hierarchy.eps}
+\itkcaption[Class diagram of the Optimizers hierarchy in ITKv4]{Class diagram of the
+optimizersv4 hierarchy.}
+\label{fig:Optimizersv4Hierarchy}
 \end{figure}
 
-Optimization algorithms are encapsulated as \doxygen{Optimizer} objects
-within ITK. Optimizers are generic and can be used for applications other than
-registration.  Within the registration framework, subclasses of
-\doxygen{SingleValuedNonLinearOptimizer} are used to optimize the metric
-criterion with respect to the transform parameters.
+Optimization algorithms are encapsulated as \doxygen{ObjectToObjectOptimizer}
+objects within ITKv4. Optimizers are generic and can be used for applications
+other than registration. Within the registration framework, subclasses of
+\doxygen{SingleValuedNonLinearVnlOptimizerv4} are implemented as a wrap
+around already implemented vnl classes.
 
-\index{itk::Optimizer!SetInitialPosition()}
-\index{itk::Optimizer!StartOptimization()}
-\index{itk::Optimizer!GetCurrentPosition()}
+\index{itk::ObjectToObjectOptimizer!SetMetric()}
+\index{itk::ObjectToObjectOptimizer!StartOptimization()}
+\index{itk::ObjectToObjectOptimizer!GetCurrentPosition()}
 
-The basic input to an optimizer is a cost function object. In the context
-of registration, \doxygen{ImageToImageMetric} classes provides this functionality.
-The initial parameters are set using \code{SetInitialPosition()} and
+The basic input to an optimizer is a cost function or metric object. In the context
+of registration, \doxygen{ImageToImageMetricv4} classes provide this functionality.
+The metric is set using \code{SetInitialPosition()} and
 the optimization algorithm is invoked by \code{StartOptimization()}.
 Once the optimization has finished, the final parameters can be obtained
 using \code{GetCurrentPosition()}.
 
-\index{itk::Optimizer!SetScales()}
+\index{itk::ObjectToObjectOptimizer!SetScales()}
 Some optimizers also allow rescaling of their individual parameters. This is
 convenient for normalizing parameters spaces where some parameters have
 different dynamic ranges. For example, the first parameter of
@@ -40,119 +40,100 @@ difficult. Rescaling the translation parameters can help to fix this problem.
 Scales are represented as an \doxygen{Array} of doubles and set defined using
 \code{SetScales()}.
 
-There are two main types of optimizers in ITK. In the first type we find
-optimizers that are suitable for dealing with cost functions that return a
-single value. These are indeed the most common type of cost functions, and are
-known as \emph{Single Valued} functions, therefore the corresponding optimizers
-are known as \emph{Single Valued} optimizers. The second type of optimizers are
-those suitable for managing cost functions that return multiple values at each
-evaluation. These cost functions are common in model-fitting problems and are
-known as \emph{Multi Valued} or \emph{Multivariate} functions.  The
-corresponding optimizers are therefore called \emph{MultipleValued} optimizers
-in ITK.
+\index{itk::ObjectToObjectOptimizer!SetScalesEstimator()}
+Estimating the scales parameters can also be done automatically using the
+\doxygen{OptimizerParameterScalesEstimatorTemplate} and its subclasses.
+The scales estimator object is then set to the optimizer via
+\code{SetScalesEstimator()}.
 
-The \doxygen{SingleValuedNonLinearOptimizer} is the base class for the first
-type of optimizers while the \doxygen{MultipleValuedNonLinearOptimizer} is the
-base class for the second type of optimizers.
+Despite the old version of ITK, there are only \emph{Single Valued} types
+of optimizers available in ITKv4, which are suitable for dealing with cost
+functions that return a single value. These are indeed the most common type
+of cost functions, and are also known as \emph{Single Valued} functions.
 
-The types of single valued optimizer currently available in ITK are:
+The types of single valued optimizers currently available in ITKv4 are:
 
+\index{itk::Gradient\-Descent\-Optimizerv4}
+\index{itk::Regular\-Step\-Gradient\-Descent\-Optimizerv4}
+\index{itk::Gradient\-Descent\-Line\-Search\-Optimizerv4}
+\index{itk::Conjugate\-Gradient\-Line\-Search\-Optimizerv4}
+\index{itk::Multi\-Gradient\-Optimizerv4}
+\index{itk::Quasi\-Newton\-Optimizerv4}
 \index{itk::Amoeba\-Optimizer}
-\index{itk::Conjugate\-Gradient\-Optimizer}
-\index{itk::Gradient\-Descent\-Optimizer}
-\index{itk::Quaternion\-Rigid\-Transform\-Gradient\-Descent\-Optimizer}
-\index{itk::LBFGS\-Optimizer}
-\index{itk::LBFGSB\-Optimizer}
-\index{itk::One\-Plus\-One\-Evolutionary\-Optimizer}
-\index{itk::Powell\-Optimizer}
-\index{itk::Regular\-Step\-Gradient\-Descent\-Optimizer}
-\index{itk::SPSA\-Optimizer}
-\index{itk::Versor\-Transform\-Optimizer}
-\index{itk::Versor\-Rigid3D\-Transform\-Optimizer}
-\index{itk::Levenberg\-Marquardt\-Optimizer}
+\index{itk::LBFGS\-Optimizerv4}
+\index{itk::LBFGSB\-Optimizerv4}
+\index{itk::One\-Plus\-One\-Evolutionary\-Optimizerv4}
+\index{itk::Powell\-Optimizerv4}
+\index{itk::Exhaustive\-Optimizerv4}
+
 
 \begin{itemize}
 
 \item \textbf{Amoeba}: Nelder-Meade downhill simplex.  This optimizer is
 actually implemented in the \code{vxl/vnl} numerics toolkit.  The ITK class
-\doxygen{AmoebaOptimizer} is merely an adaptor class.
-
-\item \textbf{Conjugate Gradient}: Fletcher-Reeves form
-of the conjugate gradient with or without preconditioning
-(\doxygen{ConjugateGradientOptimizer}). It is also an adaptor to an optimizer in
-\code{vnl}.
+\doxygen{AmoebaOptimizerv4} is merely an adaptor class.
 
 \item \textbf{Gradient Descent}: Advances parameters in the direction of the
 gradient where the step size is governed by a learning rate
-(\doxygen{GradientDescentOptimizer}).
+(\doxygen{GradientDescentOptimizerv4}).
 
-\item \textbf{Quaternion Rigid Transform Gradient Descent}: A specialized
-version of GradientDescentOptimizer for QuaternionRigidTransform parameters,
-where the parameters representing the quaternion are normalized to a magnitude
-of one at each iteration to represent a pure rotation
-(\doxygen{QuaternionRigidTransformGradientDescent}).
+\item \textbf{Gradient Descent Line Search}: Gradient descent with a golden
+section line search. \doxygen{GradientDescentLineSearchOptimizerv4} implements
+a simple gradient descent optimizer that is followed by a line search to find
+the best value for the learning rate.
+
+\item \textbf{Conjugate Gradient Descent Line Search}: Advances parameters in
+the direction of the Polak-Ribiere conjugate gradient where a line search is
+used to find the best value for the learning rate
+(\doxygen{ConjugateGradientLineSearchOptimizerv4}).
+
+\item \textbf{Quasi Newton}: Implements a Quasi-Newton optimizer with BFGS
+Hessian estimation. Second order approximation of the cost function is usually
+more efficient since it estimates the descent or ascent direction more precisely.
+However, computation of Hessian is usually expensive or unavailable. Alternatively
+Quasi-Newton methods can estimate a Hessian from the gradients in previous steps.
+Here a specific Quasi-Newton method, BFGS, is used to compute the Quasi-Newton steps
+(\doxygen{QuasiNewtonOptimizerv4}).
 
 \item \textbf{LBFGS}: Limited memory Broyden, Fletcher, Goldfarb
 and Shannon minimization. It is an adaptor to an optimizer in \code{vnl}
-(\doxygen{LBFGSOptimizer}).
+(\doxygen{LBFGSOptimizerv4}).
 
 \item \textbf{LBFGSB}: A modified version of the LBFGS optimizer that allows to
 specify bounds for the parameters in the search space.  It is an adaptor to an
 optimizer in \code{netlib}. Details on this optimizer can be found
-in~\cite{Byrd1995,Zhu1997} (\doxygen{LBFGSBOptimizer}).
+in~\cite{Byrd1995,Zhu1997} (\doxygen{LBFGSBOptimizerv4}).
 
 \item \textbf{One Plus One Evolutionary}: Strategy that simulates the
 biological evolution of a set of samples in the search space. This optimizer is
 mainly used in the process of bias correction of MRI images
-(\doxygen{OnePlusOneEvolutionaryOptimizer.}). Details on this optimizer can be
+(\doxygen{OnePlusOneEvolutionaryOptimizerv4}). Details on this optimizer can be
 found in~\cite{Styner2000}.
 
 \item \textbf{Regular Step Gradient Descent}: Advances parameters in the
 direction of the gradient where a bipartition scheme is used to compute
-the step size (\doxygen{RegularStepGradientDescentOptimizer}).
+the step size (\doxygen{RegularStepGradientDescentOptimizerv4}).
+This optimizer is also used for Versor transforms parameters, where the
+current rotation is composed with the gradient rotation to produce the
+new rotation versor. The translational part of the transform parameters
+are updated as usually done in a vector space. It follows the definition
+of versor gradients defined by Hamilton~\cite{Hamilton1866}
 
 \item \textbf{Powell Optimizer}: Powell optimization method.  For an
 N-dimensional parameter space, each iteration minimizes(maximizes) the function
 in N (initially orthogonal) directions. This optimizer is described
-in~\cite{Press1992}.  (\doxygen{PowellOptimizer}).
+in~\cite{Press1992}.  (\doxygen{PowellOptimizerv4}).
 
-\item \textbf{SPSA Optimizer}: Simultaneous Perturbation Stochastic
-Approximation Method. This optimizer is described in
-\url{http://www.jhuapl.edu/SPSA} and in~\cite{Spall1998}.
-(\doxygen{SPSAOptimizer}).
-
-\item \textbf{Versor Transform Optimizer}: A specialized version of the
-RegularStepGradientDescentOptimizer for VersorTransform
-parameters, where the current rotation is composed with the gradient rotation
-to produce the new rotation versor. It follows the definition of versor
-gradients defined by Hamilton~\cite{Hamilton1866}
-(\doxygen{VersorTransformOptimizer}).
-
-\item \textbf{Versor Rigid3D Transform Optimizer}: A specialized version of the
-RegularStepGradientDescentOptimizer for VersorRigid3DTransform parameters,
-where the current rotation is composed with the gradient rotation to produce
-the new rotation versor. The translational part of the transform parameters are
-updated as usually done in a vector space.
-(\doxygen{VersorRigid3DTransformOptimizer}).
-
+\item \textbf{Exhausive Optimizer}: Fully samples a grid on the parameteric space.
+This optimizer is equivalent to an exahaustive search in a discrete grid defined
+over the parametric space. The grid is centered on the initial position. The
+subdivisions of the grid along each one of the dimensions of the parametric space
+is defined by an array of number of steps
+(\doxygen{ExhaustiveOptimizerv4}).
 
 \end{itemize}
 
-A parallel hierarchy exists for optimizing multiple-valued cost functions. The
-base optimizer in this branch of the hierarchy is the
-\doxygen{MultipleValuedNonLinearOptimizer} whose only current derived class
-is:
-
-\begin{itemize}
-
-\item \textbf{Levenberg Marquardt}: Non-linear least squares minimization.
-Adapted to an optimizer in \code{vnl} (\doxygen{LevenbergMarquardtOptimizer}).
-This optimizer is described in~\cite{Press1992}.
-
-\end{itemize}
-
-
-Figure \ref{fig:OptimizersHierarchy} illustrates the full class hierarchy of
+Figure \ref{fig:Optimizersv4Hierarchy} illustrates the full class hierarchy of
 optimizers in ITK. Optimizers in the lower right corner are adaptor classes
 to optimizers existing in the \code{vxl/vnl} numerics toolkit. The optimizers
 interact with the \doxygen{CostFunction} class. In the registration framework
