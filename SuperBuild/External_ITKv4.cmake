@@ -91,8 +91,8 @@ if(NOT ( DEFINED "${extProjName}_DIR" OR ( DEFINED "USE_SYSTEM_${extProjName}" A
       -DBUILD_EXAMPLES:BOOL=ON
       -DITK_USE_BRAINWEB_DATA:BOOL=ON ## Need to build BRAINWEB for software guide
       -DITK_FUTURE_LEGACY_REMOVE:=BOOL=ON
-      -DITK_LEGACY_REMOVE:BOOL=ON
-      -DITKV3_COMPATIBILITY:BOOL=OFF
+      -DITK_LEGACY_REMOVE:BOOL=OFF
+      -DITKV3_COMPATIBILITY:BOOL=ON
       -DModule_ITKReview:BOOL=ON
       -DITK_BUILD_DEFAULT_MODULES:BOOL=ON
       -DKWSYS_USE_MD5:BOOL=ON # Required by SlicerExecutionModel
@@ -103,8 +103,8 @@ if(NOT ( DEFINED "${extProjName}_DIR" OR ( DEFINED "USE_SYSTEM_${extProjName}" A
     )
   ### --- End Project specific additions
   set(${proj}_REPOSITORY ${git_protocol}://itk.org/ITK.git)
-  # ITK release branch 2014-07-22
-  set(${proj}_GIT_TAG e10bd03b0dd1c10c4b77f0fc47055200567cc3f0)
+  # ITK release branch 2014-08-03
+  set(${proj}_GIT_TAG a0ce24d873aec1c3112697362f55db6ce2e63526)
 
   ExternalProject_Add(${proj}
     GIT_REPOSITORY ${${proj}_REPOSITORY}
