@@ -459,10 +459,10 @@ define and implement a \code{ThreadedGenerateData()} method. For
 example, a \doxygen{ImageToImageFilter} would create the method:
 
 \small
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
     void ThreadedGenerateData(const OutputImageRegionType&
                               outputRegionForThread, int threadId)
-\end{verbatim}
+\end{minted}
 \normalsize
 
 The key to threading is to generate output for the output region given (as
@@ -494,12 +494,12 @@ A filter should define public types for the class itself (\code{Self}) and
 its \code{Superclass}, and \code{const} and non-\code{const} smart pointers,
 thus:
 
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   typedef ExampleImageFilter                Self;
   typedef ImageToImageFilter<TImage,TImage> Superclass;
   typedef SmartPointer<Self>                Pointer;
   typedef SmartPointer<const Self>          ConstPointer;
-\end{verbatim}
+\end{minted}
 
 The \code{Pointer} type is particularly useful, as it is a smart pointer
 that will be used by all client code to hold a reference-counted
@@ -509,13 +509,13 @@ Once the above types have been defined, you can use the following
 convenience macros, which permit your filter to participate in the object
 factory mechanism, and to be created using the canonical \code{::New()}:
 
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   /** Method for creation through the object factory. */
   itkNewMacro(Self);
 
   /** Run-time type information (and related methods). */
   itkTypeMacro(ExampleImageFilter, ImageToImageFilter);
-\end{verbatim}
+\end{minted}
 
 The default constructor should be \code{protected}, and provide sensible
 defaults (usually zero) for all parameters.  The copy constructor and
@@ -525,20 +525,20 @@ to prevent instantiating the filter without the factory methods (above).
 Finally, the template implementation code (in the \code{.hxx} file) should
 be included, bracketed by a test for manual instantiation, thus:
 
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 #ifndef ITK_MANUAL_INSTANTIATION
 #include "itkExampleFilter.hxx"
 #endif
-\end{verbatim}
+\end{minted}
 
 \subsection{Optional}
 
 A filter can be printed to an \code{std::ostream} (such as \code{std::cout})
 by implementing the following method:
 
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   void PrintSelf( std::ostream& os, Indent indent ) const;
-\end{verbatim}
+\end{minted}
 
 \noindent and writing the name-value pairs of the filter parameters to the
 supplied output stream.  This is particularly useful for debugging.
