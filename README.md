@@ -70,23 +70,27 @@ All the dependencies described above are available pre-installed in a Docker
 image.
 
   1. Download and [install Docker](http://docs.docker.com/installation/).
-  2. If on Mac or Windows, start a boot2docker shell
-  3.<pre>
+  2. If on Mac or Windows, start a boot2docker shell.
+  3.
+    <pre>
     git clone https://github.com/InsightSoftwareConsortium/ITKDevelopmentEnvironment.git
     cd ITKDevelopmentEnvironment/Docker/itksoftwareguide-edit
     ./build.sh && ./run.sh
     </pre>
-  4. Go get a coffee.
-  5. Connect to your system with your browser at *http://<host>:<port>*, where
-    *<host>* is "localhost" on Linux and the output of "boot2docker ip" on MacOS and
-    Windows. *<port>* is the result of "docker port itksoftwareguide-edit 3000".  For
-    example, http://192.168.59.103:49153.  Both the username and password to connect
-    are "itk".
-  6. To view the built PDF's, navigate to bin/ITKSoftwareGuide/SoftwareGuide/Latex/, click on the PDF, then the "download" button.
-  7. To edit the sources, edit the files in src/ITKSoftwareGuide/SoftwareGuide/Latex/
-  9. To build changes, run *make* from the directory /home/src/itk/bin/ITKSoftwareGuide using a terminal available from eth "Term" button of the web interface.
+  4. Go get a coffee and curl up with a good book -- it will take a while.
+  5. Connect to your system with your browser at *http://host:port*, where
+     *host* is `localhost` on Linux and the output of `boot2docker ip` on MacOS and
+     Windows. On Windows, make sure to run `boot2docker ip` from a normal Git Bash Shell.
+     *port* is the result of `docker port itksoftwareguide-edit 3000` run
+     inside the docker environment.  An example: *http://192.168.59.103:49153*.y
+     Both the username and password to connect are "itk".
+  6. To view the built PDF's, navigate to `bin/ITKSoftwareGuide/SoftwareGuide/Latex/`,
+     click on the PDF, then the *download* button.
+  7. To edit the sources, edit the files in `src/ITKSoftwareGuide/SoftwareGuide/Latex/`.
+  9. To build changes, run `make` from the directory `/home/src/itk/bin/ITKSoftwareGuide`
+     using a terminal available from the "Term" button of the web interface.
   8. To commit a patch and submit it to Gerrit, use the same contribution process
-    described below in the directory /home/itk/src/ITKSoftwareGuide.
+     described below in the directory `/home/itk/src/ITKSoftwareGuide`.
 
 Configuring and Building with CMake
 -----------------------------------
