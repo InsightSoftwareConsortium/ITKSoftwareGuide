@@ -254,16 +254,16 @@ is closed. As a result, you should \emph{rarely if ever call Register() or
 Delete()} in ITK. For example:
 
 \small
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   MyRegistrationFunction()
-    { <----- Start of scope
+    { /* <----- Start of scope */
 
     // here an interpolator is created and associated to the
     // SmartPointer "interp".
     InterpolatorType::Pointer interp = InterpolatorType::New();
 
-    } <------ End of scope
-\end{verbatim}
+    } /* <------ End of scope */
+\end{minted}
 \normalsize
 
 In this example, reference counted objects are created (with the \code{New()}
@@ -291,7 +291,7 @@ In general, ITK uses exception handling to manage errors during program
 execution. Exception handling is a standard part of the C++ language and
 generally takes the form as illustrated below:
 \small
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   try
     {
     //...try executing some code here...
@@ -300,13 +300,13 @@ generally takes the form as illustrated below:
     {
     //...if an exception is thrown catch it here
     }
-\end{verbatim}
+\end{minted}
 \normalsize
 
 where a particular class may throw an exception as demonstrated below (this
 code snippet is taken from \doxygen{ByteSwapper}:
 \small
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   switch ( sizeof(T) )
     {
     //non-error cases go here followed by error case
@@ -316,7 +316,7 @@ code snippet is taken from \doxygen{ByteSwapper}:
       e.SetDescription("Cannot swap number of bytes requested");
       throw e;
     }
-\end{verbatim}
+\end{minted}
 \normalsize
 
 Note that \doxygen{ByteSwapperError} is a subclass of
@@ -352,19 +352,19 @@ in \code{itkEventObject.h} to determine which events are available.)
 To recap via example: various objects in ITK will invoke specific events
 as they execute (from ProcessObject):
 \small
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   this->InvokeEvent( ProgressEvent() );
-\end{verbatim}
+\end{minted}
 \normalsize
 
 To watch for such an event, registration is required that associates a
 command (e.g., callback function) with the event:
 \code{Object::AddObserver()} method:
 \small
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   unsigned long progressTag =
     filter->AddObserver(ProgressEvent(), itk::Command*);
-\end{verbatim}
+\end{minted}
 \normalsize
 
 When the event occurs, all registered observers are notified via invocation
@@ -392,11 +392,11 @@ class \doxygen{ImageSource} (a superclass for most image processing filters)
 the \code{GenerateData()} method uses the following methods:
 
 \small
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   multiThreader->SetNumberOfThreads(int);
   multiThreader->SetSingleMethod(ThreadFunctionType, void* data);
   multiThreader->SingleMethodExecute();
-\end{verbatim}
+\end{minted}
 \normalsize
 
 In this example each thread invokes the same method. The multithreaded filter
@@ -581,7 +581,7 @@ Typically data objects and process objects are connected together using the
 \code{SetInput()} and \code{GetOutput()} methods as follows:
 
 \small
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   typedef itk::Image<float,2> FloatImage2DType;
 
   itk::RandomImageSource<FloatImage2DType>::Pointer random;
@@ -599,7 +599,7 @@ Typically data objects and process objects are connected together using the
   writer->SetInput (shrink->GetOutput());
   writer->SetFileName( ``test.raw'' );
   writer->Update();
-\end{verbatim}
+\end{minted}
 \normalsize
 
 In this example the source object \doxygen{RandomImageSource} is connected
@@ -724,7 +724,7 @@ particular syntactical requirements of each language. For example, in the
 directory \code{Examples/IO}, the test \code{DicomSliceRead.py} has a code
 fragment that appears as follows:
 \small
-\begin{verbatim}
+\begin{minted}{python}
   InputImageType = itk.Image.SS2
   OutputImageType = itk.Image.UC2
 
@@ -734,12 +734,12 @@ fragment that appears as follows:
   filter = itk.RescaleIntensiteImageFilter[InputImageType, OutputImageType].New()
   filter.SetOutputMinimum(0)
   filter.SetOutputMaximum(255)
-\end{verbatim}
+\end{minted}
 \normalsize
 The same code in C++ would appear as follows:
 
 \small
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   typedef itk::Image< short, 2 >         InputImageType;
   typedef itk::Image< unsigned char, 2 > OutputImageType;
 
@@ -751,7 +751,7 @@ The same code in C++ would appear as follows:
       itk::CurvatureFlowImageFilter<InputImageType,OutputImageType>::New();
   filter->SetOutputMinimum(0)
   filter->SetOutputMaximum(255)
-\end{verbatim}
+\end{minted}
 \normalsize
 
 This example demonstrates an important difference between C++ and a wrapped

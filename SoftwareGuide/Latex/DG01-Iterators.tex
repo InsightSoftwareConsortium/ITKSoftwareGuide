@@ -85,7 +85,7 @@ Here is a simple example that defines and constructs a simple image iterator
 for an \doxygen{Image}.
 
 \small
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   typedef itk::Image<float, 3> ImageType;
   typedef itk::ImageRegionConstIterator< ImageType > ConstIteratorType;
   typedef itk::ImageRegionIterator< ImageType > IteratorType;
@@ -94,7 +94,7 @@ for an \doxygen{Image}.
 
   ConstIteratorType constIterator( image, image->GetRequestedRegion() );
   IteratorType iterator( image, image->GetRequestedRegion() );
-\end{verbatim}
+\end{minted}
 \normalsize
 
 \subsection{Moving Iterators}
@@ -242,9 +242,9 @@ following code, which fetches, modifies, and then writes a value back
 to the same pixel location.
 
 \small
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   it.Set( it.Get() + 1 );
-\end{verbatim}
+\end{minted}
 \normalsize
 
 As written, this code requires one more memory dereference than is necessary.
@@ -262,9 +262,9 @@ expression.  It has all the properties of \code{operator*}.  The
 efficiently.
 
 \small
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   it.Value()++;
-\end{verbatim}
+\end{minted}
 \normalsize
 
 Consider using the \code{Value()} method instead of \code{Get()} or
@@ -282,7 +282,7 @@ example to do pixel-wise operations on an image.  The following code calculates
 the squares of all values in an input image and writes them to an output image.
 
 \small
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   ConstIteratorType in( inputImage,   inputImage->GetRequestedRegion() );
   IteratorType out( outputImage, inputImage->GetRequestedRegion() );
 
@@ -290,7 +290,7 @@ the squares of all values in an input image and writes them to an output image.
     {
     out.Set( in.Get() * in.Get() );
     }
-\end{verbatim}
+\end{minted}
 \normalsize
 
 \index{Iterators!and image regions}
@@ -310,7 +310,7 @@ iterator is strictly \emph{equal} to its beginning position.  It is often more
 convenient to write reverse iteration in a \code{while} loop.
 
 \small
-\begin{verbatim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   in.GoToEnd();
   out.GoToEnd();
   while ( ! in.IsAtBegin() )
@@ -319,7 +319,7 @@ convenient to write reverse iteration in a \code{while} loop.
     --out;
     out.Set( in.Get() * in.Get() );
     }
-\end{verbatim}
+\end{minted}
 \normalsize
 
 %\begin{itemize}
