@@ -36,7 +36,7 @@ in some cases additional chapters---cover these concepts in more detail.
 	\emph{filters} that in turn may be organized into data flow
 	\emph{pipelines}. These pipelines maintain state and therefore
 	execute only when necessary.  They also support
-	multi-threading, and are streaming capable (i.e., can operate
+	multithreading, and are streaming capable (i.e., can operate
 	on pieces of data to minimize the memory footprint).
 
         \item[IO Framework.] Associated with the data processing
@@ -127,7 +127,7 @@ ITK uses the techniques of generic programming in its implementation. The
 advantage of this approach is that an almost unlimited variety of data types
 are supported simply by defining the appropriate template types. For example,
 in ITK it is possible to create images consisting of almost any type of
-pixel. In addition, the type resolution is performed at compile-time, so the
+pixel. In addition, the type resolution is performed at compile time, so the
 compiler can optimize the code to deliver maximal performance. The
 disadvantage of generic programming is that the analysis performed at compile
 time increases the time to build an application. Also, the increased
@@ -755,19 +755,19 @@ The same code in C++ would appear as follows:
 \normalsize
 
 This example demonstrates an important difference between C++ and a wrapped
-language such as Python.  Templated classes must be instantiated prior to
+language such as Python. Templated classes must be instantiated prior to
 wrapping. That is, the template parameters must be specified as part of the
 wrapping process. In the example above, the
 \code{ImageFileReader[InputImageType]} indicates that this class, implementing
-han image source, has been
+an image source, has been
 instantiated using an input and output image type of two-dimensional signed
 short values (e.g., \code{SS2}). Typically just a few common types are
 selected for the wrapping process to avoid an explosion of types and hence,
 library size. To add a new type requires rerunning the wrapping process to
-produce new libraries.  Some high level options for these types, such as
+produce new libraries.  Some high-level options for these types, such as
 common pixels types and image dimensions, are specified during CMake
 configuration.  The types of specific classes that should be instantiated,
-based of these basic options, are defined by the \code{*.wrap} files in the
+based on these basic options, are defined by the \code{*.wrap} files in the
 \code{wrapping} directory of a module.
 
 The advantage of interpreted languages is that they do not require the lengthy
@@ -777,3 +777,46 @@ the Python ecosystem provides a variety of powerful tools for creating
 sophisticated user interfaces. In the future it is likely that more
 applications and tests will be implemented in the various interpreted
 languages supported by ITK.
+
+\subsection{Python Setup}
+
+In order to access the python interface of ITK, make sure to compile with the
+CMake option \code{CMAKE\_WRAP\_PYTHON}. In addition, choose which pixel
+types and dimensions to build into the wrapped interface. Supported pixel types
+are represented in the CMake configuration as variables named
+\code{ITK\_WRAP\_<pixel type>}. Supported image dimensions are enumerated in the
+semicolon-delimited list \code{ITK\_WRAP\_DIMS}, the default value of which is
+\code{2;3} indicating support for 2- and 3-dimensional images.
+
+After configuration, check to make sure that the values of the following variables
+are set correctly:
+
+\begin{itemize}
+  \item \code{PYTHON\_INCLUDE\_DIR}
+  \item \code{PYTHON\_LIBRARY}
+  \item \code{PYTHON\_EXECUTABLE}
+\end{itemize}
+
+particularly if there are multiple python installations on the system.
+
+The environment for access to the \code{itk} python module is best configured
+using the Python virtualenv tool, which provides an isolated working copy of Python
+without interfering with Python installed at the system level. Once the virtualenv
+package is installed on your Linux system, create the virtual environment within the
+directory ITK was built in. Create a symbolic link to the \code{WrapITK.pth} file
+within the \code{lib/python2.7/site-packages} directory of Python's virtual install
+directory.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+virtualenv --system-site-packages wrapitk-venv
+cd wrapitk-venv/lib/python2.7/site-packages
+ln -s /path/to/ITK-Wrapped/Wrapping/Generators/Python/WrapITK.pth
+cd ../../../../wrapitk-venv/bin
+./python /usr/bin/ipython
+import itk
+\end{minted}
+\normalsize
+
+Virtualenv is built into Python3, and can be used with the \code{pyvenv} command instead of
+\code{virtualenv} as in the example above.
