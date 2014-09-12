@@ -74,8 +74,8 @@ image.
   3.
     <pre>
     git clone https://github.com/InsightSoftwareConsortium/ITKDevelopmentEnvironment.git
-    cd ITKDevelopmentEnvironment/Docker/itksoftwareguide-edit
-    ./build.sh && ./run.sh
+    cd ITKDevelopmentEnvironment/Docker
+    ./build.sh itksoftwareguide-edit && ./run.sh itksoftwareguide-edit
     </pre>
   4. Go get a coffee and curl up with a good book -- it will take a while.
   5. Connect to your system with your browser at *http://host:port*, where
