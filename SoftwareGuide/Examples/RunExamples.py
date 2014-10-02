@@ -373,48 +373,47 @@ if __name__ == "__main__":
 
         for currFile in fileList:
             if currFile[-4:] != ".cxx":  # Only parse cxx files
-                    # print("NOT PARSING: {0} because it has wrong extension {1}".format(currFile,currFile[-r:]))
+                # print("NOT PARSING: {0} because it has wrong extension {1}".format(currFile,currFile[-r:]))
                 continue
             sourceFile = os.path.realpath(rootDir + '/' + currFile)
 
-            ## A dictionary indexed by starting line to the command blocks
+            # A dictionary indexed by starting line to the command blocks
             allCommandBlocks += ParseOneFile(sourceFile, pathFinder)
-
 
     sorter = CodeBlockTopSort(allCommandBlocks)
     sortedAllCommandBlocks = sorter.GetSortedCodeBlockList()
     for blockStart in sortedAllCommandBlocks:
-      runCommand = blockStart.GetCommandLine()
-      for inputFile in blockStart.inputs:
-        if not os.path.exists(inputFile):
-          print("WARNING: {0} input does not exist".format(blockStart.sourceFile))
-      print("Running: {0}".format(runCommand))
-      try:
-        retcode = subprocess.call(runCommand, shell=True)
-        if retcode < 0:
-          print("Child was terminated by signal " + str(-retcode))
-        else:
-          print("Child returned " + str(retcode))
-      except OSError as e:
-        print("Execution failed for some reason: " + str(e))
+        runCommand = blockStart.GetCommandLine()
+        for inputFile in blockStart.inputs:
+            if not os.path.exists(inputFile):
+                print("WARNING: {0} input does not exist".format(blockStart.sourceFile))
+        print("Running: {0}".format(runCommand))
+        try:
+            retcode = subprocess.call(runCommand, shell=True)
+            if retcode < 0:
+                print("Child was terminated by signal " + str(-retcode))
+            else:
+                print("Child returned " + str(retcode))
+        except OSError as e:
+            print("Execution failed for some reason: " + str(e))
 
     dependencyDictionary = dict()
     for block in sortedAllCommandBlocks:
-      baseProgramName = block.GetProgBaseName()
-      if not baseProgramName in dependencyDictionary:
-        dependencyDictionary[baseProgramName] = list()
-      # Now we warn if the input or output doesn't exist
-      for outputFile in block.outputs:
-        if not os.path.exists(outputFile):
-          print("WARNING: output {0} of {1} does not exist!".format(outputFile,baseProgramName))
-      for inputFile in block.inputs:
-        if not os.path.exists(inputFile):
-          print("WARNING: input {0} of {1} does not exist!".format(inputFile,baseProgramName))
-      dependencyDictionary[baseProgramName].extend(block.outputs)
-      for inputFile in block.inputs:
-          # Only add pngs because imagemagick does not yet support metaimage
-          if inputFile[-4:] == ".png":
-              dependencyDictionary[baseProgramName].append(inputFile)
+        baseProgramName = block.GetProgBaseName()
+        if not baseProgramName in dependencyDictionary:
+            dependencyDictionary[baseProgramName] = list()
+        # Now we warn if the input or output doesn't exist
+        for outputFile in block.outputs:
+            if not os.path.exists(outputFile):
+                print("WARNING: output {0} of {1} does not exist!".format(outputFile,baseProgramName))
+        for inputFile in block.inputs:
+            if not os.path.exists(inputFile):
+                print("WARNING: input {0} of {1} does not exist!".format(inputFile,baseProgramName))
+        dependencyDictionary[baseProgramName].extend(block.outputs)
+        for inputFile in block.inputs:
+            # Only add pngs because imagemagick does not yet support metaimage
+            if inputFile[-4:] == ".png":
+                dependencyDictionary[baseProgramName].append(inputFile)
 
     mkdir_p(os.path.join(args.SWGuidBaseOutput,'Examples'))
     outputCMakeDependancies = os.path.join(args.SWGuidBaseOutput,'Examples',"GeneratedDependancies.cmake")
@@ -424,15 +423,15 @@ if __name__ == "__main__":
     outputCDFile = open(outputCMakeDependancies, 'w')
     allDependencies = 'set(allEPS-DEPS '
     for baseName in dependencyDictionary.keys():
-      outstring = 'set("{name}-DEPS" '.format(name=baseName)
-      allDependencies += ' "${'+'{name}-DEPS'.format(name=baseName)+'}" '
-      for output in dependencyDictionary[baseName]:
-        epsOutput = os.path.join(outputEPSDirectory, os.path.basename(output.replace('.png','.eps')))
-        outstring += ' "{epsOutput}"'.format(epsOutput=epsOutput.replace('\\', '/'))
-        outputCDFile.write('CONVERT_INPUT_IMG("{0}" "{1}" "{2}")\n'.format(output.replace('\\', '/'),
-        epsOutput.replace('\\', '/'), ""))
-      outstring += ')\n'
-      outputCDFile.write(outstring)
+        outstring = 'set("{name}-DEPS" '.format(name=baseName)
+        allDependencies += ' "${'+'{name}-DEPS'.format(name=baseName)+'}" '
+        for output in dependencyDictionary[baseName]:
+            epsOutput = os.path.join(outputEPSDirectory, os.path.basename(output.replace('.png','.eps')))
+            outstring += ' "{epsOutput}"'.format(epsOutput=epsOutput.replace('\\', '/'))
+            outputCDFile.write('CONVERT_INPUT_IMG("{0}" "{1}" "{2}")\n'.format(output.replace('\\', '/'),
+            epsOutput.replace('\\', '/'), ""))
+        outstring += ')\n'
+        outputCDFile.write(outstring)
     allDependencies += ')\n'
     outputCDFile.write(allDependencies)
     outputCDFile.close()
