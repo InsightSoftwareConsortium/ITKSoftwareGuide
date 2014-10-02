@@ -175,7 +175,6 @@ foreach(example ${ITK_EXAMPLES_SRCS})
   set(TEX_FILE ${SoftwareGuide_BINARY_DIR}/Examples/${TEX_FILE_BASE}.tex)
   #message(STATUS "File ${TEX_FILE} depends on: ${${TEX_FILE_BASE}-DEPS}")
   add_custom_command(
-    SOURCE    ${example}
     COMMAND   ${PYTHON_EXECUTABLE}
     ARGS      ${PYTHONCXXPARSER} ${example} ${TEX_FILE}
     TARGET    SoftwareGuideExamples
