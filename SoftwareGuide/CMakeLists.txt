@@ -184,7 +184,9 @@ foreach(example ${ITK_EXAMPLES_SRCS})
   set(TEX_DEPENDENCIES ${TEX_DEPENDENCIES} ${TEX_FILE})
 endforeach(example)
 
-add_custom_target(BuildTexFiles ALL DEPENDS ${TEX_DEPENDENCIES})
+add_custom_target(BuildTexFiles ALL
+  DEPENDS ${TEX_DEPENDENCIES} SoftwareGuideExamples
+  )
 
 
 add_subdirectory(Examples)
