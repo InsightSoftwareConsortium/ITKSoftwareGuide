@@ -106,11 +106,10 @@ set(ITK_FLIP_IMG
 macro(CONVERT_INPUT_IMG SOME_IMG EPS_IMG IMAGEMAGICK_FLAGS)
   if( NOT DEFINED ${EPS_IMG}_HAS_CUSTOM_COMMAND)
     add_custom_command(
-        SOURCE      "${SOME_IMG}"
+        OUTPUT      "${EPS_IMG}"
         COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
         ARGS        ${FLAGS} -flip -quality 100 "${SOME_IMG}" "${EPS_IMG}"
         DEPENDS     ${RUN_EXAMPLES_SCRIPT}
-        OUTPUT      "${EPS_IMG}"
     )
     set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
   endif()
@@ -127,8 +126,6 @@ find_program(PYTHONCXXPARSER NAMES ${SoftwareGuide_SOURCE_DIR}/ParseCxxExamples.
 if( NOT EXISTS ${SoftwareGuide_SOURCE_DIR}/ParseCxxExamples.py )
   message(FATAL_ERROR "Missing script: ${SoftwareGuide_SOURCE_DIR}/ParseCxxExamples.py")
 endif()
-
-add_custom_target(SoftwareGuideExamples  ALL echo)
 
 #
 # Search for all the example sources
@@ -173,19 +170,17 @@ set(TEX_DEPENDENCIES "")
 foreach(example ${ITK_EXAMPLES_SRCS})
   get_filename_component(TEX_FILE_BASE ${example} NAME_WE)
   set(TEX_FILE ${SoftwareGuide_BINARY_DIR}/Examples/${TEX_FILE_BASE}.tex)
-  #message(STATUS "File ${TEX_FILE} depends on: ${${TEX_FILE_BASE}-DEPS}")
   add_custom_command(
+    OUTPUT    ${TEX_FILE}
     COMMAND   ${PYTHON_EXECUTABLE}
     ARGS      ${PYTHONCXXPARSER} ${example} ${TEX_FILE}
-    TARGET    SoftwareGuideExamples
     DEPENDS   ${PYTHONCXXPARSER} ${example} ${${TEX_FILE_BASE}-DEPS}
-    OUTPUTS   ${TEX_FILE}
   )
   set(TEX_DEPENDENCIES ${TEX_DEPENDENCIES} ${TEX_FILE})
 endforeach(example)
 
 add_custom_target(BuildTexFiles ALL
-  DEPENDS ${TEX_DEPENDENCIES} SoftwareGuideExamples
+  DEPENDS ${TEX_DEPENDENCIES}
   )
 
 
