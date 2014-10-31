@@ -40,8 +40,8 @@
 %\paperheight 9.50in
 %\paperwidth  7.25in
 
-\paperheight 9.375in
-\paperwidth  7.25in
+\paperwidth  7.5in
+\paperheight 9.25in
 
 \topmargin 0.625in
 \setlength{\voffset}{-0.625in}
