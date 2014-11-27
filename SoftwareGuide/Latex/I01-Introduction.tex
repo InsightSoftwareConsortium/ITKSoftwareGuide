@@ -6,7 +6,7 @@ Software Guide}. This book has been updated for ITK \ITKVERSIONMAJORMINOR
 \ and later versions of the Insight Toolkit software.
 
 ITK is an open-source, object-oriented software system for image processing,
-segmentation, and registration.  Although it is large and complex, ITK is
+segmentation, and registration. Although it is large and complex, ITK is
 designed to be easy to use once you learn about its basic object-oriented and
 implementation methodology. The purpose of this Software Guide is
 to help you learn just this, plus to familiarize you with the important
@@ -17,7 +17,7 @@ all ITK objects and their methods in this text. Instead, this guide will
 introduce you to important system concepts and lead you up the learning curve
 as fast and efficiently as possible. Once you master the basics, take
 advantage of the many resources available
-(\url{http://www.itk.org/ITK/help/documentation.html}), including example
+\footnote{\url{http://www.itk.org/ITK/help/documentation.html}}, including example
 materials, which provide cookbook recipes that concisely demonstrate how to
 achieve a given task, the Doxygen pages, which document the specific algorithm
 parameters, and the knowledge of the many ITK community members (see Section
@@ -33,15 +33,14 @@ community mailing list.
 \section{Organization}
 \label{sec:Organization}
 
-This software guide is divided into three parts, each of which is further
-divided into several chapters. Part I is a general introduction to ITK,
-with---in the next chapter---a description of how to install the Insight
+This software guide is divided into three parts. Part I is a general
+introduction to ITK, with a description of how to install the Insight
 Toolkit on your computer. This includes how to build the library from its
 source code. Part II introduces basic system concepts such as an overview of
 the system architecture, and how to build applications in the C++ and Python
 programming languages. Part II also describes the design of data structures
 and application of analysis methods within the system.  Part III is for the
-ITK contributor. Part III explains how to create your own classes, extend the
+ITK contributor and explains how to create your own classes, extend the
 system, and be an active participant in the project.
 
 \section{How to Learn ITK}
@@ -50,20 +49,20 @@ system, and be an active participant in the project.
 The key to learning how to use ITK is to become familiar with its palette of
 objects and the ways to combine them. There are three categories of
 documentation to help with the learning process: high level guidance material
-(the Software Guide), "cookbook" demonstrations on how to achieve concrete objectives
-particular objectives (the examples), and detailed descriptions of the
+(the Software Guide), "cookbook" demonstrations on how to achieve concrete
+objectives (the examples), and detailed descriptions of the
 application programming interface (the
 Doxygen\footnote{\url{http://itk.org/Doxygen/index.html}} documentation). These
 resources are combined in the three recommended stages for learning ITK.
 
-In the first stage, thoroughly read this Introduction, which provides an
+In the first stage, thoroughly read this introduction, which provides an
 overview of some of the key concepts of the system. It also provides guidance
 on how to build and install the software. After running your first "hello
 world" program, you are well on your way to advanced computational image
 analysis!
 
 The next stage is to execute a few examples and gain familiarity with the
-available documentation.  By running the examples, one can gain confidence
+available documentation. By running the examples, one can gain confidence
 in achieving results and is introduced the mechanics of the software system.
 There are three example resources,
 \begin{enumerate}
@@ -82,7 +81,7 @@ Part III introduces how to extend them to your needs and participate in the
 community. Individual examples are a detailed starting point to achieve
 certain tasks.  In practice, the Doxygen documentation becomes a frequent
 reference as an index of the classes available, their descriptions, and the
-syntax and descriptions of their methods.  When examples and Doxygen
+syntax and descriptions of their methods. When examples and Doxygen
 documentation are insufficient, the software unit tests thoroughly demonstrate
 how the code is utilized. Last, but not least, the source code itself
 is an extremely valuable resource. The code is the most detailed, up-to-date, and
@@ -100,8 +99,8 @@ software functionality in each directory, and how to locate data.
 There are two different ways to access the ITK source code:
 \begin{description}
   \item[Periodic releases]{Official releases are available on the ITK web
-    site\footnote{\url{http://itk.org/}}. Official releases are available
-    a twice a year and announced on the ITK web pages and mailing lists.
+    site\footnote{\url{http://itk.org/}}. They are released twice a year,
+    and announced on the ITK web pages and mailing list.
     However, they may not provide the latest and greatest features of the
     toolkit.}
   \item[Continuous repository checkout]{Direct access to the Git source code
@@ -114,13 +113,12 @@ This software guide assumes that you are using the current released version of
 ITK, available on the ITK web site. If you are a new user, we recommend the
 released version of the software. It is stable, consistent, and better tested
 than the code available from the Git repository.  When working from the
-repository, please be aware of the ITK quality testing dashboard.  The Insight
+repository, please be aware of the ITK quality testing dashboard. The Insight
 Toolkit is heavily tested using the open-source CDash regression testing
-system\footnote{\url{http://open.cdash.org/index.php?project=Insight}}.  Before
-updating the repository, make sure that the dashboard is \emph{green}
-indicating stable code. If not green it is likely that your software update is
-unstable. (Learn more about the ITK dashboard and quality assurance process in
-Section \ref{sec:CDash} on page \pageref{sec:CDash}.)
+system\footnote{\url{http://open.cdash.org/index.php?project=Insight}}. Before
+updating the repository, make sure that the dashboard is \emph{green},
+indicating stable code. (Learn more about the ITK dashboard and quality
+assurance process in Section \ref{sec:CDash} on page \pageref{sec:CDash}.)
 
 \subsection{Downloading Packaged Releases}
 \label{sec:DownloadingReleases}
@@ -132,14 +130,14 @@ ITK can be downloaded without cost from the following web site:
   \url{http://www.itk.org/ITK/resources/software.html}
 \end{center}
 
-Then choose the tarball that better fits your system. The options are
-\code{.zip} and \code{.tar.gz} files.  The first type is better suited for
-Microsoft-Windows while the second one is the preferred format for UNIX
+On the web page, choose the tarball that better fits your system. The options are
+\code{.zip} and \code{.tar.gz} files. The first type is better suited for
+Microsoft-Windows, while the second one is the preferred format for UNIX
 systems.
 
 Once you unzip or untar the file a directory called
 \code{InsightToolkit-\ITKVERSIONMAJORMINOR.0} will be created in your disk and
-you will be ready for starting the configuration process described in Section
+you will be ready to start the configuration process described in Section
 \ref{sec:CMakeforITK} on page \pageref{sec:CMakeforITK}.
 
 \subsection{Downloading From Git}
@@ -207,10 +205,9 @@ The \code{ITK} repository contains the following subdirectories:
 \begin{itemize}
         \item \code{ITK/Modules} --- the heart of the software; the location
         of the majority of the source code.
-        \item \code{ITK/Documentation} --- some ancillary documentation
-        material.
+        \item \code{ITK/Documentation} --- migration guides and Doxygen infrastructure.
         \item \code{ITK/Examples} --- a suite of simple, well-documented
-        examples used by this guide and to illustrate important
+        examples used by this guide, illustrating important
         ITK concepts.
         \item \code{ITK/Testing} --- a collection of the MD5 files, which are
 used to link with the ITK data servers to download test data. This test data is
@@ -299,7 +296,7 @@ can subscribe to the community list online at
 ITK was created from its inception as a collaborative, community
 effort. Research, teaching, and commercial uses of the toolkit are
 expected. If you would like to participate in the community, there are a
-number of possibilities.  For details on participation, see Part III.
+number of possibilities. For details on participation, see Part III of this book.
 
 \begin{itemize}
        \item Interaction with other community members is encouraged on the
@@ -341,7 +338,7 @@ partners---University of North Carolina (UNC), University of Tennessee (UT)
 (Ross Whitaker subsequently moved to University of Utah), and University of
 Pennsylvania (UPenn). The Principle Investigators for these partners were,
 respectively, Bill Lorensen at GE CRD, Will Schroeder at Kitware, Vikram
-Chalana at Insightful, Stephen Aylward with Luis Ib'{a}~{n}ez at UNC (Luis is now
+Chalana at Insightful, Stephen Aylward with Luis Iba\~{n}ez at UNC (Luis is now
 at Kitware), Ross Whitaker with Josh Cates at UT (both now at Utah), and
 Dimitri Metaxas at UPenn (now at Rutgers). In addition, several
 subcontractors rounded out the consortium including Peter Raitu at Brigham \&
