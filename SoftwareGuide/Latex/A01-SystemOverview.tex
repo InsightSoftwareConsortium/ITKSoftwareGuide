@@ -24,36 +24,36 @@ in some cases additional chapters---cover these concepts in more detail.
         easy-to-use C++ wrappers around the Netlib Fortran numerical
         analysis routines \footnote{\url{http://www.netlib.org}}.
 
-	\item[Data Representation and Access.]  Two principal classes are
+	\item[Data Representation and Access.] Two principal classes are
         used to represent data: the \doxygen{Image} and \doxygen{Mesh}
-        classes.  In addition, various types of iterators and containers are
+        classes. In addition, various types of iterators and containers are
         used to hold and traverse the data. Other important but less popular
         classes are also used to represent data such as \doxygen{Histogram} and
         \doxygen{SpatialObject}.
 
-	\item[Data Processing Pipeline.]  The data representation
-	classes (known as \emph{data objects}) are operated on by
-	\emph{filters} that in turn may be organized into data flow
-	\emph{pipelines}. These pipelines maintain state and therefore
-	execute only when necessary.  They also support
-	multithreading, and are streaming capable (i.e., can operate
-	on pieces of data to minimize the memory footprint).
+	\item[Data Processing Pipeline.] The data representation
+	   classes (known as \emph{data objects}) are operated on by
+	   \emph{filters} that in turn may be organized into data flow
+	   \emph{pipelines}. These pipelines maintain state and therefore
+	   execute only when necessary.  They also support
+	   multithreading, and are streaming capable (i.e., can operate
+	   on pieces of data to minimize the memory footprint).
 
-        \item[IO Framework.] Associated with the data processing
+    \item[IO Framework.] Associated with the data processing
         pipeline are \emph{sources}, filters that initiate the
         pipeline, and \emph{mappers}, filters that terminate the
         pipeline.  The standard examples of sources and mappers are
-        \emph{readers} and \emph{writers} respectively.  Readers
+        \emph{readers} and \emph{writers} respectively. Readers
         input data (typically from a file), and writers output data
         from the pipeline.
 
 	\item[Spatial Objects.] Geometric shapes are represented in ITK using
-        the spatial object hierarchy.  These classes are intended to support
+        the spatial object hierarchy. These classes are intended to support
         modeling of anatomical structures. Using a common basic interface,
         the spatial objects are capable of representing regions of space in a
         variety of different ways. For example: mesh structures, image masks,
         and implicit equations may be used as the underlying representation
-        scheme.  Spatial objects are a natural data structure for
+        scheme. Spatial objects are a natural data structure for
         communicating the results of segmentation methods and for introducing
         anatomical priors in both segmentation and registration methods.
 
@@ -76,18 +76,12 @@ in some cases additional chapters---cover these concepts in more detail.
         based methods.
 
 	\item[Wrapping.] ITK uses a unique, powerful system for
-	producing interfaces (i.e., ``wrappers'') to interpreted
-	languages such as Python. The GCC-XML\footnote{\url{http://gccxml.org}}
-        tool is used to produce an XML description of arbitrarily complex C++ code.
-	An interface generator script is then used to transform the XML description
-        into wrappers using the SWIG\footnote{\url{http://www.swig.org/}} package.
+	   producing interfaces (i.e., ``wrappers'') to interpreted
+	   languages such as Python. The GCC-XML\footnote{\url{http://gccxml.org}}
+       tool is used to produce an XML description of arbitrarily complex C++ code.
+	   An interface generator script is then used to transform the XML description
+       into wrappers using the SWIG\footnote{\url{http://www.swig.org/}} package.
 
-        \item[Utilities] Several auxiliary subsystems are available to
-        supplement other classes in the system. For example, calculators are
-        classes that perform specialized operations in support of filters
-        (e.g., MeanCalculator computes the mean of a sample). Other utilities
-        include a partial DICOM parser, MetaIO file support, png, zlib, and
-        interfaces to the Visualization Toolkit (VTK) system.
 \end{description}
 
 
@@ -138,24 +132,24 @@ generic programming, we recommend the two books cited above.
 \subsection{Include Files and Class Definitions}
 \label{sec:IncludeFiles}
 
-In ITK classes are defined by a maximum of two files: a header \code{.h} file
-and an implementation file---\code{.cxx} if a non-templated class, and a
-\code{.hxx} if a templated class.
+In ITK, classes are defined by a maximum of two files: a header file (\code{.h})
+and an implementation file (\code{.cxx}) if defining a non-templated class, and a
+\code{.hxx} file if defining a templated class.
 The header files contain class declarations
 and formatted comments that are used by the Doxygen documentation
 system to automatically produce HTML manual pages.
 
 In addition to class headers, there are a few other important header files.
 \begin{description}
-        \item[\code{itkMacro.h}] is found in the
-        \code{Modules/Core/Common/include} directory
-        and defines standard system-wide macros (such as \code{Set/Get},
-        constants, and other parameters).
+    \item[\code{itkMacro.h}] is found in the
+    \code{Modules/Core/Common/include} directory
+    and defines standard system-wide macros (such as \code{Set/Get},
+    constants, and other parameters).
 
-        \item[\code{itkNumericTraits.h}] is found in the
-        \code{Modules/Core/Common/include} directory and defines numeric
-        characteristics for native types such as its maximum and minimum
-        possible values.
+    \item[\code{itkNumericTraits.h}] is found in the
+    \code{Modules/Core/Common/include} directory and defines numeric
+    characteristics for native types such as its maximum and minimum
+    possible values.
 \end{description}
 
 \subsection{Object Factories}
@@ -171,9 +165,9 @@ destructor, instances of an ITK class are created with the static class
 \code{protected:} so it is generally not possible to construct an ITK
 instance on the stack. (Note: this behavior pertains to classes that are
 derived from \doxygen{LightObject}. In some cases the need for speed or
-reduced memory footprint dictates that a class not be derived from
-LightObject, and in this case instances may be created on the stack. An
-example of such a class is \doxygen{EventObject}.)
+reduced memory footprint dictates that a class is not derived from
+LightObject. In this case instances may be created on the stack. An
+example of such a class is the \doxygen{EventObject}.)
 
 The object factory enables users to control run-time instantiation of classes
 by registering one or more factories with \doxygen{ObjectFactoryBase}. These
@@ -183,10 +177,10 @@ create the class based on a number of factors including the computer system
 configuration and environment variables. For example, a particular
 application may wish to deploy its own class implemented using
 specialized image processing hardware (i.e., to realize a performance
-gain). By using the object factory mechanism, it is possible at run-time to
-replace the creation of a particular ITK filter with such a custom class. (Of
-course, the class must provide the exact same API as the one it is
-replacing.) To do this, the user compiles her class (using the same compiler,
+gain). By using the object factory mechanism, it is possible to replace
+the creation of a particular ITK filter at run-time with such a custom class.
+(Of course, the class must provide the exact same API as the one it is
+replacing.). For this, the user compiles his class (using the same compiler,
 build options, etc.) and inserts the object code into a shared library or
 DLL. The library is then placed in a directory referred to by the
 \code{ITK\_AUTOLOAD\_PATH} environment variable. On instantiation, the object
@@ -210,9 +204,9 @@ the use of the \code{New()} method to create a class. Generally the
 
 By their nature, object-oriented systems represent and operate on data through
 a variety of object types, or classes. When a particular class is
-instantiated to produce an instance of that class, memory allocation occurs
-so that the instance can store data attribute values and method pointers
-(i.e., the vtable). This object may then be referenced by other classes or
+instantiated, memory allocation occurs so that the instance can store data
+attribute values and method pointers (i.e., the vtable).
+This object may then be referenced by other classes or
 data structures during normal operation of the program. Typically, during
 program execution, all references to the instance may disappear at which point
 the instance must be deleted to recover memory resources. Knowing when to
@@ -223,8 +217,8 @@ releasing memory is known as memory management.
 
 In ITK, memory management is implemented through reference counting. This
 compares to another popular approach---garbage collection---used
-\index{garbage collection} by many
-systems, including Java. In reference counting, a count of the number of
+\index{garbage collection} by many systems, including Java.
+In reference counting, a count of the number of
 references to each instance is kept. When the reference goes to zero, the
 object destroys itself. In garbage collection, a background process sweeps
 the system identifying instances no longer referenced in the system and
@@ -235,9 +229,9 @@ size). Reference counting deletes memory immediately (once all references to
 an object disappear).
 
 Reference counting is implemented through a \code{Register()}/\code{Delete()}
-member function interface.  All instances of an ITK object have a
+member function interface. All instances of an ITK object have a
 \code{Register()} method invoked on them by any other object that references
-an them. The \code{Register()} method increments the instances' reference
+them. The \code{Register()} method increments the instances' reference
 count. When the reference to the instance disappears, a \code{Delete()}
 method is invoked on the instance that decrements the reference count---this
 is equivalent to an \code{UnRegister()} method. When the reference count
@@ -247,9 +241,9 @@ This protocol is greatly simplified by using a helper class called a
 \doxygen{SmartPointer}. The smart pointer acts like a regular pointer
 (e.g. supports operators \code{->} and \code{*}) but automagically performs a
 \code{Register()} when referring to an instance, and an \code{UnRegister()}
-when it no longer points to the instance.  Unlike most other instances in
+when it no longer points to the instance. Unlike most other instances in
 ITK, SmartPointers can be allocated on the program stack, and are
-automatically deleted when the scope that the SmartPointer was created
+automatically deleted when the scope that the SmartPointer was created in
 is closed. As a result, you should \emph{rarely if ever call Register() or
 Delete()} in ITK. For example:
 
@@ -259,7 +253,7 @@ Delete()} in ITK. For example:
     { /* <----- Start of scope */
 
     // here an interpolator is created and associated to the
-    // SmartPointer "interp".
+    // "interp" SmartPointer.
     InterpolatorType::Pointer interp = InterpolatorType::New();
 
     } /* <------ End of scope */
@@ -304,7 +298,7 @@ generally takes the form as illustrated below:
 \end{minted}
 \normalsize
 
-where a particular class may throw an exception as demonstrated below (this
+A particular class may throw an exception as demonstrated below (this
 code snippet is taken from \doxygen{ByteSwapper}:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
@@ -342,7 +336,7 @@ Event handling in ITK is implemented using the Subject/Observer design
 pattern \cite{Gamma1995} (sometimes referred to as the Command/Observer
 design pattern). In this approach, objects indicate that they are watching
 for a particular event---invoked by a particular instance---by registering
-with the instance that they are watching.  For example, filters in ITK
+with the instance that they are watching. For example, filters in ITK
 periodically invoke the \doxygen{ProgressEvent}. Objects that have registered
 their interest in this event are notified when the event occurs. The
 notification occurs via an invocation of a command (i.e., function callback,
@@ -350,7 +344,7 @@ method invocation, etc.) that is specified during the registration
 process. (Note that events in ITK are subclasses of EventObject; look
 in \code{itkEventObject.h} to determine which events are available.)
 
-To recap via example: various objects in ITK will invoke specific events
+To recap using an example: various objects in ITK will invoke specific events
 as they execute (from ProcessObject):
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
@@ -370,10 +364,10 @@ command (e.g., callback function) with the event:
 
 When the event occurs, all registered observers are notified via invocation
 of the associated \code{Command::Execute()} method. Note that several
-subclasses of Command are available supporting const and
+subclasses of \code{Command} are available supporting const and
 non-const member functions as well as C-style functions. (Look in
 \code{Modules/Core/Common/include/itkCommand.h} to find pre-defined subclasses of
-Command. If nothing suitable is found, derivation is another
+\code{Command}. If nothing suitable is found, derivation is another
 possibility.)
 
 \subsection{Multi-Threading}
@@ -422,39 +416,39 @@ the high-quality Fortran routines made available in the public domain by
 numerical analysis researchers. ITK extends the functionality of VNL
 by including interface classes between VNL and ITK proper.
 
-The VNL numerics library includes classes for
+The VNL numerics library includes classes for:
 \begin{description}
-        \item[Matrices and vectors.] Standard matrix and vector support
-        and operations on these types.
+    \item[Matrices and vectors.] Standard matrix and vector support
+    and operations on these types.
 
-        \item[Specialized matrix and vector classes.] Several special matrix
-        and vector class with special numerical properties are
-        available. Class \code{vnl\_diagonal\_matrix} provides a fast and
-        convenient diagonal matrix, while fixed size matrices and vectors
-        allow "fast-as-C" computations (see \code{vnl\_matrix\_fixed<T,n,m>}
-        and example subclasses \code{vnl\_double\_3x3} and
-        \code{vnl\_double\_3}).
+    \item[Specialized matrix and vector classes.] Several special matrix
+    and vector classes with special numerical properties are
+    available. Class \code{vnl\_diagonal\_matrix} provides a fast and
+    convenient diagonal matrix, while fixed size matrices and vectors
+    allow "fast-as-C" computations (see \code{vnl\_matrix\_fixed<T,n,m>}
+    and example subclasses \code{vnl\_double\_3x3} and
+    \code{vnl\_double\_3}).
 
-        \item[Matrix decompositions.] Classes \code{vnl\_svd<T>},
-        \code{vnl\_symmetric\_eigensystem<T>}, and
-        \code{vnl\_generalized\_eigensystem}.
+    \item[Matrix decompositions.] Classes \code{vnl\_svd<T>},
+    \code{vnl\_symmetric\_eigensystem<T>}, and
+    \code{vnl\_generalized\_eigensystem}.
 
-        \item[Real polynomials.] Class \code{vnl\_real\_polynomial} stores
-        the coefficients of a real polynomial, and provides methods of
-        evaluation of the polynomial at any x, while class
-        \code{vnl\_rpoly\_roots} provides a root finder.
+    \item[Real polynomials.] Class \code{vnl\_real\_polynomial} stores
+    the coefficients of a real polynomial, and provides methods of
+    evaluation of the polynomial at any x, while class
+    \code{vnl\_rpoly\_roots} provides a root finder.
 
-        \item[Optimization.] Classes \code{vnl\_levenberg\_marquardt},
-        \code{vnl\_amoeba}, \code{vnl\_conjugate\_gradient},
-        \code{vnl\_lbfgs} allow optimization of user-supplied
-        functions either with or without user-supplied derivatives.
+    \item[Optimization.] Classes \code{vnl\_levenberg\_marquardt},
+    \code{vnl\_amoeba}, \code{vnl\_conjugate\_gradient},
+    \code{vnl\_lbfgs} allow optimization of user-supplied
+    functions either with or without user-supplied derivatives.
 
-        \item[Standardized functions and constants.] Class \code{vnl\_math}
-        defines constants (pi, e, eps...) and simple functions (sqr, abs,
-        rnd...). Class \code{numeric\_limits} is from the ISO standard
-        document, and provides a way to access basic limits of a
-        type. For example \code{numeric\_limits<short>::max()} returns the maximum
-        value of a short.
+    \item[Standardized functions and constants.] Class \code{vnl\_math}
+    defines constants (pi, e, eps...) and simple functions (sqr, abs,
+    rnd...). Class \code{numeric\_limits} is from the ISO standard
+    document, and provides a way to access basic limits of a
+    type. For example \code{numeric\_limits<short>::max()} returns the maximum
+    value of a short.
 \end{description}
 
 Most VNL routines are implemented as wrappers around the high-quality Fortran
@@ -476,13 +470,12 @@ primarily to support the deformable registration in ITK.
 
 \section{Data Representation}
 \label{sec:DataRepresentationAndAccess}
-%	mesh, image, iterators, various containers
 
 \index{data object}
 
 There are two principle types of data represented in ITK: images and
 meshes. This functionality is implemented in the classes
-Image and Mesh, both of which are subclasses of
+\doxygen{Image} and \doxygen{Mesh}, both of which are subclasses of
 \doxygen{DataObject}. In ITK, data objects are classes that are meant to
 be passed around the system and may participate in data flow pipelines (see
 Section~\ref{sec:DataProcessingPipeline} on
@@ -518,9 +511,9 @@ filter or other class when operating on the image.
 
 \index{itk::Mesh}
 
-The Mesh class represents an \emph{n}-dimensional, unstructured grid. The
+The \doxygen{Mesh} class represents an \emph{n}-dimensional, unstructured grid. The
 topology of the mesh is represented by a set of \emph{cells} defined by a type
-and connectivity list; the connectivity list in turn refers to points.  The
+and connectivity list; the connectivity list in turn refers to points. The
 geometry of the mesh is defined by the \emph{n}-dimensional points in
 combination with associated cell interpolation functions. \code{Mesh} is
 designed as an adaptive representational structure that changes depending on
@@ -609,20 +602,11 @@ the mapper \doxygen{ImageFileWriter}. When the \code{Update()} method is
 invoked on the writer, the data processing pipeline causes each of these
 filters in order, culminating in writing the final data to a file on disk.
 
-%\section{Registration Framework}
-%\label{sec:RegistrationFramework}
-%
-%blah blah
-%
-%\section{FEM Framework}
-%\label{sec:FEMFramework}
-%
-%blah blah
-%
+
 \section{Spatial Objects}
 \label{sec:SpatialObjectsOverview}
 \index{spatial object}
-%
+
 The ITK spatial object framework supports the philosophy that the task of
 image segmentation and registration is actually the task of object
 processing. The image is but one medium for representing objects of interest,
@@ -640,12 +624,12 @@ so forth.
 The capabilities provided by the spatial objects framework supports their use
 in object segmentation, registration, surface/volume rendering, and other
 display and analysis functions. The spatial object framework extends the
-concept of a ``scene graph'' \index{scene graph} that is common to computer rendering packages so
-as to support these new functions. With the spatial objects framework you
-can:
+concept of a ``scene graph'' \index{scene graph} that is common to computer
+rendering packages so as to support these new functions. With the spatial
+objects framework you can:
 \begin{enumerate}
 
-        \item Specify a spatial object's parent and children objects.  In
+        \item Specify a spatial object's parent and children objects. In
         this way, a liver may contain vessels and those vessels can be
         organized in a tree structure.
 
@@ -669,19 +653,19 @@ can:
 \end{enumerate}
 
 Currently implemented types of spatial objects include: Blob, Ellipse, Group,
-Image, Line, Surface, and Tube.  The \doxygen{Scene} object is used to hold
-a list of spatial objects that may in turn have children.  Each spatial
-object can be assigned a color property.  Each spatial object type has its
-own capabilities. For example, \doxygen{TubeSpatialObject}s indicate to what
-point on their parent tube they connect.
+Image, Line, Surface, and Tube. The \doxygen{Scene} object is used to hold
+a list of spatial objects that may in turn have children. Each spatial
+object can be assigned a color property. Each spatial object type has its
+own capabilities. For example, the \doxygen{TubeSpatialObject} indicates the
+point where it is connected with its parent tube.
 
-There are a limited number of spatial objects and their methods in ITK, but
+There are a limited number of spatial objects in ITK, but
 their number is growing and their potential is huge. Using the nominal
 spatial object capabilities, methods such as marching cubes or mutual
-information registration, can be applied to objects regardless of their
+information registration can be applied to objects regardless of their
 internal representation. By having a common API, the same method can be used
-to register a parametric representation of a heart with an individual's CT
-data or to register two hand segmentations of a liver.
+to register a parametric representation of a hearth with an individual's CT
+data or to register two segmentations of a liver.
 
 
 \section{Wrapping}
@@ -691,10 +675,10 @@ data or to register two hand segmentations of a liver.
 \index{Python}
 
 While the core of ITK is implemented in C++, Python bindings can be
-automatically generated and ITK programs can be created using these
-programming languages. This capability is under active development and is for
-the advanced users only. However, this brief description will give an idea
-of what is possible and where to look for those who are interested in this facility.
+automatically generated and ITK programs can be created using Python.
+This capability is under active development. This brief description
+will give an idea of what is possible and where to look for those who are
+interested in this facility.
 
 The wrapping process in ITK is quite complex due to the use of generic
 programming (i.e., extensive use of C++ templates). Systems like VTK that use
@@ -711,47 +695,72 @@ combination of tools to produce language bindings.
     information produced by gccxml and generates standard input files
     (\code{*.i} files) to the next tool (SWIG), indicating what is to be wrapped
     and how to wrap it.
-  \item SWIG produces the appropriate language bindings (such as Python).
+  \item SWIG produces the appropriate Python bindings.
 \end{enumerate}
 
 To learn more about the wrapping process, please see the \code{Wrapping}
 directory. The wrapping process is orchestrated by a number of CMake macros
-found in the \code{Wrapping} directory.  The result of the wrapping process is
+found in the \code{Wrapping} directory. The result of the wrapping process is
 a set of shared libraries (.so in Linux or .dlls on Windows) that can be used
 by interpreted languages.
 
 There is almost a direct translation from C++, with the differences being the
-particular syntactical requirements of each language. For example, in the
-directory \code{Examples/IO}, the test \code{DicomSliceRead.py} has a code
-fragment that appears as follows:
+particular syntactical requirements of each language. For example, to rescale
+an image using the Python wrapping:
 \small
 \begin{minted}{python}
-  InputImageType = itk.Image.SS2
-  OutputImageType = itk.Image.UC2
+    inputImage = sys.argv[1]
+    outputImage = sys.argv[2]
+    radiusValue = int(sys.argv[3])
 
-  reader = itk.ImageFileReader[InputImageType].New()
-  reader.SetFileName(sys.argv[1])
+    PixelType = itk.UC
+    Dimension = 2
+    ImageType = itk.Image[PixelType, Dimension]
 
-  filter = itk.RescaleIntensiteImageFilter[InputImageType, OutputImageType].New()
-  filter.SetOutputMinimum(0)
-  filter.SetOutputMaximum(255)
+    ReaderType = itk.ImageFileReader[ImageType]
+    reader = ReaderType.New()
+    reader.SetFileName(inputImage)
+
+    StructuringElementType = itk.FlatStructuringElement[Dimension]
+    structuringElement = StructuringElementType.Ball(radiusValue)
+
+    DilateFilterType = itk.BinaryDilateImageFilter[
+        ImageType, ImageType, StructuringElementType]
+    dilateFilter = DilateFilterType.New()
+    dilateFilter.SetInput(reader.GetOutput())
+    dilateFilter.SetKernel(structuringElement)
 \end{minted}
 \normalsize
 The same code in C++ would appear as follows:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-  typedef itk::Image< short, 2 >         InputImageType;
-  typedef itk::Image< unsigned char, 2 > OutputImageType;
+  const char * inputImage = argv[1];
+  const char * outputImage = argv[2];
+  const unsigned int radiusValue = atoi( argv[3] );
 
-  itk::ImageFileReader<InputImageType>::Pointer reader =
-              itk::ImageFileReader<InputImageType>::New();
-  reader->SetFileName(argv[1]);
+  typedef unsigned char PixelType;
+  const unsigned int Dimension = 2;
 
-  itk::CurvatureFlowImageFilter<InputImageType,OutputImageType>::Pointer filter =
-      itk::CurvatureFlowImageFilter<InputImageType,OutputImageType>::New();
-  filter->SetOutputMinimum(0)
-  filter->SetOutputMaximum(255)
+  typedef itk::Image< PixelType, Dimension >    ImageType;
+  typedef itk::ImageFileReader< ImageType >     ReaderType;
+  ReaderType::Pointer reader = ReaderType::New();
+  reader->SetFileName( inputImage );
+
+  typedef itk::FlatStructuringElement< Dimension >
+    StructuringElementType;
+  StructuringElementType::RadiusType radius;
+  radius.Fill( radiusValue );
+  StructuringElementType structuringElement =
+    StructuringElementType::Ball( radius );
+
+  typedef itk::BinaryDilateImageFilter< ImageType, ImageType,
+    StructuringElementType > BinaryDilateImageFilterType;
+
+  BinaryDilateImageFilterType::Pointer dilateFilter =
+    BinaryDilateImageFilterType::New();
+  dilateFilter->SetInput( reader->GetOutput() );
+  dilateFilter->SetKernel( structuringElement );
 \end{minted}
 \normalsize
 
@@ -759,13 +768,13 @@ This example demonstrates an important difference between C++ and a wrapped
 language such as Python. Templated classes must be instantiated prior to
 wrapping. That is, the template parameters must be specified as part of the
 wrapping process. In the example above, the
-\code{ImageFileReader[InputImageType]} indicates that this class, implementing
+\code{ImageFileReader[ImageType]} indicates that this class, implementing
 an image source, has been
-instantiated using an input and output image type of two-dimensional signed
-short values (e.g., \code{SS2}). Typically just a few common types are
+instantiated using an input and output image type of two-dimensional unsigned
+char values (e.g., \code{UC}). Typically just a few common types are
 selected for the wrapping process to avoid an explosion of types and hence,
 library size. To add a new type requires rerunning the wrapping process to
-produce new libraries.  Some high-level options for these types, such as
+produce new libraries. Some high-level options for these types, such as
 common pixels types and image dimensions, are specified during CMake
 configuration.  The types of specific classes that should be instantiated,
 based on these basic options, are defined by the \code{*.wrap} files in the
@@ -777,12 +786,13 @@ come with a suite of packages that provide useful functionalities. For example,
 the Python ecosystem provides a variety of powerful tools for creating
 sophisticated user interfaces. In the future it is likely that more
 applications and tests will be implemented in the various interpreted
-languages supported by ITK.
+languages supported by ITK. Other languages like Java, Ruby, Tcl could also be
+wrapped in the future.
 
 \subsection{Python Setup}
 
-In order to access the python interface of ITK, make sure to compile with the
-CMake option \code{CMAKE\_WRAP\_PYTHON}. In addition, choose which pixel
+In order to access the Python interface of ITK, make sure to compile with the
+CMake \code{ITK\_WRAP\_PYTHON} option. In addition, choose which pixel
 types and dimensions to build into the wrapped interface. Supported pixel types
 are represented in the CMake configuration as variables named
 \code{ITK\_WRAP\_<pixel type>}. Supported image dimensions are enumerated in the
@@ -798,9 +808,9 @@ are set correctly:
   \item \code{PYTHON\_EXECUTABLE}
 \end{itemize}
 
-particularly if there are multiple python installations on the system.
+particularly if there are multiple Python installations on the system.
 
-The environment for access to the \code{itk} python module is best configured
+The environment for access to the \code{itk} Python module is best configured
 using the Python virtualenv tool, which provides an isolated working copy of Python
 without interfering with Python installed at the system level. Once the virtualenv
 package is installed on your Linux system, create the virtual environment within the
@@ -819,5 +829,6 @@ import itk
 \end{minted}
 \normalsize
 
-Virtualenv is built into Python3, and can be used with the \code{pyvenv} command instead of
-\code{virtualenv} as in the example above.
+% Add this back once wrappings support Python 3
+%Virtualenv is built into Python3, and can be used with the \code{pyvenv} command instead of
+%\code{virtualenv} as in the example above.
