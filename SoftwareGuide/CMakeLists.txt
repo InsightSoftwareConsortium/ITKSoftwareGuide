@@ -114,14 +114,138 @@ set(ITK_FLIP_IMG
   BrainProtonDensitySliceRotated10
   BrainProtonDensitySliceR10X13Y17
   BrainProtonDensitySliceR10X13Y17S12
+  ConfidenceConnectedOutput1
+  ConfidenceConnectedOutput2
+  ConfidenceConnectedOutput3
   VisibleWomanEyeSlice
   VisibleWomanHeadSlice
-  FatMRISlice
   BinaryImage
   VentricleModel
   FivePoints
   ThresholdSegmentationLevelSetImageFilterVentricle
   BrainProtonDensitySliceShifted13x17y
+  IsolatedConnectedImageFilterOutput1
+  OtsuThresholdImageFilterOutput
+  FastMarchingFilterOutput1
+  FastMarchingFilterOutput2
+  FastMarchingFilterOutput3
+  ShapeDetectionLevelSetFilterOutput1
+  ShapeDetectionLevelSetFilterOutput2
+  ShapeDetectionLevelSetFilterOutput3
+  ThresholdSegmentationLevelSetImageFilterWhiteMatter
+  ThresholdSegmentationLevelSetImageFilterVentricle
+  ThresholdSegmentationLevelSetImageFilterGrayMatter
+  BinaryThresholdImageFilterOutput
+  BinaryMedianImageFilterOutput
+  SigmoidImageFilterOutput
+  GradientMagnitudeImageFilterOutput
+  GradientMagnitudeRecursiveGaussianImageFilterOutput3
+  GradientMagnitudeRecursiveGaussianImageFilterOutput5
+  DerivativeImageFilterOutput
+  MeanImageFilterOutput
+  MedianImageFilterOutput
+  MathematicalMorphologyGrayscaleErosionOutput
+  MathematicalMorphologyGrayscaleDilationOutput
+  DiscreteGaussianImageFilterOutput
+  BinomialBlurImageFilterOutput
+  GradientAnisotropicDiffusionImageFilterOutput
+  ThresholdImageFilterOutputBelow
+  ThresholdImageFilterOutputAbove
+  ThresholdImageFilterOutputOutside
+  LaplacianRecursiveGaussianImageFilterOutput3
+  LaplacianRecursiveGaussianImageFilterOutput5
+  MathematicalMorphologyGrayscaleErosionOutput
+  MathematicalMorphologyGrayscaleDilationOutput
+  MathematicalMorphologyBinaryErosionOutput
+  MathematicalMorphologyBinaryDilationOutput
+  VotingBinaryHoleFillingImageFilterOutput1
+  VotingBinaryHoleFillingImageFilterOutput2
+  VotingBinaryHoleFillingImageFilterOutput3
+  VotingBinaryIterativeHoleFillingImageFilterOutput1
+  VotingBinaryIterativeHoleFillingImageFilterOutput2
+  VotingBinaryIterativeHoleFillingImageFilterOutput3
+  SmoothingRecursiveGaussianImageFilterOutput3
+  SmoothingRecursiveGaussianImageFilterOutput5
+  CurvatureAnisotropicDiffusionImageFilterOutput
+  CurvatureFlowImageFilterOutput
+  MinMaxCurvatureFlowImageFilterOutput
+  BilateralImageFilterOutput
+  RGBGradientAnisotropicDiffusionImageFilterOutput
+  RGBCurvatureAnisotropicDiffusionImageFilterOutput
+  ResampleImageFilterOutput1
+  ResampleImageFilterOutput2
+  ResampleImageFilterOutput10
+  ImageRegistration1Output
+  ImageRegistration1DifferenceBefore
+  ImageRegistration1DifferenceAfter
+  ImageRegistration2Output
+  ImageRegistration2CheckerboardBefore
+  ImageRegistration2CheckerboardAfter
+  ImageRegistration5Output
+  ImageRegistration5DifferenceBefore
+  ImageRegistration5DifferenceAfter
+  ImageRegistration5Output2
+  ImageRegistration5DifferenceBefore2
+  ImageRegistration5DifferenceAfter2
+  ImageRegistration6Output
+  ImageRegistration6DifferenceBefore
+  ImageRegistration6DifferenceAfter
+  ImageRegistration7Output
+  ImageRegistration7DifferenceBefore
+  ImageRegistration7DifferenceAfter
+  ImageRegistration8Output
+  ImageRegistration8DifferenceBefore
+  ImageRegistration8DifferenceAfter
+  ImageRegistration9Output
+  ImageRegistration9DifferenceBefore
+  ImageRegistration9DifferenceAfter
+  MultiResImageRegistration1Output
+  MultiResImageRegistration1CheckerboardBefore
+  MultiResImageRegistration1CheckerboardAfter
+  MultiResImageRegistration2Output
+  MultiResImageRegistration2CheckerboardBefore
+  MultiResImageRegistration2CheckerboardAfter
+  ConnectedThresholdOutput1
+  ConnectedThresholdOutput2
+  ConnectedThresholdOutput3
+  FastMarchingImageFilterOutput5
+  FastMarchingImageFilterOutput6
+  FastMarchingImageFilterOutput7
+  FastMarchingImageFilterOutput8
+  ShapeDetectionLevelSetFilterOutput5
+  ShapeDetectionLevelSetFilterOutput6
+  ShapeDetectionLevelSetFilterOutput7
+  ShapeDetectionLevelSetFilterOutput8
+  GeodesicActiveContourImageFilterOutput1
+  GeodesicActiveContourImageFilterOutput2
+  GeodesicActiveContourImageFilterOutput3
+  GeodesicActiveContourImageFilterOutput5
+  GeodesicActiveContourImageFilterOutput6
+  GeodesicActiveContourImageFilterOutput7
+  GeodesicActiveContourImageFilterOutput8
+  CannySegmentationLevelSetImageFilterVentricle1
+  LaplacianSegmentationLevelSetImageFilterVentricle
+  BrainT1Slice_labelled
+  ScalarImageMarkovRandomField1Output
+  ImageSliceIteratorWithIndexOutput
+  NeighborhoodIterators1a
+  NeighborhoodIterators4a
+  NeighborhoodIterators4b
+  NeighborhoodIterators4c
+  NeighborhoodIterators4d
+  ShapedNeighborhoodIterators1b
+  ImageAdaptorThresholdingA
+  ImageAdaptorThresholdingB
+  ImageRegistration4Output
+  ImageRegistration4CheckerboardBefore
+  ImageRegistration4CheckerboardAfter
+  MultiStageImageRegistration1Output
+  MultiStageImageRegistration1CheckerboardBefore
+  MultiStageImageRegistration1CheckerboardAfter
+  MultiStageImageRegistration2Output
+  MultiStageImageRegistration2CheckerboardBefore
+  MultiStageImageRegistration2CheckerboardAfter
+  ImageRegionIteratorOutput
 )
 # END FLIP_INPUTS LIST
 
@@ -136,17 +260,24 @@ if( PDF_QUALITY_LEVEL STREQUAL "Printer" )
   set( EPS_OUTPUT_CONVERT_FLAGS -density 72 -scale 4194304@ )
 endif()
 macro(CONVERT_INPUT_IMG SOME_IMG EPS_IMG IMAGEMAGICK_FLAGS)
+  get_filename_component(IMG_BASENAME ${SOME_IMG} NAME_WE)
+  list(FIND ITK_FLIP_IMG "${IMG_BASENAME}" _index)
+  if(${_index} GREATER -1)
+    if(NOT "${FLAGS}" MATCHES "-flip")
+      set(FLAGS ${FLAGS} -flip)
+    endif()
+  endif()
   if( NOT DEFINED ${EPS_IMG}_HAS_CUSTOM_COMMAND)
     add_custom_command(
         OUTPUT      "${EPS_IMG}"
         COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
-        ARGS        ${FLAGS} -flip -quality 100 ${EPS_INPUT_CONVERT_FLAGS} "${SOME_IMG}" ${EPS_OUTPUT_CONVERT_FLAGS} "${EPS_IMG}"
+        ARGS        ${FLAGS} -quality 100  ${EPS_INPUT_CONVERT_FLAGS} "${SOME_IMG}" ${EPS_OUTPUT_CONVERT_FLAGS} "${EPS_IMG}"
         DEPENDS     ${RUN_EXAMPLES_SCRIPT}
     )
     set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
   endif()
-endmacro()
-
+  set(FLAGS "")
+endmacro(CONVERT_INPUT_IMG)
 
 #
 # Find Python executable
