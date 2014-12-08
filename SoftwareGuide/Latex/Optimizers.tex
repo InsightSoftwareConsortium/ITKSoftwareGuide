@@ -30,14 +30,14 @@ using \code{GetCurrentPosition()}.
 
 \index{itk::ObjectToObjectOptimizer!SetScales()}
 Some optimizers also allow rescaling of their individual parameters. This is
-convenient for normalizing parameters spaces where some parameters have
+convenient for normalizing parameter spaces where some parameters have
 different dynamic ranges. For example, the first parameter of
 \doxygen{Euler2DTransform} represents an angle while the last two parameters
 represent translations. A unit change in angle has a much greater impact on an
 image than a unit change in translation. This difference in scale appears as
 long narrow valleys in the search space making the optimization problem more
 difficult. Rescaling the translation parameters can help to fix this problem.
-Scales are represented as an \doxygen{Array} of doubles and set defined using
+Scales are represented as an \doxygen{Array} of doubles and set using
 \code{SetScales()}.
 
 \index{itk::ObjectToObjectOptimizer!SetScalesEstimator()}

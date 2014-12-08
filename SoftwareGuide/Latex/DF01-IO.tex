@@ -55,7 +55,7 @@ user's point of view the objects responsible for reading and writing files
 are the \doxygen{ImageFileReader} and \doxygen{ImageFileWriter}
 classes. These two classes, however, are not aware of the details involved in
 reading or writing particular file formats like PNG or DICOM.  What they do
-is to dispatch the user's requests to a set of specific classes that are
+is dispatch the user's requests to a set of specific classes that are
 aware of the details of image file formats. These classes are the
 \doxygen{ImageIO} classes. The ITK delegation mechanism enables users to
 extend the number of supported file formats by just adding new classes to the
@@ -70,7 +70,7 @@ This is done basically by passing the filename to a centralized class, the
 ImageIO capable of reading or writing the user-specified file. This
 is illustrated by the use cases on the right side of
 Figure~\ref{fig:ImageIOFactoriesUseCases}. The ImageIOFactory acts here as a
-dispatcher that help to locate the actual IO factory classes corresponding to
+dispatcher that helps locate the actual IO factory classes corresponding to
 each file format.
 
 Each class derived from ImageIO must provide an associated factory
@@ -90,7 +90,7 @@ this class in a particular application} class as illustrated in the left side
 of Figure~\ref{fig:ImageIOFactoriesUseCases}. When the ImageFileReader asks
 the ImageIOFactory for an ImageIO capable of reading the
 file identified with \emph{filename} the ImageIOFactory will iterate over the
-list of registered factories and will ask each one of them is they know how
+list of registered factories and will ask each one of them if they know how
 to read the file. The factory that responds affirmatively will be used to
 create the specific ImageIO instance that will be returned to the
 ImageFileReader and used to perform the read operations.
@@ -235,7 +235,7 @@ For a more detailed description of the DICOM standard see~\cite{DICOMStandard}.
 
 The following sections illustrate how to use the functionalities that ITK
 provides for reading and writing DICOM files. This is extremely important in
-the domain of medical imaging since most of the images that are acquired a
+the domain of medical imaging since most of the images that are acquired in a
 clinical setting are stored and transported using the DICOM standard.
 
 DICOM functionalities in ITK are provided by the GDCM library. This open source

@@ -142,7 +142,7 @@ that the interpolated value is negative.
 \index{itk::Windowed\-Sinc\-Interpolate\-Image\-Function}
 
 The \doxygen{WindowedSincInterpolateImageFunction} is the best possible
-interpolator for data that has been digitized in a discrete grid. This
+interpolator for data that have been digitized in a discrete grid. This
 interpolator has been developed based on Fourier Analysis considerations. It
 is well known in signal processing that the process of sampling a spatial
 function using a periodic discrete grid results in a replication of the
@@ -161,7 +161,7 @@ sinc(x) = \sin{(x)} / x
 
 The sinc function has infinite support, which of course in practice can not
 really be implemented. Therefore, the sinc is usually truncated by multiplying
-it with a Window function. The Windowed Sinc interpolator is the result of such
+it with a Window function. The Windowed Sinc interpolator is the result of such an
 operation.
 
 This interpolator presents a series of trade-offs in its utilization. Probably
@@ -264,7 +264,7 @@ float or double.
 The WindowedSincInterpolateImageFunction is probably not the interpolator that
 you want to use for performing registration. Its computation burden makes it
 too expensive for this purpose. The best use of this interpolator is for the
-final resampling of the image, once that the transform has been found using
+final resampling of the image, once the transform has been found using
 another less expensive interpolator in the registration process.
 
 

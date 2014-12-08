@@ -33,13 +33,13 @@ the argument.  Typically, the metric samples points within a defined region
 of the virtual lattice.  For each point, the corresponding fixed and moving
 image positions are computed using the fixed initial transform and the moving
 transform with the specified parameters. Then, the fixed and moving interpolators
-are used to compute the fixed and moving images intensities at the mapped
+are used to compute the fixed and moving image's intensities at the mapped
 positions. Details on this mapping are illustrated in Figures
 \ref{fig:ImageOverlapIterator} and \ref{fig:ImageOverlapInterpolator} assuming
 that virtual lattice is the same as the fixed image lattice, which is usually the
 case in practice.
 
-The metrics also support region based evaluation. The \code{SetFixedImageMask()} and
+The metrics also support region-based evaluation. The \code{SetFixedImageMask()} and
 \code{SetMovingImageMask()} methods may be used to restrict evaluation of the metric
 within a specified region. The masks may be of any type derived from \doxygen{SpatialObject}.
 
@@ -56,7 +56,7 @@ The following is the list of metrics currently available in ITKv4 registration f
 \item Mutual information by Mattes \\ \doxygen{MattesMutualInformationImageToImageMetricv4}
 \item Joint histogram mutual information \\ \doxygen{JointHistogramMutualInformationHistogramImageToImageMetricv4}
 \item Demons metric \\ \doxygen{DemonsImageToImageMetricv4}
-\item ANTS neighborhood correlaiton metric \\ \doxygen{ANTSNeighborhoodCorrelationImageToImageMetricv4}
+\item ANTS neighborhood correlation metric \\ \doxygen{ANTSNeighborhoodCorrelationImageToImageMetricv4}
 \end{itemize}
 
 Also, in case you are interested in using the legacy ITK registration framework,
@@ -147,8 +147,8 @@ metric be optimal when its minimum is reached.  The optimal value of the metric
 is then minus one. Misalignment between the images results in small measure
 values.  The use of this metric is limited to images obtained using the same
 imaging modality.  The metric is insensitive to multiplicative factors between
-the two images.  This metric produces a cost function with sharp peaks and well
-defined minima.  On the other hand, it has a relatively small capture radius.
+the two images.  This metric produces a cost function with sharp peaks and
+well-defined minima.  On the other hand, it has a relatively small capture radius.
 
 
 \subsection{Mutual Information Metric}
@@ -243,15 +243,15 @@ the bins.
 \index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metricv4!SetNumberOfHistogramBins()}
 
 The number of spatial samples used is a ratio of the total number of samples
-and is set using method \code{SetMetricSamplingPercentage()} directly from
+and is set using the \code{SetMetricSamplingPercentage()} method directly from
 the registration framework \doxygen{ImageRegistrationMethodv4}. Also, The number
 of bins used to compute the entropy values is set in the metric class
-via \code{SetNumberOfHistogramBins()} method.
+via the \code{SetNumberOfHistogramBins()} method.
 
 Since the fixed image PDF does not contribute to the metric derivatives, it
-does not need to be smooth. Hence, a zero order (boxcar) B-spline kernel is
-used for computing the PDF. On the other hand, to ensure smoothness, a third
-order B-spline kernel is used to compute the moving image intensity PDF. The
+does not need to be smooth. Hence, a zero-order (boxcar) B-spline kernel is
+used for computing the PDF. On the other hand, to ensure smoothness, a
+third-order B-spline kernel is used to compute the moving image intensity PDF. The
 advantage of using a B-spline kernel over a Gaussian kernel is that the
 B-spline kernel has a finite support region. This is computationally
 attractive, as each intensity sample only affects a small number of bins and
@@ -271,7 +271,7 @@ NMI(A,B) = 1 + \frac{I(A,B)}{H(A,B)} = \frac{H(A) + H(B)}{H(A,B)}
 where the entropy of the images, $H(A)$, $H(B)$, the mutual
 information, $I(A,B)$ and the joint entropy $H(A,B)$ are computed as mentioned
 in \ref{sec:MutualInformationMetric}. Details of the implementation may be found in
-the \cite{Hajnal2001}.
+\cite{Hajnal2001}.
 
 \subsection{Demons metric}
 \index{itk::Demons\-Image\-To\-Image\-Metricv4}
@@ -284,12 +284,12 @@ either from the fixed or moving images. The default is to use fixed-image
 gradients. See ObjectToObjectMetric::SetGradientSource to change
 this behavior.
 
-an intensity threshold is used, below which image pixels are considered
+An intensity threshold is used, below which image pixels are considered
 equal for the purpose of derivative calculation. The threshold can be
 changed by calling \code{SetIntensityDifferenceThreshold}.
 
 Note that this metric supports only moving transforms with local support and
-with a number of local parameters that matches the moving image dimension.
+with a number of local parameters that match the moving image dimension.
 In particular, it's meant to be used with \doxygen{DisplacementFieldTransform}
 and derived classes.
 
@@ -303,6 +303,6 @@ two images, with speed optimizations for dense registration.
 
 Around each voxel, the neighborhood is defined as a N-Dimensional
 rectangle centered at the voxel. The size of the rectangle is 2*radius+1.
-normalized correlation between neighborhoods of fixed image and moving
+Normalized correlation between neighborhoods of the fixed image and the moving
 image are averaged over the whole image as the final metric.
 A radius less than 2 can be unstable. 2 is the default.
