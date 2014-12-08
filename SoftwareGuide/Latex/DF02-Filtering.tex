@@ -115,7 +115,6 @@ vectors and the image of magnitudes.
 \subsection{Laplacian Filters}
 \label{sec:LaplacianFilters}
 
-\subsubsection{Laplacian Filter Finite Difference}
 \subsubsection{Laplacian Filter Recursive Gaussian}
 \ifitkFullVersion
 \input{LaplacianRecursiveGaussianImageFilter1.tex}
@@ -166,7 +165,7 @@ Mathematical morphology has proved to be a powerful resource for image
 processing and analysis \cite{Serra1982}. ITK implements mathematical
 morphology filters using NeighborhoodIterators and
 \doxygen{NeighborhoodOperator}s.  The toolkit contains two types of image
-morphology algorithms, filters that operate on binary images and filters that
+morphology algorithms: filters that operate on binary images and filters that
 operate on grayscale images.
 
 \subsubsection{Binary Filters}
@@ -192,17 +191,18 @@ Voting filters are quite a generic family of filters. In fact, both the Dilate
 and Erode filters from Mathematical Morphology are very particular cases of the
 broader family of voting filters. In a voting filter, the outcome of a pixel is
 decided by counting the number of pixels in its neighborhood and applying a
-rule to the result of that counting.For example, the typical implementation of
-Erosion in terms of a voting filter will be to say that a foreground pixel will
-become background if the numbers of background neighbors is greater or equal
-than 1. In this context, you could imagine variations of Erosion in which the
-count could be changed to require at least 3 foreground.
+rule to the result of that counting.  For example, the typical implementation of
+erosion in terms of a voting filter will be to label a foreground pixel
+as background if the number of background neighbors is greater than or equal
+to 1. In this context, you could imagine variations of erosion in which the
+count could be changed to require at least 3 foreground pixels in its
+neighborhood.
 
 \subsubsection{Binary Median Filter}
 
-One of the particular cases of Voting filters is the BinaryMedianImageFilter.
-This filter is equivalent to applying a Median filter over a binary image. The
-fact of having a binary image as input makes possible to optimize the execution
+One case of a voting filter is the BinaryMedianImageFilter.
+This filter is equivalent to applying a Median filter over a binary image.
+Having a binary image as input makes it possible to optimize the execution
 of the filter since there is no real need for sorting the pixels according to
 their frequency in the neighborhood.
 
@@ -226,10 +226,10 @@ Figure \ref{fig:BinaryMedianImageFilterOutputMultipleIterations} below shows the
 
 \subsubsection{Hole Filling Filter}
 
-Another variation of Voting filters is the Hole Filling filter. This filter
+Another variation of voting filters is the Hole Filling filter. This filter
 converts background pixels into foreground only when the number of foreground
 pixels is a majority of the neighbors. By selecting the size of the majority,
-this filter can be tuned to fill-in holes of different size. To be more
+this filter can be tuned to fill in holes of different sizes. To be more
 precise, the effect of the filter is actually related to the curvature of the
 edge in which the pixel is located.
 
@@ -251,7 +251,7 @@ binary variation of a Level Set filter.
 \section{Smoothing Filters}
 \label{sec:SmoothingFilters}
 
-Real image data has a level of uncertainty that is manifested in the
+Real image data has a level of uncertainty which is manifested in the
 variability of measures assigned to pixels. This uncertainty is usually
 interpreted as noise and considered an undesirable component of the image
 data. This section describes several methods that can be applied to reduce
@@ -422,7 +422,7 @@ on vector images.
 \label{sec:ScaryImageFilters}
 \subsection{Change Information Image Filter}
 
-This one is the scariest and more dangerous filter in the entire toolkit. You
+This one is the scariest and most dangerous filter in the entire toolkit. You
 should not use this filter unless you are entirely certain that you know what
 you are doing. In fact if you decide to use this filter, you should write your
 code, then go for a long walk, get more coffee and ask yourself if you really

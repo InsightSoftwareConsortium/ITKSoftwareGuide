@@ -28,7 +28,7 @@ representation objects in ITK.}
 \label{fig:GeometricalObjects}
 \end{figure}
 
-ITK implements a consistent geometric representation of the space. The
+ITK implements a consistent geometric representation of space. The
 characteristics of classes involved in this representation are summarized in
 Table~\ref{tab:GeometricalConcepts}. In this regard, ITK takes full advantage
 of the capabilities of Object Oriented programming and resists the temptation
@@ -61,7 +61,7 @@ defined as the subtraction of two points.\\
 \hline
 \doxygen{CovariantVector} & Orthogonal direction to a $(N-1)$-dimensional
 manifold in space. For example, in $3D$ it corresponds to the vector orthogonal
-to a surface. This is the appropriate class for representing Gradients of
+to a surface. This is the appropriate class for representing gradients of
 functions. Covariant vectors do not have a position in space. Covariant vector
 should not be added to Points, nor to Vectors.\\
 \hline
@@ -89,10 +89,10 @@ the basic space-representation objects.  Points, vectors and covariant vectors
 are transformed using the methods \code{TransformPoint()},
 \code{TransformVector()} and \code{TransformCovariantVector()} respectively.
 
-One of the classes that deserve further comments is the \doxygen{Vector}. This
-ITK class tend to be misinterpreted as a container of elements instead of a
-geometrical object. This is a common misconception originated by the fact that
-Computer Scientist and Software Engineers misuse the term ``Vector''.  The
+One of the classes that deserves further comments is the \doxygen{Vector}. This
+ITK class tends to be misinterpreted as a container of elements instead of a
+geometrical object. This is a common misconception originating from the colloquial
+use by computer scientists and software engineers of the term ``Vector''.  The
 actual word ``Vector'' is relatively young. It was coined by William Hamilton
 in his book ``\emph{Elements of Quaternions}'' published in 1886
 (post-mortem)\cite{Hamilton1866}.  In the same text Hamilton coined the terms:
@@ -116,9 +116,8 @@ code into a DNA strand~\cite{Lodish2000}.
 
 Textbooks in programming do not help to clarify those concepts and loosely use
 the term ``\emph{Vector}'' for the purpose of representing an ``enumerated set
-of common elements''. STL follows this trend and continue using the word
-``\emph{Vector}'' for what it was not supposed to be
-used~\cite{Austern1999,Alexandrescu2001}. Linear algebra separates the
+of common elements''. STL follows this trend and continues using the word
+``\emph{Vector}'' in this manner ~\cite{Austern1999,Alexandrescu2001}. Linear algebra separates the
 ``\emph{Vector}'' from its notion of geometric reality and makes it an
 abstract set of numbers with arithmetic operations associated.
 
@@ -126,8 +125,8 @@ For those of you who are looking for the ``\emph{Vector}'' in the Software
 Engineering sense, please look at the \doxygen{Array} and \doxygen{FixedArray}
 classes that actually provide such functionalities. Additionally, the
 \doxygen{VectorContainer} and \doxygen{MapContainer} classes may be of interest
-too. These container classes are intended for algorithms that require to insert
-and delete elements, and that may have large numbers of elements.
+too. These container classes are intended for algorithms which require insertion
+and deletion of elements, and those which may have large numbers of elements.
 
 The Insight Toolkit deals with real objects that inhabit the physical space.
 This is particularly true in the context of the image registration framework.
@@ -145,20 +144,20 @@ sort of conceptually flawed operations such as
 \item Adding a Covariant Vector to a Vector
 \end{itemize}
 
-In order to enforce the correct use of the Geometrical concepts in ITK we
-organized these classes in a hierarchy that supports reuse of code and yet
-compartmentalize the behavior of the individual classes.  The use of the
-\doxygen{FixedArray} as base class of the \doxygen{Point}, the \doxygen{Vector}
-and the \doxygen{CovariantVector} was a design decision based on calling things
-by their correct name.
+In order to enforce the correct use of the geometrical concepts in ITK we
+organized these classes in a hierarchy that supports reuse of code and
+compartmentalizes the behavior of the individual classes.  The use of the
+\doxygen{FixedArray} as the base class of the \doxygen{Point}, the \doxygen{Vector}
+and the \doxygen{CovariantVector} was a design decision based on the decision to
+use the correct nomenclature.
 
 An \doxygen{FixedArray} is an enumerated collection with a fixed number of
 elements. You can instantiate a fixed array of letters, or a fixed array of
 images, or a fixed array of transforms, or a fixed array of geometrical shapes.
 Therefore, the FixedArray only implements the functionality that is necessary to
 access those enumerated elements. No assumptions can be made at this point on
-any other operations required by the elements of the FixedArray, except the
-fact of having a default constructor.
+any other operations required by the elements of the FixedArray, except that it
+will have a default constructor.
 
 The \doxygen{Point} is a type that represents the spatial coordinates of a
 spatial location. Based on geometrical concepts we defined the valid operations
@@ -166,7 +165,7 @@ of the Point class. In particular we made sure that no \code{operator+()} was
 defined between Points, and that no \code{operator*( scalar )} nor
 \code{operator/( scalar )} were defined for Points.
 
-In other words, you could do in ITK operations such as:
+In other words, you can perform ITK operations such as:
 
 \begin{itemize}
 \item Vector  = Point - Point
@@ -175,7 +174,7 @@ In other words, you could do in ITK operations such as:
 \item Point  = BarycentricCombination( Point, Point )
 \end{itemize}
 
-and you cannot (because you \textbf{should not}) do operation such as
+and you cannot (because you \textbf{should not}) perform operations such as
 
 \begin{itemize}
 \item Point = Point * Scalar
@@ -227,7 +226,7 @@ parameters.
 Another requirement that the registration framework imposes on the transform
 classes is the computation of their Jacobians. In general, metrics require
 the knowledge of the Jacobian in order to compute Metric derivatives.
-The Jacobian is a matrix whose element are the partial derivatives of the
+The Jacobian is a matrix whose elements are the partial derivatives of the
 output point with respect to the array of parameters that defines the
 transform:\footnote{Note that the term \emph{Jacobian} is also commonly used
 for the matrix representing the derivatives of output point coordinates with
@@ -259,7 +258,7 @@ parameters. Note that the values of the Jacobian matrix depend on the point in
 the input space. So actually the Jacobian can be noted as $J(\bf{X})$, where
 ${\bf{X}}=\{x_i\}$. The use of transform Jacobians enables the efficient
 computation of metric derivatives.  When Jacobians are not available, metrics
-derivatives have to be computed using finite difference at a price of $2M$
+derivatives have to be computed using finite differences at a price of $2M$
 evaluations of the metric value, where $M$ is the number of transform
 parameters.
 
@@ -315,7 +314,7 @@ Represents a simple translation of points in the input space
 and has no effect on vectors or covariant vectors. &
 Same as the input space dimension. &
 The $i$-th parameter represents the translation in the $i$-th dimension. &
-Only defined when the input and output space has the same number of dimensions. \\
+Only defined when the input and output space have the same number of dimensions. \\
 \hline
 \end{tabular}
 \end{center}
@@ -354,7 +353,7 @@ points.  Covariant vectors are transformed by \emph{dividing} their components
 by the scale factor in the corresponding dimension.  &
 Same as the input space dimension. &
 The $i$-th parameter represents the scaling in the $i$-th dimension. &
-Only defined when the input and output space has the same number of dimensions. \\
+Only defined when the input and output space have the same number of dimensions. \\
 \hline
 \end{tabular}
 \end{center}
@@ -461,7 +460,7 @@ by the scale factor in the corresponding dimension.
 &
 Same as the input space dimension. &
 The $i$-th parameter represents the scaling in the $i$-th dimension. &
-Only defined when the input and output space has the same number of dimensions.
+Only defined when the input and output space have the same number of dimensions.
 The difference between this transform and the ScaleTransform is that here the
 scaling factors are passed as logarithms, in this way their behavior is closer
 to the one of a Vector space.  \\
@@ -548,7 +547,7 @@ where $\theta$ is the rotation angle and $(T_x,T_y)$ are the components of the
 translation.
 
 A challenging aspect of this transformation is the fact that translations and
-rotations do not form a vector space and cannot be managed as linear
+rotations do not form a vector space and cannot be managed as linearly
 independent parameters. Typical optimizers make the loose assumption that
 parameters exist in a vector space and rely on the step length to be small
 enough for this assumption to hold approximately.
@@ -799,7 +798,7 @@ descent optimizers.
 
 The \doxygen{QuaternionRigidTransformGradientDescentOptimizer} was introduced into the toolkit to address these concerns.  This specialized optimizer implements a variation of a
 gradient descent algorithm adapted for a quaternion space.  This class
-insures that after advancing in any direction on the parameter space, the
+ensures that after advancing in any direction on the parameter space, the
 resulting set of transform parameters is mapped back into the permissible
 set of parameters. In practice, this comes down to normalizing the newly-computed quaternion to make sure that the transformation remains rigid and no
 scaling is applied.  The main characteristics of the
@@ -808,7 +807,7 @@ Table~\ref{tab:QuaternionRigidTransformCharacteristics}.
 
 The Quaternion rigid transform also accepts a user-defined center of rotation.
 In this way, the transform can easily be used for registering images where the
-rotation is mostly relative to the center of the image instead one of the
+rotation is mostly relative to the center of the image instead of one of the
 corners. The coordinates of this rotation center are not subject to
 optimization. They only participate in the computation of the mappings for
 Points and in the computation of the Jacobian. The transformations for Vectors
@@ -940,11 +939,11 @@ the transform.
 \hline\hline
 Represents a rigid rotation in $3D$ space. That is, a rotation followed by a
 $3D$ translation. The rotation is specified by three angles representing
-rotations to be applied around the X, Y and Z axis one after another.  The
+rotations to be applied around the X, Y and Z axes one after another.  The
 translation part is represented by a Vector. Users can also specify the
 coordinates of the center of rotation. &
 6 &
-The first three parameters are the rotation angles around X, Y and Z axis, and
+The first three parameters are the rotation angles around X, Y and Z axes, and
 the last three parameters are the translations along each dimension. &
 Only defined for three-dimensional input and output spaces. \\
 \hline
@@ -962,12 +961,12 @@ specific center of rotation. The center coordinates are not modified during the
 optimization performed in a registration process. The main features of this
 transform are summarized in Table~\ref{tab:Euler3DTransformCharacteristics}.
 
-The fact that the three rotational parameters are non-linear and do not behave
-like Vector spaces must be taken into account when selecting an optimizer to
-work with this transform and when fine tuning the parameters of such
+Three rotational parameters are non-linear and do not behave
+like Vector spaces. This must be taken into account when selecting an optimizer to
+work with this transform and when fine tuning the parameters of the
 optimizer. It is strongly recommended to use this transform by introducing very
 small variations on the rotational components. A small rotation will be in the
-range of 1 degree, which in radians is approximately $0.0.1745$.
+range of 1 degree, which in radians is approximately $0.01745$.
 
 You should not expect this transform to be able to compensate for large
 rotations just by being driven with the optimizer. In practice you must provide
@@ -991,7 +990,7 @@ for residual rotations in the order of $10$ or $20$ degrees.
 Represents a $3D$ rotation, a $3D$ translation and homogeneous scaling. The
 scaling factor is specified by a scalar, the rotation is specified by a versor,
 and the translation is represented by a vector.  Users can also specify the
-coordinates of the center of rotation, that is the same center used for
+coordinates of the center of rotation, which is the same center used for
 scaling. &
 7 &
 The first three parameters define the Versor, the next three parameters the
@@ -1007,19 +1006,19 @@ Only defined for three-dimensional input and output spaces. \\
 
 The \doxygen{Similarity3DTransform} implements a similarity transformation in
 $3D$ space. It can be seen as an homogeneous scaling followed by a
-\doxygen{VersorRigid3DTransform}. This class exposes seven parameters, one for
+\doxygen{VersorRigid3DTransform}. This class exposes seven parameters: one for
 the scaling factor, three for the versor components and three for the
-translational components. This transform also allows the users to set a
+translational components. This transform also allows the user to set a
 specific center of rotation. The center coordinates are not modified during the
 optimization performed in a registration process.  Both the rotation and
 scaling operations are performed with respect to the center of rotation. The
 main features of this transform are summarized in
 Table~\ref{tab:Similarity3DTransformCharacteristics}.
 
-The fact that the scaling and rotational spaces are non-linear and do not
-behave like Vector spaces must be taken into account when selecting an
+The scaling and rotational spaces are non-linear and do not
+behave like Vector spaces. This must be taken into account when selecting an
 optimizer to work with this transform and when fine tuning the parameters of
-such optimizer.
+the optimizer.
 
 
 \subsection{Rigid3DPerspectiveTransform}
@@ -1038,7 +1037,7 @@ such optimizer.
 Represents a rigid $3D$ transformation followed by a perspective projection.
 The rotation is specified by a Versor, while the translation is represented by
 a Vector.  Users can specify the coordinates of the center of rotation. They
-must specifically a focal distance to be used for the perspective projection. The
+must specify a focal distance to be used for the perspective projection. The
 rotation center and the focal distance parameters are not modified during the
 optimization process. &
 6 &
@@ -1058,7 +1057,7 @@ the Rigid3DPerspectiveTransform class.
 The \doxygen{Rigid3DPerspectiveTransform} implements a rigid transformation in
 $3D$ space followed by a perspective projection. This transform is intended to
 be used in $3D/2D$ registration problems where a 3D object is projected onto a
-2D plane. This is the case of Fluoroscopic images used for image guided
+2D plane. This is the case in Fluoroscopic images used for image-guided
 intervention, and it is also the case for classical radiography.  Users must
 provide a value for the focal distance to be used during the computation of the
 perspective transform. This transform also allows users to set a specific
@@ -1103,8 +1102,8 @@ Only defined when the input and output space have the same dimension. \\
 \end{table}
 
 The \doxygen{AffineTransform} is one of the most popular transformations used
-for image registration. Its main advantage comes from the fact that it is
-represented as a linear transformation. The main features of this
+for image registration. Its main advantage comes from its representation as a
+linear transformation. The main features of this
 transform are presented in Table~\ref{tab:AffineTransformCharacteristics}.
 
 The set of AffineTransform coefficients can actually be represented in a vector
@@ -1129,7 +1128,7 @@ is particularly relevant for optimizers based on gradient descent approaches.
 This transform lets the user set an arbitrary center of rotation. The
 coordinates of the rotation center do not make part of the parameters array
 passed to the optimizer. Equation~\ref{eqn:AffineTransform} illustrates the
-effect of applying the AffineTransform in a point in $3D$ space.
+effect of applying the AffineTransform to a point in $3D$ space.
 
 \begin{equation}
 \label{eqn:AffineTransform}
@@ -1181,7 +1180,7 @@ AffineTransforms can be challenging, since it is difficult to
 represent the coefficients in a meaningful way.  A simple printout of the
 transform coefficients generally does not offer a clear picture of the current
 behavior and trend of the optimization.  A better implementation uses
-the affine transform to deform wire-frame cube which is shown in a $3D$
+the affine transform to deform a wire-frame cube which is shown in a $3D$
 visualization display.
 
 
@@ -1199,14 +1198,14 @@ visualization display.
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
 \hline\hline
-Represents a free from deformation by providing a deformation field from the
+Represents a free-form deformation by providing a deformation field from the
 interpolation of deformations in a coarse grid.
 &
 $M \times N$ &
 Where $M$ is the number of nodes in the BSpline grid and $N$ is the dimension of the space. &
 Only defined when the input and output space have the same dimension. This
-transform has the advantage of allowing to compute deformable registration. It
-also has the disadvantage of having a very high dimensional parametric space,
+transform has the advantage of being able to compute deformable registration. It
+also has the disadvantage of a very high-dimensional parametric space,
 and therefore requiring long computation times.\\
 \hline
 \end{tabular}
@@ -1216,27 +1215,27 @@ and therefore requiring long computation times.\\
 \end{table}
 
 The \doxygen{BSplineDeformableTransform} is designed to be used for solving
-deformable registration problems. This transform is equivalent to generation a
+deformable registration problems. This transform is equivalent to generating a
 deformation field where a deformation vector is assigned to every point in
 space.  The deformation vectors are computed using BSpline interpolation from
-the deformation values of points located in a coarse grid, that is usually
+the deformation values of points located in a coarse grid, which is usually
 referred to as the BSpline grid.
 
-The BSplineDeformableTransform is not flexible enough for accounting for large
+The BSplineDeformableTransform is not flexible enough to account for large
 rotations or shearing, or scaling differences. In order to compensate for this
 limitation, it provides the functionality of being composed with an arbitrary
-transform. This transform is known as the \emph{Bulk} transform and it is
+transform. This transform is known as the \emph{Bulk} transform and it
 applied to points before they are mapped with the displacement field.
 
-This transform do not provide functionalities for mapping Vectors nor
-CovariantVectors, only Points can be mapped. The reason is that the variations
+This transform does not provide functionality for mapping Vectors nor
+CovariantVectors---only Points can be mapped. This is because the variations
 of a vector under a deformable transform actually depend on the location of the
-vector in space. In other words, Vector only make sense as the relative
+vector in space. In other words, Vectors only make sense as the relative
 position between two points.
 
 The BSplineDeformableTransform has a very large number of parameters and
 therefore is well suited for the \doxygen{LBFGSOptimizer} and
-\doxygen{LBFGSBOptimizer}. The use of this transform for was proposed in the
+\doxygen{LBFGSBOptimizer}. The use of this transform was proposed in the
 following papers~\cite{Rueckert1999,Mattes2001,Mattes2003}.
 
 
@@ -1252,13 +1251,13 @@ following papers~\cite{Rueckert1999,Mattes2001,Mattes2003}.
 \index{itk::Volume\-Spline\-Kernel\-Transform}
 
 Kernel Transforms are a set of Transforms that are also suitable for performing
-deformable registration. These transforms compute on the fly the displacements
+deformable registration. These transforms compute on-the-fly the displacements
 corresponding to a deformation field. The displacement values corresponding to
 every point in space are computed by interpolation from the vectors defined by
 a set of \emph{Source Landmarks} and a set of \emph{Target Landmarks}.
 
 Several variations of these transforms are available in the toolkit. They
-differ on the type of interpolation kernel that is used when computing the
+differ in the type of interpolation kernel that is used when computing the
 deformation in a particular point of space. Note that these transforms are
 computationally expensive and that their numerical complexity is proportional
 to the number of landmarks and the space dimension.

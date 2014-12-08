@@ -24,7 +24,7 @@ Let's begin with a simplified typical registration framework where its component
 and their interconnections are shown in Figure \ref{fig:RegistrationComponents}.
 The basic input data to the registration process are two images: one is defined
 as the \emph{fixed} image $f(\bf{X})$ and the other as the \emph{moving} image
-$m(\bf{X})$. Where $\bf{X}$ represents a position in N-dimensional space.
+$m(\bf{X})$, where $\bf{X}$ represents a position in N-dimensional space.
 Registration is treated as an optimization problem with the goal of finding the
 spatial mapping that will bring the moving image into alignment with the fixed image.
 
@@ -48,12 +48,12 @@ measure forms the quantitative criterion to be optimized by the
 
 The ITKv4 registration framework provides more flexibility to the above traditional
 registration concept. In this new framework, specifications of the registration
-matching metric comparison locations can be completely different than the pixel
+matching metric comparison locations can be completely different from the pixel
 sampling locations in the fixed image.
-It means that the registration computations can happen on a physical grid
+This means that the registration computations can happen on a physical grid
 completely different than the fixed image domain and sampling desity.
 This sampling domain can be considered as a new component in the registration
-framework that is called \textbf{virtual image}. Moreover, the matching metric
+framework known as a \textbf{virtual image}. Moreover, the matching metric
 does not need to be computed on a uniform grid of points; it can be computed
 on an arbitrary set of physical points.
 
@@ -81,8 +81,8 @@ asks the moving transform to update its parameters based on the outputs of the c
 function. Since the moving transform is shared between metric and optimizer,
 the above process will be repeated till the convergence criteria are met.
 
-Later in section~\ref{sec: FeaturesOfTheRegistrationFramework} you will get a
-better understanding of the behind the scene processes of ITKv4 registration
+Later in section~\ref{sec:FeaturesOfTheRegistrationFramework} you will get a
+better understanding of the behind-the-scenes processes of ITKv4 registration
 framework. First, we begin with some simple registration examples.
 
 
@@ -95,22 +95,22 @@ framework. First, we begin with some simple registration examples.
 \section{Features of the Registration Framework}
 \label{sec:FeaturesOfTheRegistrationFramework}
 
-This section presents behind the scene of the registration process in ITKv4.
+This section presents internals of the registration process in ITKv4.
 Understanding what actually happens is necessary to have a correct interpretation
-of the results of the registration filter. It also helps to understand the
+of the results of a registration filter. It also helps to understand the
 most common difficulties that users encounter when they start using the ITKv4
-registration framework that are:
+registration framework:
 
 \begin{itemize}
-\item The fact that registration is done in physical coordinates
-\item The direction of the transform mapping
+\item Registration is done in physical coordinates
+\item The direction of the transform maps from the space of the virtual image to that of the moving image
 \end{itemize}
 
-The reason why these two topics tend to create confusion is that they
+These two topics tend to create confusion because they
 are implemented in different ways in other systems, and community members tend to
 have different expectations regarding how registration should work in ITKv4. The
-situation is further complicated by the fact that most people describe image
-operations as if they were manually performed on a continues picture on a page
+situation is further complicated by the way most people describe image
+operations, as if they were manually performed on a continuous picture on a piece
 of paper.
 
 These concepts are discussed in this section through a general example shown in
@@ -128,11 +128,11 @@ image into the physical space of the \textbf{moving} image.}
 
 Recall that ITKv4 does the registration in ``physical'' space where fixed,
 moving and virtual images are placed. Also, note that the term of
-virtual image is disceptive here since it does not refer to any actual
+virtual image is deceptive here since it does not refer to any actual
 image. In fact, the virtual image defines the origin, direction and the
 spacing of a space lattice that holds the output resampled image of the
 registration process. The virtual pixel lattice is illustrated in green
-at the top left side of the example of
+at the top left side of
 Figure~\ref{fig:ImageRegistrationCoordinateSystemsDiagram}.
 
 As shown in this figure, generally there are two transforms involved in the
@@ -151,10 +151,10 @@ and moving image physical spaces, and interpolators are used to find the pixel
 intensities if mapped points are in non-grid positions. These intensity values
 are passed to a cost function to find the current metric value.
 
-Note to the direction of the mapping transforms here. For example,
+Note the direction of the mapping transforms here. For example,
 if you consider the $T_{vm}$ transform, confusion often occurs since
 the transform shifts a virtual lattice point on the \textbf{positive}
-X direction, the visual effect of this mapping, once the moving
+X direction. The visual effect of this mapping, once the moving
 image is resampled, is equivalent to manually shifting the moving
 image along the \textbf{negative} X direction. In the same way, when
 the $T_{vm}$ transform applies a \textbf{clock-wise} rotation to the
@@ -165,17 +165,17 @@ also occur with the $T_{vf}$ transform between the virtual space and
 the fixed image space.
 
 This mapping direction is chosen because the moving image is resampled
-on the grid of the virtual image. The nature of the resampling process
-is such that an algorithm must go through every pixel of the output image
-and compute the intensity that should be assigned to this pixel by
+on the grid of the virtual image. In the resampling process,
+an algorithm iterates through every pixel of the output image
+and computes the intensity assigned to this pixel by
 mapping to its location in the moving image.
 
-Instead, if we have used the transform that maps coordinates from the
+Instead, if we were to use the transform mapping coordinates from the
 moving image physical space into the virtual image physical space,
-then the resampling process could not guarantee that every pixel in
-the grid of the virtual image will receive one and only one value.
-In other words, the resampling will result in an image with
-holes and with redundant or overlapping pixel values.
+then the resampling process would not guarantee that every pixel in
+the grid of the virtual image would receive one and only one value.
+In other words, the resampling would result in an image with
+holes and redundant or overlapping pixel values.
 
 As seen in the previous examples, and as corroborated in the remaining
 examples in this chapter, the transform computed by the registration
@@ -185,10 +185,10 @@ map the moving image onto the discrete grid of the virtual image.
 There are exceptional cases in which the transform desired is actually
 the inverse transform of the one computed by the ITK registration framework.
 Only those cases may require invoking the \code{GetInverse()}
-method that most transforms offer. Before following that dark path,
+method that most transforms offer. Before attempting this,
 read the examples on resampling illustrated in
-section~\ref{sec:GeometricalTransformationFilters} in order to get
-familiar with the correct interpretation of the transforms.
+section~\ref{sec:GeometricalTransformationFilters} in order to
+familiarize yourself with the correct interpretation of the transforms.
 
 Now we come back to the situation illustrated in
 Figure~\ref{fig:ImageRegistrationCoordinateSystemsDiagram}. This figure shows
@@ -210,7 +210,7 @@ that the correct values for the origin, spacing, and direction of all
 fixed, moving and virtual images are provided.
 
 In this example, the spatial transform computed will \textbf{physically} map
-the brain from the moving image onto the virtual space and minimizes its
+the brain from the moving image onto the virtual space and minimize its
 difference with the resampled brain from the fixed image into the virtual
 space. Fortunately in practice there is no need to resample the fixed image
 since the virtual image physical domain is often assumed to be the same as
@@ -237,10 +237,10 @@ overcoming the difficulties of multi-modality registration.
 
 The concept of Mutual Information is derived from Information Theory and its
 application to image registration has been proposed in different forms by
-different groups \cite{Collignon1995,Maes97,Viola1997}, a more detailed review
+different groups \cite{Collignon1995,Maes97,Viola1997}; a more detailed review
 can be found in \cite{Hajnal2001,Pluim2003}. The Insight Toolkit currently
 provides two different implementations of Mutual Information metrics (see
-section \ref{sec:Metrics} for details). The following example illustrate the
+section \ref{sec:Metrics} for details). The following example illustrates the
 practical use of one of these metrics.
 
 \subsection{Mattes Mutual Information}
@@ -290,10 +290,10 @@ regions of the code, while from time to time accommodations of a larger scale
 are needed. The need for continuous changes is addressed in Extreme Programming
 with the methodology of \emph{Refactoring}. At any given point, the structure
 of the code may not project the organized and neatly distributed architecture
-that may have resulted from a monolithic and static design. There is, after
+that may have resulted from a monolithic and static design. There are, after
 all, good reasons why living beings can not have straight angles. What you are
 about to witness in this section is a clear example of the diversity of species
-that flourishes when Evolution is in action~\cite{Darwin1999}.
+that flourishes when evolution is in action~\cite{Darwin1999}.
 
 
 \subsection{Rigid Registration in 2D}
@@ -344,12 +344,12 @@ is first performed at a coarse scale where the images have fewer pixels.
 The spatial mapping determined at the coarse level is then used to initialize
 registration at the next finer scale. This process is repeated until it
 reaches the finest possible scale. This coarse-to-fine strategy greatly
-improve the registration success rate and also increases robustness
+improves the registration success rate and also increases robustness
 by eliminating local optima at coarser scales. Robustness can be improved
 even more by smoothing the images at coarse scales.
 
 In all previous examples we ran the registration process at a single resolution. However,
-ITKv4 registration framework is structured to provide a multi-resolution registration
+the ITKv4 registration framework is structured to provide a multi-resolution registration
 method. For this purpose we only need to define the number of levels as well as the
 resolution and smoothness of the input images at each level. The registration filter
 smoothes and subsamples the images according to user-defined \emph{ShrinkFactor} and
@@ -366,15 +366,15 @@ way of an example.
 \section{Multi-Stage Registration}
 \label{sec:MultiStageRegistration}
 In section \ref{sec:MultiResolutionRegistration} you noticed how to tweak
-component settings between multi-resolution levels and how it can benefit the
+component settings between multi-resolution levels and saw how it can benefit the
 registration process. That is, the matching metric gets close to the optimal
 value before final parameter adjustments in full resolution.
-By this approach we can save large amounts of time in most practical
+This approach saves large amounts of time in most practical
 cases, since fewer iterations are required at the full resolution level.
 This is helpful in cases like a deformable registration process on a large
 dataset, e.g. a high-resolution 3D image.
 
-Another possible scheme is a simple rigid transform for the initial coarse
+Another possible scheme is to apply a simple rigid transform for the initial coarse
 registration, then upgrade to an affine transform at the finer level. Finally,
 proceed to a deformable transform at the last level when we are close enough to
 the optimal value.
