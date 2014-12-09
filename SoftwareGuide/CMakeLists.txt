@@ -43,6 +43,31 @@ find_path(ITK_EXECUTABLES_DIR
   DOC "Where the ITK examples executables are"
   )
 
+set(PDF_QUALITY_LEVEL "Screen" CACHE STRING "PDF Quality. Options are: Screen, Printer, PrePress")
+#
+# Options for PDF generation.
+# resolution in dpi.
+#
+#  /screen   = low    resolution = Distiller "Screen" optimized
+#  /ebook    = medium resolution = Distiller "eBook"
+#  /printer  = high   resolution = Distiller "Print" optimized
+#  /prepress = high   resolution = Distiller like "Print" with some error checking differences
+#
+if( PDF_QUALITY_LEVEL STREQUAL "Screen" OR PDF_QUALITY_LEVEL STREQUAL "" )
+  set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS${PS2PDF_CONVERTER_VAL_DELIM}/screen" -r600)
+  set(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersionfalse")
+endif()
+
+if( PDF_QUALITY_LEVEL STREQUAL "Printer" )
+  set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS${PS2PDF_CONVERTER_VAL_DELIM}/printer" -dUseCIEColor -r600)
+  set(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersiontrue")
+endif()
+
+if( PDF_QUALITY_LEVEL STREQUAL "PrePress" )
+  set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS${PS2PDF_CONVERTER_VAL_DELIM}/prepress" "-dColorImageResolution${PS2PDF_CONVERTER_VAL_DELIM}600" "-dGrayImageResolution${PS2PDF_CONVERTER_VAL_DELIM}600" -r600)
+  set(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersiontrue")
+endif()
+
 #
 # Generate .cmake files containing those macros defined above.
 #
@@ -101,19 +126,26 @@ set(ITK_FLIP_IMG
 # END FLIP_INPUTS LIST
 
 # Convert an image from some file format to EPS for inclusion in Latex using
-# ImageMagick. This image is an input image. A seperate macro is necessary
-# cause input images do not have any dependecies
+# ImageMagick. This image is an input image. A separate macro is necessary
+# because input images do not have any dependecies
+set(EPS_INPUT_CONVERT_FLAGS)
+set(EPS_OUTPUT_CONVERT_FLAGS)
+if( PDF_QUALITY_LEVEL STREQUAL "Printer" )
+  # Upsample to satify the printer
+  set( EPS_INPUT_CONVERT_FLAGS -density 72 )
+  set( EPS_OUTPUT_CONVERT_FLAGS -density 72 -scale 4194304@ )
+endif()
 macro(CONVERT_INPUT_IMG SOME_IMG EPS_IMG IMAGEMAGICK_FLAGS)
   if( NOT DEFINED ${EPS_IMG}_HAS_CUSTOM_COMMAND)
     add_custom_command(
         OUTPUT      "${EPS_IMG}"
         COMMAND     ${IMAGEMAGICK_CONVERT_EXECUTABLE}
-        ARGS        ${FLAGS} -flip -quality 100 "${SOME_IMG}" "${EPS_IMG}"
+        ARGS        ${FLAGS} -flip -quality 100 ${EPS_INPUT_CONVERT_FLAGS} "${SOME_IMG}" ${EPS_OUTPUT_CONVERT_FLAGS} "${EPS_IMG}"
         DEPENDS     ${RUN_EXAMPLES_SCRIPT}
     )
     set(${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
   endif()
-endmacro(CONVERT_INPUT_IMG)
+endmacro()
 
 
 #
