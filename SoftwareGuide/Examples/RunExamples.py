@@ -346,7 +346,6 @@ class CodeBlockTopSort():
 
 
 if __name__ == "__main__":
-    import sys
     import argparse
 
     parser = argparse.ArgumentParser(description='Parse an ITK source tree and run programs in order to make output files for Software Guide.')
@@ -429,7 +428,7 @@ if __name__ == "__main__":
             epsOutput = os.path.join(outputEPSDirectory, os.path.basename(output.replace('.png','.eps')))
             outstring += ' "{epsOutput}"'.format(epsOutput=epsOutput.replace('\\', '/'))
             outputCDFile.write('CONVERT_INPUT_IMG("{0}" "{1}" "{2}")\n'.format(output.replace('\\', '/'),
-            epsOutput.replace('\\', '/'), ""))
+                               epsOutput.replace('\\', '/'), ""))
         outstring += ')\n'
         outputCDFile.write(outstring)
     allDependencies += ')\n'

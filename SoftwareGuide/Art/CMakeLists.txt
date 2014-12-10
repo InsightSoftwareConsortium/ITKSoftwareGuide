@@ -16,7 +16,9 @@ foreach(ImageFile ${PNGandJPG_IMAGES})
   add_custom_command(
     OUTPUT    ${OutputEPSFile}
     COMMAND   ${IMAGEMAGICK_CONVERT_EXECUTABLE}
+              ${EPS_INPUT_CONVERT_FLAGS}
               ${ImageFile}
+              ${EPS_OUTPUT_CONVERT_FLAGS}
               ${OutputEPSFile}
     DEPENDS   ${ImageFile}
     )

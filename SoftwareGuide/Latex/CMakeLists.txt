@@ -30,39 +30,13 @@ if(NOT MAKEINDEX_COMPILER)
   message("makeindex executable was not found. Please pass to advanced mode and provide its full path")
 endif(NOT MAKEINDEX_COMPILER)
 
-set(PDF_QUALITY_LEVEL "Screen" CACHE STRING "PDF Quality. Options are: Screen, Printer, PrePress")
-#
-# Options for PDF generation.
-# resolution in dpi.
-#
-#  /screen   = low    resolution = Distiller "Screen" optimized
-#  /ebook    = medium resolution = Distiller "eBook"
-#  /printer  = high   resolution = Distiller "Print" optimized
-#  /prepress = high   resolution = Distiller like "Print" with some error checking differences
-#
+set(DVIPS_CONVERTER_OPTIONS  -D600)
 
 if(NOT UNIX)
   set(PS2PDF_CONVERTER_VAL_DELIM "#")
-else(NOT UNIX)
+else()
   set(PS2PDF_CONVERTER_VAL_DELIM "=")
-endif(NOT UNIX)
-
-if( PDF_QUALITY_LEVEL STREQUAL "Screen" OR PDF_QUALITY_LEVEL STREQUAL "" )
-  set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS${PS2PDF_CONVERTER_VAL_DELIM}/screen" -r600)
-  set(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersionfalse")
 endif()
-
-if( PDF_QUALITY_LEVEL STREQUAL "Printer" )
-  set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS${PS2PDF_CONVERTER_VAL_DELIM}/printer" -dUseCIEColor -r600)
-  set(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersiontrue")
-endif()
-
-if( PDF_QUALITY_LEVEL STREQUAL "PrePress" )
-  set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS${PS2PDF_CONVERTER_VAL_DELIM}/prepress" "-dColorImageResolution${PS2PDF_CONVERTER_VAL_DELIM}600" "-dGrayImageResolution${PS2PDF_CONVERTER_VAL_DELIM}600" -r600)
-  set(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersiontrue")
-endif()
-
-set(DVIPS_CONVERTER_OPTIONS  -D600)
 
 #
 # File that defines the path to .cxx examples in ITK sources
