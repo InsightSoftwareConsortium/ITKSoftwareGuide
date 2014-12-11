@@ -608,11 +608,10 @@ The common causes of this problem are:
 
 \begin{itemize}
 \item Poor initialization:    You must initialize the transform properly.
-Please read the ITK Software Guide http://www.itk.org/ItkSoftwareGuide.pdf  for
-a description of the use of the CenteredTransformInitializer class.
-\item Optimzer steps too large. If you optimizer takes steps that are too
-large, it risks to become unstable and to send the images too far appart.  You
-may want to start the optimizer with a maximum step lenght of 1.0, and only
+Please familiarize yourself with the \doxygen{CenteredTransformInitializer} class.
+\item Optimizer steps too large. If you optimizer takes steps that are too
+large, it risks to become unstable and to send the images too far apart.  You
+may want to start the optimizer with a maximum step length of 1.0, and only
 increase it once you have managed to fine tune all other registration
 parameters.
 
@@ -621,7 +620,7 @@ unstable.
 
 
 
-\item Poor set up o the transform parameters scaling.  This is extremely
+\item Poor set up of the transform parameters scaling.  This is extremely
 critical in registration. You must make sure that you balance the relative
 difference of scale between the rotation parameters and the translation
 parameters.
@@ -703,7 +702,7 @@ or Matlab, or even Excel and look at the distribution.
 The number of samples to take must be enough
 for producing the same "appearance" of the joint histogram.
 As an arbitrary rule of thumb you may want to start using
-a high number of samples (80% ~ 100%). And do not
+a high number of samples (80\% - 100\%). And do not
 change it until you have mastered the other parameters
 of the registration.  Once you get your registration to converge
 you can revisit the number of samples and reduce it in order
@@ -740,22 +739,22 @@ the image by half its physical extent.
 Note that esoteric value has included the arbitrary number
 10.0 in the denominator, for no other reason that we have
 been lucky when using that factor. This of course is just a
-supersticion, so you should feel free to experiment with
+superstition, so you should feel free to experiment with
 different values of this number.
 
 Just keep in mind that what the optimizer will do is to
-"jump" in a paramteric space of 6 dimension, and that the
-component of the jump on every dimension will be proporitional
-to 1/scaling factor * OptimizerStepLenght.     Since you put
-the optimizer Step Length to 0.1, then the optimizer will start
-by exploring the rotations at jumps of about 5degrees, which
+``jump'' in a parametric space of 6 dimensions, and that the
+component of the jump on every dimension will be proportional
+to 1/scaling factor * OptimizerStepLength.     Since you set
+the optimizer Step Length to 0.1, the optimizer will start
+by exploring the rotations at jumps of about 5 degrees, which
 is a conservative rotation for most medical applications.
 
 If you have reasons to think that your rotations are larger or
 smaller, then you should modify the scaling factor of the  matrix
 parameters accordingly.
 
-In the same way, if you thinkl that 1/10 of the image size is too
+In the same way, if you think that 1/10 of the image size is too
 large as the first step for exploring the translations, then you
 should modify the scaling of  translation parameters accordingly.
 
@@ -767,11 +766,11 @@ and plot the translation coordinates so that you can get a feeling
 of how the registration is behaving.
 
 
-Note also that image registration is not a science. it is a pure
+Note also that image registration is not a science. It is a pure
 engineerig practice, and therefore, there are no correct answers,
-nor "truths" to be found. It is all about how much quality your want,
-and how must computation time, and development time are you
-willing to pay for that quality. The "satisfying" answer for your
+nor ``truths'' to be found. It is all about how much quality you want,
+and how must computation time, and development time you are
+willing to pay for that quality. The ``satisfying'' answer for your
 specific application must be found by exploring the trade-offs
 between the different parameters that regulate the image
 registration process.
