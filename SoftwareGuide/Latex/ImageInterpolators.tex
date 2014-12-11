@@ -237,11 +237,14 @@ ImageInterpolationFunction. For instance, you can plug it into the
 ResampleImageFilter class.  In order to instantiate the filter you must choose
 several template parameters.
 
-\code{
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{c++}
 typedef WindowedSincInterpolateImageFunction<
            TInputImage, VRadius, TWindowFunction,
            TBoundaryCondition, TCoordRep >    InterpolatorType;
-}
+
+\end{minted}
+\normalsize
 
 \code{TInputImage} is the image type, as for any other interpolator.
 
