@@ -4,7 +4,7 @@
   \centering
   \includegraphics[width=8cm]{ImageRegistrationConcept.eps}
   \caption[Image Registration Concept]{Image registration is the task of
-finding a spatial transform mapping on image into
+finding a spatial transform mapping one image into
 another.\label{fig:ImageRegistrationConcept}}
 \end{floatingfigure}
 
@@ -42,20 +42,17 @@ points from the fixed image space to points in the moving image space. The
 \emph{interpolator} is used to evaluate moving image intensities at non-grid
 positions. The \emph{metric} component $S(f,m \circ T)$ provides a measure of
 how well the fixed image is matched by the transformed moving image. This
-measure forms the quantitative criterion to be optimized by the
+measure forms a quantitative criterion to be optimized by the
 \emph{optimizer} over the search space defined by the parameters of the
 \emph{transform}.
 
-The ITKv4 registration framework provides more flexibility to the above traditional
-registration concept. In this new framework, specifications of the registration
-matching metric comparison locations can be completely different from the pixel
-sampling locations in the fixed image.
-This means that the registration computations can happen on a physical grid
-completely different than the fixed image domain and sampling desity.
-This sampling domain can be considered as a new component in the registration
-framework known as a \textbf{virtual image}. Moreover, the matching metric
-does not need to be computed on a uniform grid of points; it can be computed
-on an arbitrary set of physical points.
+ITKv4 registration framework provides more flexibility to the above traditional
+registration concept. In this new framework, the registration computations can
+happen on a physical grid completely different than the fixed image domain having
+different sampling density.
+This ``sampling domain'' is considered as a new component in the registration
+framework known as \textbf{virtual image} that can be an arbitrary set of physical
+points, not necessarily a uniform grid of points.
 
 Various ITKv4 registration components are illustrated in Figure
 \ref{fig:ITKv4RegistrationComponents}. Boxes with dashed borders show
@@ -76,7 +73,7 @@ as fixed and moving transforms and interpolators.
 Fixed and moving transforms and interpolators are used by the metric to evaluate
 the intensity values of the fixed and moving images at each physical point of the
 virtual space. Those intensity values are then used by the metric cost function to
-evaluate its fitness value and derivatives, which are passed to the optimizer that
+evaluate the fitness value and derivatives, which are passed to the optimizer that
 asks the moving transform to update its parameters based on the outputs of the cost
 function. Since the moving transform is shared between metric and optimizer,
 the above process will be repeated till the convergence criteria are met.
