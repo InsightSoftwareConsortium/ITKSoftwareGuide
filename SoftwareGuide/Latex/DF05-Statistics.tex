@@ -6,7 +6,7 @@ statistics subsystem's primary purpose is to provide general capabilities
 for statistical pattern classification. However, its use is not limited
 for classification. Users might want to use data containers and
 algorithms in the statistics subsystem to perform other statistical
-analysis or to preprocessor image data for other tasks.
+analysis or to preprocess image data for other tasks.
 
 The statistics subsystem mainly consists of three parts: data container
 classes, statistical algorithms, and the classification framework. In this
@@ -44,7 +44,7 @@ There are two adaptor classes that provide the common
 \subdoxygen{Statistics}{Sample} interfaces for \doxygen{Image} and
 \doxygen{PointSet}, two fundamental data container classes found in ITK. The
 adaptor classes do not store any real data elements themselves. These data
-comes from the source data container plugged into them. First, we will
+come from the source data container plugged into them. First, we will
 describe how to create an
 \subdoxygen{Statistics}{ImageToListSampleAdaptor} and then an
 \subdoxygen{Statistics}{PointSetToListSampleAdaptor} object.
@@ -322,7 +322,7 @@ measures that have some relevance in terms of Information Theory
 The concept of Entropy has been introduced into image processing as a crude
 mapping from its application in Communications. The notions of Information
 Theory can be deceiving and misleading when applied to images because their
-language from Communication Theory does not necessarily maps to what people in
+language from Communication Theory does not necessarily map to what people in
 the Imaging Community use.
 
 For example, it is commonly said that
@@ -354,11 +354,11 @@ of the amount of RAM memory and capacity of a hard drive in a computer. In that
 sense, a confusion is created between the encoding of a piece of data and its
 actual amount of information. For example a file composed of one million
 letters will take one million bytes in a hard disk, but it does not necessarily
-has one million bytes of information, since in many cases parts of the file can
+have one million bytes of information, since in many cases parts of the file can
 be predicted from others. This is the reason why data compression can manage to
 compact files.}.
 
-Since we could have picked any pixel at random, our chances or picking the ones
+Since we could have picked any pixel at random, our chances of picking the ones
 that are associated to the i-th histogram bin are given by $p_i$. Therefore,
 the expected reduction in uncertainty that we can get from measuring the value
 of one pixel is given by
@@ -371,13 +371,13 @@ This quantity $H$ is what is usually defined as the \emph{Entropy of the
 Image}. It would be more accurate to call it the Entropy of the random variable
 associated to the intensity value of \emph{one} pixel. The fact that $H$ is
 unrelated to the spatial arrangement of the pixels in an image shows how little
-of the real \emph{Image Information} is $H$ actually representing. The Entropy
+of the real \emph{Image Information} $H$ actually represents. The Entropy
 of an image, as measured above, is only a crude indication of how the intensity
 values are spread in the dynamic range of intensities. For example, an image
 with maximum entropy will be the one that has a large dynamic range and every
 value in that range is equally probable.
 
-The common acceptation of $H$ as a representation of image information has
+The common convention of $H$ as a representation of image information has
 terribly undermined the enormous potential on the application of Information
 Theory to image processing and analysis.
 
@@ -393,7 +393,7 @@ representation of the features in the image that we could not predict from
 knowing that it is a CT scan from a human adult male.
 
 The application of Information Theory to image analysis is still in its early
-infancy and it is an exciting an promising field to be explored further. All
+infancy and it is an exciting and promising field to be explored further. All
 that being said, let's now look closer at how the concept of Entropy (which is
 not the amount of information in an image) can be measured with the ITK
 statistics framework.
@@ -458,8 +458,8 @@ distance functions and a minimum value decision rule (which assigns a class
 from the distance function that returns the smallest value) users can achieve a
 least squared error classifier. As another example, users can add a rejection
 scheme to the decision rule so that even in a situation where the membership
-scores suggest a ``winner'', a measurement vector can be flagged as ill
-defined. Such a rejection scheme can avoid risks of assigning a class label
+scores suggest a ``winner'', a measurement vector can be flagged as ill-defined.
+Such a rejection scheme can avoid risks of assigning a class label
 without a proper win margin.
 
 \subsection{k-d Tree Based k-Means Clustering}
