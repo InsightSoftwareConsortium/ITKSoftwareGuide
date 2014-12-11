@@ -2,7 +2,6 @@
 \chapter{Data Representation}
 \label{sec:DataRepresentation}
 
-
 This chapter introduces the basic classes responsible
 for representing data in ITK. The most common classes are the
 \doxygen{Image}, the \doxygen{Mesh} and the \doxygen{PointSet}.
@@ -12,11 +11,10 @@ for representing data in ITK. The most common classes are the
 
 The \doxygen{Image} class follows the spirit of
 \href{http://www.boost.org/more/generic_programming.html}{Generic Programming},
-where types are separated from the algorithmic behavior of the class.  ITK supports images
-with any pixel type and any spatial dimension.
+where types are separated from the algorithmic behavior of the class.
+ITK supports images with any pixel type and any spatial dimension.
 
 \subsection{Creating an Image}\label{sec:CreatingAnImageSection}
-
 
 \input{Image1.tex}
 
@@ -26,23 +24,16 @@ hardware. The following example illustrates how an image can be read from
 a file.
 
 
-
-
 \subsection{Reading an Image from a File}
 \label{sec:ReadingImageFromFile}
 
 \input{Image2.tex}
 
 
-
-
-
 \subsection{Accessing Pixel Data}
 \label{sec:AccessingImagePixelData}
 
 \input{Image3.tex}
-
-
 
 
 \subsection{Defining Origin and Spacing}
@@ -62,11 +53,11 @@ sensitive to color~\cite{Gray2003} and their regions of sensitivity loosely
 match regions of the spectrum that will be perceived as red, green and blue
 respectively. The \emph{rods} on the other hand provide no color discrimination
 and favor high resolution and high sensitivity\footnote{The human eye is
-capable of perceiving a single isolated photon.}.  A fifth type of receptors,
+capable of perceiving a single isolated photon.}. A fifth type of receptors,
 the \emph{ganglion cells}, also known as circadian\footnote{The term
 \emph{Circadian} refers to the cycle of day and night, that is, events that are
 repeated with 24 hours intervals.} receptors are sensitive to the lighting
-conditions that differentiate day from night.  These receptors evolved as a
+conditions that differentiate day from night. These receptors evolved as a
 mechanism for synchronizing the physiology with the time of the day. Cellular
 controls for circadian rythms are present in every cell of an organism and are
 known to be exquisitively precise~\cite{Lodish2000}.
@@ -75,7 +66,7 @@ The RGB space has been constructed as a representation of a physiological
 response to light by the three types of \emph{cones} in the human eye. RGB is
 not a Vector space. For example, negative numbers are not appropriate in a
 color space because they will be the equivalent of ``negative stimulation'' on
-the human eye.  In the context of colorimetry, negative color values are used
+the human eye. In the context of colorimetry, negative color values are used
 as an artificial construct for color comparison in the sense that
 
 \begin{equation}
@@ -83,8 +74,8 @@ as an artificial construct for color comparison in the sense that
          ColorA = ColorB - ColorC
 \end{equation}
 
-just as a way of saying that we can produce $ColorB$ by combining $ColorA$ and
-$ColorC$.  However, we must be aware that (at least in emitted light) it is not
+is just a way of saying that we can produce $ColorB$ by combining $ColorA$ and
+$ColorC$. However, we must be aware that (at least in emitted light) it is not
 possible to \emph{substract light}. So when we mention
 Equation~\ref{eqn:ColorSubtraction} we actually mean
 
@@ -103,8 +94,8 @@ The concept of addition and subtraction of colors has to be carefully
 interpreted. In fact, RGB has a different definition regarding whether we are
 talking about the channels associated to the three color sensors of the human
 eye, or to the three phosphors found in most computer monitors or to the color
-inks that are used for printing reproduction.  Color spaces are usually non
-linear and do not even from a Group. For example, not all visible colors can be
+inks that are used for printing reproduction. Color spaces are usually non
+linear and do not even from a group. For example, not all visible colors can be
 represented in RGB space~\cite{Wyszecki2000}.
 
 ITK introduces the \doxygen{RGBPixel} type as a support for representing the
@@ -145,7 +136,6 @@ The following example illustrates how RGB images can be represented in ITK.
 \input{Image5.tex}
 
 
-
 \section{PointSet}
 \label{PointSetSection}
 
@@ -155,12 +145,10 @@ The following example illustrates how RGB images can be represented in ITK.
 \input{PointSet1.tex}
 
 
-
 \subsection{Getting Access to Points}
 \label{sec:GettingAccessToPointsInThePointSet}
 
 \input{PointSet2.tex}
-
 
 
 \subsection{Getting Access to Data in Points}
@@ -169,13 +157,10 @@ The following example illustrates how RGB images can be represented in ITK.
 \input{PointSet3.tex}
 
 
-
 \subsection{RGB as Pixel Type}
 \label{sec:PointSetWithRGBAsPixelType}
 
 \input{RGBPointSet.tex}
-
-
 
 
 \subsection{Vectors as Pixel Type}
@@ -184,13 +169,10 @@ The following example illustrates how RGB images can be represented in ITK.
 \input{PointSetWithVectors.tex}
 
 
-
 \subsection{Normals as Pixel Type}
 \label{sec:PointSetWithCovariantVectorsAsPixelType}
 
 \input{PointSetWithCovariantVectors.tex}
-
-
 
 
 \section{Mesh}\label{MeshSection}
@@ -253,8 +235,6 @@ The following example illustrates how RGB images can be represented in ITK.
 \label{sec:MeshCellVisitorMultipleType}
 
 \input{MeshCellVisitor2.tex}
-
-
 
 
 \section{Path}\label{PathSection}
