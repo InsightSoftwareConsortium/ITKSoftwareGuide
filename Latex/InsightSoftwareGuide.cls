@@ -43,16 +43,16 @@
 \paperwidth  7.5in
 \paperheight 9.25in
 
-\topmargin 0.625in
-\setlength{\voffset}{-0.625in}
+\topmargin 0.400in
+\setlength{\voffset}{-0.400in}
 
 
 % Increase printable page size (copied from fullpage.sty)
 \advance \topmargin by -\headheight
 \advance \topmargin by -\headsep
 
-\oddsidemargin   0.625in
-\evensidemargin -0.625in
+\oddsidemargin   0.500in
+\evensidemargin -0.500in
 
 
 \setcounter{secnumdepth}{2}
