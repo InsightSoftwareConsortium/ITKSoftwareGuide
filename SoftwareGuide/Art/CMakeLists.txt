@@ -26,13 +26,10 @@ foreach(ImageFile ${PNGandJPG_IMAGES})
 endforeach(ImageFile)
 
 
-# TODO: Use file(COPY ...) signature of the file manipulation command.
 foreach(ImageFile ${EPS_IMAGES})
   get_filename_component(ImageFileNoExt ${ImageFile} NAME_WE)
-  configure_file(
-                "${SoftwareGuide_SOURCE_DIR}/Art/${ImageFileNoExt}.eps"
-                "${SoftwareGuide_BINARY_DIR}/Art/${ImageFileNoExt}.eps"
-                COPYONLY IMMEDIATE)
+  file(COPY "${SoftwareGuide_SOURCE_DIR}/Art/${ImageFileNoExt}.eps"
+       DESTINATION "${SoftwareGuide_BINARY_DIR}/Art/")
   set(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${ImageFileNoExt}.eps)
 endforeach(ImageFile)
 
