@@ -6,6 +6,15 @@
 
 \index{itk::Image\-To\-Image\-Metricv4}
 
+\begin{floatingfigure}[rlp]{0.5\textwidth}
+ \centering
+ \includegraphics{ParzenWindowing13.eps}
+ \caption[Parzen Windowing in Mutual Information]{
+In Parzen windowing, a continuous density function is constructed by
+superimposing kernel functions (Gaussian function in this case) centered on the
+intensity samples obtained from the image.\label{fig:ParzenWindowing}}
+\end{floatingfigure}
+
 In ITK, \doxygen{ImageToImageMetricv4} objects quantitatively measure how well
 the transformed moving image fits the fixed image by comparing the gray-scale
 intensity of the images. These metrics are very flexible and can work with any
@@ -190,16 +199,6 @@ I(A,B)=H(A)+H(B)-H(A,B)
 \end{equation}
 
 \subsubsection{Parzen Windowing}
-
-
-\begin{floatingfigure}[rlp]{0.5\textwidth}
- \centering
- \includegraphics[width=0.48\textwidth]{ParzenWindowing13.eps}
- \caption[Parzen Windowing in Mutual Information]{
-In Parzen windowing, a continuous density function is constructed by
-superimposing kernel functions (Gaussian function in this case) centered on the
-intensity samples obtained from the image.\label{fig:ParzenWindowing}}
-\end{floatingfigure}
 
 In a typical registration problem, direct access to the marginal
 and joint probability densities is not available and hence the

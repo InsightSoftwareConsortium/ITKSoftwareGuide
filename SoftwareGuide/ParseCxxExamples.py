@@ -128,7 +128,7 @@ def GetPreambleString(examplefilename):
 % Any changes should be made in the file
 % {0}
 
-The source code for this section can be found in the file
+The source code for this section can be found in the file\\\\
 \\texttt{2}{1}{3}.
 """.format(examplefilename, os.path.basename(examplefilename), '{', '}')
     return preamble
