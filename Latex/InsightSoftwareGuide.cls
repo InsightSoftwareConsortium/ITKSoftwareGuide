@@ -37,23 +37,9 @@
 %
 \LoadClass[\itk@paper,\itk@ptsize,twoside,titlepage,openright]{book}
 
-%\paperheight 9.50in
-%\paperwidth  7.25in
-
-\paperwidth  7.5in
-\paperheight 9.25in
-
-\topmargin 0.400in
-\setlength{\voffset}{-0.400in}
-
-
 % Increase printable page size (copied from fullpage.sty)
-\advance \topmargin by -\headheight
-\advance \topmargin by -\headsep
-
-\oddsidemargin   0.500in
-\evensidemargin -0.500in
-
+%\advance \topmargin by -\headheight
+%\advance \topmargin by -\headsep
 
 \setcounter{secnumdepth}{2}
 
