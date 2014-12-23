@@ -74,6 +74,7 @@ def ParseOneFile(sourceFile):
     sf.close()
     parseLine = 0
     starttagline = 0
+    checkForBlankLine = False
     thisFileCommandBlocks = []
     isLatexBlock = True
     for thisline in INFILE:
@@ -85,6 +86,7 @@ def ParseOneFile(sourceFile):
             isLatexBlock = True
             starttagline = parseLine
             codeBlock = []
+            checkForBlankLine = True
         elif thisline.count(endLatexTag) == 1:  # end of LatexCodeBlock
             ocb = OneDocBlock(sourceFile, starttagline, codeBlock)
             ocb.blockType = 'Latex'
@@ -103,6 +105,15 @@ def ParseOneFile(sourceFile):
             if isLatexBlock == True:
                 thisline = commentPattern.sub("",thisline)
                 thisline = thisline.lstrip().rstrip()
+                if checkForBlankLine:
+                  if thisline != "":
+                    print("{filename}:{line}: warning: Line after start of LaTeX block should be a newline -- instead got {value}".format(
+                           filename=sourceFile,
+                           line=parseLine,
+                           value=thisline
+                           )
+                    )
+                  checkForBlankLine = False
 
             if not isLatexBlock and ( len(thisline) > 80 ):
                 print("{filename}:{line}:80: warning: Line length too long for LaTeX printing".format(
