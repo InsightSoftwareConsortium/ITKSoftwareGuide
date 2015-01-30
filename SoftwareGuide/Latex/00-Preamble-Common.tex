@@ -25,32 +25,32 @@
 \usemintedstyle{emacs}
 
 \lstset{
-         basicstyle=\footnotesize\ttfamily, % Standardschrift
-         %numbers=left,               % Ort der Zeilennummern
-         numberstyle=\tiny,          % Stil der Zeilennummern
-         %stepnumber=2,               % Abstand zwischen den Zeilennummern
-         numbersep=2pt,              % Abstand der Nummern zum Text
-         tabsize=2,                  % Groesse von Tabs
-         extendedchars=true,         %
-         breaklines=true,            % Zeilen werden Umgebrochen
+         basicstyle=\footnotesize\ttfamily, % Default font
+         %numbers=left,               % The size of the fonts that are used for the code
+         numberstyle=\tiny,           % The style that is used for the line-numbers
+         %stepnumber=2,               % The step between two line-numbers. If it's 1, each line will be numbered
+         numbersep=2pt,               % How far the line-numbers are from the code
+         tabsize=2,                   % Sets default tabsize to 2 spaces
+         extendedchars=true,          % Lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+         breaklines=true,             % Sets automatic line breaking
          keywordstyle=\color{red},
  %    frame=b,
- %        keywordstyle=[1]\textbf,    % Stil der Keywords
+ %        keywordstyle=[1]\textbf,    % Keyword style
  %        keywordstyle=[2]\textbf,    %
  %        keywordstyle=[3]\textbf,    %
  %        keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
-         stringstyle=\color{black}\ttfamily, % Farbe der String
-         showspaces=false,           % Leerzeichen anzeigen ?
-         showtabs=false,             % Tabs anzeigen ?
+         stringstyle=\color{black}\ttfamily, % Style of string literals
+         showspaces=false,           % Show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+         showtabs=false,             % Show tabs within strings adding particular underscores
          xleftmargin=17pt,
          framexleftmargin=17pt,
          framexrightmargin=5pt,
          framexbottommargin=4pt,
-         backgroundcolor=\color{ltgray},
-         showstringspaces=false      % Leerzeichen in Strings anzeigen ?
+         backgroundcolor=\color{ltgray}, % Choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+         showstringspaces=false      % Underline spaces within strings only
  }
 
- \lstloadlanguages{% Check Dokumentation for further languages ...
+ \lstloadlanguages{% Check Documentation for further languages ...
          %[Visual]Basic
          %Pascal
          %C
