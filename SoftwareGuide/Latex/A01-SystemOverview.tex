@@ -706,8 +706,9 @@ a set of shared libraries (.so in Linux or .dlls on Windows) that can be used
 by interpreted languages.
 
 There is almost a direct translation from C++, with the differences being the
-particular syntactical requirements of each language. For example, to rescale
-an image using the Python wrapping:
+particular syntactical requirements of each language. For example, to dilate an
+image using a custom structuring element using the Python wrapping:
+
 \small
 \begin{minted}{python}
     inputImage = sys.argv[1]
