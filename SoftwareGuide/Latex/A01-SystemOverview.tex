@@ -455,10 +455,10 @@ The VNL numerics library includes classes for:
 Most VNL routines are implemented as wrappers around the high-quality Fortran
 routines that have been developed by the numerical analysis community over
 the last forty years and placed in the public domain. The central repository
-for these programs is the "netlib" server \footnote{\url{http://www.netlib.org/}}. The
+for these programs is the ``netlib'' server.\footnote{\url{http://www.netlib.org/}} The
 National Institute of Standards and Technology (NIST) provides an excellent
 search interface to this repository in its \emph{Guide to Available Mathematical
-Software (GAMS)}\footnote{\url{http://gams.nist.gov}}, both as a decision tree and a
+Software (GAMS)},\footnote{\url{http://gams.nist.gov}} both as a decision tree and a
 text search.
 
 ITK also provides additional numerics functionality. A suite of optimizers, that
@@ -495,7 +495,7 @@ image must also be specified when the image class is instantiated.) The key
 is that the pixel type must support certain operations (for example, addition
 or difference) if the code is to compile in all cases (for example, to be
 processed by a particular filter that uses these operations). In practice,
-most applications will use a C++ simple type (e.g., \code{int}, \code{float})
+most applications will use a C++ primitive type (e.g., \code{int}, \code{float})
 or a pre-defined pixel type and will rarely create a new type of pixel class.
 
 One of the important ITK concepts regarding images is that rectangular,
@@ -601,7 +601,7 @@ In this example the source object \doxygen{RandomImageSource} is connected
 to the \doxygen{ShrinkImageFilter}, and the shrink filter is connected to
 the mapper \doxygen{ImageFileWriter}. When the \code{Update()} method is
 invoked on the writer, the data processing pipeline causes each of these
-filters in order, culminating in writing the final data to a file on disk.
+filters to execute in order, culminating in writing the final data to a file on disk.
 
 
 \section{Spatial Objects}
@@ -665,7 +665,7 @@ their number is growing and their potential is huge. Using the nominal
 spatial object capabilities, methods such as marching cubes or mutual
 information registration can be applied to objects regardless of their
 internal representation. By having a common API, the same method can be used
-to register a parametric representation of a hearth with an individual's CT
+to register a parametric representation of a heart with an individual's CT
 data or to register two segmentations of a liver.
 
 
