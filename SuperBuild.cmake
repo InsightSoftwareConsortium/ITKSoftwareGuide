@@ -287,6 +287,7 @@ if(BUILD_TESTING AND NOT Slicer_BUILD_${PROJECT_NAME})
     @ONLY)
 endif()
 
+option( GENERATE_HTML "Generate HTML version of the code with tex4ht." OFF )
 
 #------------------------------------------------------------------------------
 # Configure and build ${PROJECT_NAME}
@@ -303,6 +304,7 @@ ExternalProject_Add(${proj}
     ${CMAKE_OSX_EXTERNAL_PROJECT_ARGS}
     ${${PROJECT_NAME}_EXTERNAL_PROJECT_ARGS}
     -D${PRIMARY_PROJECT_NAME}_SUPERBUILD:BOOL=OFF    #NOTE: VERY IMPORTANT reprocess top level CMakeList.txt
+    -DGENERATE_HTML:BOOL=${GENERATE_HTML}
   INSTALL_COMMAND ""
   )
 

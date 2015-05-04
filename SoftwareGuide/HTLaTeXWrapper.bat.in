@@ -1,0 +1,5 @@
+@ECHO OFF
+
+SET TEXINPUTS=%TEXINPUTS%;${ITK_TEXINPUTS}
+
+"${HTLATEX_CONVERTER}" %1 "html,2,info" "" "" "-shell-escape"

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+TEXINPUTS=$TEXINPUTS:${ITK_TEXINPUTS}
+export TEXINPUTS
+
+"${HTLATEX_CONVERTER}" "$@" "html,2,info" "" "" "-shell-escape"

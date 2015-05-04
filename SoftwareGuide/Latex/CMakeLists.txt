@@ -30,6 +30,23 @@ if(NOT MAKEINDEX_COMPILER)
   message("makeindex executable was not found. Please pass to advanced mode and provide its full path")
 endif(NOT MAKEINDEX_COMPILER)
 
+#
+# Build HTML version
+#
+# NOTE: if the error: "\theHchapter undefined" is encountered, see
+#
+# https://tex.stackexchange.com/questions/140008/latex-error-thehchapter-undefined-when-using-tex4ht-with-hyperref-and-appendix
+#
+# For a fix for tex4ht's support for the appendix package.
+#
+option( GENERATE_HTML "Generate HTML version of the code with tex4ht." OFF )
+if( GENERATE_HTML )
+  find_program( HTLATEX_CONVERTER htlatex )
+  if( NOT HTLATEX_CONVERTER )
+    message( SEND_ERROR "htlatex script was not found. Please install tex4ht and provide its full path.  Note that the htlatex script is sometimes not installed into the PATH by default." )
+  endif()
+endif()
+
 set(DVIPS_CONVERTER_OPTIONS  -D600)
 
 if(NOT UNIX)
@@ -205,6 +222,47 @@ if(LATEX_COMPILER)
     add_custom_command( OUTPUT    ITKSoftwareGuide-Book2.pdf
       COMMAND   ${PS2PDF_CONVERTER} ${PS2PDF_CONVERTER_OPTIONS} 001-ITKSoftwareGuide-Book2.ps ITKSoftwareGuide-Book2.pdf
       DEPENDS   001-ITKSoftwareGuide-Book2.ps
+      )
+  endif()
+
+  if(GENERATE_HTML)
+    configure_file(${SoftwareGuide_SOURCE_DIR}/HTLaTeXWrapper.sh.in
+                   ${SoftwareGuide_BINARY_DIR}/HTLaTeXWrapper.sh)
+    configure_file(${SoftwareGuide_SOURCE_DIR}/HTLaTeXWrapper.bat.in
+                   ${SoftwareGuide_BINARY_DIR}/HTLaTeXWrapper.bat)
+    set(_html_output_dir "${CMAKE_CURRENT_BINARY_DIR}/html" )
+    file(MAKE_DIRECTORY "${_html_output_dir}/Book1" "${_html_output_dir}/Book2")
+    file(COPY index.html DESTINATION "${_html_output_dir}")
+    if(NOT UNIX)
+      add_custom_command( OUTPUT ${_html_output_dir}/Book1/000-ITKSoftwareGuide-Book1.html
+        COMMAND ${SoftwareGuide_BINARY_DIR}/HTLaTeXWrapper.bat "${SoftwareGuide_SOURCE_DIR}/Latex/000-ITKSoftwareGuide-Book1.tex"
+        DEPENDS ITKSoftwareGuide-Book1.pdf
+        WORKING_DIRECTORY "${_html_output_dir}/Book1"
+        )
+      add_custom_command( OUTPUT ${_html_output_dir}/Book2/001-ITKSoftwareGuide-Book2.html
+        COMMAND ${SoftwareGuide_BINARY_DIR}/HTLaTeXWrapper.bat "${SoftwareGuide_SOURCE_DIR}/Latex/001-ITKSoftwareGuide-Book2.tex"
+        DEPENDS ITKSoftwareGuide-Book2.pdf
+        WORKING_DIRECTORY "${_html_output_dir}/Book2"
+        )
+    else()
+      add_custom_command( OUTPUT ${_html_output_dir}/Book1/000-ITKSoftwareGuide-Book1.html
+        COMMAND ${SoftwareGuide_BINARY_DIR}/HTLaTeXWrapper.sh "${SoftwareGuide_SOURCE_DIR}/Latex/000-ITKSoftwareGuide-Book1.tex"
+        DEPENDS ITKSoftwareGuide-Book1.pdf
+        WORKING_DIRECTORY "${_html_output_dir}/Book1"
+        )
+      add_custom_command( OUTPUT ${_html_output_dir}/Book2/001-ITKSoftwareGuide-Book2.html
+        COMMAND ${SoftwareGuide_BINARY_DIR}/HTLaTeXWrapper.sh "${SoftwareGuide_SOURCE_DIR}/Latex/001-ITKSoftwareGuide-Book2.tex"
+        DEPENDS ITKSoftwareGuide-Book2.pdf
+        WORKING_DIRECTORY "${_html_output_dir}/Book2"
+        )
+    endif()
+    add_custom_target(SoftwareGuideBook1HTML ALL
+      COMMAND ${CMAKE_COMMAND} -E echo "Building Software Guide Book1 HTML"
+      DEPENDS "${_html_output_dir}/Book1/000-ITKSoftwareGuide-Book1.html"
+      )
+    add_custom_target(SoftwareGuideBook2HTML ALL
+      COMMAND ${CMAKE_COMMAND} -E echo "Building Software Guide Book2 HTML"
+      DEPENDS "${_html_output_dir}/Book2/001-ITKSoftwareGuide-Book2.html"
       )
   endif()
 
