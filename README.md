@@ -58,7 +58,7 @@ Following is a brief description of the build process:
     comments in the ITK examples source file delimited with BeginLaTeX, EndLaTeX
     and BeginCodeSnippet, EndCodeSnippet and generate LaTeX files which are
     copied into the Examples subdirectory of the binary output directory.
- 5. The top-level LaTeX file SoftwareGuide/LaTeX/000-ITKSoftwareGuide-Book1.tex is
+ 5. The top-level LaTeX file SoftwareGuide/LaTeX/ITKSoftwareGuide-Book1.tex is
     compiled with a series of calls to latex, bibtex, latex, makeindex, dvips,
     and ps2pdf to generate the PDF file.
 

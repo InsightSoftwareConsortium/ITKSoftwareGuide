@@ -73,7 +73,7 @@ set( CommonBook_Tex_SRCS
 
 set( Book1_Tex_SRCS
 ## Front Matter
-  000-ITKSoftwareGuide-Book1.tex
+  ITKSoftwareGuide-Book1.tex
   01-PrintedPreamble-Book1.tex
   02-Cover-Book1.tex
   03-Abstract-Book1.tex
@@ -95,7 +95,7 @@ set( Book1_Tex_SRCS
 
 set( Book2_Tex_SRCS
 ## Front Matter
-  001-ITKSoftwareGuide-Book2.tex
+  ITKSoftwareGuide-Book2.tex
   01-PrintedPreamble-Book2.tex
   02-Cover-Book2.tex
   03-Abstract-Book2.tex
@@ -160,68 +160,68 @@ if(LATEX_COMPILER)
     set(DVIPS_WRAPPER2 ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.sh)
   endif(NOT UNIX)
 
-  add_custom_command( OUTPUT    000-ITKSoftwareGuide-Book1.dvi 000-ITKSoftwareGuide-Book1.aux
-    COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/000-ITKSoftwareGuide-Book1.tex
+  add_custom_command( OUTPUT    ITKSoftwareGuide-Book1.dvi ITKSoftwareGuide-Book1.aux
+    COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book1.tex
     DEPENDS   ${SoftwareGuide_Book1_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES} ${allEPS-DEPS}
     )
-  add_custom_command( OUTPUT    001-ITKSoftwareGuide-Book2.dvi 001-ITKSoftwareGuide-Book2.aux
-    COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/001-ITKSoftwareGuide-Book2.tex
+  add_custom_command( OUTPUT    ITKSoftwareGuide-Book2.dvi ITKSoftwareGuide-Book2.aux
+    COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book2.tex
     DEPENDS   ${SoftwareGuide_Book2_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES} ${allEPS-DEPS}
     )
 
   if(BIBTEX_COMPILER)
-    add_custom_command( OUTPUT    000-ITKSoftwareGuide-Book1.bbl
-      COMMAND ${BIBTEX_COMPILER} 000-ITKSoftwareGuide-Book1
-      COMMAND ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/000-ITKSoftwareGuide-Book1.tex
-      COMMAND ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/000-ITKSoftwareGuide-Book1.tex
-      DEPENDS 000-ITKSoftwareGuide-Book1.aux ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
+    add_custom_command( OUTPUT    ITKSoftwareGuide-Book1.bbl
+      COMMAND ${BIBTEX_COMPILER} ITKSoftwareGuide-Book1
+      COMMAND ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book1.tex
+      COMMAND ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book1.tex
+      DEPENDS ITKSoftwareGuide-Book1.aux ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
       )
-    add_custom_command( OUTPUT    001-ITKSoftwareGuide-Book2.bbl
-      COMMAND ${BIBTEX_COMPILER} 001-ITKSoftwareGuide-Book2
-      COMMAND ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/001-ITKSoftwareGuide-Book2.tex
-      COMMAND ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/001-ITKSoftwareGuide-Book2.tex
-      DEPENDS 001-ITKSoftwareGuide-Book2.aux ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
+    add_custom_command( OUTPUT    ITKSoftwareGuide-Book2.bbl
+      COMMAND ${BIBTEX_COMPILER} ITKSoftwareGuide-Book2
+      COMMAND ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book2.tex
+      COMMAND ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book2.tex
+      DEPENDS ITKSoftwareGuide-Book2.aux ${SoftwareGuide_SOURCE_DIR}/../Latex/Insight.bib
       )
   endif()
 
   if(MAKEINDEX_COMPILER)
-    add_custom_command( OUTPUT    000-ITKSoftwareGuide-Book1.idx
-      COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/000-ITKSoftwareGuide-Book1.tex
-      DEPENDS   000-ITKSoftwareGuide-Book1.bbl ${allEPS-DEPS}
+    add_custom_command( OUTPUT    ITKSoftwareGuide-Book1.idx
+      COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book1.tex
+      DEPENDS   ITKSoftwareGuide-Book1.bbl ${allEPS-DEPS}
       )
-    add_custom_command( OUTPUT    001-ITKSoftwareGuide-Book2.idx
-      COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/001-ITKSoftwareGuide-Book2.tex
-      DEPENDS   001-ITKSoftwareGuide-Book2.bbl ${allEPS-DEPS}
+    add_custom_command( OUTPUT    ITKSoftwareGuide-Book2.idx
+      COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book2.tex
+      DEPENDS   ITKSoftwareGuide-Book2.bbl ${allEPS-DEPS}
       )
-    add_custom_command( OUTPUT    000-ITKSoftwareGuide-Book1.ind
-      COMMAND   ${MAKEINDEX_COMPILER} 000-ITKSoftwareGuide-Book1
-      DEPENDS   000-ITKSoftwareGuide-Book1.idx
+    add_custom_command( OUTPUT    ITKSoftwareGuide-Book1.ind
+      COMMAND   ${MAKEINDEX_COMPILER} ITKSoftwareGuide-Book1
+      DEPENDS   ITKSoftwareGuide-Book1.idx
       )
-    add_custom_command( OUTPUT    001-ITKSoftwareGuide-Book2.ind
-      COMMAND   ${MAKEINDEX_COMPILER} 001-ITKSoftwareGuide-Book2
-      DEPENDS   001-ITKSoftwareGuide-Book2.idx
+    add_custom_command( OUTPUT    ITKSoftwareGuide-Book2.ind
+      COMMAND   ${MAKEINDEX_COMPILER} ITKSoftwareGuide-Book2
+      DEPENDS   ITKSoftwareGuide-Book2.idx
       )
   endif()
 
   if(DVIPS_CONVERTER)
-    add_custom_command( OUTPUT    000-ITKSoftwareGuide-Book1.ps
-      COMMAND   ${DVIPS_WRAPPER1} ${DVIPS_WRAPPER2} 000-ITKSoftwareGuide-Book1.dvi ${DVIPS_CONVERTER_OPTIONS} -o 000-ITKSoftwareGuide-Book1.ps
-      DEPENDS   000-ITKSoftwareGuide-Book1.ind 000-ITKSoftwareGuide-Book1.bbl 000-ITKSoftwareGuide-Book1.dvi
+    add_custom_command( OUTPUT    ITKSoftwareGuide-Book1.ps
+      COMMAND   ${DVIPS_WRAPPER1} ${DVIPS_WRAPPER2} ITKSoftwareGuide-Book1.dvi ${DVIPS_CONVERTER_OPTIONS} -o ITKSoftwareGuide-Book1.ps
+      DEPENDS   ITKSoftwareGuide-Book1.ind ITKSoftwareGuide-Book1.bbl ITKSoftwareGuide-Book1.dvi
       )
-    add_custom_command( OUTPUT    001-ITKSoftwareGuide-Book2.ps
-      COMMAND   ${DVIPS_WRAPPER1} ${DVIPS_WRAPPER2} 001-ITKSoftwareGuide-Book2.dvi ${DVIPS_CONVERTER_OPTIONS} -o 001-ITKSoftwareGuide-Book2.ps
-      DEPENDS   001-ITKSoftwareGuide-Book2.ind 001-ITKSoftwareGuide-Book2.bbl 001-ITKSoftwareGuide-Book2.dvi
+    add_custom_command( OUTPUT    ITKSoftwareGuide-Book2.ps
+      COMMAND   ${DVIPS_WRAPPER1} ${DVIPS_WRAPPER2} ITKSoftwareGuide-Book2.dvi ${DVIPS_CONVERTER_OPTIONS} -o ITKSoftwareGuide-Book2.ps
+      DEPENDS   ITKSoftwareGuide-Book2.ind ITKSoftwareGuide-Book2.bbl ITKSoftwareGuide-Book2.dvi
       )
   endif()
 
   if(PS2PDF_CONVERTER)
     add_custom_command( OUTPUT    ITKSoftwareGuide-Book1.pdf
-      COMMAND   ${PS2PDF_CONVERTER} ${PS2PDF_CONVERTER_OPTIONS} 000-ITKSoftwareGuide-Book1.ps ITKSoftwareGuide-Book1.pdf
-      DEPENDS   000-ITKSoftwareGuide-Book1.ps
+      COMMAND   ${PS2PDF_CONVERTER} ${PS2PDF_CONVERTER_OPTIONS} ITKSoftwareGuide-Book1.ps ITKSoftwareGuide-Book1.pdf
+      DEPENDS   ITKSoftwareGuide-Book1.ps
       )
     add_custom_command( OUTPUT    ITKSoftwareGuide-Book2.pdf
-      COMMAND   ${PS2PDF_CONVERTER} ${PS2PDF_CONVERTER_OPTIONS} 001-ITKSoftwareGuide-Book2.ps ITKSoftwareGuide-Book2.pdf
-      DEPENDS   001-ITKSoftwareGuide-Book2.ps
+      COMMAND   ${PS2PDF_CONVERTER} ${PS2PDF_CONVERTER_OPTIONS} ITKSoftwareGuide-Book2.ps ITKSoftwareGuide-Book2.pdf
+      DEPENDS   ITKSoftwareGuide-Book2.ps
       )
   endif()
 
@@ -234,35 +234,35 @@ if(LATEX_COMPILER)
     file(MAKE_DIRECTORY "${_html_output_dir}/Book1" "${_html_output_dir}/Book2")
     file(COPY index.html DESTINATION "${_html_output_dir}")
     if(NOT UNIX)
-      add_custom_command( OUTPUT ${_html_output_dir}/Book1/000-ITKSoftwareGuide-Book1.html
-        COMMAND ${SoftwareGuide_BINARY_DIR}/HTLaTeXWrapper.bat "${SoftwareGuide_SOURCE_DIR}/Latex/000-ITKSoftwareGuide-Book1.tex"
+      add_custom_command( OUTPUT ${_html_output_dir}/Book1/ITKSoftwareGuide-Book1.html
+        COMMAND ${SoftwareGuide_BINARY_DIR}/HTLaTeXWrapper.bat "${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book1.tex"
         DEPENDS ITKSoftwareGuide-Book1.pdf
         WORKING_DIRECTORY "${_html_output_dir}/Book1"
         )
-      add_custom_command( OUTPUT ${_html_output_dir}/Book2/001-ITKSoftwareGuide-Book2.html
-        COMMAND ${SoftwareGuide_BINARY_DIR}/HTLaTeXWrapper.bat "${SoftwareGuide_SOURCE_DIR}/Latex/001-ITKSoftwareGuide-Book2.tex"
+      add_custom_command( OUTPUT ${_html_output_dir}/Book2/ITKSoftwareGuide-Book2.html
+        COMMAND ${SoftwareGuide_BINARY_DIR}/HTLaTeXWrapper.bat "${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book2.tex"
         DEPENDS ITKSoftwareGuide-Book2.pdf
         WORKING_DIRECTORY "${_html_output_dir}/Book2"
         )
     else()
-      add_custom_command( OUTPUT ${_html_output_dir}/Book1/000-ITKSoftwareGuide-Book1.html
-        COMMAND ${SoftwareGuide_BINARY_DIR}/HTLaTeXWrapper.sh "${SoftwareGuide_SOURCE_DIR}/Latex/000-ITKSoftwareGuide-Book1.tex"
+      add_custom_command( OUTPUT ${_html_output_dir}/Book1/ITKSoftwareGuide-Book1.html
+        COMMAND ${SoftwareGuide_BINARY_DIR}/HTLaTeXWrapper.sh "${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book1.tex"
         DEPENDS ITKSoftwareGuide-Book1.pdf
         WORKING_DIRECTORY "${_html_output_dir}/Book1"
         )
-      add_custom_command( OUTPUT ${_html_output_dir}/Book2/001-ITKSoftwareGuide-Book2.html
-        COMMAND ${SoftwareGuide_BINARY_DIR}/HTLaTeXWrapper.sh "${SoftwareGuide_SOURCE_DIR}/Latex/001-ITKSoftwareGuide-Book2.tex"
+      add_custom_command( OUTPUT ${_html_output_dir}/Book2/ITKSoftwareGuide-Book2.html
+        COMMAND ${SoftwareGuide_BINARY_DIR}/HTLaTeXWrapper.sh "${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book2.tex"
         DEPENDS ITKSoftwareGuide-Book2.pdf
         WORKING_DIRECTORY "${_html_output_dir}/Book2"
         )
     endif()
     add_custom_target(SoftwareGuideBook1HTML ALL
       COMMAND ${CMAKE_COMMAND} -E echo "Building Software Guide Book1 HTML"
-      DEPENDS "${_html_output_dir}/Book1/000-ITKSoftwareGuide-Book1.html"
+      DEPENDS "${_html_output_dir}/Book1/ITKSoftwareGuide-Book1.html"
       )
     add_custom_target(SoftwareGuideBook2HTML ALL
       COMMAND ${CMAKE_COMMAND} -E echo "Building Software Guide Book2 HTML"
-      DEPENDS "${_html_output_dir}/Book2/001-ITKSoftwareGuide-Book2.html"
+      DEPENDS "${_html_output_dir}/Book2/ITKSoftwareGuide-Book2.html"
       )
   endif()
 
