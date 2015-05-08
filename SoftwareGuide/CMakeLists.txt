@@ -68,6 +68,13 @@ if( PDF_QUALITY_LEVEL STREQUAL "PrePress" )
   set(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersiontrue")
 endif()
 
+option(DRAFT_WATERMARK "Add a draft watermark to the output." ON)
+if(DRAFT_WATERMARK)
+  set(SoftwareGuide_DRAFT_WATERMARK_LATEX_BOOLEAN "\\itkDraftWatermarktrue")
+else()
+  set(SoftwareGuide_DRAFT_WATERMARK_LATEX_BOOLEAN "\\itkDraftWatermarkfalse")
+endif()
+
 #
 # Generate .cmake files containing those macros defined above.
 #

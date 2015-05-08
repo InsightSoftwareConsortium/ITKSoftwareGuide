@@ -288,6 +288,7 @@ if(BUILD_TESTING AND NOT Slicer_BUILD_${PROJECT_NAME})
 endif()
 
 option( GENERATE_HTML "Generate HTML version of the code with tex4ht." OFF )
+option( DRAFT_WATERMARK "Add a draft watermark to the output." ON )
 
 #------------------------------------------------------------------------------
 # Configure and build ${PROJECT_NAME}
@@ -305,6 +306,7 @@ ExternalProject_Add(${proj}
     ${${PROJECT_NAME}_EXTERNAL_PROJECT_ARGS}
     -D${PRIMARY_PROJECT_NAME}_SUPERBUILD:BOOL=OFF    #NOTE: VERY IMPORTANT reprocess top level CMakeList.txt
     -DGENERATE_HTML:BOOL=${GENERATE_HTML}
+    -DDRAFT_WATERMARK:BOOL=${DRAFT_WATERMARK}
   INSTALL_COMMAND ""
   )
 

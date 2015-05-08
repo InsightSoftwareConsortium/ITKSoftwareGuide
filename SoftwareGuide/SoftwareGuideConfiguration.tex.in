@@ -7,6 +7,9 @@
 \newif\ifitkPrintedVersion
 @SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN@
 
+\newif\ifitkDraftWatermark
+@SoftwareGuide_DRAFT_WATERMARK_LATEX_BOOLEAN@
+
 \newif\ifitkFullVersion
 \itkFullVersiontrue
 
