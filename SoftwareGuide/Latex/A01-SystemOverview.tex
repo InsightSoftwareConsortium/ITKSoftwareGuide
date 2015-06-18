@@ -426,7 +426,7 @@ The VNL numerics library includes classes for:
     and vector classes with special numerical properties are
     available. Class \code{vnl\_diagonal\_matrix} provides a fast and
     convenient diagonal matrix, while fixed size matrices and vectors
-    allow "fast-as-C" computations (see \code{vnl\_matrix\_fixed<T,n,m>}
+    allow ``fast-as-C'' computations (see \code{vnl\_matrix\_fixed<T,n,m>}
     and example subclasses \code{vnl\_double\_3x3} and
     \code{vnl\_double\_3}).
 
@@ -455,10 +455,10 @@ The VNL numerics library includes classes for:
 Most VNL routines are implemented as wrappers around the high-quality Fortran
 routines that have been developed by the numerical analysis community over
 the last forty years and placed in the public domain. The central repository
-for these programs is the "netlib" server \footnote{\url{http://www.netlib.org/}}. The
+for these programs is the ``netlib'' server.\footnote{\url{http://www.netlib.org/}} The
 National Institute of Standards and Technology (NIST) provides an excellent
 search interface to this repository in its \emph{Guide to Available Mathematical
-Software (GAMS)}\footnote{\url{http://gams.nist.gov}}, both as a decision tree and a
+Software (GAMS)},\footnote{\url{http://gams.nist.gov}} both as a decision tree and a
 text search.
 
 ITK also provides additional numerics functionality. A suite of optimizers, that
@@ -495,7 +495,7 @@ image must also be specified when the image class is instantiated.) The key
 is that the pixel type must support certain operations (for example, addition
 or difference) if the code is to compile in all cases (for example, to be
 processed by a particular filter that uses these operations). In practice,
-most applications will use a C++ simple type (e.g., \code{int}, \code{float})
+most applications will use a C++ primitive type (e.g., \code{int}, \code{float})
 or a pre-defined pixel type and will rarely create a new type of pixel class.
 
 One of the important ITK concepts regarding images is that rectangular,
@@ -601,7 +601,7 @@ In this example the source object \doxygen{RandomImageSource} is connected
 to the \doxygen{ShrinkImageFilter}, and the shrink filter is connected to
 the mapper \doxygen{ImageFileWriter}. When the \code{Update()} method is
 invoked on the writer, the data processing pipeline causes each of these
-filters in order, culminating in writing the final data to a file on disk.
+filters to execute in order, culminating in writing the final data to a file on disk.
 
 
 \section{Spatial Objects}
@@ -665,7 +665,7 @@ their number is growing and their potential is huge. Using the nominal
 spatial object capabilities, methods such as marching cubes or mutual
 information registration can be applied to objects regardless of their
 internal representation. By having a common API, the same method can be used
-to register a parametric representation of a hearth with an individual's CT
+to register a parametric representation of a heart with an individual's CT
 data or to register two segmentations of a liver.
 
 
@@ -706,8 +706,9 @@ a set of shared libraries (.so in Linux or .dlls on Windows) that can be used
 by interpreted languages.
 
 There is almost a direct translation from C++, with the differences being the
-particular syntactical requirements of each language. For example, to rescale
-an image using the Python wrapping:
+particular syntactical requirements of each language. For example, to dilate an
+image using a custom structuring element using the Python wrapping:
+
 \small
 \begin{minted}{python}
     inputImage = sys.argv[1]
