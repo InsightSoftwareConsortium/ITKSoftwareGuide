@@ -76,11 +76,11 @@ in some cases additional chapters---cover these concepts in more detail.
         based methods.
 
 	\item[Wrapping.] ITK uses a unique, powerful system for
-	   producing interfaces (i.e., ``wrappers'') to interpreted
-	   languages such as Python. The GCC-XML\footnote{\url{http://gccxml.org}}
-       tool is used to produce an XML description of arbitrarily complex C++ code.
-	   An interface generator script is then used to transform the XML description
-       into wrappers using the SWIG\footnote{\url{http://www.swig.org/}} package.
+	producing interfaces (i.e., ``wrappers'') to interpreted
+	languages such as Python. The CastXML\footnote{\url{https://github.com/CastXML/CastXML}
+        tool is used to produce an XML description of arbitrarily complex C++ code.
+	An interface generator script is then used to transform the XML description
+        into wrappers using the SWIG\footnote{\url{http://www.swig.org/}} package.
 
 \end{description}
 
@@ -676,24 +676,20 @@ data or to register two segmentations of a liver.
 \index{Python}
 
 While the core of ITK is implemented in C++, Python bindings can be
-automatically generated and ITK programs can be created using Python.
-This capability is under active development. This brief description
-will give an idea of what is possible and where to look for those who are
-interested in this facility.
-
-The wrapping process in ITK is quite complex due to the use of generic
-programming (i.e., extensive use of C++ templates). Systems like VTK that use
-their own wrapping facility are non-templated and customized to the coding
-methodology found in the system. Even systems like SWIG that are designed
-for general wrapper generation have difficulty with ITK code because general
-C++ is difficult to parse. As a result, the ITK wrapper generator uses a
-combination of tools to produce language bindings.
+automatically generated and ITK programs can be created using Python.  The
+wrapping process in ITK is capable of handling generic programming (i.e.,
+extensive use of C++ templates). Systems like VTK, which use their own
+wrapping facility, are non-templated and customized to the coding methodology
+found in the system, like the object ownership conventions. Even systems
+like SWIG that are designed for general wrapper generation have difficulty
+with ITK code because general C++ is difficult to parse. As a result, the ITK
+wrapper generator uses a combination of tools to produce language bindings.
 
 \begin{enumerate}
-  \item gccxml is a modified version of the GNU compiler gcc that
+  \item CastXML is a Clang-based tool that
     produces an XML description of an input C++ program.
   \item The \code{igenerator.py} script in the ITK source tree processes XML
-    information produced by gccxml and generates standard input files
+    information produced by CastXML and generates standard input files
     (\code{*.i} files) to the next tool (SWIG), indicating what is to be wrapped
     and how to wrap it.
   \item SWIG produces the appropriate Python bindings.
@@ -719,16 +715,14 @@ image using a custom structuring element using the Python wrapping:
     Dimension = 2
     ImageType = itk.Image[PixelType, Dimension]
 
-    ReaderType = itk.ImageFileReader[ImageType]
-    reader = ReaderType.New()
+    reader = itk.ImageFileReader[ImageType].New()
     reader.SetFileName(inputImage)
 
     StructuringElementType = itk.FlatStructuringElement[Dimension]
     structuringElement = StructuringElementType.Ball(radiusValue)
 
-    DilateFilterType = itk.BinaryDilateImageFilter[
-        ImageType, ImageType, StructuringElementType]
-    dilateFilter = DilateFilterType.New()
+    dilateFilter = itk.BinaryDilateImageFilter[
+      ImageType, ImageType, StructuringElementType].New()
     dilateFilter.SetInput(reader.GetOutput())
     dilateFilter.SetKernel(structuringElement)
 \end{minted}
@@ -812,13 +806,14 @@ are set correctly:
 
 particularly if there are multiple Python installations on the system.
 
-The environment for access to the \code{itk} Python module is best configured
-using the Python virtualenv tool, which provides an isolated working copy of Python
-without interfering with Python installed at the system level. Once the virtualenv
-package is installed on your Linux system, create the virtual environment within the
-directory ITK was built in. Create a symbolic link to the \code{WrapITK.pth} file
-within the \code{lib/python2.7/site-packages} directory of Python's virtual install
-directory.
+Python wrappers can be accessed from the build tree without installing the
+library. The environment for access to the \code{itk} Python module is configured
+using the Python virtualenv tool, which provides an isolated working copy of
+Python without interfering with Python installed at the system level. Once the
+virtualenv package is installed on your system, create the virtual environment
+within the directory ITK was built in. Copy the \code{WrapITK.pth} file to
+the \code{lib/python2.7/site-packages} on Unix and \code{Lib/site-packages} on
+Windows, of the virtualenv. For example,
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
@@ -830,6 +825,10 @@ cd ../../../../wrapitk-venv/bin
 import itk
 \end{minted}
 \normalsize
+
+On Windows, it is also necessary to add the ITK build directory containing the
+.dll files to your \code{PATH} environmental variable, e.g.
+\code{C:\ITK-build\bin\Release}.
 
 % Add this back once wrappings support Python 3
 %Virtualenv is built into Python3, and can be used with the \code{pyvenv} command instead of
