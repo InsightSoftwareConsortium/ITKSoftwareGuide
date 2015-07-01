@@ -460,8 +460,8 @@ example, a \doxygen{ImageToImageFilter} would create the method:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-    void ThreadedGenerateData(const OutputImageRegionType&
-                              outputRegionForThread, int threadId)
+    virtual void ThreadedGenerateData( const OutputImageRegionType&
+      outputRegionForThread, ThreadIdType threadId ) ITK_OVERRIDE;
 \end{minted}
 \normalsize
 
@@ -485,10 +485,6 @@ In order to fully participate in the ITK pipeline, filters are expected to
 follow certain conventions, and provide certain interfaces.  This section
 describes the minimum requirements for a filter to integrate into the ITK
 framework.
-
-The class declaration for a filter should include the macro
-\code{ITK\_EXPORT}, so that on certain platforms an export declaration can be
-included.
 
 A filter should define public types for the class itself (\code{Self}) and
 its \code{Superclass}, and \code{const} and non-\code{const} smart pointers,
@@ -521,6 +517,11 @@ The default constructor should be \code{protected}, and provide sensible
 defaults (usually zero) for all parameters.  The copy constructor and
 assignment operator should be declared \code{private} and not implemented,
 to prevent instantiating the filter without the factory methods (above).
+
+Use the macros \code{ITK\_OVERRIDE}, \code{ITK\_NULLPTR}, and
+\code{ITK\_NOEXCEPT}. These expand to the C++11 keywords \code{override},
+\code{nullptr}, and \code{noexcept}, respectively, when built with a compiler
+using the C++11 standard or newer.
 
 Finally, the template implementation code (in the \code{.hxx} file) should
 be included, bracketed by a test for manual instantiation, thus:
