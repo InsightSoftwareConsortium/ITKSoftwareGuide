@@ -680,7 +680,7 @@ automatically generated and ITK programs can be created using Python.  The
 wrapping process in ITK is capable of handling generic programming (i.e.,
 extensive use of C++ templates). Systems like VTK, which use their own
 wrapping facility, are non-templated and customized to the coding methodology
-found in the system, like the object ownership conventions. Even systems
+found in the system, like object ownership conventions. Even systems
 like SWIG that are designed for general wrapper generation have difficulty
 with ITK code because general C++ is difficult to parse. As a result, the ITK
 wrapper generator uses a combination of tools to produce language bindings.
@@ -695,11 +695,11 @@ wrapper generator uses a combination of tools to produce language bindings.
   \item SWIG produces the appropriate Python bindings.
 \end{enumerate}
 
-To learn more about the wrapping process, please see the \code{Wrapping}
-directory. The wrapping process is orchestrated by a number of CMake macros
-found in the \code{Wrapping} directory. The result of the wrapping process is
-a set of shared libraries (.so in Linux or .dlls on Windows) that can be used
-by interpreted languages.
+To learn more about the wrapping process, please see the section on module
+wrapping\ref{sec:ModuleWrapping}.  The wrapping process is orchestrated by a
+number of CMake macros found in the \code{Wrapping} directory. The result of
+the wrapping process is a set of shared libraries (.so in Linux or .dlls on
+Windows) that can be used by interpreted languages.
 
 There is almost a direct translation from C++, with the differences being the
 particular syntactical requirements of each language. For example, to dilate an
@@ -832,7 +832,7 @@ are set correctly:
 particularly if there are multiple Python installations on the system.
 
 Python wrappers can be accessed from the build tree without installing the
-library. The environment for access to the \code{itk} Python module is configured
+library. An environment to access the \code{itk} Python module can be configured
 using the Python virtualenv tool, which provides an isolated working copy of
 Python without interfering with Python installed at the system level. Once the
 virtualenv package is installed on your system, create the virtual environment

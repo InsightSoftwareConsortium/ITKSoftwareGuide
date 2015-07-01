@@ -88,7 +88,8 @@ set( Book1_Tex_SRCS
   DG01-Iterators.tex
   DG02-ImageAdaptors.tex
   DG03-WriteAFilter.tex
-  DG04-SoftwareProcess.tex
+  DG04-CreateAModule.tex
+  DG05-SoftwareProcess.tex
 ## Appendix
   AP01-Licenses.tex
   )
@@ -117,7 +118,7 @@ set( Tex_SRCS
   Visualization.tex
   WatershedSegmentation.tex
 
-  DG05-MarketingMaterial.tex
+  DG06-MarketingMaterial.tex
   )
 
 set( SoftwareGuide_Book1_Tex_SRCS "" )

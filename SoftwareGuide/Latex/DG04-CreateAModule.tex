@@ -1,0 +1,769 @@
+\chapter{How To Create A Module}
+\label{chapter:CreateAModule}
+\index{module}
+
+The Insight Toolkit is organized into logical units of coherent functionality called
+modules. These modules are self-contained in a directory, whose components
+are organized into subdirectories with standardized names. A module usually has
+dependencies on other modules, which it declares. A module is defined with
+CMake scripts that inform the build system of its contents and dependencies.
+
+Modules are organized into:
+
+\begin{itemize}
+  \item The \textbf{top level} directory.
+
+  \item The \textbf{include} directory.
+
+  \item The \textbf{src} directory.
+
+  \item The \textbf{test} directory.
+
+  \item The \textbf{wrapping} directory.
+\end{itemize}
+
+This chapter describes how to create a new module. The following sections  are
+organized by the different directory components of the module.
+
+\section{Name and dependencies}
+\label{sec:NameAndDependencies}
+\index{module!top level}
+
+The top level directory of a module is used to define a module's name and its
+dependencies. Two files are required:
+
+\begin{enumerate}
+  \item \code{CMakeLists.txt}
+  \item \code{itk-module.cmake}
+\end{enumerate}
+
+
+\subsection{CMakeLists.txt}
+
+When CMake starts processing a module, it begins with the top level
+\code{CMakeLists.txt} file. At a minimum, the \code{CMakeLists.txt} should
+contain
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+cmake_minimum_required(VERSION 2.9)
+project(MyModule)
+
+set(MyModule_LIBRARIES MyModule)
+
+if(NOT ITK_SOURCE_DIR)
+  find_package(ITK REQUIRED)
+  list(APPEND CMAKE_MODULE_PATH ${ITK_CMAKE_DIR})
+  include(ITKModuleExternal)
+else()
+  itk_module_impl()
+endif()
+\end{minted}
+
+where \code{MyModule} is the name of the module.
+
+The CMake variable \code{<module-name>\_LIBRARIES} should be set to the names
+of the libraries, if any, that clients of the module need to link. This will be
+the same name as the library generated with the \code{add\_library} command in
+a module's \code{src} directory, described in further detail in the Libraries
+Section~\ref{sec:Libraries}.
+
+The path \code{if(NOT ITK\_SOURCE\_DIR)} is used when developing a module outside of the
+ITK source tree, i.e. an External module. An External module can be made
+available to the community by adding it to \code{Modules/Remote/*.remote.cmake}
+Remote module index in the ITK repository per Section ~\ref{sec:GitRepository}.
+
+The CMake macro \code{itk\_module\_impl} is defined in the file
+\code{CMake/ITKModuleMacros.cmake}. It will initiate processing of the
+remainder of a module's CMake scripts. The script \code{ITKModuleExternal}
+calls \code{itk\_module\_impl} internally.
+
+
+\subsection{itk-module.cmake}
+
+The \code{itk-module.cmake} is also a required CMake script at the top level
+of a module, but this file is used to declare
+
+\begin{enumerate}
+  \item The module name.
+  \item Dependencies on other modules.
+  \item Modules properties.
+  \item A description of the module.
+\end{enumerate}
+
+In this file, first set a CMake variable with the module's
+description followed by a call to the \code{itk\_module} macro, which is
+already defined by the time the script is read. For example,
+\code{itk-module.cmake} for the \texttt{ITKCommon} module is
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+set(DOCUMENTATION "This module contains the central classes of the ITK
+toolkit.  They include, basic data structures \(such as Points, Vectors,
+Images, Regions\) the core of the process objects \(such as base
+classes for image filters\) the pipeline infrastructure classes, the support
+for multi-threading, and a collection of classes that isolate ITK from
+platform specific features. It is anticipated that most other ITK modules will
+depend on this one.")
+
+itk_module(ITKCommon
+  ENABLE_SHARED
+  PRIVATE_DEPENDS
+    ITKDoubleConversion
+  COMPILE_DEPENDS
+    ITKKWSys
+    ITKVNLInstantiation
+  TEST_DEPENDS
+    ITKTestKernel
+    ITKMesh
+    ITKImageIntensity
+    ITKIOImageBase
+  DESCRIPTION
+    "${DOCUMENTATION}"
+)
+\end{minted}
+
+The description for the module should be escaped as a CMake string, and it
+should be formatted with Doxygen markup. This description is added to ITK's
+generated Doxygen documentation when the module is added to the Remote module
+index. The description should describe the purpose and content of the module
+and reference an Insight Journal article for further information.
+
+A module name is the only required positional argument to the
+\code{itk\_module} macro. Named options that take one or argument are:
+
+\begin{description}
+  \item[DEPENDS]          Modules that will be publicly linked to this module.
+    The header's used are added to \code{include/*.\{h,hxx\}} files.
+  \item[PRIVATE\_DEPENDS] Modules that will be privately linked to this
+    module. The header's used are only added to \code{src/*.cxx} files.
+  \item[COMPILE\_DEPENDS] Modules that are needed at compile time by this module.
+    The header's used are added to \code{include/*\{h,hxx\}} files but there
+    is not a library to link against.
+  \item[TEST\_DEPENDS]    Modules that are needed by this modules testing executables.
+    The header's used are added to \code{test/*.cxx} files.
+  \item[DESCRIPTION]      Free text description of the module.
+\end{description}
+
+Public dependencies are added to the module's
+\code{INTERFACE\_LINK\_LIBRARIES}, which is a list of transitive link
+dependencies.  When this module is linked to by another target, the libraries
+listed (and recursively, their link interface libraries) will be provided to
+the target also. Private dependencies are linked to by this module, but not
+added to \code{INTERFACE\_LINK\_LIBRARIES}.
+
+Compile Dependencies are added to CMake's list of dependencies for the current
+module, ensuring that they are built before the current module, but they will
+not be linked either publicly or privately. They are only used to support the
+building of the current module.
+
+The following additional options take no arguments:
+
+\begin{description}
+  \item[EXCLUDE\_FROM\_DEFAULT] Exclude this module from collection of modules
+    enabled with the \code{ITK\_BUILD\_DEFAULT\_MODULES} CMake option.
+  \item[ENABLE\_SHARED]         Build this module as a shared library if the
+    \code{BUILD\_SHARED\_LIBS} CMake option is set.
+\end{description}
+
+All External and Remote modules should set the \code{EXCLUDE\_FROM\_DEFAULT}
+option.
+
+
+\section{Headers}
+\label{sec:Headers}
+\index{module!include}
+
+Headers for the module, both \code{*.h} declaration headers and \code{*.hxx}
+template definition headers, should be added to the \code{include} directory.
+No other explicit CMake configuration is required.
+
+This path will automatically be added to the build include directory paths for
+libraries (\ref{sec:Libraries}) and tests (\ref{sec:Tests}) in the module and when
+another module declares this module as a dependency.
+
+When a module is installed, headers are installed into a single
+directory common to all ITK header files.
+
+When \code{BUILD\_TESTING} is enabled, a header test is automatically
+created. This test simply builds a simple executable that \texttt{\#include}s
+all header files in the \code{include} directory. This ensures that all
+included headers can be found, which tests the module's dependency
+specification per Section~\ref{sec:NameAndDependencies}.
+
+
+\section{Libraries}
+\label{sec:Libraries}
+\index{module!src}
+
+Libraries generated by a module are created from source files with the
+\code{.cxx} extension in a module's \code{src} directory. Some modules are
+header-only, and they will not generate any libraries; in this case, the
+\code{src} directory is omitted. When present, the \code{src} directory should
+contain a \code{CMakeLists.txt} file that describes how to build the library.
+A minimal \code{CMakeLists.txt} file is as follows.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+set(AModuleName_SRCS
+  itkFooClass.cxx
+  itkBarClass.cxx
+  )
+
+add_library(AModuleName ${AModuleName_SRCS})
+itk_module_link_dependencies()
+itk_module_target(AModuleName)
+\end{minted}
+
+The \code{itk\_module\_link\_dependencies} macro will link the library to the
+libraries defined by the module dependency
+specification per Section~\ref{sec:NameAndDependencies}. The \code{itk\_module\_target}
+macro will set CMake target properties associated with the current module to
+the given target.
+
+If the \code{ENABLE\_SHARED} option is set on a
+module, a shared library will be generated when
+the CMake option \code{BUILD\_SHARED\_LIBS} is enabled.  A library symbol
+export specification header is also generated for the module.  For a module
+with the name \texttt{AModuleName}, the generated header will have the name
+\texttt{AModuleNameExport.h}. Include the export header in the module source
+headers, and add the export specification macro to the contained classes.  The
+macro name in this case would be called \texttt{AModuleName\_EXPORT}. For
+example, the file \texttt{itkFooClass.h} would contain
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+#include "AModuleNameExport.h"
+
+namespace itk
+{
+
+class AModuleName_EXPORT FooClass
+{
+...
+\end{minted}
+
+
+\section{Tests}
+\label{sec:Tests}
+\index{module!test}
+
+Regression tests for a module are placed in the \code{test} directory. This
+directory will contain a \texttt{CMakeLists.txt} with the CMake configuration,
+test sources, and optional \texttt{Input} and \texttt{Baseline} directories,
+which contain test input and baseline image datasets, respectively.
+
+An example CMake configuration for a test directory is shown below.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+itk_module_test()
+
+set(ModuleTemplateTests
+  itkMinimalStandardRandomVariateGeneratorTest.cxx
+  itkLogNormalDistributionImageSourceTest.cxx
+  )
+
+CreateTestDriver(ModuleTemplate "${ModuleTemplate-Test_LIBRARIES}" "${ModuleTemplateTests}")
+
+itk_add_test(NAME itkMinimalStandardRandomVariateGeneratorTest
+  COMMAND ModuleTemplateTestDriver itkMinimalStandardRandomVariateGeneratorTest
+  )
+
+itk_add_test(NAME itkLogNormalDistributionImageSourceTest
+  COMMAND ModuleTemplateTestDriver --without-threads
+  --compare
+    ${ITK_TEST_OUTPUT_DIR}/itkLogNormalDistributionImageSourceTestOutput.mha
+    DATA{Baseline/itkLogNormalDistributionImageSourceTestOutput.mha}
+  itkLogNormalDistributionImageSourceTest
+    ${ITK_TEST_OUTPUT_DIR}/itkLogNormalDistributionImageSourceTestOutput.mha
+  )
+\end{minted}
+
+The \texttt{CMakeLists.txt} file should start with a call to the
+\code{itk\_module\_test} macro. Next, the test sources are listed. The naming
+convention for unit test files is \texttt{itk<ClassName>Test.cxx}. Each test
+file should be written like a command line executable, but the name of the
+\texttt{main} function should be replaced with the name of the test. The
+function should accept \code{int argc, char * argv[]} as arguments. To reduce
+the time required for linking and to provide baseline comparison functionality,
+all tests are linked to into a single test driver executable. To generate the
+executable, call the \code{CreateTestDriver} macro.
+
+Tests are defined with the \code{itk\_add\_test} macro. This is a wrapper
+around the CMake \code{add\_test} command that will resolve content links in
+the \code{DATA} macro. Testing data paths are given inside the \code{DATA}
+macro. Content link files, stored in the source code directory, are replaced
+by actual content files in the build directory when CMake downloads the target
+at build time. A content link file has the same name as its target, but a
+\texttt{.md5} extension is added, and the \texttt{.md5} file's contents are
+only the MD5SUM hash of its target. Content links for data files in a Git
+distributed version control repository prevent repository bloat. To obtain
+content links, register an account with the \texttt{ITK} community at
+\url{https://midas3.kitware.com} and request upload permissions on the ITK
+mailing list.
+
+Test commands should call the test driver executable, followed by options for
+the test, followed by the test function name, followed by arguments that are
+passed to the test. The test driver accepts options like \texttt{--compare} to
+compare output images to baselines or options that modify tolerances on
+comparisons.
+
+
+
+\section{Wrapping}
+\label{sec:ModuleWrapping}
+\index{module!wrapping}
+
+Wrapping for programming languages like Python can be added to a module
+through a simple configuration in the module's \code{wrapping} directory.
+While wrapping is almost entirely automatic, configuration is necessary
+to add two pieces of information,
+
+\begin{enumerate}
+  \item The types with which to instantiate templated classes.
+  \item Class dependencies which must be wrapped before a given class.
+\end{enumerate}
+
+When wrapping a class, dependencies, like the base class and other types used
+in the wrapped class's interface, should also be wrapped. The wrapping system
+will emit a warning when a base class or other required type is not already
+wrapped to ensure proper wrapping coverage. Since module dependencies are
+wrapped by the build system before the current module, class wrapping
+build order is already correct module-wise. However, it may be required to
+wrap classes within a module in a specific order; this order can be specified
+in the \code{wrapping/CMakeLists.txt} file.
+
+Many ITK classes are templated, which allows an algorithm to be written once
+yet compiled into optimized binary code for numerous pixel types and
+spatial dimensions. When wrapping these templated classes, the template
+instantiations to wrap must be chosen at build time. The template
+that should be used are configured in a module's \code{*.wrap} files.
+Wrapping is configured by calling CMake macros defined in the
+\code{ITK/Wrapping/TypedefMacros.cmake} file.
+
+
+\subsection{CMakeLists.txt}
+
+The \code{wrapping/CMakeLists.txt} file calls three macros, and
+optionally set a variable, \code{WRAPPER\_SUBMODULE\_ORDER}. The following
+example is from the ITKImageFilterBase module:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+itk_wrap_module(ITKImageFilterBase)
+
+set(WRAPPER_SUBMODULE_ORDER
+  itkRecursiveSeparableImageFilter
+  itkFlatStructuringElement
+  itkKernelImageFilter
+  itkMovingHistogramImageFilterBase
+)
+itk_auto_load_submodules()
+itk_end_wrap_module()
+\end{minted}
+
+The \code{itk\_wrap\_module} macro takes the current module name as an argument. In
+some cases, classes defined in the \code{*.wrap} files within a module may depend
+each other. The \code{WRAPPER\_SUBMODULE\_ORDER} variable is used to declare
+which submodules should be wrapped first and the order they should be
+wrapped.
+
+
+\subsection{Class wrap files}
+
+Wrapping specification for classes is written in the module's \code{*.wrap}
+CMake script files. These files call wrapping CMake macros, and they specify
+which classes to wrap, whether smart pointer's should be wrapped for the the
+class, and which template instantiations to wrap for a class.
+
+Overall toolkit class template instantiations are parameterized by the CMake
+build configuration variables shown in Table~\ref{tab:WrappingVariables}.
+The wrapping configuration refers to these settings with the shorthand values
+listed in the second column.
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{| l | l |}
+\hline
+\textbf{CMake variable} & \textbf{Wrapping shorthand value} \\
+\hline
+\hline
+\code{ITK\_WRAP\_IMAGE\_DIMS} & List of unsigned integers \\
+\hline
+\code{ITK\_WRAP\_VECTOR\_COMPONENTS} & List of unsigned integers \\
+\hline
+\code{ITK\_WRAP\_double} & \code{D} \\
+\hline
+\code{ITK\_WRAP\_float} & \code{F} \\
+\hline
+\code{ITK\_WRAP\_complex\_double} & \code{CD} \\
+\hline
+\code{ITK\_WRAP\_complex\_float} & \code{CF} \\
+\hline
+\code{ITK\_WRAP\_vector\_double} & \code{VD} \\
+\hline
+\code{ITK\_WRAP\_vector\_float} & \code{VF} \\
+\hline
+\code{ITK\_WRAP\_covariate\_vector\_double} & \code{CVD} \\
+\hline
+\code{ITK\_WRAP\_covariate\_vector\_float} & \code{CVF} \\
+\hline
+\code{ITK\_WRAP\_signed\_char} & \code{SC} \\
+\hline
+\code{ITK\_WRAP\_signed\_short} & \code{SS} \\
+\hline
+\code{ITK\_WRAP\_signed\_long} & \code{SL} \\
+\hline
+\code{ITK\_WRAP\_unsigned\_char} & \code{UC} \\
+\hline
+\code{ITK\_WRAP\_unsigned\_short} & \code{US} \\
+\hline
+\code{ITK\_WRAP\_unsigned\_long} & \code{UL} \\
+\hline
+\code{ITK\_WRAP\_rgb\_unsigned\_char} & \code{RGBUC} \\
+\hline
+\code{ITK\_WRAP\_rgb\_unsigned\_short} & \code{RGBUS} \\
+\hline
+\code{ITK\_WRAP\_rgba\_unsigned\_char} & \code{RGBAUC} \\
+\hline
+\code{ITK\_WRAP\_rgba\_unsigned\_short} & \code{RGBAUS} \\
+\hline
+\end{tabular}
+\end{center}
+\itkcaption[Wrapping Configuration Variables]{CMake wrapping type
+  configuration variables and their shorthand value in the wrapping
+configuration.}
+\label{tab:WrappingVariables}
+\end{table}
+
+Class wrap files call sets of wrapping macros for the class to be wrapped. The
+macros are often called in loops over the wrapping variables to instatiate the
+desired types. The following example demonstates wrapping the
+\doxygen{ImportImageFilter} class, taken from the
+\code{ITK/Modules/Core/Common/wrapping/itkImportImageFilter.wrap} file.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+itk_wrap_class("itk::ImportImageFilter" POINTER)
+
+  foreach(d ${ITK_WRAP_IMAGE_DIMS})
+    foreach(t ${WRAP_ITK_SCALAR})
+      itk_wrap_template("${ITKM_${t}}${d}" "${ITKT_${t}},${d}")
+    endforeach()
+  endforeach()
+
+itk_end_wrap_class()
+\end{minted}
+
+
+\subsubsection{Wrapping Variables}
+
+Instantiations for classes are determined by looping over CMake lists that
+collect sets of shorthand wrapping values, namely,
+
+\begin{itemize}
+  \item \code{ITK\_WRAP\_IMAGE\_DIMS}
+  \item \code{ITK\_WRAP\_IMAGE\_DIMS\_INCREMENTED}
+    \\
+  \item \code{ITK\_WRAP\_IMAGE\_VECTOR\_COMPONENTS}
+  \item \code{ITK\_WRAP\_IMAGE\_VECTOR\_COMPONENTS\_INCREMENTED}
+    \\
+  \item \code{WRAP\_ITK\_USIGN\_INT}
+  \item \code{WRAP\_ITK\_SIGN\_INT}
+  \item \code{WRAP\_ITK\_INT}
+    \\
+  \item \code{WRAP\_ITK\_REAL}
+  \item \code{WRAP\_ITK\_COMPLEX\_REAL}
+    \\
+  \item \code{WRAP\_ITK\_SCALAR}
+    \\
+  \item \code{WRAP\_ITK\_VECTOR\_REAL}
+  \item \code{WRAP\_ITK\_COV\_VECTOR\_REAL}
+  \item \code{WRAP\_ITK\_VECTOR}
+    \\
+  \item \code{WRAP\_ITK\_RGB}
+  \item \code{WRAP\_ITK\_RGBA}
+  \item \code{WRAP\_ITK\_COLOR}
+    \\
+  \item \code{WRAP\_ITK\_ALL\_TYPES}
+\end{itemize}
+
+Templated classes are wrapped as typedefs for particular instantiations. The
+typedefs are named with a name mangling scheme for the template parameter
+types. The mangling of common types are stored in CMake variables listed in
+Table~\ref{lab:WrappingManglingForPODs},
+Table~\ref{lab:WrappingManglingOtherITKPixelTypes}, and
+Table~\ref{lab:WrappingManglingITKBasicTypes}. Mangling variables start with the prefix
+\code{ITKM\_} and their corresponding C++ type variables start with the
+prefix \code{ITKT\_}.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l | l | l |}
+\hline
+& \textbf{CMake Variable} & \textbf{Value} \\
+\hline
+\hline
+\textbf{Mangling} & ITKM\_B & B \\ \hline
+\textbf{C++ Type} & ITKT\_B & bool \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_UC & UC \\ \hline
+\textbf{C++ Type} & ITKT\_UC & unsigned char \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_US & US \\ \hline
+\textbf{C++ Type} & ITKT\_US & unsigned short \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_UI & UI \\ \hline
+\textbf{C++ Type} & ITKT\_UI & unsigned integer \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_UL & UL \\ \hline
+\textbf{C++ Type} & ITKT\_UL & unsigned long \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_SC & SC \\ \hline
+\textbf{C++ Type} & ITKT\_SC & signed char \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_SS & SS \\ \hline
+\textbf{C++ Type} & ITKT\_SS & signed short \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_SI & SI \\ \hline
+\textbf{C++ Type} & ITKT\_SI & signed integer \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_UL & UL \\ \hline
+\textbf{C++ Type} & ITKT\_UL & signed long \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_F & F \\ \hline
+\textbf{C++ Type} & ITKT\_F & float \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_D & D \\ \hline
+\textbf{C++ Type} & ITKT\_D & double \\ \hline
+\end{tabular}
+\end{center}
+\itkcaption[Wrapping CMake Mangling Variables for PODs]{CMake wrapping mangling
+  variables, their values, and the corresponding CMake C++ type variables and
+their values for plain old datatypes (PODS).}
+\label{tab:WrappingManglingForPODs}
+\end{table}
+
+\begin{table}
+\begin{center}
+  \small
+  \begin{tabular}{l | p{0.3\textwidth} | p{0.5\textwidth} |}
+\hline
+& \textbf{CMake Variable} & \textbf{Value} \\
+\hline
+\hline
+\textbf{Mangling} & ITKM\_C\$\{type\} & C\$\{type\} \\ \hline
+\textbf{C++ Type} & ITKT\_C\$\{type\} & std::complex\textless \$\{type\} \textgreater\\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_A\$\{type\} & A\$\{type\} \\ \hline
+\textbf{C++ Type} & ITKT\_A\$\{type\} & itk::Array\textless \$\{type\} \textgreater\\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_FA\$\{ITKM\_\$\{type\}\}\$\{dim\} & FA\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
+\textbf{C++ Type} & ITKT\_FA\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::FixedArray\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_RGB\$\{dim\} & RGB\$\{dim\} \\ \hline
+\textbf{C++ Type} & ITKT\_RGB\$\{dim\} & itk::RGBPixel\textless \$\{dim\} \textgreater\\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_RGBA\$\{dim\} & RGBA\$\{dim\} \\ \hline
+\textbf{C++ Type} & ITKT\_RGBA\$\{dim\} & itk::RGBAPixel\textless \$\{dim\} \textgreater\\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_V\$\{ITKM\_\$\{type\}\}\$\{dim\} & V\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
+\textbf{C++ Type} & ITKT\_V\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::Vector\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_CV\$\{ITKM\_\$\{type\}\}\$\{dim\} & CV\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
+\textbf{C++ Type} & ITKT\_CV\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::CovariantVector\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_VLV\$\{ITKM\_\$\{type\}\}\$\{dim\} & VLV\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
+\textbf{C++ Type} & ITKT\_VLV\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::VariableLengthVector\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_SSRT\$\{ITKM\_\$\{type\}\}\$\{dim\} & SSRT\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
+\textbf{C++ Type} & ITKT\_SSRT\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::SymmetricSecondRankTensor\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
+\end{tabular}
+\end{center}
+\itkcaption[Wrapping CMake Mangling Variables for other ITK pixel types.]{CMake wrapping mangling
+  variables, their values, and the corresponding CMake C++ type variables and
+  their values for other ITK pixel types.}
+\label{tab:WrappingManglingOtherITKPixelTypes}
+\end{table}
+
+
+\begin{table}
+\begin{center}
+  \small
+  \begin{tabular}{l | p{0.3\textwidth} | p{0.5\textwidth} |}
+\hline
+& \textbf{CMake Variable} & \textbf{Value} \\
+\hline
+\hline
+\textbf{Mangling} & ITKM\_O\$\{dim\} & O\$\{dim\} \\ \hline
+\textbf{C++ Type} & ITKT\_O\$\{dim\} & itk::Offset\textless \$\{dim\} \textgreater\\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_CI\$\{ITKM\_\$\{type\}\}\$\{dim\} & CI\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
+\textbf{C++ Type} & ITKT\_CI\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::ContinuousIndex\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_P\$\{ITKM\_\$\{type\}\}\$\{dim\} & P\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
+\textbf{C++ Type} & ITKT\_P\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::Point\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_I\$\{ITKM\_\$\{type\}\}\$\{dim\} & I\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
+\textbf{C++ Type} & ITKT\_I\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::Image\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_VI\$\{ITKM\_\$\{type\}\}\$\{dim\} & VI\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
+\textbf{C++ Type} & ITKT\_VI\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::VectorImage\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_SO\$\{dim\} & SO\$\{dim\} \\ \hline
+\textbf{C++ Type} & ITKT\_SO\$\{dim\} & itk::SpatialObject\textless \$\{dim\} \textgreater\\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_SE\$\{dim\} & SE\$\{dim\} \\ \hline
+\textbf{C++ Type} & ITKT\_SE\$\{dim\} & itk::FlatStructuringElement\textless \$\{dim\} \textgreater\\ \hline
+\\ \hline
+\textbf{Mangling} & ITKM\_H\$\{ITKM\_\$\{type\}\} & H\$\{ITKM\_\$\{type\}\} \\ \hline
+\textbf{C++ Type} & ITKT\_H\$\{ITKM\_\$\{type\}\} & itk::Statistics::Histogram\textless \$\{ITKT\$\{type\}\} \textgreater\\ \hline
+\end{tabular}
+\end{center}
+\itkcaption[Wrapping CMake Mangling Variables for Basic ITK types.]{CMake wrapping mangling
+  variables, their values, and the corresponding CMake C++ type variables and
+  their values for basic ITK types.}
+\label{tab:WrappingManglingITKBasicTypes}
+\end{table}
+
+\normalsize
+
+\subsubsection{Wrapping Macros}
+
+There are a number of a wrapping macros called in the \code{wrapping/*.wrap}
+files. Macros are specialized for classes that use \doxygen{SmartPointer}s
+and templated classes.
+
+For non-templated classes, the \textbf{itk\_wrap\_simple\_class} is used. This
+macro takes fully qualified name of the class as an argument. Lastly, the
+macro takes an optional argument that can have the values \code{POINTER},
+\code{POINTER\_WITH\_CONST\_POINTER}, or \code{POINTER\_WITH\_SUPERCLASS}. If
+this argument is passed, then the typedefs \code{classname::Pointer},
+\code{classname::Pointer} and \code{classname::ConstPointer}, or
+\code{classname::Pointer} and \code{classname::Superclass::Pointer} are
+wrapped. Thus, the wrapping configuration for \doxygen{Object} is
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+itk_wrap_simple_class("itk::Object" POINTER)
+\end{minted}
+
+When wrapping templated classes, three or more macro calls are required.
+First, \textbf{itk\_wrap\_class} is called.  Again, its arguments are the
+fully qualified followed by an option argument that can have the value
+\code{POINTER}, \code{POINTER\_WITH\_CONST\_POINTER},
+\code{POINTER\_WITH\_SUPERCLASS}, \code{POINTER\_WITH\_2\_SUPERCLASSES},
+\code{EXPLICIT\_SPECIALIZATION},
+\code{POINTER\_WITH\_EXPLICIT\_SPECIALIZATION}, \code{ENUM}, or
+\code{AUTOPOINTER}. Next, a series of calls are made to macros that declare
+which templates to instantiate. Finally, the \textbf{itk\_end\_wrap\_class}
+macro is called, which has no arguments.
+
+The most general template wrapping macro is \textbf{itk\_wrap\_template}. Two
+arguments are required. The first argument is a mangled suffix to be added to
+the class name, which uniquely identifies the instantiation. This argument is usually
+specified at least partially with \code{ITKM\_} mangling
+variables. The second argument is the is template instantiation in C++ form.
+This argument is usually specified at least partially with \code{ITKT\_}
+C++ type variables. For example, wrapping for
+\doxygen{ImageSpatialObject}, which templated a dimension and pixel type, is
+configured as
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+itk_wrap_class("itk::ImageSpatialObject" POINTER)
+  # unsigned char required for the ImageMaskSpatialObject
+  UNIQUE(types "UC;${WRAP_ITK_SCALAR}")
+
+  foreach(d ${ITK_WRAP_IMAGE_DIMS})
+    foreach(t ${types})
+      itk_wrap_template("${d}${ITKM_${t}}" "${d},${ITKT_${t}}")
+    endforeach()
+  endforeach()
+itk_end_wrap_class()
+\end{minted}
+
+
+In addition to \code{itk\_wrap\_template}, there are template wrapping macros
+specialized for wrapping image filters. The highest level macro is
+\textbf{itk\_wrap\_image\_filter}, which is used for wrapping image filters
+that need one or more image parameter sof the same type. This macro has two
+required arguments. The first argument is a semicolon delimited CMake list of
+pixel types. The second argument is the number of image template arguments for
+the filter. An optional third argument is a dimensionality condition to
+restrict the dimensions that the filter can be instantiated. The
+dimensionality condition can be a number indicating the dimension
+allowed, a semicolon delimited CMake list of dimensions, or a string of the
+form \code{n+}, where \code{n} is a number, to indicate that instantiations
+are allowed for dimension \code{n} and above. The wrapping specification for
+\doxygen{ThresholdMaximumConnectedComponentsImageFilter} is
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+itk_wrap_class("itk::ThresholdMaximumConnectedComponentsImageFilter" POINTER)
+  itk_wrap_image_filter("${WRAP_ITK_INT}" 1 2+)
+itk_end_wrap_class()
+\end{minted}
+
+If it is desirable or required to instantiate an image filter with different
+image types, the \textbf{itk\_wrap\_image\_filter\_combinations} macro is
+applicable. This macro takes a variable number of parameters, where each
+parameter is a list of the possible image pixel types for the corresponding
+filter
+template parameters. A condition to restrict dimensionality may again be
+optionally passed as the last argument. For example, wrapping for
+\doxygen{VectorMagnitudeImageFilter} is specified with
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+itk_wrap_class("itk::VectorMagnitudeImageFilter" POINTER_WITH_SUPERCLASS)
+  itk_wrap_image_filter_combinations("${WRAP_ITK_COV_VECTOR_REAL}" "${WRAP_ITK_SCALAR}")
+itk_end_wrap_class()
+\end{minted}
+
+The final template wrapping macro is \textbf{itk\_wrap\_image\_filter\_types}.
+This macro takes a variable number of arguments that should correspond to the
+image pixel types in the filter's template parameter list. Again, an optional
+dimensionality condition can be specified as the last argument. For example,
+wrapping for \doxygen{RGBToLuminanceImageFilter} is specified with
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+itk_wrap_class("itk::RGBToLuminanceImageFilter" POINTER_WITH_SUPERCLASS)
+  if(ITK_WRAP_rgb_unsigned_char AND ITK_WRAP_unsigned_char)
+    itk_wrap_image_filter_types(RGBUC UC)
+  endif(ITK_WRAP_rgb_unsigned_char AND ITK_WRAP_unsigned_char)
+
+  if(ITK_WRAP_rgb_unsigned_short AND ITK_WRAP_unsigned_short)
+    itk_wrap_image_filter_types(RGBUS US)
+  endif(ITK_WRAP_rgb_unsigned_short AND ITK_WRAP_unsigned_short)
+
+  if(ITK_WRAP_rgba_unsigned_char AND ITK_WRAP_unsigned_char)
+    itk_wrap_image_filter_types(RGBAUC UC)
+  endif(ITK_WRAP_rgba_unsigned_char AND ITK_WRAP_unsigned_char)
+
+  if(ITK_WRAP_rgba_unsigned_short AND ITK_WRAP_unsigned_short)
+    itk_wrap_image_filter_types(RGBAUS US)
+  endif(ITK_WRAP_rgba_unsigned_short AND ITK_WRAP_unsigned_short)
+itk_end_wrap_class()
+\end{minted}
+
+In some cases, it necessary to specify the headers required to build wrapping
+sources for a class. To specify additional headers to included in the generated
+wrapping C++ source, use the \textbf{itk\_wrap\_include} macro. This macro takes the
+name of the header to include, and it can be called multiple times.
+
+By default, the class wrapping macros include a header whose filename
+corresponds to the name of the class to be wrapped according to ITK naming
+conventions. To override the default behavior, set the CMake variable
+\code{WRAPPER\_AUTO\_INCLUDE\_HEADERS} to \code{OFF} before calling
+\code{itk\_wrap\_class}. For example,
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+set(WRAPPER_AUTO_INCLUDE_HEADERS OFF)
+itk_wrap_include("itkTransformFileReader.h")
+itk_wrap_class("itk::TransformFileReaderTemplate" POINTER)
+  foreach(t ${WRAP_ITK_REAL})
+    itk_wrap_template("${ITKM_${t}}" "${ITKT_${t}}")
+  endforeach()
+itk_end_wrap_class()
+\end{minted}
+
+There are a number of convenience CMake macros available to manipulate lists
+of template parameters. These macros take the variable name to populate with
+their output as the first argument followed by input arguments. The
+\textbf{itk\_wrap\_filter\_dims} macro will process the dimensionality
+condition previously described for the filter template wrapping macros.
+\textbf{DECREMENT}, \textbf{INCREMENT} are macros that operate on dimensions.
+The \textbf{INTERSECTION} macro finds the intersection of two list arguments.
+Finally, the \textbf{UNIQUE} macro removes duplicates from the given list.
