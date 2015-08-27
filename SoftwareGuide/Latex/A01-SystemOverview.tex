@@ -793,7 +793,8 @@ types and dimensions to build into the wrapped interface. Supported pixel types
 are represented in the CMake configuration as variables named
 \code{ITK\_WRAP\_<pixel type>}. Supported image dimensions are enumerated in the
 semicolon-delimited list \code{ITK\_WRAP\_DIMS}, the default value of which is
-\code{2;3} indicating support for 2- and 3-dimensional images.
+\code{2;3} indicating support for 2- and 3-dimensional images. The
+\code{Release} CMake build configuration is recommended.
 
 After configuration, check to make sure that the values of the following variables
 are set correctly:
@@ -819,7 +820,7 @@ Windows, of the virtualenv. For example,
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
 virtualenv --system-site-packages wrapitk-venv
 cd wrapitk-venv/lib/python2.7/site-packages
-ln -s /path/to/ITK-Wrapped/Wrapping/Generators/Python/WrapITK.pth
+cp /path/to/ITK-Wrapped/Wrapping/Generators/Python/WrapITK.pth .
 cd ../../../../wrapitk-venv/bin
 ./python /usr/bin/ipython
 import itk
