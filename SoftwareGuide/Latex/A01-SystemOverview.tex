@@ -707,24 +707,24 @@ image using a custom structuring element using the Python wrapping:
 
 \small
 \begin{minted}{python}
-    inputImage = sys.argv[1]
-    outputImage = sys.argv[2]
-    radiusValue = int(sys.argv[3])
+  inputImage = sys.argv[1]
+  outputImage = sys.argv[2]
+  radiusValue = int(sys.argv[3])
 
-    PixelType = itk.UC
-    Dimension = 2
-    ImageType = itk.Image[PixelType, Dimension]
+  PixelType = itk.UC
+  Dimension = 2
+  ImageType = itk.Image[PixelType, Dimension]
 
-    reader = itk.ImageFileReader[ImageType].New()
-    reader.SetFileName(inputImage)
+  reader = itk.ImageFileReader[ImageType].New()
+  reader.SetFileName(inputImage)
 
-    StructuringElementType = itk.FlatStructuringElement[Dimension]
-    structuringElement = StructuringElementType.Ball(radiusValue)
+  StructuringElementType = itk.FlatStructuringElement[Dimension]
+  structuringElement = StructuringElementType.Ball(radiusValue)
 
-    dilateFilter = itk.BinaryDilateImageFilter[
+  dilateFilter = itk.BinaryDilateImageFilter[
       ImageType, ImageType, StructuringElementType].New()
-    dilateFilter.SetInput(reader.GetOutput())
-    dilateFilter.SetKernel(structuringElement)
+  dilateFilter.SetInput(reader.GetOutput())
+  dilateFilter.SetKernel(structuringElement)
 \end{minted}
 \normalsize
 The same code in C++ would appear as follows:
@@ -767,14 +767,38 @@ wrapping process. In the example above, the
 \code{ImageFileReader[ImageType]} indicates that this class, implementing
 an image source, has been
 instantiated using an input and output image type of two-dimensional unsigned
-char values (e.g., \code{UC}). Typically just a few common types are
-selected for the wrapping process to avoid an explosion of types and hence,
-library size. To add a new type requires rerunning the wrapping process to
-produce new libraries. Some high-level options for these types, such as
-common pixels types and image dimensions, are specified during CMake
-configuration.  The types of specific classes that should be instantiated,
-based on these basic options, are defined by the \code{*.wrap} files in the
-\code{wrapping} directory of a module.
+char values (i.e., \code{UC}). To see the types available for a given filter,
+use the \code{.GetTypes()} method.
+
+\small
+\begin{minted}{python}
+  print(itk.ImageFileReader.GetTypes())
+\end{minted}
+\normalsize
+
+Typically just a few common types are selected for the wrapping process to
+avoid an explosion of types and hence, library size. To add a new type, re-run
+the wrapping process to produce new libraries. Some high-level options for
+these types, such as common pixels types and image dimensions, are specified
+during CMake configuration.  The types of specific classes that should be
+instantiated, based on these basic options, are defined by the \code{*.wrap}
+files in the \code{wrapping} directory of a module.
+
+Conversion of common, basic wrapped ITK classes to native Python types is
+supported. For example, conversion between the \doxygen{Index} and Python list
+or tuple is possible:
+
+\small
+\begin{minted}{python}
+  Dimesion = 3
+  index = itk.Index[Dimension]()
+  index_as_tuple = tuple(index)
+  index_as_list = list(index)
+
+  region = itk.ImageRegion[Dimension]()
+  region.SetIndex((0, 2, 0))
+\end{minted}
+\normalsize
 
 The advantage of interpreted languages is that they do not require the lengthy
 compile/link cycle of a compiled language like C++. Moreover, they typically
