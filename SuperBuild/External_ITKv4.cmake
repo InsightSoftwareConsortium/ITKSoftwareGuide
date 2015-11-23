@@ -103,8 +103,8 @@ if(NOT ( DEFINED "${extProjName}_DIR" OR ( DEFINED "USE_SYSTEM_${extProjName}" A
     )
   ### --- End Project specific additions
   set(${proj}_REPOSITORY ${git_protocol}://itk.org/ITK.git)
-  # ITK master 2015-07-02
-  set(${proj}_GIT_TAG "b6aa9c3a2cc3047748ac0ec095e2d69c6af2d93a")
+  # ITK master 2015-11-23
+  set(${proj}_GIT_TAG "v4.9rc01")
 
   ExternalProject_Add(${proj}
     GIT_REPOSITORY ${${proj}_REPOSITORY}
