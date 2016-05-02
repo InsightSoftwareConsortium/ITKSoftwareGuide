@@ -120,10 +120,10 @@ How to Contribute to the ITK Software Guide
 ===========================================
 
 The contribution process mirrors the [ITK contribution
-process](http://itk.org/Wiki/ITK/Git/Develop) with the exception of the clone
+process](https://itk.org/Wiki/ITK/Git/Develop) with the exception of the clone
 url:
 
-    http://itk.org/ITKSoftwareGuide.git
+    https://itk.org/ITKSoftwareGuide.git
 
 The basic knowledge of git underpins the contribution process. A very concise
 but very handy guide to git can be found
@@ -134,7 +134,7 @@ Contribution Process Overview
 
 The following commands illustrate patch submission to Gerrit:
 
-    git clone http://itk.org/ITKSoftwareGuide.git
+    git clone https://itk.org/ITKSoftwareGuide.git
     cd ITKSoftwareGuide
     ./Utilities/SetupForDevelopment.sh
     git checkout -b MyTopic
@@ -206,7 +206,7 @@ Some Helpful Git Commands
    in HTML format.
 
 A one-page Git-ITK cheat-sheet is available
-[here](http://www.itk.org/Wiki/images/1/10/GitITKCheatSheet.pdf).
+[here](https://www.itk.org/Wiki/images/1/10/GitITKCheatSheet.pdf).
 
 Further Help
 ------------

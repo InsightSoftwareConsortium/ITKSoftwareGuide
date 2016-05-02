@@ -68,7 +68,7 @@ Chapter 4    Data Representation
 
      Take from the tutorial and build up this section
 
-     http://www.itk.org/CourseWare/Training/GettingStarted-V.pdf
+     https://www.itk.org/CourseWare/Training/GettingStarted-V.pdf
 
 
      Explain how to put an ITK pipeline inside a C function and
@@ -261,7 +261,7 @@ Chapter 6 Filtering
 
   Mention that the same can be done with ReinitializeLevelSetImageFilter
   ...maybe add an example...
-  http://www.itk.org/Insight/Doxygen/html/classitk_1_1ReinitializeLevelSetImageFilter.html
+  https://www.itk.org/Insight/Doxygen/html/classitk_1_1ReinitializeLevelSetImageFilter.html
 
   Check with Lydia (Brain Allen Institue) and/or Josh Cates (Utah)
 
@@ -773,7 +773,7 @@ New Chapter : Visualization
 
 
 
-   http://www.itk.org/CourseWare/Training/GettingStarted-II.pdf
+   https://www.itk.org/CourseWare/Training/GettingStarted-II.pdf
 
 
    Show the example in InsightApplications

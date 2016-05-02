@@ -38,7 +38,7 @@ list(APPEND ExternalData_URL_TEMPLATES
   # Data published by MIDAS
   "https://midas3.kitware.com/midas/api/rest?method=midas.bitstream.download&checksum=%(hash)&algorithm=%(algo)"
   # Data published by developers using git-gerrit-push.
-  "http://www.itk.org/files/ExternalData/%(algo)/%(hash)"
+  "https://www.itk.org/files/ExternalData/%(algo)/%(hash)"
   )
 
 # Tell ExternalData commands to transform raw files to content links.
