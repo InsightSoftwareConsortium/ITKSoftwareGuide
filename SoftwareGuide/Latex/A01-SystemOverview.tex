@@ -852,7 +852,11 @@ import itk
 \normalsize
 
 On Windows, it is also necessary to add the ITK build directory containing the
-.dll files to your \code{PATH} environmental variable, e.g.
+.dll files to your \code{PATH} environmental variable if ITK is built with the
+CMake option \code{BUILD\_SHARED\_LIBS} enabled. For example, the directory
+containing .dll files for an ITK build at
+\code{C:\textbackslash{}ITK-build} when built with Visual Studio in the
+\code{Release} configuration is
 \code{C:\textbackslash{}ITK-build\textbackslash{}bin\textbackslash{}Release}.
 
 % Add this back once wrappings support Python 3
