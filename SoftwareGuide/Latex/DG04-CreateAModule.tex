@@ -23,7 +23,9 @@ Modules are organized into:
 \end{itemize}
 
 This chapter describes how to create a new module. The following sections  are
-organized by the different directory components of the module.
+organized by the different directory components of the module. The chapter
+concludes with a section on how to add a third-party library dependency to a
+module.
 
 \section{Name and dependencies}
 \label{sec:NameAndDependencies}
@@ -767,3 +769,92 @@ condition previously described for the filter template wrapping macros.
 \textbf{DECREMENT}, \textbf{INCREMENT} are macros that operate on dimensions.
 The \textbf{INTERSECTION} macro finds the intersection of two list arguments.
 Finally, the \textbf{UNIQUE} macro removes duplicates from the given list.
+
+
+
+\section{Third-Party Dependencies}
+\label{sec:ThirdParty}
+\index{module!third-party}
+
+When an ITK module depends on another ITK module, it simply lists its
+dependencies as described in Section \ref{sec:NameAndDependencies}. A module
+can also depend on non-ITK third-party libraries. This third-party library can
+be encapsulated in an ITK module -- see examples in the
+\code{ITK/Modules/ThirdParty} directory. Or, the dependency can be built or
+installed on the system and found with CMake. This section describes how to
+add the CMake configuration to a module for it to find and use a third-party
+library dependency.
+
+
+\subsection{itk-module-init.cmake}
+
+The \code{itk-module-init.cmake} file, if present, is found in the top level
+directory of the module next to the \code{itk-module.cmake} file. This file
+informs CMake of the build configuration and location of the third-party
+dependency. To inform CMake about the OpenCV library, use the
+\code{find\_package} command,
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+find_package(OpenCV REQUIRED)
+\end{minted}
+
+
+\subsection{CMakeList.txt}
+
+A few additions are required to the top level \code{CMakeLists.txt} of the
+module.
+
+First, the \code{itk-module-init.cmake} file should be explicitly included
+when building the module externally against an existing ITK build tree.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+if(NOT ITK_SOURCE_DIR)
+  include(itk-module-init.cmake)
+endif()
+project(ITKVideoBridgeOpenCV)
+\end{minted}
+
+Optionally, the dependency libraries are added to the
+\code{<module-name>\_LIBRARIES} variable. Alternatively, if the module creates
+a library, publically link to the dependency libraries. Our
+ITKVideoBridgeOpenCV module example creates its own library, named
+\code{ITKVideoBridgeOpenCV}, and publically links to the OpenCV libraries.
+
+\code{CMakeLists.txt}:
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+set(ITKVideoBridgeOpenCV_LIBRARIES ITKVideoBridgeOpenCV)
+\end{minted}
+
+\code{src/CMakeLists.txt}:
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+target_link_libraries(ITKVideoBridgeOpenCV LINK_PUBLIC ${OpenCV_LIBS})
+\end{minted}
+
+Next, CMake export code is created. This code is loaded by CMake when another
+project uses this module. The export code stores where the dependency was
+located when the module was built, and how CMake should find it. Two versions
+are required for the build tree and for the install tree.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+# When this module is loaded by an app, load OpenCV too.
+set(ITKVideoBridgeOpenCV_EXPORT_CODE_INSTALL "
+set(OpenCV_DIR \"${OpenCV_DIR}\")
+find_package(OpenCV REQUIRED)
+")
+set(ITKVideoBridgeOpenCV_EXPORT_CODE_BUILD "
+if(NOT ITK_BINARY_DIR)
+  set(OpenCV_DIR \"${OpenCV_DIR}\")
+  find_package(OpenCV REQUIRED)
+endif()
+")
+\end{minted}
+
+Finally, set the \code{<module-name>\_SYSTEM\_INCLUDE\_DIRS} and
+\code{<module-name>\_SYSTEM\_LIBRARY\_DIRS}, if required, to append
+compilation header directories and library linking directories for this
+module.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+set(ITKVideoBridgeOpenCV_SYSTEM_INCLUDE_DIRS ${OpenCV_INCLUDE_DIRS})
+set(ITKVideoBridgeOpenCV_SYSTEM_LIBRARY_DIRS ${OpenCV_LIB_DIR})
+\end{minted}
