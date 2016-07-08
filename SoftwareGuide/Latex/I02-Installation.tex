@@ -35,6 +35,99 @@ for upgrading this old piece of software! Support for different platforms is
 evident on the ITK quality dashboard (see Section \ref{sec:CDash} on page
 \pageref{sec:CDash}).
 
+\section{Obtaining the Software}
+\label{sec:ObtainingTheSoftware}
+\label{sec:DownloadingITK}
+\index{Downloading}
+
+There are two different ways to access the ITK source code:
+\begin{description}
+  \item[Periodic releases]{Official releases are available on the ITK web
+    site\footnote{\url{https://itk.org/ITK/resources/software.html}}.
+    They are released twice a year,
+    and announced on the ITK web pages and mailing list.
+    However, they may not provide the latest and greatest features of the
+    toolkit.}
+  \item[Continuous repository checkout]{Direct access to the Git source code
+    repository\footnote{\url{https://itk.org/ITK.git}} provides immediate
+    availability to the latest toolkit additions. But, on any given day the
+    source code may not be stable as compared to the official releases.}
+\end{description}
+
+This software guide assumes that you are using the current released version of
+ITK, available on the ITK web site. If you are a new user, we recommend the
+released version of the software. It is more consistent
+than the code available from the Git repository (see Section
+\ref{sec:DownloadingFromGit}).  When working from the
+repository, please be aware of the ITK quality testing dashboard. The Insight
+Toolkit is heavily tested using the open-source CDash regression testing
+system\footnote{\url{http://open.cdash.org/index.php?project=Insight}}. Before
+updating the repository, make sure that the dashboard is \emph{green},
+indicating stable code. (Learn more about the ITK dashboard and quality
+assurance process in Section \ref{sec:CDash} on page \pageref{sec:CDash}.)
+
+\subsection{Downloading Packaged Releases}
+\label{sec:DownloadingReleases}
+
+\index{ITK!downloading release}
+
+ITK can be downloaded without cost from the following web site:
+\begin{center}
+  \url{https://www.itk.org/ITK/resources/software.html}
+\end{center}
+
+On the web page, choose the tarball that better fits your system. The options are
+\code{.zip} and \code{.tar.gz} files. The first type is better suited for
+Microsoft-Windows, while the second one is the preferred format for UNIX
+systems.
+
+Once you unzip or untar the file a directory called
+\code{InsightToolkit-\ITKVERSIONMAJORMINOR.0} will be created in your disk and
+you will be ready to start the configuration process described in Section
+\ref{sec:CMakeforITK} on page \pageref{sec:CMakeforITK}.
+
+\subsection{Downloading From Git}
+\label{sec:DownloadingFromGit}
+
+\index{ITK!Git repository}
+
+Git is a free and open source distributed version control system.  For more
+information about Git please see Section \ref{sec:GitRepository} on page
+\pageref{sec:GitRepository}. (Note: please make sure that you access the
+software via Git only when the ITK quality dashboard indicates that the code
+is stable.)
+
+Access ITK via Git using the following commands (under a Git Bash shell):
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git clone git://itk.org/ITK.git
+\end{minted}
+
+This will trigger the download of the software into a directory named
+\code{ITK}.  Any time you want to update your version, it will be enough to
+change into this directory, \code{ITK}, and type:
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+git pull
+\end{minted}
+
+Once you obtain the software you are ready to configure and compile it (see
+Section \ref{sec:CMakeforITK} on page \pageref{sec:CMakeforITK}). First,
+however, we recommend reading the following sections that describe the
+organization of the software and joining the mailing list.
+
+\subsection{Data}
+\label{sec:Data}
+
+The Insight Toolkit was designed to support the Visible Human Project
+and its associated data. This data is available from the National Library of
+Medicine at \url{http://www.nlm.nih.gov/research/visible/visible_human.html}.
+
+Another source of data can be obtained from the ITK Web site at either
+of the following:
+\begin{quote}
+\url{https://www.itk.org/ITK/resources/links.html} \\
+\url{ftp://public.kitware.com/pub/itk/Data/}.
+\end{quote}
+
 \section{Using CMake for Configuring and Building ITK}
 
 The challenge of supporting ITK across platforms has been solved through the
