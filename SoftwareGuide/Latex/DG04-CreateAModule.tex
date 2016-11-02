@@ -39,6 +39,16 @@ dependencies. Two files are required:
   \item \code{itk-module.cmake}
 \end{enumerate}
 
+The information described in these files is used to populate \code{<ModuleName>.cmake}
+files in the ITK module registry. The module registry is located
+at \code{<ITK build directory>/lib/cmake/\ITKVERSIONMAJORMINOR/Modules/} in a
+build tree or
+\code{<CMAKE\_INSTALL\_PREFIX>>/lib/cmake/\ITKVERSIONMAJORMINOR/Modules/}
+in an install tree. These module files declare information about the module
+and what is required to use it. This includes its module dependencies, C++ include
+directories required to build against it, the libraries to link against, and CMake
+code required to use it in a CMake configured project.
+
 
 \subsection{CMakeLists.txt}
 
