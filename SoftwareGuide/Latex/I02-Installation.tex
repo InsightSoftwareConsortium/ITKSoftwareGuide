@@ -253,7 +253,7 @@ hitting the ``c'' key. In the GUI version this is done by clicking on the
 ``Configure'' button.
 
 When no new options appear highlighted in CMake, you can proceed to generate
-Makefiles, a Visual Studio workspace or other appropriate build files depending
+Makefiles, a Visual Studio workspace, or other appropriate build files depending
 on your preferred development environment. This is done in the GUI interface by
 clicking on the ``Generate'' button. In the terminal-based version this is done
 by hitting the ``g'' key. After the generation process the terminal-based
@@ -349,6 +349,39 @@ To find out why a particular module is enabled, check the CMake configuration
 messages where the information about enabling or disabling the modules is
 displayed (Figure \ref{fig:ConfigITKDefault}); these messages are sorted in
 alphabetical order by module names.
+
+
+\subsection{Static and Shared Libraries}
+\label{sec:StaticSharedLibraries}
+
+ITK libraries can be built as \textit{static libraries}, i.e. files whose
+functions and variables are included in a binary during the link phase of
+the build cycle. Alternatively, ITK libraries can be built as
+\textit{shared libraries}, where libraries are dynamically linked to a
+binary. In this case, functions and variables are shared at runtime according
+to their symbols.
+
+By enabling the standard CMake configuration variable,
+\code{BUILD\_SHARED\_LIBS}, ITK modules with the \code{ENABLE\_SHARED} option
+(see Section~\ref{sec:NameAndDependencies}) will be built as shared libraries.
+
+Static libraries are preferred when creating a stand-alone executable. An
+application can be distributed as a single file when statically linked.
+Additional effort is not required to package library dependencies, configure the
+system to find library dependencies at runtime, or define symbol export
+specifications.
+
+Shared libraries should be used when ITK is linked to more than one binary in
+an application. This reduces binary size and ensures that singleton
+variables are unique across the application.
+
+A very advanced CMake configuration variable,
+\code{ITK\_TEMPLATE\_VISIBILITY\_DEFAULT} defines the symbol visibility
+attribute on template classes to \textit{default} on systems that require it
+to perform \code{dynamic\_cast}'s on pointers passed across binaries. The
+default value can be disabled only when it is known that template classes are
+not implicitly instantiated and passed across binaries.
+
 
 \subsection{Compiling ITK}
 \label{sec:BuildITK}
