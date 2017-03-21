@@ -219,14 +219,13 @@ set(AModuleName_SRCS
   itkBarClass.cxx
   )
 
-add_library(AModuleName ${AModuleName_SRCS})
-itk_module_link_dependencies()
-itk_module_target(AModuleName)
+itk_module_add_library(AModuleName ${AModuleName_SRCS})
 \end{minted}
 
-The \code{itk\_module\_link\_dependencies} macro will link the library to the
+The \code{itk\_module\_add\_library} macro will create a library with the
+given sources. The macro will also link the library to the
 libraries defined by the module dependency
-specification per Section~\ref{sec:NameAndDependencies}. The \code{itk\_module\_target}
+specification per Section~\ref{sec:NameAndDependencies}. Additionally, the
 macro will set CMake target properties associated with the current module to
 the given target.
 
