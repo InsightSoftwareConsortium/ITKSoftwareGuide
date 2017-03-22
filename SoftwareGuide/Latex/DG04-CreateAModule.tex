@@ -250,6 +250,10 @@ class AModuleName_EXPORT FooClass
 ...
 \end{minted}
 
+Modules that do not build a library in their \texttt{src} directory or do not
+have export specifications on their class declarations should not set
+\code{ENABLE\_SHARED}.
+
 
 \section{Tests}
 \label{sec:Tests}
