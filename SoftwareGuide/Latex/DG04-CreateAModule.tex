@@ -262,7 +262,12 @@ have export specifications on their class declarations should not set
 Regression tests for a module are placed in the \code{test} directory. This
 directory will contain a \texttt{CMakeLists.txt} with the CMake configuration,
 test sources, and optional \texttt{Input} and \texttt{Baseline} directories,
-which contain test input and baseline image datasets, respectively.
+which contain test input and baseline image datasets, respectively. Placement
+of the input and baseline image datasets within a given module directory is
+preferred over placement in the general \texttt{Testing/Data} directory; this
+ensures that a module's data is only downloaded when the module is enabled. An
+exception to this rule may be widely used input datasets, such as the
+\texttt{cthead1.png} image.
 
 An example CMake configuration for a test directory is shown below.
 
@@ -304,22 +309,100 @@ Tests are defined with the \code{itk\_add\_test} macro. This is a wrapper
 around the CMake \code{add\_test} command that will resolve content links in
 the \code{DATA} macro. Testing data paths are given inside the \code{DATA}
 macro. Content link files, stored in the source code directory, are replaced
-by actual content files in the build directory when CMake downloads the target
-at build time. A content link file has the same name as its target, but a
-\texttt{.md5} extension is added, and the \texttt{.md5} file's contents are
-only the MD5SUM hash of its target. Content links for data files in a Git
-distributed version control repository prevent repository bloat. To obtain
-content links, register an account with the \texttt{ITK} community at
-\url{https://midas3.kitware.com} and request upload permissions on the ITK
-mailing list.
+by actual content files in the build directory when CMake downloads the
+\code{ITKData} target at build time. A content link file has the same name as
+its target, but a \texttt{.md5} extension is added, and the \texttt{.md5}
+file's contents are only the MD5SUM hash of its target. Content links for data
+files in a Git distributed version control repository prevent repository
+bloat. To obtain content links, register an account with the \texttt{ITK}
+community at \url{https://midas3.kitware.com} and request upload permissions
+on the ITK mailing list. The content links may also be created locally: once
+the actual file at issue has been placed in the corresponding directory, run
+CMake configuration, and CMake provides the desired \texttt{.md5} extension
+content link file.
+
+When a test requires a new (or modified) input or baseline image dataset,
+the corresponding content link files have to be provided as well. Image
+datasets provided should be kept as small as possible. As a rule of thumb,
+their size should be under 50~\textit{kB}.
 
 Test commands should call the test driver executable, followed by options for
 the test, followed by the test function name, followed by arguments that are
-passed to the test. The test driver accepts options like \texttt{--compare} to
-compare output images to baselines or options that modify tolerances on
-comparisons.
+passed to the test. The test driver accepts options like \texttt{--compare}
+(or \texttt{--compare-MD5} when using the MD5SUM hash) to compare output images
+to baselines or options that modify tolerances on comparisons. An exhaustive
+list of options is displayed in \texttt{itkTestDriverInclude.h}.
 
+A few rules must be acknowledged to actually write a units test file
+\texttt{itk<ClassName>Test.cxx} for a given ITK class:
+\begin{enumerate}
+\item All class methods must be exercised.
+\item Test cases with values for member variables different from the default
+ones should be provided. The usefulness of this rule is especially manifest
+for boolean members, whose value usually determines whether a large portion
+of code is exercised or not.
+\item Test cases to reach the exception cases within the class should be
+provided.
+\item Regression tests must be included for methods returning a value.
+\item When a test detects a failure condition it must return the
+\code{EXIT\_FAILURE} value; if a test exits normally, it must return
+the \code{EXIT\_SUCCESS} value.
+\end{enumerate}
 
+In any case, ITK provides with a number of classes and macros that ease the
+process of writing tests and checking the expected results. The following is an
+exhaustive list of such tools:
+\begin{itemize}
+\item \texttt{itkTestingMacros.h}: it contains a number of macros that allow
+testing of basic object properties:
+\begin{itemize}
+\item \code{EXERCISE\_BASIC\_OBJECT\_METHODS()}: verifies whether the class and
+superclass names provided match the RTTI, and exercises the \code{PrintSelf()}
+method. Since the \code{PrintSelf()} method prints all class member variables,
+this macro, when exercised, can identify uninitialized member variables.
+\item \code{TEST\_SET\_GET\_VALUE()}: once a member variable value has been set
+using the corresponding Set macro, this macro verifies that the value provided
+to the \code{Set()} method was effectively assigned to the member variable
+by comparing it to the value returned by the \code{Get()} value.
+\item \code{TEST\_SET\_GET\_BOOLEAN()}: exercises the \code{Set()/Get()},
+and \code{On()/Off()} methods of class applied to a boolean member variable.
+\end{itemize}
+\item \code{TRY\_EXPECT\_NO\_EXCEPTION()}: exercises a method which is expected to
+return with no errors. It is only required for methods that are known to throw
+exceptions, such as I/O operations, filter updates, etc.
+\item \code{TRY\_EXPECT\_EXCEPTION()}: exercises a method in the hope of detecting
+an exception. This macro allows a test to continue its execution when setting
+test cases bound to hit a class' exception cases. It is only required for
+methods that are known to throw exceptions, such as I/O operations, filter
+updates, etc.
+\item \code{itkMath.h}: contains a series of static methods used for basic
+type comparison. Methods are available to perform fuzzy floating point equality
+comparison, e.g. \code{itk::Math::FloatAlmostEquals()}, to handle expected
+cross-platform differences.
+\end{itemize}
+
+A test may have some input arguments. When a test does not need any input
+argument (e.g., it generates a synthetic input image), the \code{main}
+argument names may either be omitted (\code{int itk<ClassName>Test( int,
+char* [] )}), or the \code{itkNotUsed }macro can be used (\code{int
+itk<ClassName>Test( int itkNotUsed( argc ), char *itkNotUsed( argv ) [] )}),
+to avoid compiler warnings about unused variables.
+
+The number of input arguments provided must be checked at the beginning of the
+test. If a test requires a fixed number of input arguments, then the argument
+number check should verify the exact number of arguments.
+
+It is essential that a test is made quantitative, i.e., the methods' returned
+values and the test's output must be compared to a known ground-truth. As
+mentioned, ITK contains a series of methods to compare basic types. ITK also
+provide a powerful regression tool for a test that checks the validity of a
+process over an image, which is the most common case in ITK. To this end, the
+test is expected to write its output to a file. The first time the test is run,
+the output is expected to be manually placed within the test module's
+\texttt{Baseline} folder. Hence, when CTest is executed, the distance between
+the test's output and the expected output (i.e., the baseline) is computed. If
+the distance is below a configurable tolerance, the regression test is marked as
+a success.
 
 \section{Wrapping}
 \label{sec:ModuleWrapping}

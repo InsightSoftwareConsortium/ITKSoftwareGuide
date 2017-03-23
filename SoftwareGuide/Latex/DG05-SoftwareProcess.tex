@@ -111,9 +111,9 @@ CDash supports a variety of test types. These include the following.
         Rational. (Other memory checking programs will be added in the future.)
 
         \item[PrintSelf.] All classes in ITK are expected to print out all
-        their instance variables (i.e., those with associated Set and Get
-        methods) correctly. This test checks to make sure
-        that this is the case.
+        their instance (i.e., those with associated Set and Get
+        methods) and their internal variables correctly. This test checks to
+        make sure that this is the case.
 
         \item[Unit.] Each class in ITK should have a corresponding unit test
         where the class functionalities are exercised and quantitatively
@@ -152,6 +152,32 @@ Another nice feature of CDash is that it maintains a history of changes to the
 source code (by coordinating with Git) and summarizes the changes as part of
 the dashboard. This is useful for tracking problems and keeping up to date
 with new additions to ITK.
+
+\subsection{Developing tests}
+\label{subsec:developingTests}
+
+As highlighted, testing is an essential part of ITK. Regression testing on a
+regular basis allows ITK to meet high code quality standards, and to enable
+reproducible research. Code coverage reported daily in CDash allows us to
+systematically measure the degree to which the ITK source code is reliable.
+Therefore, writing tests, and improving current tests and the testing
+infrastructure is crucial to ITK.
+
+There are a number of scenarios when writing tests:
+\begin{itemize}
+\item \textbf{Modifying existing classes}. When modifying an existing class
+(either due to a bug or a performance improvement), it must be checked that
+existing tests exercise the new code. Otherwise, either the existing tests
+should be modified to include the appropriate cases for the new code to be
+exercised (without harm to existing cases), or a new test file may be required.
+\item \textbf{Contributing new classes}. When contributing a new class, a unit
+test or a few unit tests should be provided to check that the class is working
+as expected. The unit tests are expected to exercise all of the members of the
+new class.
+\end{itemize}
+
+In either case, the tips and tools described in Section~\ref{sec:Tests} were
+developed to improve and facilitate the process.
 
 \section{Working The Process}
 \label{sec:WorkingTheProcess}
