@@ -811,6 +811,20 @@ wrapped in the future.
 
 \subsection{Python Setup}
 
+\subsubsection{Install Latest Python Packages}
+
+Binary python packages are built nightly from the Git \code{master} branch,
+and they can be installed by running:
+
+\small
+\begin{minted}{bash}
+  python -m pip install --upgrade pip
+  python -m pip install itk -f https://github.com/InsightSoftwareConsortium/ITKPythonPackage/releases/tag/latest
+\end{minted}
+\normalsize
+
+\subsubsection{Build Python Packages from Source}
+
 In order to access the Python interface of ITK, make sure to compile with the
 CMake \code{ITK\_WRAP\_PYTHON} option. In addition, choose which pixel
 types and dimensions to build into the wrapped interface. Supported pixel types
