@@ -92,6 +92,7 @@ set( Book1_Tex_SRCS
   DG05-SoftwareProcess.tex
 ## Appendix
   AP01-Licenses.tex
+  AP02-CodingStyleGuide.tex
   )
 
 set( Book2_Tex_SRCS
