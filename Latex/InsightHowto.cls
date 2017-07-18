@@ -99,8 +99,8 @@
 
 \@ifundefined{fancyhf}{
   \pagestyle{plain}}{
-  \pagestyle{normal}}		% start this way; change for
-\pagenumbering{arabic}		% ToC & chapters
+  \pagestyle{normal}} % start this way; change for
+\pagenumbering{arabic} % ToC & chapters
 \setcounter{secnumdepth}{2}
 
 \thispagestyle{empty}

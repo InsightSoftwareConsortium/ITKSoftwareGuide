@@ -13,31 +13,31 @@ description of these subsystems follows. Later sections in this chapter---and
 in some cases additional chapters---cover these concepts in more detail.
 
 \begin{description}
-	\item[Essential System Concepts.] Like any software system, ITK is
+  \item[Essential System Concepts.] Like any software system, ITK is
         built around some core design concepts. Some of the more important
         concepts include generic programming, smart pointers for memory
         management, object factories for adaptable object instantiation,
         event management using the command/observer design paradigm, and
         multithreading support.
 
-	\item[Numerics.] ITK uses VXL's VNL numerics libraries. These are
+  \item[Numerics.] ITK uses VXL's VNL numerics libraries. These are
         easy-to-use C++ wrappers around the Netlib Fortran numerical
         analysis routines \footnote{\url{http://www.netlib.org}}.
 
-	\item[Data Representation and Access.] Two principal classes are
+  \item[Data Representation and Access.] Two principal classes are
         used to represent data: the \doxygen{Image} and \doxygen{Mesh}
         classes. In addition, various types of iterators and containers are
         used to hold and traverse the data. Other important but less popular
         classes are also used to represent data such as \doxygen{Histogram} and
         \doxygen{SpatialObject}.
 
-	\item[Data Processing Pipeline.] The data representation
-	   classes (known as \emph{data objects}) are operated on by
-	   \emph{filters} that in turn may be organized into data flow
-	   \emph{pipelines}. These pipelines maintain state and therefore
-	   execute only when necessary.  They also support
-	   multithreading, and are streaming capable (i.e., can operate
-	   on pieces of data to minimize the memory footprint).
+  \item[Data Processing Pipeline.] The data representation
+    classes (known as \emph{data objects}) are operated on by
+    \emph{filters} that in turn may be organized into data flow
+    \emph{pipelines}. These pipelines maintain state and therefore
+    execute only when necessary.  They also support
+    multithreading, and are streaming capable (i.e., can operate
+    on pieces of data to minimize the memory footprint).
 
     \item[IO Framework.] Associated with the data processing
         pipeline are \emph{sources}, filters that initiate the
@@ -47,7 +47,7 @@ in some cases additional chapters---cover these concepts in more detail.
         input data (typically from a file), and writers output data
         from the pipeline.
 
-	\item[Spatial Objects.] Geometric shapes are represented in ITK using
+  \item[Spatial Objects.] Geometric shapes are represented in ITK using
         the spatial object hierarchy. These classes are intended to support
         modeling of anatomical structures. Using a common basic interface,
         the spatial objects are capable of representing regions of space in a
@@ -57,17 +57,17 @@ in some cases additional chapters---cover these concepts in more detail.
         communicating the results of segmentation methods and for introducing
         anatomical priors in both segmentation and registration methods.
 
-	\item[Registration Framework.] A flexible framework for registration
+  \item[Registration Framework.] A flexible framework for registration
         supports four different types of registration: image registration,
         multiresolution registration, PDE-based registration, and FEM (finite
         element method) registration.
 
-	\item[FEM Framework.] ITK includes a subsystem for solving general
+  \item[FEM Framework.] ITK includes a subsystem for solving general
         FEM problems, in particular non-rigid registration. The FEM package
         includes mesh definition (nodes and elements), loads, and boundary
         conditions.
 
-	\item[Level Set Framework.] The level set framework is a set of
+  \item[Level Set Framework.] The level set framework is a set of
         classes for creating filters to solve partial differential equations
         on images using an iterative, finite difference update scheme. The
         level set framework consists of finite difference solvers including a
@@ -75,12 +75,13 @@ in some cases additional chapters---cover these concepts in more detail.
         several specific subclasses including threshold, Canny, and Laplacian
         based methods.
 
-	\item[Wrapping.] ITK uses a unique, powerful system for
-	producing interfaces (i.e., ``wrappers'') to interpreted
-	languages such as Python. The CastXML\footnote{\url{https://github.com/CastXML/CastXML}}
-        tool is used to produce an XML description of arbitrarily complex C++ code.
-	An interface generator script is then used to transform the XML description
-        into wrappers using the SWIG\footnote{\url{http://www.swig.org/}} package.
+  \item[Wrapping.] ITK uses a unique, powerful system for producing interfaces
+        (i.e., ``wrappers'') to interpreted languages such as Python. The
+        CastXML\footnote{\url{https://github.com/CastXML/CastXML}}
+        tool is used to produce an XML description of arbitrarily complex C++
+        code. An interface generator script is then used to transform the XML
+        description into wrappers using the
+        SWIG\footnote{\url{http://www.swig.org/}} package.
 
 \end{description}
 
