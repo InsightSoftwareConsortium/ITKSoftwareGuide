@@ -78,21 +78,21 @@ set( Book1_Tex_SRCS
   02-Cover-Book1.tex
   03-Abstract-Book1.tex
 ## Introduction
-  I01-Introduction.tex
-  I02-Installation.tex
+  ./Introduction/Introduction.tex
+  ./Introduction/Installation.tex
 ## Architecture
-  A01-SystemOverview.tex
-  A02-DataRepresentation.tex
-  A03-SpatialObjects.tex
+  ./Architecture/SystemOverview.tex
+  ./Architecture/DataRepresentation.tex
+  ./Architecture/SpatialObjects.tex
+  ./Architecture/Iterators.tex
+  ./Architecture/ImageAdaptors.tex
 ## Development Guidelines
-  DG01-Iterators.tex
-  DG02-ImageAdaptors.tex
-  DG03-WriteAFilter.tex
-  DG04-CreateAModule.tex
-  DG05-SoftwareProcess.tex
+  ./DevelopmentGuidelines/WriteAFilter.tex
+  ./DevelopmentGuidelines/CreateAModule.tex
+  ./DevelopmentGuidelines/SoftwareProcess.tex
 ## Appendix
-  AP01-Licenses.tex
-  AP02-CodingStyleGuide.tex
+  ./Appendices/Licenses.tex
+  ./Appendices/CodingStyleGuide.tex
   )
 
 set( Book2_Tex_SRCS
@@ -102,24 +102,24 @@ set( Book2_Tex_SRCS
   02-Cover-Book2.tex
   03-Abstract-Book2.tex
 ## Design and Functionality
-  DF01-IO.tex
-  DF02-Filtering.tex
-  #A03a-AnisotropicDiffusionFiltering.tex
-  DF03-Registration.tex
-  DF04-Segmentation.tex
-  DF05-Statistics.tex
+  ./DesignAndFunctionality/IO.tex
+  ./DesignAndFunctionality/Filtering.tex
+  #./DesignAndFunctionality/AnisotropicDiffusionFiltering.tex
+  ./DesignAndFunctionality/Registration.tex
+  ./DesignAndFunctionality/Segmentation.tex
+  ./DesignAndFunctionality/Statistics.tex
   )
 
 set( Tex_SRCS
 ## -- HACK TODO
 #set   NOT_YET_SRCS # This needs to be added one at a time as they are cleaned up
-  ImageMetrics.tex
-  ImageInterpolators.tex
-  Transforms.tex
+  ./DesignAndFunctionality/ImageMetrics.tex
+  ./DesignAndFunctionality/ImageInterpolators.tex
+  ./DesignAndFunctionality/Transforms.tex
   Visualization.tex
-  WatershedSegmentation.tex
+  ./DesignAndFunctionality/WatershedSegmentation.tex
 
-  DG06-MarketingMaterial.tex
+  MarketingMaterial.tex
   )
 
 set( SoftwareGuide_Book1_Tex_SRCS "" )

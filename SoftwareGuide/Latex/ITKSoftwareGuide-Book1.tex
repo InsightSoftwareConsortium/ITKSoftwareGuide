@@ -90,11 +90,9 @@
   \input{02-Cover-Book1.tex}
 \fi
 
-\ifitkFullVersion
-  \input{03-Abstract-Common.tex}
-  \input{03-Abstract-Book1.tex}
-  \input{04-Contributors.tex}
-\fi
+\input{03-Abstract-Common.tex}
+\input{03-Abstract-Book1.tex}
+\input{04-Contributors.tex}
 
 
 
@@ -129,36 +127,30 @@
 
 \part{Introduction}
 
-\ifitkFullVersion
-  \input{I01-Introduction.tex}
-  \input{I02-Installation.tex}
-\fi
+\input{Introduction/Introduction.tex}
+\input{Introduction/Installation.tex}
 
 
 \part{Architecture}
 
-\ifitkFullVersion
-  \input{A01-SystemOverview.tex}
-  \input{A02-DataRepresentation.tex}
-  \input{A03-SpatialObjects.tex}
-\fi
+\input{Architecture/SystemOverview.tex}
+\input{Architecture/DataRepresentation.tex}
+\input{Architecture/SpatialObjects.tex}
+\input{Architecture/Iterators.tex}
+\input{Architecture/ImageAdaptors.tex}
 
 
 \part{Development Guidelines}
 
-\ifitkFullVersion
-  \input{DG01-Iterators.tex}
-  \input{DG02-ImageAdaptors.tex}
-  \input{DG03-WriteAFilter.tex}
-  \input{DG04-CreateAModule.tex}
-  \input{DG05-SoftwareProcess.tex}
-\fi
+\input{DevelopmentGuidelines/WriteAFilter.tex}
+\input{DevelopmentGuidelines/CreateAModule.tex}
+\input{DevelopmentGuidelines/SoftwareProcess.tex}
 
 
 \begin{appendices}
 
-\input{AP01-Licenses.tex}
-\input{AP02-CodingStyleGuide.tex}
+\input{Appendices/Licenses.tex}
+\input{Appendices/CodingStyleGuide.tex}
 
 \end{appendices}
 
@@ -186,7 +178,7 @@
 
 %\ifitkPrintedVersion
 %\cleardoublepage
-%\input{DG06-MarketingMaterial.tex}
+%\input{MarketingMaterial.tex}
 %\fi
 
 \end{document}

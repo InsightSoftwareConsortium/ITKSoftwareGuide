@@ -85,9 +85,7 @@ framework. First, we begin with some simple registration examples.
 
 \section{"Hello World" Registration}
 \label{sec:IntroductionImageRegistration}
-\ifitkFullVersion
 \input{ImageRegistration1.tex}
-\fi
 
 \section{Features of the Registration Framework}
 \label{sec:FeaturesOfTheRegistrationFramework}
@@ -215,9 +213,7 @@ physical domain of the fixed image.
 
 \section{Monitoring Registration}
 \label{sec:MonitoringImageRegistration}
-\ifitkFullVersion
 \input{ImageRegistration3.tex}
-\fi
 
 
 
@@ -242,16 +238,12 @@ practical use of one of these metrics.
 
 \subsection{Mattes Mutual Information}
 \label{sec:MultiModalityRegistrationMattes}
-\ifitkFullVersion
 \input{ImageRegistration4.tex}
-\fi
 
 % #TODO needs updating to new statistics
 % \subsection{Plotting joint histograms}
 % \label{sec:JointHistograms}
-% \ifitkFullVersion
 % \input{ImageRegistrationHistogramPlotter.tex}
-% \fi
 
 
 \section{ Centered Transforms }
@@ -295,40 +287,30 @@ that flourishes when evolution is in action~\cite{Darwin1999}.
 
 \subsection{Rigid Registration in 2D}
 \label{sec:RigidRegistrationIn2D}
-\ifitkFullVersion
 \input{ImageRegistration5.tex}
-\fi
 
 \subsection{Initializing with Image Moments}
 \label{sec:InitializingRegistrationWithMoments}
-\ifitkFullVersion
 \input{ImageRegistration6.tex}
-\fi
 
 
 
 \subsection{Similarity Transform in 2D}
 \label{sec:SimilarityRegistrationIn2D}
-\ifitkFullVersion
 \input{ImageRegistration7.tex}
-\fi
 
 
 
 \subsection{Rigid Transform in 3D}
 \label{sec:RigidRegistrationIn3D}
-\ifitkFullVersion
 \input{ImageRegistration8.tex}
-\fi
 
 
 
 
 \subsection{Centered Affine Transform}
 \label{sec:CenteredAffineTransform}
-\ifitkFullVersion
 \input{ImageRegistration9.tex}
-\fi
 
 
 
@@ -356,9 +338,10 @@ We now present the multi-resolution capabilities of the framework by
 way of an example.
 
 \subsection{Fundamentals}
-\ifitkFullVersion
+\input{DesignAndFunctionality/ImagePyramids.tex}
+
+\subsection{Fundamentals}
 \input{MultiResImageRegistration1.tex}
-\fi
 
 \section{Multi-Stage Registration}
 \label{sec:MultiStageRegistration}
@@ -389,14 +372,10 @@ the output transforms of multiple stages.
 We now present the multistage capabilities of the framework by way of an example.
 
 \subsection{Fundamentals}
-\ifitkFullVersion
 \input{MultiStageImageRegistration1.tex}
-\fi
 
 \subsection{Cascaded Multistage Registration}
-\ifitkFullVersion
 \input{MultiStageImageRegistration2.tex}
-\fi
 
 With the completion of these examples, we will now review the main
 features of the components forming the registration framework.
@@ -410,9 +389,7 @@ features of the components forming the registration framework.
 
 \section{Transforms}
 \label{sec:Transforms}
-\ifitkFullVersion
-\input{Transforms.tex}
-\fi
+\input{DesignAndFunctionality/Transforms.tex}
 
 
 
@@ -422,9 +399,7 @@ features of the components forming the registration framework.
 
 \section{Interpolators}
 \label{sec:Interpolators}
-\ifitkFullVersion
-\input{ImageInterpolators.tex}
-\fi
+\input{DesignAndFunctionality/ImageInterpolators.tex}
 
 % the clearpage command helps to avoid orphans in the title of the next
 % section.
@@ -432,9 +407,7 @@ features of the components forming the registration framework.
 
 \section{Metrics}
 \label{sec:Metrics}
-\ifitkFullVersion
-\input{ImageMetrics.tex}
-\fi
+\input{DesignAndFunctionality/ImageMetrics.tex}
 
 % the clearpage command helps to avoid orphans in the title of the next
 % section.
@@ -442,33 +415,25 @@ features of the components forming the registration framework.
 
 \section{Optimizers}
 \label{sec:Optimizers}
-\ifitkFullVersion
-\input{Optimizers.tex}
-\fi
+\input{DesignAndFunctionality/Optimizers.tex}
 
 
 
 \subsection{Registration using the One plus One Evolutionary Optimizer}
 \label{sec:RegistrationOnePlusOne}
-\ifitkFullVersion
 \input{ImageRegistration11.tex}
-\fi
 
 
 
 \subsection{Registration using masks constructed with Spatial objects}
 \label{sec:RegistrationSpatialObjects}
-\ifitkFullVersion
 \input{ImageRegistration12.tex}
-\fi
 
 
 
 \subsection{Rigid registrations incorporating prior knowledge}
 \label{sec:RegistrationCentered2DTransform}
-\ifitkFullVersion
 \input{ImageRegistration13.tex}
-\fi
 
 
 % the clearpage command helps to avoid orphans in the title of the next
@@ -477,9 +442,7 @@ features of the components forming the registration framework.
 
 \section{Deformable Registration}
 \label{sec:DeformableRegistration}
-\ifitkFullVersion
-\input{DeformableRegistration.tex}
-\fi
+\input{DesignAndFunctionality/DeformableRegistration.tex}
 
 % the clearpage command helps to avoid orphans in the title of the next
 % section.
@@ -487,19 +450,13 @@ features of the components forming the registration framework.
 
 \section{Demons Deformable Registration}
 \label{sec:DemonsDeformableRegistration}
-\ifitkFullVersion
-\input{DemonsRegistration.tex}
-\fi
+\input{DesignAndFunctionality/DemonsRegistration.tex}
 
 \section{Visualizing Deformation fields}
 \label{sec:VisualizingDeformationFields}
-\ifitkFullVersion
-\input{VisualizingDeformationFieldsUsingParaview.tex}
-\fi
+\input{DesignAndFunctionality/VisualizingDeformationFieldsUsingParaview.tex}
 
-\ifitkFullVersion
-\input{DeformableRegistration4OnBrain.tex}
-\fi
+\input{DesignAndFunctionality/DeformableRegistration4OnBrain.tex}
 
 
 % the clearpage command helps to avoid orphans in the title of the next
@@ -510,9 +467,7 @@ features of the components forming the registration framework.
 
 \section{Model Based Registration}
 \label{sec:ModelBasedRegistration}
-\ifitkFullVersion
-\input{ModelBasedRegistration.tex}
-\fi
+\input{DesignAndFunctionality/ModelBasedRegistration.tex}
 
 
 \section{Point Set Registration}
@@ -556,9 +511,7 @@ this can be used in ITK.
 \subsection{Point Set Registration in 2D}
 \label{sec:PointSetRegistrationIn2D}
 
-\ifitkFullVersion
 \input{IterativeClosestPoint1.tex}
-\fi
 
 
 
@@ -566,18 +519,14 @@ this can be used in ITK.
 \subsection{Point Set Registration in 3D}
 \label{sec:PointSetRegistrationIn3D}
 
-\ifitkFullVersion
 \input{IterativeClosestPoint2.tex}
-\fi
 
 
 
 \subsection{Point Set to Distance Map Metric}
 \label{sec:PointSetToDistanceMapMetric}
 
-\ifitkFullVersion
 \input{IterativeClosestPoint3.tex}
-\fi
 
 
 

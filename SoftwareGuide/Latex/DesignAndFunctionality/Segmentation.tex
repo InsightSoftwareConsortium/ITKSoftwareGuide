@@ -40,9 +40,7 @@ A simple criterion for including pixels in a growing region is to evaluate
 intensity value inside a specific interval.
 
 \label{sec:ConnectedThreshold}
-\ifitkFullVersion
 \input{ConnectedThresholdImageFilter.tex}
-\fi
 
 \subsection{Otsu Segmentation}
 Another criterion for classifying pixels is to minimize the error of misclassification.
@@ -52,51 +50,35 @@ side of the threshold. This is equivalent to minimizing the within class varianc
 or equivalently maximizing the between class variance.
 
 \label{sec:OtsuThreshold}
-\ifitkFullVersion
 \input{OtsuThresholdImageFilter.tex}
-\fi
 
 \label{sec:OtsuMultipleThreshold}
-\ifitkFullVersion
 \input{OtsuMultipleThresholdImageFilter.tex}
-\fi
 
 \subsection{Neighborhood Connected}
 \label{sec:NeighborhoodConnectedImageFilter}
-\ifitkFullVersion
 \input{NeighborhoodConnectedImageFilter.tex}
-\fi
 
 
 \subsection{Confidence Connected}
 \label{sec:ConfidenceConnected}
-\ifitkFullVersion
 \input{ConfidenceConnected.tex}
-\input{ConfidenceConnectedOnBrainWeb.tex}
-\fi
-
-
+\input{DesignAndFunctionality/ConfidenceConnectedOnBrainWeb.tex}
 
 
 \subsection{Isolated Connected}
 \label{sec:IsolatedConnected}
-\ifitkFullVersion
 \input{IsolatedConnectedImageFilter.tex}
-\fi
 
 
 \subsection{Confidence Connected in Vector Images}
 \label{sec:VectorConfidenceConnected}
-\ifitkFullVersion
 \input{VectorConfidenceConnected.tex}
-\fi
 
 
 \section{Segmentation Based on Watersheds}
 \label{sec:WatershedSegmentation}
-\ifitkFullVersion
-\input WatershedSegmentation.tex
-\fi
+\input{DesignAndFunctionality/WatershedSegmentation.tex}
 
 
 % the clearpage command helps to avoid orphans in the title of the next
@@ -105,23 +87,16 @@ or equivalently maximizing the between class variance.
 
 \section{Level Set Segmentation}
 \label{sec:LevelSetsSegmentation}
-\ifitkFullVersion
-\input{LevelSetsSegmentation.tex}
-\fi
+\input{DesignAndFunctionality/LevelSetsSegmentation.tex}
 
 
 %HACK: TODO Review what happended to these.
 %REMOVED PATENTED: \section{Hybrid Methods}
 %REMOVED PATENTED: \label{sec:HybridSegmentationMethods}
 %REMOVED PATENTED:
-%REMOVED PATENTED: \ifitkFullVersion
 %REMOVED PATENTED: \input{HybridSegmentationMethods.tex}
-%REMOVED PATENTED: \fi
 
 
 \section{Feature Extraction}
 \label{sec:FeatureExtractionMethods}
-
-\ifitkFullVersion
-\input{FeatureExtractionMethods.tex}
-\fi
+\input{DesignAndFunctionality/FeatureExtractionMethods.tex}
