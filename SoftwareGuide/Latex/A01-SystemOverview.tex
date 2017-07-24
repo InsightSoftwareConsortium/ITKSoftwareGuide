@@ -812,6 +812,21 @@ wrapped in the future.
 
 \subsection{Python Setup}
 
+\subsubsection{Install Stable Python Packages}
+
+Binary python packages are available in PyPI and can be installed in Python
+distributions downloaded from Python.org, from system package managers like
+\textit{apt} or \textit{homebrew}, or from distributions like Anaconda.
+
+To install the ITK Python package, run:
+
+\small
+\begin{minted}{bash}
+  python -m pip install --upgrade pip
+  python -m pip install itk
+\end{minted}
+\normalsize
+
 \subsubsection{Install Latest Python Packages}
 
 Binary python packages are built nightly from the Git \code{master} branch,
@@ -820,7 +835,8 @@ and they can be installed by running:
 \small
 \begin{minted}{bash}
   python -m pip install --upgrade pip
-  python -m pip install itk -f https://github.com/InsightSoftwareConsortium/ITKPythonPackage/releases/tag/latest
+  python -m pip install itk \
+    -f https://github.com/InsightSoftwareConsortium/ITKPythonPackage/releases/tag/latest
 \end{minted}
 \normalsize
 
