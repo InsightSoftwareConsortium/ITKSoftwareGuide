@@ -1,0 +1,3923 @@
+\chapter{Coding Style Guide}
+\label{ch:CodingStyleGuide}
+
+This chapter describes the ITK Coding Style. Developers must follow these
+conventions when submitting contributions to the toolkit.
+
+The following coding-style guidelines have been adopted by the ITK community.
+To a large extent these guidelines are a result of the fundamental
+architectural and implementation decisions made early in the project. For
+example, the decision was made to implement ITK with a C++ core using
+principles of generic programming, so the rules are oriented towards this style
+of implementation. Some guidelines are relatively arbitrary, such as
+indentation levels and style. However, an attempt was made to find coding
+styles consistent with accepted practices. The point is to adhere to a common
+style to assist community members of the future to learn, use, maintain, and
+extend ITK. A common style greatly improves readability.
+
+Please do your best to be an outstanding member of the ITK community. The rules
+described here have been developed with the community as a whole in mind.
+Any contributor's code is subject to style review, and it will likely not be
+accepted until it is consistent with these guidelines.
+
+
+\section{Purpose}
+\label{sec:Purpose}
+
+The following document is a description of the accepted coding style for the
+NLM Insight Segmentation and Registration Toolkit (ITK). Developers who wish
+to contribute code to ITK should read and adhere to the standards described
+here.
+
+
+\section{Overview}
+\label{sec:Overview}
+
+This chapter is organized into the following sections:
+\begin{itemize}
+\item \textbf{System Overview \& Philosophy}: coding methodologies and
+motivation for the resulting style.
+\item \textbf{Copyright}: the copyright header to be included in all files and
+other copyright issues.
+\item \textbf{Citations}: guidelines to be followed when citing others' work in
+the documentation.
+\item \textbf{Naming Conventions}: patterns used to name classes, variables,
+template parameters, and instance variables.
+\item \textbf{Namespaces}: the use of namespaces.
+\item \textbf{Aliasing Template Parameters Typenames}: guidelines on aliasing
+template parameter typenames in a class.
+\item \textbf{Pipelines}: useful tips when writing pipelines in ITK.
+\item \textbf{Initialization and Assignment}: accepted standards for variable
+initialization and assignment.
+\item \textbf{Accessing Members}: patterns to be used when accessing class
+members.
+\item \textbf{Code Layout and Indentation}: accepted standards for arranging
+code including indentation style.
+\item \textbf{Empty Arguments in Methods}: guidelines for specifying empty
+argument lists.
+\item \textbf{Ternary Operator}: accepted standards for using the ternary
+operator.
+\item \textbf{Using Standard Macros} (itkMacro.h): use of standard macros in
+header files.
+\item \textbf{Exception Handling}: how to add exception handling to the system.
+\item \textbf{Messages}: accepted guidelines to output messages to the error
+and standard outputs.
+\item \textbf{Concept Checking}: specifics on the use of concept checking in
+ITK.
+\item \textbf{Printing Variables}: guidelines to print member variable values.
+\item \textbf{Checking for Null}: accepted standards for checking \code{null}
+values.
+\item \textbf{Writing Tests}: additional rules specific to writing tests in ITK.
+\item \textbf{Doxygen Documentation System}: basic Doxygen formatting
+instructions.
+\item \textbf{Documentation Style}: a brief section describing the
+documentation philosophy adopted by the Insight Software Consortium.
+\end{itemize}
+
+This style guide is an evolving chapter.
+
+Please discuss with the ITK community members if you wish to add, modify, or
+delete the rules described in these guidelines.
+
+See \href{http://www.itk.org/ITK/help/mailing.html}{http://www.itk.org/ITK/help/mailing.html}
+for more information about joining the ITK community members mailing list. This
+forum is one of the best venues in which to propose changes to these style
+guidelines.
+
+
+\section{System Overview \& Philosophy}
+\label{sec:SystemOverviewPhilosophy}
+
+The following implementation strategies have been adopted by the ITK community.
+These directly and indirectly affect the resulting code style. Understanding
+these aspects motivates the reasons for many of the style guidelines described
+in this chapter.
+
+The principle is that code is read many more times than it is written, and
+readability is far more important that writability.
+
+\begin{itemize}
+\item \textbf{Readability}: the code is intended to be read by humans. Most of
+the time of debugging code is spent reading code.
+\item \textbf{Consistency}: systematically following these guidelines will make
+the code more robust, and easier to read, which will at term save time to
+community members.
+\item \textbf{Conciseness}: class, method and variable names should be concise,
+but self-contained. Extraordinarily long names and redundancies should be
+avoided.
+\item \textbf{Language}: proper English must be used when writing the code and
+the documentation.
+\item \textbf{Documentation}: document the code. Approximately one third of the
+code should be documentation.
+\end{itemize}
+
+Note as well that ITK follows American English spelling and norms.
+
+
+\subsection{Kitware Style}
+\label{subsec:KWStyle}
+
+Kitware Style (\href{https://kitware.github.io/KWStyle/} KWStyle) pre-commit
+hooks enforce a number of policies on any given patch set submitted to ITK.
+
+
+\subsection{Implementation Language}
+\label{subsec:ImplementationLanguage}
+
+The core implementation language is C++. C++ was chosen for its flexibility,
+performance, and familiarity to consortium members. ITK uses the full spectrum
+of C++ features including const and volatile correctness, namespaces, partial
+template specialization, operator overloading, traits, and iterators.
+
+Currently, C++11 and C++14 features are used in the code whenever they are
+available.
+
+A growing number of ITK classes offer a Python wrapping. Note that these are
+wrappers on the C++ counterparts. ITK's Python wrappers can be easily installed.
+See Section \ref{sec:ModuleWrapping} on page \pageref{sec:ModuleWrapping} for
+further details. Users requiring a Python interface for ITK classes may refer to
+SimpleITK (\href{http://www.simpleitk.org/}{http://www.simpleitk.org/}).
+
+Additionally, SimpleITK offers interpreted language bindings for Java, C\#, R,
+Tcl, and Ruby.
+
+
+\subsection{Constants}
+\label{subsec:Constants}
+
+ITK does not define constants with \code{\#define} in header files, hence do not
+declare constants using
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+#define CONST_VALUE_NAME 3
+\end{minted}
+\normalsize
+
+Use instead
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+const unsigned int ConstValueName = 3;
+\end{minted}
+\normalsize
+or
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+const typename OperatorType::ConstIterator opEnd = op.End();
+\end{minted}
+\normalsize
+
+Add the \code{const} qualifier to arguments which set the pipeline inputs and
+state functions, e.g.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/** Set the marker image */
+void SetMaskImage(const MaskImageType *input)
+{
+  // Process object is not const-correct so the const casting is required.
+  this->SetNthInput( 1, const_cast< TMaskImage * >( input ) );
+}
+\end{minted}
+\normalsize
+
+
+\subsection{Generic Programming and the STL}
+\label{subsec:GenericProgrammingAndSTL}
+
+Compile-time binding using methods of generic programming and template
+instantiation is the preferred implementation style. This approach has
+demonstrated its ability to create efficient, flexible code. Use of the STL
+(Standard Template Library) is encouraged. STL is typically used by a class,
+rather than as serving as a base class for derivation of ITK classes. Other
+STL influences are iterators and traits. ITK defines a large set of iterators;
+however, the ITK iterator style differs in many cases from STL because STL
+iterators follow a linear traversal model; ITK iterators are often designed for
+2D, 3D, and even n-D traversal (see Section \ref{sec:ImageIteratorsChapter} on
+page \pageref{sec:ImageIteratorsChapter} for further details on iterators).
+
+Traits are used heavily by ITK. ITK naming conventions supersede STL naming
+conventions; this difference is useful in that it indicates to the community
+member something of a boundary between ITK and STL.
+
+
+\subsection{Portability}
+\label{subsec:Portability}
+
+ITK is designed to build and is systematically tested on a set of target
+operating system/compiler combinations and results are reported continuously
+to the dashboards using \href{https://www.cdash.org/}{CDash}. These combinations
+include Linux, OS X, and Windows operating systems, and various versions of
+compilers for each. This ensures that the code complies with the particular
+requirements on each of these environments. See Section \ref{sec:CDash}
+on page \pageref{sec:CDash} for further details.
+
+When sufficient demand or need is detected, ITK maintainers add machines to the
+dashboard. Note that since the dashboard is open to submissions from remote
+locations, other user configurations can be tested dynamically. For a detailed
+and updated view, visit the
+\href{https://open.cdash.org/index.php?project=Insight}{ITK dashboard}.
+
+Since some of these compilers do not support all C++ features, the ITK community
+has had to back off some important C++ features (such as partial specialization)
+because of limitations in compilers (e.g., MSVC 6.0).
+
+ITK's open source philosophy, as well as its design, and heavy use of templates
+has made it possible to improve the support of many of these compilers over
+time. Indeed, ITK has been incorporated to the Microsoft Visual Studio and Intel
+C++ Compiler (ICC) build validation suites as of April 2017. This means that
+ITK is being used by these teams in their benchmarks and validation cycles
+before a version of their compiler is released to the market.
+
+
+\subsection{Multi-Layer Architecture}
+\label{subsec:MultiLayerArchitecture}
+
+ITK is designed with a multi-layer architecture in mind. That is, three layers:
+a templated layer, a run-time layer, and an application layer. The templated (or
+generic) layer is written in C++ and requires significant programming skills and
+domain knowledge. The run-time layer is generated automatically using the
+Swig-based wrapping system to produce language bindings to Python. The
+interpreted layer is easier to use than the templated layer, and can be used for
+prototyping and smaller-sized application development. Finally, the application
+layer is not directly addressed by ITK other than providing simple examples of
+applications.
+
+\subsection{CMake Build Environment}
+\label{subsec:CMakeBuildEnvironment}
+
+The ITK build environment is CMake. CMake is an open-source, advanced
+cross-platform build system that enables community members to write simple
+makefiles (named \code{CMakeLists.txt}) that are processed to generated native
+build tools for a particular operating system/compiler combination. See the
+CMake web pages at \href{http://www.cmake.org}{http://www.cmake.org} for more
+information.
+
+See Section \ref{sec:UsingCMakeForConfiguringAndBuildingITK} on page
+\pageref{sec:UsingCMakeForConfiguringAndBuildingITK} for specifics about the use
+of CMake in ITK.
+
+Section \ref{sec:CMakeStyle} on page \pageref{sec:CMakeStyle} provides a
+reference to the recommended style of makefiles in ITK.
+
+\subsection{Doxygen Documentation System}
+\label{subsec:DoxygenDocumentationSystem}
+
+The Doxygen open-source system is used to generate on-line documentation.
+Doxygen requires the embedding of simple comments in the code which is in turn
+extracted and formatted into documentation.
+
+For more information about Doxygen, please visit
+\href{http://www.stack.nl/~dimitri/doxygen/}{http://www.stack.nl/~dimitri/doxygen/}
+
+\subsection{vnl Math Library}
+\label{subsec:vnlMathLibrary}
+
+ITK has adopted the vnl -- visual numerics library. Vnl is a portion of the vxl image
+understanding environment. See \href{http://vxl.sourceforge.net/}{http://vxl.sourceforge.net/}
+for more information about vxl and vnl.
+
+
+\subsection{Reference Counting}
+\label{subsec:ReferenceCounting}
+
+ITK has adopted reference counting via so-called \doxygen{SmartPointer} to
+manage object references. While alternative approaches such as automatic garbage
+collection were considered, their overhead due to memory requirements,
+performance, and lack of control as to when to delete memory, precluded these
+methods. SmartPointers manage the reference to objects, automatically
+incrementing and deleting an instance's reference count, deleting the object
+when the count goes to zero.
+
+An important note about SmarPointers refers to their destruction: the
+\code{Delete()} method on an ITK smart pointer must never be called directly; if
+a SmartPointer object \code{itkSmartPtr} needs to be deleted:
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+itkSmartPtr = ITK_NULLPTR;
+\end{minted}
+\normalsize
+
+must be done instead. The ITK smart pointer will determine whether the object
+should be destroyed.
+
+See Section \ref{sec:SmartPointers} on page \pageref{sec:SmartPointers} for
+further details.
+
+
+\section{Copyright}
+\label{sec:Copyright}
+
+ITK has adopted a standard copyright. This copyright should be placed at the
+head of every source code file. The current copyright header and license reads
+as follows:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/*=========================================================================
+ *
+ *  Copyright Insight Software Consortium
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ *=========================================================================*/
+\end{minted}
+\normalsize
+
+See Chapter \ref{sec:InsightToolkitLicense} for further details on the ITK
+license.
+
+
+\section{Citations}
+\label{sec:Citations}
+
+Give credit to others' work. If when writing some piece of code (whether it is a
+class, group of classes or algorithm in a method) the theory, framework or
+implementation are based on some scientific work, cite the work. In general, a
+citation to the peer-reviewed scientific publication, including its Digital
+Object Identifier (DOI), is preferred. This helps avoiding issues with web
+links. In absence of such a reference, it is recommended that the link to the
+URL is written as it is (i.e. even if the maximum line width is exceeded). Do
+not use URL shortening services.
+
+When documenting a class header, if citations are required, use the Doxygen
+\code{\par References} command to list the references in a separate and clearly
+visible paragraph.
+
+For instance,
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+namespace itk
+{
+/** \class DiffusionTensor3DReconstructionImageFilter
+* \brief This class takes as input one or more reference image (acquired in the
+* absence of diffusion sensitizing gradients) and 'n' diffusion
+* weighted images and their gradient directions and computes an image of
+* tensors. (with DiffusionTensor3D as the pixel type). Once that is done, you
+* can apply filters on this tensor image to compute FA, ADC, RGB weighted
+* maps etc.
+*
+* ...
+*
+* \par References
+* \li<a href="http://lmi.bwh.harvard.edu/papers/pdfs/2002/westinMEDIA02.pdf">[1]</a>
+* Carl-Fredrik Westin, Stephan E. Maier, Hatsuho Mamata, Arya Nabavi, Ferenc
+* Andras Jolesz, and Ron Kikinis. "Processing and visualization for Diffusion
+* tensor MRI. Medical Image Analysis, 6(2):93-108, 2002
+* \li<a href="splweb.bwh.harvard.edu:8000/pages/papers/westin/ISMRM2002.pdf">[2]</a>
+* Carl-Fredrik Westin, and Stephan E. Maier. A Dual Tensor Basis Solution to the
+* Stejskal-Tanner Equations for DT-MRI. Proceedings of the 10th International Society
+* of Magnetic Resonance In Medicine (ISMRM) Scientific Meeting \& Exhibition,
+* Honolulu (HW, USA), 2002.
+*
+* ...
+*
+* \sa DiffusionTensor3D SymmetricSecondRankTensor
+* \ingroup MultiThreaded TensorObjects
+* \ingroup ITKDiffusionTensorImage
+*/
+
+template< typename TReferenceImagePixelType,
+typename TGradientImagePixelType = TReferenceImagePixelType,
+typename TTensorPixelType = double,
+typename TMaskImageType = Image<unsigned char, 3 > >
+class ITK_TEMPLATE_EXPORT DiffusionTensor3DReconstructionImageFilter:
+public ImageToImageFilter< Image< TReferenceImagePixelType, 3 >,
+Image< DiffusionTensor3D< TTensorPixelType >, 3 > >
+{
+
+...
+
+};
+
+} // end namespace itk
+\end{minted}
+\normalsize
+
+The recommended bibliography style for citations is the \LaTeX plain style.
+
+Or in a method body,
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< unsigned int VDimension >
+void Solver< VDimension >
+::ApplyBC( int dimension, unsigned int matrix )
+{
+...
+          // Store the appropriate value in bc correction vector (-K12*u2)
+          //
+          // See
+          // http://titan.colorado.edu/courses.d/IFEM.d/IFEM.Ch04.d/IFEM.Ch04.pdf
+          // chapter 4.1.3 (Matrix Forms of DBC Application Methods) for more
+          // info.
+          m_LinearSystem->AddVectorValue(*cc, -d * fixedvalue, 1);
+        }
+
+  ...
+}
+\end{minted}
+\normalsize
+
+
+\section{Naming Conventions}
+\label{sec:NamingConventions}
+
+In general, names are constructed by using case change to indicate separate
+words, as in \code{TimeStamp}.
+
+Other general rules that must be followed in naming ITK constructs are:
+\begin{itemize}
+\item Underscores are not used (with the sole exception of enums and member
+variables).
+\item Variable names are chosen carefully with the intention to convey the
+meaning behind the code.
+\item Names are generally spelled out; use of abbreviations is discouraged.
+While this does result in long names, it self-documents the code (e.g. use
+\code{Dimension}, \code{point}, \code{size}, or \code{vector}, instead of
+\code{D}, \code{pt}, \code{sz}, or \code{vec}, respectively). Abbreviations
+are allowable when in common use, and should be in uppercase as in \code{RGB},
+or \code{ID} for ``identifier''.)
+\end{itemize}
+
+
+The above general conventions must be followed in all cases. Depending on
+whether the name is a
+\begin{itemize}
+\item \textbf{class}
+\item \textbf{file}
+\item \textbf{variable}
+\item \textbf{other name}
+\end{itemize}
+variations on this theme result as explained in the following subsections.
+
+
+\subsection{ITK}
+\label{subsec:ITK}
+
+The acronym for the NLM Insight Segmentation and Registration Toolkit must
+always be written in capitals, i.e. \code{ITK}, when referring to it, e.g. in
+class documentation.
+
+
+\subsection{Naming Namespaces}
+\label{subsec:NamingNamespaces}
+
+Namespaces must be written in lowercase, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+namespace itk
+{
+
+...
+
+} // end namespace itk
+\end{minted}
+\normalsize
+
+
+\subsection{Naming Classes}
+\label{subsec:NamingClasses}
+
+Classes are:
+\begin{itemize}
+\item Named beginning with a capital letter.
+\item Placed in the appropriate namespace, typically \code{itk::} (see
+Section \ref{sec:Namespaces} on page \pageref{sec:Namespaces}).
+\item Named according to the following general rule:
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+class name = <algorithm><input><concept>
+\end{minted}
+\normalsize
+
+In this formula, the name of the algorithm or process (possibly with an
+associated adjective or adverb) comes first, followed by an input type (if the
+class is a filter), and completed by a concept name.
+\end{itemize}
+
+A concept is an informal classification describing what a class does. There are
+many concepts in ITK, the more common or important being:
+\begin{itemize}
+\item \textbf{Accessor}: Access and convert between types.
+\item \textbf{Adaptor}: Provide access to a portion of a complex pixel type.
+\item \textbf{Boundary}: The boundary of a cell.
+\item \textbf{Calculator}: Compute information.
+\item \textbf{Classifier}: Classify a pixel.
+\item \textbf{Container}: A container of objects such as points or cells.
+\item \textbf{Estimator}: Estimate a value or condition.
+\item \textbf{Factory}: Object factories are used to create instances.
+\item \textbf{Filter}: A class that participates in the data processing
+pipeline. Filters typically take one or more inputs and produce one or more
+outputs.
+\item \textbf{Function}: Evaluate a function at a given position.
+\item \textbf{Identifier}: A unique ID for accessing points, cells, or other
+entities.
+\item \textbf{Interface}: Classes that specify an abstract interface.
+\item \textbf{Interpolator}: Interpolate data values, for example at non-pixel
+values.
+\item \textbf{Iterator}: Traverse data in various ways (e.g., forward, backward,
+within a region, etc.)
+\item \textbf{Mapper}: Transform data from one form into another.
+\item \textbf{Metric}: Compute similarity between two objects.
+\item \textbf{Operator}: A class that applies a user-specified function to a
+region.
+\item \textbf{Optimizer}: A class that performs numerical optimization.
+\item \textbf{Pointer}: A \doxygen{SmartPointer} to an instance of a class.
+Almost all instances in ITK are referred to via SmartPointers.
+\item \textbf{Reader}: A class that reads a single data object (e.g., image or
+mesh).
+\item \textbf{Reference}: A type that refers to another object.
+\item \textbf{Region}: A subset of a data object, such as an image region.
+\item \textbf{Source}: A filter that initiates the data processing pipeline such
+as a reader or a procedural data generator.
+\item \textbf{Threader}: A class that manages multi-threading.
+\item \textbf{Traits}: A collection of template parameters used to control the
+instantiation of other classes.
+\item \textbf{Transform}: Various types of transformations including affine,
+procedural, and so on.
+\item \textbf{Writer}: A filter that terminates the data processing pipeline by
+writing data to disk or to a communications port.
+\end{itemize}
+
+The naming of classes is an art form; please review existing names to catch the
+spirit of the naming convention.
+
+Conventions adopted in ITK for naming classes include:
+\begin{itemize}
+\item The ``To'' convention (such as in \doxygen{itk::ImageToImageFilter}) is
+generally used for base classes, and when a filter converts from one data type
+to another. Derived classes do not continue the ``To'' convention. Classes like
+\doxygen{itk::HistogramToTextureFeaturesFilter}, or
+\doxygen{itk::ImageToHistogram} do not produce an image as outputs, but change
+the data type or produce a set of features. The expectation of an ITK filter
+name is that it maintains the same type (even when changing the dimensionality
+as when changing from an \doxygen{itk::Image} to a \doxygen{VectorImage}) unless
+it has the ``To'' naming conventions.
+\item Adding the \code{Base} appendix to a base class name is generally
+discouraged.
+\end{itemize}
+
+Example names include:
+\begin{itemize}
+\item \code{ShrinkImageFilter}
+\item \code{TriangleCell}
+\item \code{ScalarImageRegionIterator}
+\item \code{NeighborhoodIterator}
+\item \code{MapContainer}
+\item \code{DefaultImageTraits}
+\item \code{BackwardDifferenceOperator}
+\end{itemize}
+
+
+\subsection{Naming Files}
+\label{subsec:NamingFiles}
+
+Files should have the same name as the class, with an ``itk'' prepended.
+
+Header files are named \code{.h}, while implementation files are named either
+\code{.cxx} or \code{.hxx}, depending on whether they are implementations of
+templated classes.
+
+For example, the class \doxygen{itk::Image}
+\begin{itemize}
+\item is declared in the file \code{itkImage.h} and
+\item is defined in the file \code{itkImage.hxx} (because \doxygen{itk::Image}
+is templated).
+\end{itemize}
+
+The class \doxygen{itk::Object}
+\begin{itemize}
+\item is declared in the file\code{itkObject.h} and
+\item is defined in the file \code{itkObject.cxx}.
+\end{itemize}
+
+
+\subsubsection{Naming Tests}
+\label{subsubsec:NamingTests}
+
+Following the \doxygen{itkTestDriver} philosophy, test files must be named with
+the same name used to name the \code{main} method contained in the test file
+(\code{.cxx}). This name should generally be indicative of the class tested,
+e.g.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+int itkTobogganImageFilterTest( int argc, char *argv[] )
+\end{minted}
+\normalsize
+
+for a test that checks the \doxygen{itkTobogganImageFilter} class, and contained
+in the test file named \code{itkTobogganImageFilterTest.cxx}.
+
+Note that all test files should start with the lowercase \code{itk} prefix.
+Hence, the main method name in a test is the sole exception to the method naming
+convention of starting all method names with capitals (see
+\ref{subsec:NamingMethodsAndFunctions}).
+
+A test's input argument number should always be named \code{argc}, and the input
+arguments \code{argv} for the sake of consistency.
+
+If due to some constraint (e.g. nature of input images, number of input images,
+dimensionality) a class has multiple test files with minor changes in its
+content, the test files should be named following the convention
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+test filename = <filename><variation>
+\end{minted}
+\normalsize
+
+In this formula, the filename comes first, and is completed by the variation
+tested, conveying the meaning behind the test, e.g.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+itkSimpleImageRegistrationTest.cxx
+itkSimpleImageRegistrationTestWithMaskAndSampling.cxx
+\end{minted}
+\normalsize
+
+When the same test file is used by multiple tests in the corresponding
+\code{CMakeLists.txt}, for example, with different parameters, these different
+tests should be named following the convention
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+test name = <filename><variation>
+\end{minted}
+\normalsize
+
+In this formula, the filename comes first, and is completed by the variation
+tested, conveying the meaning behind the test, e.g.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+itk_add_test(NAME itkHConcaveImageFilterTestFullyConnectedOff
+      COMMAND ITKMathematicalMorphologyTestDriver
+    --compare-MD5
+     ${ITK_TEST_OUTPUT_DIR}/itkHConcaveImageFilterTestFullyConnectedOff.png
+                  bd1b5ab47f54cd97b5c6b454bee130e2
+    itkHConcaveImageFilterTest DATA{${ITK_DATA_ROOT}/Input/Input-RA-Short.nrrd}
+    ${ITK_TEST_OUTPUT_DIR}/itkHConcaveImageFilterTestFullyConnectedOff.png 2000
+     0)
+itk_add_test(NAME itkHConcaveImageFilterTestFullyConnectedOn
+      COMMAND ITKMathematicalMorphologyTestDriver
+    --compare-MD5
+     ${ITK_TEST_OUTPUT_DIR}/itkHConcaveImageFilterTestFullyConnectedOn.png
+                  c7116406ded975955965226f6a69e28d
+    itkHConcaveImageFilterTest DATA{${ITK_DATA_ROOT}/Input/Input-RA-Short.nrrd}
+     ${ITK_TEST_OUTPUT_DIR}/itkHConcaveImageFilterTestFullyConnectedOn.png 2000 1)
+\end{minted}
+\normalsize
+
+
+If the test checks features that span multiple classes or other general
+features, the filename should adhere to the general convention of conveying the
+meaning behind the code, e.g.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+int itkSingleLevelSetWhitakerImage2DWithCurvatureTest( int argc, char* argv[] )
+\end{minted}
+\normalsize
+
+means that the \doxygen{WhitakerSparseLevelSetImage} class is tested on two
+dimensions, using the \doxygen{LevelSetEquationCurvatureTerm} class to
+represent the curvature term in the level-set evolution PDE.
+
+However, in these last cases, readability of the test name is important, and too
+long test names are discouraged.
+
+See Section \ref{sec:Tests} on page \pageref{sec:Tests} for further details
+about the ITK testing framework.
+
+
+\subsection{Examples}
+\label{subsec:Examples}
+
+
+\subsection{Naming Methods and Functions}
+\label{subsec:NamingMethodsAndFunctions}
+
+Global functions and class methods, either static or class members, are named
+beginning with a capital letter. The biggest challenge when naming methods and
+functions is to be consistent with existing names. For example, given the choice
+between \code{ComputeBoundingBox()} and \code{CalculateBoundingBox()}, the
+choice is  \code{ComputeBoundingBox()} because ``Compute'' is used elsewhere in
+the system in similar settings (i.e. the concepts described in Section
+\ref{subsec:NamingClasses} should be used whenever possible).
+
+Note that in the above example \code{CalcBoundingBox()} is not allowed because
+it is not spelled out.
+
+Method argument names should be included in their declaration.
+
+When declaring class methods, it is generally recommended to follow a logical
+order, not alphabetical, and group them by blocks separated by empty
+lines for the sake of readability.
+
+The definition of the methods should follow this same order.
+
+
+\subsection{Naming Class Data Members}
+\label{NamingClassDataMembers}
+
+Class data members are prepended with \code{m\_} as in \code{m\_Size}. This
+clearly indicates the origin of data members, and differentiates them from all
+other variables. Furthermore, it is a key requirement for the correct
+application of the ITK macros (such as the \code{Get\#\#name} and
+\code{Set\#\#name} methods).
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+RadiusType m_Radius;
+\end{minted}
+\normalsize
+
+When declaring class data members, it is generally recommended to follow a
+logical order, not alphabetical, and group them by blocks separated by empty
+lines for the sake of readability.
+
+
+\subsection{Naming Enums}
+\label{subsec:NamingEnums}
+
+Enumeration list (\code{enum}) must declare its identifier before the
+enum-list is specified, it must start with capitals and be written with case
+change, it should generally add the \code{Type} appendix (e.g. \code{MyEnumType}),
+and the enum-list must be specified in capitals. The documentation or comments
+added for each enum-list entry, if necessary, need not to be aligned.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/** Weight types. */
+enum WeightType {
+  GOURAUD, // Uniform weights
+  THURMER, // Angle on a triangle at the given vertex
+  AREA // Doc alignment not needed
+};
+\end{minted}
+\normalsize
+
+No \code{typedef} keyword shall be added to an \code{enum}.
+
+Enum-lists do not need to have their corresponding integral value specified
+(i.e. \code{GOURAUD = 0,}).
+
+When calling an enum-list entry from within a class, it should be called with
+the \code{Self::} class alias.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+while( !m_OperationQ.empty() )
+  {
+  switch( m_OperationQ.front() )
+    {
+    case Self::SET_PRIORITY_LEVEL:
+      m_PriorityLevel = m_LevelQ.front();
+      m_LevelQ.pop();
+      break;
+    case Self::SET_LEVEL_FOR_FLUSHING:
+      m_LevelForFlushing = m_LevelQ.front();
+      m_LevelQ.pop();
+      break;
+
+      ...
+    }
+  }
+\end{minted}
+\normalsize
+
+
+\subsection{Naming Local Variables}
+\label{subsec:NamingLocalVariables}
+
+Local variables begin in lowercase. There is more flexibility in the naming of
+local variables, but they should adhere to the general convention of conveying
+the meaning behind the code.
+
+Please remember that others will review, maintain, fix, study and extend your
+code. Any bread crumbs that you can drop in the way of explanatory variable
+names and comments will go a long way towards helping other community members.
+
+
+\subsubsection{Temporary Variable Naming}
+\label{subsubsec:TemporaryVariableNaming}
+
+Every effort should be made to properly name temporary variables of any type
+that may be used in a reduced part of a method, such as in
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+...
+// Resize the schedules
+ScheduleType schedule( m_NumberOfLevels, ImageDimension );
+schedule.Fill( 0 );
+m_Schedule = schedule;
+...
+\end{minted}
+\normalsize
+
+For such temporary variables whose naming would be overly wordy to
+express their meaning or may be misleading, or may be re-used at multiple
+stages within a method (e.g. using the name \code{output} for intermediate
+results), the name \code{temp} can be used.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+...
+ValueType dimension = static_cast< ValueType >( ImageDimension );
+
+NormalVectorFilterType normalVectorFilter = NormalVectorFilterType::New();
+...
+normalVectorFilter->SetIsoLevelLow( -m_CurvatureBandWidth - dimension );
+normalVectorFilter->SetIsoLevelHigh( m_CurvatureBandWidth + dimension );
+...
+
+// Move the pixel container and image information of the image we are working
+// on into a temporary image to  use as the input to the mini-pipeline. This
+// avoids a complete copy of the image.
+typename OutputImageType::Pointer output = this->GetOutput();
+typename OutputImageType::Pointer tmp = OutputImageType::New();
+tmp->SetRequestedRegion( output->GetRequestedRegion() );
+tmp->SetBufferedRegion( output->GetBufferedRegion() );
+tmp->SetLargestPossibleRegion( output->GetLargestPossibleRegion() );
+tmp->SetPixelContainer( output->GetPixelContainer() );
+tmp->CopyInformation( output );
+
+typename SparseImageType::Pointer sparseNormalImage =
+  normalVectorFilter->GetOutput();
+this->ComputeCurvatureTarget( tmp, sparseNormalImage );
+m_LevelSetFunction->SetSparseTargetImage( sparseNormalImage );
+\end{minted}
+\normalsize
+
+
+\subsubsection{Variable Initialization}
+\label{subsubsec:VariableInitialization}
+
+A basic type variable declared and not being assigned immediately within a
+method should be initialized to its zero value.
+
+Note the \code{weight} variable in the following example:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage >
+double
+WarpHarmonicEnergyCalculator< TInputImage >
+::EvaluateAtNeighborhood( ConstNeighborhoodIteratorType & it ) const
+{
+  vnl_matrix_fixed< double, ImageDimension, VectorDimension > J;
+
+  PixelType next, prev;
+
+  double weight = 0;
+
+  for( unsigned int i = 0; i < ImageDimension; ++i )
+    {
+    next = it.GetNext(i);
+    prev = it.GetPrevious(i);
+
+    weight = 0.5 * m_DerivativeWeights[i];
+
+    for( unsigned int j = 0; j < VectorDimension; ++j )
+      {
+      J[i][j] = weight * ( static_cast< double >( next[j] ) - static_cast< double >( prev[j] ) );
+      }
+    }
+
+  const double norm = J.fro_norm();
+  return norm * norm;
+}
+\end{minted}
+\normalsize
+
+Take into account that many ITK variables, such as \code{itk::ImageRegion} initialize
+themselves to zero, so they do not need to be initialized unless required. The
+following declaration would create a matrix with all zeros by default:
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+
+\end{minted}
+\normalsize
+
+
+\subsubsection{Control Statement Variable Naming}
+\label{subsubsec:ControlStatementVariableNaming}
+
+Control statement variables names should be clear and concise. For simple
+counters over arrays, lists, maps elements or matrices, the \code{i, j, k}
+order is preferred, i.e. when requiring to walking over multiple dimensions,
+over, for example \code{ii}.
+
+If more than three nested control statements are required, there is probably
+a better design that can be implemented.
+
+For iterators, \code{inIt} and \code{outIt} are recommended if both input and
+output structures are involved. Otherwise, \code{it} can be used.
+
+
+\subsubsection{Variable Scope}
+\label{subsubsec:VariableScope}
+
+Control statement variables should have a local scope. Hence, instead of
+declaring a method-scope variable and re-using it,
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+unsigned int i;
+for ( i = 0; i < ImageDimension; ++i )
+  {
+  Something();
+  }
+...
+for ( i = 0; i < ImageDimension; ++i )
+  {
+  SomethingElse();
+  }
+\end{minted}
+\normalsize
+
+it is recommended to limit the scope of the variables to the control
+statements in which they are required:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+unsigned int i = 0;
+for ( unsigned int i = 0; i < ImageDimension; ++i )
+  {
+  Something();
+  }
+...
+for ( unsigned int i = 0; i < ImageDimension; ++i )
+  {
+  SomethingElse();
+  }
+\end{minted}
+\normalsize
+
+
+\subsection{Naming Template Parameters}
+\label{subsec:NamingTemplateParameters}
+
+Template parameters follow the usual rules with naming except that they should
+start with either the capital letter ``T'' or ``V''. Type parameters (such as
+the pixel type) begin with the letter ``T'' while value template parameters
+(such as the dimensionality) begin with the letter ``V''.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TPixel, unsigned int VImageDimension = 2 >
+class ITK_TEMPLATE_EXPORT Image:public ImageBase< VImageDimension >
+\end{minted}
+\normalsize
+
+For template parameters the use of \code{typename} is preferred over
+\code{class}. Very early C++ compilers did not have a \code{typename} keyword,
+and \code{class} was purposed for declaring template parameters. It was later
+discovered that this lead to ambiguity in some valid code constructs, and the
+\code{typename} key word was added. It is often agreed
+(\href{http://blogs.msdn.com/b/slippman/archive/2004/08/11/212768.aspx}
+{http://blogs.msdn.com/b/slippman/archive/2004/08/11/212768.aspx}) that
+\code{typename} is marginally more expressive in its intent and ITK should
+consistently use \code{typename} instead of \code{class}.
+
+
+\subsection{Naming Typedefs}
+\label{subsec:NamingTypedefs}
+
+Typedefs are absolutely essential in generic programming. They significantly
+improve the readability of code, and facilitate the declaration of complex
+syntactic combinations. Unfortunately, creation of typedefs is tantamount to
+creating another programming language. Hence typedefs must be used in a
+consistent fashion. The general rule for typedef names is that they end in the
+word ``Type''. For example,
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+typedef TPixel PixelType;
+\end{minted}
+\normalsize
+
+However, there are many exceptions to this rule that recognize that ITK has
+several important concepts that are expressed partially in the names used to
+implement the concept. An iterator is a concept, as is a container or pointer.
+These concepts are used in preference to \code{Type} at the end of a typedef as
+appropriate. For example,
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+typedef typename ImageTraits::PixelContainer PixelContainer;
+\end{minted}
+\normalsize
+
+Here ``Container'' is a concept used in place of ``Type''. ITK currently
+identifies the following concepts used when naming typedefs:
+
+\begin{itemize}
+\item \textbf{\code{Self}} as in
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+typedef Image Self;
+\end{minted}
+\normalsize
+
+All classes should define this typedef.
+\item \textbf{\code{Superclass}} as in
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+typedef ImageBase< VImageDimension > Superclass;
+\end{minted}
+\normalsize
+
+All classes should define the \code{Superclass} typedef.
+\item \textbf{\code{Pointer}} as in a smart pointer to an object as in
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+typedef SmartPointer< Self > Pointer;
+\end{minted}
+\normalsize
+
+All classes should define the \code{Pointer} typedef.
+\item \textbf{\code{Container}} is a type of container class.
+\item \textbf{\code{Iterator}} an iterator over some container class.
+\item \textbf{\code{Identifier}} or id such as a point or cell identifier.
+\end{itemize}
+
+
+\subsection{Naming Constants}
+\label{subsec:NamingConstants}
+
+Constants must start with capital letters, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+const unsigned int CodeAxisField = 14;
+\end{minted}
+\normalsize
+
+
+\subsection{Using Operators to Pointers}
+\label{subsec:UsingOperatorsToPointers}
+
+The indirection unary operator (\code{*}) must be placed next to the variable, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+int itkTransformFileReaderTest( int argc, char *argv[] )
+\end{minted}
+\normalsize
+
+or
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+const InputImageType *inputPtr = this->GetInput();
+\end{minted}
+\normalsize
+
+The reference or address unary operator (\code{\&}) must be placed next to the
+variable, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+const typename FixedImageType::RegionType &fixedRegion =
+  m_FixedImage->GetLargestPossibleRegion();
+\end{minted}
+\normalsize
+
+or
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+::PrintSelf( std::ostream &os, Indent indent ) const
+\end{minted}
+\normalsize
+
+
+\subsection{Using Operators to Arrays}
+\label{subsec:UsingOperatorsToArrays}
+
+The subscript operator (\code{[]}) must be placed next to the variable, e.g.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+int itkGaborKernelFunctionTest( int argc, char *argv[] )
+\end{minted}
+\normalsize
+
+or
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+virtual unsigned int GetSplitInternal( unsigned int dim,
+  unsigned int i, unsigned int numberOfPieces, IndexValueType regionIndex[],
+  SizeValueType regionSize[] ) const ITK_OVERRIDE;
+\end{minted}
+\normalsize
+
+
+\subsection{Using Underscores}
+\label{subsec:UsingUnderscores}
+
+Do not use undersocres. The only exception is when defining preprocessor
+variables and macros (which are discouraged). In this case, underscores are
+allowed to separate words.
+
+
+\subsection{Include Guards}
+\label{subsec:Include Guards}
+
+An include guard's case must mimic the one used for a file, with the file
+extension separated by an undersore
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+#ifndef itkImage_h
+#define itkImage_h
+
+// Class declaration code
+
+#endif
+\end{minted}
+\normalsize
+
+and
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+#ifndef itkImage_hxx
+#define itkImage_hxx
+
+// Template class implementation code
+
+#endif
+\end{minted}
+\normalsize
+
+Note that include guards in implementation files are to be used only for templated classes.
+
+
+\subsection{Preprocessor Directives}
+\label{subsec:PreprocessorDirectives}
+
+Some of the worst code contains many preprocessor directives and macros such as
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+#if defined(__APPLE__) && (__clang_major__ == 3) && (__clang_minor__ == 0) && defined(NDEBUG) && defined(__x86_64__)
+  cc = -1.0 * itk::Math::sqr(1.0 / (cc + itk::Math::eps) );
+#else
+  cc = -1.0 * itk::Math::sqr(1.0 / cc);
+#endif
+\end{minted}
+\normalsize
+
+Do not use them except in a very limited sense (to support minor differences
+in compilers or operating systems). If a class makes extensive use of
+preprocessor directives, it is a candidate for separation into multiple
+sub-classes.
+
+However, if such directives are to be used, they should start in column one,
+regardless of the required indentation level of the code they contain.
+
+
+\subsection{Header Includes}
+\label{subsec:HeaderIncludes}
+
+Headers in ITK must be included using quotes (`` '')
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+#include "itkImageRegion.h"
+\end{minted}
+\normalsize
+
+Only the required headers should be included. If an included header already
+includes a header for a class also used in the current file, the header for that
+class should not be included.
+
+Header includes are preferred over forward declarations. Forward declarations
+are only used to prevent circular dependencies.
+
+
+\subsection{Const Correctness}
+\label{subsec:ConstCorrectness}
+
+As a general rule, the \code{const} type qualifier must be used for:
+\begin{itemize}
+\item Arguments which set the pipeline inputs, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/** Set the marker image. */
+void SetMaskImage( const MaskImageType *input )
+  {
+  // Process object is not const-correct so the const casting is required.
+  this->SetNthInput( 1, const_cast< TMaskImage * >( input ) );
+  }
+
+/** Set the input image. */
+void SetInput1( const InputImageType *input )
+  {
+  this->SetInput( input );
+  }
+
+/** Set the marker image. */
+void SetInput2( const MaskImageType *input )
+  {
+  this->SetMaskImage( input );
+  }
+\end{minted}
+\normalsize
+
+\item Accessor/state functions, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+bool GetUseVectorBasedAlgorithm() const
+  {
+  return HistogramType::UseVectorBasedAlgorithm();
+  }
+\end{minted}
+\normalsize
+
+\end{itemize}
+
+
+\section{Namespaces}
+\label{sec:Namespaces}
+
+All classes should be placed in the \code{itk::} namespace. Additional
+sub-namespaces are being designed to support special functionality, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+namespace itk
+{
+namespace fem
+{
+
+...
+
+} // end namespace fem
+} // end namespace itk
+\end{minted}
+\normalsize
+
+Please see current documentation to determine if there is a sub-namespace
+relevant to a specific situation. Normally sub-namespaces are used for helper ITK
+classes.
+
+Code should not use \code{using namespace}. This is to avoid namespace
+conflicts, but, more importantly, to improve readability.
+
+When declaring or defining members of the \code{itk::} namespace, for example,
+the \code{itk::} namespace prefix should not be added. That is, code within
+\code{namespace itk \{ ... \}}" should not use \code{itk::}.
+
+The \code{::} global namespace should be used when referring to a global
+function, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+// Execute the filter
+clock_t start = ::clock();
+m_Filter->UpdateLargestPossibleRegion();
+clock_t stop = ::clock();
+\end{minted}
+\normalsize
+
+It helps clarifying exactly which method is exactly being invoked and where it
+originates.
+
+Note that \code{itk::} should only be used outside the \code{itk::} namespace.
+
+
+\section{Aliasing Template Parameter Typenames}
+\label{sec:AliasingTemplateParameterTypenames}
+
+The public class typename's should be limited to the types that are required to
+be available by other classes. The typename's can clutter a class API and can
+restrict future refactoring that changes the types when unnecessary.
+
+For instance,
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TPixel, unsigned int VImageDimension = 2 >
+class ITK_TEMPLATE_EXPORT Image : public ImageBase< VImageDimension >
+{
+public:
+  /** Standard class typedefs. */
+  typedef Image                        Self;
+  typedef ImageBase< VImageDimension > Superclass;
+  typedef SmartPointer< Self >         Pointer;
+  typedef SmartPointer< const Self >   ConstPointer;
+  typedef WeakPointer< const Self >    ConstWeakPointer;
+
+  ...
+
+  /** Pixel typedef support. Used to declare pixel type in filters
+  * or other operations. */
+  typedef TPixel PixelType;
+  ...
+\end{minted}
+\normalsize
+
+or
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TImage >
+class ITK_TEMPLATE_EXPORT ImageRegionIterator : public ImageRegionConstIterator< TImage >
+{
+  public:
+  /** Standard class typedefs. */
+  typedef ImageRegionIterator                Self;
+  typedef ImageRegionConstIterator< TImage > Superclass;
+
+  /** Types inherited from the Superclass */
+  typedef typename Superclass::IndexType IndexType;
+  typedef typename Superclass::SizeType  SizeType;
+
+  ...
+\end{minted}
+\normalsize
+
+
+\section{Pipelines}
+\label{sec:Pipelines}
+
+The following is a set of useful tips that must be taken into account when
+developing ITK code:
+\begin{itemize}
+\item Do call \code{Update()} before using the pipeline output.
+\item Do call \code{UpdateLargestPossibleRegion()} when reusing a reader.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+When reusing a reader you must call:
+ reader->UpdateLargestPossibleRegion()
+instead of the usual:
+ reader->Update()
+Otherwise the extent of the previous image is kept, and in some cases lead to Exceptions
+being thrown if the second image is smaller than the first one.
+\end{minted}
+\normalsize
+
+\item Do not assume \code{inputImage->SetRequestedRegion( smallRegion )} will
+make the filter faster! The filter might run on the entire input image
+regardless. To make it run on a smaller block, get a new
+\code{itk::RegionOfInterestImageFilter}, say \code{ROIfilter}, and do:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+ROIfilter->SetInput( inputImage );
+ROIfilter->SetRegionOfInterest( smallRegion );
+CCfilter->SetInput( ROIfilter->GetOutput() );
+\end{minted}
+\normalsize
+
+\item On a newly-manually-created image, do initialize the pixel values if you
+expect them to be so! ITK does not initialize the image buffer when you call
+\code{Allocate()}. It is your responsibility to initialize the pixel values,
+either by calling \code{Allocate( true )} or filling the image buffer as in:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+image->FillBuffer( 0 ); // Initialize it to all dark.
+\end{minted}
+\normalsize
+
+\end{itemize}
+
+
+\section{Initialization and Assignment}
+\label{sec:IniitalizationAndAssignment}
+
+All member variables must be initialized in the class constructor. For such
+purpose, initialization lists are preferred
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage, typename TOutputImage >
+SpecializedFilter< TInputImage, TOutputImage >
+::SpecializedFilter() :
+  m_ForegroundValue( NumericTraits<InputImagePixelType>::max() ),
+  m_BackgroundValue( NumericTraits<InputImagePixelType>::ZeroValue() ),
+  m_NumPixelComponents( 0 ),
+  m_NoiseSigmaIsSet( false ),
+  m_SearchSpaceList( ListAdaptorType::New() )
+{
+  // By default, turn off automatic kernel bandwidth sigma estimation
+  this->KernelBandwidthEstimationOff();
+}
+\end{minted}
+\normalsize
+
+over assignment:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage, typename TOutputImage >
+SpecializedFilter< TInputImage, TOutputImage >
+::SpecializedFilter()
+{
+  m_ForegroundValue = NumericTraits<InputImagePixelType>::max();
+  m_BackgroundValue = NumericTraits<InputImagePixelType>::ZeroValue();
+
+  m_NumPixelComponents = 0;
+  m_UseSmoothDiscPatchWeights = false;
+
+  m_SearchSpaceList = ListAdaptorType::New();
+
+  // By default, turn off automatic kernel bandwidth sigma estimation
+  this->KernelBandwidthEstimationOff();
+}
+\end{minted}
+\normalsize
+
+Smart pointers need not to be initialized, since they initialize themselves
+to the \code{null} pointer, so they are the sole exception to the above rule.
+
+Note that all numeric data members must be initialized using the appropriate
+ITK's \code{NumericTraits} static method.
+
+
+\section{Accessing Members}
+\label{sec:Accessing Members}
+
+The C++ keyword \code{this} must be used when calling a class' own methods:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage, typename TOutputImage >
+void
+ExpandImageFilter< TInputImage, TOutputImage >
+::GenerateInputRequestedRegion()
+{
+  // Call the superclass' implementation of this method
+  Superclass::GenerateInputRequestedRegion();
+
+  // Get pointers to the input and output
+  InputImageType * inputPtr =
+    const_cast< InputImageType * >( this->GetInput() );
+  const OutputImageType * outputPtr = this->GetOutput();
+
+  ...
+}
+\end{minted}
+\normalsize
+
+The use of the explicit\code{this->} pointer helps clarifying which method is
+exactly being invoked and where it originates.
+
+The value of a member variables or data within a class must be retrieved calling
+the variable name directly, i.e. the use of its getter method (i.e.
+\code{GetMyVariable()}) is discouraged for such purpose. Similarly, the use of the
+\code{this} keyword when calling self data members is discouraged, i.e.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage, typename TOutputImage >
+void
+BinaryContourImageFilter< TInputImage, TOutputImage >
+::PrintSelf( std::ostream & os, Indent indent ) const
+{
+  Superclass::PrintSelf( os, indent );
+
+  os << indent << "FullyConnected: "  << m_FullyConnected << std::endl;
+  ...
+}
+\end{minted}
+\normalsize
+
+is preferred over
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage, typename TOutputImage >
+void
+BinaryContourImageFilter< TInputImage, TOutputImage >
+::PrintSelf( std::ostream & os, Indent indent ) const
+{
+  Superclass::PrintSelf( os, indent );
+
+  os << indent << "FullyConnected: "  << this->m_FullyConnected << std::endl;
+  ...
+}
+\end{minted}
+\normalsize
+
+
+\section{Code Layout and Indentation}
+\label{sec:CodeLayoutAndIndentation}
+
+The following are the accepted ITK code layout rules and indentation style.
+After reading this section, you may wish to visit many of the source files found
+in ITK. This will help crystallize the rules described here.
+
+
+\subsection{General Layout}
+\label{subsec:GeneralLayout}
+
+\begin{itemize}
+\item Each line of code should take no more than 200 characters.
+\item Break the code across multiple lines as necessary.
+\item Use lots of white space to separate logical blocks of code, intermixed
+with comments.
+\item To a large extent the structure of code directly expresses its
+implementation.
+\item The appropriate indentation level is \textbf{two spaces} for each level of
+indentation.
+\item \textbf{Do not use tabs}; set up your editor to insert spaces. Using tabs
+may look good in your editor but will wreak havoc in others.
+\item The declaration of variables within classes, methods, and functions should
+be one declaration per line:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+int i = 0;
+int j = 0;
+char* stringName;
+\end{minted}
+\normalsize
+\end{itemize}
+
+A short code snippet in ITK might look like:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+if( condition )
+  {
+  unsigned int numberOfIterations = 100;
+  filter->SetNumberOfIterations( numberOfIterations );
+  filter->Update();
+  filter->Print( std::cout );
+  }
+\end{minted}
+\normalsize
+
+The body of a method must always be indented, starting with an indentation of
+two white spaces, and indenting the rest of the body as described in this
+section.
+
+
+\subsection{Class Layout}
+\label{subsec:ClassLayout}
+
+Classes are declared (\code{.h}) using the following guidelines:
+\begin{itemize}
+\item Begin with the Copyright notice.
+\item Follow with include guards (e.g \code{\#ifndef itkBoxImageFilter\_h})).
+\item Follow with the necessary includes. Include only what is necessary to
+avoid dependency problems.
+\item Place the class in the correct namespace.
+\item \code{public} methods come first.
+\item \code{protected} methods follow.
+\item \code{private} members come last.
+\item \code{public} data members are \textbf{forbidden}.
+\item End the namespaces.
+\item Templated classes require a special preprocessor directive to control the
+manual instantiation of templates. See the example below and look for
+\code{ITK\_MANUAL\_INSTANTIATION}.
+\item Close the include guards.
+\end{itemize}
+
+The class layout looks something like this:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/*=========================================================================
+ *
+ *  Copyright Insight Software Consortium
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ *=========================================================================*/
+
+#ifndef itkImage_h
+#define itkImage_h
+
+#include "itkImageBase.h"
+#include "itkPixelTraits.h"
+#include "itkDefaultImageTraits.h"
+#include "itkDefaultDataAccessor.h"
+
+namespace itk
+{
+
+/** \class Image
+ *  \brief Templated N-dimensional image class.
+ *
+ * Detailed documentation...
+ */
+
+template< typename TPixel, unsigned int VImageDimension=2,
+          typename TImageTraits=DefaultImageTraits< TPixel, VImageDimension > >
+class Image: public ImageBase< VImageDimension >
+{
+public:
+  ...
+
+protected:
+  ...
+
+private:
+  ...
+};
+
+} // end namespace itk
+
+#ifndef ITK_MANUAL_INSTANTIATION
+#include "itkImage.hxx"
+#endif
+
+#endif // itkImage_h
+\end{minted}
+\normalsize
+
+Many of the guidelines for the class declaration file are applied to the class
+definition (\code{.hxx, .cxx}) file:
+\begin{itemize}
+\item Begin with the Copyright notice.
+\item Follow with include guards in case of templated classes (e.g
+\code{\#ifndef itkBoxImageFilter\_hxx})).
+\item Follow with the necessary includes. Include only what is necessary to
+avoid dependency problems.
+\item Place the class in the correct namespace.
+\item The constructor come first.
+\item The destructor follows.
+\item The \code{PrintSelf} member come last.
+\item End the namespaces.
+\item Close the include guards if present.
+\end{itemize}
+
+The class definition layout looks something like this:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/*=========================================================================
+*
+*  Copyright Insight Software Consortium
+*
+*  Licensed under the Apache License, Version 2.0 (the "License");
+*  you may not use this file except in compliance with the License.
+*  You may obtain a copy of the License at
+*
+*         http://www.apache.org/licenses/LICENSE-2.0.txt
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*
+*=========================================================================*/
+/*=========================================================================
+*
+*  Portions of this file are subject to the VTK Toolkit Version 3 copyright.
+*
+*  Copyright (c) Ken Martin, Will Schroeder, Bill Lorensen
+*
+*  For complete copyright, license and disclaimer of warranty information
+*  please refer to the NOTICE file at the top of the ITK source tree.
+*
+*=========================================================================*/
+
+#ifndef itkImage_hxx
+#define itkImage_hxx
+
+#include "itkImage.h"
+#include "itkProcessObject.h"
+
+#include <algorithm>
+
+namespace itk
+{
+
+template< typename TPixel, unsigned int VImageDimension >
+Image< TPixel, VImageDimension >
+::Image()
+{
+  m_Buffer = PixelContainer::New();
+}
+
+
+template< typename TPixel, unsigned int VImageDimension >
+Image< TPixel, VImageDimension >
+~::Image()
+{
+}
+
+
+...
+
+
+template< typename TPixel, unsigned int VImageDimension >
+void
+Image< TPixel, VImageDimension >
+::PrintSelf( std::ostream &os, Indent indent ) const
+{
+  Superclass::PrintSelf( os, indent );
+
+  os << indent << "PixelContainer: " << std::endl;
+  m_Buffer->Print( os, indent.GetNextIndent() );
+}
+
+} // end namespace itk
+
+#endif
+\end{minted}
+\normalsize
+
+Note that ITK headers are included first, and system or third party libraries
+follow.
+
+
+\subsection{Method Definition}
+\label{subsec:MethodDefinition}
+
+Methods are defined across multiple lines. This is to accommodate the extremely
+long definitions possible when using templates. The starting and ending brace
+should be in column one, and the following order must be followed:
+\begin{itemize}
+\item The first line is the template declaration.
+\item The second line is the method return type.
+\item The third line is the class qualifier.
+\item And the fourth line is the name of the method.
+\end{itemize}
+
+e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TPixel, unsigned int VImageDimension, typename TImageTraits >
+const double *
+Image< TPixel, VImageDimension, TImageTraits >
+::GetSpacing() const
+{
+  ...
+}
+\end{minted}
+\normalsize
+
+The same rules apply for non-templated classes:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+void
+Bruker2DSEQImageIO
+::PrintSelf(std::ostream & os, Indent indent) const
+{
+  ...
+}
+\end{minted}
+\normalsize
+
+
+\subsection{Use of Braces}
+\label{subsec:UseOfBraces}
+
+
+\subsubsection{Braces in Control Sequences}
+\label{subsubsec:BracesInControlSequences}
+
+Braces must be used to delimit the scope of an \code{if}, \code{for},
+\code{while}, \code{switch}, or other control structure.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+for( unsigned int i = 0; i < ImageDimension; ++i )
+  {
+  ...
+  }
+\end{minted}
+\normalsize
+
+or when using an if:
+
+\small
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+if( condition )
+  {
+  ...
+  }
+else if( otherCondition )
+  {
+  ...
+  }
+else
+  {
+  ...
+  }
+\end{minted}
+\normalsize
+
+In \code{switch} statement cases, the constant-expression statement bodies should
+not be enclosed with braces:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+switch( m_OperationQ.front() )
+  {
+  case Self::SET_PRIORITY_LEVEL:
+    m_PriorityLevel = m_LevelQ.front();
+    m_LevelQ.pop();
+    break;
+  case Self::SET_LEVEL_FOR_FLUSHING:
+    m_LevelForFlushing = m_LevelQ.front();
+    m_LevelQ.pop();
+    break;
+
+    ...
+  default:
+    break;
+  }
+\end{minted}
+\normalsize
+
+In \code{do-while} statements the opening/closing braces must lie on a line of
+their own:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+do
+  {
+  k += 1;
+  p *= rand->GetVariate();
+  }
+while( p > L );
+\end{minted}
+\normalsize
+
+\subsubsection{Braces in Arrays}
+\label{subsubsec:BracesInArrays}
+
+When initializing an array, no space shall be left between the first value and
+the opening brace, and the last argument and closing brace:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+// Define the image size in image coordinates, and origin and spacing in
+//  physical coordinates.
+SizeType size = {{20, 20, 20}};
+double origin[3] = {0.0, 0.0, 0.0};
+double spacing[3] = {1, 1, 1};
+\end{minted}
+\normalsize
+
+
+\subsection{Indentation and Tabs}
+\label{subsec:IndentationAndTabs}
+
+The ITK style bans the use of tabs. Contributors should configure their editors
+to use white spaces instead of tabs. The size of the indent in ITK is fixed to
+\textbf{two white spaces}.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage, typename TOutputImage = TInputImage >
+class ITK_TEMPLATE_EXPORT SpecializedFilter :
+  public ImageToImageFilter< TInputImage, TOutputImage >
+{
+public:
+  typedef SpecializedFilter                               Self;
+  typedef ImageToImageFilter< TInputImage, TOutputImage > Superclass;
+  typedef SmartPointer< Self >                            Pointer;
+  typedef SmartPointer< const Self >                      ConstPointer;
+
+  /** Method for creation through the object factory. */
+  itkNewMacro( Self );
+
+  /** Run-time type information (and related methods) */
+  itkTypeMacro( SpecializedFilter, ImageToImageFilter );
+
+  ...
+};
+\end{minted}
+\normalsize
+
+or for the implementation of a given method:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage, typename TOutputImage >
+void
+SpecializedFilter< TInputImage, TOutputImage >
+::GenerateData() const
+{
+  // Allocate the outputs.
+  this->AllocateOutputs();
+
+  // Create a process accumulator for tracking the progress of this minipipeline.
+  ProgressAccumulator::Pointer progress = ProgressAccumulator::New();
+  progress->SetMiniPipelineFilter( this );
+
+  ...
+}
+\end{minted}
+\normalsize
+
+ITK uses the Whitesmiths indentation style, with the braces associated with
+a control statement on the next line, indented. Thus, source code in the body of
+the brackets must be aligned along with the brackets.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+while( x == y )
+  {
+  Something();
+  }
+\end{minted}
+\normalsize
+
+
+\subsection{White Spaces}
+\label{subsec:WhiteSpaces}
+
+As a general rule, a single white space should be used to separate every word.
+
+However, no white space shall be added between type names, keywords, and method
+names and the following marks:
+\begin{itemize}
+\item An opening angle bracket (\code{<}) and the \code{template} keyword.
+\item An opening round bracket (\code{(}) and its preceding word (e.g. in method
+declarations and definitions).
+\item An opening/closing brace (\code{\{}/\code{\}}) and its subsequent/
+preceding word (e.g. when initializing an array).
+\item An opening or closing square bracket (\code{[}, \code{]} ) and its
+contents (e.g. when specifying the index of an array).
+\item The constant expression termination colon in a \code{switch} statement
+(e.g. \code{case Self::SET\_PRIORITY\_LEVEL:}).
+\item Semicolons (\code{;}) and their preceding word (e.g. end of a statement,
+etc.).
+\end{itemize}
+
+To the contrary, a single white space should be added between
+\begin{itemize}
+\item An opening angle bracket (\code{<}) and the subsequent template,
+variable or keyword.
+\item A closing angle bracket (\code{>}) and the preceding and subsequent
+words (such as in typedefs).
+\item An opening/closing round bracket (\code{(}/\code{)}) and its subsequent/
+preceding word (e.g. in method argument lists).
+\item Individual members in a list separated by commas (e.g.
+\code{SizeType size = {{20, 20, 20}}}, or \code{data[i, j]}). The comma must be
+always placed next to a given element, and be followed by the single white space.
+\item Operators(i.e. \code{+}, \code{-}, \code{=}, \code{==}, \code{+=},
+\code{<<}, etc. ) and the left-hand and right-hand arguments.
+\item The ternary operators (\code{?}, \code{:}) and the left-hand condition,
+and right-hand values.
+\item Control statements (i.e. \code{if}, \code{for}, \code{while},
+\code{switch}, etc.) and their conditional statements or arguments.
+\item The different parts of a \code{for} control statement
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+for( unsigned int i = 0; i < ImageDimension; ++i )
+  {
+  ...
+  }
+\end{minted}
+\normalsize
+
+\item A method call parentheses and its content
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+this->SomeMethod( param, a+b );
+\end{minted}
+\normalsize
+
+\end{itemize}
+
+Thus, for a class declaration we would write
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage, typename TOutputImage = TInputImage >
+class ITK_TEMPLATE_EXPORT SpecializedFilter :
+  public ImageToImageFilter< TInputImage, TOutputImage >
+{
+public:
+  typedef SpecializedFilter                               Self;
+  typedef ImageToImageFilter< TInputImage, TOutputImage > Superclass;
+  typedef SmartPointer< Self >                            Pointer;
+  typedef SmartPointer< const Self >                      ConstPointer;
+
+  /** Method for creation through the object factory. */
+  itkNewMacro( Self );
+
+  /** Run-time type information (and related methods) */
+  itkTypeMacro( SpecializedFilter, ImageToImageFilter );
+
+  ...
+};
+\end{minted}
+\normalsize
+
+And for a class constructor we would write
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage, typename TOutputImage >
+SpecializedFilter< TInputImage, TOutputImage >
+::SpecializedFilter() :
+  m_ForegroundValue( NumericTraits<InputImagePixelType>::max() ),
+  m_BackgroundValue( NumericTraits<InputImagePixelType>::ZeroValue() ),
+  m_NumPixelComponents( 0 ),
+  m_NoiseSigmaIsSet( false ),
+  m_SearchSpaceList( ListAdaptorType::New() )
+{
+  // By default, turn off automatic kernel bandwidth sigma estimation
+  this->KernelBandwidthEstimationOff();
+}
+\end{minted}
+\normalsize
+
+Trailing white spaces are not allowed in ITK.
+
+
+\subsection{Grouping}
+\label{subsec:Grouping}
+
+Unnecessary parentheses for grouping hinder reading the code.
+The C++ precedence and associativity (the order in which the operands are
+evaluated) of operators must be taken into account to avoid using unnecessary
+parentheses.
+
+As a general principle, these apply to condition expressions, and statements
+where mathematical, logical or bitwise operations are performed.
+
+
+\subsubsection{Conditional Expressions}
+\label{subsubsec:ConditionalExpressions}
+
+In conditional expressions contained in control statements (e.g. \code{if},
+\code{for}, \code{while}, etc.) composed by multiple operands (e.g. joined
+using the logical operators), assignments and other constructs where such
+expressions are involved, the use of excessive parentheses is discouraged.
+
+For example, the style below:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+if( modelFile == "tri3-q.meta" && ( s == 2 || s == 1 ) )
+  {
+  ...
+  }
+else
+  {
+  ...
+  }
+\end{minted}
+\normalsize
+
+is recommended over:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+if( ( modelFile == "tri3-q.meta" ) && ( ( s == 2 ) || ( s == 1 ) ) )
+  {
+  ...
+  }
+else
+  {
+  ...
+  }
+\end{minted}
+\normalsize
+
+
+\subsubsection{Assignments}
+\label{subsubsec:Assignments}
+
+In assignments, the operator precedence and associativity rules apply to help
+keeping the code readable and void of operators in-excess. In assignments that
+do not involve long expressions that would otherwise be hard and time-consuming
+to interpret, the use of parentheses should be avoided.
+
+For example, in
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+sum[dim] += ( component * weight );
+\end{minted}
+\normalsize
+
+grouping is not necessary, as only a single operator exists in the right-hand
+operand. Hence, instead of writing the above code, community members should
+rather write:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+sum[dim] += component * weight;
+\end{minted}
+\normalsize
+
+
+\subsubsection{Return Statements}
+\label{subsubsec:ReturnStatements}
+
+In \code{return} statements, using parentheses should be avoided when they
+are not strictly necessary for the evaluation of the returned term. For example,
+when returning variables or method calls, as in:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+virtual OutputType Evaluate(const PointType & point) const ITK_OVERRIDE
+  {
+  ContinuousIndexType index;
+
+  this->GetInputImage()->TransformPhysicalPointToContinuousIndex( point,
+    index);
+
+  // No thread info passed in, so call method that doesn't need thread
+  // identifier.
+  return this->EvaluateDerivativeAtContinuousIndex( index );
+  }
+\end{minted}
+\normalsize
+
+The same principle applies when returning the result of an algebraic, logical or
+bitwise operation that does not require using parentheses to specify
+evaluation preference, such as in:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TPoint >
+double
+SimpleSignedDistance( const TPoint & p )
+{
+  ...
+  return accum - radius;
+}
+\end{minted}
+\normalsize
+
+instead of writing \code{return ( accum - radius );}.
+
+Or in:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+bool
+RealTimeStamp::operator>( const Self & other ) const
+{
+  if( this->m_Seconds > other.m_Seconds )
+  {
+    return true;
+  }
+
+  if( this->m_Seconds < other.m_Seconds )
+  {
+    return false;
+  }
+
+  return this->m_MicroSeconds > other.m_MicroSeconds;
+}
+\end{minted}
+\normalsize
+
+Or in:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+  IntegerType mixBits(const IntegerType & u, const IntegerType & v) const
+  {
+    return hiBit(u) | loBits(v);
+  }
+\end{minted}
+\normalsize
+
+
+\subsection{Alignment}
+\label{subsec:Alignment}
+
+In every ITK file, the following code parts always start in column one:
+\begin{itemize}
+\item Copyright notice.
+\item Namespace opening/closing braces.
+\item Include guards.
+\end{itemize}
+
+The following specific parts of a class declaration always start in column one:
+\begin{itemize}
+\item Class documentation.
+\item Template declaration.
+\item Class declaration, including its opening/closing braces.
+\item Manual instantiation preprocessor directives.
+\item Access modifiers.
+\end{itemize}
+
+For instance,
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/*=========================================================================
+ *
+ *  Copyright Insight Software Consortium
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ *=========================================================================*/
+
+#ifndef itkImage_h
+#define itkImage_h
+
+#include "itkImageBase.h"
+
+namespace itk
+{
+
+/** \class Image
+ *  \brief Templated N-dimensional image class.
+ *
+ * Detailed documentation...
+ */
+
+template< typename TPixel, unsigned int VImageDimension=2,
+          typename TImageTraits=DefaultImageTraits< TPixel, VImageDimension > >
+class Image: public ImageBase< VImageDimension >
+{
+public:
+  ...
+
+protected:
+  ...
+
+private:
+  ...
+};
+
+} // end namespace itk
+
+#ifndef ITK_MANUAL_INSTANTIATION
+#include "itkImage.hxx"
+#endif
+
+#endif // itkImage_h
+\end{minted}
+\normalsize
+
+In a class implementation, the following code parts always start in column one:
+\begin{itemize}
+\item Method definition,
+\item Method opening/closing braces.
+\end{itemize}
+
+For instance,
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TPixel, unsigned int VImageDimension, typename TImageTraits >
+const double *
+Image< TPixel, VImageDimension, TImageTraits >
+::GetSpacing() const
+{
+  ...
+}
+\end{minted}
+\normalsize
+
+Consecutive typedefs should be aligned. If white spaces need to be added to a
+statement for such purpose, use the minimum number of spaces required, such as
+in:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+typedef SpecializedFilter                               Self;
+typedef ImageToImageFilter< TInputImage, TOutputImage > Superclass;
+typedef SmartPointer< Self >                            Pointer;
+typedef SmartPointer< const Self >                      ConstPointer;
+\end{minted}
+\normalsize
+
+or
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+typedef typename DerivativeFilterType::OutputImageType
+  DerivativeOutputImageType;
+typedef VectorCastImageFilter< DerivativeOutputImageType, VectorImageType >
+   GradientCasterType;
+\end{minted}
+\normalsize
+
+Member data declarations should also be aligned when they are declared in consecutive lines.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+InputPixelType  m_ForegroundValue;
+OutputPixelType m_BackgroundValue;
+
+unsigned int m_MaximumIterations;
+
+std::vector< double > m_Sensitivity;
+std::vector< float >  m_Overlaps;
+\end{minted}
+\normalsize
+
+By virtue of the principles in Section \href{subsec:WhiteSpaces}, method calls
+on consecutive lines should not align their parentheses, i.e. use:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+normalVectorFilter->SetIsoLevelLow( -m_CurvatureBandWidth - dimension );
+normalVectorFilter->SetIsoLevelHigh( m_CurvatureBandWidth + dimension );
+normalVectorFilter->SetMaxIteration( m_MaxNormalIteration );
+normalVectorFilter->SetUnsharpMaskingFlag( m_NormalProcessUnsharpFlag );
+normalVectorFilter->SetUnsharpMaskingWeight( m_NormalProcessUnsharpWeight );
+\end{minted}
+\normalsize
+
+avoiding:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+normalVectorFilter->SetIsoLevelLow         ( -m_CurvatureBandWidth - dimension );
+normalVectorFilter->SetIsoLevelHigh        ( m_CurvatureBandWidth + dimension );
+normalVectorFilter->SetMaxIteration        ( m_MaxNormalIteration );
+normalVectorFilter->SetUnsharpMaskingFlag  ( m_NormalProcessUnsharpFlag );
+normalVectorFilter->SetUnsharpMaskingWeight( m_NormalProcessUnsharpWeight );
+\end{minted}
+\normalsize
+
+The same principle applies to consecutive statements involving any type of
+operator. Prefer:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+double weight = 0.;
+double distance = 0.;
+\end{minted}
+\normalsize
+
+over
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+double weight   = 0.;
+double distance = 0.;
+\end{minted}
+\normalsize
+
+Lines exceeding the recommended line length in ITK that are split in several
+lines must be consecutive, and must be aligned with two-space indentation:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+if( coeff.size() > m_MaximumKernelWidth )
+  {
+  itkWarningMacro("Kernel size has exceeded the specified maximum width of "
+    << m_MaximumKernelWidth << " and has been truncated to "
+    << static_cast< unsigned long >( coeff.size() ) << " elements. You can raise "
+    "the maximum width using the SetMaximumKernelWidth method.");
+  break;
+  }
+\end{minted}
+\normalsize
+
+is preferred over
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+if( coeff.size() > m_MaximumKernelWidth )
+  {
+  itkWarningMacro( "Kernel size has exceeded the specified maximum width of "
+                  << m_MaximumKernelWidth << " and has been truncated to "
+                  << static_cast< unsigned long >( coeff.size() ) << " elements. You can raise "
+                  "the maximum width using the SetMaximumKernelWidth method." );
+  break;
+  }
+\end{minted}
+\normalsize
+
+The same principle applies to method declarations:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+virtual unsigned int GetSplitInternal( unsigned int dim,
+  unsigned int i, unsigned int numberOfPieces, IndexValueType regionIndex[],
+  SizeValueType regionSize[] ) const ITK_OVERRIDE;
+\end{minted}
+\normalsize
+
+is preferred over
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+virtual unsigned int GetSplitInternal( unsigned int dim,
+                                       unsigned int i,
+                                       unsigned int numberOfPieces,
+                                       IndexValueType regionIndex[],
+                                       SizeValueType regionSize[] ) const ITK_OVERRIDE;
+\end{minted}
+\normalsize
+
+
+\subsection{Line Splitting Policy}
+\label{subsec:LineSplittingPolicy}
+
+Lines exceeding the recommended line length in ITK must be split in the
+necessary amount of lines. This policy is enforced by the KWStyle pre-commit
+hooks (see Section \ref{subsec:KitwareStyle} on page
+\pageref{subsec:KitwareStyle}).
+
+If a line has to be split, the following preference order is established in ITK:
+\begin{itemize}
+\item Split the right-hand operand in an assignment \code{=}, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+const typename FixedImageType::RegionType &fixedRegion =
+  m_FixedImage->GetLargestPossibleRegion();
+\end{minted}
+\normalsize
+
+\item Split at the comma separator (\code{,}) in a list, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+typedef AddImageFilter< BiasFieldControlPointLatticeType,
+ BiasFieldControlPointLatticeType, BiasFieldControlPointLatticeType >
+\end{minted}
+\normalsize
+
+\item Split before the math operator (\code{+}, \code{*}, \code{||}, \code{\&\&},
+etc.) in an arithmetic or logical operation:, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+while( m_ElapsedIterations++ < m_MaximumNumberOfIterations[m_CurrentLevel]
+  && m_CurrentConvergenceMeasurement > m_ConvergenceThreshold )
+\end{minted}
+\normalsize
+
+or
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+centerFixedIndex[k] =
+  static_cast< ContinuousIndexValueType >( fixedIndex[k] )
+  + static_cast< ContinuousIndexValueType >( fixedSize[k] - 1 ) / 2.0;
+\end{minted}
+\normalsize
+
+\end{itemize}
+
+
+\subsection{Empty Lines}
+\label{subsec:EmptyLines}
+
+As a general rule, empty lines should be used to separate code blocks that
+semantically belong to separate operations, or when a portion of code is
+too long. In the latter case, adding documentation lines contributes to the
+readability of the code.
+
+However, no empty lines shall be added between:
+\begin{itemize}
+\item The accessor type (\code{public}, \code{protected}, \code{private}) and
+the declaration that immediately follows it.
+\item An opening/closing brace (\code{\{}/\code{\}}) and its subsequent/
+preceding line (e.g. nested namespace braces, method definition and its body,
+control statements, etc).
+\end{itemize}
+
+However, an empty line should exist in a header file (\code{.h})
+\begin{itemize}
+\item Between the Copyright notice and the include guards (e.g.
+\code{\#ifndef itkBoxImageFilter\_h}).
+\item Between the pre-processor directives and the header includes.
+\item Between the header includes and the ITK namespace (i.e.
+\code{namespace itk}).
+\item Between the ITK namespace brace and the class documentation.
+\item Between the class documentation and the class declaration.
+\item Between the access modifier and its preceding declaration, unless for the
+first declaration of \code{public}.
+\item Between method declarations (including their corresponding documentation
+block).
+\item Between a member method declaration and any member variable declaration
+that immediately follows.
+\item Between the ITK namespace end brace \code{\} // end namespace itk} and
+further pre-processor directives \code{\#ifndef ITK\_MANUAL\_INSTANTIATION}.
+\item Between the closing pre-processor directives and include guards \code{\#endif}.
+\end{itemize}
+
+For instance,
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/*=========================================================================
+ *
+ *  Copyright Insight Software Consortium
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ *=========================================================================*/
+
+#ifndef itkBoxImageFilter_h
+#define itkBoxImageFilter_h
+
+#include "itkImageToImageFilter.h"
+#include "itkCastImageFilter.h"
+
+namespace itk
+{
+
+/**
+ * \class BoxImageFilter
+ * \brief A base class for all the filters working on a box neighborhood
+ *
+ * This filter provides the code to store the radius information about the
+ * neighborhood used in the subclasses.
+ * It also conveniently reimplement the GenerateInputRequestedRegion() so
+ * that region is well defined for the provided radius.
+ *
+ * \author Gaetan Lehmann. Biologie du Developpement et de la Reproduction, INRA de Jouy-en-Josas, France.
+ * \ingroup ITKImageFilterBase
+ */
+
+template< typename TInputImage, typename TOutputImage >
+class ITK_TEMPLATE_EXPORT BoxImageFilter:
+  public ImageToImageFilter< TInputImage, TOutputImage >
+{
+public:
+  /** Standard class typedefs. */
+  typedef BoxImageFilter                                  Self;
+  typedef ImageToImageFilter< TInputImage, TOutputImage > Superclass;
+
+  ...
+
+protected:
+  BoxImageFilter();
+
+  ~BoxImageFilter() {}
+
+  virtual void GenerateInputRequestedRegion() ITK_OVERRIDE;
+
+  virtual void PrintSelf(std::ostream & os, Indent indent) const ITK_OVERRIDE;
+
+private:
+  ITK_DISALLOW_COPY_AND_ASSIGN(BoxImageFilter);
+
+  RadiusType m_Radius;
+};
+
+} // end namespace itk
+
+#ifndef ITK_MANUAL_INSTANTIATION
+#include "itkBoxImageFilter.hxx"
+#endif
+
+#endif // itkBoxImageFilter_h
+\end{minted}
+\normalsize
+
+An empty line should exist in an implementation file (\code{.cxx}, \code{.hxx}):
+\begin{itemize}
+\item Between the Copyright notice and the include guard (e.g.
+\code{\#ifndef itkBoxImageFilter\_hxx}).
+\item Between the pre-processor directives and the header includes.
+\item Between the header includes and the class implementation.
+\item Between the ITK namespace end brace \code{\} // end namespace itk} and
+closing include guard \code{\#endif}.
+\end{itemize}
+
+Two empty lines are recommended between method definitions for the sake of
+readability.
+For instance,
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/*=========================================================================
+ *
+ *  Copyright Insight Software Consortium
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ *=========================================================================*/
+
+#ifndef itkBoxImageFilter_hxx
+#define itkBoxImageFilter_hxx
+
+#include "itkBoxImageFilter.h"
+#include "itkProgressAccumulator.h"
+
+namespace itk
+{
+
+template< typename TInputImage, typename TOutputImage >
+BoxImageFilter< TInputImage, TOutputImage >
+::BoxImageFilter()
+{
+  m_Radius.Fill( 1 ); // A good arbitrary starting point.
+}
+
+
+template< typename TInputImage, typename TOutputImage >
+void
+BoxImageFilter< TInputImage, TOutputImage >
+::SetRadius(const RadiusType & radius)
+{
+  if( m_Radius != radius )
+    {
+    m_Radius = radius;
+    this->Modified();
+    }
+}
+
+
+template< typename TInputImage, typename TOutputImage >
+void
+BoxImageFilter< TInputImage, TOutputImage >
+::PrintSelf( std::ostream & os, Indent indent ) const
+{
+  Superclass::PrintSelf( os, indent );
+
+  os << indent << "Radius: " << m_Radius << std::endl;
+}
+
+} // end namespace itk
+
+#endif // itkBoxImageFilter_hxx
+\end{minted}
+\normalsize
+
+Logical code blocks that must dwell in the same method but which may not be
+tightly related can be separated by two empty lines at most, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+int itkHMinimaImageFilterTest( int argc, char *argv[] )
+{
+  ...
+
+  hMinimaFilter->SetInput( reader->GetOutput() );
+
+  // Run the filter
+  TRY_EXPECT_NO_EXCEPTION( hMinimaFilter->Update() );
+
+
+  // Write the output
+  typedef itk::ImageFileWriter< OutputImageType > WriterType;
+  WriterType::Pointer writer = WriterType::New();
+  writer->SetFileName( argv[2] );
+  writer->SetInput( hMinimaFilter->GetOutput() );
+
+  TRY_EXPECT_NO_EXCEPTION( writer->Update() );
+
+
+  std::cout << "Test finished." << std::endl;
+  return EXIT_SUCCESS;
+}
+\end{minted}
+\normalsize
+
+
+However, it is preferable to use a single empty line and use a comment block
+using the \code{//} character to describe the part of the code at issue. The
+comment block can start and end with an empty comment line (\code{//}), and
+immediately be followed by the code, as in:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+int itkHMinimaImageFilterTest( int argc, char * argv[] )
+{
+  if( argc != 5 )
+    {
+    std::cerr << "Missing parameters." << std::endl;
+    std::cerr << "Usage: " << std::endl;
+    std::cerr << argv[0]
+      << " inputImageFile"
+      << " outputImageFile"
+      << " height"
+      << " fullyConnected" << std::endl;
+    return EXIT_FAILURE;
+    }
+
+  //
+  // The following code defines the input and output pixel types and their
+  // associated image types.
+  //
+  const unsigned int Dimension = 2;
+
+  typedef short         InputPixelType;
+  typedef unsigned char OutputPixelType;
+
+  ...
+}
+\end{minted}
+\normalsize
+
+or just have an empty line before and after the comment, such as in:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage, typename TMaskImage, typename TOutputImage >
+typename
+N4BiasFieldCorrectionImageFilter< TInputImage, TMaskImage, TOutputImage >::RealImagePointer
+N4BiasFieldCorrectionImageFilter< TInputImage, TMaskImage, TOutputImage >
+::SharpenImage( const RealImageType *unsharpenedImage ) const
+{
+  const MaskImageType *maskImage = this->GetMaskImage();
+  const RealImageType *confidenceImage = this->GetConfidenceImage();
+#if !defined( ITK_FUTURE_LEGACY_REMOVE )
+  const MaskPixelType maskLabel = this->GetMaskLabel();
+  const bool useMaskLabel = this->GetUseMaskLabel();
+#endif
+
+  // Build the histogram for the uncorrected image. Store copy
+  // in a vnl_vector to utilize vnl FFT routines. Note that variables
+  // in real space are denoted by a single uppercase letter whereas their
+  // frequency counterparts are indicated by a trailing lowercase 'f'.
+
+  RealType binMaximum = NumericTraits< RealType >::NonpositiveMin();
+  RealType binMinimum = NumericTraits< RealType >::max();
+
+  ImageRegionConstIterator< RealImageType > itU(
+    unsharpenedImage, unsharpenedImage->GetLargestPossibleRegion() );
+
+  ...
+}
+\end{minted}
+\normalsize
+
+Empty lines are not allowed to contain white spaces in ITK.
+
+Logical blocks may be separated by a single-line comment (\code{// Comment}) if
+necessary in the implementation file (\code{.h}). No comment line or any other
+separation string (e.g. \code{/***********************/}) must be placed between
+the definition of two methods in the implementation file (\code{.cxx},
+\code{.hxx}).
+
+
+\subsection{New Line Character}
+\label{subsec:NewLineCharacter}
+
+Use \code{std::endl} to introduce a new line instead of \code{{\textbackslash}n} in string
+literals, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage >
+void
+MinimumMaximumImageCalculator< TInputImage >
+::PrintSelf( std::ostream & os, Indent indent ) const
+{
+  Superclass::PrintSelf( os, indent );
+
+  os << indent << "Minimum: "
+  << static_cast< typename NumericTraits< PixelType >::PrintType >( m_Minimum )
+  << std::endl;
+  os << indent << "Maximum: "
+  << static_cast< typename NumericTraits< PixelType >::PrintType >( m_Maximum )
+  << std::endl;
+  os << indent << "IndexOfMinimum: " << m_IndexOfMinimum << std::endl;
+  os << indent << "IndexOfMaximum: " << m_IndexOfMaximum << std::endl;
+  itkPrintSelfObjectMacro( Image );
+  os << indent << "Region: " << std::endl;
+  m_Region.Print( os, indent.GetNextIndent() );
+  os << indent << "RegionSetByUser: " << m_RegionSetByUser << std::endl;
+}
+\end{minted}
+\normalsize
+
+
+\subsection{End Of File Character}
+\label{subsec:EndOfFileCharacter}
+
+The file must be terminated by a (preferably single) blank line.
+This policy is enforced by the KWStyle pre-commit hooks (see Section
+\ref{subsec:KitwareStyle} on page \pageref{subsec:KitwareStyle}).
+
+
+\section{Increment/decrement Operators}
+\label{sec:IncrementDecrementOperators}
+
+Systematically use the pre-increment(decrement) syntax, instead of the
+post-increment(decrement) syntax:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+for( unsigned int i = 0; i < ImageDimension; ++i )
+  {
+  ...
+  }
+\end{minted}
+\normalsize
+
+Although the advantage can be very little when using it with a standard type,
+in the case of iterators over potentially large structures, the optimization
+performed by modern compilers may involve a significant advantage:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+while( it != m_Container.end() )
+  {
+  ...
+  ++it;
+  }
+\end{minted}
+\normalsize
+
+
+\section{Empty Arguments in Methods}
+\label{sec:EmptyArgumentInMethods}
+
+The use of the \code{void} keyword is discouraged for methods not requiring
+input arguments. Hence, they are declared and called with an empty
+opening/closing parenthesis pair:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/** Method doc. */
+void methodName();
+\end{minted}
+\normalsize
+
+and
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+this->methodName();
+\end{minted}
+\normalsize
+
+
+\section{Ternary Operator}
+\label{sec:TernaryOperator}
+
+The use of the ternary operator
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+for( unsigned int i = 0; i < m_NumOfThreads; ++i )
+  {
+  for( unsigned int j = ( i == 0 ? 0 : m_Boundary[i - 1] + 1 ); j <= m_Boundary[i]; ++j )
+    {
+    m_GlobalZHistogram[j] = m_Data[i].m_ZHistogram[j];
+    }
+  }
+\end{minted}
+\normalsize
+
+is generally discouraged in ITK, especially in cases where complicated
+statements have any part of the ternary operator.
+
+Thus, the above should be expanded to
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+for( unsigned int i = 0; i < m_NumOfThreads; ++i )
+  {
+  if( i == 0 )
+    {
+    for( unsigned int j = 0; j <= m_Boundary[i]; ++j )
+      {
+      m_GlobalZHistogram[j] = m_Data[i].m_ZHistogram[j];
+      }
+    }
+  else
+    {
+    for( unsigned int j = m_Boundary[i - 1] + 1; j <= m_Boundary[i]; ++j )
+      {
+      m_GlobalZHistogram[j] = m_Data[i].m_ZHistogram[j];
+      }
+    }
+  }
+\end{minted}
+\normalsize
+
+or, performing a code refactoring:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+for( unsigned int j = 0; j <= m_Boundary[i]; ++j )
+  {
+  m_GlobalZHistogram[j] = m_Data[0].m_ZHistogram[j];
+  }
+for( unsigned int i = 1; i < m_NumOfThreads; ++i )
+  {
+  for( unsigned int j = m_Boundary[i - 1] + 1; j <= m_Boundary[i]; ++j )
+    {
+    m_GlobalZHistogram[j] = m_Data[i].m_ZHistogram[j];
+    }
+  }
+\end{minted}
+\normalsize
+
+However, in simple constructs, such as when initializing a variable that could
+be const, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+for( unsigned int i = 0; j < ImageDimension; i++ )
+  {
+  const elementSign = ( m_Step[i] > 0 ) ? 1.0 : -1.0 ;
+  flipMatrix[i][i] = elementSign;
+  }
+\end{minted}
+\normalsize
+
+a ternary operator can have significant advantage in terms of the reading speed
+over the alternative \code{if-else} statement with duplicated syntax:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+for( unsigned int i = 0; j < ImageDimension; i++ )
+  {
+  if( m_Step[i] > 0 )
+    {
+    elementSign = 1.0;
+    }
+  else
+    {
+    elementSign = -1.0;
+    }
+  flipMatrix[i][i] = elementSign;
+  }
+\end{minted}
+\normalsize
+
+And hence, the ternary operator is accepted in such cases.
+
+
+\section{Using Standard Macros}
+\label{sec:UsingStandardMacros}
+
+There are several macros defined in the file \code{itkMacro.h}. These macros
+should be used because they perform several important operations that if not
+done correctly can cause serious, hard to debug problems in the system.
+
+These operations are:
+\begin{itemize}
+\item Object modified time is properly managed.
+\item Debug information is printed.
+\item Reference counting is handled properly.
+\end{itemize}
+
+Some of the more important object macros are:
+\begin{itemize}
+\item \code{itkNewMacro(T)}: Creates the static class method \code{New(void)}
+that interacts with the object factory to instantiate objects. The method
+returns a \code{SmartPointer<T>} properly reference counted.
+\item \code{itkTypeMacro(thisClass, superclass)}: Adds standard methods a
+class, mainly type information. Adds the \code{GetNameOfClass()} method to the
+class.
+\item \code{itkDebugMacro(x)}: If debug is set on a subclass of
+\doxygen{itk::Object}, prints debug information to the appropriate output
+stream.
+\item \code{itkStaticConstMacro(name, type, value)}: Creates a
+\code{static const} member of type \code{type} and sets it to the value
+\code{value}.
+\item \code{itkSetMacro(name, type)}: Creates a method \code{SetName()} that
+takes an argument of type \code{type}.
+\item \code{itkGetMacro(name, type)}: Creates a method \code{GetName()} that
+returns a non-const value of type \code{type}.
+\item \code{itkGetConstMacro(name, type)}: Creates a method \code{GetName()}
+that returns a \code{const} value of type \code{type}.
+\item \code{itkSetStringMacro(name)}: Creates a method \code{SetName()} that
+takes an argument of type \code{const char*}.
+\item \code{itkGetStringMacro(name)}: Creates a method \code{GetName()} that
+returns an argumentof  type \code{const char*}.
+\item \code{itkBooleanMacro(name)}: Creates two methods named \code{NameOn} and
+\code{NameOff} that set \code{true}/\code{false} boolean values.
+\item \code{itkSetObjectMacro(name, type)}: Creates a method \code{SetName()}
+that takes argument type \code{type *}. For ITK objects,
+\code{itkSetObjectMacro} must be used in lieu of \code{itkSetMacro}.
+\item \code{itkGetObjectMacro(name, type)}: Creates a method named
+\code{GetName()} that returns a \doxygen{SmartPointer} to a \code{type} type.
+\item \code{itkSetConstObjectMacro(name, type)}: Creates a method
+\code{SetName()} that takes an argument of type \code{const type *}.
+\item \code{itkGetConstObjectMacro(name, type)}: Creates a method named
+\code{GetName()} that returns a \code{const} \doxygen{SmartPointer} to a
+\code{type} type.
+\item \code{itkSetClampMacro(name, type, min, max)}: Creates a method named
+\code{SetName()} that takes an argument of type \code{type} constraining it
+to the [\code{min}, \code{max}] closed interval.
+\end{itemize}
+
+Please review this file and become familiar with these macros.
+
+All classes must declare the basic macros for object creation and run-time type
+information (RTTI):
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/** Method for creation through the object factory. */
+itkNewMacro( Self );
+
+/** Run-time type information (and related methods). */
+itkTypeMacro( Image, ImageBase );
+\end{minted}
+\normalsize
+
+Basic types (e.g. \code{int}, \code{double}, etc.) must be returned by value
+using the method defined through the \code{itkGetMacro} macro; member data
+pointers that must not be modified should be returned using the method defined
+through the \code{itkGetConstMacro}.
+
+When using a macro that accepts a statement, a semi-colon (\code{;}) is not
+required for the argument, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+TRY_EXPECT_NO_EXCEPTION( writer->Update() );
+\end{minted}
+\normalsize
+
+
+\section{Exception Handling}
+\label{sec:ExceptionHandling}
+
+ITK exceptions are defined in \code{itkExceptionObject.h}. Derived exception
+classes include:
+\begin{itemize}
+\item \code{itkImageFileReaderException.h} for exceptions thrown while trying to
+read image files (i.e. DICOM files, JPEG files, metaimage files, etc.).
+\item \code{itkMeshFileReaderException.h} for exceptions thrown while trying to
+read mesh files.
+\item \code{itkMeshFileWriterrException.h} for exceptions thrown while trying to
+write mesh files.
+\end{itemize}
+
+Methods throwing exceptions must indicate so in their declaration as in:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/** Initialize the components related to supporting multiple threads. */
+virtual void MultiThreadingInitialize(void) throw ( ExceptionObject );
+\end{minted}
+\normalsize
+
+When a code block is liable to throw an exception, a \code{try/catch} block must
+be used to deal with the exception. The following rules apply to such blocks
+\begin{itemize}
+\item The exception object should generally be redirected to the error output
+\code{std::cerr} and be trailed with a line break \code{std::endl}.
+\item In classes that have a member to store the error messages (e.g.
+\code{m\_ExceptionMessage}), the exception description must be obtained using
+\code{GetDescription()} and be assigned to the exception message member.
+\item Otherwise, the error shall be re-thrown to the caller.
+\end{itemize}
+
+For instance,
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+try
+  {
+  // Code liable to throw an exception
+  }
+catch( ExceptionObject & exc )
+  {
+  std::cerr << exc << std::endl;
+  }
+catch( std::exception & exc )
+  {
+  std::cerr << exc.what() << std::endl;
+  }
+\end{minted}
+\normalsize
+
+For instance,
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+ try
+  {
+  m_ExceptionMessage = "";
+  this->TestFileExistanceAndReadability();
+  }
+catch( ExceptionObject & exc )
+  {
+  m_ExceptionMessage = exc.GetDescription();
+  }
+\end{minted}
+\normalsize
+
+For instance,
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+// Do the optimization
+try
+  {
+  m_Optimizer->StartOptimization();
+  }
+catch( ExceptionObject & exc )
+  {
+  // An error has occurred in the optimization.
+  // Update the parameters.
+  m_LastTransformParameters = m_Optimizer->GetCurrentPosition();
+
+  // Pass the exception to the caller
+  throw exc;
+}
+\end{minted}
+\normalsize
+
+Exceptions can also be thrown outside \code{try/catch} blocks, when there is
+sufficient evidence for that, e.g. a filename to be read is empty. In such
+cases, depending on the exception class the following information should be
+included:
+\begin{itemize}
+\item the file
+\item the line
+\item the error message
+\end{itemize}
+of the related exception, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+if( m_FileName == "" )
+  {
+  throw MeshFileReaderException( __FILE__, __LINE__, "FileName must be specified", ITK_LOCATION );
+  }
+\end{minted}
+\normalsize
+
+See Section \ref{sec:ErrorHandling} on page \pageref{sec:ErrorHandling} for
+details about error handling in ITK.
+
+
+\subsection{Errors in Pipelines}
+\label{subsec:ErrorsInPipelines}
+
+When in a function an element must have a given value, a check must ensure that
+such condition is met. The condition is generally being non-null (e.g. for I/O
+images), or different from zero (e.g. for sizes, etc.).
+
+When the I/O objects are not set, the ITK
+\code{itkAssertInDebugAndIgnoreInReleaseMacro} macro is used: the ITK processing
+framework should handle this situation and throw the appropriate exception (e.g.
+the \doxygen{itk::ProcessObject} class), such macro assertion is preferred over
+an exception, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage, typename TOutputImage >
+void
+BinShrinkImageFilter< TInputImage, TOutputImage >
+::GenerateInputRequestedRegion()
+{
+  // Call the superclass' implementation of this method.
+  Superclass::GenerateInputRequestedRegion();
+
+  // Get pointers to the input and output.
+  InputImageType * inputPtr =
+    const_cast< InputImageType * >( this->GetInput() );
+  const OutputImageType * outputPtr = this->GetOutput();
+
+  itkAssertInDebugAndIgnoreInReleaseMacro( inputPtr != ITK_NULLPTR );
+  itkAssertInDebugAndIgnoreInReleaseMacro( outputPtr );
+
+  ...
+}
+\end{minted}
+\normalsize
+
+e.g
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage, typename TOutputImage >
+void
+PatchBasedDenoisingBaseImageFilter< TInputImage, TOutputImage >
+::SetPatchWeights( const PatchWeightsType& weights )
+{
+  itkAssertOrThrowMacro( this->GetPatchLengthInVoxels() == weights.GetSize(),
+    "Unexpected patch size encountered while setting patch weights" );
+
+  ...
+}
+\end{minted}
+\normalsize
+
+The \code{itkAssertInDebugAndIgnoreInReleaseMacro} macro is useful for logic
+checks in performance sections that should never be violated.
+\code{itkAssertOrThrowMacro} is fine for non-performance critical sections where
+it would be helpful to also add an error message.
+
+
+\section{Messages}
+\label{sec:Messages}
+
+
+\subsection{Messages in Macros}
+\label{sec:MessagesInMacros}
+
+Messages written for debugging purposes which are deemed to be appropriate to
+remain in the code, and those reported when raising exceptions should be using
+the output stream operator (\code{<<}) to add the message to any previous string
+in the buffer. Messages should start with capitals and should not finish with a
+period. Self-contained sentences must be streamed.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+itkDebugMacro( << "Computing Bayes Rule" );
+\end{minted}
+\normalsize
+
+or
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+itkExceptionMacro( << "The size of the mask differs from the input image" );
+\end{minted}
+\normalsize
+
+
+\subsection{Messages in Tests}
+\label{subsec:MessagesInTests}
+
+ITK tests are run automatically, and hence, results are not read by humans.
+Although at times it may be beneficial (e.g. when a large number of regressions
+are done in a test, checking different image types, or using different
+approaches), tests should not generally contain messages sent to the standard
+output.
+
+One of the general exceptions is a message at the end of the test signaling
+that the test has ended:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+...
+std::cout << "Test finished.";
+return EXIT_SUCCESS;
+\end{minted}
+\normalsize
+
+In case of test failure, this allows ITK maintainers to know whether the issue
+came from the test execution or from a potential regression against a baseline.
+
+When failures are to be reported in a test (i.e. if an insufficient number of
+test arguments are provided or a regression fails), messages must be redirected
+to the error output.
+
+When an insufficient number of parameters are found, the test arguments should
+be written in medial capitals, starting with lower cases.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+if( argc != 3 )
+  {
+  std::cerr << "Missing parameters." << std::endl;
+  std::cerr << "Usage: " << argv[0];
+  std::cerr << " inputImage outputImage" << std::endl;
+  return EXIT_FAILURE;
+  }
+\end{minted}
+\normalsize
+
+If the length of the message is longer than 200 characters, the argument list
+must be split in its individual components, leaving a white space at the
+beginning of each line, and the \code{std::cerr} redirection should only
+exist on the first line. A final line break must be always added. Optional
+arguments must be enclosed in square brackets \code{[]}.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+if( argc < 3 )
+  {
+  std::cerr << "Missing parameters." << std::endl;
+  std::cerr << "Usage: " << argv[0];
+  std::cerr << " inputImage"
+    << " outputImage"
+    << " [foregroundValue]
+    << " [backgroundValue]" << std::endl;
+  return EXIT_FAILURE;
+  }
+\end{minted}
+\normalsize
+
+When a regression fails in a check, it must be clearly stated that the test
+failed, and details about the method that failed to return the correct value,
+as well as the expected and returned values, must be provided:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+bool tf = colors->SetColor( 0, 0, 0, 0, name );
+if( tf != true )
+  {
+  std::cerr << "Test failed!" << std::endl;
+  std::cerr << "Error in itk::ColorTable::SetColor" << std::endl;
+  std::cerr << "Expected: " << true << ", but got: "
+    << tf << std::endl;
+  return EXIT_FAILURE;
+  }
+\end{minted}
+\normalsize
+
+If any index is involved (i.e. the test failure stems from a given index
+position when checking the values of a list, image, etc.), the index at issue
+must be specified in the message:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+// Check the content of the result image
+const OutputImageType::PixelType expectedValue =
+  static_cast< OutputImageType::PixelType >( valueA * valueB );
+const OutputImageType::PixelType epsilon = 1e-6;
+while( !oIt.IsAtEnd() )
+  {
+  if( !itk::Math::FloatAlmostEqual( oIt.Get(), expectedValue, 10, epsilon ) )
+    {
+    std::cerr.precision( static_cast< int >( itk::Math::abs( std::log10( epsilon ) ) ) );
+    std::cerr << "Test failed!" << std::endl;
+    std::cerr << "Error in pixel value at index [" << oIt.GetIndex() << "]" << std::endl;
+    std::cerr << "Expected value " << expectedValue << std::endl;
+    std::cerr << " differs from " << oIt.Get();
+    std::cerr << " by more than " << epsilon << std::endl;
+    return EXIT_FAILURE;
+    }
+  ++oIt;
+  }
+\end{minted}
+\normalsize
+
+
+\section{Concept Checking}
+\label{sec:ConceptChecking}
+
+
+\section{Printing Variables}
+\label{sec:PrintingVariables}
+
+All member variables, regardless of whether they are publicly exposed or not,
+must be printed in a class' \code{PrintSelf} method. Besides being an
+important sanity check that allows to identify uninitialized variables, it
+allows to know the state of a class instance at any stage.
+
+The basic conventions for printing member variables are:
+\begin{itemize}
+\item Each variable must be printed on a new line and be indented.
+\item The name of the variable must immediately follow to the indentation.
+\item The \code{Superclass} must always be printed.
+\end{itemize}
+
+Thus, the general layout for printing member variables is:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+Superclass::PrintSelf( os, indent );
+
+os << indent << "<MemberVariableName>" << <MemberVariableValue> << std::endl;
+\end{minted}
+\normalsize
+
+The following additional conventions apply to printing member variables:
+\begin{itemize}
+\item When printing constructs such as matrices, double indentation should be
+used to print its contents using \doxygen{itk::Indent::GetNextIndent()}.
+\item Objects that can be \code{null} (such as \doxygen{SmartPointer}) must be
+printed using the \code{itkPrintSelfObjectMacro} macro.
+\item Without harm to the previous convention, constructs such as images can
+be printed using the \code{Print} method.
+\item Objects that have been declared as \code{typedef} must be casted
+statically using the \code{NumericTraits< Type >::PrintType >} helper
+formatting.
+\item The order of the variables should be the same used in their declaration.
+\end{itemize}
+
+For instance,
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage >
+void
+MinimumMaximumImageCalculator< TInputImage >
+::PrintSelf( std::ostream & os, Indent indent ) const
+{
+  Superclass::PrintSelf( os, indent );
+
+  os << indent << "Minimum: "
+   << static_cast< typename NumericTraits< PixelType >::PrintType >( m_Minimum )
+   << std::endl;
+  os << indent << "Maximum: "
+   << static_cast< typename NumericTraits< PixelType >::PrintType >( m_Maximum )
+   << std::endl;
+  os << indent << "IndexOfMinimum: " << m_IndexOfMinimum << std::endl;
+  os << indent << "IndexOfMaximum: " << m_IndexOfMaximum << std::endl;
+  itkPrintSelfObjectMacro( Image );
+  os << indent << "Region: " << std::endl;
+  m_Region.Print( os, indent.GetNextIndent() );
+  os << indent << "RegionSetByUser: " << m_RegionSetByUser << std::endl;
+}
+\end{minted}
+\normalsize
+
+
+\section{Checking for Null}
+\label{sec:CheckingForNull}
+
+ITK's \doxygen{SmartPointer} constructs can be checked against the \code{null}
+pointer using either the syntax
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+itkSmartPtr.IsNull();
+\end{minted}
+\normalsize
+
+or
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+itkSmartPtr == ITK_NULLPTR;
+\end{minted}
+\normalsize
+
+where \code{ITK\_NULLPTR} is defined in \code{itk\_compiler\_detection.h}.
+
+The latter, being more explicit, is preferred over the former.
+
+
+\section{Writing Tests}
+\label{sec:WritingTests}
+
+The following section provides additional rules that apply to writing tests
+in ITK.
+
+
+\subsection{Regressions in Tests}
+\label{subsec:RegressionsInTests}
+
+Tests should run as long as possible to report as much failures as possible before returning
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+int itkAbsImageFilterAndAdaptorTest( int, char* [] )
+{
+  int testStatus = EXIT_SUCCESS;
+
+  ...
+
+  // Check the content of the result image.
+  const OutputImageType::PixelType epsilon = 1e-6;
+  ot.GoToBegin();
+  it.GoToBegin();
+  while( !ot.IsAtEnd() )
+    {
+    std::cout.precision( static_cast< int >( itk::Math::abs( std::log10( epsilon ) ) ) );
+    std::cout << ot.Get() << " = ";
+    std::cout << itk::Math::abs( it.Get() ) << std::endl;
+    const InputImageType::PixelType input = it.Get();
+    const OutputImageType::PixelType output = ot.Get();
+    const OutputImageType::PixelType absolute = itk::Math::abs(input);
+    if( !itk::Math::FloatAlmostEqual( absolute, output, 10, epsilon ) )
+      {
+      std::cerr.precision( static_cast< int >( itk::Math::abs( std::log10( epsilon ) ) ) );
+      std::cerr << "Test failed!" << std::endl;
+      std::cerr << "Error in pixel value at index [" << oIt.GetIndex() << "]" << std::endl;
+      std::cerr << "Expected value " << abs(" << input << ") = " << absolute << std::endl;
+      std::cerr << " differs from " << output();
+      std::cerr << " by more than " << epsilon << std::endl;
+      testStatus = EXIT_FAILURE;
+      }
+    ++ot;
+    ++it;
+    }
+
+  //
+  // Test AbsImageAdaptor
+  //
+
+  ...
+
+  // Check the content of the diff image.
+  std::cout << "Comparing the results with those of an Adaptor" << std::endl;
+  std::cout << "Verification of the output " << std::endl;
+
+  // Create an iterator for going through the image output.
+  OutputIteratorType dt( diffImage, diffImage->GetRequestedRegion() );
+
+  dt.GoToBegin();
+  while( !dt.IsAtEnd() )
+    {
+    std::cout.precision( static_cast< int >( itk::Math::abs( std::log10( epsilon ) ) ) );
+    const OutputImageType::PixelType diff = dt.Get();
+    if( !itk::Math::FloatAlmostEqual( diff, ( OutputImageType::PixelType )0, 10, epsilon ) )
+      {
+      std::cerr.precision( static_cast< int >( itk::Math::abs( std::log10( epsilon ) ) ) );
+      std::cerr << "Test failed!" << std::endl;
+      std::cerr << "Error in pixel value at index [" << dt.GetIndex() << "]" << std::endl;
+      std::cerr << "Expected difference " << diff << std::endl;
+      std::cerr << " differs from 0 ";
+      std::cerr << " by more than " << epsilon << std::endl;
+      testStatus = EXIT_FAILURE;
+      }
+    ++dt;
+    }
+
+  std::cout << "Test finished.";
+  return testStatus;
+}
+\end{minted}
+\normalsize
+
+Note that when dealing with real numbers, a tolerance parameter must be
+specified in order to avoid precision issues. Furthermore, setting the output
+message precision with \code{std::cerr.precision(int n);} is recommended to
+allow for easy identification of the magnitude of the error.
+
+When the magnitude of the error needs to be reported, as in the above examples,
+the error message should be split into different lines, all starting with the
+error output redirection \code{std::cerr << "";}. Care must be taken to
+appropriately add white space for a correct formatting of the message.
+
+
+\subsection{Arguments in Tests}
+\label{subsec:ArgumentsInTests}
+
+Tests generally require input arguments, whether the filename of an input image,
+the output image filename for regression purposes, or a variety of other
+parameters to be set to a filter instance. However, some tests are
+self-contained and do not need any input parameter.
+
+In such cases, the test's \code{main} method argument variables do not need to
+be specified. The generally accepted syntax for these cases is:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+int itkVersionTest( int, char* [] )
+\end{minted}
+\normalsize
+
+Otherwise, it may happen that some test may or may not accept arguments,
+depending on the implementation. In such cases, the \code{itkNotUsed} ITK macro
+must be used to avoid compiler warnings:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+int itkGaborKernelFunctionTest( int itkNotUsed( argc ), char * itkNotUsed( argv )[] )
+\end{minted}
+\normalsize
+
+When a test requires input arguments, a basic sanity check on the presence of
+the required arguments must be made. If the test does not have optional
+arguments, the exact match for the input arguments must be checked:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+if( argc != 3 )
+  {
+  std::cerr << "Missing parameters." << std::endl;
+  std::cerr << "Usage: " << argv[0];
+  std::cerr << " inputImage outputImage " << std::endl;
+  return EXIT_FAILURE;
+  }
+\end{minted}
+\normalsize
+
+If the test does have optional arguments, the presence of the set of compulsory
+arguments must be checked:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+if( argc < 3 )
+  {
+  std::cerr << "Missing parameters." << std::endl;
+  std::cerr << "Usage: " << argv[0];
+  std::cerr << " inputImage"
+    << " outputImage"
+    << " [foregroundValue]
+    << " [backgroundValue]" << std::endl;
+  return EXIT_FAILURE;
+  }
+\end{minted}
+\normalsize
+
+
+\subsection{Test Return Value}
+\label{subsec:TestReturnValue}
+
+Tests must always return a value of type \code{int},
+even if \code{bool} is tempting:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+int itkVersionTest( int, char* [] )
+\end{minted}
+\normalsize
+
+Thus, if a test requires a variable to store its exit value due to the need
+of multiple regressions, an \code{int} variable must be declared:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+int itkAbsImageFilterAndAdaptorTest( int, char* [] )
+{
+  int testStatus = EXIT_SUCCESS;
+
+  ...
+
+  return testStatus;
+\end{minted}
+\normalsize
+
+Tests must exit gracefully using the values \code{EXIT\_SUCCESS} (in case of
+success) or \code{EXIT\_FAILURE} (in case of failure) defined in the
+\code{stdlib.h} library values. Other ways of exiting tests such as
+\code{exit(1);}, \code{exit(255);}, or \code{exit(EXIT\_FAILURE);} are not
+allowed in ITK.
+
+
+\section{Doxygen Documentation System}
+\label{sec:DoxygenDocumentationSystem}
+
+Doxygen is an open-source, powerful system for automatically generating
+documentation from source code. To use Doxygen effectively, the developer must
+insert comments, delimited in a special way, that Doxygen extracts to produce
+the documentation. While there are a large number of options to Doxygen,
+ITK community members are required at a minimum to insert Doxygen commands
+listed in this section.
+
+See more at \href{http://www.stack.nl/~dimitri/doxygen/}
+{http://www.stack.nl/~dimitri/doxygen/}
+
+
+\subsection{General Principles}
+\label{subsec:GeneralPrinciples}
+
+ITK uses a subset of C-style Doxygen markdown. No other markdown style (e.g. Qt,
+Javadoc) shall be used.
+
+In ITK, documentation is placed before the documented construct (i.e. a class, a
+method, a variable, etc.).
+
+Although not the general rule, if a comment is too short or applies to a single
+line so that it is a clear candidate to dwell on that line, it can be placed on
+the same line using the \code{//} comment style, and leaving a single space
+before the statement-ending \code{;} and the comment itself, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+template< typename TInputImage, typename TOutputImage >
+BoxImageFilter< TInputImage, TOutputImage >
+::BoxImageFilter()
+{
+  m_Radius.Fill( 1 ); // A good arbitrary starting point.
+}
+\end{minted}
+\normalsize
+
+Correct English and complete, grammatically correct sentences must be used
+when documenting. Finish the sentences with a period (.).
+
+
+\subsection{Documenting Classes}
+\label{subsec:DocumentingClasses}
+
+Classes must be documented using the \code{{\textbackslash}class},
+\code{{\textbackslash}brief}, and
+\code{{\textbackslash}ingroup} Doxygen commands, followed by the detailed class description.
+The comment starts with \code{/**}, each subsequent line has an aligned
+\code{*}, and the comment block terminates with a \code{*/} on a line of its
+own. A single white space should exist between these keywords/characters and
+the documentation body, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/** \class Object
+ * \brief Base class for most ITK classes.
+ *
+ * Object is the second-highest level base class for most itk objects.
+ * It extends the base object functionality of LightObject by
+ * implementing debug flags/methods and modification time tracking.
+ *
+ * \ingroup Module
+ */
+\end{minted}
+\normalsize
+
+The \code{{\textbackslash}ingroup} and other additional Doxygen keywords must be separated from
+their preceding and following lines by an empty comment \code{*} line.
+
+Doxygen keywords that may most commonly apply to complete a class documentation are
+\begin{itemize}
+  \item \textbf{\code{{\textbackslash}note}}
+  \item \textbf{\code{{\textbackslash}sa}}
+\end{itemize}
+
+Math formulas in class documentation are formatted following the \LaTeX guidelines.
+For more information, please visit
+\href{https://www.stack.nl/~dimitri/doxygen/manual/formulas.html}
+{https://www.stack.nl/~dimitri/doxygen/manual/formulas.html}.
+
+Every class must be documented.
+
+
+\subsection{Documenting Methods}
+\label{subsec:DocumentingMethods}
+
+The method Doxygen documentation must be placed in the header file (\code{.h}).
+
+A single white space should separate the comment characters (\code{/**},
+\code{*}, or \code{*/}) and the comment itself. The starting (\code{/**}
+and ending (\code{*/} comment characters must be placed on the same lines
+as the comment text, and the lines with the asterisk (\code{*}) character
+should be aligned, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/** Provides opportunity for the data object to insure internal
+ * consistency before access. Also causes owning source/filter (if
+ * any) to update itself. The Update() method is composed of
+ * UpdateOutputInformation(), PropagateRequestedRegion(), and
+ * UpdateOutputData(). This method may call methods that throw an
+ * InvalidRequestedRegionError exception. This exception will leave
+ * the pipeline in an inconsistent state. You will need to call
+ * ResetPipeline() on the last ProcessObject in your pipeline in
+ * order to restore the pipeline to a state where you can call
+ * Update() again. */
+virtual void Update();
+\end{minted}
+\normalsize
+
+The base class virtual method documentation is automatically applied for such
+methods in derived class unless they are overridden. Virtual methods whose
+meaning or set of instructions differs from their base class need to be
+documented in the derived classes. If the base class method documentation
+applies, they need not to be documented in derived classes (e.g. the
+\code{PrinSelf} method).
+
+Intra-method documentation must be done where necessary using single-line comment
+style, and must be repeated for every line. A single white space should separate
+the comment character \code{//} and the comment itself, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+// We wish to copy whole lines, otherwise just use the basic implementation.
+// Check that the number of internal components match.
+if( inRegion.GetSize()[0] != outRegion.GetSize()[0]
+   || NumberOfInternalComponents != ImageAlgorithm::PixelSize<OutputImageType>::Get( outImage ) )
+{
+ImageAlgorithm::DispatchedCopy<InputImageType, OutputImageType>( inImage, outImage, inRegion, outRegion );
+return;
+}
+\end{minted}
+\normalsize
+
+Self-contained, complete sentences must end with a period.
+
+Every method must be documented.
+
+
+\subsection{Documenting Data Members}
+\label{subsec:DocumentingDataMembers}
+
+Class member variables should be documented through their corresponding
+\code{Get\#\#name}/\code{Set\#\#name} methods, using a comment block style shown in
+the following example:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+public:
+
+  /** Set/Get the standard deviation of the Gaussian used for smoothing. */
+  itkSetMacro( Sigma, SigmaArrayType );
+  itkGetConstMacro( Sigma, SigmaArrayType );
+
+private:
+
+  SigmaArrayType m_Sigma;
+
+\end{minted}
+\normalsize
+
+The documentation block must be aligned to the \code{Get\#\#name}/\code{Set\#\#name}
+method indentation.
+
+For \code{bool} type variables, the recommended way of documenting its default
+value is using ``On'' for \code{true} and ``Off'' for \code{false}:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/** Set/Get direction along the gradient to search.
+ * Set to true to use the direction that the gradient is pointing;
+ * set to false for the opposite direction. Default is Off. */
+itkGetConstMacro( Polarity, bool );
+itkSetMacro( Polarity, bool );
+itkBooleanMacro( Polarity );
+\end{minted}
+\normalsize
+
+Member variables that do not have either a \code{Get\#\#name} or a
+\code{Set\#\#name} method should also be documented following the above
+guidelines.
+
+
+\subsection{Documenting Macros}
+\label{subsec:DocumentingMacros}
+
+The documentation block in a macro should start in column one, and should be
+placed immediately before the macro definition, and will use \code{/*} as the
+starting character, immediately followed by the body of the documentation, which
+shall be split into different lines starting with asterisks (\code{*}), aligned
+to the preceding asterisk character, with a single white space indentation for
+the text, and will end with the \code{*/} character. The macro definition
+should have a double indentation, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/** This macro is used to print debug (or other information). They are
+ * also used to catch errors, etc. Example usage looks like:
+ * itkDebugMacro( << "this is debug info" << this->SomeVariable ); */
+#if defined( NDEBUG )
+#define itkDebugMacro(x)
+#define itkDebugStatement(x)
+#else
+#define itkDebugMacro(x)                                                \
+    {                                                                   \
+    if ( this->GetDebug() && ::itk::Object::GetGlobalWarningDisplay() ) \
+      {                                                                 \
+      std::ostringstream itkmsg;                                        \
+      itkmsg << "Debug: In " __FILE__ ", line " << __LINE__ << "\n"     \
+             << this->GetNameOfClass() << " (" << this << "): " x       \
+             << "\n\n";                                                 \
+      ::itk::OutputWindowDisplayDebugText( itkmsg.str().c_str() );      \
+      }                                                                 \
+    }
+\end{minted}
+\normalsize
+
+
+\subsection{Documenting Tests}
+\label{subsec:DocumentingTests}
+
+Generally, an ITK test does not need to have a documentation block stating its
+purpose if this is restricted to testing a single class. However, for tests that
+check multiple classes or complex pipelines, documenting its motivation and
+purpose, as well as its general schema, is recommended.
+
+The documentation block should start in column one, and should be placed
+immediately before the \code{main} method, and will use \code{/*} as the
+starting character, immediately followed by the body of the documentation, which
+shall be split into different lines starting with asterisks (\code{*}), aligned
+to the preceding asterisk character, with a single white space indentation for
+the text, and will end with the \code{*/} character, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+/* Test the SetMetricSamplingPercentage and SetMetricSamplingPercentagePerLevel.
+ * We only need to explicitly run the SetMetricSamplingPercentage method because it
+ * invokes the SetMetricSamplingPercentagePerLevel method. */
+int itkImageRegistrationSamplingTest( int, char *[] )
+\end{minted}
+\normalsize
+
+It is recommended to document the body of the test with single-line comment
+style where appropriate.
+
+
+\section{CMake Style}
+\label{sec:CMakeStyle}
+
+For writing CMake scripts, the community member is referred to the standard
+CMake style.
