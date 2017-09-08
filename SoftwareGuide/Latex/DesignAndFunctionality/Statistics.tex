@@ -32,10 +32,8 @@ FixedArray itself.
 
 \subsection{Sample Interface}
 \label{sec:SampleInterface}
-
-\ifitkFullVersion
 \input{ListSample.tex}
-\fi
+
 
 \subsection{Sample Adaptors}
 \label{sec:SampleAdaptors}
@@ -51,58 +49,41 @@ describe how to create an
 
 \subsubsection{ImageToListSampleAdaptor}
 \label{sec:ImageToListSampleAdaptor}
-
-\ifitkFullVersion
 \input{ImageToListSampleAdaptor.tex}
-\fi
+
 
 \subsubsection{PointSetToListSampleAdaptor}
 \label{sec:PointSetToListSampleAdaptor}
 
-\ifitkFullVersion
 \input{PointSetToListSampleAdaptor.tex}
-\fi
 
-\ifitkFullVersion
 \input{PointSetToAdaptor.tex}
-\fi
 
 
 \subsection{Histogram}
 \label{sec:Histogram}
-
-\ifitkFullVersion
 \input{Histogram.tex}
-\fi
+
 
 \subsection{Subsample}
 \label{sec:Subsample}
-
-\ifitkFullVersion
 \input{Subsample.tex}
-\fi
+
 
 \subsection{MembershipSample}
 \label{sec:MembershipSample}
-
-\ifitkFullVersion
 \input{MembershipSample.tex}
-\fi
+
 
 \subsection{MembershipSampleGenerator}
 \label{sec:MembershipSampleGenerator}
-
-\ifitkFullVersion
 \input{MembershipSampleGenerator.tex}
-\fi
 
 
 \subsection{K-d Tree}
 \label{sec:KdTree}
-
-\ifitkFullVersion
 \input{KdTree.tex}
-\fi
+
 
 \section{Algorithms and Functions}
 \label{sec:StatisticsAlgorithmsFunctions}
@@ -133,57 +114,42 @@ expectation-maximization parameter estimation process.
 
 \subsubsection{Mean and Covariance}
 \label{sec:MeanCovariance}
-
-\ifitkFullVersion
 \input{SampleStatistics.tex}
-\fi
+
 
 \subsubsection{Weighted Mean and Covariance}
 \label{sec:WeightedMeanCovariance}
-
-\ifitkFullVersion
 \input{WeightedSampleStatistics.tex}
-\fi
+
 
 \subsection{Sample Generation}
 \label{sec:SampleGeneration}
 
+
 \subsubsection{SampleToHistogramFilter}
 \label{sec:SampleToHistogramFilter}
-
-\ifitkFullVersion
 \input{SampleToHistogramFilter.tex}
-\fi
 
 % TODO HACK Determine where this code went
 %REMOVED \subsubsection{ListSampleToHistogramGenerator}
 %REMOVED \label{sec:ListSampleToHistogramGenerator}
 %REMOVED
-%REMOVED \ifitkFullVersion
 %REMOVED \input{ListSampleToHistogramGenerator.tex}
-%REMOVED \fi
 
 \subsubsection{NeighborhoodSampler}
 \label{sec:NeighborhoodSampler}
-
-\ifitkFullVersion
 \input{NeighborhoodSampler.tex}
-\fi
 
 % TODO HACK Determine where this code went
 %REMOVED \subsubsection{SampleToHistogramProjectionFilter}
 %REMOVED \label{sec:SampleToHistogramProjectionFilter}
 %REMOVED
-%REMOVED \ifitkFullVersion
 %REMOVED \input{SampleToHistogramProjectionFilter.tex}
-%REMOVED \fi
 
 \subsection{Sample Sorting}
 \label{sec:SampleSorting}
-
-\ifitkFullVersion
 \input{SampleSorting.tex}
-\fi
+
 
 \subsection{Probability Density Functions}
 \label{sec:ProbabilityDensityFunctions}
@@ -197,20 +163,16 @@ proper values for the distribution parameters.
 
 \subsubsection{Gaussian Distribution}
 \label{sec:GaussianMembershipFunction}
-
-\ifitkFullVersion
 \input{GaussianMembershipFunction.tex}
-\fi
+
 
 \subsection{Distance Metric}
 \label{sec:DistanceMetric}
 
 \subsubsection{Euclidean Distance}
 \label{sec:EuclideanDistanceMetric}
-
-\ifitkFullVersion
 \input{EuclideanDistanceMetric.tex}
-\fi
+
 
 \subsection{Decision Rules}
 \label{sec:DecisionRules}
@@ -236,17 +198,13 @@ library. Decision rules are not templated classes.
 
 \subsubsection{Maximum Decision Rule}
 \label{sec:MaximumDecisionRule}
-
-\ifitkFullVersion
 \input{MaximumDecisionRule.tex}
-\fi
+
 
 \subsubsection{Minimum Decision Rule}
 \label{sec:MinimumDecisionRule}
-
-\ifitkFullVersion
 \input{MinimumDecisionRule.tex}
-\fi
+
 
 \subsubsection{Maximum Ratio Decision Rule}
 \label{sec:MaximumRatioDecisionRule}
@@ -263,10 +221,7 @@ the distribution form of the random variable generation class.
 
 \subsubsection{Normal (Gaussian) Distribution}
 \label{sec:NormalVariateGeneration}
-
-\ifitkFullVersion
 \input{NormalVariateGenerator.tex}
-\fi
 
 
 \section{Statistics applied to Images}
@@ -278,30 +233,22 @@ the distribution form of the random variable generation class.
 
 \subsubsection{Scalar Image Histogram with Adaptor}
 \label{sec:ScalarImageHistogramAdaptor}
-\ifitkFullVersion
 \input{ImageHistogram1.tex}
-\fi
 
 
 \subsubsection{Scalar Image Histogram with Generator}
 \label{sec:ScalarImageHistogramGenerator}
-\ifitkFullVersion
 \input{ImageHistogram2.tex}
-\fi
 
 
 \subsubsection{Color Image Histogram with Generator}
 \label{sec:ColorImageHistogramGenerator}
-\ifitkFullVersion
 \input{ImageHistogram3.tex}
-\fi
 
 
 \subsubsection{Color Image Histogram Writing}
 \label{sec:ColorImageHistogramGeneratorWriting}
-\ifitkFullVersion
 \input{ImageHistogram4.tex}
-\fi
 
 
 \subsection{Image Information Theory}
@@ -398,17 +345,11 @@ that being said, let's now look closer at how the concept of Entropy (which is
 not the amount of information in an image) can be measured with the ITK
 statistics framework.
 
-\ifitkFullVersion
 \input{ImageEntropy1.tex}
-\fi
 
 \subsubsection{Computing Images Mutual Information}
 \label{sec:ComputingImagesMutualInformation}
-
-\ifitkFullVersion
 \input{ImageMutualInformation1.tex}
-\fi
-
 
 
 \section{Classification}
@@ -464,30 +405,23 @@ without a proper win margin.
 
 \subsection{k-d Tree Based k-Means Clustering}
 \label{sec:KdTreeBasedKMeansClustering}
-\ifitkFullVersion
 \input{KdTreeBasedKMeansClustering.tex}
-\fi
+
 
 \subsection{K-Means Classification}
 \label{sec:KMeansClassifier}
-\ifitkFullVersion
 \input{ScalarImageKmeansClassifier.tex}
-\fi
+
 
 \subsection{Bayesian Plug-In Classifier}
 \label{sec:BayesianPluginClassifier}
-
-\ifitkFullVersion
 \input{BayesianPluginClassifier.tex}
-\fi
 
 
 \subsection{Expectation Maximization Mixture Model Estimation}
 \label{sec:ExpectationMaximizationMixtureModelEstimation}
-
-\ifitkFullVersion
 \input{ExpectationMaximizationMixtureModelEstimator.tex}
-\fi
+
 
 \subsection{Classification using Markov Random Field}
 \label{sec:MarkovRandomField}
@@ -504,6 +438,4 @@ distance to that pixel (taking the neighborhood influence under consideration).
 The energy function minimization is done using the iterated conditional modes
 (ICM) algorithm \cite{Besag1986}.
 
-\ifitkFullVersion
 \input{ScalarImageMarkovRandomField1.tex}
-\fi

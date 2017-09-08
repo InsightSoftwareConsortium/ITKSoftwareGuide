@@ -9,9 +9,7 @@ in Book 1 for more information.)
 
 
 \section{Thresholding}
-\ifitkFullVersion
 \label{sec:ThresholdingFiltering}
-\fi
 
 The thresholding operation is used to change or identify pixel values based
 on specifying one or more values (called the \emph{threshold} value). The
@@ -20,25 +18,18 @@ ITK.
 
 \subsection{Binary Thresholding}
 \label{sec:BinaryThresholdingImageFilter}
-
-\ifitkFullVersion
 \input{BinaryThresholdImageFilter.tex}
-\fi
+
 
 \subsection{General Thresholding}
 \label{sec:ThresholdingImageFilter}
-
-\ifitkFullVersion
 \input{ThresholdImageFilter.tex}
-\fi
 
 
 \section{Edge Detection}
 
 \subsection{Canny Edge Detection}
-\ifitkFullVersion
 \input{CannyEdgeDetectionImageFilter.tex}
-\fi
 
 
 \section{Casting and Intensity Mapping}
@@ -51,9 +42,8 @@ also take into account the different intensity ranges of the pixel types.
 \subsection{Linear Mappings}
 \label{sec:IntensityLinearMapping}
 
-\ifitkFullVersion
 \input{CastingImageFilters.tex}
-\fi
+
 
 \subsection{Non Linear Mappings}
 \label{sec:IntensityNonLinearMapping}
@@ -62,9 +52,7 @@ The following filter can be seen as a variant of the casting filters. Its main
 difference is the use of a smooth and continuous transition function of
 non-linear form.
 
-\ifitkFullVersion
 \input{SigmoidImageFilter.tex}
-\fi
 
 
 \section{Gradients}
@@ -79,25 +67,17 @@ vectors and the image of magnitudes.
 
 \subsection{Gradient Magnitude}
 \label{sec:GradientMagnitudeImageFilter}
-
-\ifitkFullVersion
 \input{GradientMagnitudeImageFilter.tex}
-\fi
+
 
 \subsection{Gradient Magnitude With Smoothing}
 \label{sec:GradientMagnitudeRecursiveGaussianImageFilter}
-
-\ifitkFullVersion
 \input{GradientMagnitudeRecursiveGaussianImageFilter.tex}
-\fi
 
 
 \subsection{Derivative Without Smoothing}
 \label{sec:DerivativeImageFilter}
-
-\ifitkFullVersion
 \input{DerivativeImageFilter.tex}
-\fi
 
 
 \section{Second Order Derivatives}
@@ -106,21 +86,16 @@ vectors and the image of magnitudes.
 
 \subsection{Second Order Recursive Gaussian}
 \label{sec:SecondDerivativeRecursiveGaussian}
-
-\ifitkFullVersion
 \input{SecondDerivativeRecursiveGaussianImageFilter.tex}
-\fi
 
 
 \subsection{Laplacian Filters}
 \label{sec:LaplacianFilters}
 
 \subsubsection{Laplacian Filter Recursive Gaussian}
-\ifitkFullVersion
+
 \input{LaplacianRecursiveGaussianImageFilter1.tex}
 \input{LaplacianRecursiveGaussianImageFilter2.tex}
-\fi
-
 
 
 \section{Neighborhood Filters}
@@ -145,17 +120,12 @@ in Book 1 for more information.)
 
 \subsection{Mean Filter}
 \label{sec:MeanFilter}
-
-\ifitkFullVersion
 \input{MeanImageFilter.tex}
-\fi
+
 
 \subsection{Median Filter}
 \label{sec:MedianFilter}
-
-\ifitkFullVersion
 \input{MedianImageFilter.tex}
-\fi
 
 
 \subsection{Mathematical Morphology}
@@ -170,18 +140,12 @@ operate on grayscale images.
 
 \subsubsection{Binary Filters}
 \label{sec:MathematicalMorphologyBinaryFilters}
-
-\ifitkFullVersion
 \input{MathematicalMorphologyBinaryFilters.tex}
-\fi
 
 
 \subsubsection{Grayscale Filters}
 \label{sec:MathematicalMorphologyGrayscaleFilters}
-
-\ifitkFullVersion
 \input{MathematicalMorphologyGrayscaleFilters.tex}
-\fi
 
 
 \subsection{Voting Filters}
@@ -206,9 +170,7 @@ Having a binary image as input makes it possible to optimize the execution
 of the filter since there is no real need for sorting the pixels according to
 their frequency in the neighborhood.
 
-\ifitkFullVersion
 \input{BinaryMedianImageFilter.tex}
-\fi
 
 The typical effect of median filtration on a noisy digital image is a dramatic reduction in impulse noise spikes. The filter also tends to preserve brightness differences across signal steps, resulting in reduced blurring of regional boundaries. The filter also tends to preserve the positions of boundaries in an image.
 
@@ -233,9 +195,7 @@ this filter can be tuned to fill in holes of different sizes. To be more
 precise, the effect of the filter is actually related to the curvature of the
 edge in which the pixel is located.
 
-\ifitkFullVersion
 \input{VotingBinaryHoleFillingImageFilter.tex}
-\fi
 
 
 \subsubsection{Iterative Hole Filling Filter}
@@ -244,9 +204,8 @@ The Hole Filling filter can be used in an iterative way, by applying it
 repeatedly until no pixel changes. In this context, the filter can be seen as a
 binary variation of a Level Set filter.
 
-\ifitkFullVersion
 \input{VotingBinaryIterativeHoleFillingImageFilter.tex}
-\fi
+
 
 \section{Smoothing Filters}
 \label{sec:SmoothingFilters}
@@ -272,25 +231,17 @@ filters that approximate the convolution with a Gaussian
 
 \subsubsection{Discrete Gaussian}
 \label{sec:DiscreteGaussianImageFilter}
-
-\ifitkFullVersion
 \input{DiscreteGaussianImageFilter.tex}
-\fi
 
 
 \subsubsection{Binomial Blurring}
 \label{sec:BinomialBlurImageFilter}
-
-\ifitkFullVersion
 \input{BinomialBlurImageFilter.tex}
-\fi
+
 
 \subsubsection{Recursive Gaussian IIR}
 \label{sec:RecursiveGaussianImageFilter}
-
-\ifitkFullVersion
 \input{SmoothingRecursiveGaussianImageFilter.tex}
-\fi
 
 
 \subsection{Local Blurring}
@@ -302,59 +253,40 @@ following sections describe options for applying local smoothing in images.
 
 \subsubsection{Gaussian Blur Image Function}
 \label{sec:GaussianBlurImageFunction}
-
-\ifitkFullVersion
 \input{GaussianBlurImageFunction.tex}
-\fi
+
 
 \subsection{Edge Preserving Smoothing}
 \label{sec:EdgePreservingSmoothingFilters}
 
 \subsubsection{Introduction to Anisotropic Diffusion}
 \label{sec:IntroductionAnisotropicDiffusion}
-\ifitkFullVersion
 \input{DesignAndFunctionality/AnisotropicDiffusionFiltering.tex}
-\fi
 
 
 \subsubsection{Gradient Anisotropic Diffusion}
 \label{sec:GradientAnisotropicDiffusionImageFilter}
-
-\ifitkFullVersion
 \input{GradientAnisotropicDiffusionImageFilter.tex}
-\fi
-
 
 
 \subsubsection{Curvature Anisotropic Diffusion}
 \label{sec:CurvatureAnisotropicDiffusionImageFilter}
-
-\ifitkFullVersion
 \input{CurvatureAnisotropicDiffusionImageFilter.tex}
-\fi
+
 
 \subsubsection{Curvature Flow}
 \label{sec:CurvatureFlowImageFilter}
-
-\ifitkFullVersion
 \input{CurvatureFlowImageFilter.tex}
-\fi
+
 
 \subsubsection{MinMaxCurvature Flow}
 \label{sec:MinMaxCurvatureFlowImageFilter}
-
-\ifitkFullVersion
 \input{MinMaxCurvatureFlowImageFilter.tex}
-\fi
 
 
 \subsubsection{Bilateral Filter}
 \label{sec:BilateralImageFilter}
-
-\ifitkFullVersion
 \input{BilateralImageFilter.tex}
-\fi
-
 
 
 \subsection{Edge Preserving Smoothing in Vector Images}
@@ -367,18 +299,12 @@ on vector images.
 
 \subsubsection{Vector Gradient Anisotropic Diffusion}
 \label{sec:VectorGradientAnisotropicDiffusionImageFilter}
-
-\ifitkFullVersion
 \input{VectorGradientAnisotropicDiffusionImageFilter.tex}
-\fi
+
 
 \subsubsection{Vector Curvature Anisotropic Diffusion}
 \label{sec:VectorCurvatureAnisotropicDiffusionImageFilter}
-
-\ifitkFullVersion
 \input{VectorCurvatureAnisotropicDiffusionImageFilter.tex}
-\fi
-
 
 
 \subsection{Edge Preserving Smoothing in Color Images}
@@ -386,32 +312,20 @@ on vector images.
 
 \subsubsection{Gradient Anisotropic Diffusion}
 \label{sec:ColorGradientAnisotropicDiffusion}
-
-\ifitkFullVersion
 \input{RGBGradientAnisotropicDiffusionImageFilter.tex}
-\fi
+
 
 \subsubsection{Curvature Anisotropic Diffusion}
 \label{sec:ColorCurvatureAnisotropicDiffusion}
-
-\ifitkFullVersion
 \input{RGBCurvatureAnisotropicDiffusionImageFilter.tex}
-\fi
-
 
 
 \section{Distance Map}
 \label{sec:DistanceMap}
 
-\ifitkFullVersion
 \input{DanielssonDistanceMapImageFilter.tex}
-\fi
 
-\ifitkFullVersion
 \input{SignedDanielssonDistanceMapImageFilter.tex}
-\fi
-
-
 
 
 \section{Geometric Transformations}
@@ -433,62 +347,43 @@ that is putting your career at risk along with the life of any potential
 patient whose images you may end up processing.
 
 \subsection{Flip Image Filter}
-
-\ifitkFullVersion
 \input{FlipImageFilter.tex}
-\fi
+
 
 \subsection{Resample Image Filter}
 \label{sec:ResampleImageFilter}
 
 \subsubsection{Introduction}
-
-\ifitkFullVersion
 \input{ResampleImageFilter.tex}
-\fi
+
 
 \subsubsection{Importance of Spacing and Origin}
-\ifitkFullVersion
 \input{ResampleImageFilter2.tex}
-\fi
+
 
 \subsubsection{A Complete Example}
-\ifitkFullVersion
 \input{ResampleImageFilter3.tex}
-\fi
+
 
 \subsubsection{Rotating an Image}
-\ifitkFullVersion
 \input{ResampleImageFilter4.tex}
-\fi
+
 
 \subsubsection{Rotating and Scaling an Image}
-\ifitkFullVersion
 \input{ResampleImageFilter5.tex}
-\fi
 
 \subsubsection{Resampling using a deformation field}
-\ifitkFullVersion
 \input{WarpImageFilter1.tex}
-\fi
 
 
 \subsubsection{Subsampling and image in the same space}
 \label{SubsampleVolume}
-
-\ifitkFullVersion
 \input{SubsampleVolume.tex}
-\fi
-
 
 
 \subsubsection{Resampling an Anisotropic image to make it Isotropic}
 \label{ResampleVolumesToBeIsotropic}
-
-\ifitkFullVersion
 \input{ResampleVolumesToBeIsotropic.tex}
-\fi
-
 
 
 \section{Frequency Domain}
@@ -497,19 +392,12 @@ patient whose images you may end up processing.
 
 \subsection{Computing a Fast Fourier Transform (FFT)}
 \label{FFTImageFilter}
-
-\ifitkFullVersion
 \input{FFTImageFilter.tex}
-\fi
 
 
 \subsection{Filtering on the Frequency Domain}
 \label{FFTImageFilterFourierDomainFiltering}
-
-\ifitkFullVersion
 \input{FFTImageFilterFourierDomainFiltering.tex}
-\fi
-
 
 
 \section{Extracting Surfaces}
@@ -519,6 +407,4 @@ patient whose images you may end up processing.
 \label{sec:SufaceExtraction}
 \index{Surface Extraction}
 
-\ifitkFullVersion
 \input{SurfaceExtraction.tex}
-\fi
