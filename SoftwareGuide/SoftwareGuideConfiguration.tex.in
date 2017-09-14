@@ -3,6 +3,7 @@
 \graphicspath{{@SoftwareGuide_SOURCE_DIR@/Art/}{@SoftwareGuide_BINARY_DIR@/Art/}{@SoftwareGuide_BINARY_DIR@/Art/Generated/}}
 \def\bibtexdatabasepath{@SoftwareGuide_SOURCE_DIR@/../Latex/Insight}
 \def\ITKVERSIONMAJORMINOR{@ITK_VERSION_MAJOR@.@ITK_VERSION_MINOR@}
+\def\ITKVERSIONMAJORMINORPATCH{@ITK_VERSION_MAJOR@.@ITK_VERSION_MINOR@.@ITK_VERSION_PATCH@}
 
 \newif\ifitkPrintedVersion
 @SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN@
