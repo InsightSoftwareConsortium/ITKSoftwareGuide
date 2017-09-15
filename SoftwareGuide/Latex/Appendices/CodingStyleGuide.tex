@@ -555,14 +555,14 @@ spirit of the naming convention.
 
 Conventions adopted in ITK for naming classes include:
 \begin{itemize}
-\item The ``To'' convention (such as in \doxygen{itk::ImageToImageFilter}) is
+\item The ``To'' convention (such as in \doxygen{ImageToImageFilter}) is
 generally used for base classes, and when a filter converts from one data type
 to another. Derived classes do not continue the ``To'' convention. Classes like
-\doxygen{itk::HistogramToTextureFeaturesFilter}, or
-\doxygen{itk::ImageToHistogram} do not produce an image as outputs, but change
+\doxygen{HistogramToTextureFeaturesFilter}, or
+\doxygen{ImageToHistogram} do not produce an image as outputs, but change
 the data type or produce a set of features. The expectation of an ITK filter
 name is that it maintains the same type (even when changing the dimensionality
-as when changing from an \doxygen{itk::Image} to a \doxygen{VectorImage}) unless
+as when changing from an \doxygen{Image} to a \doxygen{VectorImage}) unless
 it has the ``To'' naming conventions.
 \item Adding the \code{Base} appendix to a base class name is generally
 discouraged.
@@ -589,14 +589,14 @@ Header files are named \code{.h}, while implementation files are named either
 \code{.cxx} or \code{.hxx}, depending on whether they are implementations of
 templated classes.
 
-For example, the class \doxygen{itk::Image}
+For example, the class \doxygen{Image}
 \begin{itemize}
 \item is declared in the file \code{itkImage.h} and
-\item is defined in the file \code{itkImage.hxx} (because \doxygen{itk::Image}
+\item is defined in the file \code{itkImage.hxx} (because \doxygen{Image}
 is templated).
 \end{itemize}
 
-The class \doxygen{itk::Object}
+The class \doxygen{Object}
 \begin{itemize}
 \item is declared in the file\code{itkObject.h} and
 \item is defined in the file \code{itkObject.cxx}.
@@ -3009,7 +3009,7 @@ returns a \code{SmartPointer<T>} properly reference counted.
 class, mainly type information. Adds the \code{GetNameOfClass()} method to the
 class.
 \item \code{itkDebugMacro(x)}: If debug is set on a subclass of
-\doxygen{itk::Object}, prints debug information to the appropriate output
+\doxygen{Object}, prints debug information to the appropriate output
 stream.
 \item \code{itkStaticConstMacro(name, type, value)}: Creates a
 \code{static const} member of type \code{type} and sets it to the value
@@ -3195,7 +3195,7 @@ images), or different from zero (e.g. for sizes, etc.).
 When the I/O objects are not set, the ITK
 \code{itkAssertInDebugAndIgnoreInReleaseMacro} macro is used: the ITK processing
 framework should handle this situation and throw the appropriate exception (e.g.
-the \doxygen{itk::ProcessObject} class), such macro assertion is preferred over
+the \doxygen{ProcessObject} class), such macro assertion is preferred over
 an exception, e.g.
 
 \small
@@ -3413,7 +3413,7 @@ os << indent << "<MemberVariableName>" << <MemberVariableValue> << std::endl;
 The following additional conventions apply to printing member variables:
 \begin{itemize}
 \item When printing constructs such as matrices, double indentation should be
-used to print its contents using \doxygen{itk::Indent::GetNextIndent()}.
+used to print its contents using \doxygen{Indent::GetNextIndent()}.
 \item Objects that can be \code{null} (such as \doxygen{SmartPointer}) must be
 printed using the \code{itkPrintSelfObjectMacro} macro.
 \item Without harm to the previous convention, constructs such as images can
