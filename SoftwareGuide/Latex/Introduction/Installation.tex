@@ -23,12 +23,45 @@ to support the following compilers for building ITK:
 
 \begin{itemize}
 \item GCC 4.x
-\item Visual Studio 8 SP 1 (until 2015), 9 (until 2018), 10 (until 2020)
+\item Visual Studio 9 (until 2018), 10 (until 2020), 11 (until 2022), 12 (until 2023), 13 (until 2025)
 \item Intel Compiler Suite 11.x, 12.x (including macOS release)
-\item Darwin-c++-4.2 PPC (until 2015), x86\_64
 \item Win32-mingw-gcc-4.5
+\item Apple clang-600.0.56
 \item Clang 3.3 and later
 \end{itemize}
+
+
+\ref{tab:CompileSupportTimeline} prints the compiler support timeline in ITK at
+the time of writing this guide:
+\begin{table}
+\begin{center}
+\begin{tabular}{c c c c c c c c c c c c c c c c c}
+\toprule
+Compiler & 2011 & 2012 & 2013 & 2014 & 2015 & 2016 & 2017 & 2018 & 2019 & 2020 & 2021 & 2022 & 2023 & 2024 & 2025 & 2026 \\
+\midrule
+Visual Studio 9 & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{yellow} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & & \\
+Visual Studio 10 &  \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{yellow} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & & \\
+GCC 4.2 & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{yellow} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & & & & & \\
+GCC 4.4 & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{yellow} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & & \\
+GCC 4.9 & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{yellow} & \cellcolor{red} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\itkcaption[ITK Compiler Support Timeline]{ITK Compiler Support Timeline.
+\label{tab:CompileSupportTimeline}}
+\end{table}
+
+\textbf{Legend}:
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l}
+\cellcolor{itkTableCellGreen}Fully supported \\
+\cellcolor{yellow}Phase out \\
+\cellcolor{red}If community supported \\
+\end{tabular}
+\end{center}
+\end{table}
 
 If you are currently using an outdated compiler this may be an excellent excuse
 for upgrading this old piece of software! Support for different platforms is
