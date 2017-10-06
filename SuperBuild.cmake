@@ -94,7 +94,7 @@ option(USE_SYSTEM_ITK "Build using an externally defined version of ITK" OFF)
 
 
 ## for i in SuperBuild/*; do  echo $i |sed 's/.*External_\([a-zA-Z]*\).*/\1/g'|fgrep -v cmake|fgrep -v Template; done|sort -u
-set(${PRIMARY_PROJECT_NAME}_DEPENDENCIES ITKv4)
+set(${PRIMARY_PROJECT_NAME}_DEPENDENCIES ITK)
 
 #-----------------------------------------------------------------------------
 # Define Superbuild global variables
@@ -166,8 +166,8 @@ list(APPEND ${CMAKE_PROJECT_NAME}_SUPERBUILD_EP_VARS
   )
 
 if( NOT ${USE_SYSTEM_ITK} )
-  set(ITK_SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/ITKv4 )
-  set(ITK_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/ITKv4-build )
+  set(ITK_SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/ITK )
+  set(ITK_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/ITK-build )
 else()
   find_path(ITK_BINARY_DIR UseITK.cmake
      ../ITK-build
