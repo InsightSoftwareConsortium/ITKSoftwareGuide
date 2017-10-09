@@ -155,12 +155,15 @@ declare constants using
 \normalsize
 
 Use instead
+
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 const unsigned int ConstValueName = 3;
 \end{minted}
 \normalsize
+
 or
+
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 const typename OperatorType::ConstIterator opEnd = op.End();
@@ -370,15 +373,17 @@ namespace itk
 * ...
 *
 * \par References
-* \li<a href="http://lmi.bwh.harvard.edu/papers/pdfs/2002/westinMEDIA02.pdf">[1]</a>
+* \li<a href="http://lmi.bwh.harvard.edu/papers/pdfs/2002/westinMEDIA02.pdf">[1]
+* </a>
 * Carl-Fredrik Westin, Stephan E. Maier, Hatsuho Mamata, Arya Nabavi, Ferenc
 * Andras Jolesz, and Ron Kikinis. "Processing and visualization for Diffusion
 * tensor MRI. Medical Image Analysis, 6(2):93-108, 2002
-* \li<a href="splweb.bwh.harvard.edu:8000/pages/papers/westin/ISMRM2002.pdf">[2]</a>
+* \li<a href="splweb.bwh.harvard.edu:8000/pages/papers/westin/ISMRM2002.pdf">[2]
+* </a>
 * Carl-Fredrik Westin, and Stephan E. Maier. A Dual Tensor Basis Solution to the
-* Stejskal-Tanner Equations for DT-MRI. Proceedings of the 10th International Society
-* of Magnetic Resonance In Medicine (ISMRM) Scientific Meeting \& Exhibition,
-* Honolulu (HW, USA), 2002.
+* Stejskal-Tanner Equations for DT-MRI. Proceedings of the 10th International
+* Society of Magnetic Resonance In Medicine (ISMRM) Scientific Meeting \&
+* Exhibition, Honolulu (HW, USA), 2002.
 *
 * ...
 *
@@ -496,6 +501,7 @@ Classes are:
 \item Placed in the appropriate namespace, typically \code{itk::} (see
 Section \ref{sec:Namespaces} on page \pageref{sec:Namespaces}).
 \item Named according to the following general rule:
+
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 class name = <algorithm><input><concept>
@@ -599,7 +605,7 @@ is templated).
 
 The class \doxygen{Object}
 \begin{itemize}
-\item is declared in the file\code{itkObject.h} and
+\item is declared in the file \code{itkObject.h} and
 \item is defined in the file \code{itkObject.cxx}.
 \end{itemize}
 
@@ -607,7 +613,7 @@ The class \doxygen{Object}
 \subsubsection{Naming Tests}
 \label{subsubsec:NamingTests}
 
-Following the \doxygen{itkTestDriver} philosophy, test files must be named with
+Following the \code{TestDriver} philosophy, test files must be named with
 the same name used to name the \code{main} method contained in the test file
 (\code{.cxx}). This name should generally be indicative of the class tested,
 e.g.
@@ -617,7 +623,7 @@ int itkTobogganImageFilterTest( int argc, char *argv[] )
 \end{minted}
 \normalsize
 
-for a test that checks the \doxygen{itkTobogganImageFilter} class, and contained
+for a test that checks the \doxygen{TobogganImageFilter} class, and contained
 in the test file named \code{itkTobogganImageFilterTest.cxx}.
 
 Note that all test files should start with the lowercase \code{itk} prefix.
@@ -823,7 +829,7 @@ m_Schedule = schedule;
 For such temporary variables whose naming would be overly wordy to
 express their meaning or may be misleading, or may be re-used at multiple
 stages within a method (e.g. using the name \code{output} for intermediate
-results), the name \code{temp} can be used.
+results), the name \code{tmp} can be used.
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 ...
@@ -884,7 +890,8 @@ WarpHarmonicEnergyCalculator< TInputImage >
 
     for( unsigned int j = 0; j < VectorDimension; ++j )
       {
-      J[i][j] = weight * ( static_cast< double >( next[j] ) - static_cast< double >( prev[j] ) );
+      J[i][j] = weight * ( static_cast< double >( next[j] )
+        - static_cast< double >( prev[j] ) );
       }
     }
 
@@ -894,9 +901,11 @@ WarpHarmonicEnergyCalculator< TInputImage >
 \end{minted}
 \normalsize
 
-Take into account that many ITK variables, such as \code{itk::ImageRegion} initialize
-themselves to zero, so they do not need to be initialized unless required. The
-following declaration would create a matrix with all zeros by default:
+Take into account that many ITK variables, such as \doxygen{ImageRegion} class
+instances initialize themselves to zero, so they do not need to be initialized
+unless required. The following declaration would create a matrix with all zero
+by default:
+
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 
@@ -1167,7 +1176,8 @@ Some of the worst code contains many preprocessor directives and macros such as
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-#if defined(__APPLE__) && (__clang_major__ == 3) && (__clang_minor__ == 0) && defined(NDEBUG) && defined(__x86_64__)
+#if defined(__APPLE__) && (__clang_major__ == 3)
+  && (__clang_minor__ == 0) && defined(NDEBUG) && defined(__x86_64__)
   cc = -1.0 * itk::Math::sqr(1.0 / (cc + itk::Math::eps) );
 #else
   cc = -1.0 * itk::Math::sqr(1.0 / cc);
@@ -2568,7 +2578,8 @@ namespace itk
  * It also conveniently reimplement the GenerateInputRequestedRegion() so
  * that region is well defined for the provided radius.
  *
- * \author Gaetan Lehmann. Biologie du Developpement et de la Reproduction, INRA de Jouy-en-Josas, France.
+ * \author Gaetan Lehmann. Biologie du Developpement et de la Reproduction,
+ * INRA de Jouy-en-Josas, France.
  * \ingroup ITKImageFilterBase
  */
 
@@ -3759,8 +3770,8 @@ Every class must be documented.
 The method Doxygen documentation must be placed in the header file (\code{.h}).
 
 A single white space should separate the comment characters (\code{/**},
-\code{*}, or \code{*/}) and the comment itself. The starting (\code{/**}
-and ending (\code{*/} comment characters must be placed on the same lines
+\code{*}, or \code{*/}) and the comment itself. The starting (\code{/**})
+and ending (\code{*/}) comment characters must be placed on the same lines
 as the comment text, and the lines with the asterisk (\code{*}) character
 should be aligned, e.g.
 
@@ -3798,7 +3809,8 @@ the comment character \code{//} and the comment itself, e.g.
 if( inRegion.GetSize()[0] != outRegion.GetSize()[0]
    || NumberOfInternalComponents != ImageAlgorithm::PixelSize<OutputImageType>::Get( outImage ) )
 {
-ImageAlgorithm::DispatchedCopy<InputImageType, OutputImageType>( inImage, outImage, inRegion, outRegion );
+ImageAlgorithm::DispatchedCopy<InputImageType, OutputImageType>( inImage, outImage, inRegion,
+  outRegion );
 return;
 }
 \end{minted}
@@ -3906,8 +3918,8 @@ the text, and will end with the \code{*/} character, e.g.
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 /* Test the SetMetricSamplingPercentage and SetMetricSamplingPercentagePerLevel.
- * We only need to explicitly run the SetMetricSamplingPercentage method because it
- * invokes the SetMetricSamplingPercentagePerLevel method. */
+ * We only need to explicitly run the SetMetricSamplingPercentage method because
+ * it invokes the SetMetricSamplingPercentagePerLevel method. */
 int itkImageRegistrationSamplingTest( int, char *[] )
 \end{minted}
 \normalsize
