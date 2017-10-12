@@ -908,7 +908,31 @@ by default:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+// Define the dimension of the images
+const unsigned int ImageDimension = 2;
 
+...
+
+// Declare the type of the size
+typedef itk::Size< ImageDimension > SizeType;
+
+SizeType size;
+size[0] = 100;
+size[1] = 100;
+
+// Declare the type of the index to access images
+typedef itk::Index< ImageDimension > IndexType;
+
+IndexType start;
+start[0] = 0;
+start[1] = 0;
+
+// Declare the type of the Region
+typedef itk::ImageRegion< ImageDimension > RegionType;
+
+RegionType region;
+region.SetIndex( start );
+region.SetSize( size );
 \end{minted}
 \normalsize
 
