@@ -428,6 +428,30 @@ much wide application for distributing software developed with ITK. Further
 details on configuring and generating binary packages with CMake can be found in
 the CMake tutorial\footnote{\url{https://cmake.org/cmake-tutorial/}}.
 
+\section{Cross compiling ITK}
+\label{sec:CrossCompilingITK}
+
+This section describes the procedure to follow to cross compile ITK for
+another system. Cross compiling involves a \textit{build system}, the system
+where the executables are built, and the \textit{target system}, the system
+where the executables are intended to run.
+
+Currently, the best way to cross-compile ITK is to use
+\href{https://github.com/dockcross/dockcross}{dockcross}.
+
+For example, the commands to build for Linux-ARMv7 are:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git clone https://github.com/InsightSoftwareConsortium/ITK
+docker run --rm dockcross/linux-armv7 > ./dockcross-linux-armv7
+chmod +x ./dockcross-linux-armv7
+mkdir ITK-build
+./dockcross-linux-armv7 cmake -BITK-build -HITK -GNinja
+./dockcross-linux-armv7 ninja -CITK-build
+\end{minted}
+\normalsize
+
 \section{Getting Started With ITK}
 \label{sec:GettingStartedWithITK}
 
