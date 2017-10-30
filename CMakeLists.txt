@@ -22,18 +22,19 @@ set(PRIMARY_PROJECT_NAME ITKSoftwareGuide)
 option(${PRIMARY_PROJECT_NAME}_SUPERBUILD "Build ${PRIMARY_PROJECT_NAME} and the projects it depends on via SuperBuild.cmake." ON)
 mark_as_advanced(${PRIMARY_PROJECT_NAME}_SUPERBUILD)
 
+set(PDF_QUALITY_LEVEL "Screen" CACHE STRING "PDF Quality. Options are: Screen, Printer, PrePress")
+
 #-----------------------------------------------------------------------------
 # Superbuild script
 #-----------------------------------------------------------------------------
+project(${PRIMARY_PROJECT_NAME})             # <- NOTE: Here is the main project name setting
 if(${PRIMARY_PROJECT_NAME}_SUPERBUILD)
   project(SuperBuild_${PRIMARY_PROJECT_NAME})  # <- NOTE: Project name for pre-requisites is different form main project
   include("${CMAKE_CURRENT_SOURCE_DIR}/SuperBuild.cmake")
   return()
 else()
-  project(${PRIMARY_PROJECT_NAME})             # <- NOTE: Here is the main project name setting
   include("${CMAKE_CURRENT_SOURCE_DIR}/${PRIMARY_PROJECT_NAME}.cmake")
   return()
 endif()
 
 message(FATAL_ERROR "You should never reach this point !")
-
