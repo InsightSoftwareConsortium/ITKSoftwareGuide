@@ -415,7 +415,7 @@ if __name__ == "__main__":
                 dependencyDictionary[baseProgramName].append(inputFile)
 
     mkdir_p(os.path.join(args.SWGuidBaseOutput,'Examples'))
-    outputCMakeDependancies = os.path.join(args.SWGuidBaseOutput,'Examples',"GeneratedDependancies.cmake")
+    outputCMakeDependancies = os.path.join(args.SWGuidBaseOutput,'Examples',"GeneratedDependencies.cmake")
     outputEPSDirectory = os.path.join(args.SWGuidBaseOutput,'Art','Generated')
     mkdir_p(os.path.join(args.SWGuidBaseOutput,'Art','Generated'))
 

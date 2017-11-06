@@ -94,7 +94,7 @@ option(USE_SYSTEM_ITK "Build using an externally defined version of ITK" OFF)
 
 
 ## for i in SuperBuild/*; do  echo $i |sed 's/.*External_\([a-zA-Z]*\).*/\1/g'|fgrep -v cmake|fgrep -v Template; done|sort -u
-set(${PRIMARY_PROJECT_NAME}_DEPENDENCIES ITK)
+set(${PRIMARY_PROJECT_NAME}_DEPENDENCIES RunExamples ITK)
 
 #-----------------------------------------------------------------------------
 # Define Superbuild global variables

@@ -164,11 +164,11 @@ if(LATEX_COMPILER)
 
   add_custom_command( OUTPUT    ITKSoftwareGuide-Book1.dvi ITKSoftwareGuide-Book1.aux
     COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book1.tex
-    DEPENDS   ${SoftwareGuide_Book1_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES} ${allEPS-DEPS}
+    DEPENDS   ${SoftwareGuide_Book1_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES}
     )
   add_custom_command( OUTPUT    ITKSoftwareGuide-Book2.dvi ITKSoftwareGuide-Book2.aux
     COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book2.tex
-    DEPENDS   ${SoftwareGuide_Book2_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES} ${allEPS-DEPS}
+    DEPENDS   ${SoftwareGuide_Book2_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES}
     )
 
   if(BIBTEX_COMPILER)
@@ -189,11 +189,11 @@ if(LATEX_COMPILER)
   if(MAKEINDEX_COMPILER)
     add_custom_command( OUTPUT    ITKSoftwareGuide-Book1.idx
       COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book1.tex
-      DEPENDS   ITKSoftwareGuide-Book1.bbl ${allEPS-DEPS}
+      DEPENDS   ITKSoftwareGuide-Book1.bbl
       )
     add_custom_command( OUTPUT    ITKSoftwareGuide-Book2.idx
       COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book2.tex
-      DEPENDS   ITKSoftwareGuide-Book2.bbl ${allEPS-DEPS}
+      DEPENDS   ITKSoftwareGuide-Book2.bbl
       )
     add_custom_command( OUTPUT    ITKSoftwareGuide-Book1.ind
       COMMAND   ${MAKEINDEX_COMPILER} ITKSoftwareGuide-Book1
