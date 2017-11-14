@@ -269,9 +269,16 @@ macro(CONVERT_INPUT_IMG SOME_IMG EPS_IMG IMAGEMAGICK_FLAGS)
     endif()
   endif()
   if( NOT DEFINED \${EPS_IMG}_HAS_CUSTOM_COMMAND)
+    message(STATUS \"Converting \${SOME_IMG}\")
     execute_process(
         COMMAND \"${IMAGEMAGICK_CONVERT_EXECUTABLE}\" \${FLAGS} -quality 100 \${EPS_INPUT_CONVERT_FLAGS} \"\${SOME_IMG}\" \${EPS_OUTPUT_CONVERT_FLAGS} \"\${EPS_IMG}\"
+        OUTPUT_FILE ${CMAKE_CURRENT_BINARY_DIR}/ConvertImagesToEPSOutput.txt
+	ERROR_FILE ${CMAKE_CURRENT_BINARY_DIR}/ConvertImagesToEPSError.txt
+	RESULT_VARIABLE _result
     )
+    if(NOT \${_result} EQUAL 0)
+      message(FATAL_ERROR "Convert image to EPS failed! Check log file.")
+    endif()
     set(\${EPS_IMG}_HAS_CUSTOM_COMMAND 1)
   endif()
   set(FLAGS \"\")
@@ -282,6 +289,7 @@ add_custom_command(TARGET RunExamples POST_BUILD
   COMMAND ${CMAKE_COMMAND}
   ARGS -P ${CMAKE_CURRENT_BINARY_DIR}/ConvertImagesToEPS.cmake
   COMMENT "Converting Images to EPS"
+  USES_TERMINAL
 )
 
 
