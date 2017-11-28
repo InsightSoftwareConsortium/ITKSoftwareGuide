@@ -135,7 +135,7 @@ available.
 
 A growing number of ITK classes offer a Python wrapping. Note that these are
 wrappers on the C++ counterparts. ITK's Python wrappers can be easily installed.
-See Section \ref{sec:ModuleWrapping} on page \pageref{sec:ModuleWrapping} for
+See Section~\ref{sec:ModuleWrapping} on page~\pageref{sec:ModuleWrapping} for
 further details. Users requiring a Python interface for ITK classes may refer to
 SimpleITK (\href{http://www.simpleitk.org/}{http://www.simpleitk.org/}).
 
@@ -195,8 +195,8 @@ rather than as serving as a base class for derivation of ITK classes. Other
 STL influences are iterators and traits. ITK defines a large set of iterators;
 however, the ITK iterator style differs in many cases from STL because STL
 iterators follow a linear traversal model; ITK iterators are often designed for
-2D, 3D, and even n-D traversal (see Section \ref{sec:ImageIteratorsChapter} on
-page \pageref{sec:ImageIteratorsChapter} for further details on iterators).
+2D, 3D, and even n-D traversal (see Section~\ref{sec:ImageIteratorsChapter} on
+page~\pageref{sec:ImageIteratorsChapter} for further details on iterators).
 
 Traits are used heavily by ITK. ITK naming conventions supersede STL naming
 conventions; this difference is useful in that it indicates to the community
@@ -211,8 +211,8 @@ operating system/compiler combinations and results are reported continuously
 to the dashboards using \href{https://www.cdash.org/}{CDash}. These combinations
 include Linux, macOS, and Windows operating systems, and various versions of
 compilers for each. This ensures that the code complies with the particular
-requirements on each of these environments. See Section \ref{sec:CDash}
-on page \pageref{sec:CDash} for further details.
+requirements on each of these environments. See Section~\ref{sec:CDash}
+on page~\pageref{sec:CDash} for further details.
 
 When sufficient demand or need is detected, ITK maintainers add machines to the
 dashboard. Note that since the dashboard is open to submissions from remote
@@ -255,11 +255,11 @@ build tools for a particular operating system/compiler combination. See the
 CMake web pages at \href{http://www.cmake.org}{http://www.cmake.org} for more
 information.
 
-See Section \ref{sec:UsingCMakeForConfiguringAndBuildingITK} on page
+See Section~\ref{sec:UsingCMakeForConfiguringAndBuildingITK} on page
 \pageref{sec:UsingCMakeForConfiguringAndBuildingITK} for specifics about the use
 of CMake in ITK.
 
-Section \ref{sec:CMakeStyle} on page \pageref{sec:CMakeStyle} provides a
+Section~\ref{sec:CMakeStyle} on page~\pageref{sec:CMakeStyle} provides a
 reference to the recommended style of makefiles in ITK.
 
 \subsection{Doxygen Documentation System}
@@ -303,7 +303,7 @@ itkSmartPtr = ITK_NULLPTR;
 must be done instead. The ITK smart pointer will determine whether the object
 should be destroyed.
 
-See Section \ref{sec:SmartPointers} on page \pageref{sec:SmartPointers} for
+See Section~\ref{sec:SmartPointers} on page~\pageref{sec:SmartPointers} for
 further details.
 
 
@@ -499,7 +499,7 @@ Classes are:
 \begin{itemize}
 \item Named beginning with a capital letter.
 \item Placed in the appropriate namespace, typically \code{itk::} (see
-Section \ref{sec:Namespaces} on page \pageref{sec:Namespaces}).
+Section~\ref{sec:Namespaces} on page~\pageref{sec:Namespaces}).
 \item Named according to the following general rule:
 
 \small
@@ -700,7 +700,7 @@ represent the curvature term in the level-set evolution PDE.
 However, in these last cases, readability of the test name is important, and too
 long test names are discouraged.
 
-See Section \ref{sec:Tests} on page \pageref{sec:Tests} for further details
+See Section~\ref{sec:Tests} on page~\pageref{sec:Tests} for further details
 about the ITK testing framework.
 
 
@@ -717,7 +717,7 @@ functions is to be consistent with existing names. For example, given the choice
 between \code{ComputeBoundingBox()} and \code{CalculateBoundingBox()}, the
 choice is  \code{ComputeBoundingBox()} because ``Compute'' is used elsewhere in
 the system in similar settings (i.e. the concepts described in Section
-\ref{subsec:NamingClasses} should be used whenever possible).
+~\ref{subsec:NamingClasses} should be used whenever possible).
 
 Note that in the above example \code{CalcBoundingBox()} is not allowed because
 it is not spelled out.
@@ -1506,7 +1506,7 @@ ExpandImageFilter< TInputImage, TOutputImage >
 \end{minted}
 \normalsize
 
-The use of the explicit\code{this->} pointer helps clarifying which method is
+The use of the explicit \code{this->} pointer helps clarifying which method is
 exactly being invoked and where it originates.
 
 The value of a member variables or data within a class must be retrieved calling
@@ -2377,7 +2377,7 @@ std::vector< float >  m_Overlaps;
 \end{minted}
 \normalsize
 
-By virtue of the principles in Section \href{subsec:WhiteSpaces}, method calls
+By virtue of the principles in Section~\href{subsec:WhiteSpaces}, method calls
 on consecutive lines should not align their parentheses, i.e. use:
 
 \small
@@ -2480,8 +2480,8 @@ virtual unsigned int GetSplitInternal( unsigned int dim,
 
 Lines exceeding the recommended line length in ITK must be split in the
 necessary amount of lines. This policy is enforced by the KWStyle pre-commit
-hooks (see Section \ref{subsec:KitwareStyle} on page
-\pageref{subsec:KitwareStyle}).
+hooks (see Section~\ref{subsec:KitwareStyle} on
+page~\pageref{subsec:KitwareStyle}).
 
 If a line has to be split, the following preference order is established in ITK:
 \begin{itemize}
@@ -2868,7 +2868,7 @@ MinimumMaximumImageCalculator< TInputImage >
 
 The file must be terminated by a (preferably single) blank line.
 This policy is enforced by the KWStyle pre-commit hooks (see Section
-\ref{subsec:KitwareStyle} on page \pageref{subsec:KitwareStyle}).
+~\ref{subsec:KitwareStyle} on page~\pageref{subsec:KitwareStyle}).
 
 
 \section{Increment/decrement Operators}
@@ -3217,7 +3217,7 @@ if( m_FileName == "" )
 \end{minted}
 \normalsize
 
-See Section \ref{sec:ErrorHandling} on page \pageref{sec:ErrorHandling} for
+See Section~\ref{sec:ErrorHandling} on page~\pageref{sec:ErrorHandling} for
 details about error handling in ITK.
 
 
