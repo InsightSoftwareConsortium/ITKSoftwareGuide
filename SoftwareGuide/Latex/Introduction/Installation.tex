@@ -15,19 +15,72 @@ may want to ignore these extra libraries and just compile the toolkit itself.
 
 ITK has been developed and tested across different combinations of operating
 systems, compilers, and hardware platforms including Microsoft Windows, Linux on
-various architectures, Solaris/UNIX, macOS, and Cygwin. Kitware is committed
-to support the following compilers for building ITK:
+various architectures, UNIX, macOS, and Cygwin. Dedicated community members and
+Kitware are committed to providing long-term support of the most prevalent
+development environments (Visual Studio, macOS, and Linux) for building ITK:
+
+Compiler variants will be supported for the duration that the associated operating
+system vendors commit to in their long-term stable platforms. For example the gcc
+compilers supported will mirror the compiler support in the RedHat lifecycle, the
+apple clang compilers will mirror the support lifecycle of the compiler by Apple, and
+the Visual Studio series will have approximately a 10 year support lifecycle.
 
 % List updated according to information provided here:
 % https://www.itk.org/Wiki/ITK_Release_4/Modern_C++#Fully_Committed_to_Support
 
+For example as of 2017 the following time schedule is expected for supporting
+these compiler environments.
+
+%%
+%% The following compilers should have nightly dashboard in the "Expected builds"
+%% to ensure that support is maintained.
+%%
 \begin{itemize}
-\item GCC 4.x
-\item Visual Studio 9 (until 2018), 10 (until 2020), 11 (until 2022), 12 (until 2023), 13 (until 2025)
-\item Intel Compiler Suite 11.x, 12.x (including macOS release)
-\item Win32-mingw-gcc-4.5
-\item Apple clang-600.0.56
-\item Clang 3.3 and later
+\item GCC
+  \begin{itemize}
+      \item 4.4 (From 2009-until 2018)  %% April 21, 2009 -- build_name "Linux-x86_64-gcc4.4"
+      \item 4.8.2 (From 2015-until 2020)  %% June 26, 2015  -- build_name "Ubuntu-g++-4.8.2-Release"
+      %\item 5.x %% Release date April 22, 2015
+      %\item 6.x %% April 27, 2016
+      %\item 7.x %% May 2, 2017
+   \end{itemize}
+%% I am concerned about this policy.  Our support dates extend well beyond what even MS is willing to support.
+%% We are promising to support ITK building under these compilers even after MS will support the compiler itself.
+\item Visual Studio % https://en.wikipedia.org/wiki/Microsoft_Visual_Studio
+  \begin{itemize}
+  \item 2008\[v9.0\] (From 2007 - until 2018)  % November 19, 2007 -- build_name "Win64-VS9-Release-Shared"
+  \item 2010\[v10.0\] (From 2010 - until 2020) % April 12, 2010     -- build_name "Win64-VS10-Release-Shared"
+  \item 2012\[v11.0\] (From 2012 - until 2022) % September 12, 2012 -- buld_name "Win32-VS11-Release-Shared"
+  \item 2013\[v12.0\] (From 2013 - until 2023) % October 17, 2013 -- none-listed
+  %\item 2015\[v14.0\] (From 2015 - until 2023) % July 20, 2015
+  %\item 2016\[v15.0\] (From 2017 - until 2023) % March 7, 2017
+  \end{itemize}
+%% -we have no nightly builds
+%% \item Intel Compiler Suite  %% https://en.wikipedia.org/wiki/Intel_C%2B%2B_Compiler
+%%    \begin{itemize}
+%%      \item 11.x                            % Released in 2008
+%%      \item 12.x (including macOS release)  % Released in 2011
+%%      \item 13.x   %Released in 2012
+%%      \item 14.x   %Released in 2013
+%%      \item 15.x   %Released in 2014
+%%      \item 16.x   %Released in 2015
+%%      \item 17.x does not compile cleanly with macOS  % Released in 2016
+%%      \item 18.x   % $Released in 2018
+%%    \end{itemize}
+
+%% -- we have no nightly builds in Expected,  only Exotic builds, and those are nto passing
+%% \item Win32-mingw-gcc-4.5
+\item Apple Clang
+  \begin{itemize}
+     \item Apple clang-600.0.56 (From 2013 - until 2019) %% mini9.nlm  build_name "MacOSX-Xcode6"build perhaps has this compiler -- listed as unkown
+     \item Apple LLVM version 8.1.0 (clang-802.0.42)  (From 2016 - until 2021) %% Released in 2016, build_name "MacOSX-Clang-Ninja-Release"
+   \end{itemize}
+\item Clang
+    \begin{itemize}
+      \item 3.3 (From 2013 - until 2018) % 17 Jun 2013  -- no build.
+      %%\item 4.0 % 13 March 2017
+      %%\item 5.0 % 7 September 2017
+    \end{itemize}
 \end{itemize}
 
 
