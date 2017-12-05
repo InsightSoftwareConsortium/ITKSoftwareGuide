@@ -85,6 +85,8 @@ if(NOT ( DEFINED "${extProjName}_DIR" OR ( DEFINED "USE_SYSTEM_${extProjName}" A
   string(REPLACE "-fopenmp" "" ITK_CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
   string(REPLACE "-fopenmp" "" ITK_CMAKE_CXX_FLAGS "${CMAKE_CX_FLAGS}")
 
+  string(REPLACE ";" "^^" CMAKE_JOB_POOLS_ARG "${CMAKE_JOB_POOLS}")
+
   set(${proj}_CMAKE_OPTIONS
       -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/${proj}-install
       -DBUILD_TESTING:BOOL=ON
@@ -118,11 +120,13 @@ if(NOT ( DEFINED "${extProjName}_DIR" OR ( DEFINED "USE_SYSTEM_${extProjName}" A
     CMAKE_ARGS
       -Wno-dev
       --no-warn-unused-cli
+      -DCMAKE_JOB_POOLS:STRING=${CMAKE_JOB_POOLS_ARG}
       ${CMAKE_OSX_EXTERNAL_PROJECT_ARGS}
       ${COMMON_EXTERNAL_PROJECT_ARGS}
       ${${proj}_CMAKE_OPTIONS}
 ## We really do want to install in order to limit # of include paths INSTALL_COMMAND ""
     INSTALL_COMMAND ""
+    LIST_SEPARATOR "^^"
     DEPENDS
       ${${proj}_DEPENDENCIES}
   )
