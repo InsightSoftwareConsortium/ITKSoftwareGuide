@@ -1,6 +1,6 @@
 \usepackage[dvips]{graphicx}
 \usepackage{times}
-\usepackage{xcolor}
+\usepackage[table]{xcolor}
 \usepackage{listings}
 \usepackage{minted}
 \usepackage{setspace}
@@ -8,6 +8,7 @@
 \usepackage[toc,page]{appendix}
 \usepackage{verbatim}
 \usepackage{imakeidx}
+\usepackage{booktabs}
 %\usepackage{siunitx}
 \usepackage[papersize={7.5in,9.25in},margin=1in]{geometry}
 
@@ -36,6 +37,10 @@
 
 \definecolor{ltgray}{rgb}{0.93,0.93,0.93}
 \usemintedstyle{emacs}
+
+% Define the background colors used in table cells
+\colorlet{itkTableCellGreen}{green!65!black}
+
 
 \lstset{
          basicstyle=\footnotesize\ttfamily, % Default font
