@@ -104,10 +104,10 @@ if(NOT ( DEFINED "${extProjName}_DIR" OR ( DEFINED "USE_SYSTEM_${extProjName}" A
       ${${proj}_FFTWD_ARGS}
     )
   ### --- End Project specific additions
-  set(${proj}_REPOSITORY ${git_protocol}://itk.org/ITK.git)
-  # ITK release 2017-09-12
+  set(${proj}_REPOSITORY ${git_protocol}://github.com/InsightSoftwareConsortium/ITK.git)
+  # ITK master 2017-12-15
   if("${${proj}_GIT_TAG}" STREQUAL "")
-    set(${proj}_GIT_TAG "v4.12.2")
+    set(${proj}_GIT_TAG "691e05d0c47b2c234cfd70d1d27863ed277f3d07")
   endif()
 
   ExternalProject_Add(${proj}
