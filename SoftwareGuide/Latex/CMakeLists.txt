@@ -132,8 +132,6 @@ foreach( _file ${Book2_Tex_SRCS} ${CommonBook_Tex_SRCS} )
   list( APPEND SoftwareGuide_Book2_Tex_SRCS ${SoftwareGuide_SOURCE_DIR}/Latex/${_file} )
 endforeach()
 
-file( GLOB_RECURSE ITK_EXAMPLES_TEX_SRCS_NAMES ${SoftwareGuide_BINARY_DIR}/Examples/*.tex)
-
 if(LATEX_COMPILER)
 
   if(NOT UNIX)
@@ -164,11 +162,11 @@ if(LATEX_COMPILER)
 
   add_custom_command( OUTPUT    ITKSoftwareGuide-Book1.dvi ITKSoftwareGuide-Book1.aux
     COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book1.tex
-    DEPENDS   ${SoftwareGuide_Book1_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES}
+    DEPENDS   ${SoftwareGuide_Book1_Tex_SRCS}
     )
   add_custom_command( OUTPUT    ITKSoftwareGuide-Book2.dvi ITKSoftwareGuide-Book2.aux
     COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book2.tex
-    DEPENDS   ${SoftwareGuide_Book2_Tex_SRCS} ${ITK_EXAMPLES_TEX_SRCS_NAMES}
+    DEPENDS   ${SoftwareGuide_Book2_Tex_SRCS}
     )
 
   if(BIBTEX_COMPILER)
