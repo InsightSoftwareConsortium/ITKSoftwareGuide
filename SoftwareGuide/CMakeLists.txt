@@ -65,7 +65,6 @@ else()
   set(SoftwareGuide_DRAFT_WATERMARK_LATEX_BOOLEAN "\\itkDraftWatermarkfalse")
 endif()
 
-add_subdirectory(Examples)
 add_subdirectory(Art)
 add_subdirectory(Latex)
 #
