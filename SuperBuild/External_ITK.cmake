@@ -60,7 +60,6 @@ if(NOT ( DEFINED "${extProjName}_DIR" OR ( DEFINED "USE_SYSTEM_${extProjName}" A
   set(${proj}_WRAP_ARGS)
   #if(foo)
     #set(${proj}_WRAP_ARGS
-    #  -DINSTALL_WRAP_ITK_COMPATIBILITY:BOOL=OFF
     #  -DWRAP_float:BOOL=ON
     #  -DWRAP_unsigned_char:BOOL=ON
     #  -DWRAP_signed_short:BOOL=ON
@@ -94,7 +93,6 @@ if(NOT ( DEFINED "${extProjName}_DIR" OR ( DEFINED "USE_SYSTEM_${extProjName}" A
       -DITK_USE_BRAINWEB_DATA:BOOL=ON ## Need to build BRAINWEB for software guide
       -DITK_FUTURE_LEGACY_REMOVE:=BOOL=ON
       -DITK_LEGACY_REMOVE:BOOL=OFF
-      -DITKV3_COMPATIBILITY:BOOL=ON
       -DModule_ITKReview:BOOL=ON
       -DITK_BUILD_DEFAULT_MODULES:BOOL=ON
       -DKWSYS_USE_MD5:BOOL=ON # Required by SlicerExecutionModel
