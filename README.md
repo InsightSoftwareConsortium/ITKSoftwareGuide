@@ -54,7 +54,7 @@ Following is a brief description of the build process:
      [ImageMagick]; the resulting EPS files are saved in `Art/Generated`
      directory of the binary output directory.
   4. A Python script
-     [`./SoftwareGuide/ParseCxxExamples.py`](https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide/blob/master/SoftwareGuide/ParseCxxExamples.py)
+     [`./SoftwareGuide/Examples/ParseCxxExamples.py`](https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide/blob/master/SoftwareGuide/Examples/ParseCxxExamples.py)
      is invoked to extract the comments in the ITK examples source file
      delimited with `BeginLaTeX`, `EndLaTeX` and `BeginCodeSnippet`,
      `EndCodeSnippet` and generate LaTeX files which are copied into the
