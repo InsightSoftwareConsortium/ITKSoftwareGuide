@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build-and-test:
+    resource_class: xlarge
+    working_directory: /ITKSoftwareGuide-build
+    docker:
+      - image: insighttoolkit/itksoftwareguide-dashboard:latest
+    steps:
+      - checkout:
+          path: /ITKSoftwareGuide
+      - run:
+          name: Run CTest build and report to CDash
+          no_output_timeout: 2.0h
+          command: /cmd.sh
+
+workflows:
+    version: 2
+    build-test:
+      jobs:
+        - build-and-test
