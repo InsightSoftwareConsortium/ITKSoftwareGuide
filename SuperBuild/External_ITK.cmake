@@ -103,9 +103,9 @@ if(NOT ( DEFINED "${extProjName}_DIR" OR ( DEFINED "USE_SYSTEM_${extProjName}" A
     )
   ### --- End Project specific additions
   set(${proj}_REPOSITORY ${git_protocol}://github.com/InsightSoftwareConsortium/ITK.git)
-  # ITK master 2017-12-15
+  # ITK master 2017-12-21
   if("${${proj}_GIT_TAG}" STREQUAL "")
-    set(${proj}_GIT_TAG "691e05d0c47b2c234cfd70d1d27863ed277f3d07")
+    set(${proj}_GIT_TAG "v4.13.0")
   endif()
 
   ExternalProject_Add(${proj}
