@@ -8,10 +8,28 @@ jobs:
     steps:
       - checkout:
           path: /ITKSoftwareGuide
+      - restore_cache:
+          keys:
+            - ccache-{{ arch }}-{{ .Branch }}
+            - ccache-{{ arch }}-master
+      - run:
+          name: CCache initialization
+          command: |
+            ccache --show-stats
+            ccache --zero-stats
+            ccache --max-size=2.0G
       - run:
           name: Run CTest build and report to CDash
           no_output_timeout: 2.0h
           command: /cmd.sh
+      - run:
+          name: ccache stats
+          when: always
+          command: |
+            ccache --show-stats
+      - save_cache:
+          key: 'ccache-{{ arch }}-{{ .Branch }}-{{ epoch }}'
+          paths: [ "/root/.ccache" ]
 
 workflows:
     version: 2
