@@ -24,7 +24,7 @@
 # images, if not the images are expected to be present in the Art/ folder
 # in PNG/XFIG/JPEG/EPS format.
 #
-cmake_minimum_required(VERSION 2.8.10)
+cmake_minimum_required(VERSION 3.8.2)
 
 project(SoftwareGuide C)
 
