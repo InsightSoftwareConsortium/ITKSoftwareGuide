@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.12) #2.8.10 needed for ExternalProject Simplification
+cmake_minimum_required(VERSION 3.8.2) #2.8.10 needed for ExternalProject Simplification
 cmake_policy(VERSION 2.8.10)
 
 set(PRIMARY_PROJECT_NAME ITKSoftwareGuide)
