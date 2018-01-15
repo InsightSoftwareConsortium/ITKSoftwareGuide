@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 3.8.2)
+cmake_minimum_required(VERSION 3.9.5 FATAL_ERROR)
+cmake_policy(VERSION 3.9.5)
+ 
 project(Examples C)
 
 set(_required_vars
