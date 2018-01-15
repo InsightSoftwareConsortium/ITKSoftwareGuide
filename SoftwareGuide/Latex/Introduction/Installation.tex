@@ -403,7 +403,10 @@ Static libraries are preferred when creating a stand-alone executable. An
 application can be distributed as a single file when statically linked.
 Additional effort is not required to package library dependencies, configure the
 system to find library dependencies at runtime, or define symbol export
-specifications.
+specifications. However, care should be taken to only link static libraries
+\textit{once} into the binaries used by an application. Failure to due so can
+result in duplicated global variables and, consequently, undefined or
+undesirable behavior.
 
 Shared libraries should be used when ITK is linked to more than one binary in
 an application. This reduces binary size and ensures that singleton
