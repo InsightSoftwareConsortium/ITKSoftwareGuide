@@ -61,7 +61,9 @@ When CMake starts processing a module, it begins with the top level
 contain
 
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
-cmake_minimum_required(VERSION 3.8.2)
+cmake_minimum_required(VERSION 3.9.5 FATAL_ERROR)
+cmake_policy(VERSION 3.9.5)
+
 project(MyModule)
 
 set(MyModule_LIBRARIES MyModule)
