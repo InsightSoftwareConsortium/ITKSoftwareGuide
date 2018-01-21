@@ -185,8 +185,8 @@ worthwhile goals:
 \item Allow immature features to be published without delaying release.
 \item \textbf{Keep unrelated development paths (topics) independent of one
 another}.
-\item Maintain a clean shape of history (see
-Section~\ref{subsubsec:HistoryShape} on page~\pageref{HistoryShape}).
+\item Maintain a clean shape of history (see Section~\ref{par:HistoryShape} on
+page~\pageref{par:HistoryShape}).
 \end{itemize}
 
 
@@ -322,8 +322,8 @@ developer's local repositories.
 
 We cover below the steps to take during each phase of development.
 
-\subsubsubsection{Initial Setup}
-\label{subsubsubsec:InitialSetup}
+\paragraph{Initial Setup}
+\label{par:InitialSetup}
 
 These instructions generally provide all arguments to \code{git push} commands.
 Some people prefer to use \code{git push} with no additional arguments to push
@@ -338,8 +338,8 @@ to establish this behavior. See the
 details.
 
 
-\subsubsubsection{New Topic}
-\label{subsubsubsec:NewTopic}
+\paragraph{New Topic}
+\label{par:NewTopic}
 
 Create a new topic branch for each separate feature or bug fix. Always start the
 topic from a stable integration branch, usually \textbf{master}. If the topic
@@ -388,8 +388,7 @@ git pull
 \end{figure}
 
 Create the local topic branch. Use a meaningful name for \textit{topic} (see
-Section~\ref{subsubsubsec:NamingTopics} on
-page~\pageref{subsubsubsec:NamingTopics}).
+Section~\ref{par:NamingTopics} on page~\pageref{par:NamingTopics}).
 
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
 git checkout -b topic
@@ -417,8 +416,8 @@ git checkout -b topic
 This is where the real work happens. Edit, stage, and commit files
 repeatedly as needed for your work.
 
-During this step, avoid the \ref{subsubsubsec:UrgeToMerge} from an integration
-branch. Keep your commits focused on the topic at hand.
+During this step, avoid the \ref{par:UrgeToMerge} from an integration branch.
+Keep your commits focused on the topic at hand.
 
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
 edit files
@@ -537,8 +536,8 @@ git merge topic
 \label{fig:MergeTopicIntoMaster1}
 \end{figure}
 
-See Section~\ref{subsubsubsec:MultipleIntegrationBranches} on
-page~\pageref{subsubsubsec:MultipleIntegrationBranches} to resolve any conflict
+See Section~\ref{par:MultipleIntegrationBranches} on
+page~\pageref{par:MultipleIntegrationBranches} to resolve any conflict
 that may arise when merging.
 
 Finally, publish the change.
@@ -574,15 +573,14 @@ git push origin master
 \label{fig:PushChanges1}
 \end{figure}
 
-See Section~\ref{subsubsubsec:RemoteEndHungUpUnexpectedly} on
-page~\pageref{subsubsubsec:RemoteEndHungUpUnexpectedly} and
-Section~\ref{subsubsubsec:NonFastForward} on
-page~\pageref{subsubsubsec:NonFastForward} to resolve any conflict that may
-arise when publishing the change.
+See Section~\ref{subpar:RemoteEndHungUpUnexpectedly} on
+page~\pageref{subpar:RemoteEndHungUpUnexpectedly} and
+Section~\ref{subpar:NonFastForward} on page~\pageref{subpar:NonFastForward} to
+resolve any conflict that may arise when publishing the change.
 
 
-\subsubsubsection{Mature Topic}
-\label{subsubsubsec:MatureTopic}
+\paragraph{Mature Topic}
+\label{par:MatureTopic}
 
 When a topic is ready for inclusion in the next release, we merge it into
 \textbf{master}.
@@ -670,8 +668,8 @@ git merge topic
 \label{fig:MergeTopicIntoMaster2}
 \end{figure}
 
-See Section~\ref{subsubsubsec:MultipleIntregrationBranches} on
-page~\pageref{subsubsubsec:MultipleIntregrationBranches} to resolve any conflict that may
+See Section~\ref{par:MultipleIntegrationBranches} on
+page~\pageref{par:MultipleIntegrationBranches} to resolve any conflict that may
 arise when merging the branch.
 
 Delete the local branch.
@@ -726,15 +724,14 @@ git push origin master
 \label{fig:PushChanges2}
 \end{figure}
 
-See Section~\ref{subsubsubsec:RemoteEndHungUpUnexpectedly} on
-page~\pageref{subsubsubsec:RemoteEndHungUpUnexpectedly} and
-Section~\ref{subsubsubsec:NonFastForward} on
-page~\pageref{subsubsubsec:NonFastForward} to resolve any conflict that may
-arise when publishing the change.
+See Section~\ref{subpar:RemoteEndHungUpUnexpectedly} on
+page~\pageref{subpar:RemoteEndHungUpUnexpectedly} and
+Section~\ref{subpar:NonFastForward} on page~\pageref{subpar:NonFastForward} to
+resolve any conflict that may arise when publishing the change.
 
 
-\subsubsubsection{Old Topic}
-\label{subsubsubsec:OldTopic}
+\paragraph{Old Topic}
+\label{par:OldTopic}
 
 Sometimes we need to continue work on an old topic that has already been merged
 to an integration branch and for which we no longer have a local topic branch.
@@ -887,17 +884,16 @@ git push origin master
 \end{minted}
 
 
-\subsubsubsection{Dependent Topic}
-\label{subsubsubsec:DependentTopic}
+\paragraph{Dependent Topic}
+\label{par:DependentTopic}
 
 Occasionally you may realize that you need the work from another topic to
 complete work on your topic. In this case your topic depends on the other
 topic, so merging the other topics into yours is legitimate (see
-Section~\ref{subsubsubsec:LegitimateMerges} on
-page~\pageref{subsubsubsec:LegitimateMerges}). Do not merge an integration
-branch that has the \textit{other-topic} branch name. Use the instructions
-below to merge only the \textit{other-topic} branch without getting
-everything else.
+Section~\ref{par:LegitimateMerges} on page~\pageref{par:LegitimateMerges}). Do
+not merge an integration branch that has the \textit{other-topic} branch name.
+Use the instructions below to merge only the \textit{other-topic} branch
+without getting everything else.
 
 Fetch the upstream integration branch that has the \textit{other-topic} branch,
 say \textbf{master}.
@@ -1043,11 +1039,11 @@ topic'' is very informative about the purpose of the merge. Merging the whole
 integration branch would not be so clear.
 
 
-\subsubsubsection{Merge Integration Branches}
-\label{subsubsubsec:MergeIntegrationBranches}
+\paragraph{Merge Integration Branches}
+\label{par:MergeIntegrationBranches}
 
 Each published integration branch (see Section~\ref{subsubsec:PublishedBranches}
-on page~\pageref{subsubsec:subsubsec:PublishedBranches}) has a defined level of
+on page~\pageref{subsubsec:PublishedBranches}) has a defined level of
 stability. Express this relationship by merging more-stable branches into
 less-stable branches to ensure that they do not diverge. After merging a mature
 topic to \textbf{master}, we merge \textbf{master} into \textbf{release}:
@@ -1145,17 +1141,16 @@ git push origin release
 \label{fig:PushChangesToRelease1}
 \end{figure}
 
-See Section~\ref{subsubsubsec:RemoteEndHungUpUnexpectedly} on
-page~\pageref{subsubsubsec:RemoteEndHungUpUnexpectedly} and
-Section~\ref{subsubsubsec:NonFastForward} on
-page~\pageref{subsubsubsec:NonFastForward} to resolve any conflict that may
-arise when publishing the change.
+See Section~\ref{subpar:RemoteEndHungUpUnexpectedly} on
+page~\pageref{subpar:RemoteEndHungUpUnexpectedly} and
+Section~\ref{subpar:NonFastForward} on page~\pageref{subpar:NonFastForward} to
+resolve any conflict that may arise when publishing the change.
 
 \subsubsection{Discussion}
-\label{subsubsubsubsec:Discussion}
+\label{subpar:Discussion}
 
-\subsubsubsection{History Shape}
-\label{subsubsubsec:HistoryShape}
+\paragraph{History Shape}
+\label{par:HistoryShape}
 
 The history graphs produced by this workflow may look complex compared to the
 fully linear history produced by a rebase workflow (used by CVS and Subversion):
@@ -1271,8 +1266,8 @@ Note that achieving the nice separation of branches requires understanding of
 the above development procedure and strict adherence to it.
 
 
-\subsubsubsection{Naming Topics}
-\label{subsubsubsec:NamingTopics}
+\paragraph{Naming Topics}
+\label{par:NamingTopics}
 
 This section uses the placeholder \textit{topic} in place of a real topic name.
 In practice, substitute for a meaningful name. Name topics like you might name
@@ -1294,10 +1289,10 @@ git show
 
 These merge commits appear on the integration branches and should therefore
 describe the changes they integrate. Running \code{git log --first-parent} as
-described in Section~\ref{subsubsubsec:HistoryShape} will show only these merge
-commits, so their messages should be descriptive of the changes made on their
-topics. If you did not choose a good branch name, or feel that the merge needs
-more explanation than the branch name provides, amend the commit to update the
+described in Section~\ref{par:HistoryShape} will show only these merge commits,
+so their messages should be descriptive of the changes made on their topics. If
+you did not choose a good branch name, or feel that the merge needs more
+explanation than the branch name provides, amend the commit to update the
 message by hand:
 
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
@@ -1307,20 +1302,20 @@ Merge branch 'topic' into master
 \end{minted}
 
 
-\subsubsubsection{Urge to Merge}
-\label{subsubsubsec:UrgeToMerge}
+\paragraph{Urge to Merge}
+\label{par:UrgeToMerge}
 
 Avoid the ``urge to merge'' from an integration branch into your topic. Keep
 commits on your topic focused on the feature or fix under development.
 
-\subsubsubsection{Habitual Merges}
-\label{subsubsubsec:HabitualMerges}
+\paragraph{Habitual Merges}
+\label{par:HabitualMerges}
 
 Merge your work with others when you are finished with it by merging into an
 integration branch as documented above. Avoid habitual merges from an
 integration branch; doing so introduces unnecessary dependencies and complicates
-the shape of history (see  Section~\ref{subsubsubsec:HistoryShape} on
-page~\pageref{subsubsubsec:HistoryShape}).
+the shape of history (see Section~\ref{par:HistoryShape} on
+page~\pageref{par:HistoryShape}).
 
 Many developers coming from centralized version control systems have trained
 themselves to regularly update their work tree from the central repository (e.g.
@@ -1341,12 +1336,12 @@ you always have the option to throw away the merge attempt and start over with a
 clean tree.
 
 
-\subsubsubsection{Legitimate Merges}
-\label{subsubsubsec:LegitimateMerges}
+\paragraph{Legitimate Merges}
+\label{par:LegitimateMerges}
 
 One reason to merge other work into your topic is when you realize that your
-topic depends on it. See Section~\ref{subsubsubsec:DependentTopic} on
-page~\pageref{subsubsubsec:DependentTopic} for help with this case.
+topic depends on it. See Section~\ref{par:DependentTopic} on
+page~\pageref{par:DependentTopic} for help with this case.
 
 Occasionally one may merge directly from \textbf{master} if there is a good
 reason. This is rare, so bring up the reason on your project discussion forum
@@ -1359,16 +1354,16 @@ first. Never merge \textbf{release} into a topic under any circumstances!!!
 Here we document problems one might encounter while following the workflow
 instructions above. This is not a general Git troubleshooting page.
 
-\subsubsubsection{Trouble Merging}
-\label{subsubsubsec:TroubleMerging}
+\paragraph{Trouble Merging}
+\label{par:TroubleMerging}
 
 %TODO: Write this sub-section and link sub-sub-sections from git merge commands above.
 
-\subsubsubsection{Trouble Pushing}
-\label{subsubsubsec:TroublePushing}
+\paragraph{Trouble Pushing}
+\label{par:TroublePushing}
 
-\subsubsubsubsection{Remote End Hung up Unexpectedly}
-\label{subsubsubsubsec:RemoteEndHungUpUnexpectedly}
+\subparagraph{Remote End Hung up Unexpectedly}
+\label{subpar:RemoteEndHungUpUnexpectedly}
 
 Pushing may fail with this error:
 
@@ -1404,8 +1399,8 @@ originally cloned. To push elsewhere, see help for
 \href{https://git-scm.com/docs/git-remote}{git remote}.
 
 
-\subsubsubsubsection{Non-Fast-Forward}
-\label{subsubsubsubsec:Non-Fast-Forward}
+\subparagraph{Non-Fast-Forward}
+\label{subpar:NonFastForward}
 
 When trying to publish new merge commits on an integration branch, perhaps
 \textbf{release}, the final push may fail:
@@ -1476,8 +1471,7 @@ since you last ran \code{git pull}.
 Some Git guides may tell you to just \code{git pull} again to merge
 \textit{upstream} work into yours. That approach is not compatible with the goals
 of this workflow. We want to preserve a clean shape of history (see
-Section~\ref{subsubsubsec:HistoryShape} on
-page~\pageref{subsubsubsec:HistoryShape}).
+Section~\ref{par:HistoryShape} on page~\pageref{par:HistoryShape}).
 
 The solution is to throw away your previous merge and try again, but this time
 start from the latest \textit{upstream} work:
@@ -1602,13 +1596,12 @@ See \href{https://git-scm.com/docs/git-rerere}{git rerere} to help avoid
 resolving the same conflicts on each merge attempt.
 
 
-\subsubsubsubsection{First-Parent Sequence Not Preserved}
-\label{subsubsubsubsec:First-ParentSequenceNotPreserved}
+\subparagraph{First-Parent Sequence Not Preserved}
+\label{subpar:FirstParentSequenceNotPreserved}
 
 One goal of this workflow is to preserve a clean shape of history (see
-Section~\ref{subsubsubsec:HistoryShape} on
-page~\pageref{subsubsubsec:HistoryShape}). This means that a
-\code{--first-parent} traversal of an integration branch, such as
+Section~\ref{par:HistoryShape} on page~\pageref{par:HistoryShape}). This means
+that a \code{--first-parent} traversal of an integration branch, such as
 \textbf{master}, should see only the merge commits that integrate topics into
 the branch:
 
@@ -1849,9 +1842,8 @@ wrong$ git push origin master
 \end{minted}
 
 
-Rejected as \textit{non-fast-forward} (see
-Section~\ref{subsubsubsec:NonFastForward} on
-page~\pageref{subsubsubsec:NonFastForward}).
+Rejected as \textit{non-fast-forward} (see Section~\ref{subpar:NonFastForward}
+on page~\pageref{subpar:NonFastForward}).
 
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
 wrong$ git pull
@@ -1884,8 +1876,8 @@ wrong$ git push origin master
 
 
 Rejected with the \textit{first parent sequence not preserved} error (see
-Section~\ref{subsubsubsec:FirstParentSequenceNotPreserved} on
-page~\pageref{subsubsubsec:FirstParentSequenceNotPreserved}).
+Section~\ref{subpar:FirstParentSequenceNotPreserved} on
+page~\pageref{subpar:FirstParentSequenceNotPreserved}).
 
 The solution in this case is to recreate the merge on the proper branch.
 
@@ -2008,8 +2000,8 @@ git branch -d topic
 \end{figure}
 
 
-\subsubsubsubsection{Topics Must Be Merged}
-\label{subsubsubsubsec:TopicsMustBeMerged}
+\subparagraph{Topics Must Be Merged}
+\label{subpar:TopicsMustBeMerged}
 
 %TODO
 
@@ -2026,8 +2018,8 @@ Whenever two paths of development make different changes to the same initial
 content conflicts may occur when merging the branches.
 
 
-\subsubsubsection{Single Integration Branch}
-\label{subsubsubsec:SingleIntegrationBranch}
+\paragraph{Single Integration Branch}
+\label{par:SingleIntegrationBranch}
 
 Consider two conflicting topic branches, topic and other-topic, with the latter
 already merged to \textbf{master}:
@@ -2065,8 +2057,8 @@ following approaches to resolve the situation:
 \end{itemize}
 
 
-\subsubsubsubsection{Topic-to-Single-Branch}
-\label{subsubsubsubsec:TopicToSingleBranch}
+\subparagraph{Topic-to-Single-Branch}
+\label{subpar:TopicToSingleBranch}
 
 If one performs the merge in a local work tree it is possible to simply resolve
 the conflicts and complete the merge:
@@ -2096,13 +2088,9 @@ the conflicts and complete the merge:
 \label{fig:TopicToSingleBranchResolutionApproach}
 \end{figure}
 
-This approach does not work when using a topic stage (see
-Section~\ref{subsec:Stage} on page~\pageref{subsec:Stage}). It cannot resolve
-the conflicts automatically and may print instructions to follow
-the~\ref{subsubsubsubsec:BranchToTopic} approach.
 
-\subsubsubsubsection{Branch-to-Topic}
-\label{subsubsubsubsec:BranchToTopic}
+\subparagraph{Branch-to-Topic}
+\label{subpar:BranchToTopic}
 
 Since a developer works on a topic branch locally one may simply merge the
 conflicting integration branch into the topic and resolve the conflicts:
@@ -2161,12 +2149,9 @@ the integration branch without allowing a \textit{fast-forward}
 \label{fig:MergeDisallowingFF}
 \end{figure}
 
-Our topic stages (see Section~\ref{subsec:Stage} on page~\pageref{subsec:Stage})
-use this approach when working with a single integration branch.
 
-
-\subsubsubsection{Multiple Integration Branches}
-\label{subsubsubsec:MultipleIntegrationBranches}
+\paragraph{Multiple Integration Branches}
+\label{par:MultipleIntegrationBranches}
 
 In a workflow using multiple integration branches one must deal differently with
 conflicting topics. Consider two conflicting topic branches, \textit{topic} and
@@ -2205,12 +2190,10 @@ conflicting topics. Consider two conflicting topic branches, \textit{topic} and
 An attempt to merge \textit{topic} into \textbf{release} will fail with
 conflicts. One may use the following approaches to resolve the situation:
 \begin{itemize}
-\item Merge the topic to the branch (see
-Section~\ref{subsubsubsubsec:TopicToBranch}).
-\item Merge one topic into the other (see
-Section~\ref{subsubsubsubsec:TopicToTopic}).
+\item Merge the topic to the branch (see Section~\ref{subpar:TopicToBranch}).
+\item Merge one topic into the other (see Section~\ref{subpar:TopicToTopic}).
 \item Merge both topics into a resolution topic (see
-Section~\ref{subsubsubsubsec:ResolutionTopic}).
+Section~\ref{subpar:ResolutionTopic}).
 \end{itemize}
 
 Note that one may not merge the branch into the topic as in the
@@ -2218,8 +2201,8 @@ single-integration-branch case because \textbf{release} may never be merged into
 a topic.
 
 
-\subsubsubsubsection{Topic-to-Branch}
-\label{subsubsubsubsec:TopicToBranch}
+\subparagraph{Topic-to-Branch}
+\label{subpar:TopicToBranch}
 
 If one performs the merge in a local work tree it is possible to simply resolve
 the conflicts and complete the merge:
@@ -2360,14 +2343,11 @@ new \textbf{master} will not merge cleanly into \textbf{release}:
 
 Then one must resolve conflicts a third time!
 
-This approach works with manual merging but requires care. It does not work when
-using a topic stage (see Section~\ref{subsec:Stage} on
-page~\pageref{subsec:Stage})) that cannot resolve the conflicts automatically
-and may print instructions to follow the~\ref{subsubsubsubsec:TopicToTopic} approach..
+This approach works with manual merging but requires care.
 
 
-\subsubsubsubsection{Topic-to-Topic}
-\label{subsubsubsubsec:TopicToTopic}
+\subparagraph{Topic-to-Topic}
+\label{subpar:TopicToTopic}
 
 The design (see Section~\ref{subsubsec:Design} on
 page~\pageref{subsubsec:Design}) of our topic-based workflow guarantees that
@@ -2523,15 +2503,15 @@ Finally, \textbf{master} may be merged cleanly into \textbf{release}:
 \end{figure}
 
 Note that this produces an artificial topic dependency (see
-Section~\ref{subsubsubsec:DependentTopic} on page~\pageref{subsubsubsec:page})
+Section~\ref{par:DependentTopic} on page~\pageref{par:DependentTopic})
 introduced by the conflict resolution commit. See
-the~\ref{subsubsubsubsec:ResolutionTopic} approach to avoid this problem.
+the~\ref{subpar:ResolutionTopic} approach to avoid this problem.
 
 
-\subsubsubsubsection{Resolution Topic}
-\label{subsubsubsubsec:ResolutionTopic}
+\subparagraph{Resolution Topic}
+\label{subpar:ResolutionTopic}
 
-The~\ref{subsubsubsubsec:TopicToTopic} approach introduces an artificial topic
+The~\ref{subpar:TopicToTopic} approach introduces an artificial topic
 dependency because it asymmetrically favors one topic over another. Instead one
 may use a third topic to resolve the conflicts.
 
@@ -2660,7 +2640,7 @@ be merged to master first. Assume \textit{topic} is merged first:
 \label{fig:MergeTopic2}
 \end{figure}
 
-As in the~\ref{subsubsubsubsec:TopicToBranch} approach, an attempt to merge
+As in the~\ref{subpar:TopicToBranch} approach, an attempt to merge
 \textit{other-topic} directly into \textbf{master} will fail with the original
 conflicts but now we have a topic containing the resolution commit independent
 of next. One may merge the resolution topic to \textbf{master} to bring in the
@@ -2761,8 +2741,8 @@ Note that we may not grant all contributors push access to any given repository.
 The distributed nature of Git allows contributors to retain authorship credit
 even if they do not publish changes directly.
 
-\subsubsubsection{Authentication}
-\label{subsubsubsec:Authentication}
+\paragraph{Authentication}
+\label{par:Authentication}
 
 All publishers share the \code{git@public.kitware.com} account but each uses a
 unique SSH key for authentication. If you do not have a public/private SSH key
@@ -2783,8 +2763,8 @@ To request access, fill out the
 Include your SSH public key, \code{id\_rsa.pub}, and a reference to someone our
 administrators may contact to verify your privileges.
 
-\subsubsubsubsection{SSH on Windows}
-\label{subsubsubsubsec:SSHOnWindows}
+\subparagraph{SSH on Windows}
+\label{subpar:SSHOnWindows}
 
 If you are familiar with generating an SSH key on Linux or macOS, you can follow
 the same procedure on Windows in a Git Bash prompt. There is an
@@ -2825,8 +2805,8 @@ environment variable that points to the place where the \code{.ssh}
 directory is.
 
 
-\subsubsubsubsection{AuthenticationTest}
-\label{subsubsubsubsec:AuthenticationTest}
+\subparagraph{AuthenticationTest}
+\label{subpar:AuthenticationTest}
 
 When your SSH public key has been installed for \code{git@public.kitware.com},
 you may test your SSH key setup by running
@@ -2847,14 +2827,14 @@ ssh -v git@public.kitware.com info
 Do not attempt to \code{git push} until the ssh-only test succeeds.
 
 
-\subsubsubsection{Pushing}
-\label{subsubsubsubsec:Pushing}
+\paragraph{Pushing}
+\label{subpar:Pushing}
 
 Git automatically configures a new clone to refer to its \textit{origin} through
 a \textit{remote} called \code{origin}. Initially one may \code{fetch} or
 \code{pull} changes from origin, but may not \code{push} changes to it.
 
-In order to publish new commits in a \ref{public.kitware.com} repository,
+In order to publish new commits in a \href{public.kitware.com} repository,
 developers must configure a push URL for the origin. Use \code{git config} to
 specify an SSH-protocol URL:
 
@@ -2889,8 +2869,8 @@ See these links for more help:
 \end{itemize}
 
 
-\subsubsubsection{Creating Patches}
-\label{subsubsubsec:CreatingPatches}
+\paragraph{Creating Patches}
+\label{par:CreatingPatches}
 
 Construct your commits on a local topic branch, typically started from the
 \textit{upstream} \textbf{master}:
@@ -2918,8 +2898,8 @@ a raw email message and includes enough information to reconstruct the commit
 message and author.
 
 
-\subsubsubsection{Sending Patches}
-\label{subsubsubsec:SendingPatches}
+\paragraph{Sending Patches}
+\label{par:SendingPatches}
 
 The patch files created in the preceding step will be named with the form
 
@@ -2940,8 +2920,8 @@ git send-email *.patch --to='Some One <someone@somewhere.com>' --cc='Someone Els
 \end{minted}
 
 
-\subsubsubsection{Applying Patches}
-\label{subsubsubsec:ApplyingPatches}
+\paragraph{Applying Patches}
+\label{par:ApplyingPatches}
 
 One may receive patches as attachments in a bug tracker or as attachments to
 email messages. Save these files to your local disk. One may also receive
@@ -2996,10 +2976,9 @@ git commit --author='Contributor Name <contributor@theirdomain.com>'
 The \code{git commit} command creates local commits. A separate \code{git push}
 step is needed to publish commits to a \href{public.kitware.com} repository. The
 \href{public.kitware.com} server enforces some rules (see
-Section~\ref{subsubsubsec:Update} on page~\pageref{subsubsubsec:Update}) on the
-commits it accepts and will reject non-conforming commits. In order to push
-rejected commits, one must edit history locally to repair them before
-publishing.
+Section~\ref{par:Update} on page~\pageref{par:Update}) on the commits it
+accepts and will reject non-conforming commits. In order to push rejected
+commits, one must edit history locally to repair them before publishing.
 
 Since it is possible to create many commits locally and push them all at once,
 we provide local Git \textit{hooks} to help developers keep their individual
@@ -3021,8 +3000,8 @@ Choose one of the following methods to install or update the hooks. The hooks
 will then run in the outer repository to enforce some rules on commits.
 
 
-\subsubsubsection{Local Pull}
-\label{subsubsubsec:LocalPull}
+\paragraph{Local Pull}
+\label{par:LocalPull}
 
 Many \href{public.kitware.com} repositories provide a \code{hooks} branch. It
 will have already been fetched into your local clone. Pull it from there:
@@ -3035,8 +3014,8 @@ cd ../..
 \end{minted}
 
 
-\subsubsubsection{Direct Pull}
-\label{subsubsubsec:DirectPull}
+\paragraph{Direct Pull}
+\label{par:DirectPull}
 
 If you did not clone from a \href{public.kitware.com} repository you may not
 have a \code{hooks} branch. Pull it from \href{public.kitware.com}:
@@ -3058,8 +3037,8 @@ repository. See Git help on
 \href{githooks}{https://git-scm.com/docs/githooks} for more details.
 
 
-\subsubsubsection{pre-commit}
-\label{subsubsubsec:pre-commit}
+\paragraph{pre-commit}
+\label{par:pre-commit}
 
 This runs during \code{git commit}. It checks identity and content of changes:
 \begin{itemize}
@@ -3128,8 +3107,8 @@ git config core.whitespace "-blank-at-eol"
 \end{minted}
 
 
-\subsubsubsection{commit-msg}
-\label{subsubsubsec:commit-msg}
+\paragraph{commit-msg}
+\label{par:commit-msg}
 
 This runs during \code{git commit}. It checks the commit message format:
 \begin{itemize}
@@ -3180,8 +3159,8 @@ the commit to complete and then fix it with \code{git commit --amend}.
 Many \url{public.kitware.com} repositories have server-side \code{hooks}.
 
 
-\subsubsubsection{Update}
-\label{subsubsubsec:Ipdate}
+\paragraph{Update}
+\label{par:Update}
 
 The update hook runs when someone tries to update a ref on the server by
 pushing. The hook checks all commits included in the push:
@@ -3219,8 +3198,8 @@ etiquette requires.
 \subsubsection{Shell Customization}
 \label{subsubsec:ShellCustomization}
 
-\subsubsubsection{Bash Completion}
-\label{subsubsubsec:BashCompletion}
+\paragraph{Bash Completion}
+\label{par:BashCompletion}
 
 Bash users: Git comes with a set of completion options that are very useful. The
 location of the file varies depending on your system:
@@ -3232,8 +3211,8 @@ source /etc/bash\_completion.d/git           # Linux debian/gentoo
 \end{minted}
 
 
-\subsubsubsection{Bash Prompt}
-\label{subsubsubsec:BashPrompt}
+\paragraph{Bash Prompt}
+\label{par:BashPrompt}
 
 If you are using the bash shell, you can customize the prompt to show which Git
 branch is active. Here are the commands for your \code{~/.bashrc} file:
@@ -3249,8 +3228,8 @@ export PS1="[\[\e[01;34m\]\W\[\e[31m\]\$(\_\_git\_ps1 " (%s)")\[\e[00m\]]\[\e[00
 For more information on the options, see the comments in the top of the bash
 completion script.
 
-\subsubsubsection{Renaming}
-\label{subsubsubsec:Renaming}
+\paragraph{Renaming}
+\label{par:Renaming}
 
 Git does not explicitly track renames. The command
 
