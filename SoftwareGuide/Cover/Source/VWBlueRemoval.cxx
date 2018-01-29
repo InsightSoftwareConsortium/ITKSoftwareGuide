@@ -51,9 +51,9 @@ int main(int argc, char * argv[] )
   // Separatrix Plane Coefficients
   //
   const double A = -48.0;
-  const double B = 0.0;
-  const double C = 59.0;
-  const double D = 106.0;
+  constexpr double B = 0.0;
+  constexpr double C = 59.0;
+  constexpr double D = 106.0;
 
 
   //

@@ -41,7 +41,7 @@ int main(int argc, char * argv[] )
   ImageReaderType::Pointer imageReader = ImageReaderType::New();
   imageReader->SetFileName( argv[1] );
 
-  const unsigned int VectorDimension = 3;
+  constexpr unsigned int VectorDimension = 3;
 
   try
     {

@@ -11,7 +11,7 @@
 void ConvertRGBToHSV( float R, float G, float B, float & H, float & S, float & V )
 {
 
-  const float max = 255.0;
+  constexpr float max = 255.0;
 
   // Saturation
   float temp = R;

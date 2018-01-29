@@ -158,7 +158,7 @@ Use instead
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-const unsigned int ConstValueName = 3;
+constexpr unsigned int ConstValueName = 3;
 \end{minted}
 \normalsize
 
@@ -909,7 +909,7 @@ by default:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 // Define the dimension of the images
-const unsigned int ImageDimension = 2;
+constexpr unsigned int ImageDimension = 2;
 
 ...
 
@@ -1088,7 +1088,7 @@ Constants must start with capital letters, e.g.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-const unsigned int CodeAxisField = 14;
+constexpr unsigned int CodeAxisField = 14;
 \end{minted}
 \normalsize
 
@@ -2755,7 +2755,7 @@ int itkHMinimaImageFilterTest( int argc, char * argv[] )
   // The following code defines the input and output pixel types and their
   // associated image types.
   //
-  const unsigned int Dimension = 2;
+  constexpr unsigned int Dimension = 2;
 
   using InputPixelType = short;
   using OutputPixelType = unsigned char;
