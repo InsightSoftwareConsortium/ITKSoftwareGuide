@@ -37,27 +37,26 @@ int main( int argc, char ** argv )
     }
 
 
-  typedef unsigned char        PixelType;
+  using PixelType = unsigned char;
 
   const   unsigned int        Dimension = 3;
 
-  typedef itk::Image< PixelType,  Dimension >    ImageType;
+  using ImageType = itk::Image< PixelType,  Dimension >;
 
 
 
-  typedef itk::ImageFileReader< ImageType >  ReaderType;
-  typedef itk::ImageFileWriter< ImageType >  WriterType;
+  using ReaderType = itk::ImageFileReader< ImageType >;
+  using WriterType = itk::ImageFileWriter< ImageType >;
 
 
-  typedef itk::BinaryBallStructuringElement<
+  using StructuringElementType = itk::BinaryBallStructuringElement<
                                         PixelType,
-                                        Dimension  >
-                                             StructuringElementType;
+                                        Dimension  >;
 
-  typedef itk::BinaryDilateImageFilter<
+  using FilterType = itk::BinaryDilateImageFilter<
                                   ImageType,
                                   ImageType,
-                                  StructuringElementType > FilterType;
+                                  StructuringElementType >;
 
   FilterType::Pointer filter = FilterType::New();
 

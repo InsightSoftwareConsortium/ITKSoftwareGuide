@@ -578,7 +578,7 @@ Typically data objects and process objects are connected together using the
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-  typedef itk::Image<float,2> FloatImage2DType;
+  using FloatImage2DType = itk::Image<float,2>;
 
   itk::RandomImageSource<FloatImage2DType>::Pointer random;
   random = itk::RandomImageSource<FloatImage2DType>::New();
@@ -736,23 +736,22 @@ The same code in C++ would appear as follows:
   const char * outputImage = argv[2];
   const unsigned int radiusValue = atoi( argv[3] );
 
-  typedef unsigned char PixelType;
+  using PixelType = unsigned char;
   const unsigned int Dimension = 2;
 
-  typedef itk::Image< PixelType, Dimension >    ImageType;
-  typedef itk::ImageFileReader< ImageType >     ReaderType;
+  using ImageType = itk::Image< PixelType, Dimension >;
+  using ReaderType = itk::ImageFileReader< ImageType >;
   ReaderType::Pointer reader = ReaderType::New();
   reader->SetFileName( inputImage );
 
-  typedef itk::FlatStructuringElement< Dimension >
-    StructuringElementType;
+  using StructuringElementType = itk::FlatStructuringElement< Dimension >;
   StructuringElementType::RadiusType radius;
   radius.Fill( radiusValue );
   StructuringElementType structuringElement =
     StructuringElementType::Ball( radius );
 
-  typedef itk::BinaryDilateImageFilter< ImageType, ImageType,
-    StructuringElementType > BinaryDilateImageFilterType;
+  using BinaryDilateImageFilterType = itk::BinaryDilateImageFilter< ImageType,
+                                        ImageType, StructuringElementType >;
 
   BinaryDilateImageFilterType::Pointer dilateFilter =
     BinaryDilateImageFilterType::New();

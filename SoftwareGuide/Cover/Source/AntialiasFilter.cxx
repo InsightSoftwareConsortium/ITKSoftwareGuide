@@ -36,27 +36,27 @@ int main( int argc, char ** argv )
     }
 
 
-  typedef unsigned char        InputPixelType;
-  typedef float                OutputPixelType;
+  using InputPixelType = unsigned char;
+  using OutputPixelType = float;
 
   const   unsigned int        Dimension = 3;
 
-  typedef itk::Image< InputPixelType,   Dimension >    InputImageType;
-  typedef itk::Image< OutputPixelType,  Dimension >    OutputImageType;
+  using InputImageType = itk::Image< InputPixelType,   Dimension >;
+  using OutputImageType = itk::Image< OutputPixelType,  Dimension >;
 
-  typedef itk::ImageFileReader< InputImageType >  ReaderType;
-  typedef itk::ImageFileWriter< OutputImageType >  WriterType;
+  using ReaderType = itk::ImageFileReader< InputImageType >;
+  using WriterType = itk::ImageFileWriter< OutputImageType >;
 
 
-  typedef itk::AntiAliasBinaryImageFilter<
+  using FilterType = itk::AntiAliasBinaryImageFilter<
                                   InputImageType,
-                                  OutputImageType > FilterType;
+                                  OutputImageType >;
 
   FilterType::Pointer filter = FilterType::New();
 
 
-  const double            maximumRMSError     =  atof( argv[3] );
-  const unsigned int long numberOfIterations  =  atol( argv[4] );
+  const double            maximumRMSError     = atof( argv[3] );
+  const unsigned int long numberOfIterations  = atol( argv[4] );
 
   filter->SetMaximumRMSError( maximumRMSError );
   filter->SetMaximumIterations( numberOfIterations );

@@ -155,7 +155,7 @@ Once the appropriate superclass is identified, the filter writer
 implements the class defining the methods required by most all ITK
 objects: \code{New()}, \code{PrintSelf()}, and protected constructor,
 copy constructor, delete, and operator=, and so on. Also, don't forget
-standard typedefs like \code{Self}, \code{Superclass}, \code{Pointer}, and
+standard type aliases like \code{Self}, \code{Superclass}, \code{Pointer}, and
 \code{ConstPointer}. Then the filter writer can focus on the most important
 parts of the implementation: defining the API, data members, and other
 implementation details of the algorithm. In particular, the filter writer
@@ -491,10 +491,10 @@ its \code{Superclass}, and \code{const} and non-\code{const} smart pointers,
 thus:
 
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-  typedef ExampleImageFilter                Self;
-  typedef ImageToImageFilter<TImage,TImage> Superclass;
-  typedef SmartPointer<Self>                Pointer;
-  typedef SmartPointer<const Self>          ConstPointer;
+  using Self = ExampleImageFilter;
+  using Superclass = ImageToImageFilter<TImage,TImage>;
+  using Pointer = SmartPointer<Self>;
+  using ConstPointer = SmartPointer<const Self>;
 \end{minted}
 
 The \code{Pointer} type is particularly useful, as it is a smart pointer

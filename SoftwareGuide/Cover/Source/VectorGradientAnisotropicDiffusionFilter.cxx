@@ -34,27 +34,25 @@ int main( int argc, char * argv[] )
     return 1;
     }
 
-  typedef float PixelComponentType;
+  using PixelComponentType = float;
   const unsigned long Dimension = 3;
 
-  typedef itk::RGBPixel< PixelComponentType >    PixelType;
-  typedef itk::Image< PixelType, Dimension  >    ImageType;
+  using PixelType = itk::RGBPixel< PixelComponentType >;
+  using ImageType = itk::Image< PixelType, Dimension  >;
 
-  typedef itk::RGBPixel< unsigned char >         OutputPixelType;
-  typedef itk::Image< OutputPixelType,
-                                 Dimension  >    OutputImageType;
+  using OutputPixelType = itk::RGBPixel< unsigned char >;
+  using OutputImageType = itk::Image< OutputPixelType, Dimension >;
 
 
-  typedef itk::ImageFileReader< ImageType >  ReaderType;
+  using ReaderType = itk::ImageFileReader< ImageType >;
 
-  typedef itk::ImageFileWriter< OutputImageType >  WriterType;
+  using WriterType = itk::ImageFileWriter< OutputImageType >;
 
-  typedef itk::VectorCastImageFilter<
-                               ImageType,
-                               OutputImageType > CasterType;
+  using CasterType = itk::VectorCastImageFilter<
+                               ImageType, OutputImageType >;
 
-  typedef itk::VectorGradientAnisotropicDiffusionImageFilter<
-                       ImageType, ImageType >  FilterType;
+  using FilterType = itk::VectorGradientAnisotropicDiffusionImageFilter<
+                       ImageType, ImageType >;
 
 
   ReaderType::Pointer reader = ReaderType::New();
