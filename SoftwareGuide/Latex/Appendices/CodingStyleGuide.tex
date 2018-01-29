@@ -296,7 +296,7 @@ An important note about SmarPointers refers to their destruction: the
 a SmartPointer object \code{itkSmartPtr} needs to be deleted:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-itkSmartPtr = ITK_NULLPTR;
+itkSmartPtr = nullptr;
 \end{minted}
 \normalsize
 
@@ -1145,9 +1145,9 @@ or
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-virtual unsigned int GetSplitInternal( unsigned int dim,
+unsigned int GetSplitInternal( unsigned int dim,
   unsigned int i, unsigned int numberOfPieces, IndexValueType regionIndex[],
-  SizeValueType regionSize[] ) const ITK_OVERRIDE;
+  SizeValueType regionSize[] ) const override;
 \end{minted}
 \normalsize
 
@@ -2174,7 +2174,7 @@ when returning variables or method calls, as in:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-virtual OutputType Evaluate(const PointType & point) const ITK_OVERRIDE
+OutputType Evaluate(const PointType & point) const override
   {
   ContinuousIndexType index;
 
@@ -2456,9 +2456,9 @@ The same principle applies to method declarations:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-virtual unsigned int GetSplitInternal( unsigned int dim,
+unsigned int GetSplitInternal( unsigned int dim,
   unsigned int i, unsigned int numberOfPieces, IndexValueType regionIndex[],
-  SizeValueType regionSize[] ) const ITK_OVERRIDE;
+  SizeValueType regionSize[] ) const override;
 \end{minted}
 \normalsize
 
@@ -2466,11 +2466,11 @@ is preferred over
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-virtual unsigned int GetSplitInternal( unsigned int dim,
+unsigned int GetSplitInternal( unsigned int dim,
                                        unsigned int i,
                                        unsigned int numberOfPieces,
                                        IndexValueType regionIndex[],
-                                       SizeValueType regionSize[] ) const ITK_OVERRIDE;
+                                       SizeValueType regionSize[] ) const override;
 \end{minted}
 \normalsize
 
@@ -2623,9 +2623,9 @@ protected:
 
   ~BoxImageFilter() {}
 
-  virtual void GenerateInputRequestedRegion() ITK_OVERRIDE;
+  void GenerateInputRequestedRegion() override;
 
-  virtual void PrintSelf(std::ostream & os, Indent indent) const ITK_OVERRIDE;
+  void PrintSelf(std::ostream & os, Indent indent) const override;
 
 private:
   ITK_DISALLOW_COPY_AND_ASSIGN(BoxImageFilter);
@@ -3249,7 +3249,7 @@ BinShrinkImageFilter< TInputImage, TOutputImage >
     const_cast< InputImageType * >( this->GetInput() );
   const OutputImageType * outputPtr = this->GetOutput();
 
-  itkAssertInDebugAndIgnoreInReleaseMacro( inputPtr != ITK_NULLPTR );
+  itkAssertInDebugAndIgnoreInReleaseMacro( inputPtr != nullptr );
   itkAssertInDebugAndIgnoreInReleaseMacro( outputPtr );
 
   ...
@@ -3504,14 +3504,11 @@ or
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-itkSmartPtr == ITK_NULLPTR;
+itkSmartPtr == nullptr;
 \end{minted}
 \normalsize
 
-where \code{ITK\_NULLPTR} is defined in \code{itk\_compiler\_detection.h}.
-
 The latter, being more explicit, is preferred over the former.
-
 
 \section{Writing Tests}
 \label{sec:WritingTests}

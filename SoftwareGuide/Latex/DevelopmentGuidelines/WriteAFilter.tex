@@ -460,8 +460,8 @@ example, a \doxygen{ImageToImageFilter} would create the method:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-    virtual void ThreadedGenerateData( const OutputImageRegionType&
-      outputRegionForThread, ThreadIdType threadId ) ITK_OVERRIDE;
+    void ThreadedGenerateData( const OutputImageRegionType&
+      outputRegionForThread, ThreadIdType threadId ) override;
 \end{minted}
 \normalsize
 
@@ -517,11 +517,6 @@ The default constructor should be \code{protected}, and provide sensible
 defaults (usually zero) for all parameters.  The copy constructor and
 assignment operator should be declared \code{private} and not implemented,
 to prevent instantiating the filter without the factory methods (above).
-
-Use the macros \code{ITK\_OVERRIDE}, \code{ITK\_NULLPTR}, and
-\code{ITK\_NOEXCEPT}. These expand to the C++11 keywords \code{override},
-\code{nullptr}, and \code{noexcept}, respectively, when built with a compiler
-using the C++11 standard or newer.
 
 Finally, the template implementation code (in the \code{.hxx} file) should
 be included, bracketed by a test for manual instantiation, thus:
