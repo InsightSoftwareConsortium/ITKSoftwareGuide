@@ -1,6 +1,8 @@
 [hooks]
 	url = http://public.kitware.com/GitSetup.git
-[gerrit]
-	project = ITKSoftwareGuide
-	site = http://review.source.kitware.com
-	pushurl = $username@review.source.kitware.com:ITKSoftwareGuide
+[upstream]
+	url = https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide.git
+	remote = upstream
+[github]
+	organization-name = InsightSoftwareConsortium
+	repo-name = ITKSoftwareGuide
