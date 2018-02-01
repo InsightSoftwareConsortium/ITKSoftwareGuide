@@ -1,0 +1,3259 @@
+\chapter{ITK Git Workflow}
+\label{ch:ITKGitWorkflow}
+
+This chapter describes the workflow adopted by the ITK community to develop
+the software. The adopted Git-based \textbf{branchy workflow} is an efficient
+and flexible model to develop modern software.
+
+
+\section{Git Setup}
+\label{sec:Git Setup}
+
+Visit the main \href{http://www.git-scm.com/download}{Git download site}, and
+depending on your operating system, follow the guidelines.
+
+
+\subsection{Windows}
+\label{subsec:Windows}
+
+Git comes in two flavors on Windows:
+
+\begin{itemize}
+\item A Windows native application installer
+\item A Cygwin package
+\end{itemize}
+
+Choose one and stick with it. They do not get along well in a given work tree
+on disk (the repository formats are compatible but the ``stat cache'' of the
+work tree is not unless \code{core.filemode} is false).
+
+
+\subsubsection{Git for Windows}
+\label{subsubsec:GitForWindows}
+
+Download the ``git for windows'' executable from the
+\href{https://git-for-windows.github.io/}{git for windows} site. You want to
+download the file that is named something like
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+Git-2.14.2.2-64-bit.exe
+\end{minted}
+
+Note that the filename changes as new versions are released.
+
+Run the installer. When prompted, choose to not modify the \code{PATH} and
+choose the \code{core.autocrlf=true} option. Launch the \code{Git Bash} tool to
+get a command line shell with Git.
+
+
+\subsubsection{Cygwin}
+\label{subsubsec:Cygwin}
+
+Install the following packages:
+\begin{itemize}
+\item \textbf{git}: Git command-line tool
+\item \textbf{gitk}: Graphical history browser
+\item \textbf{git-completion}: Bash shell completion rules
+\end{itemize}
+
+Launch a Cygwin command prompt to get a command line shell with Git.
+
+
+\subsection{macOS}
+\label{subsec:macOS}
+
+\subsubsection{Xcode 4}
+\label{subsubsec:Xcode4}
+
+If you have Xcode 4 installed, you already have git installed.
+
+Verify with:
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+which git
+/usr/bin/git
+\end{minted}
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git --version
+git version 1.7.4.4
+\end{minted}
+
+
+\subsubsection{OS X Installer}
+\label{subsubsec:OSXInstaller}
+
+Download an installer from
+\href{https://code.google.com/archive/p/git-osx-installer/}{code.google.com}.
+
+
+\subsubsection{MacPorts}
+\label{subsubsec:MacPorts}
+
+Enter these commands:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+sudo port selfupdate
+sudo port install git-core +doc
+\end{minted}
+
+
+\subsection{Linux}
+\label{subsec:Linux}
+
+Popular Linux distributions already come with packages for Git. Typically the packages are called:
+\begin{itemize}
+\item \textbf{git-core}: Git command-line tool
+\item \textbf{git-doc}: Git documentation
+\item \textbf{gitk}: Graphical history browser
+\end{itemize}
+
+
+\section{Workflow}
+\label{sec:Workflow}
+
+\subsection{A Primer}
+\label{subsec:APrimer}
+
+This primer details a possible workflow for using Git and ITK. There are many
+ways to use Git and it is a very flexible tool. This page details my particular
+way of working with Git, and is certainly not the last word. It is also
+rambling collection of tips and experiences that I've picked up in the last
+few years of using Git.
+
+It is worth trying to explain some high-level Git concepts. A
+\href{http://carthik.net/blog/vault/2007/08/21/its-a-feature-not-a-bug/}{feature}
+(or a
+\href{https://blog.codinghorror.com/thats-not-a-bug-its-a-feature-request/}{bug})
+that sets Git apart from Subversion is its distributed nature. In practice,
+that means that ITK needs to ``bless'' a repository for it to be the
+``official'' source of ITK. This has already been done at the
+\href{https://github.com/InsightSoftwareConsortium/ITK}{ITK GitHub repository}.
+
+Another Git concept is that of a \textbf{commit}. Git uses a
+\href{https://en.wikipedia.org/wiki/SHA-1}{SHA1 hash} to uniquely identify a
+change set. The hash is (almost) guaranteed to be unique across your project,
+and even across all projects everywhere and for all time.
+
+Quoting from the excellent Pro Git
+book\footnote{\url{https://git-scm.com/book/en/v2}}:
+\begin{quote}
+A lot of people become concerned at some point that they will, by random
+happenstance, have two objects in their repository that hash to the same SHA-1
+value. What then?
+
+If you do happen to commit an object that hashes to the same SHA-1 value as a
+previous object in your repository, Git will see the previous object already in
+your Git database and assume it was already written. If you try to check out
+that object again at some point, you'll always get the data of the first
+object.
+
+However, you should be aware of how ridiculously unlikely this scenario is. The
+SHA-1 digest is 20 bytes or 160 bits. The number of randomly hashed objects
+needed to ensure a 50\% probability of a single collision is about $2^{80}$ (the
+formula for determining collision probability is
+$p = (n(n-1)/2) * (1/2^{160}))$. $2^{80}$ is $1.2 \times 10^{24}$ or 1 million
+billion billion. That's 1,200 times the number of grains of sand on the earth.
+
+Here's an example to give you an idea of what it would take to get a SHA-1
+collision. If all 6.5 billion humans on Earth were programming, and every
+second, each one was producing code that was the equivalent of the entire
+Linux kernel history (1 million Git objects) and pushing it into one enormous
+Git repository, it would take 5 years until that repository contained enough
+objects to have a 50\% probability of a single SHA-1 object collision. A higher
+probability exists that every member of your programming team will be attacked
+and killed by wolves in unrelated incidents on the same night.
+\end{quote}
+
+
+\subsection{A Topic}
+\label{subsec:ATopic}
+
+This workflow is based on the branchy development workflow documented by
+\href{https://git-scm.com/docs/gitworkflows}{Git help workflows}.
+
+
+\subsubsection{Motivation}
+\label{subsubsec:Motivation}
+
+The primary goal of this workflow is to make release preparation and maintenance
+easier. We set the following requirements, of which some are themselves
+worthwhile goals:
+
+\begin{itemize}
+\item Amortize the effort of release preparation throughout development.
+\item Support granular selection of features for release.
+\item Allow immature features to be published without delaying release.
+\item \textbf{Keep unrelated development paths (topics) independent of one
+another}.
+\item Maintain a clean shape of history (see Section~\ref{par:HistoryShape} on
+page~\pageref{par:HistoryShape}).
+\end{itemize}
+
+
+\subsubsection{Design}
+\label{subsubsec:Design}
+
+The design of this workflow is based on the observation that meeting the
+highlighted goal makes the other goals easy. It is based on branchy development
+in which each branch has a well-defined purpose.
+
+We define two branch types:
+\begin{itemize}
+\item \textbf{Topic Branch}
+\begin{itemize}
+\item Commits represent \textbf{changes} (real work)
+\item Distinguished by \textbf{feature} (one topic per feature or fix)
+\item Named locally by each developer (describe purpose of work)
+\item Heads not published (no named branch on server)
+\end{itemize}
+\item Integration Branch
+\begin{itemize}
+\item Commits represent \textbf{merges} (merge topics together)
+\item Distinguished by \textbf{stability} (release maintenance, release
+preparation, development edge)
+\item Named everywhere
+\item Heads published on server
+\end{itemize}
+\end{itemize}
+
+
+\subsubsection{Notation}
+\label{subsubsec:Notation}
+
+This chapter uses Git Directed Acyclic Graphs (DAG) to depict commit history:
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{ m{0.3\textwidth} | m{0.6\textwidth} }
+\toprule
+\textbf{Meaning} & \textbf{Symbol} \\
+\midrule
+Branch name &
+\begin{tikzpicture}
+\node[DAGref,fill=pink](master){master};
+\end{tikzpicture} \\
+Current branch &
+\begin{tikzpicture}
+\node[DAGref,fill=pink](master){*master};
+\end{tikzpicture} \\
+Commit with parent in same branch &
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {[nodes=placeholder commits] "..."} -- C1
+};
+\end{tikzpicture} \\
+Commit with two parents (merge) &
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  {[nodes=placeholder commits] "..."} -- C1,
+  C2; {C2 -- C1}
+};
+\end{tikzpicture} \\
+%\bottomrule
+\end{tabular}
+\end{center}
+\caption[Git DAG notation]{Git graphs notation.
+\label{tab:GitDAGNotation}}
+\end{table}
+
+Topic branches generally consist of a linear sequence of commits forked off an
+integration branch:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C1 -- {
+    "" [placeholder];
+    C2 -- C3 -- C4 -- C5
+  }
+};
+\gittag
+{master}       % node name and text
+{right=of C1} % node placement
+{C1}          % target
+\gittag
+{topic}       % node name and text
+{right=of C5} % node placement
+{C5}          % target
+\end{tikzpicture}
+\itkcaption{Topic branch.}
+\label{fig:TopicBranch}
+\end{figure}
+
+Integration branches generally consist of a sequence of merge commits:
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  {C6 -- } -!- {C7 -- },
+  C1 -- {C2 -- C3 -- C4 -- C5},
+  {C8 -- C2} -!- {C9 -- C4};
+  {C6 -- C3}; {C7 -- C5}
+};
+\gittag
+{master}       % node name and text
+{right=of C5} % node placement
+{C5}          % target
+\end{tikzpicture}
+\itkcaption{Merge commits into the \code{master} branch.}
+\label{fig:MergeCommitsInIntegrationBranch}
+\end{figure}
+
+
+\subsubsection{Published Branches}
+\label{subsubsec:PublishedBranches}
+
+We publish an \textit{integration} branch for each stage of development:
+\begin{itemize}
+\item \textbf{release}: Release maintenance (high stability). Only bug fixes
+should be published here. Only the release manager can push here.
+\item \textbf{master}: Release preparation (medium stability). Only mature
+features and bug fixes should be published here.
+\end{itemize}
+
+Topic branches are not published directly; their names exist only in each
+developer's local repositories.
+
+
+\subsubsection{Development}
+\label{subsubsec:Development}
+
+We cover below the steps to take during each phase of development.
+
+\paragraph{Initial Setup}
+\label{par:InitialSetup}
+
+These instructions generally provide all arguments to \code{git push} commands.
+Some people prefer to use \code{git push} with no additional arguments to push
+the current tracking branch. Run the command
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git config --global push.default tracking
+\end{minted}
+
+to establish this behavior. See the
+\href{https://git-scm.com/docs/git-config}{git config} man-page for
+details.
+
+
+\paragraph{New Topic}
+\label{par:NewTopic}
+
+Create a new topic branch for each separate feature or bug fix. Always start the
+topic from a stable integration branch, usually \textbf{master}. If the topic
+fixes a bug in the current release, use \textbf{release}. In the following
+section we review the steps and commands to create, develop, and publish a topic
+branch based on \textbf{master}.
+
+Update \textbf{master} to base work on the most recently integrated features.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git checkout master
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  -- C1
+};
+\gittag
+{master}       % node name and text
+{right=of C1} % node placement
+{C1}          % target
+\end{tikzpicture}
+\itkcaption{Locate at \code{master}.}
+\label{fig:CheckoutBranch}
+\end{figure}
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git pull
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  -- C1 -- C2
+};
+\gittag
+{master}       % node name and text
+{right=of C2} % node placement
+{C2}          % target
+\end{tikzpicture}
+\itkcaption{Bring most recent changes to \code{master}.}
+\label{fig:PullChanges1}
+\end{figure}
+
+Create the local topic branch. Use a meaningful name for \textit{topic} (see
+Section~\ref{par:NamingTopics} on page~\pageref{par:NamingTopics}).
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git checkout -b topic
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  -- C1 -- C2
+};
+\gittag
+{master}       % node name and text
+{above=of C2} % node placement
+{C2}          % target
+\gittag
+{topic}       % node name and text
+{below=of C2} % node placement
+{C2}          % target
+\end{tikzpicture}
+\itkcaption{Create a local \code{topic} branch.}
+\label{fig:CreateLocalBranch}
+\end{figure}
+
+This is where the real work happens. Edit, stage, and commit files
+repeatedly as needed for your work.
+
+During this step, avoid the \ref{par:UrgeToMerge} from an integration branch.
+Keep your commits focused on the topic at hand.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+edit files
+git add -- files
+git commit
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C1 -- C2 -- {
+  "" [placeholder];
+    C3
+  }
+};
+\gittag
+{master}       % node name and text
+{right=of C2} % node placement
+{C2}          % target
+\gittag
+{topic}       % node name and text
+{right=of C3} % node placement
+{C3}          % target
+\end{tikzpicture}
+\itkcaption{Commit changes.}
+\label{fig:CommitChanges}
+\end{figure}
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+edit files
+git add -- files
+git commit
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C1 -- C2 -- {
+  "" [placeholder];
+  C3 -- C4
+}
+};
+\gittag
+{master}       % node name and text
+{right=of C2} % node placement
+{C2}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\end{tikzpicture}
+\itkcaption{Commit last changes.}
+\label{fig:CommitLastChanges}
+\end{figure}
+
+When the topic is ready for publication it must be merged into \textbf{master}.
+It should be the current local branch when you merge.
+
+Switch to \textbf{master} and update it.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git checkout master
+git pull
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C1 -- C2 -- {
+  "" [placeholder];
+  C3 -- C4
+  }
+  };
+\gittag
+{master}       % node name and text
+{right=of C2} % node placement
+{C2}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\end{tikzpicture}
+\itkcaption{Checkout \textit{master} and pull changes.}
+\label{fig:SwitchToMasterAndPull}
+\end{figure}
+
+Merge the topic and test it.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git merge topic
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C1 -- C2 -!- {
+    "" [placeholder];
+    C3 -- C4 -!- {
+      "" [placeholder]; }
+  } -!- C5;  {C2 -- C5}; {C2 -- C3}; {C4 -- C5};
+};
+\gittag
+{master}       % node name and text
+{right=of C5} % node placement
+{C5}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\end{tikzpicture}
+\itkcaption{Merge \code{topic} branch into \code{master}.}
+\label{fig:MergeTopicIntoMaster1}
+\end{figure}
+
+See Section~\ref{par:MultipleIntegrationBranches} on
+page~\pageref{par:MultipleIntegrationBranches} to resolve any conflict
+that may arise when merging.
+
+Finally, publish the change.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git push origin master
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C1 -- C2 -!- {
+    "" [placeholder];
+    C3 -- C4 -!- {
+      "" [placeholder]; }
+  } -!- C5;  {C2 -- C5}; {C2 -- C3}; {C4 -- C5};
+};
+\gittag
+{origin/master}       % node name and text
+{above=of C5} % node placement
+{C5}          % target
+\gittag
+{master}       % node name and text
+{below=of C5} % node placement
+{C5}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\end{tikzpicture}
+\itkcaption{Publish the change.}
+\label{fig:PushChanges1}
+\end{figure}
+
+See Section~\ref{subpar:RemoteEndHungUpUnexpectedly} on
+page~\pageref{subpar:RemoteEndHungUpUnexpectedly} and
+Section~\ref{subpar:NonFastForward} on page~\pageref{subpar:NonFastForward} to
+resolve any conflict that may arise when publishing the change.
+
+
+\paragraph{Mature Topic}
+\label{par:MatureTopic}
+
+When a topic is ready for inclusion in the next release, we merge it into
+\textbf{master}.
+
+Update \textbf{master} to get the latest work by others. We will merge the
+\textit{topic} branch into it.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git checkout master
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  C1 -- C2 -- {
+  "" [placeholder];
+    C3 -- C4
+    }
+};
+\gittag
+{master}       % node name and text
+{right=of C2} % node placement
+{C2}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\end{tikzpicture}
+\itkcaption{Checkout \textit{master}.}
+\label{fig:SwitchToMaster1}
+\end{figure}
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git pull
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {C5 -- },
+  C1 -- C2 -!- {
+    "" [placeholder];
+      C3 -- C4} -!- C6; {C2 -- C3}; {C2 -- C6}; {C5 -- C6}
+};
+\gittag
+{master}       % node name and text
+{right=of C6} % node placement
+{C6}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\end{tikzpicture}
+\itkcaption{Pull latest changes into \textit{master}.}
+\label{fig:PullChanges2}
+\end{figure}
+
+Merge the topic and test it.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git merge topic
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {C5 -- },
+  C1 -- C2 -!- {
+    "" [placeholder];
+    C3 -- C4} -!- C6 -- C7; {C2 -- C3}; {C2 -- C6}; {C5 -- C6}; {C4 -- C7}
+};
+\gittag
+{master}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\end{tikzpicture}
+\itkcaption{Merge the \code{topic} branch into master.}
+\label{fig:MergeTopicIntoMaster2}
+\end{figure}
+
+See Section~\ref{par:MultipleIntegrationBranches} on
+page~\pageref{par:MultipleIntegrationBranches} to resolve any conflict that may
+arise when merging the branch.
+
+Delete the local branch.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git branch -d topic
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {C5 -- },
+  C1 -- C2 -!- {
+    "" [placeholder];
+    C3 -- C4} -!- C6 -- C7; {C2 -- C3}; {C2 -- C6}; {C5 -- C6}; {C4 -- C7}
+};
+\gittag
+{master}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\end{tikzpicture}
+\itkcaption{Delete the local \code{topic} branch.}
+\label{fig:DeleteLocalBranch1}
+\end{figure}
+
+Finally, publish the change.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git push origin master
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {C5 -- },
+  C1 -- C2 -!- {
+    "" [placeholder];
+    C3 -- C4} -!- C6 -- C7; {C2 -- C3}; {C2 -- C6}; {C5 -- C6}; {C4 -- C7}
+};
+\gittag
+{origin/master}       % node name and text
+{above=of C7} % node placement
+{C7}          % target
+\gittag
+{master}       % node name and text
+{below=of C7} % node placement
+{C7}          % target
+\end{tikzpicture}
+\itkcaption{Publish the change.}
+\label{fig:PushChanges2}
+\end{figure}
+
+See Section~\ref{subpar:RemoteEndHungUpUnexpectedly} on
+page~\pageref{subpar:RemoteEndHungUpUnexpectedly} and
+Section~\ref{subpar:NonFastForward} on page~\pageref{subpar:NonFastForward} to
+resolve any conflict that may arise when publishing the change.
+
+
+\paragraph{Old Topic}
+\label{par:OldTopic}
+
+Sometimes we need to continue work on an old topic that has already been merged
+to an integration branch and for which we no longer have a local topic branch.
+To revive an old topic, we create a local branch based on the last commit from
+the topic (this is not one of the merges into an integration branch).
+
+First we need to identify the commit by its hash. It is an ancestor of the
+integration branch into which it was once merged, say \textbf{master}. Run
+\code{git log} with the \code{--first-parent} option to view the integration
+history:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git log --first-parent master
+commit 9057863...
+Merge: 2948732 a348901
+...
+    Merge branch topicA
+
+commit 2948732...
+Merge: 1094687 b235725
+...
+    Merge branch topicB
+
+commit 1094687...
+Merge: 8267263 c715789
+...
+    Merge branch topicC
+\end{minted}
+
+Locate the merge commit for the topic of interest, say \textit{topicB}. Its
+second parent is the commit from which we will restart work (\textit{b235725} in
+this example).
+
+Create a local topic branch starting from the commit identified above.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git checkout -b topic b235725
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {C5 -- },
+  C1 -- {C2 -- C6,
+    C3 -- C4} -- C7; {C5 -- C6}
+};
+\gittag
+{master}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{topic b235725}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\end{tikzpicture}
+\itkcaption{Local \textit{topic} branch started from a given commit and switch to it.}
+\label{fig:CreateLocalBranchFromCommitAndSwitchToIt}
+\end{figure}
+
+Continue development on the topic.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+edit files
+git add -- files
+git commit
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {C5 -- },
+  C1 -- {C2 -- C6 -- C7},
+    C3 -- C4 -- C8; {C5 -- C6}; {C4 -- C7}
+};
+\gittag
+{master}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{topic}       % node name and text
+{right=of C8} % node placement
+{C8}          % target
+\end{tikzpicture}
+\itkcaption{Commit files to \textit{topic}.}
+\label{fig:CommitFilesToTopic1}
+\end{figure}
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+edit files
+git add -- files
+git commit
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {C5 -- },
+  C1 -- {C2 -- C6 -- C7,
+    C3 -- C4 -- C8 -- C9}; {C5 -- C6}; {C4 -- C7}
+};
+\gittag
+{master}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{topic}       % node name and text
+{right=of C9} % node placement
+{C9}          % target
+\end{tikzpicture}
+\itkcaption{Further continue developing and commit files to \textit{topic}.}
+\label{fig:CommitFilesToTopic2}
+\end{figure}
+
+When the new portion of the topic is ready, merge it into \textbf{master} and test.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git checkout master
+git pull
+git merge topic
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {C5 -- },
+  C1 -- {C2 -- C6 -- C7 -- C10,
+    C3 -- C4 -- C8 -- C9}; {C5 -- C6}; {C4 -- C7}; {C9 -- C10}
+};
+\gittag
+{master}       % node name and text
+{right=of C10} % node placement
+{C10}          % target
+\gittag
+{topic}       % node name and text
+{right=of C9} % node placement
+{C9}          % target
+\end{tikzpicture}
+\itkcaption{Merge into \textit{master}.}
+\label{fig:MergeTopicIntoMaster3}
+\end{figure}
+
+Publish \textbf{master}.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git push origin master
+\end{minted}
+
+
+\paragraph{Dependent Topic}
+\label{par:DependentTopic}
+
+Occasionally you may realize that you need the work from another topic to
+complete work on your topic. In this case your topic depends on the other
+topic, so merging the other topics into yours is legitimate (see
+Section~\ref{par:LegitimateMerges} on page~\pageref{par:LegitimateMerges}). Do
+not merge an integration branch that has the \textit{other-topic} branch name.
+Use the instructions below to merge only the \textit{other-topic} branch
+without getting everything else.
+
+Fetch the upstream integration branch that has the \textit{other-topic} branch,
+say \textbf{master}.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git fetch origin
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+   {C5 -!- C6 -- },
+   C1 -!- {C2 -- C7 -- C8,
+     C3 -- C4,
+     C9 -- C10}; {C1 -- C2}; {C1 -- C9}; {C2 -- C3};
+    {C6 -- C7}; {C4 -- C8}; {C5 -- C2};
+};
+\gittag
+{extra-topic}       % node name and text
+{right=of C6} % node placement
+{C6}          % target
+\gittag
+{origin/master}       % node name and text
+{right=of C8} % node placement
+{C8}          % target
+\gittag
+{0a398e5}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{topic}       % node name and text
+{right=of C10} % node placement
+{C10}          % target
+\end{tikzpicture}
+\itkcaption{Fetch the upstream integration branch \textit{other-topic}.}
+\label{fig:FetchUpstreamBranch}
+\end{figure}
+
+Use \code{git log --first-parent origin/master} to find the commit that merges
+\textit{other-topic}. The commit message gives you the name of the other topic
+branch (we use \textit{other-topic} here as a placeholder). The second parent of
+the commit (\code{0a398e5} in this example) is the end of the
+\textit{other-topic} branch. Create a local branch from that commit.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git branch other-topic 0a398e5
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+   {C5 -!- C6 -- },
+   C1 -!- {C2 -- C7 -- C8,
+     C3 -- C4,
+     C9 -- C10}; {C1 -- C2}; {C1 -- C9}; {C2 -- C3};
+    {C6 -- C7}; {C4 -- C8}; {C5 -- C2};
+};
+\gittag
+{extra-topic}       % node name and text
+{right=of C6} % node placement
+{C6}          % target
+\gittag
+{origin/master}       % node name and text
+{right=of C8} % node placement
+{C8}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{topic}       % node name and text
+{right=of C10} % node placement
+{C10}          % target
+\end{tikzpicture}
+\itkcaption{Create a local branch \textit{other-topic} from commit \textit{0a398e5}.}
+\label{fig:CreateLocalBranchFromCommit}
+\end{figure}
+
+Merge the \textit{other-topic} branch into your topic.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git merge other-topic
+git branch -d other-topic
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+   {C5 -!- C6 -- },
+   C1 -!- {C2 -- C7 -- C8,
+     C3 -- C4,
+     C9 -- C10 -- C11}; {C1 -- C2}; {C1 -- C9}; {C2 -- C3};
+    {C6 -- C7}; {C4 -- C8}; {C5 -- C2}; {C4 -- C11}
+};
+\gittag
+{extra-topic}       % node name and text
+{right=of C6} % node placement
+{C6}          % target
+\gittag
+{origin/master}       % node name and text
+{right=of C8} % node placement
+{C8}          % target
+\gittag
+{topic}       % node name and text
+{right=of C11} % node placement
+{C11}          % target
+\end{tikzpicture}
+\itkcaption{Merge \textbf{other-branch} into \textit{topic} branch.}
+\label{fig:MergeBranch}
+\end{figure}
+
+(It is also possible to run \code{git merge 0a398e5} and then use
+\code{git commit --amend} to write a nice commit message.)
+
+The \textit{topic} branch now looks like this:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {C5 -!- },
+  C1 -!- {C2,
+    C3 -- C4,
+    C9 -- C10 -- C11}; {C1 -- C2}; {C1 -- C9}; {C2 -- C3}; {C4 -- C11}
+};
+\gittag
+{topic}       % node name and text
+{right=of C11} % node placement
+{C11}          % target
+\end{tikzpicture}
+\itkcaption{\textit{topic} branch shape.}
+\label{fig:BranchShape}
+\end{figure}
+
+Note that after the merge, the \textit{other-topic} is reachable from your topic
+but the extra-topic has not been included. By not merging from the integration
+branch we avoided bringing in an unnecessary dependency on the
+\textit{extra-topic}. Furthermore, the message ``Merge branch 'other-topic' into
+topic'' is very informative about the purpose of the merge. Merging the whole
+integration branch would not be so clear.
+
+
+\paragraph{Merge Integration Branches}
+\label{par:MergeIntegrationBranches}
+
+Each published integration branch (see Section~\ref{subsubsec:PublishedBranches}
+on page~\pageref{subsubsec:PublishedBranches}) has a defined level of
+stability. Express this relationship by merging more-stable branches into
+less-stable branches to ensure that they do not diverge. After merging a mature
+topic to \textbf{master}, we merge \textbf{master} into \textbf{release}:
+
+Update \textbf{master} and then \textbf{release}:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git checkout master
+git pull
+git checkout release
+git pull
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {C5 -- },
+    C1 -!- {C2 -- C6 -- C7,
+    C3 -- C4,
+    C8 -- C9}; {C1 -- C2}; {C2 -- C3}; {C1 -- C2}; {C4 -- C7}; {C4 -- C9}; {C5 -- C6}
+};
+\gittag
+{master}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{release}       % node name and text
+{right=of C9} % node placement
+{C9}          % target
+\end{tikzpicture}
+\itkcaption{Update \textit{master} and \textit{release}.}
+\label{fig:UpdateBranches}
+\end{figure}
+
+Merge \textbf{master} into \textbf{release}:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git merge master
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {C5 -- },
+  C1 -!- {C2 -- C6 -- C7,
+  C3 -- C4,
+  C8 -- C9 -- C10}; {C1 -- C2}; {C2 -- C3}; {C1 -- C2}; {C4 -- C7};
+  {C4 -- C9}; {C5 -- C6}; {C7 -- C10}
+  };
+\gittag
+{master}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{release}       % node name and text
+{right=of C10} % node placement
+{C10}          % target
+\end{tikzpicture}
+\itkcaption{Merge \textit{master} into \textit{release}.}
+\label{fig:MergeMasterIntoRelease}
+\end{figure}
+
+Finally, publish the change.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git push origin release
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {C5 -- },
+    C1 -!- {C2 -- C6 -- C7,
+    C3 -- C4,
+    C8 -- C9 -- C10}; {C1 -- C2}; {C2 -- C3}; {C1 -- C2}; {C4 -- C7};
+    {C4 -- C9}; {C5 -- C6}; {C7 -- C10}
+};
+\gittag
+{master}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{release}       % node name and text
+{right=of C10} % node placement
+{C10}          % target
+\gittag
+{origin/release}       % node name and text
+{below=of C10} % node placement
+{C10}          % target
+\end{tikzpicture}
+\itkcaption{Publish to \textit{release}.}
+\label{fig:PushChangesToRelease1}
+\end{figure}
+
+See Section~\ref{subpar:RemoteEndHungUpUnexpectedly} on
+page~\pageref{subpar:RemoteEndHungUpUnexpectedly} and
+Section~\ref{subpar:NonFastForward} on page~\pageref{subpar:NonFastForward} to
+resolve any conflict that may arise when publishing the change.
+
+\subsubsection{Discussion}
+\label{subpar:Discussion}
+
+\paragraph{History Shape}
+\label{par:HistoryShape}
+
+The history graphs produced by this workflow may look complex compared to the
+fully linear history produced by a rebase workflow (used by CVS and Subversion):
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {C5 -- },
+  C1 -!- {C2 -- C6 -- C7 -- C15,
+    C3 -- C4 -- C8 -- C14},
+   {C9 -- C11 -- C13 -- C16},
+   {C10 -!- C12}; {C1 -- C2}; {C2 -- C3};
+   {C5 -- C6}; {C4 -- C7}; {C4 -- C11}; {C14 -- C15}; {C14 -- C16}; {C10 -- C9}; {C12 -- C13};
+};
+\gittag
+{master}       % node name and text
+{right=of C15} % node placement
+{C15}          % target
+\gittag
+{topic}       % node name and text
+{right=of C14} % node placement
+{C14}          % target
+\gittag
+{release}       % node name and text
+{right=of C16} % node placement
+{C16}          % target
+\end{tikzpicture}
+\itkcaption{Complex history graph in Git.}
+\label{fig:ComplexHistory}
+\end{figure}
+
+However, consider the shape of history along each branch. We can view it using
+Git's \textit{--first-parent} option. It traverses history by following only the
+first parent of each merge. The first parent is the commit that was currently
+checked out when the git merge command was invoked to create the merge commit.
+By following only the first parent, we see commits that logically belong to a
+specific branch.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git log --first-parent topic
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C2 -- {
+    "" [placeholder];
+    C3 -- C4 -- C8 -- C14
+  }
+};
+\gittag
+{topic}       % node name and text
+{right=of C14} % node placement
+{C14}          % target
+\end{tikzpicture}
+\itkcaption{Parent commit in \textit{topic} branch.}
+\label{fig:ParentCommitInTopicBranch}
+\end{figure}
+
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git log --first-parent master
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C5, {
+    C1 -- C2 -- C6 -- C7 -- C15
+  }, {C4 -!- C14}; {C4 -- C7}; {C5 -- C6}; {C14 -- C15}
+};
+\gittag
+{master}       % node name and text
+{right=of C15} % node placement
+{C15}          % target
+\end{tikzpicture}
+\itkcaption{Parent commit in \textit{master} branch.}
+\label{fig:ParentCommitInMasterBranch}
+\end{figure}
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git log --first-parent release
+\end{minted}
+
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C4 -!- C14 -!- {
+    "" [placeholder];
+    C9 -- C11 -- C13 -- C16
+  }, {C10 -!- C12}; {C4 -- C11}; {C10 -- C9}; {C12 -- C13}; {C14 -- C16}
+};
+\gittag
+{release}       % node name and text
+{right=of C16} % node placement
+{C16}          % target
+\end{tikzpicture}
+\itkcaption{Parent commit in \textit{release} branch.}
+\label{fig:ParentCommitInReleaseBranch}
+\end{figure}
+
+Each branch by itself looks linear and has only commits with a specific purpose.
+The history behind each commit is unique to that purpose. Topic branches are
+independent, containing only commits for their specific feature or fix.
+Integration branches consist of merge commits that integrate topics together.
+
+Note that achieving the nice separation of branches requires understanding of
+the above development procedure and strict adherence to it.
+
+
+\paragraph{Naming Topics}
+\label{par:NamingTopics}
+
+This section uses the placeholder \textit{topic} in place of a real topic name.
+In practice, substitute for a meaningful name. Name topics like you might name
+functions: concise but precise. A reader should have a general idea of the
+feature or fix to be developed given just the branch name.
+
+Note that topic names are not published as branch heads on the server, so no one
+will ever see a branch by your topic name unless they create it themselves.
+However, the names do appear in the default merge commit message:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git checkout master
+git merge topic
+git show
+...
+   Merge branch 'topic' into master
+...
+\end{minted}
+
+These merge commits appear on the integration branches and should therefore
+describe the changes they integrate. Running \code{git log --first-parent} as
+described in Section~\ref{par:HistoryShape} will show only these merge commits,
+so their messages should be descriptive of the changes made on their topics. If
+you did not choose a good branch name, or feel that the merge needs more
+explanation than the branch name provides, amend the commit to update the
+message by hand:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git commit --amend
+Merge branch 'topic' into master
+(edit the message)
+\end{minted}
+
+
+\paragraph{Urge to Merge}
+\label{par:UrgeToMerge}
+
+Avoid the ``urge to merge'' from an integration branch into your topic. Keep
+commits on your topic focused on the feature or fix under development.
+
+\paragraph{Habitual Merges}
+\label{par:HabitualMerges}
+
+Merge your work with others when you are finished with it by merging into an
+integration branch as documented above. Avoid habitual merges from an
+integration branch; doing so introduces unnecessary dependencies and complicates
+the shape of history (see Section~\ref{par:HistoryShape} on
+page~\pageref{par:HistoryShape}).
+
+Many developers coming from centralized version control systems have trained
+themselves to regularly update their work tree from the central repository (e.g.
+``cvs update''). With those version control systems this was a good habit
+because they did not allow you to commit without first integrating your work
+with the latest from the server. When integrating the local and remote changes
+resulted in conflicts, developers were forced to resolve the conflicts before
+they could commit. A mistake during conflict resolution could result in loss of
+work because the local changes might have been lost. By regularly updating from
+the server, developers hoped to avoid this loss of work by resolving conflicts
+incrementally.
+
+Developers using Git do not face this problem. Instead, one should follow a
+simple motto: ``commit first, integrate later''. There is no risk that your work
+will be lost during conflict resolution because all your changes have been
+safely committed before attempting to merge. If you make a mistake while merging,
+you always have the option to throw away the merge attempt and start over with a
+clean tree.
+
+
+\paragraph{Legitimate Merges}
+\label{par:LegitimateMerges}
+
+One reason to merge other work into your topic is when you realize that your
+topic depends on it. See Section~\ref{par:DependentTopic} on
+page~\pageref{par:DependentTopic} for help with this case.
+
+Occasionally one may merge directly from \textbf{master} if there is a good
+reason. This is rare, so bring up the reason on your project discussion forum
+first. Never merge \textbf{release} into a topic under any circumstances!!!
+
+
+\subsubsection{Troubleshooting}
+\label{subsubsec:Troubleshooting}
+
+Here we document problems one might encounter while following the workflow
+instructions above. This is not a general Git troubleshooting page.
+
+\paragraph{Trouble Merging}
+\label{par:TroubleMerging}
+
+%TODO: Write this sub-section and link sub-sub-sections from git merge commands above.
+
+\paragraph{Trouble Pushing}
+\label{par:TroublePushing}
+
+\subparagraph{Remote End Hung up Unexpectedly}
+\label{subpar:RemoteEndHungUpUnexpectedly}
+
+Pushing may fail with this error:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git push
+fatal: The remote end hung up unexpectedly
+\end{minted}
+
+This likely means that you have set a \textit{push URL} for the remote
+repository. You can see the URL to which it tries to push using \code{-v}:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git push -v
+Pushing to git://public.kitware.com/Project.git
+fatal: The remote end hung up unexpectedly
+\end{minted}
+
+The \code{git://} repository URL may not be used for pushing; it is meant for
+efficient read-only anonymous access only. Instead you need to configure a
+SSH-protocol URL for pushing:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git config remote.origin.pushurl git@public.kitware.com:Project.git
+\end{minted}
+
+(Note that \code{pushurl} requires Git >= 1.6.4. Use just \code{url} for Git <
+1.6.4.). The URL in the above example is a placeholder. In practice, use th
+push URL documented for your repository.
+
+The above assumes that you want to push to the same repository that you
+originally cloned. To push elsewhere, see help for
+\href{https://git-scm.com/docs/git-push}{git push} and
+\href{https://git-scm.com/docs/git-remote}{git remote}.
+
+
+\subparagraph{Non-Fast-Forward}
+\label{subpar:NonFastForward}
+
+When trying to publish new merge commits on an integration branch, perhaps
+\textbf{release}, the final push may fail:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git push origin release
+To ...
+! [rejected]        release -> release (non-fast-forward)
+error: failed to push some refs to '...'
+To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes before pushing again.  See the 'Note about
+fast-forwards' section of 'git push --help' for details.
+\end{minted}
+
+This means that the server's \textbf{release} refers to a commit that is not
+reachable from the \textbf{release} you are trying to push:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  C1 -- C2 -- {
+    "" [placeholder];
+    C3 -- C4},
+  C5;
+  -- C6 -- C8,
+  C7; {C4 -- C5}; {C7 -- C8}
+};
+\gittag
+{master}       % node name and text
+{right=of C2} % node placement
+{C2}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{release}       % node name and text
+{right=of C5} % node placement
+{C5}          % target
+\gittag
+{origin/release}       % node name and text
+{right=of C8} % node placement
+{C8}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\end{tikzpicture}
+\itkcaption{Unreachable \textit{origin/release} branch.}
+\label{fig:UnreachableBranch}
+\end{figure}
+
+This is the Git equivalent to when \textit{cvs commit} complains that your file
+is not up-to-date, but now it applies to the whole project and not just one
+file. Git is telling you that it cannot update \textbf{release} on the server to
+point at your merge commit because that would throw away someone else's work
+(such as \textit{other-topic}). There are a few possible causes, all of which
+mean you have not yet integrated your work with the latest from
+\textit{upstream}:
+\begin{itemize}
+\item You forgot to run \code{git pull} before \code{git merge} so you did not
+have everything from \textit{upstream}.
+\item Someone else managed to merge and push something into \textbf{release}
+since you last ran \code{git pull}.
+\end{itemize}
+
+Some Git guides may tell you to just \code{git pull} again to merge
+\textit{upstream} work into yours. That approach is not compatible with the goals
+of this workflow. We want to preserve a clean shape of history (see
+Section~\ref{par:HistoryShape} on page~\pageref{par:HistoryShape}).
+
+The solution is to throw away your previous merge and try again, but this time
+start from the latest \textit{upstream} work:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git reset --hard origin/release
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  C1 -- C2 -- {
+    "" [placeholder];
+    C3 -- C4},
+  -- C6 -- C8,
+  C7; {C7 -- C8}
+};
+\gittag
+{master}       % node name and text
+{right=of C2} % node placement
+{C2}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{origin/release}       % node name and text
+{right=of C8} % node placement
+{C8}          % target
+\gittag
+{release}       % node name and text
+{below=of C8} % node placement
+{C8}          % target
+\gittag
+{other-topic}       % node name and text
+{below=of C7} % node placement
+{C7}          % target
+\end{tikzpicture}
+\itkcaption{Start from latest upstream commit.}
+\label{fig:StartFromLatestUpstreamCommit}
+\end{figure}
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git merge topic
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  C1 -- C2 -- {
+    "" [placeholder];
+    C3 -- C4},
+  -- C6 -- C8 -- C9,
+  C7; {C7 -- C8}; {C4 -- C9}
+};
+\gittag
+{master}       % node name and text
+{right=of C2} % node placement
+{C2}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{release}       % node name and text
+{right=of C9} % node placement
+{C9}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\end{tikzpicture}
+\itkcaption{Merge the \textit{topic} branch into the local \textit{release} branch.}
+\label{fig:MergeTopicIntoRelease}
+\end{figure}
+
+Now your \textbf{release} can reach the upstream work as well as yours. Publish
+it.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git push origin release
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  C1 -- C2 -- {
+    "" [placeholder];
+    C3 -- C4},
+  -- C6 -- C8 -- C9,
+  C7; {C7 -- C8}; {C4 -- C9}
+};
+\gittag
+{master}       % node name and text
+{right=of C2} % node placement
+{C2}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{origin/release}       % node name and text
+{right=of C9} % node placement
+{C9}          % target
+\gittag
+{release}       % node name and text
+{below=of C9} % node placement
+{C9}          % target
+\gittag
+{other-topic}       % node name and text
+{below=of C7} % node placement
+{C7}          % target
+\end{tikzpicture}
+\itkcaption{Publish the \textit{release} branch.}
+\label{fig:PushChangesToRelease}
+\end{figure}
+
+See \href{https://git-scm.com/docs/git-rerere}{git rerere} to help avoid
+resolving the same conflicts on each merge attempt.
+
+
+\subparagraph{First-Parent Sequence Not Preserved}
+\label{subpar:FirstParentSequenceNotPreserved}
+
+One goal of this workflow is to preserve a clean shape of history (see
+Section~\ref{par:HistoryShape} on page~\pageref{par:HistoryShape}). This means
+that a \code{--first-parent} traversal of an integration branch, such as
+\textbf{master}, should see only the merge commits that integrate topics into
+the branch:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {C1 -- } -!- {C5 -- },
+  {[nodes=placeholder commits] "..."} -- C2 -- C4 -- C6 -- C8,
+  {C3 -- } -!- {C7 -- };
+  {C1 -- C2}; {C3 -- C4}; {C5 -- C6}; {C7 -- C8}
+};
+\gittag
+{master}       % node name and text
+{right=of C8} % node placement
+{C8}          % target
+\end{tikzpicture}
+\itkcaption{Traversal of the \textit{master} integration branch.}
+\label{fig:TraversalOfMasterBranch}
+\end{figure}
+
+The commits on the individual topic branches are not included in the traversal.
+This provides a medium-level overview of the development of the project.
+
+We enforce the shape of history on the server's integration branches using an
+update hook at push-time. Each update must point its branch at a new commit from
+which a \code{first-parent} traversal reaches the old head of the branch:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {F -- } -!- {G -- },
+  {[nodes=placeholder commits] "..."} -- E -- D -- C -- B -- A -- M,
+  {H -- D} -!- {J -- B} -!- {{B -- U -- T -- M}};
+  {F -- E}; {G -- C}
+  };
+\gittag
+{master}       % node name and text
+{right=of M} % node placement
+{M}          % target
+\gittag
+{master@{1}}       % node name and text
+{above=of A} % node placement
+{A}          % target
+\gittag
+{topic}       % node name and text
+{right=of T} % node placement
+{T}          % target
+\end{tikzpicture}
+\itkcaption{Server's integration branch history shape.}
+\label{fig:IntegrationBranchHistory}
+\end{figure}
+
+A first-parent traversal of master from \textit{before} the update
+(\code{master@{1}}) sees \code{A} \code{B} \code{C} \code{D}:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {F -- } -!- {G -- } -!- {K -- },
+  {[nodes=placeholder commits] "..."} -- E -- D -- C -- B -- A,
+  {H -- D} -!- {J -- B} -!- {F -- E}; {G -- C}; {K -- A}
+};
+\gittag
+{master@{1}}       % node name and text
+{right=of A} % node placement
+{A}          % target
+\end{tikzpicture}
+\itkcaption{First parent traversal of \textit{master} before update.}
+\label{fig:FirstParentTraversalBeforeUpdate}
+\end{figure}
+
+A first-parent traversal of \textbf{master} from \textit{after} the update sees
+\code{M} \code{A} \code{B} \code{C} \code{D}:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {F -- } -!- {G -- } -!- {K -- },
+  {[nodes=placeholder commits] "..."} -- E -- D -- C -- B -- A -- M,
+  {H -- D} -!- {J -- B} -!- {T -- M}; {F -- E}; {G -- C}; {K -- A}
+};
+\gittag
+{master}       % node name and text
+{right=of M} % node placement
+{M}          % target
+\end{tikzpicture}
+\itkcaption{First parent traversal of \textit{master} after update.}
+\label{fig:FirstParentTraversalAfterUpdate}
+\end{figure}
+
+The above assumes correct history shape. Now, consider what happens if merge
+\code{M} is incorrectly made on the topic branch:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {F -- } -!- {G -- } -!- {K -- },
+  {[nodes=placeholder commits] "..."} -- E -- D -- C -- B -- A,
+  {H -- D} -!- {J -- B} -!- {U -- T -- M'}; {F -- E}; {G -- C}; {K -- A}; {U -- B}; {M' -- A};
+};
+\gittag
+{master@{1}}       % node name and text
+{above=of A} % node placement
+{A}          % target
+\gittag
+{master}       % node name and text
+{right=of M'} % node placement
+{M'}          % target
+\gittag
+{topic}       % node name and text
+{below=of T} % node placement
+{T}          % target
+\end{tikzpicture}
+\itkcaption{Incorrect merge of \code{M} on branch \textit{topic}.}
+\label{fig:IncorrectMerge}
+\end{figure}
+
+Now a first-parent traversal of \textbf{master} from after the update sees
+\code{M'} \code{T} \code{U} \code{B} \code{C} \code{D}:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {F -- } -!- {G -- },
+  {[nodes=placeholder commits] "..."} -- E -- D -- C -- B,
+  {H -- D} -!- {J -- B} -!- {U -- T -- M'}; {F -- E}; {G -- C}; {U -- B}; {M' -- };
+};
+\gittag
+{master}       % node name and text
+{right=of M'} % node placement
+{M'}          % target
+\gittag
+{topic}       % node name and text
+{below=of T} % node placement
+{T}          % target
+\end{tikzpicture}
+\itkcaption{First-parent traversal of \textit{master} branch.}
+\label{fig:FirstParentTraversal}
+\end{figure}
+
+This not only shows details of the topic branch, but skips over \code{A}
+altogether! Our update hooks will reject the push in this case because the
+new \textbf{master} cannot see the old one in a first-parent traversal.
+
+There are a few possible causes and solutions to the above problem, but all
+involve non-strict compliance with the workflow instructions. A likely cause is
+that you did not create a local \textit{topic} branch but instead committed
+directly on \textbf{master} and then pulled from \textit{upstream} before
+pushing:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+wrong$ git checkout master
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {F -- } -!- {G -- },
+  {[nodes=placeholder commits] "..."} -- E -- D -- C -- B ,
+  {H -- D} -!- {J -- B}; {F -- E}; {G -- C}
+};
+\gittag
+{origin/master}       % node name and text
+{above=of B} % node placement
+{B}          % target
+\gittag
+{master}       % node name and text
+{below=of B} % node placement
+{B}          % target
+\end{tikzpicture}
+\itkcaption{Checkout \textit{master}.}
+\label{fig:SwitchToMaster2}
+\end{figure}
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+wrong$ edit files
+wrong$ git add files
+wrong$ git commit
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {F -- } -!- {G -- },
+  {[nodes=placeholder commits] "..."} -- E -- D -- C -- B,
+  {H -- D} -!- {J -- B} -!- {{B -- U}}; {F -- E}; {G -- C}
+};
+\gittag
+{origin/master}       % node name and text
+{above=of B} % node placement
+{B}          % target
+\gittag
+{master}       % node name and text
+{right=of U} % node placement
+{U}          % target
+\end{tikzpicture}
+\itkcaption{Commit on \textit{master} branch.}
+\label{fig:WrongCommitOnMasterBranch}
+\end{figure}
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+wrong$ edit files
+wrong$ git add files
+wrong$ git commit
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {F -- } -!- {G -- },
+  {[nodes=placeholder commits] "..."} -- E -- D -- C -- B -- A -- M,
+  {H -- D} -!- {J -- B} -!- {{B -- U -- T}}; {F -- E}; {G -- C}
+};
+\gittag
+{origin/master}       % node name and text
+{above=of B} % node placement
+{B}          % target
+\gittag
+{master}       % node name and text
+{right=of T} % node placement
+{T}          % target
+\end{tikzpicture}
+\itkcaption{Additional commit on \textit{master} branch.}
+\label{fig:WrongAdditionalCommitOnMasterBranch}
+\end{figure}
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+wrong$ git push origin master
+\end{minted}
+
+
+Rejected as \textit{non-fast-forward} (see Section~\ref{subpar:NonFastForward}
+on page~\pageref{subpar:NonFastForward}).
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+wrong$ git pull
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {F -- } -!- {G -- },
+  {[nodes=placeholder commits] "..."} -- E -- D -- C -- B -- A,
+  {H -- D} -!- {J -- B} -!- {U -- T -- M'}; {F -- E}; {G -- C}; {U -- B}; {M' -- A};
+};
+\gittag
+{origin/master}       % node name and text
+{right=of A} % node placement
+{A}          % target
+\gittag
+{master}       % node name and text
+{right=of M'} % node placement
+{M'}          % target
+\end{tikzpicture}
+\itkcaption{Pull from upstream.}
+\label{fig:PullChangesFromUpstream}
+\end{figure}
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+wrong$ git push origin master
+\end{minted}
+
+
+Rejected with the \textit{first parent sequence not preserved} error (see
+Section~\ref{subpar:FirstParentSequenceNotPreserved} on
+page~\pageref{subpar:FirstParentSequenceNotPreserved}).
+
+The solution in this case is to recreate the merge on the proper branch.
+
+First, create a nicely-named topic branch starting from the first-parent of the
+incorrect merge.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git branch topic 'master^1'
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {F -- } -!- {G -- },
+  {[nodes=placeholder commits] "..."} -- E -- D -- C -- B -- A,
+  {H -- D} -!- {J -- B} -!- {U -- T -- M'}; {F -- E}; {G -- C}; {U -- B}; {M' -- A};
+};
+\gittag
+{origin/master}       % node name and text
+{right=of A} % node placement
+{A}          % target
+\gittag
+{master}       % node name and text
+{right=of M'} % node placement
+{M'}          % target
+\gittag
+{topic}       % node name and text
+{below=of T} % node placement
+{T}          % target
+\end{tikzpicture}
+\itkcaption{Create a \textit{topic} branch starting from the first-parent of the incorrect merge.}
+\label{fig:CreateLocalBranchFromFirstParent}
+\end{figure}
+
+Then reset your local master to that from upstream.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git reset --hard origin/master
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {F -- } -!- {G -- },
+  {[nodes=placeholder commits] "..."} -- E -- D -- C -- B -- A,
+  {H -- D} -!- {J -- B} -!- {U -- T}; {F -- E}; {G -- C}; {U -- B};
+};
+\gittag
+{origin/master}       % node name and text
+{above=of A} % node placement
+{A}          % target
+\gittag
+{master}       % node name and text
+{below=of A} % node placement
+{A}          % target
+\gittag
+{topic}       % node name and text
+{right=of T} % node placement
+{T}          % target
+\end{tikzpicture}
+\itkcaption{Reset the local \textit{master} branch to upstream \textit{master}.}
+\label{fig:ResetLocalMasterToUpstreamMaster}
+\end{figure}
+
+Now create the correct merge commit as described in the workflow instructions
+above.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git merge topic
+\end{minted}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {F -- } -!- {G -- },
+  {[nodes=placeholder commits] "..."} -- E -- D -- C -- B -- A -- M,
+  {H -- D} -!- {J -- B} -!- {U -- T}; {F -- E}; {G -- C}; {U -- B}; {T -- M}
+};
+\gittag
+{master}       % node name and text
+{right=of M} % node placement
+{M}          % target
+\gittag
+{topic}       % node name and text
+{right=of T} % node placement
+{T}          % target
+\end{tikzpicture}
+\itkcaption{Merge the \textit{topic} branch.}
+\label{fig:MergeTopicIntoMaster4}
+\end{figure}
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git push origin master
+git branch -d topic
+\end{minted}
+
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  {F -- } -!- {G -- },
+  {[nodes=placeholder commits] "..."} -- E -- D -- C -- B -- A -- M,
+  {H -- D} -!- {J -- B} -!- {U -- T}; {F -- E}; {G -- C}; {U -- B}; {T -- M}
+};
+\gittag
+{origin/master}       % node name and text
+{above=of M} % node placement
+{M}          % target
+\gittag
+{master}       % node name and text
+{below=of M} % node placement
+{M}          % target
+\end{tikzpicture}
+\itkcaption{Delete the local \textit{topic} branch.}
+\label{fig:DeleteLocalBranch2}
+\end{figure}
+
+
+\subparagraph{Topics Must Be Merged}
+\label{subpar:TopicsMustBeMerged}
+
+%TODO
+
+%Note: I was referred to this documentation when my merge to master failed a
+%pre-commit hook. The fix was to add "--no-ff" arg when merging the topic.
+
+
+\subsubsection{Conflicts}
+\label{subsubsec:Conflicts}
+
+This section documents conflict resolution in a topic-based branchy workflow.
+
+Whenever two paths of development make different changes to the same initial
+content conflicts may occur when merging the branches.
+
+
+\paragraph{Single Integration Branch}
+\label{par:SingleIntegrationBranch}
+
+Consider two conflicting topic branches, topic and other-topic, with the latter
+already merged to \textbf{master}:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  C1 -- {C2 -- C3,
+    C4 -- C5,
+    C6 -- C7}; {C5 -- C3}
+};
+\gittag
+{master}       % node name and text
+{right=of C3} % node placement
+{C3}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C5} % node placement
+{C5}          % target
+\gittag
+{topic}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\end{tikzpicture}
+\itkcaption{Conflicting topic branches.}
+\label{fig:ConflictingTopicBranches1}
+\end{figure}
+
+An attempt to merge topic into master will fail with conflicts. One may use the
+following approaches to resolve the situation:
+\begin{itemize}
+\item Merge the topic to the branch
+\item Merge the branch to the topic
+\end{itemize}
+
+
+\subparagraph{Topic-to-Single-Branch}
+\label{subpar:TopicToSingleBranch}
+
+If one performs the merge in a local work tree it is possible to simply resolve
+the conflicts and complete the merge:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  C1 -- {C2 -- C3 -- C8,
+    C4 -- C5,
+    C6 -- C7}; {C5 -- C3}; {C7 -- C8}
+};
+\gittag
+{master}       % node name and text
+{right=of C8} % node placement
+{C8}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C5} % node placement
+{C5}          % target
+\gittag
+{topic}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\end{tikzpicture}
+\itkcaption{Topic-to-single branch resolution approach.}
+\label{fig:TopicToSingleBranchResolutionApproach}
+\end{figure}
+
+
+\subparagraph{Branch-to-Topic}
+\label{subpar:BranchToTopic}
+
+Since a developer works on a topic branch locally one may simply merge the
+conflicting integration branch into the topic and resolve the conflicts:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  C1 -- {C2 -- C7,
+    C3 -- C4,
+    C5 -- C6 -- C8}; {C7 -- C4}; {C8 -- C7}
+};
+\gittag
+{master}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{topic}       % node name and text
+{right=of C8} % node placement
+{C8}          % target
+\end{tikzpicture}
+\itkcaption{Branch-to-Topic resolution approach.}
+\label{fig:BranchToTopicResolutionApproach}
+\end{figure}
+
+In order to maintain a good shape of history one may then merge the topic into
+the integration branch without allowing a \textit{fast-forward}
+(\code{merge --no-ff}):
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  C1 -- {C2 -- C7 -- C9,
+    C3 -- C4,
+    C5 -- C6 -- C8}; {C7 -- C4}; {C8 -- C7}; {C9 -- C8}
+};
+\gittag
+{master}       % node name and text
+{right=of C9} % node placement
+{C9}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{topic}       % node name and text
+{right=of C8} % node placement
+{C8}          % target
+\end{tikzpicture}
+\itkcaption{Merge disallowing fast-forward (\code{--no-ff}).}
+\label{fig:MergeDisallowingFF}
+\end{figure}
+
+
+\paragraph{Multiple Integration Branches}
+\label{par:MultipleIntegrationBranches}
+
+In a workflow using multiple integration branches one must deal differently with
+conflicting topics. Consider two conflicting topic branches, \textit{topic} and
+\textit{other-topic}, with the latter already merged to \textbf{release}:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  C1 -- C2 -!- {
+    "" [placeholder];
+    {C3 -- C4}; {C5 -- C6}, {{[nodes=placeholder commits] "..."} -- C7}};
+  {C2 -- C3}; {C1 -- C5}; {C6 -- C7};
+};
+\gittag
+{master}       % node name and text
+{right=of C2} % node placement
+{C2}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C6} % node placement
+{C6}          % target
+\gittag
+{release}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\end{tikzpicture}
+\itkcaption{Conflicting topic branches.}
+\label{fig:ConflictingTopicBranches2}
+\end{figure}
+
+An attempt to merge \textit{topic} into \textbf{release} will fail with
+conflicts. One may use the following approaches to resolve the situation:
+\begin{itemize}
+\item Merge the topic to the branch (see Section~\ref{subpar:TopicToBranch}).
+\item Merge one topic into the other (see Section~\ref{subpar:TopicToTopic}).
+\item Merge both topics into a resolution topic (see
+Section~\ref{subpar:ResolutionTopic}).
+\end{itemize}
+
+Note that one may not merge the branch into the topic as in the
+single-integration-branch case because \textbf{release} may never be merged into
+a topic.
+
+
+\subparagraph{Topic-to-Branch}
+\label{subpar:TopicToBranch}
+
+If one performs the merge in a local work tree it is possible to simply resolve
+the conflicts and complete the merge:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  C1 -!- { C2 ,
+    {C3 -- C4};
+    {C5 -- C6}, {{[nodes=placeholder commits] "..."} -- C7 -- C8 -- C4}};
+  {C1 -- C2}; {C1 -- C5}; {C2 -- C3}; {C6 -- C7};
+};
+\gittag
+{master}       % node name and text
+{right=of C2} % node placement
+{C2}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C6} % node placement
+{C6}          % target
+\gittag
+{release}       % node name and text
+{right=of C8} % node placement
+{C8}          % target
+\end{tikzpicture}
+\itkcaption{Merge locally.}
+\label{fig:MergeLocally}
+\end{figure}
+
+However, the topics eventually must be merged to \textbf{master}. Assume
+\textit{topic} is merged first:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  C1 -!- { C2 -- C9,
+    {C3 -- C4};
+    {C5 -- C6}, {{[nodes=placeholder commits] "..."} -- C7 -- C8 -- C4}};
+  {C1 -- C2}; {C1 -- C5}; {C2 -- C3}; {C4 -- C9}; {C6 -- C7};
+};
+\gittag
+{master}       % node name and text
+{right=of C9} % node placement
+{C9}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C6} % node placement
+{C6}          % target
+\gittag
+{release}       % node name and text
+{right=of C8} % node placement
+{C8}          % target
+\end{tikzpicture}
+\itkcaption{Merge \textit{topic}.}
+\label{fig:MergeTopic1}
+\end{figure}
+
+An attempt to merge \textit{other-topic} into \textbf{master} will fail with the
+same conflicts!
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  C1 -!- { C2 -- C9 -- ?,
+    {C3 -- C4};
+    {C5 -- C6}, {{[nodes=placeholder commits] "..."} -- C7 -- C8 -- C4}};
+  {C1 -- C2}; {C1 -- C5}; {C2 -- C3}; {C4 -- C9}; {C6 -- C7}; {C6 -- ?}
+};
+\gittag
+{master}       % node name and text
+{right=of ?} % node placement
+{C9}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C6} % node placement
+{C6}          % target
+\gittag
+{release}       % node name and text
+{right=of C8} % node placement
+{C8}          % target
+\end{tikzpicture}
+\itkcaption{Merge conflict when attempting to merge \textit{other-topic} into \textbf{master}.}
+\label{fig:MergeConflict}
+\end{figure}
+
+
+The only branch that contains a resolution to these conflicts is
+\textbf{release}, but that may not be merged to \textbf{master}. Therefore one
+must resolve the conflicts a second time.
+
+If the second resolution is not byte-for-byte identical to the first then the
+new \textbf{master} will not merge cleanly into \textbf{release}:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 2em, branch down = 3em]{
+  C1 -!- { C2 -- C9 -- C10,
+    {C3 -- C4};
+    {C5 -- C6}, {{[nodes=placeholder commits] "..."} -- C7 -- C8 -- ?}};
+  {C1 -- C2}; {C1 -- C5}; {C2 -- C3}; {C4 -- C8}; {C4 -- C9}; {C6 -- C7}; {C6 -- C10}; {C10 -- ?}
+};
+\gittag
+{master}       % node name and text
+{right=of C10} % node placement
+{C9}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C6} % node placement
+{C6}          % target
+\gittag
+{release}       % node name and text
+{right=of ?} % node placement
+{?}          % target
+\end{tikzpicture}
+\itkcaption{\textbf{master} not merging cleanly into \textbf{release} if conflicts have not been resolved.}
+\label{fig:UncleanMerge}
+\end{figure}
+
+Then one must resolve conflicts a third time!
+
+This approach works with manual merging but requires care.
+
+
+\subparagraph{Topic-to-Topic}
+\label{subpar:TopicToTopic}
+
+The design (see Section~\ref{subsubsec:Design} on
+page~\pageref{subsubsec:Design}) of our topic-based workflow guarantees that
+work is always committed on topic branches and never directly on an integration
+branch. If conflicts occur while merging a topic into an integration branch it
+means that the topic conflicts with \textit{another topic} that has already been
+merged.
+
+One may manually merge the conflicting \textit{other-topic} into one's own
+\textit{topic} and resolve the conflicts:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C1 -- C2 -- {
+    "" [placeholder];
+    C3 -- C4-- C5
+  },
+  C6 -- C7 -!- {
+    "" [placeholder];
+    {[nodes=placeholder commits] "..."} -- C8
+  }; {C1 -- C6}; {C7 -- C5}; {C8 -- C7}
+};
+\gittag
+{master}       % node name and text
+{right=of C2} % node placement
+{C2}          % target
+\gittag
+{topic}       % node name and text
+{right=of C5} % node placement
+{C5}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{release}       % node name and text
+{right=of C8} % node placement
+{C8}          % target
+\end{tikzpicture}
+\itkcaption{Manually merge \textit{other-topic} into \textit{topic}.}
+\label{fig:ManualMergeTopicIntoTopic}
+\end{figure}
+
+Then topic will merge cleanly into \textbf{release}:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C1 -- C2 -- {
+    "" [placeholder];
+    C3 -- C4-- C5
+  },
+  C6 -- C7 -!- {
+    "" [placeholder];
+    {[nodes=placeholder commits] "..."} -- C8 -- C9
+  }; {C1 -- C6}; {C7 -- C5}; {C8 -- C7}; {C9 -- C5}
+};
+\gittag
+{master}       % node name and text
+{right=of C2} % node placement
+{C2}          % target
+\gittag
+{topic}       % node name and text
+{right=of C5} % node placement
+{C5}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{release}       % node name and text
+{right=of C9} % node placement
+{C9}          % target
+\end{tikzpicture}
+\itkcaption{Merge into \textit{release}.}
+\label{fig:MergeChangesIntoRelease}
+\end{figure}
+
+Later, \textit{topic} may be merged cleanly into \textbf{master} to bring in
+both topics (or just \textit{topic} if \textit{other-topic} has already been
+merged):
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C1 -- C2 -- {
+    "" [placeholder];
+    C3 -- C4-- C5
+  } -!- C10,
+  C6 -- C7 -!- {
+    "" [placeholder];
+    {[nodes=placeholder commits] "..."} -- C8 -- C9
+  }; {C1 -- C6}; {C7 -- C5}; {C8 -- C7}; {C9 -- C5}; {C2 -- C10}; {C5 -- C10}
+};
+\gittag
+{master}       % node name and text
+{right=of C10} % node placement
+{C10}          % target
+\gittag
+{topic}       % node name and text
+{right=of C5} % node placement
+{C5}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{release}       % node name and text
+{right=of C9} % node placement
+{C9}          % target
+\end{tikzpicture}
+\itkcaption{Merge into \textit{master}.}
+\label{fig:MergeIntoMaster}
+\end{figure}
+
+Finally, \textbf{master} may be merged cleanly into \textbf{release}:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C1 -- C2 -- {
+    "" [placeholder];
+    C3 -- C4-- C5
+  } -!- C10,
+  C6 -- C7 -!- {
+    "" [placeholder];
+    {[nodes=placeholder commits] "..."} -- C8 -- C9 -- C11}; {C1 -- C6}; {C7 -- C5}; {C8 -- C7}; {C9 -- C5}; {C2 -- C10}; {C5 -- C10}; {C11 -- C10}
+};
+\gittag
+{master}       % node name and text
+{right=of C10} % node placement
+{C10}          % target
+\gittag
+{topic}       % node name and text
+{right=of C5} % node placement
+{C5}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{release}       % node name and text
+{right=of C11} % node placement
+{C11}          % target
+\end{tikzpicture}
+\itkcaption{Merge \textit{master} into \textit{release}.}
+\label{fig:MergeIntoRelease1}
+\end{figure}
+
+Note that this produces an artificial topic dependency (see
+Section~\ref{par:DependentTopic} on page~\pageref{par:DependentTopic})
+introduced by the conflict resolution commit. See
+the~\ref{subpar:ResolutionTopic} approach to avoid this problem.
+
+
+\subparagraph{Resolution Topic}
+\label{subpar:ResolutionTopic}
+
+The~\ref{subpar:TopicToTopic} approach introduces an artificial topic
+dependency because it asymmetrically favors one topic over another. Instead one
+may use a third topic to resolve the conflicts.
+
+One may start a new \textit{resolve/topic/other-topic} branch from
+\textit{topic}, merge \textit{other-topic} into it, and resolve the conflicts:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C1 -- C2 -- {
+    "" [placeholder];
+    C3 -- C4 -!- {
+      "" [placeholder]; C7 }
+  },
+  C5 -- C6 -!- {
+    "" [placeholder];
+    {[nodes=placeholder commits] "..."} -- C8}; {C1 -- C5}; {C7 -- C4}; {C7 -- C6}; {C8 -- C6}
+};
+\gittag
+{master}       % node name and text
+{right=of C2} % node placement
+{C2}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{resolve topic/other-topic}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C6} % node placement
+{C6}          % target
+\gittag
+{release}       % node name and text
+{right=of C8} % node placement
+{C8}          % target
+\end{tikzpicture}
+\itkcaption{Start conflict resolution branch.}
+\label{fig:StartConflictResolutionBranch}
+\end{figure}
+
+The resolution topic will merge cleanly into \textbf{release} to bring in the
+changes from topic through the conflict resolution commit:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C1 -- C2 -- {
+    "" [placeholder];
+    C3 -- C4 -!- {
+      "" [placeholder]; C7 }
+  },
+  C5 -- C6 -!- {
+    "" [placeholder];
+    {[nodes=placeholder commits] "..."} -- C8 -- C9
+  }; {C1 -- C5}; {C7 -- C4}; {C7 -- C6};{C8 -- C6};  {C9 -- C7}
+};
+\gittag
+{master}       % node name and text
+{right=of C2} % node placement
+{C2}          % target
+\gittag
+{topic1}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{resolve topic/other-topic}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C6} % node placement
+{C6}          % target
+\gittag
+{release}       % node name and text
+{right=of C9} % node placement
+{C9}          % target
+\end{tikzpicture}
+\itkcaption{Merge into \textit{release}.}
+\label{fig:MergeIntoRelease2}
+\end{figure}
+
+Since \textit{topic} and \textit{other-topic} are still independent either may
+be merged to master first. Assume \textit{topic} is merged first:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C1 -- C2 -!- {
+    "" [placeholder];
+    C3 -- C4 -!- {
+      "" [placeholder]; C7 }
+  } -!- C10,
+  C5 -- C6 -!- {
+    "" [placeholder];
+    {[nodes=placeholder commits] "..."} -- C8 -- C9
+  }; {C1 -- C5}; {C2 -- C3}; {C2 -- C10}; {C7 -- C4}; {C4 -- C10}; {C7 -- C6}; {C8 -- C6}; {C9 -- C7}
+};
+\gittag
+{master}       % node name and text
+{right=of C10} % node placement
+{C10}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{resolve topic/other-topic}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C6} % node placement
+{C6}          % target
+\gittag
+{release}       % node name and text
+{right=of C9} % node placement
+{C9}          % target
+\end{tikzpicture}
+\itkcaption{Merge \textit{topic} branch.}
+\label{fig:MergeTopic2}
+\end{figure}
+
+As in the~\ref{subpar:TopicToBranch} approach, an attempt to merge
+\textit{other-topic} directly into \textbf{master} will fail with the original
+conflicts but now we have a topic containing the resolution commit independent
+of next. One may merge the resolution topic to \textbf{master} to bring in the
+changes from \textit{other-topic} and the conflict resolution:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C1 -- C2 -!- {
+    "" [placeholder];
+    C3 -- C4 -!- {
+      "" [placeholder]; C7 }
+  } -!- C10 -- C11,
+  C5 -- C6 -!- {
+    "" [placeholder];
+    {[nodes=placeholder commits] "..."} -- C8 -- C9
+  }; {C1 -- C5}; {C2 -- C3}; {C2 -- C10}; {C7 -- C4}; {C4 -- C10}; {C7 -- C6}; {C8 -- C6}; {C9 -- C7}; {C7 -- C11}
+};
+\gittag
+{master}       % node name and text
+{right=of C11} % node placement
+{C11}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{resolve topic/other-topic}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C6} % node placement
+{C6}          % target
+\gittag
+{release}       % node name and text
+{right=of C9} % node placement
+{C9}          % target
+\end{tikzpicture}
+\itkcaption{Merge conflict resolution branch into \textit{master}.}
+\label{fig:MergeConflictResolutionBranchIntoMaster}
+\end{figure}
+
+Finally, \textbf{master} may be merged cleanly into \textbf{release}:
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\gitDAG[grow right sep = 1em, branch down = 3em]{
+  C1 -- C2 -!- {
+    "" [placeholder];
+    C3 -- C4 -!- {
+      "" [placeholder]; C7 }
+  } -!- C10 -- C11,
+  C5 -- C6 -!- {
+    "" [placeholder];
+    {[nodes=placeholder commits] "..."} -- C8 -- C9 -- C12
+  }; {C1 -- C5}; {C2 -- C3}; {C2 -- C10}; {C7 -- C4}; {C4 -- C10}; {C7 -- C6}; {C8 -- C6}; {C9 -- C7}; {C7 -- C11}; {C12 -- C11}
+};
+\gittag
+{master}       % node name and text
+{right=of C11} % node placement
+{C11}          % target
+\gittag
+{topic}       % node name and text
+{right=of C4} % node placement
+{C4}          % target
+\gittag
+{resolve topic/other-topic}       % node name and text
+{right=of C7} % node placement
+{C7}          % target
+\gittag
+{other-topic}       % node name and text
+{right=of C6} % node placement
+{C6}          % target
+\gittag
+{release}       % node name and text
+{right=of C12} % node placement
+{C12}          % target
+\end{tikzpicture}
+\itkcaption{Merge into \textit{release}.}
+\label{fig:MergeConflictResolutionBranchIntoRelease}
+\end{figure}
+
+
+\subsection{Publish}
+\label{subsec:Publish}
+
+
+\subsubsection{Push Access}
+\label{subsubsec:PushAccess}
+
+Authorized developers may publish work directly to a \href{public.kitware.com}
+repository using Git's SSH protocol.
+
+Note that we may not grant all contributors push access to any given repository.
+The distributed nature of Git allows contributors to retain authorship credit
+even if they do not publish changes directly.
+
+\paragraph{Authentication}
+\label{par:Authentication}
+
+All publishers share the \code{git@public.kitware.com} account but each uses a
+unique SSH key for authentication. If you do not have a public/private SSH key
+pair, generate one:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+ssh-keygen -C 'you@yourdomain.com'
+Generating public/private rsa key pair.
+Enter file in which to save the key (\$HOME/.ssh/id\_rsa):
+Enter passphrase (empty for no passphrase): (use-a-passphrase!!)
+Enter same passphrase again: (use-same-passphrase!!)
+Your identification has been saved in \$HOME/.ssh/id\_rsa.
+Your public key has been saved in \$HOME/.ssh/id\_rsa.pub.
+\end{minted}
+
+To request access, fill out the
+\href{https://www.kitware.com/Admin/SendPassword.cgi}{Kitware Password} form.
+Include your SSH public key, \code{id\_rsa.pub}, and a reference to someone our
+administrators may contact to verify your privileges.
+
+\subparagraph{SSH on Windows}
+\label{subpar:SSHOnWindows}
+
+If you are familiar with generating an SSH key on Linux or macOS, you can follow
+the same procedure on Windows in a Git Bash prompt. There is an
+\code{ssh-keygen} program installed with \code{Git for Windows} to help you set
+up an SSH identity on a Windows machine. By default it puts the \code{.ssh}
+directory in the \code{HOME} directory, which is typically
+\code{C:\\Users\\Username}.
+
+Alternatively, you can also set up a ``normal'' Windows command prompt shell
+such that it will work with \code{Git for Windows} (see
+Section~\ref{subsubsec:GitForWindows}) on page~\pageref{subsubsec:GitForWindows},
+without ever invoking the Git Bash prompt if you like. If you install
+\code{Git for Windows} and accept all its default options, ``git'' will not be
+in the \code{PATH}. However, if you add \code{C:\\Program Files (x86)\\Git\\cmd} to
+your \code{PATH}, then only the two commands \code{git} and \code{gitk} are
+available to use via \code{*.cmd} script wrappers installed by
+\code{Git for Windows}. Or, if you add \code{C:\\Program Files (x86)\\Git\\bin}
+to your \code{PATH}, then all of the command line tools that git installs are
+available.
+
+The full
+{PuTTY}\footnote{\url{https://www.chiark.greenend.org.uk/~sgtatham/putty/}}
+suite of tools includes an application called \code{PuTTYgen}. If you
+already have a private key created with \code{PuTTYgen}, you may export it to an
+OpenSSH identity file. Open the key using \code{PuTTYgen} and choose
+\textit{Conversions > Export OpenSSH key} from the menu bar. That will allow you
+to save an \code{id\_rsa} file for use in the \code{.ssh} directory. You can also
+copy and paste the public key portion of the key from the \code{PuTTYgen} text
+field to save into an \code{id\_rsa.pub} file if you like. Or email it to whoever
+needs the public side of your key pair.
+
+If you routinely set up your own command prompt environment on Windows, using
+\code{Git for Windows} from that environment is a cinch: just add the full path
+to either \code{Git\\cmd} or \code{Git\\bin} to your \code{PATH}. (Or, write your
+own \code{git.cmd} wrapper that is in your \code{PATH} that simply calls the
+\code{git.cmd} installed with msysGit.) And make sure you have a \code{HOME}
+environment variable that points to the place where the \code{.ssh}
+directory is.
+
+
+\subparagraph{AuthenticationTest}
+\label{subpar:AuthenticationTest}
+
+When your SSH public key has been installed for \code{git@public.kitware.com},
+you may test your SSH key setup by running
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+ssh git@public.kitware.com info
+\end{minted}
+
+If your key is correctly configured you should see a message reporting your
+email address followed by a list of access permissions. If you get something
+like \textit{Permission denied} then add \code{-v} options to your ssh command
+line to diagnose the problem:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+ssh -v git@public.kitware.com info
+\end{minted}
+
+Do not attempt to \code{git push} until the ssh-only test succeeds.
+
+
+\paragraph{Pushing}
+\label{subpar:Pushing}
+
+Git automatically configures a new clone to refer to its \textit{origin} through
+a \textit{remote} called \code{origin}. Initially one may \code{fetch} or
+\code{pull} changes from origin, but may not \code{push} changes to it.
+
+In order to publish new commits in a \href{public.kitware.com} repository,
+developers must configure a push URL for the origin. Use \code{git config} to
+specify an SSH-protocol URL:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git config remote.origin.pushurl git@public.kitware.com:repo.git
+\end{minted}
+
+The actual URL will vary from project to project. (Note that \code{pushurl}
+requires Git >= 1.6.4. Use just \code{url} for Git < 1.6.4.)
+
+Failing to do so with result in the error message \textit{fatal: The
+remote end hung up unexpectedly}.
+
+Once your push URL is configured and your key is installed for
+\code{git@public.kitware.com} then you can try pushing changes. Note that many
+repositories use an \code{update} hook to check commit as documented in
+Section~\ref{subsec:Hooks} on page~\pageref{subsec:Hooks}.
+
+
+\subsubsection{Patches}
+\label{subsubsec:Patches}
+
+Git allows anyone to be a first-class developer on any published project. One
+can clone a public repository, commit locally, and publish these commits for
+inclusion upstream. One method of sending commits upstream is to supply them as
+patches.
+
+See these links for more help:
+\begin{itemize}
+\item Pro Git Book, Chapter 5: Distributed Git\footnote{\url{https://git-scm.com/book/en/v2}}
+\item Everyday Git: Integrator\footnote{\url{https://git-scm.com/docs/giteveryday}}
+\end{itemize}
+
+
+\paragraph{Creating Patches}
+\label{par:CreatingPatches}
+
+Construct your commits on a local topic branch, typically started from the
+\textit{upstream} \textbf{master}:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git checkout -b my-cool-feature origin/master
+edit files
+git add -- files
+git commit
+\end{minted}
+
+Begin each commit message with a short one-line summary of its change, suitable
+for use as an email subject line. Then leave a blank line and describe the
+change in detail as one might write in an email body.
+
+When the patch(es) are ready for publication to upstream developers, use the
+\code{git format-patch} command to construct the patch files:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git format-patch -M origin/master
+\end{minted}
+
+Git will write out one patch file per commit. Each patch file is formatted like
+a raw email message and includes enough information to reconstruct the commit
+message and author.
+
+
+\paragraph{Sending Patches}
+\label{par:SendingPatches}
+
+The patch files created in the preceding step will be named with the form
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+NNNN-Subject-line-of-commit-message.patch
+\end{minted}
+
+where \code{NNNN} is an index for the patch within the series. These files may
+be attached in bug trackers or attached to email messages.
+
+A patch series may also be sent directly as email. Use
+\code{git config --global} to set \code{sendemail.*} configuration entries that
+tell Git how to send email from your computer (one-time setup per user per
+machine). Then use the \code{git send-email} command:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git send-email *.patch --to='Some One <someone@somewhere.com>' --cc='Someone Else <someoneelse@somewhereelse.com>'
+\end{minted}
+
+
+\paragraph{Applying Patches}
+\label{par:ApplyingPatches}
+
+One may receive patches as attachments in a bug tracker or as attachments to
+email messages. Save these files to your local disk. One may also receive
+patches inlined in email messages. In this case, save the whole message to your
+local disk (typically as \code{.eml} files). (If your local mail client uses
+\code{maildir} format mailboxes each message is already its own file.)
+
+Create a local topic branch on which to replay the patch series:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git checkout -b cool-feature origin/master
+\end{minted}
+
+Now use \code{git am} to apply the patch series as local commits:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git am --whitespace=fix /path/to/*.patch
+\end{minted}
+
+Review the changes using
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git log -p origin/master..
+\end{minted}
+
+or the method of your choice. Note that the author of each commit is the
+contributor rather than yourself. Build, test, and publish the changes normally.
+
+If the \code{git am} command fails with a message like
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+Patch format detection failed.
+\end{minted}
+
+this means that the patch was not generated with \code{git format-patch} and
+transmitted correctly. Either ask the contributor to try again using the above
+patch creation instructions, or apply each patch separately using
+\code{git apply}:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git apply --whitespace=fix /path/to/0001-First-change.patch
+git commit --author='Contributor Name <contributor@theirdomain.com>'
+\end{minted}
+
+
+\subsection{Hooks}
+\label{subsec:Hooks}
+
+\subsubsection{Setup}
+\label{subsubsec:Setup}
+
+The \code{git commit} command creates local commits. A separate \code{git push}
+step is needed to publish commits to a \href{public.kitware.com} repository. The
+\href{public.kitware.com} server enforces some rules (see
+Section~\ref{par:Update} on page~\pageref{par:Update}) on the commits it
+accepts and will reject non-conforming commits. In order to push rejected
+commits, one must edit history locally to repair them before publishing.
+
+Since it is possible to create many commits locally and push them all at once,
+we provide local Git \textit{hooks} to help developers keep their individual
+commits clean. Git provides no way to enable such hooks by default, giving
+developers maximum control over their local repositories. We recommend enabling
+our hooks manually in all clones.
+
+Git looks for hooks in the \code{.git/hooks} directory within the work tree of a
+local repository. Create a new local repository in this directory to manage the
+hooks:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+cd .git/hooks
+git init
+cd ../..
+\end{minted}
+
+Choose one of the following methods to install or update the hooks. The hooks
+will then run in the outer repository to enforce some rules on commits.
+
+
+\paragraph{Local Pull}
+\label{par:LocalPull}
+
+Many \href{public.kitware.com} repositories provide a \code{hooks} branch. It
+will have already been fetched into your local clone. Pull it from there:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git fetch origin
+cd .git/hooks
+git pull .. remotes/origin/hooks
+cd ../..
+\end{minted}
+
+
+\paragraph{Direct Pull}
+\label{par:DirectPull}
+
+If you did not clone from a \href{public.kitware.com} repository you may not
+have a \code{hooks} branch. Pull it from \href{public.kitware.com}:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+cd .git/hooks
+git pull git://public.kitware.com/<repo>.git hooks
+cd ../..
+\end{minted}
+
+where \code{<repo>.git} is the name of your project repository.
+
+
+\subsubsection{Local}
+\label{subsubsec:Local}
+
+The above sequences maintain the following local \code{hooks} in your
+repository. See Git help on
+\href{githooks}{https://git-scm.com/docs/githooks} for more details.
+
+
+\paragraph{pre-commit}
+\label{par:pre-commit}
+
+This runs during \code{git commit}. It checks identity and content of changes:
+\begin{itemize}
+\item Git \code{user.name} and \code{user.email} are set to something
+reasonable.
+\item Git's standard whitespace checks (see help on \code{git diff --check}).
+\item The staged changes do not introduce any leading tabs in source files (we
+i.ndent with spaces)
+\item File modes look reasonable (no executable \code{.cxx} files, scripts with
+shebang lines are executable).
+\item File size is not too large (do not commit big data files; prints limit and
+instructions on rejection).
+\item Submodule updates are staged alone or explicitly allowed (prints
+instructions on rejection).
+\end{itemize}
+
+One of Git's standard whitespace checks is to reject trailing whitespace on
+lines that were added or modified. Many people consider extra space characters
+at the end of a line to be an unprofessional style (including Git's own
+developers), but some don ot care. Text editors typically have a mode to
+highlight trailing whitespace:
+
+\begin{itemize}
+\item \textbf{Emacs}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+(custom-set-variables '(show-trailing-whitespace t))
+\end{minted}
+
+\item \textbf{Vim}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+:highlight ExtraWhitespace ctermbg=red guibg=red
+:match ExtraWhitespace /\s\+\$/
+\end{minted}
+
+\item \textbf{Microsoft Visual Studio}
+To toggle viewing of white space characters, with a source file document active,
+choose the menu item:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+Edit > Advanced > View White Space
+
+(2-stroke keyboard shortcut: Ctrl+R, Ctrl+W)
+\end{minted}
+
+\item \textbf{Notepad++ (v7.5.1)}
+To eliminate trailing white space, choose the menu item:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+Edit > Blank Operations > Trim Trailing Space
+\end{minted}
+
+To toggle viewing of white space characters, choose from the
+menu items:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+View > Show Symbol > (multiple items, choose one...)
+\end{minted}
+
+\end{itemize}
+
+If you really don't want to keep your code clean of trailing whitespace, you can
+disable this part of Git's checks locally:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git config core.whitespace "-blank-at-eol"
+\end{minted}
+
+
+\paragraph{commit-msg}
+\label{par:commit-msg}
+
+This runs during \code{git commit}. It checks the commit message format:
+\begin{itemize}
+\item The first line must be between 8 and 78 characters long. If you were
+writing an email to describe the change, this would be the
+\textit{Subject line}. Use the pre-defined prefixes (e.g. \code{ENH:} or
+\code{BUG:}); they are valuable to allow the user get a fast understanding of
+the change.
+\item The first line must not have leading or trailing whitespace.
+\item The second line must be blank, if present.
+\item The third line and below may be free-form. Usually, a summary of the
+commit changes is written. Try to keep paragraph text formatted in 72
+columns (this is not enforced).
+\end{itemize}
+
+GUI and text-based tools that help view history typically use the first line
+(\textit{Subject line}) from the commit message to give a one-line summary of
+each commit. This allows a medium-level view of history, but works well only if
+developers write good \textit{Subject lines} for their commits.
+
+Examples of improper commit messages:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+Fixed
+\end{minted}
+
+This is too short and not informative at all.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+I did a really complicated change and I am trying to describe the entire thing
+with a big message entered on the command line.
+\end{minted}
+
+Some good tips on why good commit messages matter can be found in the post
+\textit{How to Write a Git Commit Message}\footnote{\url{https://chris.beams.io/posts/git-commit/}}.
+
+Many CVS users develop the habit of using the \code{-m} commit option to specify
+the whole message on the command line. This is probably because in CVS it is
+hard to abort a commit if it already brought up the message editor. In Git this
+is trivial. Just leave the message blank and the whole commit will be aborted.
+Furthermore, since commits are not published automatically it is easy to allow
+the commit to complete and then fix it with \code{git commit --amend}.
+
+
+\subsubsection{Server}
+\label{subsubsec:Server}
+
+Many \url{public.kitware.com} repositories have server-side \code{hooks}.
+
+
+\paragraph{Update}
+\label{par:Update}
+
+The update hook runs when someone tries to update a ref on the server by
+pushing. The hook checks all commits included in the push:
+\begin{itemize}
+\item Commit author and committer must have valid email address domains (DNS
+lookup succeeds).
+\item Commit message does not start with \code{WIP:}. (Use the prefix locally
+for work-in-progress that must be rewritten before publishing.)
+\item Changes to paths updated by robots (such as \code{Utilities/kwsys}) are
+not allowed.
+\item No ``large'' blobs may be pushed. The limit is set on a per-repository
+basis and is typically 1 MB or so.
+\item No CRLF newlines may be added in the repository (see \code{core.autocrlf}
+in \code{git help config}).
+\item Submodules (if any) must be pushed before the references to them are
+pushed.
+\end{itemize}
+
+\subsection{TipsAndTricks}
+\label{subsec:TipsAndTricks}
+
+\subsubsection{Editor support}
+\label{subsubsec:EditorSupport}
+
+Emacs users: if you put this line in your \code{.emacs} file:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+(setq auto-mode-alist (cons '("COMMIT\_EDITMSG\$" . auto-fill-mode) auto-mode-alist))
+\end{minted}
+
+Git will automatically wrap your commit messages, which is what good Git
+etiquette requires.
+
+
+\subsubsection{Shell Customization}
+\label{subsubsec:ShellCustomization}
+
+\paragraph{Bash Completion}
+\label{par:BashCompletion}
+
+Bash users: Git comes with a set of completion options that are very useful. The
+location of the file varies depending on your system:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+source /opt/local/share/doc/git-core/contrib/completion/git-completion.bash  # Mac with git installed by Mac Ports
+source /usr/share/bash-completion/git       # Linux
+source /etc/bash\_completion.d/git           # Linux debian/gentoo
+\end{minted}
+
+
+\paragraph{Bash Prompt}
+\label{par:BashPrompt}
+
+If you are using the bash shell, you can customize the prompt to show which Git
+branch is active. Here are the commands for your \code{~/.bashrc} file:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+source /etc/bash\_completion.d/git   # or one of the appropriate paths from the above section
+export GIT\_PS1\_SHOWDIRTYSTATE=1
+export GIT\_PS1\_SHOWUNTRACKEDFILES=1
+export GIT\_PS1\_SHOWUPSTREAM="verbose"
+export PS1="[\[\e[01;34m\]\W\[\e[31m\]\$(\_\_git\_ps1 " (%s)")\[\e[00m\]]\[\e[00m\]
+\end{minted}
+
+For more information on the options, see the comments in the top of the bash
+completion script.
+
+\paragraph{Renaming}
+\label{par:Renaming}
+
+Git does not explicitly track renames. The command
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+git mv old new
+\end{minted}
+
+is equivalent to
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+mv old new
+git add new
+git rm old
+\end{minted}
+
+Neither approach records the rename outright. However, Git's philosophy is
+``dumb add, smart view''. It uses heuristics to detect renames when viewing
+history after-the-fact. It even works when the content of a renamed file changes
+slightly.
+
+In order to help Git efficiently detect the rename, it is important to remove
+the old file and add the new one in one commit, perhaps by using \code{git mv}
+or the above 3-step procedure. If the new file were added in one commit and the
+old file removed in the next, Git would report this as a copy followed by a
+removal. Its copy-detection heuristics are more computationally intensive and
+must be explicitly enabled with the \code{-C} option to relevant operations
+(such as \code{git blame}).
