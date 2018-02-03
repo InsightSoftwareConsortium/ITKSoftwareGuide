@@ -43,11 +43,11 @@ int main( int argc, char ** argv )
 
   constexpr unsigned int Dimension = 3;
 
-  using ImageType = itk::Image< PixelType,  Dimension >;
+  using ImageType = itk::Image< PixelType, Dimension >;
 
 
 
-  using ReaderType = itk::ImageFileReader< ImageType  >;
+  using ReaderType = itk::ImageFileReader< ImageType >;
   using WriterType = itk::ImageFileWriter< ImageType >;
 
 

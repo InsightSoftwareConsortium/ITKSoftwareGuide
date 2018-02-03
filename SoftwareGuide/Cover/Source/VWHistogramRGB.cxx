@@ -18,10 +18,10 @@ int main(int argc, char * argv[] )
   using InputPixelType =  itk::RGBPixel<PixelComponentType>;
   using OutputPixelType =  unsigned short;
 
-  using InputImageType =  itk::Image< InputPixelType,  3 >;
+  using InputImageType =  itk::Image< InputPixelType, 3 >;
   using OutputImageType =  itk::Image< OutputPixelType, 3 >;
 
-  using ReaderType =  itk::ImageFileReader< InputImageType  >;
+  using ReaderType =  itk::ImageFileReader< InputImageType >;
   using WriterType =  itk::ImageFileWriter< OutputImageType >;
 
   using RegionType =  OutputImageType::RegionType;

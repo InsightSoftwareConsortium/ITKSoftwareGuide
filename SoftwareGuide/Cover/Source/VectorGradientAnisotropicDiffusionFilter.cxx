@@ -38,7 +38,7 @@ int main( int argc, char * argv[] )
   constexpr unsigned long Dimension  = 3;
 
   using PixelType = itk::RGBPixel< PixelComponentType >;
-  using ImageType = itk::Image< PixelType, Dimension  >;
+  using ImageType = itk::Image< PixelType, Dimension >;
 
   using OutputPixelType = itk::RGBPixel< unsigned char >;
   using OutputImageType = itk::Image< OutputPixelType, Dimension >;

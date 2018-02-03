@@ -17,13 +17,13 @@ int main(int argc, char * argv[] )
   }
 
   using InputPixelType = signed short;
-  using InputImageType = itk::Image< InputPixelType,     3 >;
+  using InputImageType = itk::Image< InputPixelType, 3 >;
 
 
   using OutputPixelType = unsigned char;
-  using OutputImageType = itk::Image< OutputPixelType,     3 >;
+  using OutputImageType = itk::Image< OutputPixelType, 3 >;
 
-  using ImageReaderType = itk::ImageFileReader< InputImageType  >;
+  using ImageReaderType = itk::ImageFileReader< InputImageType >;
   using ImageWriterType = itk::ImageFileWriter< OutputImageType >;
 
   using FilterType = itk::BinaryThresholdImageFilter<

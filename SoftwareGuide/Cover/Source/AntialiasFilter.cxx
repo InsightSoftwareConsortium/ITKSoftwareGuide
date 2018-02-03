@@ -41,22 +41,20 @@ int main( int argc, char ** argv )
 
   constexpr unsigned int Dimension = 3;
 
-  using InputImageType = itk::Image< InputPixelType,   Dimension >;
-  using OutputImageType = itk::Image< OutputPixelType,  Dimension >;
+  using InputImageType = itk::Image< InputPixelType, Dimension >;
+  using OutputImageType = itk::Image< OutputPixelType, Dimension >;
 
   using ReaderType = itk::ImageFileReader< InputImageType >;
   using WriterType = itk::ImageFileWriter< OutputImageType >;
 
-
   using FilterType = itk::AntiAliasBinaryImageFilter<
-                                  InputImageType,
-                                  OutputImageType >;
+                               InputImageType, OutputImageType >;
 
   FilterType::Pointer filter = FilterType::New();
 
 
-  const double            maximumRMSError     = atof( argv[3] );
-  const unsigned int long numberOfIterations  = atol( argv[4] );
+  const double maximumRMSError = atof( argv[3] );
+  const unsigned int long numberOfIterations = atol( argv[4] );
 
   filter->SetMaximumRMSError( maximumRMSError );
   filter->SetMaximumIterations( numberOfIterations );

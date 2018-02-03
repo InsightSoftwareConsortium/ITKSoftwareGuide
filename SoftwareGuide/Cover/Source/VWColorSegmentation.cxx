@@ -20,13 +20,13 @@ int main(int argc, char * argv[] )
 
   using PixelComponentType = unsigned char;
   using ImagePixelType = itk::RGBPixel<PixelComponentType>;
-  using ImageType = itk::Image< ImagePixelType,     3 >;
+  using ImageType = itk::Image< ImagePixelType, 3 >;
 
 
   using OutputPixelType = unsigned char;
-  using OutputImageType = itk::Image< OutputPixelType,     3 >;
+  using OutputImageType = itk::Image< OutputPixelType, 3 >;
 
-  using ImageReaderType = itk::ImageFileReader< ImageType  >;
+  using ImageReaderType = itk::ImageFileReader< ImageType >;
   using ImageWriterType = itk::ImageFileWriter< OutputImageType >;
 
   using ConfidenceConnectedFilterType itk::VectorConfidenceConnectedImageFilter<

@@ -19,7 +19,7 @@ int main(int argc, char * argv[] )
 
   using ImageType = itk::Image< ImagePixelType, 3 >;
 
-  using ImageReaderType = itk::ImageFileReader< ImageType  >;
+  using ImageReaderType = itk::ImageFileReader< ImageType >;
   using ImageWriterType = itk::ImageFileWriter< ImageType >;
 
 
