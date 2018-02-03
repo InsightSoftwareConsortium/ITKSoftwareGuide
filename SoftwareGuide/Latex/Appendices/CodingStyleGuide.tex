@@ -3065,7 +3065,7 @@ returns an argumentof  type \code{const char*}.
 \item \code{itkSetObjectMacro(name, type)}: Creates a method \code{SetName()}
 that takes argument type \code{type *}. For ITK objects,
 \code{itkSetObjectMacro} must be used in lieu of \code{itkSetMacro}.
-\item \code{itkGetObjectMacro(name, type)}: Creates a method named
+\item \code{itkGetConstObjectMacro(name, type)}: Creates a method named
 \code{GetName()} that returns a \doxygen{SmartPointer} to a \code{type} type.
 \item \code{itkSetConstObjectMacro(name, type)}: Creates a method
 \code{SetName()} that takes an argument of type \code{const type *}.
