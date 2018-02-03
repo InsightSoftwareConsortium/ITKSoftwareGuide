@@ -38,7 +38,7 @@ foreach(ImageFile ${PNGandJPG_IMAGES})
     DEPENDS   ${ImageFile}
     )
   set(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${ImageFileNoExt}.eps)
-endforeach(ImageFile)
+endforeach()
 
 
 foreach(ImageFile ${EPS_IMAGES})
@@ -46,7 +46,7 @@ foreach(ImageFile ${EPS_IMAGES})
   file(COPY "${SoftwareGuide_SOURCE_DIR}/Art/${ImageFileNoExt}.eps"
        DESTINATION "${SoftwareGuide_BINARY_DIR}/Art/")
   set(EPS_DEPS ${EPS_DEPS} ${SoftwareGuide_BINARY_DIR}/Art/${ImageFileNoExt}.eps)
-endforeach(ImageFile)
+endforeach()
 
 add_custom_target(SoftwareGuideArt
   ALL

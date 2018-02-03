@@ -8,27 +8,27 @@ find_package(LATEX)
 #
 if(NOT PDFLATEX_COMPILER)
   message("PDFLatex compiler was not found. Please pass to advanced mode and provide its full path")
-endif(NOT PDFLATEX_COMPILER)
+endif()
 
 if(NOT LATEX_COMPILER)
   message("Latex compiler was not found. Please pass to advanced mode and provide its full path")
-endif(NOT LATEX_COMPILER)
+endif()
 
 if(NOT BIBTEX_COMPILER)
   message("BibTeX executable was not found. Please pass to advanced mode and provide its full path")
-endif(NOT BIBTEX_COMPILER)
+endif()
 
 if(NOT DVIPS_CONVERTER)
   message("dvips executable was not found. Please pass to advanced mode and provide its full path")
-endif(NOT DVIPS_CONVERTER)
+endif()
 
 if(NOT PS2PDF_CONVERTER)
   message("ps2pdf executable was not found. Please pass to advanced mode and provide its full path")
-endif(NOT PS2PDF_CONVERTER)
+endif()
 
 if(NOT MAKEINDEX_COMPILER)
   message("makeindex executable was not found. Please pass to advanced mode and provide its full path")
-endif(NOT MAKEINDEX_COMPILER)
+endif()
 
 #
 # Build HTML version
@@ -146,7 +146,7 @@ if(LATEX_COMPILER)
                    ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.bat)
     set(DVIPS_WRAPPER1 ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.bat)
     set(DVIPS_WRAPPER2 "")
-  else(NOT UNIX)
+  else()
     set(ITK_TEXINPUTS ${SoftwareGuide_SOURCE_DIR}/../Latex:${SoftwareGuide_SOURCE_DIR}:${SoftwareGuide_SOURCE_DIR}/Latex:${SoftwareGuide_SOURCE_DIR}/Art:${SoftwareGuide_BINARY_DIR}:${SoftwareGuide_BINARY_DIR}/Examples:${SoftwareGuide_BINARY_DIR}/Art:${SoftwareGuide_BINARY_DIR}/Latex)
 
     configure_file(${SoftwareGuide_SOURCE_DIR}/LaTeXWrapper.sh.in
@@ -158,7 +158,7 @@ if(LATEX_COMPILER)
                    ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.sh)
     set(DVIPS_WRAPPER1 /bin/sh)
     set(DVIPS_WRAPPER2 ${SoftwareGuide_BINARY_DIR}/DvipsWrapper.sh)
-  endif(NOT UNIX)
+  endif()
 
   add_custom_command( OUTPUT    ITKSoftwareGuide-Book1.dvi ITKSoftwareGuide-Book1.aux
     COMMAND   ${LATEX_WRAPPER1} ${LATEX_WRAPPER2} ${SoftwareGuide_SOURCE_DIR}/Latex/ITKSoftwareGuide-Book1.tex
@@ -266,7 +266,7 @@ if(LATEX_COMPILER)
       )
   endif()
 
-endif(LATEX_COMPILER)
+endif()
 
 add_custom_target(SoftwareGuideBook1PDF ALL
   COMMAND ${CMAKE_COMMAND} -E echo "Building Software Guide Book1 PDF"

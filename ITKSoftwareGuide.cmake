@@ -19,10 +19,10 @@ include(${ITK_USE_FILE})
 
 if( NOT IS_DIRECTORY "${ITK_SOURCE_DIR}" )
   message(FATAL_ERROR "ITK source directory is not set :${ITK_SOURCE_DIR}:")
-endif( )
+endif()
 if( NOT IS_DIRECTORY "${ITK_BINARY_DIR}" )
   message(FATAL_ERROR "ITK build directory is not set :${ITK_BINARY_DIR}:")
-endif( )
+endif()
 
 #-----------------------------------------------------------------------------
 enable_testing()
