@@ -11,7 +11,7 @@
 void ConvertRGBToHSV( float R, float G, float B, float & H, float & S, float & V )
 {
 
-  const float max = 255.0;
+  constexpr float max = 255.0;
 
   // Saturation
   float temp = R;
@@ -66,19 +66,19 @@ int main(int argc, char * argv[] )
     return -1;
   }
 
-  typedef unsigned char                        PixelComponentType;
-  typedef itk::RGBPixel<PixelComponentType>    InputPixelType;
-  typedef unsigned short                       OutputPixelType;
+  using PixelComponentType =  unsigned char;
+  using InputPixelType =  itk::RGBPixel<PixelComponentType>;
+  using OutputPixelType =  unsigned short;
 
-  typedef itk::Image< InputPixelType,  3 >   InputImageType;
-  typedef itk::Image< OutputPixelType, 3 >   OutputImageType;
+  using InputImageType =  itk::Image< InputPixelType, 3 >;
+  using OutputImageType =  itk::Image< OutputPixelType, 3 >;
 
-  typedef itk::ImageFileReader< InputImageType  > ReaderType;
-  typedef itk::ImageFileWriter< OutputImageType > WriterType;
+  using ReaderType =  itk::ImageFileReader< InputImageType >;
+  using WriterType =  itk::ImageFileWriter< OutputImageType >;
 
-  typedef OutputImageType::RegionType    RegionType;
-  typedef OutputImageType::SizeType      SizeType;
-  typedef OutputImageType::IndexType     IndexType;
+  using RegionType =  OutputImageType::RegionType;
+  using SizeType =  OutputImageType::SizeType;
+  using IndexType =  OutputImageType::IndexType;
 
   InputImageType::Pointer inputImage;
 
@@ -117,7 +117,7 @@ int main(int argc, char * argv[] )
   histogramImage->FillBuffer( 0 );
 
 
-  typedef itk::ImageRegionConstIterator< InputImageType > IteratorType;
+  using IteratorType =  itk::ImageRegionConstIterator< InputImageType >;
 
   IndexType index;
 

@@ -49,7 +49,7 @@ endif()
 find_package(PythonInterp)
 if( NOT PYTHONINTERP_FOUND )
   message(FATAL_ERROR "Python executable was not found")
-endif( NOT PYTHONINTERP_FOUND )
+endif()
 set(PYTHONCXXPARSER ${SoftwareGuide_SOURCE_DIR}/Examples/ParseCxxExamples.py)
 if( NOT EXISTS ${PYTHONCXXPARSER} )
   message(FATAL_ERROR "Missing script: ${SoftwareGuide_SOURCE_DIR}/Examples/ParseCxxExamples.py")
@@ -305,7 +305,7 @@ foreach(example ${ITK_EXAMPLES_SRCS})
     DEPENDS   ${PYTHONCXXPARSER} ${example} ${${TEX_FILE_BASE}-DEPS}
   )
   set(TEX_DEPENDENCIES ${TEX_DEPENDENCIES} ${TEX_FILE})
-endforeach(example)
+endforeach()
 
 add_custom_target(BuildTexFiles ALL
   DEPENDS ${TEX_DEPENDENCIES}

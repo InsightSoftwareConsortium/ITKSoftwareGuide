@@ -14,13 +14,13 @@ int main(int argc, char * argv[] )
     return -1;
   }
 
-  typedef unsigned char                           PixelComponentType;
-  typedef itk::RGBPixel<PixelComponentType>       ImagePixelType;
+  using PixelComponentType = unsigned char;
+  using ImagePixelType = itk::RGBPixel<PixelComponentType>;
 
-  typedef itk::Image< ImagePixelType, 3 >         ImageType;
+  using ImageType = itk::Image< ImagePixelType, 3 >;
 
-  typedef itk::ImageFileReader< ImageType  >      ImageReaderType;
-  typedef itk::ImageFileWriter< ImageType >       ImageWriterType;
+  using ImageReaderType = itk::ImageFileReader< ImageType >;
+  using ImageWriterType = itk::ImageFileWriter< ImageType >;
 
 
   ImageType::Pointer image;
@@ -41,7 +41,7 @@ int main(int argc, char * argv[] )
     image = imageReader->GetOutput();
   }
 
-  typedef itk::ImageRegionIterator< ImageType > IteratorType;
+  using IteratorType = itk::ImageRegionIterator< ImageType >;
 
   IteratorType it( image, image->GetBufferedRegion() );
   it.GoToBegin();
@@ -51,9 +51,9 @@ int main(int argc, char * argv[] )
   // Separatrix Plane Coefficients
   //
   const double A = -48.0;
-  const double B =   0.0;
-  const double C =  59.0;
-  const double D = 106.0;
+  constexpr double B = 0.0;
+  constexpr double C = 59.0;
+  constexpr double D = 106.0;
 
 
   //

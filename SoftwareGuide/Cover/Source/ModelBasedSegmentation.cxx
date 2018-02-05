@@ -35,16 +35,16 @@ class IterationCallback : public itk::Command
 {
 
 public:
-  typedef IterationCallback   Self;
-  typedef itk::Command  Superclass;
-  typedef itk::SmartPointer<Self>  Pointer;
-  typedef itk::SmartPointer<const Self>  ConstPointer;
+  using Self = IterationCallback;
+  using Superclass = itk::Command;
+  using Pointer = itk::SmartPointer<Self>;
+  using ConstPointer = itk::SmartPointer<const Self>;
 
   itkTypeMacro( IterationCallback, Superclass );
   itkNewMacro( Self );
 
   /** Type defining the optimizer */
-  typedef    TOptimizer     OptimizerType;
+  using OptimizerType = TOptimizer;
 
   /** Set Optimizer */
   void SetOptimizer( OptimizerType * optimizer )
@@ -102,25 +102,25 @@ class SimpleImageToSpatialObjectMetric :
 {
 public:
 
-  /** Standard class typedefs. */
-  typedef SimpleImageToSpatialObjectMetric  Self;
-  typedef itk::ImageToSpatialObjectMetric<TFixedImage,TMovingSpatialObject>
-                                                                     Superclass;
-  typedef itk::SmartPointer<Self>   Pointer;
-  typedef itk::SmartPointer<const Self>  ConstPointer;
+  /** Standard class type aliases. */
+  using Self = SimpleImageToSpatialObjectMetric;
+  using Superclass = itk::ImageToSpatialObjectMetric<TFixedImage,
+                                                     TMovingSpatialObject>;
+  using Pointer = itk::SmartPointer<Self>;
+  using ConstPointer = itk::SmartPointer<const Self>;
 
   /** Image dimension. */
   itkStaticConstMacro(ImageDimension, unsigned int,
                       TFixedImage::ImageDimension);
 
-  typedef itk::Point<double,ImageDimension>   PointType;
-  typedef std::list<PointType> PointListType;
-  typedef TMovingSpatialObject MovingSpatialObjectType;
-  typedef typename Superclass::ParametersType ParametersType;
-  typedef typename Superclass::DerivativeType DerivativeType;
-  typedef typename Superclass::MeasureType    MeasureType;
-  typedef typename TFixedImage::IndexType     IndexType;
-  typedef typename TFixedImage::RegionType    RegionType;
+  using PointType = itk::Point<double,ImageDimension>;
+  using PointListType = std::list<PointType>;
+  using MovingSpatialObjectType = TMovingSpatialObject;
+  using ParametersType = typename Superclass::ParametersType;
+  using DerivativeType = typename Superclass::DerivativeType;
+  using MeasureType = typename Superclass::MeasureType;
+  using IndexType = typename TFixedImage::IndexType;
+  using RegionType = typename TFixedImage::RegionType;
 
   /** Method for creation through the object factory. */
   itkNewMacro(Self);
@@ -140,7 +140,7 @@ public:
     }
     this->m_MovingSpatialObject = object;
     this->m_PointList.clear();
-    typedef itk::ImageRegionConstIteratorWithIndex<TFixedImage> myIteratorType;
+    using myIteratorType = itk::ImageRegionConstIteratorWithIndex<TFixedImage>;
 
     RegionType region;
     if( m_FixedImageRegionSetByUser )
@@ -250,51 +250,50 @@ int main( int argc, char *argv[] )
   }
 
 
-  const unsigned int Dimension = 3;
+  constexpr unsigned int Dimension = 3;
 
-  typedef itk::EllipseSpatialObject< Dimension >   EllipseType;
+  using EllipseType = itk::EllipseSpatialObject< Dimension >;
 
 
-  typedef itk::Image< float, Dimension >      ImageType;
+  using ImageType = itk::Image< float, Dimension >;
 
   EllipseType::Pointer ellipse = EllipseType::New();
 
 
   EllipseType::ArrayType axis;
-  axis[0] =  6;
-  axis[1] =  3;
-  axis[2] =  6;
+  axis[0] = 6;
+  axis[1] = 3;
+  axis[2] = 6;
 
 
   ellipse->SetRadius( axis );
 
 
-  typedef itk::ImageToSpatialObjectRegistrationMethod<
+  using RegistrationType = itk::ImageToSpatialObjectRegistrationMethod<
                                       ImageType,
-                                      EllipseType  >  RegistrationType;
+                                      EllipseType  >;
 
   RegistrationType::Pointer registration = RegistrationType::New();
 
 
-  typedef SimpleImageToSpatialObjectMetric<  ImageType,
-                                             EllipseType   > MetricType;
+  using MetricType = SimpleImageToSpatialObjectMetric<
+                                           ImageType, EllipseType >;
 
   MetricType::Pointer metric = MetricType::New();
 
 
-  typedef itk::LinearInterpolateImageFunction<
-                                         ImageType,
-                                         double     >  InterpolatorType;
+  using InterpolatorType itk::LinearInterpolateImageFunction<
+                                         ImageType, double >;
 
   InterpolatorType::Pointer interpolator = InterpolatorType::New();
 
 
-  typedef itk::OnePlusOneEvolutionaryOptimizer  OptimizerType;
+  using OptimizerType = itk::OnePlusOneEvolutionaryOptimizer;
 
   OptimizerType::Pointer optimizer  = OptimizerType::New();
 
 
-  typedef itk::TranslationTransform< double, Dimension > TransformType;
+  using TransformType = itk::TranslationTransform< double, Dimension >;
   TransformType::Pointer transform = TransformType::New();
 
 
@@ -316,20 +315,20 @@ int main( int argc, char *argv[] )
   optimizer->SetScales( parametersScale );
 
 
-  typedef IterationCallback< OptimizerType >   IterationCallbackType;
+  using IterationCallbackType = IterationCallback< OptimizerType >;
 
   IterationCallbackType::Pointer callback = IterationCallbackType::New();
 
   callback->SetOptimizer( optimizer );
 
-  typedef itk::ImageFileReader< ImageType > ReaderType;
+  using ReaderType = itk::ImageFileReader< ImageType >;
   ReaderType::Pointer  reader  = ReaderType::New();
   reader->SetFileName( argv[1] );
   reader->Update();
 
 
   // Place the ellipse close to the optimal position
-  typedef ImageType::IndexType IndexType;
+  using IndexType = ImageType::IndexType;
   IndexType initialIndexPosition;
 
   initialIndexPosition[0] = 26;
@@ -352,9 +351,9 @@ int main( int argc, char *argv[] )
   ellipse->ComputeObjectToWorldTransform();
 
 
-  typedef ImageType::RegionType    RegionType;
-  typedef ImageType::IndexType     IndexType;
-  typedef ImageType::SizeType      SizeType;
+  using RegionType = ImageType::RegionType;
+  using IndexType = ImageType::IndexType;
+  using SizeType = ImageType::SizeType;
 
   RegionType fixedRegion;
 

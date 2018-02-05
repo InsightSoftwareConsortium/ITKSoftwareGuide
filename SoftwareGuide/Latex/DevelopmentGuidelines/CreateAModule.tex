@@ -587,8 +587,8 @@ collect sets of shorthand wrapping values, namely,
   \item \code{WRAP\_ITK\_ALL\_TYPES}
 \end{itemize}
 
-Templated classes are wrapped as typedefs for particular instantiations. The
-typedefs are named with a name mangling scheme for the template parameter
+Templated classes are wrapped as type aliases for particular instantiations. The
+type aliases are named with a name mangling scheme for the template parameter
 types. The mangling of common types are stored in CMake variables listed in
 Table~\ref{tab:WrappingManglingForPODs},
 Table~\ref{tab:WrappingManglingOtherITKPixelTypes}, and
@@ -746,7 +746,7 @@ For non-templated classes, the \textbf{itk\_wrap\_simple\_class} is used. This
 macro takes fully qualified name of the class as an argument. Lastly, the
 macro takes an optional argument that can have the values \code{POINTER},
 \code{POINTER\_WITH\_CONST\_POINTER}, or \code{POINTER\_WITH\_SUPERCLASS}. If
-this argument is passed, then the typedefs \code{classname::Pointer},
+this argument is passed, then the type alias \code{classname::Pointer},
 \code{classname::Pointer} and \code{classname::ConstPointer}, or
 \code{classname::Pointer} and \code{classname::Superclass::Pointer} are
 wrapped. Thus, the wrapping configuration for \doxygen{Object} is

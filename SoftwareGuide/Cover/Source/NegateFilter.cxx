@@ -43,11 +43,11 @@ class ITK_EXPORT NegateImageFilter :
 UnaryFunctorImageFilter<TImage,TImage, Negate   >
 {
 public:
-  /** Standard class typedefs. */
-  typedef NegateImageFilter  Self;
-  typedef UnaryFunctorImageFilter<TImage,TImage, Negate > Superclass;
-  typedef SmartPointer<Self>   Pointer;
-  typedef SmartPointer<const Self>  ConstPointer;
+  /** Standard class type aliases. */
+  using Self = NegateImageFilter;
+  using Superclass = UnaryFunctorImageFilter<TImage,TImage, Negate >;
+  using Pointer = SmartPointer<Self>;
+  using ConstPointer = SmartPointer<const Self>;
 
   /** Method for creation through the object factory. */
   itkNewMacro(Self);
@@ -77,19 +77,16 @@ int main( int argc, char ** argv )
     }
 
 
-  typedef unsigned char        PixelType;
+  using PixelType = unsigned char;
 
-  const   unsigned int        Dimension = 3;
+  constexpr unsigned int Dimension = 3;
 
-  typedef itk::Image< PixelType,  Dimension >    ImageType;
+  using ImageType = itk::Image< PixelType,  Dimension >;
 
+  using ReaderType = itk::ImageFileReader< ImageType >;
+  using WriterType = itk::ImageFileWriter< ImageType >;
 
-
-  typedef itk::ImageFileReader< ImageType >  ReaderType;
-  typedef itk::ImageFileWriter< ImageType >  WriterType;
-
-
-  typedef itk::NegateImageFilter< ImageType > FilterType;
+  using FilterType = itk::NegateImageFilter< ImageType >;
 
   FilterType::Pointer filter = FilterType::New();
 

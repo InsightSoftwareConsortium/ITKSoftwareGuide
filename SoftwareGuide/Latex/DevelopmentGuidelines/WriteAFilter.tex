@@ -155,7 +155,7 @@ Once the appropriate superclass is identified, the filter writer
 implements the class defining the methods required by most all ITK
 objects: \code{New()}, \code{PrintSelf()}, and protected constructor,
 copy constructor, delete, and operator=, and so on. Also, don't forget
-standard typedefs like \code{Self}, \code{Superclass}, \code{Pointer}, and
+standard type aliases like \code{Self}, \code{Superclass}, \code{Pointer}, and
 \code{ConstPointer}. Then the filter writer can focus on the most important
 parts of the implementation: defining the API, data members, and other
 implementation details of the algorithm. In particular, the filter writer
@@ -460,8 +460,8 @@ example, a \doxygen{ImageToImageFilter} would create the method:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-    virtual void ThreadedGenerateData( const OutputImageRegionType&
-      outputRegionForThread, ThreadIdType threadId ) ITK_OVERRIDE;
+    void ThreadedGenerateData( const OutputImageRegionType&
+      outputRegionForThread, ThreadIdType threadId ) override;
 \end{minted}
 \normalsize
 
@@ -491,10 +491,10 @@ its \code{Superclass}, and \code{const} and non-\code{const} smart pointers,
 thus:
 
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-  typedef ExampleImageFilter                Self;
-  typedef ImageToImageFilter<TImage,TImage> Superclass;
-  typedef SmartPointer<Self>                Pointer;
-  typedef SmartPointer<const Self>          ConstPointer;
+  using Self = ExampleImageFilter;
+  using Superclass = ImageToImageFilter<TImage,TImage>;
+  using Pointer = SmartPointer<Self>;
+  using ConstPointer = SmartPointer<const Self>;
 \end{minted}
 
 The \code{Pointer} type is particularly useful, as it is a smart pointer
@@ -517,11 +517,6 @@ The default constructor should be \code{protected}, and provide sensible
 defaults (usually zero) for all parameters.  The copy constructor and
 assignment operator should be declared \code{private} and not implemented,
 to prevent instantiating the filter without the factory methods (above).
-
-Use the macros \code{ITK\_OVERRIDE}, \code{ITK\_NULLPTR}, and
-\code{ITK\_NOEXCEPT}. These expand to the C++11 keywords \code{override},
-\code{nullptr}, and \code{noexcept}, respectively, when built with a compiler
-using the C++11 standard or newer.
 
 Finally, the template implementation code (in the \code{.hxx} file) should
 be included, bracketed by a test for manual instantiation, thus:
@@ -561,7 +556,7 @@ Some of these are described below:
   \code{Update()}.
 \item [itkBooleanMacro] Defines a pair of \code{OnFlag} and \code{OffFlag}
   methods for a boolean variable \code{m\_Flag}.
-\item [itkGetObjectMacro, itkSetObjectMacro] Defines an accessor and mutator
+\item [itkGetConstObjectMacro, itkSetObjectMacro] Defines an accessor and mutator
   for an ITK object.  The Get form returns a smart pointer to the object.
 \end{description}
 

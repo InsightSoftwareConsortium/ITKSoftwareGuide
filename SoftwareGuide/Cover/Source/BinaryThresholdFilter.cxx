@@ -16,20 +16,19 @@ int main(int argc, char * argv[] )
     return -1;
   }
 
-  typedef signed short                          InputPixelType;
-  typedef itk::Image< InputPixelType,     3 >   InputImageType;
+  using InputPixelType = signed short;
+  using InputImageType = itk::Image< InputPixelType, 3 >;
 
 
-  typedef unsigned char                          OutputPixelType;
-  typedef itk::Image< OutputPixelType,     3 >   OutputImageType;
+  using OutputPixelType = unsigned char;
+  using OutputImageType = itk::Image< OutputPixelType, 3 >;
 
-  typedef itk::ImageFileReader< InputImageType  >   ImageReaderType;
-  typedef itk::ImageFileWriter< OutputImageType >   ImageWriterType;
+  using ImageReaderType = itk::ImageFileReader< InputImageType >;
+  using ImageWriterType = itk::ImageFileWriter< OutputImageType >;
 
-  typedef itk::BinaryThresholdImageFilter<
+  using FilterType = itk::BinaryThresholdImageFilter<
                                     InputImageType,
-                                    OutputImageType
-                                              >  FilterType;
+                                    OutputImageType >;
 
   FilterType::Pointer filter = FilterType::New();
 

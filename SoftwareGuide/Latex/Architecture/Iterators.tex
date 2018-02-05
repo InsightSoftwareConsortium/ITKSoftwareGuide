@@ -86,9 +86,9 @@ for an \doxygen{Image}.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-  typedef itk::Image<float, 3> ImageType;
-  typedef itk::ImageRegionConstIterator< ImageType > ConstIteratorType;
-  typedef itk::ImageRegionIterator< ImageType > IteratorType;
+  using ImageType = itk::Image<float, 3>;
+  using ConstIteratorType = itk::ImageRegionConstIterator< ImageType >;
+  using IteratorType = itk::ImageRegionIterator< ImageType >;
 
   ImageType::Pointer image = SomeFilter->GetOutput();
 

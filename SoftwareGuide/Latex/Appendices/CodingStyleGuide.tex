@@ -158,7 +158,7 @@ Use instead
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-const unsigned int ConstValueName = 3;
+constexpr unsigned int ConstValueName = 3;
 \end{minted}
 \normalsize
 
@@ -296,7 +296,7 @@ An important note about SmarPointers refers to their destruction: the
 a SmartPointer object \code{itkSmartPtr} needs to be deleted:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-itkSmartPtr = ITK_NULLPTR;
+itkSmartPtr = nullptr;
 \end{minted}
 \normalsize
 
@@ -909,26 +909,26 @@ by default:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 // Define the dimension of the images
-const unsigned int ImageDimension = 2;
+constexpr unsigned int ImageDimension = 2;
 
 ...
 
 // Declare the type of the size
-typedef itk::Size< ImageDimension > SizeType;
+using SizeType = itk::Size< ImageDimension >;
 
 SizeType size;
 size[0] = 100;
 size[1] = 100;
 
 // Declare the type of the index to access images
-typedef itk::Index< ImageDimension > IndexType;
+using IndexType = itk::Index< ImageDimension >;
 
 IndexType start;
 start[0] = 0;
 start[1] = 0;
 
 // Declare the type of the Region
-typedef itk::ImageRegion< ImageDimension > RegionType;
+using RegionType = itk::ImageRegion< ImageDimension >;
 
 RegionType region;
 region.SetIndex( start );
@@ -1020,61 +1020,61 @@ consistently use \code{typename} instead of \code{class}.
 \subsection{Naming Typedefs}
 \label{subsec:NamingTypedefs}
 
-Typedefs are absolutely essential in generic programming. They significantly
+Type aliases are absolutely essential in generic programming. They significantly
 improve the readability of code, and facilitate the declaration of complex
-syntactic combinations. Unfortunately, creation of typedefs is tantamount to
-creating another programming language. Hence typedefs must be used in a
-consistent fashion. The general rule for typedef names is that they end in the
+syntactic combinations. Unfortunately, creation of type aliases is tantamount to
+creating another programming language. Hence type aliases must be used in a
+consistent fashion. The general rule for type alias names is that they end in the
 word ``Type''. For example,
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-typedef TPixel PixelType;
+using PixelType = TPixel;
 \end{minted}
 \normalsize
 
 However, there are many exceptions to this rule that recognize that ITK has
 several important concepts that are expressed partially in the names used to
 implement the concept. An iterator is a concept, as is a container or pointer.
-These concepts are used in preference to \code{Type} at the end of a typedef as
+These concepts are used in preference to \code{Type} at the end of a type alias as
 appropriate. For example,
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-typedef typename ImageTraits::PixelContainer PixelContainer;
+using PixelContainer = typename ImageTraits::PixelContainer;
 \end{minted}
 \normalsize
 
 Here ``Container'' is a concept used in place of ``Type''. ITK currently
-identifies the following concepts used when naming typedefs:
+identifies the following concepts used when naming type aliases:
 
 \begin{itemize}
 \item \textbf{\code{Self}} as in
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-typedef Image Self;
+using Self = Image;
 \end{minted}
 \normalsize
 
-All classes should define this typedef.
+All classes should define this type alias.
 \item \textbf{\code{Superclass}} as in
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-typedef ImageBase< VImageDimension > Superclass;
+using Superclass = ImageBase< VImageDimension >;
 \end{minted}
 \normalsize
 
-All classes should define the \code{Superclass} typedef.
+All classes should define the \code{Superclass} type alias.
 \item \textbf{\code{Pointer}} as in a smart pointer to an object as in
 
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-typedef SmartPointer< Self > Pointer;
+using Pointer = SmartPointer< Self >;
 \end{minted}
 \normalsize
 
-All classes should define the \code{Pointer} typedef.
+All classes should define the \code{Pointer} type alias.
 \item \textbf{\code{Container}} is a type of container class.
 \item \textbf{\code{Iterator}} an iterator over some container class.
 \item \textbf{\code{Identifier}} or id such as a point or cell identifier.
@@ -1088,7 +1088,7 @@ Constants must start with capital letters, e.g.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-const unsigned int CodeAxisField = 14;
+constexpr unsigned int CodeAxisField = 14;
 \end{minted}
 \normalsize
 
@@ -1145,9 +1145,9 @@ or
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-virtual unsigned int GetSplitInternal( unsigned int dim,
+unsigned int GetSplitInternal( unsigned int dim,
   unsigned int i, unsigned int numberOfPieces, IndexValueType regionIndex[],
-  SizeValueType regionSize[] ) const ITK_OVERRIDE;
+  SizeValueType regionSize[] ) const override;
 \end{minted}
 \normalsize
 
@@ -1345,18 +1345,18 @@ template< typename TPixel, unsigned int VImageDimension = 2 >
 class ITK_TEMPLATE_EXPORT Image : public ImageBase< VImageDimension >
 {
 public:
-  /** Standard class typedefs. */
-  typedef Image                        Self;
-  typedef ImageBase< VImageDimension > Superclass;
-  typedef SmartPointer< Self >         Pointer;
-  typedef SmartPointer< const Self >   ConstPointer;
-  typedef WeakPointer< const Self >    ConstWeakPointer;
+  /** Standard class type alias. */
+  using Self = Image;
+  using Superclass = ImageBase< VImageDimension >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
+  using ConstWeakPointer = WeakPointer< const Self >;
 
   ...
 
-  /** Pixel typedef support. Used to declare pixel type in filters
+  /** Pixel type alias support. Used to declare pixel type in filters
   * or other operations. */
-  typedef TPixel PixelType;
+  using PixelType = TPixel;
   ...
 \end{minted}
 \normalsize
@@ -1369,13 +1369,13 @@ template< typename TImage >
 class ITK_TEMPLATE_EXPORT ImageRegionIterator : public ImageRegionConstIterator< TImage >
 {
   public:
-  /** Standard class typedefs. */
-  typedef ImageRegionIterator                Self;
-  typedef ImageRegionConstIterator< TImage > Superclass;
+  /** Standard class type alias. */
+  using Self = ImageRegionIterator;
+  using Superclass = ImageRegionConstIterator< TImage >;
 
   /** Types inherited from the Superclass */
-  typedef typename Superclass::IndexType IndexType;
-  typedef typename Superclass::SizeType  SizeType;
+  using IndexType = typename Superclass::IndexType;
+  using SizeType = typename Superclass::SizeType;
 
   ...
 \end{minted}
@@ -1930,10 +1930,10 @@ class ITK_TEMPLATE_EXPORT SpecializedFilter :
   public ImageToImageFilter< TInputImage, TOutputImage >
 {
 public:
-  typedef SpecializedFilter                               Self;
-  typedef ImageToImageFilter< TInputImage, TOutputImage > Superclass;
-  typedef SmartPointer< Self >                            Pointer;
-  typedef SmartPointer< const Self >                      ConstPointer;
+  using Self = SpecializedFilter;
+  using Superclass = ImageToImageFilter< TInputImage, TOutputImage >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
@@ -2007,7 +2007,7 @@ To the contrary, a single white space should be added between
 \item An opening angle bracket (\code{<}) and the subsequent template,
 variable or keyword.
 \item A closing angle bracket (\code{>}) and the preceding and subsequent
-words (such as in typedefs).
+words (such as in type aliases).
 \item An opening/closing round bracket (\code{(}/\code{)}) and its subsequent/
 preceding word (e.g. in method argument lists).
 \item Individual members in a list separated by commas (e.g.
@@ -2049,10 +2049,10 @@ class ITK_TEMPLATE_EXPORT SpecializedFilter :
   public ImageToImageFilter< TInputImage, TOutputImage >
 {
 public:
-  typedef SpecializedFilter                               Self;
-  typedef ImageToImageFilter< TInputImage, TOutputImage > Superclass;
-  typedef SmartPointer< Self >                            Pointer;
-  typedef SmartPointer< const Self >                      ConstPointer;
+  using Self = SpecializedFilter;
+  using Superclass = ImageToImageFilter< TInputImage, TOutputImage >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
@@ -2174,7 +2174,7 @@ when returning variables or method calls, as in:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-virtual OutputType Evaluate(const PointType & point) const ITK_OVERRIDE
+OutputType Evaluate(const PointType & point) const override
   {
   ContinuousIndexType index;
 
@@ -2339,30 +2339,6 @@ Image< TPixel, VImageDimension, TImageTraits >
 \end{minted}
 \normalsize
 
-Consecutive typedefs should be aligned. If white spaces need to be added to a
-statement for such purpose, use the minimum number of spaces required, such as
-in:
-
-\small
-\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-typedef SpecializedFilter                               Self;
-typedef ImageToImageFilter< TInputImage, TOutputImage > Superclass;
-typedef SmartPointer< Self >                            Pointer;
-typedef SmartPointer< const Self >                      ConstPointer;
-\end{minted}
-\normalsize
-
-or
-
-\small
-\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-typedef typename DerivativeFilterType::OutputImageType
-  DerivativeOutputImageType;
-typedef VectorCastImageFilter< DerivativeOutputImageType, VectorImageType >
-   GradientCasterType;
-\end{minted}
-\normalsize
-
 Member data declarations should also be aligned when they are declared in consecutive lines.
 
 \small
@@ -2456,9 +2432,9 @@ The same principle applies to method declarations:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-virtual unsigned int GetSplitInternal( unsigned int dim,
+unsigned int GetSplitInternal( unsigned int dim,
   unsigned int i, unsigned int numberOfPieces, IndexValueType regionIndex[],
-  SizeValueType regionSize[] ) const ITK_OVERRIDE;
+  SizeValueType regionSize[] ) const override;
 \end{minted}
 \normalsize
 
@@ -2466,11 +2442,11 @@ is preferred over
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-virtual unsigned int GetSplitInternal( unsigned int dim,
+unsigned int GetSplitInternal( unsigned int dim,
                                        unsigned int i,
                                        unsigned int numberOfPieces,
                                        IndexValueType regionIndex[],
-                                       SizeValueType regionSize[] ) const ITK_OVERRIDE;
+                                       SizeValueType regionSize[] ) const override;
 \end{minted}
 \normalsize
 
@@ -2493,11 +2469,11 @@ const typename FixedImageType::RegionType &fixedRegion =
 \end{minted}
 \normalsize
 
-\item Split at the comma separator (\code{,}) in a list, e.g.
+\item Split after the comma separator (\code{,}) in a list, e.g.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-typedef AddImageFilter< BiasFieldControlPointLatticeType,
+using FilterType = AddImageFilter< BiasFieldControlPointLatticeType,
  BiasFieldControlPointLatticeType, BiasFieldControlPointLatticeType >
 \end{minted}
 \normalsize
@@ -2611,9 +2587,9 @@ class ITK_TEMPLATE_EXPORT BoxImageFilter:
   public ImageToImageFilter< TInputImage, TOutputImage >
 {
 public:
-  /** Standard class typedefs. */
-  typedef BoxImageFilter                                  Self;
-  typedef ImageToImageFilter< TInputImage, TOutputImage > Superclass;
+  /** Standard class type alias. */
+  using Self = BoxImageFilter;
+  using Superclass = ImageToImageFilter< TInputImage, TOutputImage >;
 
   ...
 
@@ -2622,9 +2598,9 @@ protected:
 
   ~BoxImageFilter() {}
 
-  virtual void GenerateInputRequestedRegion() ITK_OVERRIDE;
+  void GenerateInputRequestedRegion() override;
 
-  virtual void PrintSelf(std::ostream & os, Indent indent) const ITK_OVERRIDE;
+  void PrintSelf(std::ostream & os, Indent indent) const override;
 
 private:
   ITK_DISALLOW_COPY_AND_ASSIGN(BoxImageFilter);
@@ -2738,7 +2714,7 @@ int itkHMinimaImageFilterTest( int argc, char *argv[] )
 
 
   // Write the output
-  typedef itk::ImageFileWriter< OutputImageType > WriterType;
+  using WriterType = itk::ImageFileWriter< OutputImageType >;
   WriterType::Pointer writer = WriterType::New();
   writer->SetFileName( argv[2] );
   writer->SetInput( hMinimaFilter->GetOutput() );
@@ -2778,10 +2754,10 @@ int itkHMinimaImageFilterTest( int argc, char * argv[] )
   // The following code defines the input and output pixel types and their
   // associated image types.
   //
-  const unsigned int Dimension = 2;
+  constexpr unsigned int Dimension = 2;
 
-  typedef short         InputPixelType;
-  typedef unsigned char OutputPixelType;
+  using InputPixelType = short;
+  using OutputPixelType = unsigned char;
 
   ...
 }
@@ -2992,7 +2968,7 @@ be const, e.g.
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 for( unsigned int i = 0; j < ImageDimension; i++ )
   {
-  const elementSign = ( m_Step[i] > 0 ) ? 1.0 : -1.0 ;
+  const elementSign = ( m_Step[i] > 0 ) ? 1.0 : -1.0;
   flipMatrix[i][i] = elementSign;
   }
 \end{minted}
@@ -3064,7 +3040,7 @@ returns an argumentof  type \code{const char*}.
 \item \code{itkSetObjectMacro(name, type)}: Creates a method \code{SetName()}
 that takes argument type \code{type *}. For ITK objects,
 \code{itkSetObjectMacro} must be used in lieu of \code{itkSetMacro}.
-\item \code{itkGetObjectMacro(name, type)}: Creates a method named
+\item \code{itkGetConstObjectMacro(name, type)}: Creates a method named
 \code{GetName()} that returns a \doxygen{SmartPointer} to a \code{type} type.
 \item \code{itkSetConstObjectMacro(name, type)}: Creates a method
 \code{SetName()} that takes an argument of type \code{const type *}.
@@ -3248,7 +3224,7 @@ BinShrinkImageFilter< TInputImage, TOutputImage >
     const_cast< InputImageType * >( this->GetInput() );
   const OutputImageType * outputPtr = this->GetOutput();
 
-  itkAssertInDebugAndIgnoreInReleaseMacro( inputPtr != ITK_NULLPTR );
+  itkAssertInDebugAndIgnoreInReleaseMacro( inputPtr != nullptr );
   itkAssertInDebugAndIgnoreInReleaseMacro( outputPtr );
 
   ...
@@ -3453,7 +3429,7 @@ used to print its contents using \doxygen{Indent::GetNextIndent()}.
 printed using the \code{itkPrintSelfObjectMacro} macro.
 \item Without harm to the previous convention, constructs such as images can
 be printed using the \code{Print} method.
-\item Objects that have been declared as \code{typedef} must be casted
+\item Objects that have been declared as a type alias must be casted
 statically using the \code{NumericTraits< Type >::PrintType >} helper
 formatting.
 \item The order of the variables should be the same used in their declaration.
@@ -3503,14 +3479,11 @@ or
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-itkSmartPtr == ITK_NULLPTR;
+itkSmartPtr == nullptr;
 \end{minted}
 \normalsize
 
-where \code{ITK\_NULLPTR} is defined in \code{itk\_compiler\_detection.h}.
-
 The latter, being more explicit, is preferred over the former.
-
 
 \section{Writing Tests}
 \label{sec:WritingTests}
@@ -3536,7 +3509,7 @@ macros in \code{itkTestingMacro.h}, such as \code{TEST\_SET\_GET\_OBJECT}, etc.)
 \end{itemize}
 
 Note that constant declarations (e.g. image dimensions, etc.) and
-\code{typedef} declarations (e.g. pixel and image types, etc.) should be local
+type alias declarations (e.g. pixel and image types, etc.) should be local
 to where they are used for the sake of readability. If the test main body uses
 them, they should be put after the input argument number check section.
 

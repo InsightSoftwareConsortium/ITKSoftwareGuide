@@ -18,21 +18,20 @@ int main(int argc, char * argv[] )
     return -1;
   }
 
-  typedef unsigned char                         PixelComponentType;
-  typedef itk::RGBPixel<PixelComponentType>     ImagePixelType;
-  typedef itk::Image< ImagePixelType,     3 >   ImageType;
+  using PixelComponentType = unsigned char;
+  using ImagePixelType = itk::RGBPixel<PixelComponentType>;
+  using ImageType = itk::Image< ImagePixelType, 3 >;
 
 
-  typedef unsigned char                          OutputPixelType;
-  typedef itk::Image< OutputPixelType,     3 >   OutputImageType;
+  using OutputPixelType = unsigned char;
+  using OutputImageType = itk::Image< OutputPixelType, 3 >;
 
-  typedef itk::ImageFileReader< ImageType  >        ImageReaderType;
-  typedef itk::ImageFileWriter< OutputImageType >   ImageWriterType;
+  using ImageReaderType = itk::ImageFileReader< ImageType >;
+  using ImageWriterType = itk::ImageFileWriter< OutputImageType >;
 
-  typedef itk::VectorConfidenceConnectedImageFilter<
+  using ConfidenceConnectedFilterType itk::VectorConfidenceConnectedImageFilter<
                                               ImageType,
-                                              OutputImageType
-                                              >  ConfidenceConnectedFilterType;
+                                              OutputImageType>;
 
   ConfidenceConnectedFilterType::Pointer
                           confidenceFilter = ConfidenceConnectedFilterType::New();
@@ -42,7 +41,7 @@ int main(int argc, char * argv[] )
   ImageReaderType::Pointer imageReader = ImageReaderType::New();
   imageReader->SetFileName( argv[1] );
 
-  const unsigned int VectorDimension = 3;
+  constexpr unsigned int VectorDimension = 3;
 
   try
     {

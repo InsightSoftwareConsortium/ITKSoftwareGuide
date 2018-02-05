@@ -239,9 +239,9 @@ several template parameters.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{c++}
-typedef WindowedSincInterpolateImageFunction<
+using InterpolatorType = WindowedSincInterpolateImageFunction<
            TInputImage, VRadius, TWindowFunction,
-           TBoundaryCondition, TCoordRep >    InterpolatorType;
+           TBoundaryCondition, TCoordRep >;
 
 \end{minted}
 \normalsize
