@@ -1,15 +1,28 @@
 ITK Software Guide
 ==================
 
-This is the source code for the ITK Software Guide. A combination of [CMake]
-`Superbuild` infrastructure, [Python] extraction scripts, and [LaTeX]
-formatting needed to render the entire ITK Software Guide.
+This [ITK Software Guide] is the handbook for developing software with ITK.
+
+It is divided into two companion books.
+
+The [first book] covers
+building and installation, general architecture and design, as well as the
+process of contributing in the ITK community.
+
+The [second book] covers
+detailed design and functionality for reading and writing images, filtering,
+registration, segmentation, and performing statistical analysis.
+
+This repository contains the source code for the Software Guide.
 
 Build Overview
 --------------
 
-The generation of the ITK Software Guide is orchestrated as a [CMake]
-`Superbuild` process. `CMakeLists.txt` files are placed in the directories
+A combination of [CMake]
+`Superbuild` infrastructure, [Python] extraction scripts, and [LaTeX]
+formatting are required to render the entire ITK Software Guide.
+
+`CMakeLists.txt` files are placed in the directories
 involved on the build process. As any other CMake-managed process, the results
 of the build process are put in a binary tree corresponding to the source tree.
 
@@ -45,7 +58,7 @@ source code files and images:
 
 Following is a brief description of the build process:
 
-  1. The source code of `ITK 4` is downloaded and built (including ITK
+  1. The source code of `ITK` is downloaded and built (including ITK
      examples) in the binary output directory.
   2. JPEG and PNG files in the [`./SoftwareGuide/Art`] directory are converted
      to EPS using [ImageMagick] tools; the resulting EPS files are saved in the
@@ -224,6 +237,9 @@ http://insightsoftwareconsortium.github.io/ITKBarCamp-doc/index.html) site.
 [`./SoftwareGuide/Latex`]: https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide/tree/master/SoftwareGuide/Latex
 [`./SoftwareGuide/Latex/00-Preamble-Common.tex`]: https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide/blob/master/SoftwareGuide/Latex/00-Preamble-Common.tex
 
+[ITK Software Guide]: https://itk.org/ITKSoftwareGuide/html/
+[first book]: https://itk.org/ITKSoftwareGuide/html/Book1/ITKSoftwareGuide-Book1.html
+[second book]: https://itk.org/ITKSoftwareGuide/html/Book2/ITKSoftwareGuide-Book2.html
 [CMake]: https://cmake.org/
 [Gerrit]: http://review.source.kitware.com/
 
