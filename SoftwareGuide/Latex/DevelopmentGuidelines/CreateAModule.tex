@@ -317,15 +317,15 @@ the \code{DATA} macro. Testing data paths are given inside the \code{DATA}
 macro. Content link files, stored in the source code directory, are replaced
 by actual content files in the build directory when CMake downloads the
 \code{ITKData} target at build time. A content link file has the same name as
-its target, but a \texttt{.md5} extension is added, and the \texttt{.md5}
-file's contents are only the MD5SUM hash of its target. Content links for data
+its target, but a \texttt{.sha512} extension is added, and the \texttt{.sha512}
+file's contents are only the SHA512 hash of its target. Content links for data
 files in a Git distributed version control repository prevent repository
-bloat. To obtain content links, register an account with the \texttt{ITK}
-community at \url{https://midas3.kitware.com} and request upload permissions
-on the ITK discussion. The content links may also be created locally: once
-the actual file at issue has been placed in the corresponding directory, run
-CMake configuration, and CMake provides the desired \texttt{.md5} extension
-content link file.
+bloat. To obtain content links, register an account community at
+\url{https://data.kitware.com}. Upload images to your account's
+\texttt{My folders/Public} folder. Once the image has been uploaded, click on the
+item's link, then click the \texttt{Show info} icon. A \texttt{Download key
+file} icon will be available to download the content link. Place this file in
+the repository tree where referenced by the \code{DATA} macro.
 
 When a test requires a new (or modified) input or baseline image dataset,
 the corresponding content link files have to be provided as well. Image
