@@ -1,15 +1,28 @@
 ITK Software Guide
 ==================
 
-This is the source code for the ITK Software Guide. A combination of [CMake]
-`Superbuild` infrastructure, [Python] extraction scripts, and [LaTeX]
-formatting needed to render the entire ITK Software Guide.
+This [ITK Software Guide] is the handbook for developing software with ITK.
+
+It is divided into two companion books.
+
+The [first book] covers
+building and installation, general architecture and design, as well as the
+process of contributing in the ITK community.
+
+The [second book] covers
+detailed design and functionality for reading and writing images, filtering,
+registration, segmentation, and performing statistical analysis.
+
+This repository contains the source code for the Software Guide.
 
 Build Overview
 --------------
 
-The generation of the ITK Software Guide is orchestrated as a [CMake]
-`Superbuild` process. `CMakeLists.txt` files are placed in the directories
+A combination of [CMake]
+`Superbuild` infrastructure, [Python] extraction scripts, and [LaTeX]
+formatting are required to render the entire ITK Software Guide.
+
+`CMakeLists.txt` files are placed in the directories
 involved on the build process. As any other CMake-managed process, the results
 of the build process are put in a binary tree corresponding to the source tree.
 
@@ -45,7 +58,7 @@ source code files and images:
 
 Following is a brief description of the build process:
 
-  1. The source code of `ITK 4` is downloaded and built (including ITK
+  1. The source code of `ITK` is downloaded and built (including ITK
      examples) in the binary output directory.
   2. JPEG and PNG files in the [`./SoftwareGuide/Art`] directory are converted
      to EPS using [ImageMagick] tools; the resulting EPS files are saved in the
@@ -123,100 +136,28 @@ Troubleshooting
 How to Contribute to the ITK Software Guide
 ===========================================
 
-The contribution process mirrors the [ITK contribution
-process](https://github.com/InsightSoftwareConsortium/ITK/blob/master/CONTRIBUTING.md) with the exception of the clone
-url:
-
-    https://itk.org/ITKSoftwareGuide.git
-
-The basic knowledge of [Git] underpins the contribution process. A very concise
-but very handy guide to [Git] can be found
-[here](http://rogerdudler.github.io/git-guide/).
+Contributions are welcome and appreciated!
 
 Contribution Process Overview
 -----------------------------
 
-The following commands illustrate patch submission to [Gerrit]:
+The following commands illustrate patch submission to [GitHub]:
 
 ```sh
-   $ git clone https://itk.org/ITKSoftwareGuide.git
+   $ git clone https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide.git
    $ cd ITKSoftwareGuide
    $ ./Utilities/SetupForDevelopment.sh
-   $ git checkout -b MyTopic
+   $ git checkout -b my-topic
    # make changes to local file(s)
    $ git add -- changedFileName
    $ git commit
-   $ git gerrit-push
+   $ git review-push
 ```
 
-Further Details on Contributing Patches Through Git and Gerrit
---------------------------------------------------------------
+Contribution Details
+--------------------
 
-After cloning the repository on your local machine for the first time, it is
-necessary to provide git with your basic identity details in order to enable
-the correct process of contributing to source code. The
-`SetupForDevelopment.sh` script does just that along with giving you an
-opportunity to change some other basic settings.
-
-Before you start making changes, a new branch needs to be created with the given
-name: `git checkout -b branchName`. Use the editor of your choice to make the
-changes to the file(s).
-
-When you are satisfied with your changes use `git add -- fileName` to stage the
-file to commit. The outcome of this process will result in a patch submitted
-to [Gerrit] code review.
-
-When you run `git commit` you'll be presented with a [VIM] editor window to
-type your commit message. The commit message must be started with a one of the
-following standard prefixes:
-
-  * `BUG`: Fix for runtime crash or incorrect result
-  * `COMP`: Compiler error or warning fix
-  * `DOC`: Documentation change
-  * `ENH`: New functionality
-  * `PERF`: Performance improvement
-  * `STYLE`: No logic impact (indentation, comments)
-  * `WIP`: Work In Progress not ready for merge
-
-Following the prefix, separated by the colon and a space, type the brief
-one-line description of the patch. Type a more detailed description of the
-patch after a blank line. When you save and close the commit message file
-you will see the change ID at the bottom of the commit message.
-
-The process of submitting a patch is ended by running `git gerrit-push` command
-which will provide a summary message from [Gerrit] including the URL for the
-patch page on [Gerrit] web interface. It is important to add reviewers to your
-patch.
-
-The code is merged through the *Submit Patch Set* button in Gerrit after it
-has been approved.
-
-Some Helpful Git Commands
--------------------------
-
-  * `git status` will report at any time which files have been modified.
-  * `git branch` will list the branches available in the local repository.
-  * `git checkout -- fileName` will revert the local changes made to the
-    specified file.
-  * `git blame -- fileName` will report the source of contributors
-    line-by-line.
-  * `git commit --amend` will revise a commit or commit message to respond to
-    reviewer comments.
-  * `git rebase -i HEAD~3` will give an opportunity to squash or revise the
-    previous three commits.
-  * `git grep searchTerm` will list all occurrences of the searchTerm in the
-    source tree.
-  * `get help gitCommandName` will show the documentation on the
-    `gitCommandName` in HTML format.
-
-A one-page Git-ITK cheat-sheet is available
-[here](https://www.itk.org/Wiki/images/1/10/GitITKCheatSheet.pdf).
-
-Further Help
-------------
-
-A lot of helpful video-guides can be found on the [ITK Bar Camp](
-http://insightsoftwareconsortium.github.io/ITKBarCamp-doc/index.html) site.
+For more detailed instructions, see the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 
 
@@ -224,8 +165,11 @@ http://insightsoftwareconsortium.github.io/ITKBarCamp-doc/index.html) site.
 [`./SoftwareGuide/Latex`]: https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide/tree/master/SoftwareGuide/Latex
 [`./SoftwareGuide/Latex/00-Preamble-Common.tex`]: https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide/blob/master/SoftwareGuide/Latex/00-Preamble-Common.tex
 
+[ITK Software Guide]: https://itk.org/ITKSoftwareGuide/html/
+[first book]: https://itk.org/ITKSoftwareGuide/html/Book1/ITKSoftwareGuide-Book1.html
+[second book]: https://itk.org/ITKSoftwareGuide/html/Book2/ITKSoftwareGuide-Book2.html
 [CMake]: https://cmake.org/
-[Gerrit]: http://review.source.kitware.com/
+[GitHub]: https://github.com/
 
 [BibTeX]: http://www.bibtex.org/
 [Docker]: https://www.docker.com/
@@ -238,4 +182,3 @@ http://insightsoftwareconsortium.github.io/ITKBarCamp-doc/index.html) site.
 [ps2pdf]: https://www.ps2pdf.com/
 [Pygments]: http://pygments.org/
 [Python]: https://www.python.org/
-[VIM]: http://www.vim.org/
