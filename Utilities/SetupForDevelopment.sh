@@ -25,7 +25,8 @@ Utilities/GitSetup/setup-git-aliases && echo &&
  echo 'Failed to setup origin.  Run this again to retry.') && echo &&
 (Utilities/GitSetup/setup-github ||
  echo 'Failed to setup GitHub.  Run this again to retry.') && echo &&
-Utilities/GitSetup/tips
+Utilities/GitSetup/tips &&
+Utilities/GitSetup/github-tips
 
 # Rebase master by default
 git config rebase.stat true
