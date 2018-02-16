@@ -43,6 +43,32 @@ Contribution Details
 
 For more detailed instructions, see the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
+Building with Docker
+--------------------
+
+All the dependencies described belowe are available pre-installed in a [Docker]
+image. This is the easiest way to build and contribute to The Software
+Guide.
+
+  1. Download and [install Docker](http://docs.docker.com/installation/).
+  2. From a shell, run
+```sh
+docker run --name software-guide -p 8888:8888 insighttoolkit/itksoftwareguide-edit:latest
+```
+  3. Open a Console.
+  4. To setup the repository for develop and build the project, run:
+```sh
+ssh-keygen
+cat ~/.ssh/id_rsa.pub
+# Paste this value into https://github.com/settings/keys cd /ITKSoftwareGuide ./Utilities/SetupForDevelopment.sh
+cd /ITKSoftwareGuide-build/ITKSoftwareGuide-build
+ninja
+```
+  6. To view the built PDF's, navigate to `bin/ITKSoftwareGuide/SoftwareGuide/Latex/`,
+     click on the PDF, then the *download* button.
+  7. Contribute as described in [CONTRIBUTING.md](CONTRIBUTING.md).
+  8. To restart the container, run `docker start software-guide`.
+
 Build Overview
 --------------
 
@@ -104,36 +130,6 @@ Following is a brief description of the build process:
      [`./SoftwareGuide/LaTeX/ITKSoftwareGuide-Book1.tex`](https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide/blob/master/SoftwareGuide/Latex/ITKSoftwareGuide-Book1.tex)
      is compiled with a series of calls to `latex`, `bibtex`, `latex`,
      `makeindex`,`dvips`, and `ps2pdf` to generate the PDF file.
-
-Building with Docker
---------------------
-
-All the dependencies described above are available pre-installed in a [Docker]
-image.
-
-  1. Download and [install Docker](http://docs.docker.com/installation/).
-  2. If on Mac or Windows, start a `boot2docker` shell.
-  3.
-```sh
-   $ git clone https://github.com/InsightSoftwareConsortium/ITKDevelopmentEnvironment.git
-   $ cd ITKDevelopmentEnvironment/Docker
-   $ ./build.sh itksoftwareguide-edit && ./run.sh itksoftwareguide-edit
-```
-  4. Go get a coffee and curl up with a good book -- it will take a while.
-  5. Connect to your system with your browser at `http://host:port`, where
-     *host* is `localhost` on Linux and the output of `boot2docker ip` on MacOS and
-     Windows. On Windows, make sure to run `boot2docker ip` from a normal Git
-     bash shell.
-     *port* is the result of `docker port itksoftwareguide-edit 3000` run
-     inside the docker environment. An example: `http://192.168.59.103:49153`.y
-     Both the username and password to connect are "itk".
-  6. To view the built PDF's, navigate to `bin/ITKSoftwareGuide/SoftwareGuide/Latex/`,
-     click on the PDF, then the *download* button.
-  7. To edit the sources, edit the files in `src/ITKSoftwareGuide/SoftwareGuide/Latex/`.
-  9. To build changes, run `make` from the directory `/home/src/itk/bin/ITKSoftwareGuide`
-     using a terminal available from the *Term* button of the web interface.
-  8. To commit a patch and submit it to Gerrit, use the same contribution process
-     described below in the directory `/home/itk/src/ITKSoftwareGuide`.
 
 Configuring and Building with CMake
 -----------------------------------
