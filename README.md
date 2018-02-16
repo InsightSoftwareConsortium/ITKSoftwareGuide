@@ -17,6 +17,32 @@ registration, segmentation, and performing statistical analysis.
 
 This repository contains the source code for the Software Guide.
 
+How to Contribute to the ITK Software Guide
+===========================================
+
+Contributions are welcome and appreciated!
+
+Contribution Process Overview
+-----------------------------
+
+The following commands illustrate patch submission to [GitHub]:
+
+```sh
+   $ git clone https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide.git
+   $ cd ITKSoftwareGuide
+   $ ./Utilities/SetupForDevelopment.sh
+   $ git checkout -b my-topic
+   # make changes to local file(s)
+   $ git add -- changedFileName
+   $ git commit
+   $ git review-push
+```
+
+Contribution Details
+--------------------
+
+For more detailed instructions, see the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
 Build Overview
 --------------
 
@@ -135,31 +161,6 @@ Troubleshooting
   2. Frustrated by the build taking a long time to complete
      ... no solution here :blush:.
 
-How to Contribute to the ITK Software Guide
-===========================================
-
-Contributions are welcome and appreciated!
-
-Contribution Process Overview
------------------------------
-
-The following commands illustrate patch submission to [GitHub]:
-
-```sh
-   $ git clone https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide.git
-   $ cd ITKSoftwareGuide
-   $ ./Utilities/SetupForDevelopment.sh
-   $ git checkout -b my-topic
-   # make changes to local file(s)
-   $ git add -- changedFileName
-   $ git commit
-   $ git review-push
-```
-
-Contribution Details
---------------------
-
-For more detailed instructions, see the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 
 
