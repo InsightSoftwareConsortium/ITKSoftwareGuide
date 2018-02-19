@@ -60,12 +60,14 @@ docker run --name software-guide -p 8888:8888 insighttoolkit/itksoftwareguide-ed
 ```sh
 ssh-keygen
 cat ~/.ssh/id_rsa.pub
-# Paste this value into https://github.com/settings/keys cd /ITKSoftwareGuide ./Utilities/SetupForDevelopment.sh
+# Paste this value into https://github.com/settings/keys
+cd /ITKSoftwareGuide
+./Utilities/SetupForDevelopment.sh
 cd /ITKSoftwareGuide-build/ITKSoftwareGuide-build
 ninja
 ```
-  6. To view the built PDF's, navigate to `bin/ITKSoftwareGuide/SoftwareGuide/Latex/`,
-     click on the PDF, then the *download* button.
+  6. To view the built PDF's, navigate to `/ITKSoftwareGuide-build/ITKSoftwareGuide-build/SoftwareGuide/Latex/`,
+     and double click on the PDF.
   7. Contribute as described in [CONTRIBUTING.md](CONTRIBUTING.md).
   8. To restart the container, run `docker start software-guide`.
 
