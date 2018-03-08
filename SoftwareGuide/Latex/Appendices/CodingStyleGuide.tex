@@ -44,8 +44,10 @@ the documentation.
 \item \textbf{Naming Conventions}: patterns used to name classes, variables,
 template parameters, and instance variables.
 \item \textbf{Namespaces}: the use of namespaces.
-\item \textbf{Aliasing Template Parameters Typenames}: guidelines on aliasing
+\item \textbf{Aliasing Template Parameter Typenames}: guidelines on aliasing
 template parameter typenames in a class.
+\item \textbf{The auto Keyword}: when and when not to use the \code{auto}
+keyword.
 \item \textbf{Pipelines}: useful tips when writing pipelines in ITK.
 \item \textbf{Initialization and Assignment}: accepted standards for variable
 initialization and assignment.
@@ -1427,6 +1429,33 @@ image->FillBuffer( 0 ); // Initialize it to all dark.
 \normalsize
 
 \end{itemize}
+
+\section{The auto Keyword}
+\label{sec:TheAutoKeyword}
+
+Available since C++11, the \code{auto} keyword specifies that a variable's type
+is automatically deduced from its initializer.
+
+The \code{auto} keyword should be used to specify a type in the following cases:
+
+\begin{itemize}
+\item The type is duplicated on the left side of an assigment when it is mandated on the
+	right side, e.g. when there is an explicit cast or initializing with \code{new} or ITK's \code{::New()}.
+\item When obtaining container elements, when the element type is obvious from the type
+      of the container.
+\item When the type does not matter because it is not being used for anything other
+      than equality comparison.
+\item When declaring iterators in a \code{for} loop.
+\item When a trailing return type is used in a function declaration.
+\item When creating lambda functions.
+\end{itemize}
+
+All other cases should not use \code{auto}, but a semantic type name
+should be used that conveys meaning, as described in Section~\ref{sec:NamingConventions}
+and Section~\ref{subsec:NamingTypedefs} on page~\pageref{subsec:NamingTypedefs}.
+
+Application or example code that uses ITK, as opposed to the toolkit itself,
+may use \code{auto} more liberally.
 
 
 \section{Initialization and Assignment}
