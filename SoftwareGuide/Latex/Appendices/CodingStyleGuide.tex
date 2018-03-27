@@ -2616,6 +2616,8 @@ class ITK_TEMPLATE_EXPORT BoxImageFilter:
   public ImageToImageFilter< TInputImage, TOutputImage >
 {
 public:
+  ITK_DISALLOW_COPY_AND_ASSIGN(BoxImageFilter);
+
   /** Standard class type alias. */
   using Self = BoxImageFilter;
   using Superclass = ImageToImageFilter< TInputImage, TOutputImage >;
@@ -2632,8 +2634,6 @@ protected:
   void PrintSelf(std::ostream & os, Indent indent) const override;
 
 private:
-  ITK_DISALLOW_COPY_AND_ASSIGN(BoxImageFilter);
-
   RadiusType m_Radius;
 };
 
@@ -3038,6 +3038,8 @@ These operations are:
 \item Object modified time is properly managed.
 \item Debug information is printed.
 \item Reference counting is handled properly.
+\item Disallow copy semantics by deleting copy constructor and assignment
+operator.
 \end{itemize}
 
 Some of the more important object macros are:
@@ -3048,6 +3050,9 @@ returns a \code{SmartPointer<T>} properly reference counted.
 \item \code{itkTypeMacro(thisClass, superclass)}: Adds standard methods a
 class, mainly type information. Adds the \code{GetNameOfClass()} method to the
 class.
+\item \code{ITK\_DISALLOW\_COPY\_AND\_ASSIGN(TypeName)}: Disallow copying by
+declaring copy constructor and assignment operator deleted. This must be
+declared in the \textbf{public} section.
 \item \code{itkDebugMacro(x)}: If debug is set on a subclass of
 \doxygen{Object}, prints debug information to the appropriate output
 stream.
