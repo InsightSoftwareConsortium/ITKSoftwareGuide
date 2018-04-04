@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import sys
 import os
+import errno
 import re
 import shlex
 import subprocess
@@ -155,6 +156,15 @@ if __name__ == "__main__":
     print("Processing {0} into {1}  ... \n".format(inputfilename, outputfilename))
 
     thisCodeBlocks = ParseOneFile(inputfilename)
+
+    try:
+        path = os.path.dirname(outputfilename)
+        os.makedirs(path)
+    except OSError as exc:  # Python >2.5
+        if exc.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        else:
+            raise
 
     outPtr = open(outputfilename, 'w')
     outPtr.write(GetPreambleString(inputfilename))
