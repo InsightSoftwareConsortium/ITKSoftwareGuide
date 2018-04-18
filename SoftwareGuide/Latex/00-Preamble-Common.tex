@@ -12,6 +12,7 @@
 \usepackage{gitdags}
 %\usepackage{siunitx}
 \usepackage[papersize={7.5in,9.25in},margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -94,10 +95,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifitkPrintedVersion
 \usepackage[dvips,
-pdftitle={ITK Software Guide},
-pdfauthor={Hans Johnson and Luis Ib'{a}~{n}ez and Matthew McCormick and the Insight Software Consortium},
-pdfsubject={Medical Image Segmentation and Registration Toolkit}
-pdfkeywords={Registration,Segmentation,Guide},
+pdfencoding=auto,
+psdextra,
 pdfpagemode={UseOutlines},
 bookmarks,bookmarksopen,
 pdfstartview={FitH},
@@ -106,10 +105,8 @@ colorlinks,linkcolor={black},citecolor={black},urlcolor={black},
 ]{hyperref}
 \else
 \usepackage[dvips,
-pdftitle={ITK Software Guide},
-pdfauthor={Hans Johnson and Luis Ib'{a}~{n}ez and Matthew McCormick and the Insight Software Consortium},
-pdfsubject={Medical Image Segmentation and Registration Toolkit},
-pdfkeywords={Registration,Segmentation,Guide},
+pdfencoding=auto,
+psdextra,
 pdfpagemode={UseOutlines},
 bookmarks,bookmarksopen,
 pdfstartview={FitH},
@@ -117,6 +114,13 @@ backref,
 colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 ]{hyperref}
 \fi
+
+\hypersetup{
+pdftitle={ITK Software Guide},
+pdfauthor={Hans Johnson and Luis Ib\'{a}\~{n}ez and Matthew McCormick and the Insight Software Consortium},
+pdfsubject={Medical Image Segmentation and Registration Toolkit},
+pdfkeywords={Registration,Segmentation,Guide}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
