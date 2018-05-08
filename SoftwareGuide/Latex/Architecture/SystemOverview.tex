@@ -18,7 +18,7 @@ in some cases additional chapters---cover these concepts in more detail.
         concepts include generic programming, smart pointers for memory
         management, object factories for adaptable object instantiation,
         event management using the command/observer design paradigm, and
-        multithreading support.
+        multi-threading support.
 
   \item[Numerics.] ITK uses VXL's VNL numerics libraries. These are
         easy-to-use C++ wrappers around the Netlib Fortran numerical
@@ -36,7 +36,7 @@ in some cases additional chapters---cover these concepts in more detail.
     \emph{filters} that in turn may be organized into data flow
     \emph{pipelines}. These pipelines maintain state and therefore
     execute only when necessary.  They also support
-    multithreading, and are streaming capable (i.e., can operate
+    multi-threading, and are streaming capable (i.e., can operate
     on pieces of data to minimize the memory footprint).
 
     \item[IO Framework.] Associated with the data processing
@@ -375,30 +375,100 @@ possibility.)
 \subsection{Multi-Threading}
 \label{sec:MultiThreading}
 
-Multithreading is handled in ITK through a high-level design
-abstraction. This approach provides portable multithreading and hides the
+Multi-threading is handled in ITK through a high-level design
+abstraction. This approach provides portable multi-threading and hides the
 complexity of differing thread implementations on the many systems supported
-by ITK. For example, the class \doxygen{MultiThreader} provides support for
-multithreaded execution using \code{sproc()} on an SGI, or
-\code{pthread\_create} on any platform supporting POSIX threads.
+by ITK. For example, the class \doxygen{PlatformMultiThreader} provides support for
+multi-threaded execution by directly using platform-specific primitives such as
+\code{pthread\_create}. \doxygen{TBBMultiThreader} uses Intel's
+Thread Building Blocks cross-platform library,
+which can do dynamic workload balancing across multiple processes.
+This means that \code{outputRegionForThread} might have different sizes
+which change over time, depending on overall processor load.
+All multi-threader implementations derive from \doxygen{MultiThreaderBase}.
 
-Multithreading is typically employed by an algorithm during its execution
-phase. MultiThreader can be used to execute a single method on
-multiple threads, or to specify a method per thread. For example, in the
+Multi-threading is typically employed by an algorithm during its execution
+phase. For example, in the
 class \doxygen{ImageSource} (a superclass for most image processing filters)
 the \code{GenerateData()} method uses the following methods:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-  multiThreader->SetNumberOfThreads(int);
-  multiThreader->SetSingleMethod(ThreadFunctionType, void* data);
-  multiThreader->SingleMethodExecute();
+  this->GetMultiThreader()->template ParallelizeImageRegion<OutputImageDimension>(
+      this->GetOutput()->GetRequestedRegion(),
+      [this](const OutputImageRegionType & outputRegionForThread)
+        { this->DynamicThreadedGenerateData(outputRegionForThread); }, this);
 \end{minted}
 \normalsize
 
-In this example each thread invokes the same method. The multithreaded filter
-takes care to divide the image into different regions that do not overlap for
-write operations.
+In this example each thread invokes \code{DynamicThreadedGenerateData}
+method of the derived filter. The \code{ParallelizeImageRegion}
+method takes care to divide the image into different regions
+that do not overlap for write operations.
+\code{ImageSource}'s \code{GenerateData()} passes \code{this} pointer
+to \code{ParallelizeImageRegion}, which allows \code{ParallelizeImageRegion}
+to update the filter's progress after each region is finished processing.
+
+If a filter has some serial part in the middle, in addition to initialization
+done in \code{BeforeThreadedGenerateData()} and finalization done in
+\code{AfterThreadedGenerateData()}, it can parallelize more than one method
+in its own version of \code{GenerateData()}, such as done by
+\doxygen{CannyEdgeDetectionImageFilter}:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+::GenerateData()
+{
+  this->UpdateProgress(0.0f);
+  Superclass::AllocateOutputs();
+  // Small serial section
+  this->UpdateProgress(0.01f);
+
+  // Calculate 2nd order directional derivative
+  this->GetMultiThreader()->template ParallelizeImageRegion<TOutputImage::ImageDimension>(
+      this->GetOutput()->GetRequestedRegion(),
+      [this](const OutputImageRegionType & outputRegionForThread)
+      { this->ThreadedCompute2ndDerivative(outputRegionForThread); }, nullptr);
+  this->UpdateProgress(0.45f);
+
+  // Calculate the gradient of the second derivative
+  this->GetMultiThreader()->template ParallelizeImageRegion<TOutputImage::ImageDimension>(
+      this->GetOutput()->GetRequestedRegion(),
+      [this](const OutputImageRegionType & outputRegionForThread)
+      { this->ThreadedCompute2ndDerivativePos(outputRegionForThread); }, nullptr);
+  this->UpdateProgress(0.9f);
+
+  // More processing
+  this->UpdateProgress(1.0f);
+}
+\end{minted}
+\normalsize
+
+When invoking \code{ParallelizeImageRegion} multiple times from
+\code{GenerateData()}, \code{nullptr} should be passed instead of \code{this},
+otherwise progress will go from 0\% to 100\% more than once. And this
+will at least confuse any other class watching the filter's progress events,
+even if it does not cause a crash. So the filter's author should estimate
+how long each part of \code{GenerateData()} takes, and update the progress
+``manually'' as in the example above.
+
+With ITK version 5.0, the Multi-Threading mechanism has been refactored.
+What was previously \code{itk::MultiThreader}, is now a hierarchy of classes.
+\doxygen{PlatformMultiThreader} is a slightly cleaned-up version of the old
+class - \code{MultipleMethodExecute} and \code{SpawnThread} methods have been
+deprecated. But much of its content has been moved to
+\doxygen{MultiThreaderBase}. And classes should use the multi-threaders via
+\code{MultiThreaderBase} interface, to allow the end user the flexibility to
+select the multi-threader at run time. This also allows the filter to
+benefit from future improvements in threading such as addition of a new
+multi-threader implementation.
+
+The backwards compatible \code{ThreadedGenerateData(Region, ThreadId)} method
+signature has been kept, for use in filters that must know their thread number.
+To use this signature, a filter must invoke
+\code{this->DynamicMultiThreadingOff();} before \code{Update();} is called by
+the filter's user or downstream filter in the pipeline. The best place for
+invoking \code{this->DynamicMultiThreadingOff();} is the filter's constructor.
 
 The general philosophy in ITK regarding thread safety is that accessing
 different instances of a class (and its methods) is a thread-safe operation.
@@ -501,7 +571,7 @@ or a pre-defined pixel type and will rarely create a new type of pixel class.
 
 One of the important ITK concepts regarding images is that rectangular,
 continuous pieces of the image are known as \emph{regions}. Regions are used
-to specify which part of an image to process, for example in multithreading,
+to specify which part of an image to process, for example in multi-threading,
 or which part to hold in memory. In ITK there are three common types of
 regions:
 \begin{enumerate}

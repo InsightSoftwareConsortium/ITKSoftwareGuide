@@ -6,7 +6,7 @@ filter (process object).  This chapter is divided into four major
 parts. An initial definition of terms is followed by an overview of
 the filter creation process. Next, data streaming is discussed. The
 way data is streamed in ITK must be understood in order to write
-correct filters. Finally, a section on multithreading describes what
+correct filters. Finally, a section on multi-threading describes what
 you must do in order to take advantage of shared memory parallel
 processing.
 
@@ -160,15 +160,15 @@ standard type aliases like \code{Self}, \code{Superclass}, \code{Pointer}, and
 parts of the implementation: defining the API, data members, and other
 implementation details of the algorithm. In particular, the filter writer
 will have to implement either a \code{GenerateData()} (non-threaded) or
-\code{ThreadedGenerateData()} method. (See Section~\ref{sec:MultiThreading}
-for an overview of multi-threading in ITK.)
+\code{ThreadedGenerateData()} and \code{DynamicThreadedGenerateData()} methods.
+(See Section~\ref{sec:MultiThreading} for an overview of multi-threading in ITK.)
 
 An important note: the GenerateData() method is required to allocate memory
 for the output. The ThreadedGenerateData() method is not. In default
 implementation (see \doxygen{ImageSource}, a superclass of
 \doxygen{ImageToImageFilter})
 \code{GenerateData()} allocates memory and then invokes
-\code{ThreadedGenerateData()}.
+\code{DynamicThreadedGenerateData()} or \code{ThreadedGenerateData()}.
 
 One of the most important decisions that the developer must make is whether
 the filter can stream data; that is, process just a portion of the input to
@@ -205,7 +205,7 @@ figures \ref{fig:DataPipeLineOneConnection} and \ref{fig:DataPipeLine}.
 A significant benefit of this architecture is that the relatively complex
 process of managing pipeline execution is designed into the system. This
 means that keeping the pipeline up to date, executing only those portions of
-the pipeline that have changed, multithreading execution, managing memory
+the pipeline that have changed, multi-threading execution, managing memory
 allocation, and streaming is all built into the architecture. However, these
 features do introduce complexity into the system, the bulk of which is seen
 by class developers. The purpose of this chapter is to describe the pipeline
@@ -242,9 +242,9 @@ The pipeline execution process performs several important functions.
         data processing kernels, that affect how much data input data
         (extra padding) is required.
 
-        \item It subdivides data into subpieces for multithreading. (Note
+        \item It subdivides data into subpieces for multi-threading. (Note
         that the division of data into subpieces is exactly same problem as
-        dividing data into pieces for streaming; hence multithreading comes
+        dividing data into pieces for streaming; hence multi-threading comes
         for free as part of the streaming architecture.)
 
         \item It may free (or release) output data if filters no longer need
@@ -444,7 +444,7 @@ current time.)
 
 The developer will never override \code{UpdateOutputData()}. The developer need
 only write the \code{GenerateData()} method (non-threaded) or
-\code{ThreadedGenerateData()} method. A discussion of threading follows in the
+\code{DynamicThreadedGenerateData()} method. A discussion on threading follows in the
 next section.
 
 
@@ -454,19 +454,19 @@ next section.
 
 Filters that can process data in pieces can typically multi-process
 using the data parallel, shared memory implementation built into the
-pipeline execution process. To create a multithreaded filter, simply
-define and implement a \code{ThreadedGenerateData()} method. For
-example, a \doxygen{ImageToImageFilter} would create the method:
+pipeline execution process. To create a multi-threaded filter, simply
+define and implement a \code{DynamicThreadedGenerateData()}.
+For example, a \doxygen{ImageToImageFilter} would create the method:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-    void ThreadedGenerateData( const OutputImageRegionType&
-      outputRegionForThread, ThreadIdType threadId ) override;
+  void DynamicThreadedGenerateData( const OutputImageRegionType&
+    outputRegionForThread ) override;
 \end{minted}
 \normalsize
 
-The key to threading is to generate output for the output region given (as
-the first parameter in the argument list above). In ITK, this is simple to do
+The key to threading is to generate output for the output region given as
+the parameter. In ITK, this is simple to do
 because an output iterator can be created using the region provided. Hence
 the output can be iterated over, accessing the corresponding input pixels as
 necessary to compute the value of the output pixel.
@@ -474,9 +474,14 @@ necessary to compute the value of the output pixel.
 Multi-threading requires caution when performing I/O (including using
 \code{cout} or \code{cerr}) or invoking events. A safe practice is to allow
 only thread id zero to perform I/O or generate events. (The thread id is
-passed as argument into \code{ThreadedGenerateData()}).  If more than one
-thread tries to write to the same place at the same time, the program can
-behave badly, and possibly even deadlock or crash.
+passed as argument into \code{ThreadedGenerateData(Region, ThreadId)}).
+If more than one thread tries to write to the same place at the same time,
+the program can behave badly, and possibly even deadlock or crash.
+
+Filters which need thread identifier (id) should implement the
+\code{ThreadedGenerateData(Region, ThreadId)} method and call
+\code{this->DynamicMultiThreadingOff();} in the filter's constructor.
+
 
 
 \section{Filter Conventions}
