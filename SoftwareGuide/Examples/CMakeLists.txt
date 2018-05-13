@@ -71,7 +71,7 @@ endforeach()
 find_path(ITK_EXECUTABLES_DIR
   NAMES ImageReadWrite ImageReadWrite.exe
   PATHS
-  "${ITK_BINARY_DIR}/../bin"
+  "${ITK_BINARY_DIR}/bin"
   "${ITK_BINARY_DIR}/../bin/Release"
   "${ITK_BINARY_DIR}/../bin/Debug"
   "${ITK_BINARY_DIR}/../bin/RelWithDebInfo"
