@@ -532,7 +532,7 @@ Shared libraries should be used when ITK is linked to more than one binary in
 an application. This reduces binary size and ensures that singleton
 variables are unique across the application.
 
-A very advanced CMake configuration variable,
+An advanced CMake configuration variable,
 \code{ITK\_TEMPLATE\_VISIBILITY\_DEFAULT} defines the symbol visibility
 attribute on template classes to \textit{default} on systems that require it
 to perform \code{dynamic\_cast}'s on pointers passed across binaries. The
@@ -554,7 +554,7 @@ or right-clicking on the \code{ALL\_BUILD} target in the Solution Explorer pane
 and selecting the ``Build'' context menu item.
 
 The build process can take anywhere from 15 minutes to a couple of hours,
-depending on the the build configuration and the performance of your
+depending on the build configuration and the performance of your
 system. If testing is enabled as part of the normal build process,
 about 2400 test programs will be compiled. In this case, you will then need
 to run \code{ctest} to verify that all the components of ITK have been correctly built
@@ -660,7 +660,7 @@ command line by starting the \code{cmd.exe} shell first.
 
 For a project that uses ITK as an external library, it is recommended to
 specify the individual ITK modules in the \code{COMPONENTS} argument in the
-\code{find_package} CMake command:
+\code{find\_package} CMake command:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
@@ -685,7 +685,7 @@ include(\${ITK_USE_FILE})
 \normalsize
 
 If you would like to use the CMake ExternalProject
-Module\footnote{url{https://cmake.org/cmake/help/latest/module/ExternalProject.html}}
+Module\footnote{\url{https://cmake.org/cmake/help/latest/module/ExternalProject.html}}
 to download ITK source code when building your ITK application (a.k.a.
 Superbuild ITK), here is a basic CMake snippet for setting up a Superbuild in
 an ITK application project using CMake:
@@ -713,13 +713,13 @@ ExternalProject_Add(ITK
 \normalsize
 
 More exemplary configurations for superbuild ITK projects can be found in:
-Slicer\footnote{url{https://github.com/Slicer/Slicer},
-BrainsTools\footnote{url{https://github.com/BRAINSia/BRAINSTools}, ITK Wiki
-Examples\footnote{url{https://github.com/InsightSoftwareConsortium/ITKWikiExamples},
+Slicer\footnote{\url{https://github.com/Slicer/Slicer}},
+BrainsTools\footnote{\url{https://github.com/BRAINSia/BRAINSTools}}, ITK Wiki
+Examples\footnote{\url{https://github.com/InsightSoftwareConsortium/ITKWikiExamples}},
 ITK Sphinx
-Examples\footnote{url{https://github.com/InsightSoftwareConsortium/ITKExamples},
+Examples\footnote{\url{https://github.com/InsightSoftwareConsortium/ITKExamples}},
 and ITK Software
-Guide\footnote{url{https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide}.
+Guide\footnote{\url{https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide}}.
 
 \subsection{Hello World!}
 \label{sec:HelloWorldITK}

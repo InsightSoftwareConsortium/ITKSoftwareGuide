@@ -1041,36 +1041,34 @@ provides a useful template to be used as a starting point for a new ITK module.
 The procedure to publish a new module in ITK is summarized as follows:
 \begin{enumerate}
 \item Publish an open access article describing the module in an online, open
-access journal like The Insight Journal.
+  access journal like The Insight Journal.
 \item Submit a Gerrit patch (see Section~\ref{sec:GitRepository} on
-page~\pageref{sec:GitRepository) that adds a file named
-\code{Modules/Remote/<module name>.remote.cmake}. This file must have the
-following:
-\begin{enumerate}
-\item Dashboard maintainer name and email in the comments.
-\item A call to the \code{itk_fetch_module} CMake function (documented in
-\code{CMake/ITKModuleRemote.cmake}) whose arguments are:
-\begin{enumerate}
-\item The name of the remote module. Note that in each
-\code{<remote module name>.remote.cmake}, the first argument of the function
-\code{itk_fetch_module()} is the name of the remote module, and it has to be
-consistent with the module name defined in the corresponding
-\code{<remote module name>.remote.cmake}. To better distinguish the remote
-modules from the internal ITK modules, the names of the remote modules should
-\textbf{NOT} contain the ``ITK'' string prefix.
-\item A short description of the module with the handle to the open access
-article.
-\item URLs describing the location and version of the code to download. The
-version should be a specific hash.
-\end{enumerate}
-\end{enumerate}
+  page~\pageref{sec:GitRepository} that adds a file named
+  \code{Modules/Remote/<module name>.remote.cmake}. This file must have the
+  following:
+  \begin{enumerate}
+    \item Dashboard maintainer name and email in the comments.
+    \item A call to the \code{itk\_fetch\_module} CMake function (documented in
+      \code{CMake/ITKModuleRemote.cmake}) whose arguments are:
+      \begin{enumerate}
+      \item The name of the remote module. Note that in each
+        \code{<remote module name>.remote.cmake}, the first argument of the function
+        \code{itk\_fetch\_module()} is the name of the remote module, and it has to be
+        consistent with the module name defined in the corresponding
+        \code{<remote module name>.remote.cmake}. To better distinguish the remote
+        modules from the internal ITK modules, the names of the remote modules should
+        \textbf{NOT} contain the ``ITK'' string prefix.
+      \item A short description of the module with the handle to the open access
+        article.
+      \item URLs describing the location and version of the code to download. The
+        version should be a specific hash.
+      \end{enumerate}
+  \end{enumerate}
 \end{enumerate}
 
 After the Remote Module has experienced sufficient testing, and community
-members express broad interests in the contribution, the submitter can then move
+members express broad interest in the contribution, the submitter can then move
 the contribution into the ITK repository via Gerrit code review.
 
 It is possible but not recommended to directly submit a module to Gerrit for
-review without submitting to Insight Journal first. There are no established
-rules on whether a module should be directly merged into the main repository or
-not.
+review without submitting to Insight Journal first.
