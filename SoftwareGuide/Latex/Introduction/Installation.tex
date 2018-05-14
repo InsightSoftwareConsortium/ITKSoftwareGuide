@@ -441,6 +441,69 @@ messages where the information about enabling or disabling the modules is
 displayed (Figure \ref{fig:ConfigITKDefault}); these messages are sorted in
 alphabetical order by module names.
 
+Those who prefer to build ITK using the command line are referred to the online
+cmake command-line tool
+documentation\footnote{\url{https://cmake.org/cmake/help/latest/manual/cmake.1.html}}.
+Only some typical use cases are shown here for reference.
+
+\begin{itemize}
+\item \textbf{Example 1}: Build all default modules.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+cmake [-DITK_BUILD_DEFAULT_MODULES:BOOL=ON]
+      ../ITK-build
+\end{minted}
+\normalsize
+
+As \code{ITK\_BUILD\_DEFAULT\_MODULES} is \code{ON} by default, the above can
+also be accomplished by
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+cmake ../ITK-build
+\end{minted}
+
+\item \textbf{Example 2}: Enable specific group(s) of modules.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+cmake -DITK_BUILD_DEFAULT_MODULES:BOOL=OFF
+      -DBUILD_EXAMPLES:BOOL=OFF
+      -DITKGroup_{Group1}:BOOL=ON
+      [-DITKGroup_{Group2}:BOOL=ON]
+      ../ITK-build
+\end{minted}
+\normalsize
+
+where \code{ITKGroup\_{GroupN}} could be, for example,
+\code{ITKGroup\_Filtering} or \code{ITKGroup\_Registration} for the
+\code{Filtering} and \code{Registration} groups, respectively.
+
+\item \textbf{Example 3}: Enable specific modules.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+cmake -DITK_BUILD_DEFAULT_MODULES:BOOL=OFF
+      -DBUILD_EXAMPLES:BOOL=OFF
+      -DModule_{Module1}:BOOL=ON
+      [-DModule_{Module2}:BOOL=ON]
+      ../ITK-build
+\end{minted}
+\normalsize
+
+where \code{Module\_{Module1}} could be, for example, \code{Module\_ITKFEM} for
+the non-default, built-in \code{FEM} module, or \code{Module\_Cuberille} for
+the \code{Cuberille} remote module.
+
+\item \textbf{Example 4}: Enable examples.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+cmake -DITK_BUILD_DEFAULT_MODULES:BOOL=ON
+      -DBUILD_EXAMPLES:BOOL=ON
+      ../ITK-build
+\end{minted}
+\normalsize
+
+Note that \code{BUILD\_EXAMPLES} is \code{OFF} by default, and
+\code{BUILD\_EXAMPLES=ON} requires \code{ITK\_BUILD\_DEFAULT\_MODULES=ON}.
+
+\end{itemize}
 
 \subsection{Static and Shared Libraries}
 \label{sec:StaticSharedLibraries}
@@ -469,7 +532,7 @@ Shared libraries should be used when ITK is linked to more than one binary in
 an application. This reduces binary size and ensures that singleton
 variables are unique across the application.
 
-A very advanced CMake configuration variable,
+An advanced CMake configuration variable,
 \code{ITK\_TEMPLATE\_VISIBILITY\_DEFAULT} defines the symbol visibility
 attribute on template classes to \textit{default} on systems that require it
 to perform \code{dynamic\_cast}'s on pointers passed across binaries. The
@@ -491,7 +554,7 @@ or right-clicking on the \code{ALL\_BUILD} target in the Solution Explorer pane
 and selecting the ``Build'' context menu item.
 
 The build process can take anywhere from 15 minutes to a couple of hours,
-depending on the the build configuration and the performance of your
+depending on the build configuration and the performance of your
 system. If testing is enabled as part of the normal build process,
 about 2400 test programs will be compiled. In this case, you will then need
 to run \code{ctest} to verify that all the components of ITK have been correctly built
@@ -591,6 +654,72 @@ double-clicking on the icon of the executable will quickly launch a command line
 window, run the executable and close the window right away, not giving you time
 to see the output. It is therefore preferable to run the executable from the DOS
 command line by starting the \code{cmd.exe} shell first.
+
+\section{Using ITK as an External Library}
+\label{sec:UsingITKAsExternalLibrary}
+
+For a project that uses ITK as an external library, it is recommended to
+specify the individual ITK modules in the \code{COMPONENTS} argument in the
+\code{find\_package} CMake command:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+find_package(ITK REQUIRED COMPONENTS Module1 Module2)
+include(\${ITK_USE_FILE})
+\end{minted}
+\normalsize
+
+e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+find_package(ITK REQUIRED
+  COMPONENTS
+    MorphologicalContourInterpolation
+    ITKSmoothing
+    ITKIOImageBase
+    ITKIONRRD
+    )
+include(\${ITK_USE_FILE})
+\end{minted}
+\normalsize
+
+If you would like to use the CMake ExternalProject
+Module\footnote{\url{https://cmake.org/cmake/help/latest/module/ExternalProject.html}}
+to download ITK source code when building your ITK application (a.k.a.
+Superbuild ITK), here is a basic CMake snippet for setting up a Superbuild in
+an ITK application project using CMake:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+ExternalProject_Add(ITK
+      GIT_REPOSITORY \${git_protocol}://github.com/InsightSoftwareConsortium/ITK.git"
+      GIT_TAG "<tag id>" # specify the commit id or the tag id
+      SOURCE_DIR <ITK source tree path>
+      BINARY_DIR <ITK build tree path>
+      CMAKE_GENERATOR ${gen}
+      CMAKE_ARGS
+          ${ep_common_args}
+          -DBUILD_SHARED_LIBS:BOOL=OFF
+          -DBUILD_EXAMPLES:BOOL=OFF
+          -DBUILD_TESTING:BOOL=OFF
+          -DITK_BUILD_DEFAULT_MODULES:BOOL=ON
+          [-DModule_LevelSetv4Visualization:BOOL=ON]
+        INSTALL_COMMAND ""
+       DEPENDS
+[VTK] [DCMTK]  # if some of the modules requested require extra third party libraries
+ )
+\end{minted}
+\normalsize
+
+More exemplary configurations for superbuild ITK projects can be found in:
+Slicer\footnote{\url{https://github.com/Slicer/Slicer}},
+BrainsTools\footnote{\url{https://github.com/BRAINSia/BRAINSTools}}, ITK Wiki
+Examples\footnote{\url{https://github.com/InsightSoftwareConsortium/ITKWikiExamples}},
+ITK Sphinx
+Examples\footnote{\url{https://github.com/InsightSoftwareConsortium/ITKExamples}},
+and ITK Software
+Guide\footnote{\url{https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide}}.
 
 \subsection{Hello World!}
 \label{sec:HelloWorldITK}

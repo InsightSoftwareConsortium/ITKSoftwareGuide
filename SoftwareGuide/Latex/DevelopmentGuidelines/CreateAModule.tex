@@ -8,6 +8,9 @@ are organized into subdirectories with standardized names. A module usually has
 dependencies on other modules, which it declares. A module is defined with
 CMake scripts that inform the build system of its contents and dependencies.
 
+The modularization effort significantly improves the extensibility of the
+toolkit and lowers the barrier to contribution.
+
 Modules are organized into:
 
 \begin{itemize}
@@ -969,3 +972,103 @@ module.
 set(ITKVideoBridgeOpenCV_SYSTEM_INCLUDE_DIRS ${OpenCV_INCLUDE_DIRS})
 set(ITKVideoBridgeOpenCV_SYSTEM_LIBRARY_DIRS ${OpenCV_LIB_DIR})
 \end{minted}
+
+\section{Contributing with a Remote Module}
+\label{sec:ContributingRemoteModules}
+
+For most ITK community members, the modularization of the toolkit is relatively
+transparent. The default configuration includes all the (default) modules into
+the ITK library, which is used to build their own ITK applications.
+
+For ITK developers and code contributors, the modular structure imposes rules
+for organizing the source code, building the library and contributing to the
+ITK source code repository.
+
+A Module may be developed outside the main ITK repository, but it may be
+made available in the ITK repository as a Remote Module. The Remote Module
+infrastructure enables fast dissemination of research code through ITK without
+increasing the size of the main repository. The Insight Journal
+(\url{http://www.insight-journal.org/}) adds support for ITK module submissions
+with automatic dashboard testing (see Section~\ref{sec:CDash} on
+page~\pageref{sec:CDash} for further details).
+
+The source code of a Remote Module can be downloaded by CMake (with a CMake
+variable switch) at ITK CMake configuration time, making it a convenient way to
+distribute modular source code.
+
+\subsection{Policy for Adding and Removing Remote Modules}
+\label{subsec:RemoteModuleAddRemovePolicy}
+
+A module can be added to the list of remotes if it satisfies the following
+criteria:
+\begin{itemize}
+\item There is a peer-reviewed article in an online, open access journal (such
+as the Insight Journal) describing the theory behind and usage of the module.
+\item There is a nightly build against ITK master on the CDash dashboard that
+builds and passes tests successfully.
+\item A name and contact email exists for the dashboard build. The maintainer
+of the dashboard build does not necessarily need to be the original author of
+the Insight Journal article.
+\item The license should be compatible with the rest of the toolkit. That is
+it should be an Open Source Initiative-approved
+license\footnote{\url{https://opensource.org/licenses}} without copyleft or
+non-commercial restrictions. Ideally, it should be an Apache 2.0 license
+assigned to the Insight Software Consortium as found in the rest of the
+toolkit. Note that the module should contain neither patented code, nor
+algorithms, nor methods.
+\end{itemize}
+
+At the beginning of the release candidate phase of a release, maintainers of
+failing module dashboard builds will be contacted. If a module's dashboard
+submission is still failing at the last release candidate tagging, it will be
+removed before the final release.
+
+Module names must be \textbf{unique}.
+
+At no time in the future should a module in the main repository depend on a
+Remote Module.
+
+\subsection{Procedure for Adding a Remote Module}
+\label{subsec:ProcedureAddingRemoteModules}
+
+The repository
+\begin{center}
+  \url{https://github.com/InsightSoftwareConsortium/ITKModuleTemplate}
+\end{center}
+
+provides a useful template to be used as a starting point for a new ITK module.
+
+The procedure to publish a new module in ITK is summarized as follows:
+\begin{enumerate}
+\item Publish an open access article describing the module in an online, open
+  access journal like The Insight Journal.
+\item Submit a Gerrit patch (see Section~\ref{sec:GitRepository} on
+  page~\pageref{sec:GitRepository} that adds a file named
+  \code{Modules/Remote/<module name>.remote.cmake}. This file must have the
+  following:
+  \begin{enumerate}
+    \item Dashboard maintainer name and email in the comments.
+    \item A call to the \code{itk\_fetch\_module} CMake function (documented in
+      \code{CMake/ITKModuleRemote.cmake}) whose arguments are:
+      \begin{enumerate}
+      \item The name of the remote module. Note that in each
+        \code{<remote module name>.remote.cmake}, the first argument of the function
+        \code{itk\_fetch\_module()} is the name of the remote module, and it has to be
+        consistent with the module name defined in the corresponding
+        \code{<remote module name>.remote.cmake}. To better distinguish the remote
+        modules from the internal ITK modules, the names of the remote modules should
+        \textbf{NOT} contain the ``ITK'' string prefix.
+      \item A short description of the module with the handle to the open access
+        article.
+      \item URLs describing the location and version of the code to download. The
+        version should be a specific hash.
+      \end{enumerate}
+  \end{enumerate}
+\end{enumerate}
+
+After the Remote Module has experienced sufficient testing, and community
+members express broad interest in the contribution, the submitter can then move
+the contribution into the ITK repository via Gerrit code review.
+
+It is possible but not recommended to directly submit a module to Gerrit for
+review without submitting to Insight Journal first.
