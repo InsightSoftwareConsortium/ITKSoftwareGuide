@@ -3747,6 +3747,62 @@ success) or \code{EXIT\_FAILURE} (in case of failure) defined in the
 allowed in ITK.
 
 
+\section{Writing Examples}
+\label{sec:WritingExamples}
+
+Many ITK examples are used in this software guide to demonstrate ITK's
+architecture and development.
+
+Thanks to scripting work, parts of the \code{*.cxx} example files within
+special placeholders are included in this software guide. The \LaTeX
+placeholders available to the code for such purpose are:
+
+\begin{itemize}
+\item \textbf{Software Guide : BeginLatex} and
+\textbf{Software Guide : EndLatex}: the text within these placeholders is
+included in this software guide for text explanations, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+//  Software Guide : BeginLatex
+//
+//  Noise present in the image can reduce the capacity of this filter to grow
+//  large regions. When faced with noisy images, it is usually convenient to
+//  pre-process the image by using an edge-preserving smoothing filter. Any of
+//  the filters discussed in Section~\ref{sec:EdgePreservingSmoothingFilters}
+//  could be used to this end. In this particular example we use the
+//  \doxygen{CurvatureFlowImageFilter}, so we need to include its header
+//  file.
+//
+//  Software Guide : EndLatex
+\end{minted}
+\normalsize
+
+\item \textbf{Software Guide : BeginCodeSnippet} and
+\textbf{Software Guide : EndCodeSnippet}: the text within these placeholders is
+included in this software guide for verbatim code snippets, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+// Software Guide : BeginCodeSnippet
+#include "itkCurvatureFlowImageFilter.h"
+// Software Guide : EndCodeSnippet
+\end{minted}
+\normalsize
+
+\end{itemize}
+
+Note that anything inside these gets inserted into the document; avoid blank
+lines or too much whitespace. Make sure any \LaTeX comments included in the
+code are correct in terms of grammar, spelling, and are complete sentences.
+
+Note that \textbf{the code should not exceed 79 columns} or it will go out of
+margins in the final document.
+
+It is recommended that the \LaTeX comment blocks are aligned to the code for
+the sake of readability.
+
+
 \section{Doxygen Documentation System}
 \label{sec:DoxygenDocumentationSystem}
 
