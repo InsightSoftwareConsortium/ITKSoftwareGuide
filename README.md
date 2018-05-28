@@ -55,7 +55,7 @@ Guide.
 ```sh
 docker run --name software-guide -p 8888:8888 insighttoolkit/itksoftwareguide-edit:latest
 ```
-  3. Open a Console.
+  3. Open the URL provided in the ternmial output in a web browser. In the web interface, open a Terminal
   4. To setup the repository for develop and build the project, run:
 ```sh
 ssh-keygen
