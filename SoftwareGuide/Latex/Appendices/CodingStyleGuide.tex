@@ -1506,6 +1506,19 @@ SpecializedFilter< TInputImage, TOutputImage >
 \end{minted}
 \normalsize
 
+Nevertheless, there may be some exceptions to the initialization list rule. In
+some situations where it can be foreseen that the corresponding
+\code{Set\#\#name} or \code{\#\#nameOn}/\code{\#\#nameOff} may be
+
+\begin{itemize}
+\item overloaded by some classes in the future, or
+\item deprecated, and a warning thrown when it is called to help migration,
+\end{itemize}
+
+initialization through the corresponding \code{Set\#\#name} or
+\code{\#\#nameOn}/\code{\#\#nameOff} method is recommended instead of directly
+manipulating the data member.
+
 Smart pointers need not to be initialized, since they initialize themselves
 to the \code{null} pointer, so they are the sole exception to the above rule.
 
