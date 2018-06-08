@@ -46,7 +46,7 @@ Style Guidelines for the ITK Software Guide
   Anything inside these gets put into the document; avoid blank lines or too
   much whitespace. Make sure any comments in included code are correct in
   terms of grammar, spelling, and are complete sentences.
-  Note that the code should not exceed column 80 or it will go out of
+  Note that **the code should not exceed 79 columns** or it will go out of
   margins in the PDF document.
 
 7. Figure/table captions should be proper sentences and end in a period
