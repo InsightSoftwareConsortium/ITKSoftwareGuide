@@ -478,6 +478,13 @@ passed as argument into \code{ThreadedGenerateData(Region, ThreadId)}).
 If more than one thread tries to write to the same place at the same time,
 the program can behave badly, and possibly even deadlock or crash.
 
+In ITK version 5.0, `DynamicThreadedGenerateData` signature was introduced.
+This allows number of pieces (output regions) to be processed to be different,
+usually bigger than the number of real threads executing the work. In turn,
+this allows load balancing. The number of pieces has been renamed into
+work units, and the name `threads' is now reserved for real threads,
+as exposed by \doxygen{MultiThreaderBase} and descendants.
+
 Filters which need thread identifier (id) should implement the
 \code{ThreadedGenerateData(Region, ThreadId)} method and call
 \code{this->DynamicMultiThreadingOff();} in the filter's constructor.
