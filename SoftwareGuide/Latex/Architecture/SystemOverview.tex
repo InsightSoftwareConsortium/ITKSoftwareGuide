@@ -473,15 +473,14 @@ To use this signature, a filter must invoke
 the filter's user or downstream filter in the pipeline. The best place for
 invoking \code{this->DynamicMultiThreadingOff();} is the filter's constructor.
 
-In image filters and other descendants of `ProcessObject`, method
-`SetNumberOfThreads` has been renamed into `SetNumberOfWorkUnits`.
-For `MultiThreaderBase` and descendants, `SetNumberOfThreads` has been
-split into `SetMaximumNumberOfThreads` and `SetNumberOfWorkUnits`.
-Load balancing is possible when `NumberOfWorkUnits` is greater
-than the number of threads. In most places where number of threads was
-being manipulated before, work units shoud be accessed or changed now.
-`MaximumNumberOfThreads` should not generally be changed, except when
-testing performance and scalability, profilng and sometimes debugging code.
+In image filters and other descendants of \code{ProcessObject}, method
+\code{SetNumberOfWorkUnits} controls the level of parallelism.
+Load balancing is possible when \code{NumberOfWorkUnits} is greater
+than the number of threads. In most places where developer would like to
+restrict number of threads, work units should be changed instead.
+\doxygen{MultiThreaderBase}'s \code{MaximumNumberOfThreads} should not
+generally be changed, except when testing performance and scalability,
+profiling and sometimes debugging code.
 
 The general philosophy in ITK regarding thread safety is that accessing
 different instances of a class (and its methods) is a thread-safe operation.

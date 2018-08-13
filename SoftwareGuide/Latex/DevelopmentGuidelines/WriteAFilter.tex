@@ -473,21 +473,16 @@ necessary to compute the value of the output pixel.
 
 Multi-threading requires caution when performing I/O (including using
 \code{cout} or \code{cerr}) or invoking events. A safe practice is to allow
-only thread id zero to perform I/O or generate events. (The thread id is
-passed as argument into \code{ThreadedGenerateData(Region, ThreadId)}).
+only the invoking thread to perform I/O or generate events.
 If more than one thread tries to write to the same place at the same time,
 the program can behave badly, and possibly even deadlock or crash.
 
-In ITK version 5.0, `DynamicThreadedGenerateData` signature was introduced.
-This allows number of pieces (output regions) to be processed to be different,
-usually bigger than the number of real threads executing the work. In turn,
-this allows load balancing. The number of pieces has been renamed into
-work units, and the name `threads' is now reserved for real threads,
-as exposed by \doxygen{MultiThreaderBase} and descendants.
-
-Filters which need thread identifier (id) should implement the
-\code{ThreadedGenerateData(Region, ThreadId)} method and call
-\code{this->DynamicMultiThreadingOff();} in the filter's constructor.
+\code{DynamicThreadedGenerateData} signature allows number of pieces
+(output regions) to be processed to be different, usually bigger than the
+number of real threads executing the work. In turn, this allows load
+balancing. The number of work units controls filter parallelism,
+and the name `threads' is reserved for real threads as exposed by
+\doxygen{MultiThreaderBase} and its descendants.
 
 
 
