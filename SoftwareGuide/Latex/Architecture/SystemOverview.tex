@@ -407,7 +407,7 @@ method takes care to divide the image into different regions
 that do not overlap for write operations.
 \code{ImageSource}'s \code{GenerateData()} passes \code{this} pointer
 to \code{ParallelizeImageRegion}, which allows \code{ParallelizeImageRegion}
-to update the filter's progress after each region is finished processing.
+to update the filter's progress after each region has been processed.
 
 If a filter has some serial part in the middle, in addition to initialization
 done in \code{BeforeThreadedGenerateData()} and finalization done in
@@ -424,19 +424,21 @@ in its own version of \code{GenerateData()}, such as done by
   // Small serial section
   this->UpdateProgress(0.01f);
 
+  ProgressTransformer progress1( 0.01f, 0.45f, this );
   // Calculate 2nd order directional derivative
   this->GetMultiThreader()->template ParallelizeImageRegion<TOutputImage::ImageDimension>(
       this->GetOutput()->GetRequestedRegion(),
       [this](const OutputImageRegionType & outputRegionForThread)
-      { this->ThreadedCompute2ndDerivative(outputRegionForThread); }, nullptr);
-  this->UpdateProgress(0.45f);
+      { this->ThreadedCompute2ndDerivative(outputRegionForThread); },
+      progress1.GetProcessObject());
 
+  ProgressTransformer progress2( 0.45f, 0.9f, this );
   // Calculate the gradient of the second derivative
   this->GetMultiThreader()->template ParallelizeImageRegion<TOutputImage::ImageDimension>(
       this->GetOutput()->GetRequestedRegion(),
       [this](const OutputImageRegionType & outputRegionForThread)
-      { this->ThreadedCompute2ndDerivativePos(outputRegionForThread); }, nullptr);
-  this->UpdateProgress(0.9f);
+      { this->ThreadedCompute2ndDerivativePos(outputRegionForThread); },
+      progress2.GetProcessObject());
 
   // More processing
   this->UpdateProgress(1.0f);
@@ -445,12 +447,13 @@ in its own version of \code{GenerateData()}, such as done by
 \normalsize
 
 When invoking \code{ParallelizeImageRegion} multiple times from
-\code{GenerateData()}, \code{nullptr} should be passed instead of \code{this},
+\code{GenerateData()}, either \code{nullptr} or a
+\doxygen{ProgressTransformer} object should be passed instead of \code{this},
 otherwise progress will go from 0\% to 100\% more than once. And this
 will at least confuse any other class watching the filter's progress events,
 even if it does not cause a crash. So the filter's author should estimate
-how long each part of \code{GenerateData()} takes, and update the progress
-``manually'' as in the example above.
+how long each part of \code{GenerateData()} takes, and construct and pass
+\code{ProgressTransformer} objects as in the example above.
 
 With ITK version 5.0, the Multi-Threading mechanism has been refactored.
 What was previously \code{itk::MultiThreader}, is now a hierarchy of classes.
@@ -469,6 +472,15 @@ To use this signature, a filter must invoke
 \code{this->DynamicMultiThreadingOff();} before \code{Update();} is called by
 the filter's user or downstream filter in the pipeline. The best place for
 invoking \code{this->DynamicMultiThreadingOff();} is the filter's constructor.
+
+In image filters and other descendants of \code{ProcessObject}, method
+\code{SetNumberOfWorkUnits} controls the level of parallelism.
+Load balancing is possible when \code{NumberOfWorkUnits} is greater
+than the number of threads. In most places where developer would like to
+restrict number of threads, work units should be changed instead.
+\doxygen{MultiThreaderBase}'s \code{MaximumNumberOfThreads} should not
+generally be changed, except when testing performance and scalability,
+profiling and sometimes debugging code.
 
 The general philosophy in ITK regarding thread safety is that accessing
 different instances of a class (and its methods) is a thread-safe operation.
