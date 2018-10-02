@@ -3102,6 +3102,25 @@ that takes argument type \code{type *}. For ITK objects,
 to the [\code{min}, \code{max}] closed interval.
 \end{itemize}
 
+Furthermore, the ITK symbol visibility is governed by some macros using the
+following rules:
+\begin{itemize}
+\item \code{\${ModuleName}\_EXPORT}: export for non-templated classes.
+\item \code{ITK\_TEMPLATE\_EXPORT}: export for templated classes.
+\item \code{ITK\_FORWARD\_EXPORT}: export for forward declarations.
+\end{itemize}
+
+This supports the all the combinations of:
+\begin{itemize}
+\item macOS, Linux and Windows operating systems,
+\item the shared \code{BUILD\_SHARED\_LIBS} \code{ON} and \code{OFF} static
+linking modes,
+\item explicit and implicit template instantiation,
+\item the CMake \code{CMAKE\_CXX\_VISIBILITY\_PRESET} flag set to hidden (i.e.
+\code{-fvisibility=hidden}),
+\item the CMake flag {CMAKE\_WINDOWS\_EXPORT\_ALL\_SYMBOLS:BOOL=ON}.
+\end{itemize}
+
 Please review this file and become familiar with these macros.
 
 All classes must declare the basic macros for object creation and run-time type
