@@ -521,9 +521,12 @@ factory mechanism, and to be created using the canonical \code{::New()}:
 \end{minted}
 
 The default constructor should be \code{protected}, and provide sensible
-defaults (usually zero) for all parameters.  The copy constructor and
-assignment operator should be declared \code{private} and not implemented,
-to prevent instantiating the filter without the factory methods (above).
+defaults (usually zero) for all parameters. The copy constructor and
+assignment operator should not implemented in order to prevent instantiating
+the filter without the factory methods (above). They should be declared in the
+\code{public} section using the \code{ITK\_DISALLOW\_COPY\_AND\_ASSIGN} macro
+(see Section~\ref{sec:UsingStandardMacros} on page
+\pageref{sec:UsingStandardMacros}).
 
 Finally, the template implementation code (in the \code{.hxx} file) should
 be included, bracketed by a test for manual instantiation, thus:
