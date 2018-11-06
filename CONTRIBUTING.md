@@ -1,12 +1,9 @@
 Contributing to the ITK Software Guide with Git and GitHub
 ----------------------------------------------------------
 
-<!-- Uncomment these lines after the ITK repository has finished migration to GitHub
-
 The contribution process mirrors the [ITK contribution process](https://github.com/InsightSoftwareConsortium/ITK/blob/master/CONTRIBUTING.md) with the exception of the clone url:
 
    https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide.git
--->
 
 A basic knowledge of [Git] underpins the contribution process. A concise
 but handy guide to [Git] can be found
