@@ -1042,8 +1042,9 @@ The procedure to publish a new module in ITK is summarized as follows:
 \begin{enumerate}
 \item Publish an open access article describing the module in an online, open
   access journal like The Insight Journal.
-\item Submit a Gerrit patch (see Section~\ref{sec:GitRepository} on
-  page~\pageref{sec:GitRepository} that adds a file named
+\item Push a topic to the ITK GitHub repository (see
+  Section~\ref{sec:GitRepository} on page~\pageref{sec:GitRepository} that
+  adds a file named
   \code{Modules/Remote/<module name>.remote.cmake}. This file must have the
   following:
   \begin{enumerate}
@@ -1068,7 +1069,7 @@ The procedure to publish a new module in ITK is summarized as follows:
 
 After the Remote Module has experienced sufficient testing, and community
 members express broad interest in the contribution, the submitter can then move
-the contribution into the ITK repository via Gerrit code review.
+the contribution into the ITK repository via GitHub code review.
 
-It is possible but not recommended to directly submit a module to Gerrit for
+It is possible but not recommended to directly push a module to GitHub for
 review without submitting to Insight Journal first.
