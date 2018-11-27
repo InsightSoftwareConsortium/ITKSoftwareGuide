@@ -246,44 +246,20 @@ practical use of one of these metrics.
 % \input{ImageRegistrationHistogramPlotter.tex}
 
 
-\section{ Centered Transforms }
+\section{ Center Initialization }
 
 The ITK image coordinate origin is typically located in one of the image
 corners (see the  Defining Origin and Spacing section of Book 1 for details).
 This results in counter-intuitive transform behavior when rotations and scaling
 are involved. Users tend to assume that rotations and scaling are performed
-around a fixed point at the center of the image.  In order to compensate for
-this difference in natural interpretation, the concept of \emph{centered}
-transforms have been introduced into the toolkit. The following sections
-describe the main characteristics of such transforms.
-
-The introduction of the centered transforms in the Insight Toolkit reflects the
-dynamic nature of a software library when it evolves in harmony with the
-requests of the community that it serves. This dynamism has, as everything else
-in real life, some advantages and some disadvantages. The main advantage is that
-when a need is identified by the users, it gets implemented in a matter of days
-or weeks.  This capability for rapidly responding to the needs of a community
-is one of the major strengths of Open Source software. It has the additional
-safety that if the rest of the community does not wish to adopt a particular
-change, an isolated user can always implement that change in her local copy of
-the toolkit, since all the source code of ITK is available in a Apache 2.0
-license\footnote{\url{http://www.opensource.org/licenses/Apache-2.0}} that
-does not restrict modification nor distribution of the code, and that does not
-impose the assimilation demands of viral licenses such as
-GPL\footnote{\url{http://www.gnu.org/copyleft/gpl.html}}.
-
-The main disadvantage of dynamism, is of course, the fact that there is
-continuous change and a need for perpetual adaptation. The evolution of
-software occurs at different scales, some changes happen to evolve in localized
-regions of the code, while from time to time accommodations of a larger scale
-are needed. The need for continuous changes is addressed in Extreme Programming
-with the methodology of \emph{Refactoring}. At any given point, the structure
-of the code may not project the organized and neatly distributed architecture
-that may have resulted from a monolithic and static design. There are, after
-all, good reasons why living beings can not have straight angles. What you are
-about to witness in this section is a clear example of the diversity of species
-that flourishes when evolution is in action~\cite{Darwin1999}.
-
+around a fixed point at the center of the image. In order to compensate for
+this difference in expected interpretation, the concept of \emph{center} of
+transform has been introduced into the toolkit. This parameter is
+generally a \emph{fixed} parameter that is not optimized during
+registration, so initialization is crucial to get efficient and
+accurate results. The following sections describe the main
+characteristics and effects of initializing the center of a
+transform.
 
 \subsection{Rigid Registration in 2D}
 \label{sec:RigidRegistrationIn2D}
@@ -308,7 +284,7 @@ that flourishes when evolution is in action~\cite{Darwin1999}.
 
 
 
-\subsection{Centered Affine Transform}
+\subsection{Centered Initialized Affine Transform}
 \label{sec:CenteredAffineTransform}
 \input{ImageRegistration9.tex}
 
