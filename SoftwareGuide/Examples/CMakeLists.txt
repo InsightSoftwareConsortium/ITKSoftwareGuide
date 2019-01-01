@@ -130,8 +130,12 @@ set(ITK_FLIP_IMG
   FastMarchingFilterOutput2
   FastMarchingFilterOutput3
   ShapeDetectionLevelSetFilterOutput1
+  ShapeDetectionLevelSetFilterOutput1Smoothing
+  ShapeDetectionLevelSetFilterOutput1GradientMagnitude
+  ShapeDetectionLevelSetFilterOutput1FastMarching
   ShapeDetectionLevelSetFilterOutput2
   ShapeDetectionLevelSetFilterOutput3
+  ShapeDetectionLevelSetFilterOutput4
   ThresholdSegmentationLevelSetImageFilterWhiteMatter
   ThresholdSegmentationLevelSetImageFilterVentricle
   ThresholdSegmentationLevelSetImageFilterGrayMatter
@@ -212,10 +216,6 @@ set(ITK_FLIP_IMG
   FastMarchingImageFilterOutput6
   FastMarchingImageFilterOutput7
   FastMarchingImageFilterOutput8
-  ShapeDetectionLevelSetFilterOutput5
-  ShapeDetectionLevelSetFilterOutput6
-  ShapeDetectionLevelSetFilterOutput7
-  ShapeDetectionLevelSetFilterOutput8
   GeodesicActiveContourImageFilterOutput1
   GeodesicActiveContourImageFilterOutput2
   GeodesicActiveContourImageFilterOutput3
