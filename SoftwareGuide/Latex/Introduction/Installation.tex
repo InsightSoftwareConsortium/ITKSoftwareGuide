@@ -15,7 +15,7 @@ may want to ignore these extra libraries and just compile the toolkit itself.
 
 ITK has been developed and tested across different combinations of operating
 systems, compilers, and hardware platforms including Microsoft Windows, Linux on
-various architectures, UNIX, macOS, and Cygwin. Dedicated community members and
+various architectures, UNIX, macOS, and Mingw-w64. Dedicated community members and
 Kitware are committed to providing long-term support of the most prevalent
 development environments (Visual Studio, macOS, and Linux) for building ITK:
 
@@ -226,7 +226,7 @@ supports complex environments requiring system introspection, compiler feature
 testing, and code generation.
 
 CMake generates native Makefiles or workspaces to be used with the corresponding
-development environment of your choice. For example, on UNIX and Cygwin systems,
+development environment of your choice. For example, on UNIX and MinGW systems,
 CMake generates Makefiles; under Microsoft Windows CMake generates Visual Studio
 workspaces; CMake is also capable of generating appropriate build files for
 other development environments, e.g., Eclipse. The information used by CMake is
