@@ -61,7 +61,7 @@ analysis research is supported; key examples are described in the following.
 
 In the remainder of this chapter several examples are used to demonstrate
 the many spatial objects found in ITK and how they can be organized into
-hierarchies using \doxygen{SceneSpatialObject}. Further the examples
+hierarchies. Further the examples
 illustrate how to use SpatialObject transformations to control and
 calculate the position of objects in space.
 
@@ -76,11 +76,6 @@ to ensure a cycle-free tree.
 
 \label{sec:SpatialObjectHierarchy}
 \input{SpatialObjectHierarchy.tex}
-
-
-\section{SpatialObject Tree Container}
-\label{sec:SpatialObjectTreeContainer}
-\input{SpatialObjectTreeContainer.tex}
 
 
 \section{Transformations}
@@ -104,11 +99,6 @@ implemented in ITK.
 \input{BlobSpatialObject.tex}
 
 
-\subsection{CylinderSpatialObject}
-\label{sec:CylinderSpatialObject}
-\input{CylinderSpatialObject.tex}
-
-
 \subsection{EllipseSpatialObject}
 \label{sec:EllipseSpatialObject}
 \input{EllipseSpatialObject.tex}
@@ -122,6 +112,7 @@ implemented in ITK.
 \subsection{GroupSpatialObject}
 \label{sec:GroupSpatialObject}
 \input{GroupSpatialObject.tex}
+\input{SceneSpatialObject.tex}
 
 
 \subsection{ImageSpatialObject}
@@ -156,29 +147,18 @@ implemented in ITK.
 
 \subsection{TubeSpatialObject}
 
-\doxygen{TubeSpatialObject} represents a base class for the representation
-of tubular structures using SpatialObjects. The classes \doxygen{VesselTubeSpatialObject} and
-\doxygen{DTITubeSpatialObject} derive from this base class.
-VesselTubeSpatialObject represents blood vessels extracted for an image and
-DTITubeSpatialObject is used to represent fiber tracts from diffusion tensor images.
+\doxygen{TubeSpatialObject} is a class for the representation
+of tubular structures using SpatialObjects.
+ The class \doxygen{DTITubeSpatialObject} is derive from this base class
+and adds constructs for representing fiber tracts from diffusion tensor images.
 
 \label{sec:TubeSpatialObject}
 \input{TubeSpatialObject.tex}
 
 
-\subsubsection{VesselTubeSpatialObject}
-\label{sec:VesselTubeSpatialObject}
-\input{VesselTubeSpatialObject.tex}
-
-
-\subsubsection{DTITubeSpatialObject}
+\subsection{DTITubeSpatialObject}
 \label{sec:DTITubeSpatialObject}
 \input{DTITubeSpatialObject.tex}
-
-
-\section{SceneSpatialObject}
-\label{sec:Scene}
-\input{SceneSpatialObject.tex}
 
 
 \section{Read/Write SpatialObjects}
