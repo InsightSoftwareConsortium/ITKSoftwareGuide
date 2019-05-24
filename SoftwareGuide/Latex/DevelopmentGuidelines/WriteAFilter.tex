@@ -321,12 +321,26 @@ The \code{DataObject::Update()} method in turn invokes three other methods:
 \label{sec:UpdateOutputInformation}
 \index{pipeline!UpdateOutputInformation}
 
-The \code{UpdateOutputInformation()} method determines the pipeline modified
-time. It may set the RequestedRegion and the LargestPossibleRegion depending
-on how the filters are configured. (The RequestedRegion is set to process all
-the data, i.e., the LargestPossibleRegion, if it has not been set.) The
-UpdateOutputInformation() propagates upstream through the entire pipeline and
-terminates at the sources.
+The \code{UpdateOutputInformation()} method first calls the
+\code{VerifyPreconditions} to check that all required inputs
+are set and all parameters are valid and consistent. This enables quick
+failure of a filter when not configure correctly. The default
+implementation checks that all required pipeline inputs are set.
+
+Next the pipeline modified time is determined. The RequestedRegion is
+set to process all the data, i.e., the LargestPossibleRegion, if
+neither \code{UpdateLargestPossibleRegion} was called nor
+RequestedRegion has not been set. The \code{UpdateOutputInformation()}
+propagates upstream through the entire pipeline and terminates at the
+sources.
+
+After the upstream inputs have completed their
+\Code{UpdateOutputInformation} the metadata of inputs are
+available. The \code{VerifyInputInformation} is then called. The
+default implementation in \code{ImageToImageFilter} checks that all
+input images occupy the same physical space. This may need to be
+overridden if the filter does not require the image's voxels occupy the
+same physical space.
 
 During \code{UpdateOutputInformation()}, filters have a chance to override the
 \code{ProcessObject::GenerateOutputInformation()} method
