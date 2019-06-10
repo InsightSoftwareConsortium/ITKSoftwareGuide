@@ -3205,9 +3205,12 @@ Bash users: Git comes with a set of completion options that are very useful. The
 location of the file varies depending on your system:
 
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
-source /opt/local/share/doc/git-core/contrib/completion/git-completion.bash  # Mac with git installed by Mac Ports
-source /usr/share/bash-completion/git       # Linux
-source /etc/bash\_completion.d/git           # Linux debian/gentoo
+# Mac with git installed by Mac Ports
+source /opt/local/share/doc/git-core/contrib/completion/git-completion.bash
+# Linux
+source /usr/share/bash-completion/git
+# Linux debian/gentoo
+source /etc/bash\_completion.d/git
 \end{minted}
 
 
@@ -3218,7 +3221,8 @@ If you are using the bash shell, you can customize the prompt to show which Git
 branch is active. Here are the commands for your \code{~/.bashrc} file:
 
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
-source /etc/bash\_completion.d/git   # or one of the appropriate paths from the above section
+# Use the appropriate path from the above section
+source /etc/bash\_completion.d/git
 export GIT\_PS1\_SHOWDIRTYSTATE=1
 export GIT\_PS1\_SHOWUNTRACKEDFILES=1
 export GIT\_PS1\_SHOWUPSTREAM="verbose"
