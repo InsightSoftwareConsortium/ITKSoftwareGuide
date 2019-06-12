@@ -365,21 +365,21 @@ exhaustive list of such tools:
 \item \texttt{itkTestingMacros.h}: it contains a number of macros that allow
 testing of basic object properties:
 \begin{itemize}
-\item \code{EXERCISE\_BASIC\_OBJECT\_METHODS()}: verifies whether the class and
+\item \code{ITK\_EXERCISE\_BASIC\_OBJECT\_METHODS()}: verifies whether the class and
 superclass names provided match the RTTI, and exercises the \code{PrintSelf()}
 method. Since the \code{PrintSelf()} method prints all class member variables,
 this macro, when exercised, can identify uninitialized member variables.
-\item \code{TEST\_SET\_GET\_VALUE()}: once a member variable value has been set
+\item \code{ITK\_TEST\_SET\_GET\_VALUE()}: once a member variable value has been set
 using the corresponding Set macro, this macro verifies that the value provided
 to the \code{Set()} method was effectively assigned to the member variable
 by comparing it to the value returned by the \code{Get()} value.
-\item \code{TEST\_SET\_GET\_BOOLEAN()}: exercises the \code{Set()/Get()},
+\item \code{ITK\_TEST\_SET\_GET\_BOOLEAN()}: exercises the \code{Set()/Get()},
 and \code{On()/Off()} methods of class applied to a boolean member variable.
 \end{itemize}
-\item \code{TRY\_EXPECT\_NO\_EXCEPTION()}: exercises a method which is expected to
+\item \code{ITK\_TRY\_EXPECT\_NO\_EXCEPTION()}: exercises a method which is expected to
 return with no errors. It is only required for methods that are known to throw
 exceptions, such as I/O operations, filter updates, etc.
-\item \code{TRY\_EXPECT\_EXCEPTION()}: exercises a method in the hope of detecting
+\item \code{ITK\_TRY\_EXPECT\_EXCEPTION()}: exercises a method in the hope of detecting
 an exception. This macro allows a test to continue its execution when setting
 test cases bound to hit a class' exception cases. It is only required for
 methods that are known to throw exceptions, such as I/O operations, filter
