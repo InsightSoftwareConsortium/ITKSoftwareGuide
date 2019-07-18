@@ -22,14 +22,14 @@ development environments (Visual Studio, macOS, and Linux) for building ITK:
 Compiler variants will be supported for the duration that the associated operating
 system vendors commit to in their long-term stable platforms. For example the gcc
 compilers supported will mirror the compiler support in the RedHat lifecycle, the
-apple clang compilers will mirror the support lifecycle of the compiler by Apple, and
+Apple Clang compilers will mirror the support lifecycle of the compiler by Apple, and
 the Visual Studio series support will follow lifecycle deprecation of the compiler
 versions.
 
 % List updated according to information provided here:
 % https://www.itk.org/Wiki/ITK_Release_4/Modern_C++#Fully_Committed_to_Support
 
-For example as of 2018 the following time schedule is expected for supporting
+For example as of 2019 the following time schedule is expected for supporting
 these compiler environments.
 
 %%
@@ -44,15 +44,10 @@ these compiler environments.
       %\item 6.x %% April 27, 2016
       %\item 7.x %% May 2, 2017
    \end{itemize}
-%% I am concerned about this policy.  Our support dates extend well beyond what even MS is willing to support.
-%% We are promising to support ITK building under these compilers even after MS will support the compiler itself.
 \item Visual Studio % https://en.wikipedia.org/wiki/Microsoft_Visual_Studio
   \begin{itemize}
-  \item 2010 [v10.0] (From 2010 - until 2020) % April 12, 2010     -- build_name "Win64-VS10-Release-Shared"
-  \item 2012 [v11.0] (From 2012 - until 2022) % September 12, 2012 -- buld_name "Win32-VS11-Release-Shared"
-  \item 2013 [v12.0] (From 2013 - until 2023) % October 17, 2013 -- none-listed
-  %\item 2015 [v14.0] (From 2015 - until 2023) % July 20, 2015
-  %\item 2016 [v15.0] (From 2017 - until 2023) % March 7, 2017
+  \item 2015 [v14.X]
+  \item 2017 [v15.X]
   \end{itemize}
 %% -we have no nightly builds
 %% \item Intel Compiler Suite  %% https://en.wikipedia.org/wiki/Intel_C%2B%2B_Compiler
