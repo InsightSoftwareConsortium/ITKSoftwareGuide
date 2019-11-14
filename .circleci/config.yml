@@ -1,7 +1,6 @@
 version: 2
 jobs:
   build:
-    resource_class: xlarge
     working_directory: /ITKSoftwareGuide-build
     docker:
       - image: insighttoolkit/itksoftwareguide-dashboard:latest
