@@ -3196,11 +3196,11 @@ try
   {
   // Code liable to throw an exception
   }
-catch( ExceptionObject & exc )
+catch( const ExceptionObject & exc )
   {
   std::cerr << exc << std::endl;
   }
-catch( std::exception & exc )
+catch( const std::exception & exc )
   {
   std::cerr << exc.what() << std::endl;
   }
@@ -3216,7 +3216,7 @@ For instance,
   m_ExceptionMessage = "";
   this->TestFileExistanceAndReadability();
   }
-catch( ExceptionObject & exc )
+catch( const ExceptionObject & exc )
   {
   m_ExceptionMessage = exc.GetDescription();
   }
@@ -3232,7 +3232,7 @@ try
   {
   m_Optimizer->StartOptimization();
   }
-catch( ExceptionObject & exc )
+catch( const ExceptionObject & exc )
   {
   // An error has occurred in the optimization.
   // Update the parameters.

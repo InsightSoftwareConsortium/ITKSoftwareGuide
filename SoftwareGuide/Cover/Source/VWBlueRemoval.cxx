@@ -32,7 +32,7 @@ int main(int argc, char * argv[] )
       {
       imageReader->Update();
       }
-    catch( itk::ExceptionObject & excp )
+    catch( const itk::ExceptionObject & excp )
       {
       std::cout << excp << std::endl;
       return -1;
@@ -98,7 +98,7 @@ int main(int argc, char * argv[] )
     {
     imageWriter->Update();
     }
-  catch( itk::ExceptionObject & excp )
+  catch( const itk::ExceptionObject & excp )
     {
     std::cout << excp << std::endl;
     return -1;
