@@ -395,7 +395,7 @@ int main( int argc, char *argv[] )
   try {
     registration->StartRegistration();
     }
-  catch( itk::ExceptionObject & exp ) {
+  catch( const itk::ExceptionObject & exp ) {
     std::cerr << "Exception caught ! " << std::endl;
     std::cerr << exp << std::endl;
     }
