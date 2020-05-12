@@ -17,7 +17,7 @@ ITK has been developed and tested across different combinations of operating
 systems, compilers, and hardware platforms including Microsoft Windows, Linux on
 various architectures, UNIX, macOS, and Mingw-w64. Dedicated community members and
 Kitware are committed to providing long-term support of the most prevalent
-development environments (Visual Studio, macOS, and Linux) for building ITK:
+development environments (e.g. Clang and Visual Studio) for building ITK.
 
 Compiler variants will be supported for the duration that the associated operating
 system vendors commit to in their long-term stable platforms. For example the gcc
@@ -26,91 +26,18 @@ Apple Clang compilers will mirror the support lifecycle of the compiler by Apple
 the Visual Studio series support will follow lifecycle deprecation of the compiler
 versions.
 
-% List updated according to information provided here:
-% https://www.itk.org/Wiki/ITK_Release_4/Modern_C++#Fully_Committed_to_Support
-
-For example as of 2019 the following time schedule is expected for supporting
-these compiler environments.
-
+For example, the following development and compiler environments are supported
+in ITK for the date at which the document was generated:
 %%
 %% The following compilers should have nightly dashboard in the "Expected builds"
 %% to ensure that support is maintained.
 %%
 \begin{itemize}
-\item GCC
-  \begin{itemize}
-      \item 4.8.2 (From 2015-until 2020)  %% June 26, 2015  -- build_name "Ubuntu-g++-4.8.2-Release"
-      %\item 5.x %% Release date April 22, 2015
-      %\item 6.x %% April 27, 2016
-      %\item 7.x %% May 2, 2017
-   \end{itemize}
-\item Visual Studio % https://en.wikipedia.org/wiki/Microsoft_Visual_Studio
-  \begin{itemize}
-  \item 2015 [v14.X]
-  \item 2017 [v15.X]
-  \end{itemize}
-%% -we have no nightly builds
-%% \item Intel Compiler Suite  %% https://en.wikipedia.org/wiki/Intel_C%2B%2B_Compiler
-%%    \begin{itemize}
-%%      \item 11.x                            % Released in 2008
-%%      \item 12.x (including macOS release)  % Released in 2011
-%%      \item 13.x   %Released in 2012
-%%      \item 14.x   %Released in 2013
-%%      \item 15.x   %Released in 2014
-%%      \item 16.x   %Released in 2015
-%%      \item 17.x does not compile cleanly with macOS  % Released in 2016
-%%      \item 18.x   % $Released in 2018
-%%    \end{itemize}
-
-%% -- we have no nightly builds in Expected,  only Exotic builds, and those are nto passing
-%% \item Win32-mingw-gcc-4.5
-\item Apple Clang
-  \begin{itemize}
-     \item Apple clang-600.0.56 (From 2013 - until 2019) %% mini9.nlm  build_name "MacOSX-Xcode6"build perhaps has this compiler -- listed as unkown
-     \item Apple LLVM version 8.1.0 (clang-802.0.42)  (From 2016 - until 2021) %% Released in 2016, build_name "MacOSX-Clang-Ninja-Release"
-   \end{itemize}
-\item Clang
-    \begin{itemize}
-      \item 3.3 (From 2013 - until 2018) % 17 Jun 2013  -- no build.
-      %%\item 4.0 % 13 March 2017
-      %%\item 5.0 % 7 September 2017
-    \end{itemize}
+\item GCC 4.8 and newer
+\item Visual Studio 2015, 2017, 2019, toolsets 14.x, 15.0, 16.0
+\item Apple Clang 7.0 and newer
+\item Clang 6 and newer
 \end{itemize}
-
-
-Table~\ref{tab:CompileSupportTimeline} prints the compiler support timeline in
-ITK at the time of writing this guide.
-
-\begin{table}[h]
-\begin{center}
-\resizebox{\textwidth}{!}{
-\begin{tabular}{c c c c c c c c c c c c c c c c c}
-\toprule
-Compiler & 2011 & 2012 & 2013 & 2014 & 2015 & 2016 & 2017 & 2018 & 2019 & 2020 & 2021 & 2022 & 2023 & 2024 & 2025 & 2026 \\
-\midrule
-Visual Studio 10 &  \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{yellow} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & & \\
-GCC 4.2 & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{yellow} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & & & & & \\
-GCC 4.4 & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{yellow} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & & \\
-GCC 4.9 & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{itkTableCellGreen} & \cellcolor{yellow} & \cellcolor{red} \\
-\bottomrule
-\end{tabular}
-}
-\end{center}
-\itkcaption[ITK Compiler Support Timeline]{ITK Compiler Support Timeline.
-\label{tab:CompileSupportTimeline}}
-\end{table}
-
-\textbf{Legend}:
-
-\begin{table}[h]
-\begin{center}
-\begin{tabular}{l}
-\cellcolor{itkTableCellGreen}Fully supported \\
-\cellcolor{yellow}Phase out \\
-\cellcolor{red}If community supported \\
-\end{tabular}
-\end{center}
-\end{table}
 
 If you are currently using an outdated compiler this may be an excellent excuse
 for upgrading this old piece of software! Support for different platforms is
