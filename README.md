@@ -1,8 +1,6 @@
 ITK Software Guide
 ==================
 
-[![Build Status](https://circleci.com/gh/InsightSoftwareConsortium/ITKSoftwareGuide.svg?style=shield)](https://circleci.com/gh/InsightSoftwareConsortium/ITKSoftwareGuide)
-
 This [ITK Software Guide] is the handbook for developing software with ITK.
 
 It is divided into two companion books.
