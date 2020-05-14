@@ -885,6 +885,24 @@ The \textbf{INTERSECTION} macro finds the intersection of two list arguments.
 Finally, the \textbf{UNIQUE} macro removes duplicates from the given list.
 
 
+\subsubsection{Wrapping Tests}
+
+Wrapped classes need to be accompanied with their own test files to ensure that
+the classes can be instantiated correctly. Similar to regular C++ tests, the
+tests for wrapped classes dwell in a \code{CMakeLists.txt} file inside the
+\code{wrapping/test} directory of the module of interest, e.g.
+\code{Modules/<ModuleName>/<SubModuleName>/wrapping/test/CMakeLists.txt}. The
+following is an example of how such file would look like for the wrapping
+corresponding to the \doxygen{ExtrapolateImageFunction} and
+\doxygen{WindowedSincInterpolateImageFunction} classes:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+itk_python_expression_add_test(NAME itkExtrapolateImageFunctionPythonTest
+  EXPRESSION "instance = itk.ExtrapolateImageFunction.New()")
+itk_python_expression_add_test(NAME itkWindowedSincInterpolateImageFunctionPythonTest
+  EXPRESSION "instance = itk.WindowedSincInterpolateImageFunction.New()")
+\end{minted}
+
 
 \section{Third-Party Dependencies}
 \label{sec:ThirdParty}
