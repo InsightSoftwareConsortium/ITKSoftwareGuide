@@ -22,7 +22,7 @@ advantage of the many resources available
 materials, which provide cookbook recipes that concisely demonstrate how to
 achieve a given task, the Doxygen pages, which document the specific algorithm
 parameters, and the knowledge of the many ITK community members (see Section
-\ref{sec:AdditionalResources} on page \pageref{sec:AdditionalResources}.)
+\ref{sec:AdditionalResources} on page \pageref{sec:AdditionalResources}).
 
 The Insight Toolkit is an open-source software system. This means that the
 community surrounding ITK has a great impact on the evolution of the software.
@@ -54,7 +54,7 @@ system, and be an active participant in the project.
 The key to learning how to use ITK is to become familiar with its palette of
 objects and the ways to combine them. There are three categories of
 documentation to help with the learning process: high level guidance material
-(the Software Guide), "cookbook" demonstrations on how to achieve concrete
+(the Software Guide), ``cookbook'' demonstrations on how to achieve concrete
 objectives (the examples), and detailed descriptions of the
 application programming interface (the
 Doxygen\footnote{\url{https://itk.org/Doxygen/index.html}} documentation). These
@@ -62,19 +62,18 @@ resources are combined in the three recommended stages for learning ITK.
 
 In the first stage, thoroughly read this introduction, which provides an
 overview of some of the key concepts of the system. It also provides guidance
-on how to build and install the software. After running your first "hello
-world" program, you are well on your way to advanced computational image
+on how to build and install the software. After running your first ``hello
+world'' program, you are well on your way to advanced computational image
 analysis!
 
 The next stage is to execute a few examples and gain familiarity with the
 available documentation. By running the examples, one can gain confidence
 in achieving results and is introduced the mechanics of the software system.
-There are three example resources,
+There are two example resources,
 \begin{enumerate}
   \item the \code{Examples} directory of the ITK source code repository
   \footnote{See Section~\nameref{sec:DownloadingITK} on
   page~\pageref{sec:DownloadingITK})}.
-  \item the Examples pages on the ITK Wiki \footnote{\url{https://itk.org/Wiki/ITK/Examples}}
   \item the Sphinx documented ITK Examples \footnote{\url{https://itk.org/ITKExamples}}
 \end{enumerate}
 To gain familiarity with the available documentation, browse the sections
@@ -116,55 +115,59 @@ repository.
 
 The \code{ITK} repository contains the following subdirectories:
 \begin{itemize}
-        \item \code{ITK/Modules} --- the heart of the software; the location
-        of the majority of the source code.
         \item \code{ITK/Documentation} --- migration guides and Doxygen infrastructure.
         \item \code{ITK/Examples} --- a suite of simple, well-documented
         examples used by this guide, illustrating important
         ITK concepts.
-        \item \code{ITK/Testing} --- a collection of the MD5 files, which are
-used to link with the ITK data servers to download test data. This test data is
-used by tests in \code{ITK/Modules} to produce the ITK Quality Dashboard using
-CDash.
+        \item \code{ITK/Modules} --- the heart of the software; the location
+        of the majority of the source code.
+        \item \code{ITK/Testing} --- a collection of the test files, including
+        raw binary, and MD5 and SHA512 hash files, which are used to link
+        with the ITK data servers to download test data. This test data is
+        used by tests in \code{ITK/Modules} to produce the ITK Quality
+        Dashboard using CDash.
         (see Section \ref{sec:CDash} on page \pageref{sec:CDash}.)
-        \item \code{Insight/Utilities} --- the scripts that support source code development. For example, CTest and Doxygen support.
-        \item \code{Insight/Wrapping} --- the wrapping code to build interfaces between the C++ library and various interpreted languages (currently Python is supported).
+        \item \code{ITK/Utilities} --- the scripts that support source code
+        development. For example, CTest and Doxygen support.
+        \item \code{ITK/Wrapping} --- the wrapping code to build interfaces
+        between the C++ library and various interpreted languages (currently
+        Python is supported).
 \end{itemize}
 
 The source code directory structure---found in \code{ITK/Modules}---is
 the most important to understand.
 \begin{itemize}
-        \item \code{ITK/Modules/Core} --- core classes, macro definitions,
-        type aliases, and other software constructs central to ITK. The classes
-        in \code{Core} are the only ones always compiled as part of ITK.
-        \item \code{ITK/Modules/ThirdParty} --- various third-party libraries
-        that are used to implement image file I/O and mathematical algorithms.
-        (Note: ITK's mathematical library is based
-        on the VXL/VNL software
-        package\footnote{\url{http://vxl.sourceforge.net}}.)
-        \item \code{ITK/Modules/Filtering} --- image processing filters.
-        \item \code{ITK/Modules/IO} --- classes that support the reading
-        and writing of images, transforms, and geometry.
         \item \code{ITK/Modules/Bridge} --- classes used to connect with the
         other analysis libraries or visualization libraries, such as
         OpenCV\footnote{\url{http://opencv.org}} and
         VTK\footnote{\url{http://www.vtk.org}}.
-        \item \code{ITK/Modules/Registration} --- classes for registration of
-        images or other data structures to each other.
-        \item \code{ITK/Modules/Segmentation} --- classes for segmentation of
-        images or other data structures.
-        \item \code{ITK/Modules/Video} --- classes for input, output and processing
-        of static and real-time data with temporal components.
         \item \code{ITK/Modules/Compatibility} --- collects together classes
         for backwards compatibility with ITK Version 3, and classes that are
         deprecated -- i.e. scheduled for removal from future versions of ITK.
+        \item \code{ITK/Modules/Core} --- core classes, macro definitions,
+        type aliases, and other software constructs central to ITK. The classes
+        in \code{Core} are the only ones always compiled as part of ITK.
+        \item \code{ITK/Modules/External} --- a directory to place in development
+        or non-publicized modules.
+        \item \code{ITK/Modules/Filtering} --- image processing filters.
+        \item \code{ITK/Modules/IO} --- classes that support the reading
+        and writing of images, transforms, and geometry.
+        \item \code{ITK/Modules/Numerics} --- a collection of numeric modules, including
+        FEM, Optimization, Statistics, Neural Networks, etc.
+        \item \code{ITK/Modules/Registration} --- classes for registration of
+        images or other data structures to each other.
         \item \code{ITK/Modules/Remote} --- a group of modules distributed outside
         of the main ITK source repository (most of them are hosted on \url{github.com})
         whose source code can be downloaded via CMake when configuring ITK.
-        \item \code{ITK/Modules/External} --- a directory to place in development
-        or non-publicized modules.
-        \item \code{ITK/Modules/Numerics} --- a collection of numeric modules, including
-        FEM, Optimization, Statistics, Neural Networks, etc.
+        \item \code{ITK/Modules/Segmentation} --- classes for segmentation of
+        images or other data structures.
+        \item \code{ITK/Modules/ThirdParty} --- various third-party libraries
+        that are used to implement image file I/O and mathematical algorithms.
+        (Note: ITK's mathematical library is based
+        on the VXL/VNL software
+        package\footnote{\url{https://vxl.github.io}}).
+        \item \code{ITK/Modules/Video} --- classes for input, output and processing
+        of static and real-time data with temporal components.
 \end{itemize}
 
 The Doxygen documentation is an essential resource when working with ITK, but
