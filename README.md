@@ -1,7 +1,8 @@
 ITK Software Guide
 ==================
 
-![Build](https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide/workflows/Build/badge.svg)
+[![Build](https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide/workflows/Build/badge.svg)](
+https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide/actions?query=workflow%3ABuild+branch%3Amaster)
 
 This [ITK Software Guide] is the handbook for developing software with ITK.
 
