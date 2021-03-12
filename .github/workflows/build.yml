@@ -2,6 +2,11 @@ name: Build
 
 on: [push,pull_request]
 
+env:
+  LC_ALL: en_US.UTF-8
+  LANG: en_US.UTF-8
+  LANGUAGE: en_US.UTF-8
+
 jobs:
   build-publish-pdf:
     runs-on: ubuntu-18.04
@@ -43,11 +48,6 @@ jobs:
             sudo locale-gen
         sudo sed -i 's/none/read|write/' /etc/ImageMagick-6/policy.xml
         sudo apt-get clean
-    - name: Set environmental variables
-      run: |
-        echo '::set-env name=LC_ALL::en_US.UTF-8'
-        echo '::set-env name=LANG::en_US.UTF-8'
-        echo '::set-env name=LANGUAGE::en_US.UTF-8'
 
     - name: Build
       run: |
