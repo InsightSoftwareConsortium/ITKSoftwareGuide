@@ -104,8 +104,8 @@ if(NOT ( DEFINED "${extProjName}_DIR" OR ( DEFINED "USE_SYSTEM_${extProjName}" A
   ### --- End Project specific additions
   set(${proj}_REPOSITORY ${git_protocol}://github.com/InsightSoftwareConsortium/ITK.git)
   if("${${proj}_GIT_TAG}" STREQUAL "")
-    # ITK release branch 2019-12-16
-    set(${proj}_GIT_TAG "v5.1.0")
+    # ITK release branch 2021-03-12
+    set(${proj}_GIT_TAG "v5.2rc03")
   endif()
 
   ExternalProject_Add(${proj}
