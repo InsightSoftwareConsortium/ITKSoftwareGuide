@@ -12,7 +12,7 @@ Get output images only produced in BINARY_DIR.
 -- Describe Modularization as part of a ITKv3->ITKv4 transition appendix
 -- Update Acknowledgements
 -- Test clean builds
--- Suport "USE_SYSTEM_ITK"
+-- Support "USE_SYSTEM_ITK"
 
 ==========================================================
 This is a list of potential topics to be added to the Software Guide.

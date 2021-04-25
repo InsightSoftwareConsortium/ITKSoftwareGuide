@@ -213,7 +213,7 @@ def ParseOneFile(sourceFile, pathFinder):
         # Read each line and Parse the input file
         #
         # Get the command line args from the source file
-    sf = open(sourceFile, 'r')
+    sf = open(sourceFile, 'r',encoding="ISO-8859-1")
     INFILE = sf.readlines()
     sf.close()
     parseLine = 0
