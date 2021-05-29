@@ -739,6 +739,25 @@ their values for plain old datatypes (PODS).}
 
 \normalsize
 
+
+\subsubsection{Wrapping Enumerations}
+
+Enumeration classes need to be wrapped through the class they are declared in
+using the \code{itk\_wrap\_simple\_class}, e.g.:
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+itk_wrap_simple_class("itk::MathematicalMorphologyEnums")
+\end{minted}
+\normalsize
+
+which results in access to the class in Python as
+\code{itk.MathematicalMorphologyEnum}, its \code{Algorithm} enumeration class
+being accesible as \code{itk.MathematicalMorphologyEnums.Algorithm}, and its
+enum-list being accessed as
+\code{itk.MathematicalMorphologyEnums.Algorithm\_BASIC},
+\code{itk.MathematicalMorphologyEnums.Algorithm\_HISTO}, etc.
+
+
 \subsubsection{Wrapping Macros}
 
 There are a number of a wrapping macros called in the \code{wrapping/*.wrap}
