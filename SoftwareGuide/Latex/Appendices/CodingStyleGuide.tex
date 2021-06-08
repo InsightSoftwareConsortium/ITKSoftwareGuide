@@ -758,50 +758,112 @@ logical order, not alphabetical, and group them by blocks separated by empty
 lines for the sake of readability.
 
 
-\subsection{Naming Enums}
+\subsection{Naming Enumerations}
 \label{subsec:NamingEnums}
 
-Enumeration list (\code{enum}) must declare its identifier before the
-enum-list is specified, it must start with capitals and be written with case
-change, it should generally add the \code{Type} appendix (e.g. \code{MyEnumType}),
-and the enum-list must be specified in capitals. The documentation or comments
-added for each enum-list entry, if necessary, need not to be aligned.
+ITK uses strongly-typed enumerations through the \code{enum class} keyword.
+Enumerations in ITK need to declared within a dedicated class and be declared
+as \code{public}. The class name must be appended with the \code{Enums} label
+(even when the class contains a single strongly-typed enumeration). Enumeration
+classes must declare their identifier before the enum-list is specified, it
+must start with capitals and be written with case change, and it shall not bear
+the \code{Type} appendix. The type of the enumeration must be defined
+explicitly. The streaming operator \code{<<} must be overloaded to define
+enumerations are printed. The enum-list must be specified in capitals. The
+documentation or comments added for each enum-list entry, if necessary, need
+not to be aligned.
+
+For example,
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-/** Weight types. */
-enum WeightType {
-  GOURAUD, // Uniform weights
-  THURMER, // Angle on a triangle at the given vertex
-  AREA // Doc alignment not needed
+/**
+* \class MathematicalMorphologyEnums
+* \brief Mathematical Morphology enum classes.
+* \ingroup ITKMathematicalMorphology
+*/
+
+class MathematicalMorphologyEnums
+{
+  public:
+  /**\class Algorithm
+  * \brief Algorithm or implementation used in the dilation/erosion operations.
+  * \ingroup ITKMathematicalMorphology
+  */
+  enum class Algorithm : uint8_t
+  {
+    BASIC = 0,
+    HISTO = 1,
+    ANCHOR = 2,
+    VHGW = 3
+  };
 };
+
+/** Define how to print enumeration values. */
+extern ITKMathematicalMorphology_EXPORT std::ostream &
+operator<<(std::ostream & out, const MathematicalMorphologyEnums::Algorithm value);
 \end{minted}
 \normalsize
 
-No \code{typedef} keyword shall be added to an \code{enum}.
-
-Enum-lists do not need to have their corresponding integral value specified
-(i.e. \code{GOURAUD = 0,}).
-
-When calling an enum-list entry from within a class, it should be called with
-the \code{Self::} class alias.
+The enumeration streaming method needs to be defined the implementation file, e.g.:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-while( !m_OperationQ.empty() )
-  {
-  switch( m_OperationQ.front() )
+std::ostream &
+operator<<(std::ostream & out, const MathematicalMorphologyEnums::Algorithm value)
+{
+  return out << [value] {
+    switch (value)
     {
-    case Self::SET_PRIORITY_LEVEL:
-      m_PriorityLevel = m_LevelQ.front();
-      m_LevelQ.pop();
-      break;
-    case Self::SET_LEVEL_FOR_FLUSHING:
-      m_LevelForFlushing = m_LevelQ.front();
-      m_LevelQ.pop();
-      break;
-
-      ...
+      case MathematicalMorphologyEnums::Algorithm::BASIC:
+      return "itk::MathematicalMorphologyEnums::Algorithm::BASIC";
+      case MathematicalMorphologyEnums::Algorithm::HISTO:
+      return "itk::MathematicalMorphologyEnums::Algorithm::HISTO";
+      case MathematicalMorphologyEnums::Algorithm::ANCHOR:
+      return "itk::MathematicalMorphologyEnums::Algorithm::ANCHOR";
+      case MathematicalMorphologyEnums::Algorithm::VHGW:
+      return "itk::MathematicalMorphologyEnums::Algorithm::VHGW";
+      default:
+      return "INVALID VALUE FOR itk::MathematicalMorphologyEnums::Algorithm";
     }
-  }
+  }();
+}
+\end{minted}
+\normalsize
+
+Enumeration classes do not need to have their corresponding integral value
+specified, although it may be allowed (i.e. \code{BASIC = 0,}).
+
+For the sake of brevity aliases can be defined for an \code{enum class}. These
+shall be appended with the \code{Enum} label, e.g.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+using AlgorithmEnum = MathematicalMorphologyEnums::Algorithm;
+\end{minted}
+\normalsize
+
+When calling an \code{enum} class entry from within a class, it may not be called with
+the \code{Self::} class alias, e.g.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+if (algo == AlgorithmEnum::BASIC)
+{
+  m_BasicFilter->SetKernel(this->GetKernel());
+}
+else if (algo == AlgorithmEnum::HISTO)
+{
+  m_HistogramFilter->SetKernel(this->GetKernel());
+}
+else if (flatKernel != nullptr && flatKernel->GetDecomposable() && algo == AlgorithmEnum::ANCHOR)
+{
+  m_AnchorFilter->SetKernel(*flatKernel);
+}
+else if (flatKernel != nullptr && flatKernel->GetDecomposable() && algo == AlgorithmEnum::VHGW)
+{
+  m_VHGWFilter->SetKernel(*flatKernel);
+}
+else
+{
+  itkExceptionMacro(<< "Invalid algorithm");
+}
 \end{minted}
 \normalsize
 
@@ -3731,6 +3793,27 @@ if( argc < 3 )
     << " [backgroundValue]" << std::endl;
   return EXIT_FAILURE;
   }
+\end{minted}
+\normalsize
+
+
+\subsection{Testing Enumeration Streaming}
+\label{subsec:TestEnumStreaming}
+
+The enumeration class streaming operator overload needs to be tested, e.g.
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+// Test streaming enumeration for MathematicalMorphologyEnums::Algorithm elements
+const std::set<itk::MathematicalMorphologyEnums::Algorithm> allAlgorithm{
+  itk::MathematicalMorphologyEnums::Algorithm::BASIC,
+  itk::MathematicalMorphologyEnums::Algorithm::HISTO,
+  itk::MathematicalMorphologyEnums::Algorithm::ANCHOR,
+  itk::MathematicalMorphologyEnums::Algorithm::VHGW
+};
+for (const auto & ee : allAlgorithm)
+{
+  std::cout << "STREAMED ENUM VALUE MathematicalMorphologyEnums::Algorithm: " << ee << std::endl;
+}
 \end{minted}
 \normalsize
 
