@@ -2851,12 +2851,11 @@ int itkHMinimaImageFilterTest( int argc, char * argv[] )
   if( argc != 5 )
     {
     std::cerr << "Missing parameters." << std::endl;
-    std::cerr << "Usage: " << std::endl;
-    std::cerr << argv[0]
-      << " inputImageFile"
-      << " outputImageFile"
-      << " height"
-      << " fullyConnected" << std::endl;
+    std::cerr << "Usage: " << itkNameOfTestExecutableMacro(argv);
+    std::cerr << " inputImageFile"
+              << " outputImageFile"
+              << " height"
+              << " fullyConnected" << std::endl;
     return EXIT_FAILURE;
     }
 
@@ -3452,7 +3451,7 @@ be written in medial capitals, starting with lower cases.
 if( argc != 3 )
   {
   std::cerr << "Missing parameters." << std::endl;
-  std::cerr << "Usage: " << argv[0];
+  std::cerr << "Usage: " << itkNameOfTestExecutableMacro(argv);
   std::cerr << " inputImage outputImage" << std::endl;
   return EXIT_FAILURE;
   }
@@ -3470,11 +3469,11 @@ arguments must be enclosed in square brackets \code{[]}.
 if( argc < 3 )
   {
   std::cerr << "Missing parameters." << std::endl;
-  std::cerr << "Usage: " << argv[0];
+  std::cerr << "Usage: " << itkNameOfTestExecutableMacro(argv);
   std::cerr << " inputImage"
-    << " outputImage"
-    << " [foregroundValue]
-    << " [backgroundValue]" << std::endl;
+            << " outputImage"
+            << " [foregroundValue]
+            << " [backgroundValue]" << std::endl;
   return EXIT_FAILURE;
   }
 \end{minted}
@@ -3771,7 +3770,7 @@ arguments, the exact match for the input arguments must be checked:
 if( argc != 3 )
   {
   std::cerr << "Missing parameters." << std::endl;
-  std::cerr << "Usage: " << argv[0];
+  std::cerr << "Usage: " << itkNameOfTestExecutableMacro(argv);
   std::cerr << " inputImage outputImage " << std::endl;
   return EXIT_FAILURE;
   }
@@ -3786,11 +3785,11 @@ arguments must be checked:
 if( argc < 3 )
   {
   std::cerr << "Missing parameters." << std::endl;
-  std::cerr << "Usage: " << argv[0];
+  std::cerr << "Usage: " << itkNameOfTestExecutableMacro(argv);
   std::cerr << " inputImage"
-    << " outputImage"
-    << " [foregroundValue]
-    << " [backgroundValue]" << std::endl;
+            << " outputImage"
+            << " [foregroundValue]
+            << " [backgroundValue]" << std::endl;
   return EXIT_FAILURE;
   }
 \end{minted}
