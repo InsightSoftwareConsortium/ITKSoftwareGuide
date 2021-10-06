@@ -3003,6 +3003,47 @@ while (it != m_Container.end())
 \normalsize
 
 
+\section{Trailing Return Types}
+\label{sec:TrailingReturnTypes}
+
+Whenever choosing between a trailing return type (as introduced with C++11) and
+the old form of having the return type before the function name (as was already
+supported by C++98), prefer the form that is the shortest, and the simplest.
+
+In the following example, the old form is preferred over a trailing return type:
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+// Preferred:
+template <typename T1, typename T2>
+bool
+AlmostEquals(T1 x1, T2 x2)
+
+// Rather than:
+template <typename T1, typename T2>
+auto
+AlmostEquals(T1 x1, T2 x2) -> bool
+\end{minted}
+\normalsize
+
+In the following example, a trailing return type is preferred over the old form:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+
+// Preferred:
+template <typename TValue, unsigned int VLength>
+auto
+FixedArray<TValue, VLength>::Size() const -> SizeType
+
+// Rather than:
+template <typename TValue, unsigned int VLength>
+typename FixedArray<TValue, VLength>::SizeType
+FixedArray<TValue, VLength>::Size() const
+
+\end{minted}
+\normalsize
+
+
 \section{Empty Arguments in Methods}
 \label{sec:EmptyArgumentInMethods}
 
