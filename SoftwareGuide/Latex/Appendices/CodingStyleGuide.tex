@@ -915,7 +915,7 @@ normalVectorFilter->SetIsoLevelHigh( m_CurvatureBandWidth + dimension );
 // on into a temporary image to  use as the input to the mini-pipeline. This
 // avoids a complete copy of the image.
 typename OutputImageType::Pointer output = this->GetOutput();
-typename OutputImageType::Pointer tmp = OutputImageType::New();
+auto                              tmp = OutputImageType::New();
 tmp->SetRequestedRegion( output->GetRequestedRegion() );
 tmp->SetBufferedRegion( output->GetBufferedRegion() );
 tmp->SetLargestPossibleRegion( output->GetLargestPossibleRegion() );
@@ -2069,7 +2069,7 @@ SpecializedFilter< TInputImage, TOutputImage >
   this->AllocateOutputs();
 
   // Create a process accumulator for tracking the progress of this minipipeline.
-  ProgressAccumulator::Pointer progress = ProgressAccumulator::New();
+  auto progress = ProgressAccumulator::New();
   progress->SetMiniPipelineFilter( this );
 
   ...
@@ -2825,7 +2825,7 @@ int itkHMinimaImageFilterTest( int argc, char *argv[] )
 
   // Write the output
   using WriterType = itk::ImageFileWriter< OutputImageType >;
-  WriterType::Pointer writer = WriterType::New();
+  auto writer = WriterType::New();
   writer->SetFileName( argv[2] );
   writer->SetInput( hMinimaFilter->GetOutput() );
 

@@ -255,7 +255,7 @@ Delete()} in ITK. For example:
 
     // here an interpolator is created and associated to the
     // "interp" SmartPointer.
-    InterpolatorType::Pointer interp = InterpolatorType::New();
+    auto interp = InterpolatorType::New();
 
     } /* <------ End of scope */
 \end{minted}
@@ -823,7 +823,7 @@ The same code in C++ would appear as follows:
 
   using ImageType = itk::Image< PixelType, Dimension >;
   using ReaderType = itk::ImageFileReader< ImageType >;
-  ReaderType::Pointer reader = ReaderType::New();
+  auto reader = ReaderType::New();
   reader->SetFileName( inputImage );
 
   using StructuringElementType = itk::FlatStructuringElement< Dimension >;
