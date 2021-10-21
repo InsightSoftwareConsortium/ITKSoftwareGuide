@@ -915,7 +915,7 @@ normalVectorFilter->SetIsoLevelHigh( m_CurvatureBandWidth + dimension );
 // on into a temporary image to  use as the input to the mini-pipeline. This
 // avoids a complete copy of the image.
 typename OutputImageType::Pointer output = this->GetOutput();
-typename OutputImageType::Pointer tmp = OutputImageType::New();
+auto                              tmp = OutputImageType::New();
 tmp->SetRequestedRegion( output->GetRequestedRegion() );
 tmp->SetBufferedRegion( output->GetBufferedRegion() );
 tmp->SetLargestPossibleRegion( output->GetLargestPossibleRegion() );
@@ -1507,7 +1507,7 @@ is automatically deduced from its initializer.
 The \code{auto} keyword should be used to specify a type in the following cases:
 
 \begin{itemize}
-\item The type is duplicated on the left side of an assigment when it is mandated on the
+\item The type is duplicated on the left side of an initialization when it is mandated on the
 	right side, e.g. when there is an explicit cast or initializing with \code{new} or ITK's \code{::New()}.
 \item When obtaining container elements, when the element type is obvious from the type
       of the container.
@@ -2069,7 +2069,7 @@ SpecializedFilter< TInputImage, TOutputImage >
   this->AllocateOutputs();
 
   // Create a process accumulator for tracking the progress of this minipipeline.
-  ProgressAccumulator::Pointer progress = ProgressAccumulator::New();
+  auto progress = ProgressAccumulator::New();
   progress->SetMiniPipelineFilter( this );
 
   ...
@@ -2825,7 +2825,7 @@ int itkHMinimaImageFilterTest( int argc, char *argv[] )
 
   // Write the output
   using WriterType = itk::ImageFileWriter< OutputImageType >;
-  WriterType::Pointer writer = WriterType::New();
+  auto writer = WriterType::New();
   writer->SetFileName( argv[2] );
   writer->SetInput( hMinimaFilter->GetOutput() );
 
