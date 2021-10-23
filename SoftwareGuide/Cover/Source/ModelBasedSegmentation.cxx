@@ -282,7 +282,7 @@ int main( int argc, char *argv[] )
   MetricType::Pointer metric = MetricType::New();
 
 
-  using InterpolatorType itk::LinearInterpolateImageFunction<
+  using InterpolatorType = itk::LinearInterpolateImageFunction<
                                          ImageType, double >;
 
   InterpolatorType::Pointer interpolator = InterpolatorType::New();
@@ -393,7 +393,7 @@ int main( int argc, char *argv[] )
 
 
   try {
-    registration->StartRegistration();
+    registration->Update();
     }
   catch( const itk::ExceptionObject & exp ) {
     std::cerr << "Exception caught ! " << std::endl;
