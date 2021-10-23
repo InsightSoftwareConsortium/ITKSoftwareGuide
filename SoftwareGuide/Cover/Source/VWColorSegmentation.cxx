@@ -29,7 +29,7 @@ int main(int argc, char * argv[] )
   using ImageReaderType = itk::ImageFileReader< ImageType >;
   using ImageWriterType = itk::ImageFileWriter< OutputImageType >;
 
-  using ConfidenceConnectedFilterType itk::VectorConfidenceConnectedImageFilter<
+  using ConfidenceConnectedFilterType = itk::VectorConfidenceConnectedImageFilter<
                                               ImageType,
                                               OutputImageType>;
 

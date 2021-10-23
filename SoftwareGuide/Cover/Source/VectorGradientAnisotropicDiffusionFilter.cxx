@@ -19,7 +19,7 @@
 #include "itkImageFileReader.h"
 #include "itkImageFileWriter.h"
 #include "itkVectorGradientAnisotropicDiffusionImageFilter.h"
-#include "itkVectorCastImageFilter.h"
+#include "itkCastImageFilter.h"
 #include "itkRGBPixel.h"
 
 
@@ -48,7 +48,7 @@ int main( int argc, char * argv[] )
 
   using WriterType = itk::ImageFileWriter< OutputImageType >;
 
-  using CasterType = itk::VectorCastImageFilter<
+  using CasterType = itk::CastImageFilter<
                                ImageType, OutputImageType >;
 
   using FilterType = itk::VectorGradientAnisotropicDiffusionImageFilter<
