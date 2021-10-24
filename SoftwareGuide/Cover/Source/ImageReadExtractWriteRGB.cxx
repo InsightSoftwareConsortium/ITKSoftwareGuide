@@ -55,7 +55,7 @@ int main( int argc, char ** argv )
 
   using FilterType = itk::RegionOfInterestImageFilter< ImageType, ImageType >;
 
-  FilterType::Pointer filter = FilterType::New();
+  auto filter = FilterType::New();
 
 
 
@@ -85,8 +85,8 @@ int main( int argc, char ** argv )
 
 
 
-  ReaderType::Pointer reader = ReaderType::New();
-  WriterType::Pointer writer = WriterType::New();
+  auto reader = ReaderType::New();
+  auto writer = WriterType::New();
 
 
 

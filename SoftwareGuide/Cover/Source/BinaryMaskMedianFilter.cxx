@@ -50,7 +50,7 @@ int main( int argc, char ** argv )
 
   using FilterType = itk::BinaryMedianImageFilter< ImageType, ImageType >;
 
-  FilterType::Pointer filter = FilterType::New();
+  auto filter = FilterType::New();
 
 
   unsigned int radius = atoi( argv[3] );
@@ -68,8 +68,8 @@ int main( int argc, char ** argv )
   filter->SetForegroundValue( 255 );
 
 
-  ReaderType::Pointer reader = ReaderType::New();
-  WriterType::Pointer writer = WriterType::New();
+  auto reader = ReaderType::New();
+  auto writer = WriterType::New();
 
   //
   // Here we recover the file names from the command line arguments

@@ -55,10 +55,10 @@ int main( int argc, char * argv[] )
                        ImageType, ImageType >;
 
 
-  ReaderType::Pointer reader = ReaderType::New();
+  auto reader = ReaderType::New();
   reader->SetFileName( argv[1] );
 
-  FilterType::Pointer filter = FilterType::New();
+  auto filter = FilterType::New();
 
   filter->SetInput( reader->GetOutput() );
 
@@ -71,9 +71,9 @@ int main( int argc, char * argv[] )
 
   filter->Update();
 
-  CasterType::Pointer caster = CasterType::New();
+  auto caster = CasterType::New();
 
-  WriterType::Pointer writer = WriterType::New();
+  auto writer = WriterType::New();
 
   caster->SetInput( filter->GetOutput() );
   writer->SetInput( caster->GetOutput() );

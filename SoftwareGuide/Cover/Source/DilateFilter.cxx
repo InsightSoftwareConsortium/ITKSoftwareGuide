@@ -58,7 +58,7 @@ int main( int argc, char ** argv )
                                   ImageType,
                                   StructuringElementType >;
 
-  FilterType::Pointer filter = FilterType::New();
+  auto filter = FilterType::New();
 
 
   unsigned int radius = atoi( argv[3] );
@@ -72,8 +72,8 @@ int main( int argc, char ** argv )
   filter->SetKernel(  structuringElement );
 
 
-  ReaderType::Pointer reader = ReaderType::New();
-  WriterType::Pointer writer = WriterType::New();
+  auto reader = ReaderType::New();
+  auto writer = WriterType::New();
 
   const char * inputFilename  = argv[1];
   const char * outputFilename = argv[2];

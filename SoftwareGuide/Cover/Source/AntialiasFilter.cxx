@@ -50,7 +50,7 @@ int main( int argc, char ** argv )
   using FilterType = itk::AntiAliasBinaryImageFilter<
                                InputImageType, OutputImageType >;
 
-  FilterType::Pointer filter = FilterType::New();
+  auto filter = FilterType::New();
 
 
   const double maximumRMSError = atof( argv[3] );
@@ -59,8 +59,8 @@ int main( int argc, char ** argv )
   filter->SetMaximumRMSError( maximumRMSError );
   filter->SetMaximumIterations( numberOfIterations );
 
-  ReaderType::Pointer reader = ReaderType::New();
-  WriterType::Pointer writer = WriterType::New();
+  auto reader = ReaderType::New();
+  auto writer = WriterType::New();
 
   const char * inputFilename  = argv[1];
   const char * outputFilename = argv[2];
