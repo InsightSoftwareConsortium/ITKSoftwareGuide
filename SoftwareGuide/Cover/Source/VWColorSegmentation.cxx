@@ -38,7 +38,7 @@ int main(int argc, char * argv[] )
 
   confidenceFilter->ReleaseDataFlagOn();
 
-  ImageReaderType::Pointer imageReader = ImageReaderType::New();
+  auto imageReader = ImageReaderType::New();
   imageReader->SetFileName( argv[1] );
 
   constexpr unsigned int VectorDimension = 3;
@@ -101,7 +101,7 @@ int main(int argc, char * argv[] )
     return -1;
     }
 
-  ImageWriterType::Pointer imageWriter = ImageWriterType::New();
+  auto imageWriter = ImageWriterType::New();
 
   imageWriter->SetFileName( argv[2] );
 

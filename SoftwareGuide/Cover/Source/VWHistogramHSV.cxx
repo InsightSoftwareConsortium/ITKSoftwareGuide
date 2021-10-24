@@ -84,7 +84,7 @@ int main(int argc, char * argv[] )
 
   { // local scope for destroying the reader
 
-    ReaderType::Pointer reader = ReaderType::New();
+    auto reader = ReaderType::New();
     reader->SetFileName( argv[1] );
     try
       {
@@ -111,7 +111,7 @@ int main(int argc, char * argv[] )
   region.SetSize( size );
   region.SetIndex( start );
 
-  OutputImageType::Pointer histogramImage = OutputImageType::New();
+  auto histogramImage = OutputImageType::New();
   histogramImage->SetRegions( region );
   histogramImage->Allocate();
   histogramImage->FillBuffer( 0 );
@@ -189,7 +189,7 @@ int main(int argc, char * argv[] )
 
   std::cout << "End of HSV histogram computation" << std::endl;
 
-  WriterType::Pointer writer = WriterType::New();
+  auto writer = WriterType::New();
 
   writer->SetFileName( argv[2] );
   writer->SetInput( histogramImage );

@@ -26,7 +26,7 @@ int main(int argc, char * argv[] )
   ImageType::Pointer image;
 
   { // Local scoope for destroying the reader
-    ImageReaderType::Pointer imageReader = ImageReaderType::New();
+    auto imageReader = ImageReaderType::New();
     imageReader->SetFileName( argv[1] );
     try
       {
@@ -88,7 +88,7 @@ int main(int argc, char * argv[] )
     }
 
 
-  ImageWriterType::Pointer imageWriter = ImageWriterType::New();
+  auto imageWriter = ImageWriterType::New();
 
   imageWriter->SetFileName( argv[2] );
   imageWriter->SetInput( image );

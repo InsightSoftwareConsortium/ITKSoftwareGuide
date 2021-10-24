@@ -257,7 +257,7 @@ int main( int argc, char *argv[] )
 
   using ImageType = itk::Image< float, Dimension >;
 
-  EllipseType::Pointer ellipse = EllipseType::New();
+  auto ellipse = EllipseType::New();
 
 
   EllipseType::ArrayType axis;
@@ -273,19 +273,19 @@ int main( int argc, char *argv[] )
                                       ImageType,
                                       EllipseType  >;
 
-  RegistrationType::Pointer registration = RegistrationType::New();
+  auto registration = RegistrationType::New();
 
 
   using MetricType = SimpleImageToSpatialObjectMetric<
                                            ImageType, EllipseType >;
 
-  MetricType::Pointer metric = MetricType::New();
+  auto metric = MetricType::New();
 
 
   using InterpolatorType = itk::LinearInterpolateImageFunction<
                                          ImageType, double >;
 
-  InterpolatorType::Pointer interpolator = InterpolatorType::New();
+  auto interpolator = InterpolatorType::New();
 
 
   using OptimizerType = itk::OnePlusOneEvolutionaryOptimizer;
@@ -294,7 +294,7 @@ int main( int argc, char *argv[] )
 
 
   using TransformType = itk::TranslationTransform< double, Dimension >;
-  TransformType::Pointer transform = TransformType::New();
+  auto transform = TransformType::New();
 
 
   itk::Statistics::NormalVariateGenerator::Pointer generator
@@ -317,7 +317,7 @@ int main( int argc, char *argv[] )
 
   using IterationCallbackType = IterationCallback< OptimizerType >;
 
-  IterationCallbackType::Pointer callback = IterationCallbackType::New();
+  auto callback = IterationCallbackType::New();
 
   callback->SetOptimizer( optimizer );
 

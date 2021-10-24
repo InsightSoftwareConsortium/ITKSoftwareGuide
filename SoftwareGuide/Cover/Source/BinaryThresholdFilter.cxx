@@ -30,11 +30,11 @@ int main(int argc, char * argv[] )
                                     InputImageType,
                                     OutputImageType >;
 
-  FilterType::Pointer filter = FilterType::New();
+  auto filter = FilterType::New();
 
   filter->ReleaseDataFlagOn();
 
-  ImageReaderType::Pointer imageReader = ImageReaderType::New();
+  auto imageReader = ImageReaderType::New();
   imageReader->SetFileName( argv[1] );
 
 
@@ -72,7 +72,7 @@ int main(int argc, char * argv[] )
     return -1;
     }
 
-  ImageWriterType::Pointer imageWriter = ImageWriterType::New();
+  auto imageWriter = ImageWriterType::New();
 
   imageWriter->SetFileName( argv[2] );
 
