@@ -1,0 +1,81 @@
+# Commit prefix regexes
+type:Compiler:
+  title: "^COMP:.*"
+
+type:Bug:
+  title: "^BUG:.*"
+
+area:Documentation:
+  title: "^DOC:.*"
+
+type:Enhancement:
+  title: "^ENH:.*"
+
+type:Performance:
+  title: "^PERF:.*"
+
+type:Style:
+  title: "^STYLE:.*"
+
+type:Design:
+  title: "design"
+
+# Filename regexes
+area:Appendices:
+  files:
+    - "SoftwareGuide/Latex/Appendices/*"
+
+area:Architecture:
+  files:
+    - "SoftwareGuide/Latex/Architecture/*"
+
+area:Book:
+  files:
+    - "SoftwareGuide/Latex/*.tex"
+
+area:Cover:
+  files:
+    - "SoftwareGuide/Cover/*"
+
+area:DesignAndFunctionality:
+  files:
+    - "SoftwareGuide/Latex/DesignAndFunctionality/*"
+
+area:DevelopmentGuidelines:
+  files:
+    - "SoftwareGuide/Latex/DevelopmentGuidelines/*"
+
+area:Examples:
+  files:
+    - "SoftwareGuide/Examples/*"
+
+area:Introduction:
+    files:
+    - "SoftwareGuide/Latex/Introduction/*"
+
+language:C++:
+  files:
+    - "*.*.cxx"
+
+language:LaTeX:
+  files:
+    - ".*.tex"
+
+language:Python:
+  files:
+    - "*.*.py"
+
+type:Artwork:
+  files:
+    - "SoftwareGuide/Art/*"
+
+type:BookStyle:
+  files:
+    - "Latex/*"
+
+type:Infrastructure:
+  files:
+    - ".github/*"
+    - "CMake/*"
+    - "Superbuild/*"
+    - "Utilities/*"
