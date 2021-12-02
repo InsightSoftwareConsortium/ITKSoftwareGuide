@@ -472,6 +472,7 @@ wrapped.
 
 
 \subsection{Class wrap files}
+\label{subsec:ClassWrapFiles}
 
 Wrapping specification for classes is written in the module's \code{*.wrap}
 CMake script files. These files call wrapping CMake macros, and they specify
@@ -927,6 +928,300 @@ itk_python_expression_add_test(NAME itkExtrapolateImageFunctionPythonTest
 itk_python_expression_add_test(NAME itkWindowedSincInterpolateImageFunctionPythonTest
   EXPRESSION "instance = itk.WindowedSincInterpolateImageFunction.New()")
 \end{minted}
+
+
+\subsection{Debugging Strategies}
+\label{subsec:DebuggingStrategies}
+
+ITK wrappings allow users to make use of ITK classes in other languages for various
+purposes, such as relying on ITK Python wrappings to sidestep C++ compilation steps
+for rapid prototyping. However, this often introduces additional complexity in the
+process of identifying and localizing issues in C++ classes or even in the wrapping
+process itself. Fortunately, language-specific tools are available to assist in
+the debugging process. In this section we focus on strategies for investigating
+ITK Python code generated with SWIG.
+
+\subsubsection{Swig Python Architecture}
+\label{subsubsec:SwigArchitecture}
+
+ITK 5.x uses SWIG (Simplified Wrapper and Interface Generator) to distill ITK C++
+classes into Python modules. This largely takes place in four distinct stages:
+
+\begin{itemize}
+
+\item \code{.wrap} CMake files, included in the ITK source tree in the \code{Wrapping}
+folder for each module to define class template instantiations to be wrapped.
+These are discussed in Section~\ref{subsec:ClassWrapFiles}.
+
+\item SWIG \code{.cpp} source files generated at compile time at \code{Wrapping/Modules}
+under the ITK build tree. These C++ files explicitly implement the class and template
+instantiations defined in the class \code{.wrap} files in the source tree.
+Debug symbols will be generated for these files.
+
+\item SWIG compiled code. For Python wrappings these are generated as Python
+\code{.pyd} (Windows) or \code{.so} (Linux or macOS) binaries and Python \code{.py} modules at
+\code{Wrapping/Generators/Python/itk} in the ITK build tree.
+
+\item Additional Python configuration files are generated in the
+\code{Wrapping/Generators/Python} directory and its subdirectories.
+\code{WrapITK.pth} provides the path for a Python environment to find the ITK
+module, while \code{\_\_init\_\_.py} allows the module under development to be loaded correctly at
+runtime. \code{<module\_name>Config.py} defines module dependencies and class
+template definitions, while \code{<module\_name>\_snake\_case.py} maps
+C++-style filter pipeline executions to Pythonic snake case functions.
+
+\end{itemize}
+
+ITK Python pre-compiled wheels may be obtained from the PyPI package index and contain
+pre-compiled binaries without debugging symbols. To debug the native binaries a local build
+must be created as in Section~\ref{sec:UsingCMakeForConfiguringAndBuildingITK} with a
+\code{Debug} or \code{RelWithDebInfo} CMake build configuration as described below.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+python -m pip install itk
+\end{minted}
+
+
+\subsubsection{Python Runtime Tracing}
+\label{subsubsec:PythonRuntimeTracing}
+
+ITK Python contains glue behavior to make ITK classes behave in a Pythonic manner,
+such as querying object attributes, joining class names to template instantiations, and more.
+Python-specific behavior in ITK Python may be investigated with the
+Python Debugger module, \code{pdb}.
+
+Tracing can be performed on a function call with \code{pdb.run}, or by editing ITK Python
+files to add a \code{pdb.set\_trace()} statement inline. In the following code snippet
+an image is loaded and the debugger is set up to trace through an image cast operation.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+(venv-itk) > python
+>>> import itk
+>>> import pdb
+>>> image = itk.imread(r'myimage.mha',pixel_type=itk.F)
+>>> pdb.runeval('itk.cast_image_filter(image,ttype=[type(image),itk.Image[itk.UC,2]])')
+> <string>(1)<module>()
+(Pdb)
+\end{minted}
+
+At this point the debugger can step into and through Python code for translating ITK
+type names and getting the correct template instantiations to run the cast operation. More
+information on Python debugger commands can be found at
+\href{https://docs.python.org/3/library/pdb.html}{https://docs.python.org/3/library/pdb.html}.
+
+While the Python debugger is useful, it does not allow us to examine implementation
+details of ITK classes in the native binary. A deeper investigation may be necessary for localizing
+errors in ITK classes.
+
+
+\subsubsection{C++ Runtime Tracing}
+\label{subsubsec:CppRuntimeTracing}
+
+As discussed in Section~\ref{subsubsec:SwigArchitecture}, SWIG wrapping generates
+C++ source files and manages the interface and ownership semantics between
+Python objects and C++ objects during ITK compilation.
+When binary debug symbols are available, a running Python process may be attached to step through
+ITK or ITK SWIG sources at runtime. Several steps are required to set up and execute debugging:
+
+\begin{enumerate}
+
+\item The ITK build must be configured so that debug symbols
+are generated. Python wrapping must also be enabled.
+This is accomplished by setting the CMake variables
+
+\code{CMAKE\_BUILD\_TYPE:STRING="RelWithDebInfo"} and \code{ITK\_WRAP\_PYTHON:BOOL="On"}.
+Note that the "RelWithDebInfo" build type is strongly encouraged over a "Debug"
+build as the former will build against a standard Python distribution.
+See Section~\ref{sec:UsingCMakeForConfiguringAndBuildingITK} for a detailed
+explanation of how to build ITK locally with CMake.
+
+\item A Python virtual environment must be appropriately configured with
+\code{WrapITK.pth} so that the ITK debug build can be \code{import}ed.
+See Section~\ref{sec:Wrapping} for further explanation.
+
+\item The ITK modules to be debugged must be loaded in a new Python session initialized
+from the given virtual environment. Given that ITK Python uses lazy loading, it is
+pragmatic to use \code{itk.force\_load()} to ensure that all possible debug symbols
+are made available. The \code{os} module can be used to identify the PID of the given session.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+(venv-itk) > python
+>>> import itk
+>>> itk.force_load()
+>>> import os
+>>> os.getpid()
+99999
+\end{minted}
+
+\item The Python session may be attached to a debugger using the returned PID.
+
+\begin{itemize}
+
+\item On a Windows operating system, Microsoft Visual Studio 2019 or a similar platform
+can be used for attaching to a running process for debugging. Select "Attach To Process"
+from the Debug menu, choose "Native" code, and then search for the process PID. If
+debug symbols were generated correctly then ITK modules will appear under the list of
+loaded modules.
+
+In Visual Studio, debugging can be enabled right from the start if the Python script
+is loaded into Visual Studio as part of a "Python Project".
+Mixed mode debugging needs to be enabled, as per Visual Studio
+documentation\footnote{
+\url{https://docs.microsoft.com/en-us/visualstudio/python/debugging-mixed-mode-c-cpp-python-in-visual-studio}}.
+Starting a project like this is an order of magnitude slower, as many debug symbols need to be loaded and examined.
+
+\item On a Linux operating system the GNU Project Debugger \code{gdb} can be used
+for attaching to a running Python process, reading symbol files, and setting breakpoints.
+The following example attaches to a running process and sets a breakpoint inside
+an \code{itk.Image} Python object. It may be necessary to elevate user permissions
+to allow \code{gdb} to attach to the running process.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+(venv-itk) > gdb
+(gdb) > attach 99999
+Reading symbols from
+  /path/to/ITK-build/Wrapping/Generators/Python/itk/_ITKPyBasePython.so...
+Reading symbols from
+  /path/to/ITK-build/Wrapping/Generators/Python/itk/_ITKCommonPython.so...
+(gdb) > break /path/to/ITK-build/Wrapping/Modules/ITKCommon/itkImagePython.cpp:<ln>
+Breakpoint 1 at ...:
+file /path/to/ITK-build/Wrapping/Modules/ITKCommon/itkImagePython.cpp, line <ln>.
+(gdb) > break /path/to/ITK-source/Core/Common/include/itkImage.hxx:<ln>
+Breakpoint 2 at ...:
+/path/to/ITK-source/Modules/Core/Common/include/itkImage.hxx:<ln>
+(gdb) > c
+
+... continue in Python session until breakpoint is hit ...
+\end{minted}
+
+\item On a macOS operating system the LLDB debugger can be used for attaching to a
+Python process in much the same way as GDB on Linux, with a few extra security
+requirements and slightly different command syntax. The following example
+attaches to a running process and sets a breakpoint inside an \code{itk.Image}
+Python object.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+(venv-itk) > lldb
+(lldb) process attach -- pid 99999
+Process 99999 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = signal SIGSTOP
+    frame #0: 0x00007fff203ec656 libsystem_kernel.dylib`__select + 10
+libsystem_kernel.dylib`__select:
+->  0x7fff203ec656 <+10>: jae    0x7fff203ec660            ; <+20>
+    0x7fff203ec658 <+12>: movq   %rax, %rdi
+    0x7fff203ec65b <+15>: jmp    0x7fff203e56bd            ; cerror
+    0x7fff203ec660 <+20>: retq
+Target 0: (Python) stopped.
+
+Executable module set to
+  "/Library/Frameworks/Python.framework/Versions/3.9/
+    Resources/Python.app/Contents/MacOS/Python".
+Architecture set to: x86_64h-apple-macosx-.
+
+(lldb) breakpoint set
+  -f /path/to/ITK/Modules/Core/Common/include/itkImage.hxx
+  --line <ln>
+Breakpoint 1: 172 locations.
+(lldb) continue
+
+... continue in Python session until breakpoint is hit ...
+\end{minted}
+
+LLDB command syntax is documented at \url{https://lldb.llvm.org/index.html}.
+
+Developers may find it necessary to examine the follow security concepts
+and requirements in order to permit \code{lldb} to attach to Python:
+
+\begin{itemize}
+
+\item The Python process must be authorized for debugging. MacOS relies on the
+process of "hardened" runtimes to mitigate security concerns, which reduces
+the ability of debuggers such as \code{lldb} and other processes to attach
+to and intercept the functions of other programs. Python distributions
+are intentionally "hardened" in this way, but additional settings can be
+enabled to allow just-in-time debugging.
+
+\item It may be necessary to enter developer mode to allow Python debugging.
+This is accomplished with the following command in the developer console:
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+DevToolsSecurity -enable
+\end{minted}
+
+\item It may be necessary to add entitlements to the Python executable so that
+\code{lldb} can attach to the hardened process. This may be accomplished by
+updating a \code{.plist} entitlements file and setting the executable entitlements.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+codesign -d --entitlements :-
+  "/path/to/python" >> "/tmp/path/to/python_entitlements.plist"
+/usr/libexec/PlistBuddy -c
+  "Add :com.apple.security.get-task-allow bool true"
+  "/tmp/path/to/python_entitlements.plist"
+/usr/libexec/PlistBuddy -c
+  "Add :com.apple.security.cs.allow-jit bool true"
+  "/tmp/path/to/python_entitlements.plist"
+codesign --force --options runtime --sign -
+  --entitlements "/tmp/path/to/python_entitlements.plist"
+  "/path/to/python"
+\end{minted}
+
+\item If attaching to the process continues to fail, log files can
+be dumped with \code{log collect} and opened in the Console application.
+\code{lldb} error messages will be listed as \code{debugserver} entries.
+
+\end{itemize}
+
+\end{itemize}
+
+\end{enumerate}
+
+With these steps completed the respective debugger can be used to set breakpoints
+and step through C++ source code for a respective ITK Python execution.
+
+The debugger can also be used for examining runtime failures and crashes
+either at the time the error occurs or posthumously with a dump file.
+
+\begin{itemize}
+
+\item On Windows, Microsoft Visual Studio will catch process aborts
+to allow the attached process to be examined before exit. Stacks, threads,
+and variables are made available to the user for backtracing via the
+\code{Debug} toolbar menu. Dump files in the minidump format may also
+be manually saved and reloaded later for investigation\footnote{
+\url{https://docs.microsoft.com/en-us/visualstudio/debugger/using-dump-files?view=vs-2022}}.
+
+\item On Linux, \code{gdb} will catch process aborts at runtime to allow
+a developer to examine the program state before it exits.
+If allowed, core dumps can also be generated on program failures
+to allow posthumous debugging. The following sample
+configures a Linux system to remove the default limit of 0 for allowable
+coredump size and to write out coredump files to the \code{/tmp/} directory.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+> ulimit -c unlimited
+> sudo bash -c 'echo "/tmp/coredump-%e.%p" > /proc/sys/kernel/core_pattern'
+\end{minted}
+
+More information is available in Python documentation\footnote{
+\url{https://pythondev.readthedocs.io/debug_tools.html\#create-a-core-dump-file}}.
+
+\item On MacOS, \code{lldb} will catch process aborts at runtime
+and may also be used to examine core dumps. The following sample
+configures a MacOS system to write out core dump files to the \code{/cores/}
+directory and then runs \code{lldb} to inspect a core dump.
+
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+(venv-itk) > ulimit -c unlimited
+
+... Run process and generate a core dump ...
+
+(venv-itk) > lldb
+(lldb) target create "python3" --core "/cores/core.1007"
+Core file '/cores/core.1007' (x86_64) was loaded.
+\end{minted}
+
+\end{itemize}
 
 
 \section{Third-Party Dependencies}
