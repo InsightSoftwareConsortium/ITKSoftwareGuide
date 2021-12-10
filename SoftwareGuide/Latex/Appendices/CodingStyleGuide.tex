@@ -1543,44 +1543,58 @@ may use \code{auto} more liberally.
 \section{Initialization and Assignment}
 \label{sec:IniitalizationAndAssignment}
 
-All member variables must be initialized in the class constructor. For such
-purpose, initialization lists are preferred
+All member variables must be initialized when they are declared. For such
+purpose, brace initializers, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+private:
+  double      m_InnerRadius{ 1.0 };
+  double      m_Thickness{ 1.0 };
+  bool        m_Normalize{ false };
+  bool        m_BrightCenter{ false };
+  PixelType   m_InteriorValue{ NumericTraits<PixelType>::ZeroValue() };
+  PixelType   m_AnnulusValue{ NumericTraits<PixelType>::OneValue() };
+  PixelType   m_ExteriorValue{ NumericTraits<PixelType>::ZeroValue() };
+  SpacingType m_Spacing{ 1.0 };
+\end{minted}
+\normalsize
+
+and brace list initialization, e.g.
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+private:
+  IndexType m_Index = { { 0 } };
+  SizeType  m_Size = { { 0 } };
+\end{minted}
+\normalsize
+
+are preferred over initialization lists in the method constructor, e.g.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage>
-SpecializedFilter<TInputImage, TOutputImage>
-::SpecializedFilter() :
-  m_ForegroundValue(NumericTraits<InputImagePixelType>::max()),
-  m_BackgroundValue(NumericTraits<InputImagePixelType>::ZeroValue()),
-  m_NumPixelComponents(0),
-  m_NoiseSigmaIsSet(false),
-  m_SearchSpaceList(ListAdaptorType::New())
+SpecializedFilter<TInputImage, TOutputImage>::SpecializedFilter()
+  : m_BackgroundValue(NumericTraits<OutputImagePixelType>::ZeroValue())
+  , m_ForegroundValue(NumericTraits<OutputImagePixelType>::OneValue())
 {
-  // By default, turn off automatic kernel bandwidth sigma estimation
-  this->KernelBandwidthEstimationOff();
+  ...
 }
 \end{minted}
 \normalsize
 
-over assignment:
+or assignment:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage>
-SpecializedFilter<TInputImage, TOutputImage>
-::SpecializedFilter()
+SpecializedFilter<TInputImage, TOutputImage>::SpecializedFilter()
 {
-  m_ForegroundValue = NumericTraits<InputImagePixelType>::max();
-  m_BackgroundValue = NumericTraits<InputImagePixelType>::ZeroValue();
+  m_BackgroundValue = NumericTraits<OutputImagePixelType>::ZeroValue();
+  m_ForegroundValue = NumericTraits<OutputImagePixelType>::OneValue();
 
-  m_NumPixelComponents = 0;
-  m_UseSmoothDiscPatchWeights = false;
-
-  m_SearchSpaceList = ListAdaptorType::New();
-
-  // By default, turn off automatic kernel bandwidth sigma estimation
-  this->KernelBandwidthEstimationOff();
+  ...
 }
 \end{minted}
 \normalsize
@@ -2464,13 +2478,12 @@ Member data declarations should also be aligned when they are declared in consec
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-InputPixelType  m_ForegroundValue;
-OutputPixelType m_BackgroundValue;
+std::string            m_FileName;
+ConstTransformListType m_TransformList;
+bool                   m_AppendMode{ false };
 
-unsigned int m_MaximumIterations;
-
-std::vector<double> m_Sensitivity;
-std::vector<float>  m_Overlaps;
+bool                              m_UseCompression{ false };
+typename TransformIOType::Pointer m_TransformIO;
 \end{minted}
 \normalsize
 
@@ -2773,26 +2786,26 @@ For instance,
  *
  *=========================================================================*/
 
-#ifndef itkBoxImageFilter_hxx
-#define itkBoxImageFilter_hxx
+#ifndef itkSpecializedImageFilter_hxx
+#define itkSpecializedImageFilter_hxx
 
-#include "itkBoxImageFilter.h"
+#include "itkSpecializedImageFilter.h"
 #include "itkProgressAccumulator.h"
 
 namespace itk
 {
 
 template <typename TInputImage, typename TOutputImage>
-BoxImageFilter<TInputImage, TOutputImage>
-::BoxImageFilter()
+SpecializedImageFilter<TInputImage, TOutputImage>
+::SpecializedImageFilter()
 {
-  m_Radius.Fill(1); // A good arbitrary starting point.
+  this->DynamicMultiThreadingOn();
 }
 
 
 template <typename TInputImage, typename TOutputImage>
 void
-BoxImageFilter<TInputImage, TOutputImage>
+SpecializedImageFilter<TInputImage, TOutputImage>
 ::SetRadius(const RadiusType & radius)
 {
   if (m_Radius != radius)
@@ -2805,7 +2818,7 @@ BoxImageFilter<TInputImage, TOutputImage>
 
 template <typename TInputImage, typename TOutputImage>
 void
-BoxImageFilter<TInputImage, TOutputImage>
+SpecializedImageFilter<TInputImage, TOutputImage>
 ::PrintSelf(std::ostream & os, Indent indent) const
 {
   Superclass::PrintSelf(os, indent);
@@ -2815,7 +2828,7 @@ BoxImageFilter<TInputImage, TOutputImage>
 
 } // end namespace itk
 
-#endif // itkBoxImageFilter_hxx
+#endif // itkSpecializedImageFilter_hxx
 \end{minted}
 \normalsize
 
@@ -3948,10 +3961,18 @@ before the statement-ending \code{;} and the comment itself, e.g.
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage>
-BoxImageFilter<TInputImage, TOutputImage>
-::BoxImageFilter()
+void
+SpecializedImageFilter<TInputImage, TOutputImage>
+::SpecializedMethod()
 {
-  m_Radius.Fill(1); // A good arbitrary starting point.
+  ...
+
+  OutputVectorRealType lambda11 = -(x1 * v1) / ((x - x1) * v1); // upper left
+  OutputVectorRealType lambda12 = -(x1 * v2) / ((x - x1) * v2); // upper right
+  OutputVectorRealType lambda21 = -(x2 * v1) / ((x - x2) * v1); // lower left
+  OutputVectorRealType lambda22 = -(x2 * v2) / ((x - x2) * v2); // lower right
+
+  ...
 }
 \end{minted}
 \normalsize
