@@ -3073,7 +3073,7 @@ be const, e.g.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-for( unsigned int i = 0; j < ImageDimension; i++ )
+for( unsigned int i = 0; j < ImageDimension; ++i )
   {
   const elementSign = ( m_Step[i] > 0 ) ? 1.0 : -1.0;
   flipMatrix[i][i] = elementSign;
@@ -3086,7 +3086,7 @@ over the alternative \code{if-else} statement with duplicated syntax:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-for( unsigned int i = 0; j < ImageDimension; i++ )
+for( unsigned int i = 0; j < ImageDimension; ++i )
   {
   if( m_Step[i] > 0 )
     {
