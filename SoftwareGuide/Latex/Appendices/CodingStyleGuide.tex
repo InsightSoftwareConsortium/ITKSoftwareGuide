@@ -591,7 +591,6 @@ Example names include:
 \item \code{ScalarImageRegionIterator}
 \item \code{NeighborhoodIterator}
 \item \code{MapContainer}
-\item \code{DefaultImageTraits}
 \item \code{BackwardDifferenceOperator}
 \end{itemize}
 
@@ -1757,10 +1756,16 @@ The class layout looks something like this:
 #ifndef itkImage_h
 #define itkImage_h
 
-#include "itkImageBase.h"
-#include "itkPixelTraits.h"
-#include "itkDefaultImageTraits.h"
-#include "itkDefaultDataAccessor.h"
+#include "itkImageRegion.h"
+#include "itkImportImageContainer.h"
+#include "itkDefaultPixelAccessor.h"
+#include "itkDefaultPixelAccessorFunctor.h"
+#include "itkPoint.h"
+#include "itkFixedArray.h"
+#include "itkWeakPointer.h"
+#include "itkNeighborhoodAccessorFunctor.h"
+
+#include <type_traits>
 
 namespace itk
 {
@@ -1771,9 +1776,8 @@ namespace itk
  * Detailed documentation...
  */
 
-template< typename TPixel, unsigned int VImageDimension=2,
-          typename TImageTraits=DefaultImageTraits< TPixel, VImageDimension > >
-class Image: public ImageBase< VImageDimension >
+template< typename TPixel, unsigned int VImageDimension = 2 >
+class ITK_TEMPLATE_EXPORT Image: public ImageBase< VImageDimension >
 {
 public:
   ...
@@ -1910,10 +1914,10 @@ e.g.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-template< typename TPixel, unsigned int VImageDimension, typename TImageTraits >
-const double *
-Image< TPixel, VImageDimension, TImageTraits >
-::GetSpacing() const
+template< typename TPixel, unsigned int VImageDimension >
+unsigned int
+Image< TPixel, VImageDimension >
+::GetNumberOfComponentsPerPixel() const
 {
   ...
 }
@@ -2406,9 +2410,8 @@ namespace itk
  * Detailed documentation...
  */
 
-template< typename TPixel, unsigned int VImageDimension=2,
-          typename TImageTraits=DefaultImageTraits< TPixel, VImageDimension > >
-class Image: public ImageBase< VImageDimension >
+template< typename TPixel, unsigned int VImageDimension = 2 >
+class ITK_TEMPLATE_EXPORT Image: public ImageBase< VImageDimension >
 {
 public:
   ...
@@ -2440,10 +2443,10 @@ For instance,
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-template< typename TPixel, unsigned int VImageDimension, typename TImageTraits >
-const double *
-Image< TPixel, VImageDimension, TImageTraits >
-::GetSpacing() const
+template< typename TPixel, unsigned int VImageDimension >
+unsigned int
+Image< TPixel, VImageDimension >
+::GetNumberOfComponentsPerPixel() const
 {
   ...
 }
