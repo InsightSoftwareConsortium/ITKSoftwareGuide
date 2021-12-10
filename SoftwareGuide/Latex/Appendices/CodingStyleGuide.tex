@@ -1865,14 +1865,6 @@ Image< TPixel, VImageDimension >
   m_Buffer = PixelContainer::New();
 }
 
-
-template< typename TPixel, unsigned int VImageDimension >
-Image< TPixel, VImageDimension >
-~::Image()
-{
-}
-
-
 ...
 
 
@@ -2712,7 +2704,7 @@ public:
 protected:
   BoxImageFilter();
 
-  ~BoxImageFilter() {}
+  ~BoxImageFilter() override = default;
 
   void GenerateInputRequestedRegion() override;
 
