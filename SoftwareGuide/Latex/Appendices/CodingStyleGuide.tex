@@ -2902,17 +2902,13 @@ or just have an empty line before and after the comment, such as in:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TMaskImage, typename TOutputImage>
-typename
-N4BiasFieldCorrectionImageFilter<TInputImage, TMaskImage, TOutputImage>::RealImagePointer
-N4BiasFieldCorrectionImageFilter<TInputImage, TMaskImage, TOutputImage>
-::SharpenImage(const RealImageType *unsharpenedImage) const
+void N4BiasFieldCorrectionImageFilter<TInputImage, TMaskImage, TOutputImage>::SharpenImage(
+  const RealImageType * unsharpenedImage, RealImageType * sharpenedImage) const
 {
-  const MaskImageType * maskImage = this->GetMaskImage();
-  const RealImageType * confidenceImage = this->GetConfidenceImage();
-#if !defined(ITK_FUTURE_LEGACY_REMOVE)
+  const auto          maskImageBufferRange = MakeImageBufferRange(this->GetMaskImage());
+  const auto          confidenceImageBufferRange = MakeImageBufferRange(this->GetConfidenceImage());
   const MaskPixelType maskLabel = this->GetMaskLabel();
-  const bool useMaskLabel = this->GetUseMaskLabel();
-#endif
+  const bool          useMaskLabel = this->GetUseMaskLabel();
 
   // Build the histogram for the uncorrected image. Store copy
   // in a vnl_vector to utilize vnl FFT routines. Note that variables
