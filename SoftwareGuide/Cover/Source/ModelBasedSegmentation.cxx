@@ -169,7 +169,7 @@ public:
     std::cout << "Number of points in the metric = " << static_cast<unsigned long>( m_PointList.size() ) << std::endl;
   }
 
-  unsigned int GetNumberOfParameters(void) const  {return SpaceDimension;};
+  unsigned int GetNumberOfParameters() const  {return SpaceDimension;};
 
   /** Get the Derivatives of the Match Measure */
   void GetDerivative( const ParametersType &,

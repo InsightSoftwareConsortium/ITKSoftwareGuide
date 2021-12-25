@@ -3142,7 +3142,7 @@ operator.
 
 Some of the more important object macros are:
 \begin{itemize}
-\item \code{itkNewMacro(T)}: Creates the static class method \code{New(void)}
+\item \code{itkNewMacro(T)}: Creates the static class method \code{New()}
 that interacts with the object factory to instantiate objects. The method
 returns a \code{SmartPointer<T>} properly reference counted.
 \item \code{itkTypeMacro(thisClass, superclass)}: Adds standard methods a
@@ -3252,7 +3252,7 @@ Methods throwing exceptions must indicate so in their declaration as in:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 /** Initialize the components related to supporting multiple threads. */
-virtual void MultiThreadingInitialize(void) throw (ExceptionObject);
+virtual void MultiThreadingInitialize() throw (ExceptionObject);
 \end{minted}
 \normalsize
 

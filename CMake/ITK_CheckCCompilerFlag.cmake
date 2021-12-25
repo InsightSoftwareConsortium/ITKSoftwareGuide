@@ -25,7 +25,7 @@ include(CheckCSourceCompiles)
 macro (ITK_CHECK_C_COMPILER_FLAG _FLAG _RESULT)
    set(SAFE_CMAKE_REQUIRED_DEFINITIONS "${CMAKE_REQUIRED_DEFINITIONS}")
    set(CMAKE_REQUIRED_DEFINITIONS "${_FLAG}")
-   CHECK_C_SOURCE_COMPILES("int main(void) { return 0; }" ${_RESULT}
+   CHECK_C_SOURCE_COMPILES("int main() { return 0; }" ${_RESULT}
      # Some compilers do not fail with a bad flag
      FAIL_REGEX "warning: command line option .* is valid for .* but not for C"
                                                             # Apple gcc
