@@ -19,7 +19,7 @@ include(${ITK_USE_FILE})
 
 if( NOT IS_DIRECTORY "${ITK_SOURCE_DIR}" )
   message(FATAL_ERROR "ITK source directory is not set :${ITK_SOURCE_DIR}:")
-endif()
+endif() 
 if( NOT IS_DIRECTORY "${ITK_BINARY_DIR}" )
   message(FATAL_ERROR "ITK build directory is not set :${ITK_BINARY_DIR}:")
 endif()
@@ -28,11 +28,13 @@ endif()
 enable_testing()
 include(CTest)
 
+if (NOT ${USE_SYSTEM_ITK})
 #-----------------------------------------------------------------------
 # Setup locations to find externally maintained test data.
 #-----------------------------------------------------------------------
-include(${PROJECT_NAME}ExternalData)
+   include(${PROJECT_NAME}ExternalData)
 
-add_subdirectory(SoftwareGuide)
+   add_subdirectory(SoftwareGuide)
 
-ExternalData_Add_Target( ${PROJECT_NAME}FetchData )  # Name of data management target
+   ExternalData_Add_Target( ${PROJECT_NAME}FetchData )  # Name of data management target
+endif()

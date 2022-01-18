@@ -74,6 +74,7 @@ find_path(ITK_EXECUTABLES_DIR
   "${ITK_BINARY_DIR}/../bin"
   "${ITK_BINARY_DIR}/../bin/Release"
   "${ITK_BINARY_DIR}/../bin/Debug"
+  "${ITK_BINARY_DIR}/Wrapping/Generators/Python/itk/"
   "${ITK_BINARY_DIR}/../bin/RelWithDebInfo"
   "${ITK_BINARY_DIR}/../bin/MinSizeRel"
   DOC "Where the ITK examples executables are"
