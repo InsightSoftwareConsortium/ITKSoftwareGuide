@@ -16,7 +16,6 @@
 =========================================================================*/
 
 
-
 #include "itkImageFileReader.h"
 #include "itkImageFileWriter.h"
 #include "itkRegionOfInterestImageFilter.h"
@@ -24,112 +23,92 @@
 #include "itkRGBPixel.h"
 
 
-int main( int argc, char ** argv )
+int
+main(int argc, char ** argv)
 {
 
   // Verify the number of parameters in the command line
-  if( argc < 9 )
-    {
+  if (argc < 9)
+  {
     std::cerr << "Usage: " << std::endl;
     std::cerr << argv[0] << " inputImageFile  outputImageFile " << std::endl;
     std::cerr << " startX startY startZ sizeX sizeY sizeZ" << std::endl;
     return -1;
-    }
+  }
 
 
   using PixelComponentType = unsigned char;
 
-  using PixelType = itk::RGBPixel< PixelComponentType >;
+  using PixelType = itk::RGBPixel<PixelComponentType>;
 
   constexpr unsigned int Dimension = 3;
 
-  using ImageType = itk::Image< PixelType, Dimension >;
+  using ImageType = itk::Image<PixelType, Dimension>;
 
 
-
-  using ReaderType = itk::ImageFileReader< ImageType >;
-  using WriterType = itk::ImageFileWriter< ImageType >;
-
+  using ReaderType = itk::ImageFileReader<ImageType>;
+  using WriterType = itk::ImageFileWriter<ImageType>;
 
 
-
-  using FilterType = itk::RegionOfInterestImageFilter< ImageType, ImageType >;
+  using FilterType = itk::RegionOfInterestImageFilter<ImageType, ImageType>;
 
   auto filter = FilterType::New();
 
 
-
   ImageType::IndexType start;
 
-  start[0] = atoi( argv[3] );
-  start[1] = atoi( argv[4] );
-  start[2] = atoi( argv[5] );
+  start[0] = atoi(argv[3]);
+  start[1] = atoi(argv[4]);
+  start[2] = atoi(argv[5]);
 
 
   ImageType::SizeType size;
 
-  size[0] = atoi( argv[6] );
-  size[1] = atoi( argv[7] );
-  size[2] = atoi( argv[8] );
+  size[0] = atoi(argv[6]);
+  size[1] = atoi(argv[7]);
+  size[2] = atoi(argv[8]);
 
 
   ImageType::RegionType wantedRegion;
 
-  wantedRegion.SetSize(  size  );
-  wantedRegion.SetIndex( start );
+  wantedRegion.SetSize(size);
+  wantedRegion.SetIndex(start);
 
 
-
-
-  filter->SetRegionOfInterest( wantedRegion );
-
+  filter->SetRegionOfInterest(wantedRegion);
 
 
   auto reader = ReaderType::New();
   auto writer = WriterType::New();
 
 
-
-
   //
   // Here we recover the file names from the command line arguments
   //
-  const char * inputFilename  = argv[1];
+  const char * inputFilename = argv[1];
   const char * outputFilename = argv[2];
 
 
+  reader->SetFileName(inputFilename);
+  writer->SetFileName(outputFilename);
 
 
+  filter->SetInput(reader->GetOutput());
 
-  reader->SetFileName( inputFilename  );
-  writer->SetFileName( outputFilename );
-
-
-
-  filter->SetInput( reader->GetOutput() );
-
-  writer->SetInput( filter->GetOutput() );
-
-
+  writer->SetInput(filter->GetOutput());
 
 
   try
-    {
+  {
     writer->Update();
-    }
-  catch( const itk::ExceptionObject & err )
-    {
+  }
+  catch (const itk::ExceptionObject & err)
+  {
     std::cout << "ExceptionObject caught !" << std::endl;
     std::cout << err << std::endl;
     return -1;
-    }
-
+  }
 
 
   return 0;
-
-
 }
-
-
-

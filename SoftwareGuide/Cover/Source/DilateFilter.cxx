@@ -16,7 +16,6 @@
 =========================================================================*/
 
 
-
 #include "itkImageFileReader.h"
 #include "itkImageFileWriter.h"
 #include "itkBinaryDilateImageFilter.h"
@@ -24,86 +23,75 @@
 #include "itkImage.h"
 
 
-int main( int argc, char ** argv )
+int
+main(int argc, char ** argv)
 {
 
   // Verify the number of parameters in the command line
-  if( argc < 4 )
-    {
+  if (argc < 4)
+  {
     std::cerr << "Usage: " << std::endl;
     std::cerr << argv[0] << " inputImageFile  outputImageFile " << std::endl;
     std::cerr << " radius " << std::endl;
     return -1;
-    }
+  }
 
 
   using PixelType = unsigned char;
 
   constexpr unsigned int Dimension = 3;
 
-  using ImageType = itk::Image< PixelType,  Dimension >;
+  using ImageType = itk::Image<PixelType, Dimension>;
 
 
+  using ReaderType = itk::ImageFileReader<ImageType>;
+  using WriterType = itk::ImageFileWriter<ImageType>;
 
-  using ReaderType = itk::ImageFileReader< ImageType >;
-  using WriterType = itk::ImageFileWriter< ImageType >;
 
+  using StructuringElementType = itk::BinaryBallStructuringElement<PixelType, Dimension>;
 
-  using StructuringElementType = itk::BinaryBallStructuringElement<
-                                        PixelType,
-                                        Dimension  >;
-
-  using FilterType = itk::BinaryDilateImageFilter<
-                                  ImageType,
-                                  ImageType,
-                                  StructuringElementType >;
+  using FilterType = itk::BinaryDilateImageFilter<ImageType, ImageType, StructuringElementType>;
 
   auto filter = FilterType::New();
 
 
-  unsigned int radius = atoi( argv[3] );
+  unsigned int radius = atoi(argv[3]);
 
-  StructuringElementType  structuringElement;
+  StructuringElementType structuringElement;
 
-  structuringElement.SetRadius( radius );
+  structuringElement.SetRadius(radius);
 
   structuringElement.CreateStructuringElement();
 
-  filter->SetKernel(  structuringElement );
+  filter->SetKernel(structuringElement);
 
 
   auto reader = ReaderType::New();
   auto writer = WriterType::New();
 
-  const char * inputFilename  = argv[1];
+  const char * inputFilename = argv[1];
   const char * outputFilename = argv[2];
 
-  reader->SetFileName( inputFilename  );
-  writer->SetFileName( outputFilename );
+  reader->SetFileName(inputFilename);
+  writer->SetFileName(outputFilename);
 
 
-  filter->SetInput( reader->GetOutput() );
+  filter->SetInput(reader->GetOutput());
 
-  writer->SetInput( filter->GetOutput() );
+  writer->SetInput(filter->GetOutput());
 
 
   try
-    {
+  {
     writer->Update();
-    }
-  catch( const itk::ExceptionObject & err )
-    {
+  }
+  catch (const itk::ExceptionObject & err)
+  {
     std::cout << "ExceptionObject caught !" << std::endl;
     std::cout << err << std::endl;
     return -1;
-    }
-
+  }
 
 
   return 0;
-
-
 }
-
-
-
