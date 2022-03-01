@@ -15,19 +15,19 @@ endLatexTag = "EndLatex"
 beginCodeBlockTag = "BeginCodeSnippet"
 endCodeBlockTag = "EndCodeSnippet"
 
-validCodeBlockTypes = ['Latex', 'CodeSnippet']
+validCodeBlockTypes = ["Latex", "CodeSnippet"]
 
 ## This class is initialized with a the starting line of
 ## the command processing, and the block of text for
 ## this command invocation
 
 
-class OneDocBlock():
+class OneDocBlock:
     def __init__(self, sourceFile, id, codeblock):
         self.sourceFile = sourceFile
         self.id = id
         self.codeblock = codeblock
-        self.blockType = 'Unknown'  # Something other than items in validCodeBlockTypes
+        self.blockType = "Unknown"  # Something other than items in validCodeBlockTypes
 
     def Print(self):
         blockline = self.id
@@ -40,16 +40,16 @@ class OneDocBlock():
 
     def GetCodeBlockString(self):
         blockstring = ""
-        if self.blockType == 'Latex':
+        if self.blockType == "Latex":
             for blocktext in self.codeblock:
                 blockstring += "{0}\n".format(blocktext)
             pass
-        elif self.blockType == 'CodeSnippet':
+        elif self.blockType == "CodeSnippet":
             # blockstring += "\\small\n"
             # blockstring += "\\begin{verbatim}\n"
             # blockstring += "\\begin{itklisting}[language=C++]\n"
             blockstring += "\\begin{minted}[baselinestretch=1,fontsize=\\footnotesize,linenos=false,bgcolor=ltgray]{c++}\n"
-#blockstring += "\\begin{minted}[baselinestretch=1,fontsize=\small,linenos=false,bgcolor=ltgray]{c++}\n"
+            # blockstring += "\\begin{minted}[baselinestretch=1,fontsize=\small,linenos=false,bgcolor=ltgray]{c++}\n"
             for blocktext in self.codeblock:
                 blockstring += "{0}".format(blocktext)
             blockstring += "\\end{minted}\n"
@@ -70,7 +70,7 @@ def ParseOneFile(sourceFile):
     # Read each line and Parse the input file
     #
     # Get the command line args from the source file
-    sf = open(sourceFile, 'r')
+    sf = open(sourceFile, "r")
     INFILE = sf.readlines()
     sf.close()
     parseLine = 0
@@ -90,7 +90,7 @@ def ParseOneFile(sourceFile):
             checkForBlankLine = True
         elif thisline.count(endLatexTag) == 1:  # end of LatexCodeBlock
             ocb = OneDocBlock(sourceFile, starttagline, codeBlock)
-            ocb.blockType = 'Latex'
+            ocb.blockType = "Latex"
             thisFileCommandBlocks.append(ocb)
             starttagline = 0
         elif thisline.count(beginCodeBlockTag) == 1:  # start of CodeSnippet
@@ -99,28 +99,27 @@ def ParseOneFile(sourceFile):
             codeBlock = []
         elif thisline.count(endCodeBlockTag) == 1:  # end of CodeSnippet
             ocb = OneDocBlock(sourceFile, starttagline, codeBlock)
-            ocb.blockType = 'CodeSnippet'
+            ocb.blockType = "CodeSnippet"
             thisFileCommandBlocks.append(ocb)
             starttagline = 0
         elif starttagline > 0:  # Inside a codeBlock
             if isLatexBlock == True:
-                thisline = commentPattern.sub("",thisline)
+                thisline = commentPattern.sub("", thisline)
                 thisline = thisline.lstrip().rstrip()
                 if checkForBlankLine:
-                  if thisline != "":
-                    print("{filename}:{line}: warning: Line after start of LaTeX block should be a newline -- instead got {value}".format(
-                           filename=sourceFile,
-                           line=parseLine,
-                           value=thisline
-                           )
-                    )
-                  checkForBlankLine = False
+                    if thisline != "":
+                        print(
+                            "{filename}:{line}: warning: Line after start of LaTeX block should be a newline -- instead got {value}".format(
+                                filename=sourceFile, line=parseLine, value=thisline
+                            )
+                        )
+                    checkForBlankLine = False
 
-            if not isLatexBlock and ( len(thisline) > 80 ):
-                print("{filename}:{line}:80: warning: Line length too long for LaTeX printing".format(
-                       filename=sourceFile,
-                       line=parseLine
-                     )
+            if not isLatexBlock and (len(thisline) > 80):
+                print(
+                    "{filename}:{line}:80: warning: Line length too long for LaTeX printing".format(
+                        filename=sourceFile, line=parseLine
+                    )
                 )
             codeBlock.append(thisline)
         else:  # non-codeBlock line
@@ -142,11 +141,15 @@ def GetPreambleString(examplefilename):
 
 The source code for this section can be found in the file\\\\
 \\texttt{2}{1}{3}.
-""".format(examplefilename, os.path.basename(examplefilename), '{', '}')
+""".format(
+        examplefilename, os.path.basename(examplefilename), "{", "}"
+    )
     return preamble
+
 
 if __name__ == "__main__":
     import sys
+
     if len(sys.argv) < 2:
         print("Usage: {0} <input file> <output file>".format(argv[0]))
         sys.exit(-1)
@@ -166,7 +169,7 @@ if __name__ == "__main__":
         else:
             raise
 
-    outPtr = open(outputfilename, 'w')
+    outPtr = open(outputfilename, "w")
     outPtr.write(GetPreambleString(inputfilename))
     for cb in thisCodeBlocks:
         outPtr.write(cb.GetCodeBlockString())
