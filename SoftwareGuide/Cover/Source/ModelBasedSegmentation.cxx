@@ -29,8 +29,7 @@
 #include "itkCommand.h"
 
 
-
-template < class TOptimizer >
+template <class TOptimizer>
 class IterationCallback : public itk::Command
 {
 
@@ -40,80 +39,73 @@ public:
   using Pointer = itk::SmartPointer<Self>;
   using ConstPointer = itk::SmartPointer<const Self>;
 
-  itkTypeMacro( IterationCallback, Superclass );
-  itkNewMacro( Self );
+  itkTypeMacro(IterationCallback, Superclass);
+  itkNewMacro(Self);
 
   /** Type defining the optimizer */
   using OptimizerType = TOptimizer;
 
   /** Set Optimizer */
-  void SetOptimizer( OptimizerType * optimizer )
+  void
+  SetOptimizer(OptimizerType * optimizer)
   {
     m_Optimizer = optimizer;
-    m_Optimizer->AddObserver( itk::IterationEvent(), this );
+    m_Optimizer->AddObserver(itk::IterationEvent(), this);
   }
 
 
   /** Execute method will print data at each iteration */
-  void Execute(itk::Object *caller, const itk::EventObject & event)
+  void
+  Execute(itk::Object * caller, const itk::EventObject & event)
   {
-    Execute( (const itk::Object *)caller, event);
+    Execute((const itk::Object *)caller, event);
   }
 
-  void Execute(const itk::Object *, const itk::EventObject & event)
+  void
+  Execute(const itk::Object *, const itk::EventObject & event)
   {
-    if( typeid( event ) == typeid( itk::StartEvent ) )
-      {
+    if (typeid(event) == typeid(itk::StartEvent))
+    {
       std::cout << std::endl << "Position              Value";
       std::cout << std::endl << std::endl;
-      }
-    else if( typeid( event ) == typeid( itk::IterationEvent ) )
-      {
+    }
+    else if (typeid(event) == typeid(itk::IterationEvent))
+    {
       std::cout << m_Optimizer->GetCurrentIteration() << "   ";
       std::cout << m_Optimizer->GetValue() << "   ";
       std::cout << m_Optimizer->GetCurrentPosition() << std::endl;
-      }
-    else if( typeid( event ) == typeid( itk::EndEvent ) )
-      {
+    }
+    else if (typeid(event) == typeid(itk::EndEvent))
+    {
       std::cout << std::endl << std::endl;
       std::cout << "After " << m_Optimizer->GetCurrentIteration();
       std::cout << "  iterations " << std::endl;
       std::cout << "Solution is    = " << m_Optimizer->GetCurrentPosition();
       std::cout << std::endl;
-      }
-
+    }
   }
 
 
 protected:
-  IterationCallback() {};
-  itk::WeakPointer<OptimizerType>   m_Optimizer;
-
+  IterationCallback(){};
+  itk::WeakPointer<OptimizerType> m_Optimizer;
 };
 
 
-
-
-
-
 template <typename TFixedImage, typename TMovingSpatialObject>
-class SimpleImageToSpatialObjectMetric :
-    public itk::ImageToSpatialObjectMetric<TFixedImage,TMovingSpatialObject>
+class SimpleImageToSpatialObjectMetric : public itk::ImageToSpatialObjectMetric<TFixedImage, TMovingSpatialObject>
 {
 public:
-
   /** Standard class type aliases. */
   using Self = SimpleImageToSpatialObjectMetric;
-  using Superclass = itk::ImageToSpatialObjectMetric<TFixedImage,
-                                                     TMovingSpatialObject>;
+  using Superclass = itk::ImageToSpatialObjectMetric<TFixedImage, TMovingSpatialObject>;
   using Pointer = itk::SmartPointer<Self>;
   using ConstPointer = itk::SmartPointer<const Self>;
 
   /** Image dimension. */
-  itkStaticConstMacro(ImageDimension, unsigned int,
-                      TFixedImage::ImageDimension);
+  itkStaticConstMacro(ImageDimension, unsigned int, TFixedImage::ImageDimension);
 
-  using PointType = itk::Point<double,ImageDimension>;
+  using PointType = itk::Point<double, ImageDimension>;
   using PointListType = std::list<PointType>;
   using MovingSpatialObjectType = TMovingSpatialObject;
   using ParametersType = typename Superclass::ParametersType;
@@ -128,12 +120,16 @@ public:
   /** Run-time type information (and related methods). */
   itkTypeMacro(SimpleImageToSpatialObjectMetric, ImageToSpatialObjectMetric);
 
-  enum { SpaceDimension = 3 };
+  enum
+  {
+    SpaceDimension = 3
+  };
 
   /** Connect the MovingSpatialObject */
-  void SetMovingSpatialObject( const MovingSpatialObjectType * object)
+  void
+  SetMovingSpatialObject(const MovingSpatialObjectType * object)
   {
-    if(!this->GetFixedImage())
+    if (!this->GetFixedImage())
     {
       std::cout << "Please set the image before the moving spatial object" << std::endl;
       return;
@@ -143,54 +139,60 @@ public:
     using myIteratorType = itk::ImageRegionConstIteratorWithIndex<TFixedImage>;
 
     RegionType region;
-    if( m_FixedImageRegionSetByUser )
-      {
+    if (m_FixedImageRegionSetByUser)
+    {
       region = m_FixedImageRegion;
-      }
+    }
     else
-      {
+    {
       region = this->m_FixedImage->GetBufferedRegion();
-      }
+    }
 
-    myIteratorType it(this->m_FixedImage,region);
+    myIteratorType it(this->m_FixedImage, region);
 
     PointType point;
 
-    while(!it.IsAtEnd())
+    while (!it.IsAtEnd())
+    {
+      this->m_FixedImage->TransformIndexToPhysicalPoint(it.GetIndex(), point);
+      if (this->m_MovingSpatialObject->IsInside(point))
       {
-      this->m_FixedImage->TransformIndexToPhysicalPoint( it.GetIndex(), point );
-      if(this->m_MovingSpatialObject->IsInside(point))
-        {
         this->m_PointList.push_back(point);
-        }
-      ++it;
       }
+      ++it;
+    }
 
-    std::cout << "Number of points in the metric = " << static_cast<unsigned long>( m_PointList.size() ) << std::endl;
+    std::cout << "Number of points in the metric = " << static_cast<unsigned long>(m_PointList.size()) << std::endl;
   }
 
-  unsigned int GetNumberOfParameters() const  {return SpaceDimension;};
+  unsigned int
+  GetNumberOfParameters() const
+  {
+    return SpaceDimension;
+  };
 
   /** Get the Derivatives of the Match Measure */
-  void GetDerivative( const ParametersType &,
-                                    DerivativeType & ) const
+  void
+  GetDerivative(const ParametersType &, DerivativeType &) const
   {
     return;
   }
 
 
-  void SetFixedImageRegion( const RegionType & region )
-    {
+  void
+  SetFixedImageRegion(const RegionType & region)
+  {
     m_FixedImageRegionSetByUser = true;
     m_FixedImageRegion = region;
-    }
+  }
 
   /** Get the Value for SingleValue Optimizers */
 
-  MeasureType    GetValue( const ParametersType & parameters ) const
+  MeasureType
+  GetValue(const ParametersType & parameters) const
   {
     double value;
-    this->m_Transform->SetParameters( parameters );
+    this->m_Transform->SetParameters(parameters);
 
     typename PointListType::const_iterator it = m_PointList.begin();
 
@@ -199,52 +201,44 @@ public:
     IndexType index;
 
     value = 0;
-    while(it != m_PointList.end())
-      {
+    while (it != m_PointList.end())
+    {
       PointType transformedPoint = this->m_Transform->TransformPoint(*it);
-      this->m_FixedImage->TransformPhysicalPointToIndex(transformedPoint,index);
-      if( region.IsInside( index ) )
-        {
+      this->m_FixedImage->TransformPhysicalPointToIndex(transformedPoint, index);
+      if (region.IsInside(index))
+      {
         value += this->m_FixedImage->GetPixel(index);
-        }
-      it++;
       }
-//    std::cout << "GetValue( " << parameters << " )  = " << value << std::endl;
+      it++;
+    }
+    //    std::cout << "GetValue( " << parameters << " )  = " << value << std::endl;
     return value;
   }
 
   /** Get Value and Derivatives for MultipleValuedOptimizers */
-  void GetValueAndDerivative( const ParametersType & parameters,
-       MeasureType & Value, DerivativeType  & Derivative ) const
+  void
+  GetValueAndDerivative(const ParametersType & parameters, MeasureType & Value, DerivativeType & Derivative) const
   {
     Value = this->GetValue(parameters);
-    this->GetDerivative(parameters,Derivative);
+    this->GetDerivative(parameters, Derivative);
   }
 
 protected:
-  SimpleImageToSpatialObjectMetric()
-    {
-    m_FixedImageRegionSetByUser = false;
-    }
+  SimpleImageToSpatialObjectMetric() { m_FixedImageRegionSetByUser = false; }
   ~SimpleImageToSpatialObjectMetric() {}
 
 private:
+  PointListType m_PointList;
 
-  PointListType    m_PointList;
-
-  RegionType       m_FixedImageRegion;
-  bool             m_FixedImageRegionSetByUser;
-
+  RegionType m_FixedImageRegion;
+  bool       m_FixedImageRegionSetByUser;
 };
 
 
-
-
-
-
-int main( int argc, char *argv[] )
+int
+main(int argc, char * argv[])
 {
-  if( argc != 2 )
+  if (argc != 2)
   {
     std::cerr << "Usage: " << argv[0] << "InputImageFilename" << std::endl;
   }
@@ -252,10 +246,10 @@ int main( int argc, char *argv[] )
 
   constexpr unsigned int Dimension = 3;
 
-  using EllipseType = itk::EllipseSpatialObject< Dimension >;
+  using EllipseType = itk::EllipseSpatialObject<Dimension>;
 
 
-  using ImageType = itk::Image< float, Dimension >;
+  using ImageType = itk::Image<float, Dimension>;
 
   auto ellipse = EllipseType::New();
 
@@ -266,64 +260,59 @@ int main( int argc, char *argv[] )
   axis[2] = 6;
 
 
-  ellipse->SetRadius( axis );
+  ellipse->SetRadius(axis);
 
 
-  using RegistrationType = itk::ImageToSpatialObjectRegistrationMethod<
-                                      ImageType,
-                                      EllipseType  >;
+  using RegistrationType = itk::ImageToSpatialObjectRegistrationMethod<ImageType, EllipseType>;
 
   auto registration = RegistrationType::New();
 
 
-  using MetricType = SimpleImageToSpatialObjectMetric<
-                                           ImageType, EllipseType >;
+  using MetricType = SimpleImageToSpatialObjectMetric<ImageType, EllipseType>;
 
   auto metric = MetricType::New();
 
 
-  using InterpolatorType = itk::LinearInterpolateImageFunction<
-                                         ImageType, double >;
+  using InterpolatorType = itk::LinearInterpolateImageFunction<ImageType, double>;
 
   auto interpolator = InterpolatorType::New();
 
 
   using OptimizerType = itk::OnePlusOneEvolutionaryOptimizer;
 
-  OptimizerType::Pointer optimizer  = OptimizerType::New();
+  OptimizerType::Pointer optimizer = OptimizerType::New();
 
 
-  using TransformType = itk::TranslationTransform< double, Dimension >;
+  using TransformType = itk::TranslationTransform<double, Dimension>;
   auto transform = TransformType::New();
 
 
-  itk::Statistics::NormalVariateGenerator::Pointer generator
-                      = itk::Statistics::NormalVariateGenerator::New();
+  itk::Statistics::NormalVariateGenerator::Pointer generator = itk::Statistics::NormalVariateGenerator::New();
 
 
   generator->Initialize(12345);
 
-  optimizer->SetNormalVariateGenerator( generator );
-  optimizer->Initialize( 5 );
-  optimizer->SetMaximumIteration( 1000 );
+  optimizer->SetNormalVariateGenerator(generator);
+  optimizer->Initialize(5);
+  optimizer->SetMaximumIteration(1000);
 
 
   TransformType::ParametersType parametersScale(Dimension);
 
-  parametersScale.Fill( 2.0 );
+  parametersScale.Fill(2.0);
 
-  optimizer->SetScales( parametersScale );
+  optimizer->SetScales(parametersScale);
 
 
-  using IterationCallbackType = IterationCallback< OptimizerType >;
+  using IterationCallbackType = IterationCallback<OptimizerType>;
 
   auto callback = IterationCallbackType::New();
 
-  callback->SetOptimizer( optimizer );
+  callback->SetOptimizer(optimizer);
 
-  using ReaderType = itk::ImageFileReader< ImageType >;
-  ReaderType::Pointer  reader  = ReaderType::New();
-  reader->SetFileName( argv[1] );
+  using ReaderType = itk::ImageFileReader<ImageType>;
+  ReaderType::Pointer reader = ReaderType::New();
+  reader->SetFileName(argv[1]);
   reader->Update();
 
 
@@ -337,15 +326,13 @@ int main( int argc, char *argv[] )
 
   TransformType::InputPointType initialPhysicalPosition;
 
-  reader->GetOutput()->TransformIndexToPhysicalPoint(
-                                  initialIndexPosition,
-                                  initialPhysicalPosition );
+  reader->GetOutput()->TransformIndexToPhysicalPoint(initialIndexPosition, initialPhysicalPosition);
 
   EllipseType::TransformType::OffsetType offset;
-  for(unsigned int i=0; i<Dimension; i++)
-    {
+  for (unsigned int i = 0; i < Dimension; i++)
+  {
     offset[i] = initialPhysicalPosition[i];
-    }
+  }
 
   ellipse->GetObjectToParentTransform()->SetOffset(offset);
   ellipse->ComputeObjectToWorldTransform();
@@ -357,8 +344,8 @@ int main( int argc, char *argv[] )
 
   RegionType fixedRegion;
 
-  IndexType  fixedRegionStart;
-  SizeType   fixedRegionSize;
+  IndexType fixedRegionStart;
+  SizeType  fixedRegionSize;
 
   fixedRegionStart[0] = 20;
   fixedRegionStart[1] = 15;
@@ -368,21 +355,21 @@ int main( int argc, char *argv[] )
   fixedRegionSize[1] = 10;
   fixedRegionSize[2] = 25;
 
-  fixedRegion.SetSize(  fixedRegionSize  );
-  fixedRegion.SetIndex( fixedRegionStart );
+  fixedRegion.SetSize(fixedRegionSize);
+  fixedRegion.SetIndex(fixedRegionStart);
 
-  metric->SetFixedImageRegion( fixedRegion );
+  metric->SetFixedImageRegion(fixedRegion);
 
-  registration->SetFixedImage( reader->GetOutput() );
-  registration->SetMovingSpatialObject( ellipse );
-  registration->SetTransform( transform );
-  registration->SetInterpolator( interpolator );
-  registration->SetOptimizer( optimizer );
-  registration->SetMetric( metric );
+  registration->SetFixedImage(reader->GetOutput());
+  registration->SetMovingSpatialObject(ellipse);
+  registration->SetTransform(transform);
+  registration->SetInterpolator(interpolator);
+  registration->SetOptimizer(optimizer);
+  registration->SetMetric(metric);
 
   TransformType::ParametersType initialParameters = transform->GetParameters();
 
-  initialParameters.Fill( 0.0 );
+  initialParameters.Fill(0.0);
 
 
   registration->SetInitialTransformParameters(initialParameters);
@@ -392,20 +379,20 @@ int main( int argc, char *argv[] )
   optimizer->MaximizeOn();
 
 
-  try {
+  try
+  {
     registration->Update();
-    }
-  catch( const itk::ExceptionObject & exp ) {
+  }
+  catch (const itk::ExceptionObject & exp)
+  {
     std::cerr << "Exception caught ! " << std::endl;
     std::cerr << exp << std::endl;
-    }
+  }
 
 
-  RegistrationType::ParametersType finalParameters
-                         = registration->GetLastTransformParameters();
+  RegistrationType::ParametersType finalParameters = registration->GetLastTransformParameters();
 
   std::cout << "Final Solution is : " << finalParameters << std::endl;
 
   return 0;
-
 }

@@ -23,51 +23,50 @@
 #include "itkRGBPixel.h"
 
 
-int main( int argc, char * argv[] )
+int
+main(int argc, char * argv[])
 {
 
-  if( argc < 5 )
-    {
+  if (argc < 5)
+  {
     std::cerr << "Usage: " << std::endl;
     std::cerr << argv[0] << "  inputImageFile  outputGradientImageFile ";
     std::cerr << "numberOfIterations  timeStep  " << std::endl;
     return 1;
-    }
+  }
 
   using PixelComponentType = float;
-  constexpr unsigned long Dimension  = 3;
+  constexpr unsigned long Dimension = 3;
 
-  using PixelType = itk::RGBPixel< PixelComponentType >;
-  using ImageType = itk::Image< PixelType, Dimension >;
+  using PixelType = itk::RGBPixel<PixelComponentType>;
+  using ImageType = itk::Image<PixelType, Dimension>;
 
-  using OutputPixelType = itk::RGBPixel< unsigned char >;
-  using OutputImageType = itk::Image< OutputPixelType, Dimension >;
+  using OutputPixelType = itk::RGBPixel<unsigned char>;
+  using OutputImageType = itk::Image<OutputPixelType, Dimension>;
 
 
-  using ReaderType = itk::ImageFileReader< ImageType >;
+  using ReaderType = itk::ImageFileReader<ImageType>;
 
-  using WriterType = itk::ImageFileWriter< OutputImageType >;
+  using WriterType = itk::ImageFileWriter<OutputImageType>;
 
-  using CasterType = itk::CastImageFilter<
-                               ImageType, OutputImageType >;
+  using CasterType = itk::CastImageFilter<ImageType, OutputImageType>;
 
-  using FilterType = itk::VectorGradientAnisotropicDiffusionImageFilter<
-                       ImageType, ImageType >;
+  using FilterType = itk::VectorGradientAnisotropicDiffusionImageFilter<ImageType, ImageType>;
 
 
   auto reader = ReaderType::New();
-  reader->SetFileName( argv[1] );
+  reader->SetFileName(argv[1]);
 
   auto filter = FilterType::New();
 
-  filter->SetInput( reader->GetOutput() );
+  filter->SetInput(reader->GetOutput());
 
-  const unsigned int numberOfIterations = atoi( argv[3] );
-  const double       timeStep           = atof( argv[4] );
+  const unsigned int numberOfIterations = atoi(argv[3]);
+  const double       timeStep = atof(argv[4]);
 
-  filter->SetNumberOfIterations( numberOfIterations );
-  filter->SetTimeStep( timeStep );
-  filter->SetConductanceParameter( 3.0 );
+  filter->SetNumberOfIterations(numberOfIterations);
+  filter->SetTimeStep(timeStep);
+  filter->SetConductanceParameter(3.0);
 
   filter->Update();
 
@@ -75,12 +74,10 @@ int main( int argc, char * argv[] )
 
   auto writer = WriterType::New();
 
-  caster->SetInput( filter->GetOutput() );
-  writer->SetInput( caster->GetOutput() );
-  writer->SetFileName( argv[2] );
+  caster->SetInput(filter->GetOutput());
+  writer->SetInput(caster->GetOutput());
+  writer->SetFileName(argv[2]);
   writer->Update();
 
   return 0;
-
 }
-

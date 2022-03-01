@@ -16,23 +16,23 @@
 =========================================================================*/
 
 
-
 #include "itkImageFileReader.h"
 #include "itkImageFileWriter.h"
 #include "itkRescaleIntensityImageFilter.h"
 #include "itkImage.h"
 
 
-int main( int argc, char ** argv )
+int
+main(int argc, char ** argv)
 {
 
   // Verify the number of parameters in the command line
-  if( argc < 3 )
-    {
+  if (argc < 3)
+  {
     std::cerr << "Usage: " << std::endl;
     std::cerr << argv[0] << " inputImageFile  outputImageFile " << std::endl;
     return -1;
-    }
+  }
 
 
   using InputPixelType = float;
@@ -40,18 +40,15 @@ int main( int argc, char ** argv )
 
   constexpr unsigned int Dimension = 3;
 
-  using InputImageType = itk::Image< InputPixelType,   Dimension >;
-  using OutputImageType = itk::Image< OutputPixelType,  Dimension >;
+  using InputImageType = itk::Image<InputPixelType, Dimension>;
+  using OutputImageType = itk::Image<OutputPixelType, Dimension>;
 
 
+  using ReaderType = itk::ImageFileReader<InputImageType>;
+  using WriterType = itk::ImageFileWriter<OutputImageType>;
 
-  using ReaderType = itk::ImageFileReader< InputImageType >;
-  using WriterType = itk::ImageFileWriter< OutputImageType >;
 
-
-  using FilterType = itk::RescaleIntensityImageFilter<
-                                    InputImageType,
-                                    OutputImageType >;
+  using FilterType = itk::RescaleIntensityImageFilter<InputImageType, OutputImageType>;
 
   auto filter = FilterType::New();
 
@@ -59,37 +56,31 @@ int main( int argc, char ** argv )
   auto reader = ReaderType::New();
   auto writer = WriterType::New();
 
-  const char * inputFilename  = argv[1];
+  const char * inputFilename = argv[1];
   const char * outputFilename = argv[2];
 
-  reader->SetFileName( inputFilename  );
-  writer->SetFileName( outputFilename );
+  reader->SetFileName(inputFilename);
+  writer->SetFileName(outputFilename);
 
 
-  filter->SetInput( reader->GetOutput() );
+  filter->SetInput(reader->GetOutput());
 
-  writer->SetInput( filter->GetOutput() );
+  writer->SetInput(filter->GetOutput());
 
-  filter->SetOutputMinimum(   0 );
-  filter->SetOutputMaximum( 255 );
+  filter->SetOutputMinimum(0);
+  filter->SetOutputMaximum(255);
 
   try
-    {
+  {
     writer->Update();
-    }
-  catch( const itk::ExceptionObject & err )
-    {
+  }
+  catch (const itk::ExceptionObject & err)
+  {
     std::cout << "ExceptionObject caught !" << std::endl;
     std::cout << err << std::endl;
     return -1;
-    }
-
+  }
 
 
   return 0;
-
-
 }
-
-
-
