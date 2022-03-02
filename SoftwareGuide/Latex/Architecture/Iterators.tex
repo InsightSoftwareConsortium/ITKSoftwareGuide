@@ -87,13 +87,13 @@ for an \doxygen{Image}.
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   using ImageType = itk::Image<float, 3>;
-  using ConstIteratorType = itk::ImageRegionConstIterator< ImageType >;
-  using IteratorType = itk::ImageRegionIterator< ImageType >;
+  using ConstIteratorType = itk::ImageRegionConstIterator<ImageType>;
+  using IteratorType = itk::ImageRegionIterator<ImageType>;
 
   ImageType::Pointer image = SomeFilter->GetOutput();
 
-  ConstIteratorType constIterator( image, image->GetRequestedRegion() );
-  IteratorType iterator( image, image->GetRequestedRegion() );
+  ConstIteratorType constIterator(image, image->GetRequestedRegion());
+  IteratorType      iterator(image, image->GetRequestedRegion());
 \end{minted}
 \normalsize
 
@@ -243,7 +243,7 @@ to the same pixel location.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-  it.Set( it.Get() + 1 );
+  it.Set(it.Get() + 1);
 \end{minted}
 \normalsize
 
@@ -283,13 +283,13 @@ the squares of all values in an input image and writes them to an output image.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-  ConstIteratorType in( inputImage,   inputImage->GetRequestedRegion() );
-  IteratorType out( outputImage, inputImage->GetRequestedRegion() );
+  ConstIteratorType in(inputImage, inputImage->GetRequestedRegion());
+  IteratorType      out(outputImage, inputImage->GetRequestedRegion());
 
-  for ( in.GoToBegin(), out.GoToBegin(); !in.IsAtEnd(); ++in, ++out )
-    {
-    out.Set( in.Get() * in.Get() );
-    }
+  for (in.GoToBegin(), out.GoToBegin(); !in.IsAtEnd(); ++in, ++out)
+  {
+    out.Set(in.Get() * in.Get());
+  }
 \end{minted}
 \normalsize
 
@@ -313,12 +313,12 @@ convenient to write reverse iteration in a \code{while} loop.
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   in.GoToEnd();
   out.GoToEnd();
-  while ( ! in.IsAtBegin() )
-    {
+  while (!in.IsAtBegin())
+  {
     --in;
     --out;
-    out.Set( in.Get() * in.Get() );
-    }
+    out.Set(in.Get() * in.Get());
+  }
 \end{minted}
 \normalsize
 

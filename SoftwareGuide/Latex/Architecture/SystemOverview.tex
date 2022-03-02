@@ -251,13 +251,13 @@ Delete()} in ITK. For example:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   MyRegistrationFunction()
-    { /* <----- Start of scope */
+  { /* <----- Start of scope */
 
     // here an interpolator is created and associated to the
     // "interp" SmartPointer.
     auto interp = InterpolatorType::New();
 
-    } /* <------ End of scope */
+  } /* <------ End of scope */
 \end{minted}
 \normalsize
 
@@ -289,13 +289,13 @@ generally takes the form as illustrated below:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   try
-    {
+  {
     //...try executing some code here...
-    }
-  catch( const itk::ExceptionObject & exp )
-    {
+  }
+  catch (const itk::ExceptionObject & exp)
+  {
     //...if an exception is thrown catch it here
-    }
+  }
 \end{minted}
 \normalsize
 
@@ -304,15 +304,15 @@ code snippet is taken from \doxygen{ByteSwapper}:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-  switch ( sizeof(T) )
-    {
-    //non-error cases go here followed by error case
+  switch (sizeof(T))
+  {
+    // non-error cases go here followed by error case
     default:
       ByteSwapperError e(__FILE__, __LINE__);
       e.SetLocation("SwapBE");
       e.SetDescription("Cannot swap number of bytes requested");
       throw e;
-    }
+  }
 \end{minted}
 \normalsize
 
@@ -350,7 +350,7 @@ To recap using an example: various objects in ITK will invoke specific events
 as they execute (from ProcessObject):
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-  this->InvokeEvent( ProgressEvent() );
+  this->InvokeEvent(ProgressEvent());
 \end{minted}
 \normalsize
 
@@ -360,7 +360,7 @@ command (e.g., callback function) with the event:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   unsigned long progressTag =
-    filter->AddObserver(ProgressEvent(), itk::Command*);
+    filter->AddObserver(ProgressEvent(), itk::Command *);
 \end{minted}
 \normalsize
 
@@ -394,10 +394,13 @@ the \code{GenerateData()} method uses the following methods:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-  this->GetMultiThreader()->template ParallelizeImageRegion<OutputImageDimension>(
+  this->GetMultiThreader()
+    ->template ParallelizeImageRegion<OutputImageDimension>(
       this->GetOutput()->GetRequestedRegion(),
-      [this](const OutputImageRegionType & outputRegionForThread)
-        { this->DynamicThreadedGenerateData(outputRegionForThread); }, this);
+      [this](const OutputImageRegionType & outputRegionForThread) {
+        this->DynamicThreadedGenerateData(outputRegionForThread);
+      },
+      this);
 \end{minted}
 \normalsize
 
@@ -424,20 +427,24 @@ in its own version of \code{GenerateData()}, such as done by
   // Small serial section
   this->UpdateProgress(0.01f);
 
-  ProgressTransformer progress1( 0.01f, 0.45f, this );
+  ProgressTransformer progress1(0.01f, 0.45f, this);
   // Calculate 2nd order directional derivative
-  this->GetMultiThreader()->template ParallelizeImageRegion<TOutputImage::ImageDimension>(
+  this->GetMultiThreader()
+    ->template ParallelizeImageRegion<TOutputImage::ImageDimension>(
       this->GetOutput()->GetRequestedRegion(),
-      [this](const OutputImageRegionType & outputRegionForThread)
-      { this->ThreadedCompute2ndDerivative(outputRegionForThread); },
+      [this](const OutputImageRegionType & outputRegionForThread) {
+        this->ThreadedCompute2ndDerivative(outputRegionForThread);
+      },
       progress1.GetProcessObject());
 
-  ProgressTransformer progress2( 0.45f, 0.9f, this );
+  ProgressTransformer progress2(0.45f, 0.9f, this);
   // Calculate the gradient of the second derivative
-  this->GetMultiThreader()->template ParallelizeImageRegion<TOutputImage::ImageDimension>(
+  this->GetMultiThreader()
+    ->template ParallelizeImageRegion<TOutputImage::ImageDimension>(
       this->GetOutput()->GetRequestedRegion(),
-      [this](const OutputImageRegionType & outputRegionForThread)
-      { this->ThreadedCompute2ndDerivativePos(outputRegionForThread); },
+      [this](const OutputImageRegionType & outputRegionForThread) {
+        this->ThreadedCompute2ndDerivativePos(outputRegionForThread);
+      },
       progress2.GetProcessObject());
 
   // More processing
@@ -660,22 +667,22 @@ Typically data objects and process objects are connected together using the
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-  using FloatImage2DType = itk::Image<float,2>;
+  using FloatImage2DType = itk::Image<float, 2>;
 
   itk::RandomImageSource<FloatImage2DType>::Pointer random;
   random = itk::RandomImageSource<FloatImage2DType>::New();
   random->SetMin(0.0);
   random->SetMax(1.0);
 
-  itk::ShrinkImageFilter<FloatImage2DType,FloatImage2DType>::Pointer shrink;
-  shrink = itk::ShrinkImageFilter<FloatImage2DType,FloatImage2DType>::New();
+  itk::ShrinkImageFilter<FloatImage2DType, FloatImage2DType>::Pointer shrink;
+  shrink = itk::ShrinkImageFilter<FloatImage2DType, FloatImage2DType>::New();
   shrink->SetInput(random->GetOutput());
   shrink->SetShrinkFactors(2);
 
   itk::ImageFileWriter<FloatImage2DType>::Pointer writer;
   writer = itk::ImageFileWriter<FloatImage2DType>::New();
-  writer->SetInput (shrink->GetOutput());
-  writer->SetFileName( "test.raw" );
+  writer->SetInput(shrink->GetOutput());
+  writer->SetFileName("test.raw");
   writer->Update();
 \end{minted}
 \normalsize
@@ -805,7 +812,8 @@ image using a custom structuring element using the Python wrapping:
   structuringElement = StructuringElementType.Ball(radiusValue)
 
   dilateFilter = itk.BinaryDilateImageFilter[
-      ImageType, ImageType, StructuringElementType].New()
+      ImageType, ImageType, StructuringElementType
+  ].New()
   dilateFilter.SetInput(reader.GetOutput())
   dilateFilter.SetKernel(structuringElement)
 \end{minted}
@@ -814,31 +822,31 @@ The same code in C++ would appear as follows:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-  const char * inputImage = argv[1];
-  const char * outputImage = argv[2];
-  const unsigned int radiusValue = atoi( argv[3] );
+  const char *       inputImage = argv[1];
+  const char *       outputImage = argv[2];
+  const unsigned int radiusValue = atoi(argv[3]);
 
   using PixelType = unsigned char;
   constexpr unsigned int Dimension = 2;
 
-  using ImageType = itk::Image< PixelType, Dimension >;
-  using ReaderType = itk::ImageFileReader< ImageType >;
+  using ImageType = itk::Image<PixelType, Dimension>;
+  using ReaderType = itk::ImageFileReader<ImageType>;
   auto reader = ReaderType::New();
-  reader->SetFileName( inputImage );
+  reader->SetFileName(inputImage);
 
-  using StructuringElementType = itk::FlatStructuringElement< Dimension >;
+  using StructuringElementType = itk::FlatStructuringElement<Dimension>;
   StructuringElementType::RadiusType radius;
-  radius.Fill( radiusValue );
+  radius.Fill(radiusValue);
   StructuringElementType structuringElement =
-    StructuringElementType::Ball( radius );
+    StructuringElementType::Ball(radius);
 
-  using BinaryDilateImageFilterType = itk::BinaryDilateImageFilter< ImageType,
-                                        ImageType, StructuringElementType >;
+  using BinaryDilateImageFilterType = itk::
+    BinaryDilateImageFilter<ImageType, ImageType, StructuringElementType>;
 
   BinaryDilateImageFilterType::Pointer dilateFilter =
     BinaryDilateImageFilterType::New();
-  dilateFilter->SetInput( reader->GetOutput() );
-  dilateFilter->SetKernel( structuringElement );
+  dilateFilter->SetInput(reader->GetOutput());
+  dilateFilter->SetKernel(structuringElement);
 \end{minted}
 \normalsize
 

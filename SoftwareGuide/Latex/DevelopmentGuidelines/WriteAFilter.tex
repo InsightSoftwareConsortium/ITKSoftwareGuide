@@ -474,8 +474,9 @@ For example, a \doxygen{ImageToImageFilter} would create the method:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-  void DynamicThreadedGenerateData( const OutputImageRegionType&
-    outputRegionForThread ) override;
+  void
+  DynamicThreadedGenerateData(
+    const OutputImageRegionType & outputRegionForThread) override;
 \end{minted}
 \normalsize
 
@@ -513,7 +514,7 @@ thus:
 
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
   using Self = ExampleImageFilter;
-  using Superclass = ImageToImageFilter<TImage,TImage>;
+  using Superclass = ImageToImageFilter<TImage, TImage>;
   using Pointer = SmartPointer<Self>;
   using ConstPointer = SmartPointer<const Self>;
 \end{minted}
@@ -547,7 +548,7 @@ be included, bracketed by a test for manual instantiation, thus:
 
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 #ifndef ITK_MANUAL_INSTANTIATION
-#include "itkExampleFilter.hxx"
+#  include "itkExampleFilter.hxx"
 #endif
 \end{minted}
 
@@ -557,7 +558,8 @@ A filter can be printed to an \code{std::ostream} (such as \code{std::cout})
 by implementing the following method:
 
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-  void PrintSelf( std::ostream& os, Indent indent ) const;
+  void
+  PrintSelf(std::ostream & os, Indent indent) const;
 \end{minted}
 
 \noindent and writing the name-value pairs of the filter parameters to the

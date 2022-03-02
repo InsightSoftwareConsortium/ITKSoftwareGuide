@@ -3063,12 +3063,12 @@ highlight trailing whitespace:
 
 \begin{itemize}
 \item \textbf{Emacs}
-\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{elisp}
 (custom-set-variables '(show-trailing-whitespace t))
 \end{minted}
 
 \item \textbf{Vim}
-\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{vim}
 :highlight ExtraWhitespace ctermbg=red guibg=red
 :match ExtraWhitespace /\s\+\$/
 \end{minted}
@@ -3187,7 +3187,7 @@ pushed.
 
 Emacs users: if you put this line in your \code{.emacs} file:
 
-\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{elisp}
 (setq auto-mode-alist (cons '("COMMIT\_EDITMSG\$" . auto-fill-mode) auto-mode-alist))
 \end{minted}
 
