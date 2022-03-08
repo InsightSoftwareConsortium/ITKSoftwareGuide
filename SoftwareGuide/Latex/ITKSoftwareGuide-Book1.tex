@@ -14,8 +14,8 @@
 \input{00-Preamble-Common.tex}
 
 
-\title{The ITK Software Guide\\Book 1: Introduction and Development Guidelines\\Fourth Edition\\ \emph{Updated for ITK version
-\ITKVERSIONMAJORMINORPATCH}}
+\title{The ITK Software Guide\\Book 1: Introduction and Development Guidelines\\ \emph{Updated for ITK version
+\ITKVERSIONMAJORMINOR}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -26,7 +26,7 @@
 
 \begin{document}
 
-\ifitkPrintedVersion
+\ifitkPrintedVersionFirstPage
 
   \begin{minipage}[t][3cm][b]{\textwidth}
   \rule{14cm}{1pt}
@@ -34,16 +34,18 @@
 
   \begin{minipage}[t][3cm][b]{\textwidth}
   \Huge
-  The ITK Software Guide\\
+  The ITK Software Guide
+  \Large
+  \par
   Book 1: Introduction and Development Guidelines\\
   \normalsize
   \par
-  \emph{Updated for version \ITKVERSIONMAJORMINORPATCH}\\
+  \emph{Updated for version \ITKVERSIONMAJORMINOR}\\
 
   \end{minipage}
 
-  \input{01-PrintedPreamble-Common.tex}
-  \input{01-PrintedPreamble-Book1.tex}
+  %\input{01-PrintedPreamble-Common.tex}
+  %\input{01-PrintedPreamble-Book1.tex}
 
 \fi
 
@@ -55,6 +57,11 @@
 \frontmatter
 
 \hyperbaseurl{https://www.itk.org/Insight}
+
+\ifitkPrintedVersion
+  \input{01-PrintedPreamble-Common.tex}
+  \input{01-PrintedPreamble-Book1.tex}
+\fi
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

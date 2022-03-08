@@ -22,7 +22,8 @@ set(PRIMARY_PROJECT_NAME ITKSoftwareGuide)
 option(${PRIMARY_PROJECT_NAME}_SUPERBUILD "Build ${PRIMARY_PROJECT_NAME} and the projects it depends on via SuperBuild.cmake." ON)
 mark_as_advanced(${PRIMARY_PROJECT_NAME}_SUPERBUILD)
 
-set(PDF_QUALITY_LEVEL "Screen" CACHE STRING "PDF Quality. Options are: Screen, Printer, PrePress")
+set(PDF_QUALITY_LEVEL "Screen" CACHE STRING "PDF Quality")
+set_property(CACHE PDF_QUALITY_LEVEL PROPERTY STRINGS Screen Printer PrePress)
 
 #-----------------------------------------------------------------------------
 # Superbuild script

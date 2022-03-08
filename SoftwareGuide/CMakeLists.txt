@@ -34,7 +34,9 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake ${CMAKE_MODULE_PATH})
 find_package(ITK 4 REQUIRED)
 include(${ITK_USE_FILE})
 
-set(PDF_QUALITY_LEVEL "Screen" CACHE STRING "PDF Quality. Options are: Screen, Printer, PrePress")
+set(PDF_QUALITY_LEVEL "Screen" CACHE STRING "PDF Quality")
+set_property(CACHE PDF_QUALITY_LEVEL PROPERTY STRINGS Screen Printer PrePress)
+
 #
 # Options for PDF generation.
 # resolution in dpi.
@@ -57,6 +59,14 @@ endif()
 if( PDF_QUALITY_LEVEL STREQUAL "PrePress" )
   set(PS2PDF_CONVERTER_OPTIONS "-dPDFSETTINGS${PS2PDF_CONVERTER_VAL_DELIM}/prepress" "-dColorImageResolution${PS2PDF_CONVERTER_VAL_DELIM}600" "-dGrayImageResolution${PS2PDF_CONVERTER_VAL_DELIM}600" -r600)
   set(SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN "\\itkPrintedVersiontrue")
+endif()
+
+
+option(PRINT_FIRST_PAGE_LATEX "Print the first page." OFF)
+if(PRINT_FIRST_PAGE_LATEX)
+  set(SoftwareGuide_PRINTED_VERSION_FIRST_PAGE_LATEX_BOOLEAN "\\itkPrintedVersionFirstPagetrue")
+else()
+  set(SoftwareGuide_PRINTED_VERSION_FIRST_PAGE_LATEX_BOOLEAN "\\itkPrintedVersionFirstPagefalse")
 endif()
 
 option(DRAFT_WATERMARK "Add a draft watermark to the output." ON)

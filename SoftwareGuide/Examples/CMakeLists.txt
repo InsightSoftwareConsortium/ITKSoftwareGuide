@@ -283,6 +283,8 @@ macro(CONVERT_INPUT_IMG SOME_IMG EPS_IMG IMAGEMAGICK_FLAGS)
 endmacro()
 include(\"${SoftwareGuide_BINARY_DIR}/Examples/GeneratedDependencies.cmake\")
 ")
+
+
 add_custom_command(TARGET RunExamples POST_BUILD
   COMMAND ${CMAKE_COMMAND}
   ARGS -P ${CMAKE_CURRENT_BINARY_DIR}/ConvertImagesToEPS.cmake

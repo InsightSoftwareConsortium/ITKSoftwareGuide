@@ -8,6 +8,9 @@
 \newif\ifitkPrintedVersion
 @SoftwareGuide_PRINTED_VERSION_LATEX_BOOLEAN@
 
+\newif\ifitkPrintedVersionFirstPage
+@SoftwareGuide_PRINTED_VERSION_FIRST_PAGE_LATEX_BOOLEAN@
+
 \newif\ifitkDraftWatermark
 @SoftwareGuide_DRAFT_WATERMARK_LATEX_BOOLEAN@
 

@@ -359,7 +359,7 @@ if __name__ == "__main__":
                         help="The base directory of the output directory.")
 
     args = parser.parse_args()
-
+    
     itkExecutablesDir = os.path.realpath(args.itkExecDir)
     itkBuildDir = os.path.realpath(args.itkBuildDir)
     pathFinder = ITKPathFinder(args.itkSourceDir, itkExecutablesDir, itkBuildDir, args.SWGuidBaseOutput)
@@ -381,6 +381,7 @@ if __name__ == "__main__":
 
     sorter = CodeBlockTopSort(allCommandBlocks)
     sortedAllCommandBlocks = sorter.GetSortedCodeBlockList()
+        
     for blockStart in sortedAllCommandBlocks:
         runCommand = blockStart.GetCommandLine()
         for inputFile in blockStart.inputs:
@@ -388,7 +389,7 @@ if __name__ == "__main__":
                 print("WARNING: {0} input does not exist".format(blockStart.sourceFile))
         print("Running: {0}".format(runCommand))
         try:
-            retcode = subprocess.call(runCommand, shell=True)
+            retcode = subprocess.call(runCommand, shell=True, stdout=subprocess.DEVNULL)
             if retcode < 0:
                 print("Child was terminated by signal " + str(-retcode))
             else:
@@ -413,7 +414,7 @@ if __name__ == "__main__":
             # Only add pngs because imagemagick does not yet support metaimage
             if inputFile[-4:] == ".png":
                 dependencyDictionary[baseProgramName].append(inputFile)
-
+                
     mkdir_p(os.path.join(args.SWGuidBaseOutput,'Examples'))
     outputCMakeDependancies = os.path.join(args.SWGuidBaseOutput,'Examples',"GeneratedDependencies.cmake")
     outputEPSDirectory = os.path.join(args.SWGuidBaseOutput,'Art','Generated')
