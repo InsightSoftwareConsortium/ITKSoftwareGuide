@@ -192,7 +192,8 @@ state functions, e.g.
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 /** Set the marker image */
-void SetMaskImage(const MaskImageType * input)
+void
+SetMaskImage(const MaskImageType * input)
 {
   // Process object is not const-correct so the const casting is required.
   this->SetNthInput(1, const_cast<TMaskImage *>(input));
@@ -384,46 +385,45 @@ For instance,
 namespace itk
 {
 /** \class DiffusionTensor3DReconstructionImageFilter
-* \brief This class takes as input one or more reference image (acquired in the
-* absence of diffusion sensitizing gradients) and 'n' diffusion
-* weighted images and their gradient directions and computes an image of
-* tensors. (with DiffusionTensor3D as the pixel type). Once that is done, you
-* can apply filters on this tensor image to compute FA, ADC, RGB weighted
-* maps, etc.
-*
-* ...
-*
-* \par References
-* \li<a href="http://lmi.bwh.harvard.edu/papers/pdfs/2002/westinMEDIA02.pdf">[1]
-* </a>
-* Carl-Fredrik Westin, Stephan E. Maier, Hatsuho Mamata, Arya Nabavi, Ferenc
-* Andras Jolesz, and Ron Kikinis. "Processing and visualization for Diffusion
-* tensor MRI. Medical Image Analysis, 6(2):93-108, 2002
-* \li<a href="splweb.bwh.harvard.edu:8000/pages/papers/westin/ISMRM2002.pdf">[2]
-* </a>
-* Carl-Fredrik Westin, and Stephan E. Maier. A Dual Tensor Basis Solution to the
-* Stejskal-Tanner Equations for DT-MRI. Proceedings of the 10th International
-* Society of Magnetic Resonance In Medicine (ISMRM) Scientific Meeting \&
-* Exhibition, Honolulu (HW, USA), 2002.
-*
-* ...
-*
-* \sa DiffusionTensor3D SymmetricSecondRankTensor
-* \ingroup MultiThreaded TensorObjects
-* \ingroup ITKDiffusionTensorImage
-*/
+ * \brief This class takes as input one or more reference image (acquired in the
+ * absence of diffusion sensitizing gradients) and 'n' diffusion
+ * weighted images and their gradient directions and computes an image of
+ * tensors. (with DiffusionTensor3D as the pixel type). Once that is done, you
+ * can apply filters on this tensor image to compute FA, ADC, RGB weighted
+ * maps, etc.
+ *
+ * ...
+ *
+ * \par References
+ * \li<a href="http://lmi.bwh.harvard.edu/papers/pdfs/2002/westinMEDIA02.pdf">[1]
+ * </a>
+ * Carl-Fredrik Westin, Stephan E. Maier, Hatsuho Mamata, Arya Nabavi, Ferenc
+ * Andras Jolesz, and Ron Kikinis. "Processing and visualization for Diffusion
+ * tensor MRI. Medical Image Analysis, 6(2):93-108, 2002
+ * \li<a href="splweb.bwh.harvard.edu:8000/pages/papers/westin/ISMRM2002.pdf">[2]
+ * </a>
+ * Carl-Fredrik Westin, and Stephan E. Maier. A Dual Tensor Basis Solution to the
+ * Stejskal-Tanner Equations for DT-MRI. Proceedings of the 10th International
+ * Society of Magnetic Resonance In Medicine (ISMRM) Scientific Meeting \&
+ * Exhibition, Honolulu (HW, USA), 2002.
+ *
+ * ...
+ *
+ * \sa DiffusionTensor3D SymmetricSecondRankTensor
+ * \ingroup MultiThreaded TensorObjects
+ * \ingroup ITKDiffusionTensorImage
+ */
 
 template <typename TReferenceImagePixelType,
-typename TGradientImagePixelType = TReferenceImagePixelType,
-typename TTensorPixelType = double,
-typename TMaskImageType = Image<unsigned char, 3>>
-class ITK_TEMPLATE_EXPORT DiffusionTensor3DReconstructionImageFilter :
-public ImageToImageFilter<Image<TReferenceImagePixelType, 3>,
-Image<DiffusionTensor3D<TTensorPixelType>, 3>>
+          typename TGradientImagePixelType = TReferenceImagePixelType,
+          typename TTensorPixelType = double,
+          typename TMaskImageType = Image<unsigned char, 3>>
+class ITK_TEMPLATE_EXPORT DiffusionTensor3DReconstructionImageFilter
+  : public ImageToImageFilter<Image<TReferenceImagePixelType, 3>,
+                              Image<DiffusionTensor3D<TTensorPixelType>, 3>>
 {
 
-...
-
+  ...
 };
 
 } // end namespace itk
@@ -437,20 +437,17 @@ Or in a method body,
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <unsigned int VDimension>
-void Solver<VDimension>
-::ApplyBC(int dimension, unsigned int matrix)
+void
+Solver<VDimension>::ApplyBC(int dimension, unsigned int matrix)
 {
-...
-          // Store the appropriate value in bc correction vector (-K12*u2)
-          //
-          // See
-          // http://titan.colorado.edu/courses.d/IFEM.d/IFEM.Ch04.d/IFEM.Ch04.pdf
-          // chapter 4.1.3 (Matrix Forms of DBC Application Methods) for more
-          // info.
-          m_LinearSystem->AddVectorValue(*cc, -d * fixedvalue, 1);
-        }
-
   ...
+    // Store the appropriate value in bc correction vector (-K12*u2)
+    //
+    // See
+    // http://titan.colorado.edu/courses.d/IFEM.d/IFEM.Ch04.d/IFEM.Ch04.pdf
+    // chapter 4.1.3 (Matrix Forms of DBC Application Methods) for more
+    // info.
+    m_LinearSystem->AddVectorValue(*cc, -d * fixedvalue, 1);
 }
 \end{minted}
 \normalsize
@@ -639,7 +636,8 @@ name the \code{main} method contained in the test file (\code{.cxx}). This
 name should generally be indicative of the class tested, e.g.
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-int itkTobogganImageFilterTest(int argc, char * argv[])
+int
+itkTobogganImageFilterTest(int argc, char * argv[])
 \end{minted}
 \normalsize
 
@@ -666,7 +664,7 @@ test filename = <filename><variation>
 In this formula, the filename comes first, and is completed by the variation
 tested, conveying the meaning behind the test, e.g.
 \small
-\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
 itkSimpleImageRegistrationTest.cxx
 itkSimpleImageRegistrationTestWithMaskAndSampling.cxx
 \end{minted}
@@ -709,7 +707,8 @@ features, the filename should adhere to the general convention of conveying the
 meaning behind the code, e.g.
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-int itkSingleLevelSetWhitakerImage2DWithCurvatureTest(int argc, char * argv[])
+int
+itkSingleLevelSetWhitakerImage2DWithCurvatureTest(int argc, char * argv[])
 \end{minted}
 \normalsize
 
@@ -789,18 +788,18 @@ For example,
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 /**
-* \class MathematicalMorphologyEnums
-* \brief Mathematical Morphology enum classes.
-* \ingroup ITKMathematicalMorphology
-*/
+ * \class MathematicalMorphologyEnums
+ * \brief Mathematical Morphology enum classes.
+ * \ingroup ITKMathematicalMorphology
+ */
 
 class MathematicalMorphologyEnums
 {
 public:
   /**\class Algorithm
-  * \brief Algorithm or implementation used in the dilation/erosion operations.
-  * \ingroup ITKMathematicalMorphology
-  */
+   * \brief Algorithm or implementation used in the dilation/erosion operations.
+   * \ingroup ITKMathematicalMorphology
+   */
   enum class Algorithm : uint8_t
   {
     BASIC = 0,
@@ -812,7 +811,8 @@ public:
 
 /** Define how to print enumeration values. */
 extern ITKMathematicalMorphology_EXPORT std::ostream &
-operator<<(std::ostream & out, const MathematicalMorphologyEnums::Algorithm value);
+operator<<(std::ostream & out,
+           const MathematicalMorphologyEnums::Algorithm value);
 \end{minted}
 \normalsize
 
@@ -820,21 +820,23 @@ The enumeration streaming method needs to be defined the implementation file, e.
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 std::ostream &
-operator<<(std::ostream & out, const MathematicalMorphologyEnums::Algorithm value)
+operator<<(std::ostream & out,
+           const MathematicalMorphologyEnums::Algorithm value)
 {
   return out << [value] {
     switch (value)
     {
       case MathematicalMorphologyEnums::Algorithm::BASIC:
-      return "itk::MathematicalMorphologyEnums::Algorithm::BASIC";
+        return "itk::MathematicalMorphologyEnums::Algorithm::BASIC";
       case MathematicalMorphologyEnums::Algorithm::HISTO:
-      return "itk::MathematicalMorphologyEnums::Algorithm::HISTO";
+        return "itk::MathematicalMorphologyEnums::Algorithm::HISTO";
       case MathematicalMorphologyEnums::Algorithm::ANCHOR:
-      return "itk::MathematicalMorphologyEnums::Algorithm::ANCHOR";
+        return "itk::MathematicalMorphologyEnums::Algorithm::ANCHOR";
       case MathematicalMorphologyEnums::Algorithm::VHGW:
-      return "itk::MathematicalMorphologyEnums::Algorithm::VHGW";
+        return "itk::MathematicalMorphologyEnums::Algorithm::VHGW";
       default:
-      return "INVALID VALUE FOR itk::MathematicalMorphologyEnums::Algorithm";
+        return "INVALID VALUE FOR "
+               "itk::MathematicalMorphologyEnums::Algorithm";
     }
   }();
 }
@@ -864,11 +866,13 @@ else if (algo == AlgorithmEnum::HISTO)
 {
   m_HistogramFilter->SetKernel(this->GetKernel());
 }
-else if (flatKernel != nullptr && flatKernel->GetDecomposable() && algo == AlgorithmEnum::ANCHOR)
+else if (flatKernel != nullptr && flatKernel->GetDecomposable() &&
+         algo == AlgorithmEnum::ANCHOR)
 {
   m_AnchorFilter->SetKernel(*flatKernel);
 }
-else if (flatKernel != nullptr && flatKernel->GetDecomposable() && algo == AlgorithmEnum::VHGW)
+else if (flatKernel != nullptr && flatKernel->GetDecomposable() &&
+         algo == AlgorithmEnum::VHGW)
 {
   m_VHGWFilter->SetKernel(*flatKernel);
 }
@@ -954,8 +958,8 @@ Note the \code{weight} variable in the following example:
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage>
 double
-WarpHarmonicEnergyCalculator<TInputImage>
-::EvaluateAtNeighborhood(ConstNeighborhoodIteratorType & it) const
+WarpHarmonicEnergyCalculator<TInputImage>::EvaluateAtNeighborhood(
+  ConstNeighborhoodIteratorType & it) const
 {
   vnl_matrix_fixed<double, ImageDimension, VectorDimension> J;
 
@@ -972,8 +976,8 @@ WarpHarmonicEnergyCalculator<TInputImage>
 
     for (unsigned int j = 0; j < VectorDimension; ++j)
     {
-      J[i][j] = weight * (static_cast<double>(next[j])
-        - static_cast<double>(prev[j]));
+      J[i][j] = weight *
+                (static_cast<double>(next[j]) - static_cast<double>(prev[j]));
     }
   }
 
@@ -1182,7 +1186,8 @@ The indirection unary operator (\code{*}) must be placed next to the variable, e
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-int itkTransformFileReaderTest(int argc, char * argv[])
+int
+itkTransformFileReaderTest(int argc, char * argv[])
 \end{minted}
 \normalsize
 
@@ -1208,7 +1213,7 @@ or
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-::PrintSelf(std::ostream &os, Indent indent) const
+::PrintSelf(std::ostream & os, Indent indent) const
 \end{minted}
 \normalsize
 
@@ -1219,7 +1224,8 @@ or
 The subscript operator (\code{[]}) must be placed next to the variable, e.g.
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-int itkGaborKernelFunctionTest(int argc, char * argv[])
+int
+itkGaborKernelFunctionTest(int argc, char * argv[])
 \end{minted}
 \normalsize
 
@@ -1227,9 +1233,12 @@ or
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-unsigned int GetSplitInternal(unsigned int dim,
-  unsigned int i, unsigned int numberOfPieces, IndexValueType regionIndex[],
-  SizeValueType regionSize[]) const override;
+unsigned int
+GetSplitInternal(unsigned int   dim,
+                 unsigned int   i,
+                 unsigned int   numberOfPieces,
+                 IndexValueType regionIndex[],
+                 SizeValueType  regionSize[]) const override;
 \end{minted}
 \normalsize
 
@@ -1282,11 +1291,11 @@ Some of the worst code contains many preprocessor directives and macros such as
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-#if defined(__APPLE__) && (__clang_major__ == 3)
-  && (__clang_minor__ == 0) && defined(NDEBUG) && defined(__x86_64__)
-  cc = -1.0 * itk::Math::sqr(1.0 / (cc + itk::Math::eps) );
+#if defined(__APPLE__) && (__clang_major__ == 3) &&                          \
+  (__clang_minor__ == 0) && defined(NDEBUG) && defined(__x86_64__)
+cc = -1.0 * itk::Math::sqr(1.0 / (cc + itk::Math::eps));
 #else
-  cc = -1.0 * itk::Math::sqr(1.0 / cc);
+cc = -1.0 * itk::Math::sqr(1.0 / cc);
 #endif
 \end{minted}
 \normalsize
@@ -1329,31 +1338,35 @@ As a general rule, the \code{const} type qualifier must be used for:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 /** Set the marker image. */
-void SetMaskImage(const MaskImageType * input)
+void
+SetMaskImage(const MaskImageType * input)
 {
   // Process object is not const-correct so the const casting is required.
   this->SetNthInput(1, const_cast<TMaskImage *>(input));
 }
 
 /** Set the input image. */
-void SetInput1(const InputImageType * input)
+void
+SetInput1(const InputImageType * input)
 {
   this->SetInput(input);
 }
 
 /** Set the marker image. */
-void SetInput2(const MaskImageType * input)
+void
+SetInput2(const MaskImageType * input)
 {
   this->SetMaskImage(input);
 }
 \end{minted}
 \normalsize
 
-\item Accessor/state functions, e.g.
+\item Accessor / state functions, e.g.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-bool GetUseVectorBasedAlgorithm() const
+bool
+GetUseVectorBasedAlgorithm() const
 {
   return HistogramType::UseVectorBasedAlgorithm();
 }
@@ -1439,7 +1452,7 @@ public:
   ...
 
   /** Pixel type alias support. Used to declare pixel type in filters
-  * or other operations. */
+   * or other operations. */
   using PixelType = TPixel;
   ...
 \end{minted}
@@ -1450,9 +1463,10 @@ or
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TImage>
-class ITK_TEMPLATE_EXPORT ImageRegionIterator : public ImageRegionConstIterator<TImage>
+class ITK_TEMPLATE_EXPORT ImageRegionIterator
+  : public ImageRegionConstIterator<TImage>
 {
-  public:
+public:
   /** Standard class type alias. */
   using Self = ImageRegionIterator;
   using Superclass = ImageRegionConstIterator<TImage>;
@@ -1475,16 +1489,24 @@ developing ITK code:
 \item Do call \code{Update()} before using the pipeline output.
 \item Do call \code{UpdateLargestPossibleRegion()} when reusing a reader.
 
+When reusing a reader you must call:
+
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-When reusing a reader you must call:
- reader->UpdateLargestPossibleRegion()
-instead of the usual:
- reader->Update()
-Otherwise the extent of the previous image is kept, and in some cases lead to Exceptions
-being thrown if the second image is smaller than the first one.
+  reader->UpdateLargestPossibleRegion()
 \end{minted}
 \normalsize
+
+instead of the usual:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+  reader->Update()
+\end{minted}
+\normalsize
+
+Otherwise the extent of the previous image is kept, and in some cases lead to Exceptions
+being thrown if the second image is smaller than the first one.
 
 \item Do not assume \code{inputImage->SetRequestedRegion(smallRegion)} will
 make the filter faster! The filter might run on the entire input image
@@ -1628,8 +1650,7 @@ The C++ keyword \code{this} must be used when calling a class' own methods:
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage>
 void
-ExpandImageFilter<TInputImage, TOutputImage>
-::GenerateInputRequestedRegion()
+ExpandImageFilter<TInputImage, TOutputImage>::GenerateInputRequestedRegion()
 {
   // Call the superclass' implementation of this method
   Superclass::GenerateInputRequestedRegion();
@@ -1655,8 +1676,9 @@ the variable name directly, i.e. the use of its getter method (i.e.
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage>
 void
-BinaryContourImageFilter<InputImage, TOutputImage>
-::PrintSelf(std::ostream & os, Indent indent) const
+BinaryContourImageFilter<InputImage, TOutputImage>::PrintSelf(
+  std::ostream & os,
+  Indent         indent) const
 {
   Superclass::PrintSelf(os, indent);
 
@@ -1672,8 +1694,9 @@ is preferred over
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage>
 void
-BinaryContourImageFilter<TInputImage, TOutputImage>
-::PrintSelf(std::ostream & os, Indent indent) const
+BinaryContourImageFilter<TInputImage, TOutputImage>::PrintSelf(
+  std::ostream & os,
+  Indent         indent) const
 {
   Superclass::PrintSelf(os, indent);
 
@@ -1711,9 +1734,9 @@ be one declaration per line:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-int i = 0;
-int j = 0;
-char* stringName;
+int    i = 0;
+int    j = 0;
+char * stringName;
 \end{minted}
 \normalsize
 \end{itemize}
@@ -1847,32 +1870,32 @@ The class definition layout looks something like this:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 /*=========================================================================
-*
-*  Copyright NumFOCUS
-*
-*  Licensed under the Apache License, Version 2.0 (the "License");
-*  you may not use this file except in compliance with the License.
-*  You may obtain a copy of the License at
-*
-*         http://www.apache.org/licenses/LICENSE-2.0.txt
-*
-*  Unless required by applicable law or agreed to in writing, software
-*  distributed under the License is distributed on an "AS IS" BASIS,
-*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*  See the License for the specific language governing permissions and
-*  limitations under the License.
-*
-*=========================================================================*/
+ *
+ *  Copyright NumFOCUS
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ *=========================================================================*/
 /*=========================================================================
-*
-*  Portions of this file are subject to the VTK Toolkit Version 3 copyright.
-*
-*  Copyright (c) Ken Martin, Will Schroeder, Bill Lorensen
-*
-*  For complete copyright, license and disclaimer of warranty information
-*  please refer to the NOTICE file at the top of the ITK source tree.
-*
-*=========================================================================*/
+ *
+ *  Portions of this file are subject to the VTK Toolkit Version 3 copyright.
+ *
+ *  Copyright (c) Ken Martin, Will Schroeder, Bill Lorensen
+ *
+ *  For complete copyright, license and disclaimer of warranty information
+ *  please refer to the NOTICE file at the top of the ITK source tree.
+ *
+ *=========================================================================*/
 
 #ifndef itkImage_hxx
 #define itkImage_hxx
@@ -1885,8 +1908,7 @@ namespace itk
 {
 
 template <typename TPixel, unsigned int VImageDimension>
-Image<TPixel, VImageDimension>
-::Image()
+Image<TPixel, VImageDimension>::Image()
 {
   m_Buffer = PixelContainer::New();
 }
@@ -1896,8 +1918,8 @@ Image<TPixel, VImageDimension>
 
 template <typename TPixel, unsigned int VImageDimension>
 void
-Image<TPixel, VImageDimension>
-::PrintSelf(std::ostream &os, Indent indent) const
+Image<TPixel, VImageDimension>::PrintSelf(std::ostream & os,
+                                          Indent         indent) const
 {
   Superclass::PrintSelf(os, indent);
 
@@ -1933,7 +1955,7 @@ e.g.
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TPixel, unsigned int VImageDimension>
 unsigned int
-Image <TPixel, VImageDimension>::GetNumberOfComponentsPerPixel() const
+Image<TPixel, VImageDimension>::GetNumberOfComponentsPerPixel() const
 {
   ...
 }
@@ -2030,8 +2052,7 @@ do
 {
   k += 1;
   p *= rand->GetVariate();
-}
-while (p > L);
+} while (p > L);
 \end{minted}
 \normalsize
 
@@ -2044,10 +2065,10 @@ the opening brace, and the last argument and closing brace:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 // Define the image size in image coordinates, and origin and spacing in
-//  physical coordinates.
-SizeType size = {{20, 20, 20}};
-double origin[3] = {0.0, 0.0, 0.0};
-double spacing[3] = {1, 1, 1};
+// physical coordinates.
+SizeType size = { { 20, 20, 20 } };
+double   origin[3] = { 0.0, 0.0, 0.0 };
+double   spacing[3] = { 1, 1, 1 };
 \end{minted}
 \normalsize
 
@@ -2062,8 +2083,8 @@ to use white spaces instead of tabs. The size of the indent in ITK is fixed to
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage = TInputImage>
-class ITK_TEMPLATE_EXPORT SpecializedFilter :
-  public ImageToImageFilter<TInputImage, TOutputImage>
+class ITK_TEMPLATE_EXPORT SpecializedFilter
+  : public ImageToImageFilter<TInputImage, TOutputImage>
 {
 public:
   using Self = SpecializedFilter;
@@ -2088,13 +2109,13 @@ or for the implementation of a given method:
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage>
 void
-SpecializedFilter<TInputImage, TOutputImage>
-::GenerateData() const
+SpecializedFilter<TInputImage, TOutputImage>::GenerateData() const
 {
   // Allocate the outputs.
   this->AllocateOutputs();
 
-  // Create a process accumulator for tracking the progress of this minipipeline.
+  // Create a process accumulator for tracking the progress of this
+  // minipipeline.
   auto progress = ProgressAccumulator::New();
   progress->SetMiniPipelineFilter(this);
 
@@ -2181,8 +2202,8 @@ Thus, for a class declaration we would write
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage = TInputImage>
-class ITK_TEMPLATE_EXPORT SpecializedFilter :
-  public ImageToImageFilter<TInputImage, TOutputImage>
+class ITK_TEMPLATE_EXPORT SpecializedFilter
+  : public ImageToImageFilter<TInputImage, TOutputImage>
 {
 public:
   using Self = SpecializedFilter;
@@ -2196,7 +2217,7 @@ public:
   /** Run-time type information (and related methods) */
   itkTypeMacro(SpecializedFilter, ImageToImageFilter);
 
-  ...
+  // ...
 };
 \end{minted}
 \normalsize
@@ -2206,13 +2227,12 @@ And for a class constructor we would write
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage>
-SpecializedFilter<TInputImage, TOutputImage>
-::SpecializedFilter() :
-  m_ForegroundValue(NumericTraits<InputImagePixelType>::max()),
-  m_BackgroundValue(NumericTraits<InputImagePixelType>::ZeroValue()),
-  m_NumPixelComponents(0),
-  m_NoiseSigmaIsSet(false),
-  m_SearchSpaceList(ListAdaptorType::New())
+SpecializedFilter<TInputImage, TOutputImage>::SpecializedFilter()
+  : m_ForegroundValue(NumericTraits<InputImagePixelType>::max())
+  , m_BackgroundValue(NumericTraits<InputImagePixelType>::ZeroValue())
+  , m_NumPixelComponents(0)
+  , m_NoiseSigmaIsSet(false)
+  , m_SearchSpaceList(ListAdaptorType::New())
 {
   // By default, turn off automatic kernel bandwidth sigma estimation
   this->KernelBandwidthEstimationOff();
@@ -2310,12 +2330,13 @@ when returning variables or method calls, as in:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-OutputType Evaluate(const PointType & point) const override
+OutputType
+Evaluate(const PointType & point) const override
 {
   ContinuousIndexType index;
 
   this->GetInputImage()->TransformPhysicalPointToContinuousIndex(point,
-    index);
+                                                                 index);
 
   // No thread info passed in, so call method that doesn't need thread
   // identifier.
@@ -2466,7 +2487,7 @@ For instance,
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TPixel, unsigned int VImageDimension>
 unsigned int
-Image <TPixel, VImageDimension>::GetNumberOfComponentsPerPixel() const
+Image<TPixel, VImageDimension>::GetNumberOfComponentsPerPixel() const
 {
   ...
 }
@@ -2537,10 +2558,12 @@ lines must be consecutive, and must be aligned with two-space indentation:
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 if (coeff.size() > m_MaximumKernelWidth)
 {
-  itkWarningMacro("Kernel size has exceeded the specified maximum width of "
+  itkWarningMacro(
+    "Kernel size has exceeded the specified maximum width of "
     << m_MaximumKernelWidth << " and has been truncated to "
-    << static_cast<unsigned long>(coeff.size()) << " elements. You can raise "
-    "the maximum width using the SetMaximumKernelWidth method.");
+    << static_cast<unsigned long>(coeff.size())
+    << " elements. You can raise "
+       "the maximum width using the SetMaximumKernelWidth method.");
   break;
 }
 \end{minted}
@@ -2565,9 +2588,12 @@ The same principle applies to method declarations:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-unsigned int GetSplitInternal(unsigned int dim,
-  unsigned int i, unsigned int numberOfPieces, IndexValueType regionIndex[],
-  SizeValueType regionSize[]) const override;
+unsigned int
+GetSplitInternal(unsigned int   dim,
+                 unsigned int   i,
+                 unsigned int   numberOfPieces,
+                 IndexValueType regionIndex[],
+                 SizeValueType  regionSize[]) const override;
 \end{minted}
 \normalsize
 
@@ -2607,7 +2633,8 @@ const typename FixedImageType::RegionType & fixedRegion =
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 using FilterType = AddImageFilter<BiasFieldControlPointLatticeType,
- BiasFieldControlPointLatticeType, BiasFieldControlPointLatticeType>
+                                  BiasFieldControlPointLatticeType,
+                                  BiasFieldControlPointLatticeType>
 \end{minted}
 \normalsize
 
@@ -2716,8 +2743,8 @@ namespace itk
  */
 
 template <typename TInputImage, typename TOutputImage>
-class ITK_TEMPLATE_EXPORT BoxImageFilter :
-  public ImageToImageFilter <TInputImage, TOutputImage>
+class ITK_TEMPLATE_EXPORT BoxImageFilter
+  : public ImageToImageFilter<TInputImage, TOutputImage>
 {
 public:
   ITK_DISALLOW_COPY_AND_ASSIGN(BoxImageFilter);
@@ -2733,9 +2760,11 @@ protected:
 
   ~BoxImageFilter() override = default;
 
-  void GenerateInputRequestedRegion() override;
+  void
+  GenerateInputRequestedRegion() override;
 
-  void PrintSelf(std::ostream & os, Indent indent) const override;
+  void
+  PrintSelf(std::ostream & os, Indent indent) const override;
 
 private:
   RadiusType m_Radius;
@@ -2794,8 +2823,7 @@ namespace itk
 {
 
 template <typename TInputImage, typename TOutputImage>
-SpecializedImageFilter<TInputImage, TOutputImage>
-::SpecializedImageFilter()
+SpecializedImageFilter<TInputImage, TOutputImage>::SpecializedImageFilter()
 {
   this->DynamicMultiThreadingOn();
 }
@@ -2803,8 +2831,8 @@ SpecializedImageFilter<TInputImage, TOutputImage>
 
 template <typename TInputImage, typename TOutputImage>
 void
-SpecializedImageFilter<TInputImage, TOutputImage>
-::SetRadius(const RadiusType & radius)
+SpecializedImageFilter<TInputImage, TOutputImage>::SetRadius(
+  const RadiusType & radius)
 {
   if (m_Radius != radius)
   {
@@ -2816,8 +2844,9 @@ SpecializedImageFilter<TInputImage, TOutputImage>
 
 template <typename TInputImage, typename TOutputImage>
 void
-SpecializedImageFilter<TInputImage, TOutputImage>
-::PrintSelf(std::ostream & os, Indent indent) const
+SpecializedImageFilter<TInputImage, TOutputImage>::PrintSelf(
+  std::ostream & os,
+  Indent         indent) const
 {
   Superclass::PrintSelf(os, indent);
 
@@ -2835,7 +2864,8 @@ tightly related can be separated by two empty lines at most, e.g.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-int itkHMinimaImageFilterTest(int argc, char * argv[])
+int
+itkHMinimaImageFilterTest(int argc, char * argv[])
 {
   ...
 
@@ -2868,10 +2898,11 @@ immediately be followed by the code, as in:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-int itkHMinimaImageFilterTest(int argc, char * argv[])
+int
+itkHMinimaImageFilterTest(int argc, char * argv[])
 {
   if (argc != 5)
-    {
+  {
     std::cerr << "Missing parameters." << std::endl;
     std::cerr << "Usage: " << itkNameOfTestExecutableMacro(argv);
     std::cerr << " inputImageFile"
@@ -2879,7 +2910,7 @@ int itkHMinimaImageFilterTest(int argc, char * argv[])
               << " height"
               << " fullyConnected" << std::endl;
     return EXIT_FAILURE;
-    }
+  }
 
   //
   // The following code defines the input and output pixel types and their
@@ -2900,11 +2931,15 @@ or just have an empty line before and after the comment, such as in:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TMaskImage, typename TOutputImage>
-void N4BiasFieldCorrectionImageFilter<TInputImage, TMaskImage, TOutputImage>::SharpenImage(
-  const RealImageType * unsharpenedImage, RealImageType * sharpenedImage) const
+void
+N4BiasFieldCorrectionImageFilter<TInputImage, TMaskImage, TOutputImage>::
+  SharpenImage(const RealImageType * unsharpenedImage,
+               RealImageType *       sharpenedImage) const
 {
-  const auto          maskImageBufferRange = MakeImageBufferRange(this->GetMaskImage());
-  const auto          confidenceImageBufferRange = MakeImageBufferRange(this->GetConfidenceImage());
+  const auto maskImageBufferRange =
+    MakeImageBufferRange(this->GetMaskImage());
+  const auto confidenceImageBufferRange =
+    MakeImageBufferRange(this->GetConfidenceImage());
   const MaskPixelType maskLabel = this->GetMaskLabel();
   const bool          useMaskLabel = this->GetUseMaskLabel();
 
@@ -2943,17 +2978,17 @@ literals, e.g.
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage>
 void
-MinimumMaximumImageCalculator<TInputImage>
-::PrintSelf(std::ostream & os, Indent indent) const
+MinimumMaximumImageCalculator<TInputImage>::PrintSelf(std::ostream & os,
+                                                      Indent indent) const
 {
   Superclass::PrintSelf(os, indent);
 
   os << indent << "Minimum: "
-  << static_cast<typename NumericTraits<PixelType>::PrintType>(m_Minimum)
-  << std::endl;
+     << static_cast<typename NumericTraits<PixelType>::PrintType>(m_Minimum)
+     << std::endl;
   os << indent << "Maximum: "
-  << static_cast<typename NumericTraits<PixelType>::PrintType>(m_Maximum)
-  << std::endl;
+     << static_cast<typename NumericTraits<PixelType>::PrintType>(m_Maximum)
+     << std::endl;
   os << indent << "IndexOfMinimum: " << m_IndexOfMinimum << std::endl;
   os << indent << "IndexOfMaximum: " << m_IndexOfMaximum << std::endl;
   itkPrintSelfObjectMacro(Image);
@@ -3054,7 +3089,8 @@ opening/closing parenthesis pair:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 /** Method doc. */
-void methodName();
+void
+methodName();
 \end{minted}
 \normalsize
 
@@ -3076,7 +3112,9 @@ The use of the ternary operator
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 for (unsigned int i = 0; i < m_NumOfThreads; ++i)
 {
-  for (unsigned int j = (i == 0 ? 0 : m_Boundary[i - 1] + 1); j <= m_Boundary[i]; ++j)
+  for (unsigned int j = (i == 0 ? 0 : m_Boundary[i - 1] + 1);
+       j <= m_Boundary[i];
+       ++j)
   {
     m_GlobalZHistogram[j] = m_Data[i].m_ZHistogram[j];
   }
@@ -3136,7 +3174,7 @@ be const, e.g.
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 for (unsigned int i = 0; j < ImageDimension; ++i)
 {
-  const elementSign = ( m_Step[i] > 0 ) ? 1.0 : -1.0;
+  const elementSign = (m_Step[i] > 0) ? 1.0 : -1.0;
   flipMatrix[i][i] = elementSign;
 }
 \end{minted}
@@ -3293,7 +3331,8 @@ Methods throwing exceptions must indicate so in their declaration as in:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 /** Initialize the components related to supporting multiple threads. */
-virtual void MultiThreadingInitialize() throw (ExceptionObject);
+virtual void
+MultiThreadingInitialize() throw(ExceptionObject);
 \end{minted}
 \normalsize
 
@@ -3379,7 +3418,8 @@ of the related exception, e.g.
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 if (m_FileName == "")
 {
-  throw MeshFileReaderException(__FILE__, __LINE__, "FileName must be specified", ITK_LOCATION);
+  throw MeshFileReaderException(
+    __FILE__, __LINE__, "FileName must be specified", ITK_LOCATION);
 }
 \end{minted}
 \normalsize
@@ -3405,8 +3445,8 @@ an exception, e.g.
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage>
 void
-BinShrinkImageFilter<TInputImage, TOutputImage>
-::GenerateInputRequestedRegion()
+BinShrinkImageFilter<TInputImage,
+                     TOutputImage>::GenerateInputRequestedRegion()
 {
   // Call the superclass' implementation of this method.
   Superclass::GenerateInputRequestedRegion();
@@ -3429,10 +3469,11 @@ e.g
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage>
 void
-PatchBasedDenoisingBaseImageFilter<TInputImage, TOutputImage>
-::SetPatchWeights(const PatchWeightsType & weights)
+PatchBasedDenoisingBaseImageFilter<TInputImage, TOutputImage>::
+  SetPatchWeights(const PatchWeightsType & weights)
 {
-  itkAssertOrThrowMacro(this->GetPatchLengthInVoxels() == weights.GetSize(),
+  itkAssertOrThrowMacro(
+    this->GetPatchLengthInVoxels() == weights.GetSize(),
     "Unexpected patch size encountered while setting patch weights");
 
   ...
@@ -3530,7 +3571,7 @@ if (argc < 3)
   std::cerr << "Usage: " << itkNameOfTestExecutableMacro(argv);
   std::cerr << " inputImage"
             << " outputImage"
-            << " [foregroundValue]
+            << " [foregroundValue]"
             << " [backgroundValue]" << std::endl;
   return EXIT_FAILURE;
 }
@@ -3548,8 +3589,7 @@ if (tf != true)
 {
   std::cerr << "Test failed!" << std::endl;
   std::cerr << "Error in itk::ColorTable::SetColor" << std::endl;
-  std::cerr << "Expected: " << true << ", but got: "
-    << tf << std::endl;
+  std::cerr << "Expected: " << true << ", but got: " << tf << std::endl;
   return EXIT_FAILURE;
 }
 \end{minted}
@@ -3567,11 +3607,13 @@ const OutputImageType::PixelType expectedValue =
 const OutputImageType::PixelType epsilon = 1e-6;
 while (!oIt.IsAtEnd())
 {
-if (!itk::Math::FloatAlmostEqual(oIt.Get(), expectedValue, 10, epsilon))
+  if (!itk::Math::FloatAlmostEqual(oIt.Get(), expectedValue, 10, epsilon))
   {
-    std::cerr.precision(static_cast<int>(itk::Math::abs(std::log10(epsilon))));
+    std::cerr.precision(
+      static_cast<int>(itk::Math::abs(std::log10(epsilon))));
     std::cerr << "Test failed!" << std::endl;
-    std::cerr << "Error in pixel value at index [" << oIt.GetIndex() << "]" << std::endl;
+    std::cerr << "Error in pixel value at index [" << oIt.GetIndex() << "]"
+              << std::endl;
     std::cerr << "Expected value " << expectedValue << std::endl;
     std::cerr << " differs from " << oIt.Get();
     std::cerr << " by more than " << epsilon << std::endl;
@@ -3632,17 +3674,17 @@ For instance,
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage>
 void
-MinimumMaximumImageCalculator<TInputImage>
-::PrintSelf(std::ostream & os, Indent indent) const
+MinimumMaximumImageCalculator<TInputImage>::PrintSelf(std::ostream & os,
+                                                      Indent indent) const
 {
   Superclass::PrintSelf(os, indent);
 
   os << indent << "Minimum: "
-   << static_cast<typename NumericTraits<PixelType>::PrintType>(m_Minimum)
-   << std::endl;
+     << static_cast<typename NumericTraits<PixelType>::PrintType>(m_Minimum)
+     << std::endl;
   os << indent << "Maximum: "
-   << static_cast<typename NumericTraits<PixelType>::PrintType>(m_Maximum)
-   << std::endl;
+     << static_cast<typename NumericTraits<PixelType>::PrintType>(m_Maximum)
+     << std::endl;
   os << indent << "IndexOfMinimum: " << m_IndexOfMinimum << std::endl;
   os << indent << "IndexOfMaximum: " << m_IndexOfMaximum << std::endl;
   itkPrintSelfObjectMacro(Image);
@@ -3712,7 +3754,8 @@ Tests should run as long as possible to report as much failures as possible befo
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-int itkAbsImageFilterAndAdaptorTest(int, char *[])
+int
+itkAbsImageFilterAndAdaptorTest(int, char *[])
 {
   int testStatus = EXIT_SUCCESS;
 
@@ -3724,18 +3767,22 @@ int itkAbsImageFilterAndAdaptorTest(int, char *[])
   it.GoToBegin();
   while (!ot.IsAtEnd())
   {
-    std::cout.precision(static_cast<int>(itk::Math::abs(std::log10(epsilon))));
+    std::cout.precision(
+      static_cast<int>(itk::Math::abs(std::log10(epsilon))));
     std::cout << ot.Get() << " = ";
     std::cout << itk::Math::abs(it.Get()) << std::endl;
-    const InputImageType::PixelType input = it.Get();
+    const InputImageType::PixelType  input = it.Get();
     const OutputImageType::PixelType output = ot.Get();
     const OutputImageType::PixelType absolute = itk::Math::abs(input);
     if (!itk::Math::FloatAlmostEqual(absolute, output, 10, epsilon))
     {
-      std::cerr.precision(static_cast<int>(itk::Math::abs(std::log10(epsilon))));
+      std::cerr.precision(
+        static_cast<int>(itk::Math::abs(std::log10(epsilon))));
       std::cerr << "Test failed!" << std::endl;
-      std::cerr << "Error in pixel value at index [" << oIt.GetIndex() << "]" << std::endl;
-      std::cerr << "Expected value " << abs(" << input << ") = " << absolute << std::endl;
+      std::cerr << "Error in pixel value at index [" << oIt.GetIndex() << "]"
+                << std::endl;
+      std::cerr << "Expected value "
+                << "abs(" << input << ") = " << absolute << std::endl;
       std::cerr << " differs from " << output();
       std::cerr << " by more than " << epsilon << std::endl;
       testStatus = EXIT_FAILURE;
@@ -3760,20 +3807,24 @@ int itkAbsImageFilterAndAdaptorTest(int, char *[])
   dt.GoToBegin();
   while (!dt.IsAtEnd())
   {
-    std::cout.precision(static_cast<int>(itk::Math::abs(std::log10(epsilon))));
+    std::cout.precision(
+      static_cast<int>(itk::Math::abs(std::log10(epsilon))));
     const OutputImageType::PixelType diff = dt.Get();
-    if (!itk::Math::FloatAlmostEqual(diff, (OutputImageType::PixelType)0, 10, epsilon))
+    if (!itk::Math::FloatAlmostEqual(
+          diff, (OutputImageType::PixelType)0, 10, epsilon))
     {
-      std::cerr.precision(static_cast<int>(itk::Math::abs(std::log10(epsilon))));
+      std::cerr.precision(
+        static_cast<int>(itk::Math::abs(std::log10(epsilon))));
       std::cerr << "Test failed!" << std::endl;
-      std::cerr << "Error in pixel value at index [" << dt.GetIndex() << "]" << std::endl;
+      std::cerr << "Error in pixel value at index [" << dt.GetIndex() << "]"
+                << std::endl;
       std::cerr << "Expected difference " << diff << std::endl;
       std::cerr << " differs from 0 ";
       std::cerr << " by more than " << epsilon << std::endl;
       testStatus = EXIT_FAILURE;
-      }
-    ++dt;
     }
+    ++dt;
+  }
 
   std::cout << "Test finished." << std::endl;
   return testStatus;
@@ -3805,7 +3856,8 @@ be specified. The generally accepted syntax for these cases is:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-int itkVersionTest(int, char *[])
+int
+itkVersionTest(int, char *[])
 \end{minted}
 \normalsize
 
@@ -3815,7 +3867,8 @@ must be used to avoid compiler warnings:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-int itkGaborKernelFunctionTest(int itkNotUsed(argc), char * itkNotUsed(argv)[])
+int
+itkGaborKernelFunctionTest(int itkNotUsed(argc), char * itkNotUsed(argv)[])
 \end{minted}
 \normalsize
 
@@ -3846,7 +3899,7 @@ if (argc < 3)
   std::cerr << "Usage: " << itkNameOfTestExecutableMacro(argv);
   std::cerr << " inputImage"
             << " outputImage"
-            << " [foregroundValue]
+            << " [foregroundValue]"
             << " [backgroundValue]" << std::endl;
   return EXIT_FAILURE;
 }
@@ -3860,7 +3913,8 @@ if (argc < 3)
 The enumeration class streaming operator overload needs to be tested, e.g.
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-// Test streaming enumeration for MathematicalMorphologyEnums::Algorithm elements
+// Test streaming enumeration for MathematicalMorphologyEnums::Algorithm
+// elements
 const std::set<itk::MathematicalMorphologyEnums::Algorithm> allAlgorithm{
   itk::MathematicalMorphologyEnums::Algorithm::BASIC,
   itk::MathematicalMorphologyEnums::Algorithm::HISTO,
@@ -3869,7 +3923,8 @@ const std::set<itk::MathematicalMorphologyEnums::Algorithm> allAlgorithm{
 };
 for (const auto & ee : allAlgorithm)
 {
-  std::cout << "STREAMED ENUM VALUE MathematicalMorphologyEnums::Algorithm: " << ee << std::endl;
+  std::cout << "STREAMED ENUM VALUE MathematicalMorphologyEnums::Algorithm: "
+            << ee << std::endl;
 }
 \end{minted}
 \normalsize
@@ -3883,7 +3938,8 @@ even if \code{bool} is tempting:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-int itkVersionTest(int, char *[])
+int
+itkVersionTest(int, char *[])
 \end{minted}
 \normalsize
 
@@ -3892,7 +3948,8 @@ of multiple regressions, an \code{int} variable must be declared:
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
-int itkAbsImageFilterAndAdaptorTest(int, char *[])
+int
+itkAbsImageFilterAndAdaptorTest(int, char *[])
 {
   int testStatus = EXIT_SUCCESS;
 
@@ -3997,8 +4054,7 @@ before the statement-ending \code{;} and the comment itself, e.g.
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage>
 void
-SpecializedImageFilter<TInputImage, TOutputImage>
-::SpecializedMethod()
+SpecializedImageFilter<TInputImage, TOutputImage>::SpecializedMethod()
 {
   ...
 
@@ -4081,7 +4137,8 @@ should be aligned, e.g.
  * ResetPipeline() on the last ProcessObject in your pipeline in
  * order to restore the pipeline to a state where you can call
  * Update() again. */
-virtual void Update();
+virtual void
+Update();
 \end{minted}
 \normalsize
 
@@ -4100,12 +4157,13 @@ the comment character \code{//} and the comment itself, e.g.
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 // We wish to copy whole lines, otherwise just use the basic implementation.
 // Check that the number of internal components match.
-if (inRegion.GetSize()[0] != outRegion.GetSize()[0]
-   || NumberOfInternalComponents != ImageAlgorithm::PixelSize<OutputImageType>::Get(outImage))
+if (inRegion.GetSize()[0] != outRegion.GetSize()[0] ||
+    NumberOfInternalComponents !=
+      ImageAlgorithm::PixelSize<OutputImageType>::Get(outImage))
 {
-ImageAlgorithm::DispatchedCopy<InputImageType, OutputImageType>(inImage, outImage, inRegion,
-  outRegion);
-return;
+  ImageAlgorithm::DispatchedCopy<InputImageType, OutputImageType>(
+    inImage, outImage, inRegion, outRegion);
+  return;
 }
 \end{minted}
 \normalsize
@@ -4125,13 +4183,11 @@ the following example:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 public:
-
   /** Set/Get the standard deviation of the Gaussian used for smoothing. */
   itkSetMacro(Sigma, SigmaArrayType);
   itkGetConstMacro(Sigma, SigmaArrayType);
 
 private:
-
   SigmaArrayType m_Sigma;
 
 \end{minted}
@@ -4179,17 +4235,17 @@ should have a double indentation, e.g.
 #  define itkDebugMacro(x)
 #  define itkDebugStatement(x)
 #else
-#  define itkDebugMacro(x)                                                     \
-    do                                                                         \
-    {                                                                          \
-      if (this->GetDebug() && ::itk::Object::GetGlobalWarningDisplay())        \
-      {                                                                        \
-        std::ostringstream itkmsg;                                             \
-        itkmsg << "Debug: In " __FILE__ ", line " << __LINE__ << "\n"          \
-               << this->GetNameOfClass() << " (" << this << "): " x            \
-               << "\n\n";                                                      \
-        ::itk::OutputWindowDisplayDebugText(itkmsg.str().c_str());             \
-      }                                                                        \
+#  define itkDebugMacro(x)                                                   \
+    do                                                                       \
+    {                                                                        \
+      if (this->GetDebug() && ::itk::Object::GetGlobalWarningDisplay())      \
+      {                                                                      \
+        std::ostringstream itkmsg;                                           \
+        itkmsg << "Debug: In " __FILE__ ", line " << __LINE__ << "\n"         \
+               << this->GetNameOfClass() << " (" << this << "): " x          \
+               << "\n\n";                                                    \
+        ::itk::OutputWindowDisplayDebugText(itkmsg.str().c_str());           \
+      }                                                                      \
     } while (0)
 \end{minted}
 \normalsize
@@ -4215,7 +4271,8 @@ the text, and will end with the \code{*/} character, e.g.
 /* Test the SetMetricSamplingPercentage and SetMetricSamplingPercentagePerLevel.
  * We only need to explicitly run the SetMetricSamplingPercentage method because
  * it invokes the SetMetricSamplingPercentagePerLevel method. */
-int itkImageRegistrationSamplingTest(int, char *[])
+int
+itkImageRegistrationSamplingTest(int, char *[])
 \end{minted}
 \normalsize
 

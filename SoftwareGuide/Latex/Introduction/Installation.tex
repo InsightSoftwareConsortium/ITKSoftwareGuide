@@ -113,7 +113,7 @@ git clone git://itk.org/ITK.git
 This will trigger the download of the software into a directory named
 \code{ITK}.  Any time you want to update your version, it will be enough to
 change into this directory, \code{ITK}, and type:
-\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
 git pull
 \end{minted}
 
@@ -581,7 +581,7 @@ specify the individual ITK modules in the \code{COMPONENTS} argument in the
 \code{find\_package} CMake command:
 
 \small
-\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
 find_package(ITK REQUIRED COMPONENTS Module1 Module2)
 include(\${ITK_USE_FILE})
 \end{minted}
@@ -590,7 +590,7 @@ include(\${ITK_USE_FILE})
 e.g.
 
 \small
-\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
 find_package(ITK REQUIRED
   COMPONENTS
     MorphologicalContourInterpolation
@@ -609,7 +609,7 @@ Superbuild ITK), here is a basic CMake snippet for setting up a Superbuild in
 an ITK application project using CMake:
 
 \small
-\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
 ExternalProject_Add(ITK
       GIT_REPOSITORY \${git_protocol}://github.com/InsightSoftwareConsortium/ITK.git"
       GIT_TAG "<tag id>" # specify the commit id or the tag id
@@ -651,7 +651,7 @@ be created for your new project. These two files can be found in the
 The \code{CMakeLists.txt} file contains the following lines:
 
 % CMake looks similar to bash with regards to formatting.
-\begin{minted}[linenos=false]{bash}
+\begin{minted}[linenos=false]{cmake}
 project(HelloWorld)
 
 find_package(ITK REQUIRED)

@@ -21,7 +21,7 @@ AccessModifierOffset: -2
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: false
 AlignConsecutiveDeclarations: true
-AlignEscapedNewlines: Left
+AlignEscapedNewlines: Right
 AlignOperands:   true
 AlignTrailingComments: true
 # clang 9.0 AllowAllArgumentsOnNextLine: true
@@ -71,8 +71,8 @@ BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: BeforeComma
 BreakAfterJavaFieldAnnotations: false
 BreakStringLiterals: true
-## The following line allows larger lines in non-documentation code
-ColumnLimit:     120
+## The following line uses shorter lines in documentation code
+ColumnLimit:     78
 CommentPragmas:  '^ IWYU pragma:'
 CompactNamespaces: false
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
@@ -114,8 +114,8 @@ ObjCSpaceBeforeProtocolList: false
 PenaltyBreakAssignment: 2
 PenaltyBreakBeforeFirstCallParameter: 19
 PenaltyBreakComment: 300
-## The following line allows larger lines in non-documentation code
-PenaltyBreakFirstLessLess: 120
+## The following line uses shorter lines in documentation code
+PenaltyBreakFirstLessLess: 88
 PenaltyBreakString: 1000
 PenaltyBreakTemplateDeclaration: 10
 PenaltyExcessCharacter: 1000000

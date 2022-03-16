@@ -239,10 +239,12 @@ several template parameters.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{c++}
-using InterpolatorType = WindowedSincInterpolateImageFunction<
-           TInputImage, VRadius, TWindowFunction,
-           TBoundaryCondition, TCoordRep >;
-
+using InterpolatorType =
+  WindowedSincInterpolateImageFunction<TInputImage,
+                                       VRadius,
+                                       TWindowFunction,
+                                       TBoundaryCondition,
+                                       TCoordRep>;
 \end{minted}
 \normalsize
 
