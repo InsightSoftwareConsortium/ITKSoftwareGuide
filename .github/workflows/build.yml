@@ -53,7 +53,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake -GNinja -DCMAKE_BUILD_TYPE=MinSizeRel ..
+        cmake -GNinja -DCMAKE_BUILD_TYPE=MinSizeRel -DSuperBuild_ITKSoftwareGuide_USE_GIT_PROTOCOL:BOOL=OFF ..
         ninja
 
     - name: Publish ITK Software Guide Book 1 artifact
