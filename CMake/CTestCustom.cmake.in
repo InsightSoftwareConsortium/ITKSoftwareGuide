@@ -11,10 +11,10 @@
 
 #
 # For further details regarding this file,
-# see http://www.cmake.org/Wiki/CMake_Testing_With_CTest#Customizing_CTest
+# see https://www.cmake.org/Wiki/CMake_Testing_With_CTest#Customizing_CTest
 #
 # and
-# http://www.kitware.com/blog/home/post/27
+# https://www.kitware.com/blog/home/post/27
 #
 #----------------------------------------------------------------------
 
@@ -159,9 +159,9 @@ set(CTEST_CUSTOM_WARNING_EXCEPTION
 
   # Suppressing warnings about GL_GLEXT_LEGACY, the link reported below
   # report a similar problem with GL_GLEXT_PROTOTYPE.
-  # http://lists.apple.com/archives/mac-opengl/2009/Dec/msg00081.html
+  # https://lists.apple.com/archives/mac-opengl/2009/Dec/msg00081.html
   # That problem could be solved installing a newer version of X11 SDK
-  # See http://xquartz.macosforge.org/trac/changeset/343
+  # See https://xquartz.macosforge.org/trac/changeset/343
   ".*warning.*GL_GLEXT_LEGACY.*redefined"
 
   # ITK suppressions
@@ -315,7 +315,7 @@ set(CTEST_CUSTOM_WARNING_EXCEPTION
 
   # Suppressing warnings about duplicate libraries in Darwin
   # At some point this may be addressed by CMake feature request:
-  # http://public.kitware.com/Bug/view.php?id=10179
+  # https://public.kitware.com/Bug/view.php?id=10179
   "ld.*warning.*duplicate dylib.*"
   )
 endif()

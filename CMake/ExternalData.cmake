@@ -55,7 +55,7 @@
 # Example usage:
 #   include(ExternalData)
 #   set(ExternalData_URL_TEMPLATES "file:///local/%(algo)/%(hash)"
-#                                  "http://data.org/%(algo)/%(hash)")
+#                                  "https://data.org/%(algo)/%(hash)")
 #   ExternalData_Add_Test(MyData
 #     NAME MyTest
 #     COMMAND MyExe DATA{MyInput.png}
