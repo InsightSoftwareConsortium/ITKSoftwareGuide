@@ -98,6 +98,6 @@ Some Helpful Git Commands
 
 
 [Git]: https://git-scm.com/
-[VIM]: http://www.vim.org/
+[VIM]: https://www.vim.org/
 [GitHub]: https://github.com/
 [Pull Request]: https://help.github.com/articles/about-pull-requests/
