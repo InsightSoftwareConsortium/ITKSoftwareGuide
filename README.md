@@ -51,7 +51,7 @@ All the dependencies described belowe are available pre-installed in a [Docker]
 image. This is the easiest way to build and contribute to The Software
 Guide.
 
-  1. Download and [install Docker](http://docs.docker.com/installation/).
+  1. Download and [install Docker](https://docs.docker.com/installation/).
   2. From a shell, run
 ```sh
 docker run --name software-guide -p 8888:8888 insighttoolkit/itksoftwareguide-edit:latest
@@ -175,12 +175,12 @@ Troubleshooting
 
 [BibTeX]: http://www.bibtex.org/
 [Docker]: https://www.docker.com/
-[dvips]: http://tug.org/texinfohtml/dvips.html
+[dvips]: https://tug.org/texinfohtml/dvips.html
 [Git]: https://git-scm.com/
 [ImageMagick]: https://www.imagemagick.org
 [LaTeX]: https://www.latex-project.org//
 [Minted]: https://ctan.org/pkg/minted?lang=en
 [MikTex]: https://miktex.org/
 [ps2pdf]: https://www.ps2pdf.com/
-[Pygments]: http://pygments.org/
+[Pygments]: https://pygments.org/
 [Python]: https://www.python.org/
