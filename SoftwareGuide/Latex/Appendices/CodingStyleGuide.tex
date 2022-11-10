@@ -62,6 +62,8 @@ code including indentation style.
 argument lists.
 \item \textbf{Ternary Operator}: accepted standards for using the ternary
 operator.
+\item \textbf{Backslashes}: guideline on using a backslash as line continuation
+character.
 \item \textbf{Using Standard Macros} (itkMacro.h): use of standard macros in
 header files.
 \item \textbf{Exception Handling}: how to add exception handling to the system.
@@ -3202,6 +3204,44 @@ for (unsigned int i = 0; j < ImageDimension; ++i)
 
 And hence, the ternary operator is accepted in such cases.
 
+
+\section{Backslashes}
+\label{sec:Backslashes}
+
+The use of a backslash as line continuation character appears to sometimes
+hamper code readability. A backslash at the end of a line that has C++ \code{//}
+comment may be quite confusing. For example, it may be overlooked easily that
+the following code has commented out the \code{Sleep()} function call:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+  // Wil we go to sleep or not? \
+  Sleep();
+\end{minted}
+\normalsize
+
+Moreover, the use of backslashes in a multiline string literal also appears
+troublesome. For example, the following \code{badDescription} has all the space
+characters of the indentation between "developers with " and "an extensive suite"
+embedded inside the string, which may not be intended. The definition of
+\code{goodDescription} shows how to define such a lengthy string properly (as
+the compiler concatenates adjacent string literals automatically).
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+    const char badDescription[] = "ITK is an open-source, cross-platform library that provides developers with \
+                                   an extensive suite of software tools for image analysis.";
+
+    const char goodDescription[] = "ITK is an open-source, cross-platform library that provides developers with "
+                                   "an extensive suite of software tools for image analysis.";
+\end{minted}
+\normalsize
+
+So in general, the use of a backslash as line continuation character is
+discouraged. Exception: a lengthy preprocessor macro definitions may actually
+be more readable when it spans multiple lines, so in this case, the use of
+backslashes is OK. But even then, such line continuation characters should not
+appear inside a string literal.
 
 \section{Using Standard Macros}
 \label{sec:UsingStandardMacros}
