@@ -1621,8 +1621,23 @@ SpecializedFilter<TInputImage, TOutputImage>::SpecializedFilter()
 \end{minted}
 \normalsize
 
-Smart pointers need not to be initialized, since they initialize themselves
-to the \code{null} pointer, so they are the sole exception to the above rule.
+Exceptions to this guideline:
+
+Private data members that are just there to add padding bytes between other
+(member) variables (typically to avoid false sharing in the context of
+multi-threading) should not be initialized. Such a padding data member is
+typically declared as a C-style array of a (possibly unsigned) character type.
+
+A data member that is declared as \code{std::unique\_ptr<T>} or
+\code{itk::SmartPointer<T>} should not have an empty \code{\{\}} initializer at
+its declaration, at least for now, because of a GCC issue (prior to GCC release
+9.2), which would cause compilation errors when the type \code{T} is an
+incomplete (forward declared) class type.
+
+Another exception is made for low level utility classes for which data member
+initialization would cause a significant performance penalty. This is why for
+example \code{FixedArray::m\_InternalArray} and \code{Index::m\_InternalArray}
+do not have a default member initializer.
 
 Note that all numeric data members must be initialized using the appropriate
 ITK's \code{NumericTraits} static method.
