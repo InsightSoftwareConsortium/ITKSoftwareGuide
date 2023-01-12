@@ -57,13 +57,13 @@ jobs:
         ninja
 
     - name: Publish ITK Software Guide Book 1 artifact
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: ITKSoftwareGuide-Book1.pdf
         path: build/ITKSoftwareGuide-build/SoftwareGuide/Latex/ITKSoftwareGuide-Book1.pdf
 
     - name: Publish ITK Software Guide Book 2 artifact
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: ITKSoftwareGuide-Book2.pdf
         path: build/ITKSoftwareGuide-build/SoftwareGuide/Latex/ITKSoftwareGuide-Book2.pdf
