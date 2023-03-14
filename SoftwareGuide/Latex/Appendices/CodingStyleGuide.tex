@@ -1376,6 +1376,21 @@ GetUseVectorBasedAlgorithm() const
 \end{itemize}
 
 
+\subsection{Integer Type Specifiers}
+\label{subsec:IntegerTypeSpecifiers}
+
+Throughout the code base, the built-in type \code{unsigned int} is spelled exactly like that:
+``unsigned int'' (rather than just ``unsigned''). Other built-in integer types should in
+general be specified by their shortest form. For example, ``short'', ``long'', and ``long long''
+are preferred to ``signed short int'', ``signed long int'', and ``signed long long int''.
+
+Within the \code{itk} namespace, integer type aliases from C++ Standard headers for C library
+facilities (like \code{<cstdlib>} and \code{<cstdint>}) should generally be used without a \code{std::} prefix.
+For example, ``size\_t'', ``int8\_t'', and ``uintmax\_t'' are preferred to ``std::size\_t'',
+``std::int8\_t'', and ``std::uintmax\_t''. When using any of those type aliases, the ITK header file
+``itkIntTypes.h'' may need to be \code{\#include}d, to ensure that those types are declared within the
+\code{itk} namespace.
+
 \section{Namespaces}
 \label{sec:Namespaces}
 
