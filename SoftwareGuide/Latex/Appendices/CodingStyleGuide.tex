@@ -1575,9 +1575,9 @@ private:
   double      m_Thickness{ 1.0 };
   bool        m_Normalize{ false };
   bool        m_BrightCenter{ false };
-  PixelType   m_InteriorValue{ NumericTraits<PixelType>::ZeroValue() };
+  PixelType   m_InteriorValue{};
   PixelType   m_AnnulusValue{ NumericTraits<PixelType>::OneValue() };
-  PixelType   m_ExteriorValue{ NumericTraits<PixelType>::ZeroValue() };
+  PixelType   m_ExteriorValue{};
   SpacingType m_Spacing{ 1.0 };
 \end{minted}
 \normalsize
@@ -1598,7 +1598,7 @@ are preferred over initialization lists in the method constructor, e.g.
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage>
 SpecializedFilter<TInputImage, TOutputImage>::SpecializedFilter()
-  : m_BackgroundValue(NumericTraits<OutputImagePixelType>::ZeroValue())
+  : m_BackgroundValue{}
   , m_ForegroundValue(NumericTraits<OutputImagePixelType>::OneValue())
 {
   ...
@@ -1613,7 +1613,7 @@ or assignment:
 template <typename TInputImage, typename TOutputImage>
 SpecializedFilter<TInputImage, TOutputImage>::SpecializedFilter()
 {
-  m_BackgroundValue = NumericTraits<OutputImagePixelType>::ZeroValue();
+  m_BackgroundValue = {};
   m_ForegroundValue = NumericTraits<OutputImagePixelType>::OneValue();
 
   ...
@@ -1638,10 +1638,6 @@ Another exception is made for low level utility classes for which data member
 initialization would cause a significant performance penalty. This is why for
 example \code{FixedArray::m\_InternalArray} and \code{Index::m\_InternalArray}
 do not have a default member initializer.
-
-Note that all numeric data members must be initialized using the appropriate
-ITK's \code{NumericTraits} static method.
-
 
 \section{Accessing Members}
 \label{sec:Accessing Members}
@@ -2231,7 +2227,7 @@ And for a class constructor we would write
 template <typename TInputImage, typename TOutputImage>
 SpecializedFilter<TInputImage, TOutputImage>::SpecializedFilter()
   : m_ForegroundValue(NumericTraits<InputImagePixelType>::max())
-  , m_BackgroundValue(NumericTraits<InputImagePixelType>::ZeroValue())
+  , m_BackgroundValue{}
   , m_NumPixelComponents(0)
   , m_NoiseSigmaIsSet(false)
   , m_SearchSpaceList(ListAdaptorType::New())
