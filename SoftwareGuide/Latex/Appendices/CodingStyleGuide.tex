@@ -2241,14 +2241,9 @@ And for a class constructor we would write
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage>
 SpecializedFilter<TInputImage, TOutputImage>::SpecializedFilter()
-  : m_ForegroundValue(NumericTraits<InputImagePixelType>::max())
-  , m_BackgroundValue{}
-  , m_NumPixelComponents(0)
-  , m_NoiseSigmaIsSet(false)
-  , m_SearchSpaceList(ListAdaptorType::New())
 {
-  // By default, turn off automatic kernel bandwidth sigma estimation
-  this->KernelBandwidthEstimationOff();
+  // The filter requires two inputs
+  this->SetNumberOfRequiredInputs(2);
 }
 \end{minted}
 \normalsize
