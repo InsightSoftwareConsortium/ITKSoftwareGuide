@@ -1689,13 +1689,13 @@ the variable name directly, i.e. the use of its getter method (i.e.
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage>
 void
-BinaryContourImageFilter<InputImage, TOutputImage>::PrintSelf(
+InterpolateImageFilter<InputImage, TOutputImage>::PrintSelf(
   std::ostream & os,
   Indent         indent) const
 {
   Superclass::PrintSelf(os, indent);
 
-  os << indent << "FullyConnected: " << m_FullyConnected << std::endl;
+  os << indent << "Distance: " << m_Distance << std::endl;
   ...
 }
 \end{minted}
@@ -1707,13 +1707,13 @@ is preferred over
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
 template <typename TInputImage, typename TOutputImage>
 void
-BinaryContourImageFilter<TInputImage, TOutputImage>::PrintSelf(
+InterpolateImageFilter<TInputImage, TOutputImage>::PrintSelf(
   std::ostream & os,
   Indent         indent) const
 {
   Superclass::PrintSelf(os, indent);
 
-  os << indent << "FullyConnected: " << this->m_FullyConnected << std::endl;
+  os << indent << "Distance: " << m_Distance << std::endl;
   ...
 }
 \end{minted}
