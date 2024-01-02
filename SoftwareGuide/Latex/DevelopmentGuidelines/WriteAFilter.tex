@@ -532,7 +532,7 @@ factory mechanism, and to be created using the canonical \code{::New()}:
   itkNewMacro(Self);
 
   /** Run-time type information (and related methods). */
-  itkTypeMacro(ExampleImageFilter, ImageToImageFilter);
+  itkOverrideGetNameOfClassMacro(ExampleImageFilter);
 \end{minted}
 
 The default constructor should be \code{protected}, and provide sensible
