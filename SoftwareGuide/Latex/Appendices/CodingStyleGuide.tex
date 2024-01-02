@@ -2109,7 +2109,7 @@ public:
   itkNewMacro(Self);
 
   /** Run-time type information (and related methods) */
-  itkTypeMacro(SpecializedFilter, ImageToImageFilter);
+  itkOverrideGetNameOfClassMacro(SpecializedFilter);
 
   ...
 };
@@ -2228,7 +2228,7 @@ public:
   itkNewMacro(Self);
 
   /** Run-time type information (and related methods) */
-  itkTypeMacro(SpecializedFilter, ImageToImageFilter);
+  itkOverrideGetNameOfClassMacro(SpecializedFilter);
 
   // ...
 };
@@ -3228,9 +3228,8 @@ Some of the more important object macros are:
 \item \code{itkNewMacro(T)}: Creates the static class method \code{New()}
 that interacts with the object factory to instantiate objects. The method
 returns a \code{SmartPointer<T>} properly reference counted.
-\item \code{itkTypeMacro(thisClass, superclass)}: Adds standard methods a
-class, mainly type information. Adds the \code{GetNameOfClass()} method to the
-class.
+\item \code{itkOverrideGetNameOfClassMacro(thisClass)}: Adds an override of
+the \code{GetNameOfClass()} method to the class.
 \item \code{ITK\_DISALLOW\_COPY\_AND\_ASSIGN(TypeName)}: Disallow copying by
 declaring copy constructor and assignment operator deleted. This must be
 declared in the \textbf{public} section.
@@ -3297,7 +3296,7 @@ information (RTTI):
 itkNewMacro(Self);
 
 /** Run-time type information (and related methods). */
-itkTypeMacro(Image, ImageBase);
+itkOverrideGetNameOfClassMacro(Image);
 \end{minted}
 \normalsize
 
