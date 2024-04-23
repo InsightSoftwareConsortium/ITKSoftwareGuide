@@ -55,15 +55,17 @@ jobs:
         cd build
         cmake -GNinja -DCMAKE_BUILD_TYPE=MinSizeRel -DSuperBuild_ITKSoftwareGuide_USE_GIT_PROTOCOL:BOOL=OFF ..
         ninja
+        cp ./ITKSoftwareGuide-build/SoftwareGuide/Latex/ITKSoftwareGuide-Book1.pdf ../InsightSoftwareGuide-Book1.pdf
+        cp ./ITKSoftwareGuide-build/SoftwareGuide/Latex/ITKSoftwareGuide-Book2.pdf ../InsightSoftwareGuide-Book2.pdf
 
     - name: Publish ITK Software Guide Book 1 artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ITKSoftwareGuide-Book1.pdf
-        path: build/ITKSoftwareGuide-build/SoftwareGuide/Latex/ITKSoftwareGuide-Book1.pdf
+        path: InsightSoftwareGuide-Book1.pdf
+        name: InsightSoftwareGuide-Book1.pdf
 
     - name: Publish ITK Software Guide Book 2 artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ITKSoftwareGuide-Book2.pdf
-        path: build/ITKSoftwareGuide-build/SoftwareGuide/Latex/ITKSoftwareGuide-Book2.pdf
+        path: InsightSoftwareGuide-Book2.pdf
+        name: InsightSoftwareGuide-Book2.pdf
