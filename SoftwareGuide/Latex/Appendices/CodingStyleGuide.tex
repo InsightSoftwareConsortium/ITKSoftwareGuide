@@ -1580,6 +1580,9 @@ may use \code{auto} more liberally.
 \section{Initialization and Assignment}
 \label{sec:IniitalizationAndAssignment}
 
+\subsection{Initialization of member variables}
+\label{subsec:InitializationOfMemberVariables}
+
 All member variables must be initialized when they are declared. For such
 purpose, brace initializers, e.g.
 
@@ -1653,6 +1656,54 @@ Another exception is made for low level utility classes for which data member
 initialization would cause a significant performance penalty. This is why for
 example \code{FixedArray::m\_InternalArray} and \code{Index::m\_InternalArray}
 do not have a default member initializer.
+
+\subsection{Initializing variables of fixed size array types}
+\label{subsec:InitializingVariablesOfFixedSizeArrayTypes}
+
+ITK has various fixed size array types, including template instantiations of
+\code{Index}, \code{Size}, \code{FixedArray}, \code{Point}, and \code{Vector}.
+
+A variable of such a fixed size array type can be zero-initialized by an empty
+initializer list, `{}`. This is usually the preferred way to initialize the
+variable, when it should initially be filled with zeroes. For example:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+// Declare an index at position (0, 0).
+Index<2> index{};
+
+// Declare a point whose coordinates are all 0.0 (the origin).
+PointType origin{};
+\end{minted}
+\normalsize
+
+\code{Index} and \code{Size} both have a static `Filled(fillValue)` member
+function, to allow creating a variable that is filled with an arbitrary value.
+For these types, this is usually the preferred way to initialize the variable,
+when it should initially be filled with a value that may be non-zero. For
+example:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+// Declare the index {1, 1, 1}.
+auto index = Index<3>::Filled(1);
+
+// Declare the size of an 256 x 256 image.
+auto imageSize = Size<2>::Filled(256);
+\end{minted}
+\normalsize
+
+For other fixed size array types, the function `itk::MakeFilled<T>(fillValue)`
+is preferable, when the array should initially be filled with a value that may
+be non-zero. For example:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+// Declare a spacing filled with the value 0.5 (for each direction).
+// SpacingType is typically defined as Vector<double, Dimension>.
+auto spacing = MakeFilled<SpacingType>(0.5);
+\end{minted}
+\normalsize
 
 \section{Accessing Members}
 \label{sec:Accessing Members}
