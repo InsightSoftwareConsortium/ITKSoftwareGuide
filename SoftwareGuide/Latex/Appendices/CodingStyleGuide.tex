@@ -1664,7 +1664,7 @@ ITK has various fixed size array types, including template instantiations of
 \code{Index}, \code{Size}, \code{FixedArray}, \code{Point}, and \code{Vector}.
 
 A variable of such a fixed size array type can be zero-initialized by an empty
-initializer list, `{}`. This is usually the preferred way to initialize the
+initializer list, \code{{}}. This is usually the preferred way to initialize the
 variable, when it should initially be filled with zeroes. For example:
 
 \small
@@ -1677,7 +1677,7 @@ PointType origin{};
 \end{minted}
 \normalsize
 
-\code{Index} and \code{Size} both have a static `Filled(fillValue)` member
+\code{Index} and \code{Size} both have a static \code{Filled(fillValue)} member
 function, to allow creating a variable that is filled with an arbitrary value.
 For these types, this is usually the preferred way to initialize the variable,
 when it should initially be filled with a value that may be non-zero. For
@@ -1693,7 +1693,7 @@ auto imageSize = Size<2>::Filled(256);
 \end{minted}
 \normalsize
 
-For other fixed size array types, the function `itk::MakeFilled<T>(fillValue)`
+For other fixed size array types, the function \code{itk::MakeFilled<T>(fillValue)}
 is preferable, when the array should initially be filled with a value that may
 be non-zero. For example:
 
