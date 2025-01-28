@@ -3284,6 +3284,11 @@ the \code{GetNameOfClass()} method to the class.
 \item \code{ITK\_DISALLOW\_COPY\_AND\_ASSIGN(TypeName)}: Disallow copying by
 declaring copy constructor and assignment operator deleted. This must be
 declared in the \textbf{public} section.
+\item \code{ITK\_DEFAULT\_COPY\_AND\_MOVE(TypeName)}: Enables copying and moving
+by explicitly defaulting the copy constructor, copy assignment operator, move
+constructor, and move assignment operator of a class. Especially useful for
+classes that have a user-defined destructor. Intended to be placed in the
+\textbf{public} section of a class.
 \item \code{itkDebugMacro(x)}: If debug is set on a subclass of
 \doxygen{Object}, prints debug information to the appropriate output
 stream.
