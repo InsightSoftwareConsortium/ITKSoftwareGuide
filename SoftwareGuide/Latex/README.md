@@ -18,7 +18,7 @@ Style Guidelines for the ITK Software Guide
    `\subdoxygen{}`.
 
    Subsequent references to the class name should just use plain text (do not
-   use `\code{}` or `\doxygen{}`). This is for readibility (too much font
+   use `\code{}` or `\doxygen{}`). This is for readability (too much font
    changing drives the reader nuts).
 
 3. `\code{}` - Method names (which should have a trailing `()`, e.g.,
