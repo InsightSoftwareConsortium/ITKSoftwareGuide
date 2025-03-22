@@ -84,7 +84,7 @@ else() # Release, or anything else
 endif()
 
 #-----------------------------------------------------------------------------
-# Add needed flag for gnu on linux like enviroments to build static common libs
+# Add needed flag for gnu on linux like environments to build static common libs
 # suitable for linking with shared object libs.
 if(CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64")
   if(NOT "${CMAKE_CXX_FLAGS}" MATCHES "-fPIC")

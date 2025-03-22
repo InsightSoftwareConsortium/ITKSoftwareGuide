@@ -49,7 +49,7 @@ description for the patch. Type a more detailed description of the patch after
 a blank line.
 
 Submit the patch for peer review by running the `git review-push` command.
-This will provide a summary message that inclues a URL to view the changes. If
+This will provide a summary message that includes a URL to view the changes. If
 you are logged into [GitHub], there will also be a green button to create a
 [Pull Request].
 

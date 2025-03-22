@@ -13,7 +13,7 @@
 # directory containing the Insight executables. Specify ITK data paths.
 # The default data path inferred is ITK/Examples/Data. This should suffice
 # for building the SoftwareGuide. Should more paths be need add them in a colon
-# seperated list.
+# separated list.
 #
 # Make
 #

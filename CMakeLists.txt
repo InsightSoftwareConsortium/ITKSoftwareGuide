@@ -6,7 +6,7 @@ set(PRIMARY_PROJECT_NAME ITKSoftwareGuide)
 
 ## NOTE THERE SHOULD BE NO PROJECT STATEMENT HERE!
 ## This file acts as a simple switch to initiate
-## two completely independant CMake build environments.
+## two completely independent CMake build environments.
 
 #-----------------------------------------------------------------------------
 # Superbuild Option - Enabled by default

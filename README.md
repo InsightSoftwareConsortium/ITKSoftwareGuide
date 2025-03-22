@@ -47,7 +47,7 @@ For more detailed instructions, see the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 Building with Docker
 --------------------
 
-All the dependencies described belowe are available pre-installed in a [Docker]
+All the dependencies described below are available pre-installed in a [Docker]
 image. This is the easiest way to build and contribute to The Software
 Guide.
 

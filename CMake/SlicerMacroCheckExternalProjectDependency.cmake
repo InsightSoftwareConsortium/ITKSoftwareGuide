@@ -31,7 +31,7 @@ endmacro()
 macro(ProjectDependancyPop CACHE_LIST TVAR)
   list(GET ${CACHE_LIST} -1 ${TVAR})
   list(REMOVE_AT ${CACHE_LIST} -1)
-  #message(STATUS "POPING ${${TVAR}} from ${CACHE_LIST}:  --> ${${CACHE_LIST}}")
+  #message(STATUS "POPPING ${${TVAR}} from ${CACHE_LIST}:  --> ${${CACHE_LIST}}")
 endmacro()
 
 macro(SlicerMacroCheckExternalProjectDependency proj)

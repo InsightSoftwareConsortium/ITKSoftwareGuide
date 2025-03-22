@@ -94,7 +94,7 @@ class OneCodeBlock:
             if os.path.exists(o):
                 this_output_time = os.path.getmtime(o)
                 if self.verbose:
-                    print(f"This Ouptut Time: {this_output_time}")
+                    print(f"This Output Time: {this_output_time}")
                 if this_output_time < oldest_output:
                     oldest_output = this_output_time
             else:
@@ -285,7 +285,7 @@ class ITKPathFinder:
         self.outPicDir = self.outPicDir.rstrip("/")
         mkdir_p(self.outPicDir)
 
-        # HACK:  Need beter search criteria
+        # HACK:  Need better search criteria
         searchPaths = f"{itkBuildDir}/ExternalData/Testing/Data/Input#{itkBuildDir}/ExternalData/Examples/Data/BrainWeb#{itkBuildDir}/Testing/Temporary#{itkBuildDir}/Modules/Nonunit/Review/test#{itkBuildDir}/ExternalData/Modules/Segmentation/LevelSetsv4/test/Baseline#{itkBuildDir}/ExternalData/Modules/IO/GE/test/Baseline#{itkBuildDir}/ExternalData/Examples/Filtering/test/Baseline#{itkBuildDir}/Examples/Segmentation/test#{SWGuidBaseOutput}/Art/Generated#{itkSourceDir}/Examples/Data"
         dirtyDirPaths = searchPaths.split("#")
 

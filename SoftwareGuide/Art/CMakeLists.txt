@@ -15,11 +15,11 @@ if(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
 endif()
 # Convert an image from some file format to EPS for inclusion in Latex using
 # ImageMagick. This image is an input image. A separate macro is necessary
-# because input images do not have any dependecies
+# because input images do not have any dependencies
 set(EPS_INPUT_CONVERT_FLAGS)
 set(EPS_OUTPUT_CONVERT_FLAGS)
 if( PDF_QUALITY_LEVEL STREQUAL "Printer" )
-  # Upsample to satify the printer
+  # Upsample to satisfy the printer
   set( EPS_INPUT_CONVERT_FLAGS -density 72 )
   set( EPS_OUTPUT_CONVERT_FLAGS -density 72 -scale 4194304@ )
 endif()
