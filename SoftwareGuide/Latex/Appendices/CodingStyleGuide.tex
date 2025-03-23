@@ -4273,6 +4273,22 @@ Member variables that do not have either a \code{Get\#\#name} or a
 \code{Set\#\#name} method should also be documented following the above
 guidelines.
 
+Data members that should share the same documentation description should be embedded in
+the Doxygen grouping commands by means of the comments \code{/** @ITKStartGrouping */}
+and \code{/** @ITKEndGrouping */}:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
+public:
+  /** Set/Get the standard deviation of the Gaussian used for smoothing. */
+  /** @ITKStartGrouping */
+  itkSetMacro(Sigma, SigmaArrayType);
+  itkGetConstMacro(Sigma, SigmaArrayType);
+  /** @ITKEndGrouping */
+
+\end{minted}
+\normalsize
+
 
 \subsection{Documenting Macros}
 \label{subsec:DocumentingMacros}
