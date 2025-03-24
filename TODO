@@ -10,9 +10,9 @@ Get output images only produced in BINARY_DIR.
 -- Remove "CenteredTransforms" from all examples in book.
 -- Remove redundant information.
 -- Describe Modularization as part of a ITKv3->ITKv4 transition appendix
--- Update Acknowledgements
+-- Update Acknowledgments
 -- Test clean builds
--- Suport "USE_SYSTEM_ITK"
+-- Support "USE_SYSTEM_ITK"
 
 ==========================================================
 This is a list of potential topics to be added to the Software Guide.
@@ -161,7 +161,7 @@ Chapter 6 Filtering
 (5) 
  - 6.2.1 Casting filters (low priority)
 
-     spliting CastImageFilter into 4 separate .cxx
+     splitting CastImageFilter into 4 separate .cxx
      
      and check if we have other casting filters...
 
@@ -263,7 +263,7 @@ Chapter 6 Filtering
   ...maybe add an example...
   https://www.itk.org/Insight/Doxygen/html/classitk_1_1ReinitializeLevelSetImageFilter.html
 
-  Check with Lydia (Brain Allen Institue) and/or Josh Cates (Utah)
+  Check with Lydia (Brain Allen Institute) and/or Josh Cates (Utah)
 
   [Status: Done]
   [Added Insight/Code/BasicFilters/itkSignedDanielssonDistanceMapImageFilter.hxx, 
@@ -296,7 +296,7 @@ Chapter 7 IO
 (1) Karthik
 - Update Figure 7.3 to add all the known fileformats
 
-- Add a table withh all  the fileformat from the FAQ in Wiki.
+- Add a table with all  the fileformat from the FAQ in Wiki.
 
     [Status: Done]
     [ToDo: Update figure InsightDocuments/Art/SoftwareGuideImageIOFactoriesClassDiagram.fig in CVS]
@@ -361,7 +361,7 @@ Chapter 7 IO
     describe Zion. (check about multithreading).
 
 (1) Karthik (add them to the list, not making new examples).
-  - Secion 8.4  Add the other MI metrics
+  - Section 8.4  Add the other MI metrics
 
 
     - Kullback Leibler MI
@@ -598,7 +598,7 @@ Chapter 9 Segmentation
       run the Plugins in VolView.
       [Status: Done
         Added a 3D example for ConfidenceConnected filter
-        Some images and segemented white matter with Volview.
+        Some images and segmented white matter with Volview.
       ToDo:
         cvs add 3DregionGrowingScreenshot1.eps
         cvs add SlicesBrainWebConfidenceConnected.eps
@@ -622,7 +622,7 @@ Chapter 9 Segmentation
     
 
 (2) (Luis) Outsource to Sayan            
-    - Add example for KLMRegionGrowing (Ceck with Sayan).
+    - Add example for KLMRegionGrowing (Check with Sayan).
       & fix Doxygen documentation.
       From the Doxygen page on Groups, remove the helper
       classes used in the KLM filter (e.g. border & region).

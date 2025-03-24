@@ -541,8 +541,8 @@ configuration.}
 \end{table}
 
 Class wrap files call sets of wrapping macros for the class to be wrapped. The
-macros are often called in loops over the wrapping variables to instatiate the
-desired types. The following example demonstates wrapping the
+macros are often called in loops over the wrapping variables to instantiate the
+desired types. The following example demonstrates wrapping the
 \doxygen{ImportImageFilter} class, taken from the
 \code{ITK/Modules/Core/Common/wrapping/itkImportImageFilter.wrap} file.
 
@@ -759,7 +759,7 @@ itk_wrap_simple_class("itk::MathematicalMorphologyEnums")
 
 which results in access to the class in Python as
 \code{itk.MathematicalMorphologyEnum}, its \code{Algorithm} enumeration class
-being accesible as \code{itk.MathematicalMorphologyEnums.Algorithm}, and its
+being accessible as \code{itk.MathematicalMorphologyEnums.Algorithm}, and its
 enum-list being accessed as
 \code{itk.MathematicalMorphologyEnums.Algorithm\_BASIC},
 \code{itk.MathematicalMorphologyEnums.Algorithm\_HISTO}, etc.
@@ -1268,9 +1268,9 @@ project(ITKVideoBridgeOpenCV)
 
 Optionally, the dependency libraries are added to the
 \code{<module-name>\_LIBRARIES} variable. Alternatively, if the module creates
-a library, publically link to the dependency libraries. Our
+a library, publicly link to the dependency libraries. Our
 ITKVideoBridgeOpenCV module example creates its own library, named
-\code{ITKVideoBridgeOpenCV}, and publically links to the OpenCV libraries.
+\code{ITKVideoBridgeOpenCV}, and publicly link to the OpenCV libraries.
 
 \code{CMakeLists.txt}:
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
