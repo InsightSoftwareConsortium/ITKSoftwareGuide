@@ -320,15 +320,19 @@ the \code{DATA} macro. Testing data paths are given inside the \code{DATA}
 macro. Content link files, stored in the source code directory, are replaced
 by actual content files in the build directory when CMake downloads the
 \code{ITKData} target at build time. A content link file has the same name as
-its target, but a \texttt{.sha512} extension is added, and the \texttt{.sha512}
-file's contents are only the SHA512 hash of its target. Content links for data
-files in a Git distributed version control repository prevent repository
-bloat. To obtain content links, register an account at
-\url{https://data.kitware.com}. Upload images to your account's
-\texttt{My folders/Public} folder. Once the image has been uploaded, click on the
-item's link, then click the \texttt{Show info} icon. A \texttt{Download key
-file} icon will be available to download the content link. Place this file in
-the repository tree where referenced by the \code{DATA} macro.
+its target, but a \texttt{.cid} extension is added, and the \texttt{.cid}
+file's contents are only the Content Identifier (CID) hash from the
+InterPlanetary File System (IPFS). Content links for data files in a Git
+distributed version control repository prevent repository bloat. To obtain
+content links, register an account at \url{http://content-link-upload.itk.org}.
+IPFS provides permission-less uploads, meaning users can simply upload
+images and easily retrieve the CID. Once the image has been uploaded, click on the
+item's link to download or copy the CID to the appropriate \texttt{.cid} file.
+Place this file in the repository tree where referenced by the \code{DATA} macro.
+In cases where output depends on the runtime environment, multiple baseline images
+may be required. This can be accomplished by appending an integer to the filename
+before the extension, such as \texttt{itk<ClassName>Test.<ext>.1.cid} or
+\texttt{itk<ClassName>Test.<ext>.2.cid}, where each variant represents a valid baseline.
 
 When a test requires a new (or modified) input or baseline image dataset,
 the corresponding content link files have to be provided as well. Image
