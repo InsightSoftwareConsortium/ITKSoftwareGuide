@@ -1,4 +1,3 @@
-Remove all references to perl PERL
 Get output images only produced in BINARY_DIR.
 
 -- (DONE) Have python code line extractor throw warning when lines are too long to print. 
