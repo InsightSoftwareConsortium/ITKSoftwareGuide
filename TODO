@@ -1,18 +1,9 @@
-Remove all references to perl PERL
 Get output images only produced in BINARY_DIR.
 
--- (DONE) Have python code line extractor throw warning when lines are too long to print. 
--- Reduce line length in ITK proper
 -- Figure out which pictures need "flipping" and how to do that with imagemagik.
 -- Order all tex files in SoftwareGuide/Latex/*.tex to be ordered when listed with a ##-${filename} prefix.
--- Re-order chapters
 -- Add "Remote Module documentation"
 -- Remove "CenteredTransforms" from all examples in book.
--- Remove redundant information.
--- Describe Modularization as part of a ITKv3->ITKv4 transition appendix
--- Update Acknowledgments
--- Test clean builds
--- Support "USE_SYSTEM_ITK"
 
 ==========================================================
 This is a list of potential topics to be added to the Software Guide.

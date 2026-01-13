@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.10.2 FATAL_ERROR)
-cmake_policy(VERSION 3.10.2)
+cmake_minimum_required(VERSION 3.22.1 FATAL_ERROR)
+cmake_policy(VERSION 3.22.1)
 
 project(Examples C)
 
