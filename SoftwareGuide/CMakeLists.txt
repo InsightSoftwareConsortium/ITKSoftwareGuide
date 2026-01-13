@@ -24,14 +24,14 @@
 # images, if not the images are expected to be present in the Art/ folder
 # in PNG/XFIG/JPEG/EPS format.
 #
-cmake_minimum_required(VERSION 3.10.2 FATAL_ERROR)
-cmake_policy(VERSION 3.10.2)
+cmake_minimum_required(VERSION 3.22.1 FATAL_ERROR)
+cmake_policy(VERSION 3.22.1)
 
 project(SoftwareGuide C)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake ${CMAKE_MODULE_PATH})
 
-find_package(ITK 4 REQUIRED)
+find_package(ITK 5 REQUIRED)
 include(${ITK_USE_FILE})
 
 set(PDF_QUALITY_LEVEL "Screen" CACHE STRING "PDF Quality. Options are: Screen, Printer, PrePress")
