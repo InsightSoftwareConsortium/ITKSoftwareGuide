@@ -251,8 +251,8 @@ of the output point.  Within this framework, the Jacobian is represented by an
 indicates for a point in the input space how much its mapping on the output
 space will change as a response to a small variation in one of the transform
 parameters. Note that the values of the Jacobian matrix depend on the point in
-the input space. So actually the Jacobian can be noted as $J(\bf{X})$, where
-${\bf{X}}=\{x_i\}$. The use of transform Jacobians enables the efficient
+the input space. So actually the Jacobian can be noted as $J(\textbf{X})$, where
+${\textbf{X}}=\{x_i\}$. The use of transform Jacobians enables the efficient
 computation of metric derivatives.  When Jacobians are not available, metrics
 derivatives have to be computed using finite differences at a price of $2M$
 evaluations of the metric value, where $M$ is the number of transform
@@ -371,14 +371,14 @@ effect of the transform on the basic geometric objects.
 
 \begin{equation}
 \begin{array}{lccccccc}
-\mbox{Point }          & \bf{P'} &  =  & T(\bf{P})  & : & \bf{P'}_i &  = & \bf{P}_i \cdot S_i \\
-\mbox{Vector}          & \bf{V'} &  =  & T(\bf{V})  & : & \bf{V'}_i &  = & \bf{V}_i \cdot S_i \\
-\mbox{CovariantVector} & \bf{C'} &  =  & T(\bf{C})  & : & \bf{C'}_i &  = & \bf{C}_i /     S_i \\
+\mbox{Point }          & \textbf{P'} &  =  & T(\textbf{P})  & : & \textbf{P'}_i &  = & \textbf{P}_i \cdot S_i \\
+\mbox{Vector}          & \textbf{V'} &  =  & T(\textbf{V})  & : & \textbf{V'}_i &  = & \textbf{V}_i \cdot S_i \\
+\mbox{CovariantVector} & \textbf{C'} &  =  & T(\textbf{C})  & : & \textbf{C'}_i &  = & \textbf{C}_i /     S_i \\
 \end{array}
 \end{equation}
 
-where $\bf{P}_i$, $\bf{V}_i$ and $\bf{C}_i$ are the point, vector and covariant
-vector $i$-th components while $\bf{S}_i$ is the scaling factor along dimension
+where $\textbf{P}_i$, $\textbf{V}_i$ and $\textbf{C}_i$ are the point, vector and covariant
+vector $i$-th components while $\textbf{S}_i$ is the scaling factor along dimension
 $i-th$.  The following equation illustrates the effect of the scaling transform
 on a $3D$ point.
 
@@ -770,9 +770,9 @@ and perform another set of iterations updating only the translations.
 \textbf{Restrictions} \\
 \hline\hline
 Represents a $3D$ rotation and a $3D$ translation. The rotation is specified as a
-quaternion, defined by a set of four numbers $\bf{q}$.  The relationship
-between quaternion and rotation about vector $\bf{n}$ by angle $\theta$ is as
-follows: \[ \bf{q} = (\bf{n}\sin(\theta/2), \cos(\theta/2))\] Note that if the
+quaternion, defined by a set of four numbers $\textbf{q}$.  The relationship
+between quaternion and rotation about vector $\textbf{n}$ by angle $\theta$ is as
+follows: \[ \textbf{q} = (\textbf{n}\sin(\theta/2), \cos(\theta/2))\] Note that if the
 quaternion is not of unit length, scaling will also result. &
 7 &
 The first four parameters defines the quaternion and the last three parameters

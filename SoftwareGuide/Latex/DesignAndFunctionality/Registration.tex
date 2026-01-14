@@ -23,8 +23,8 @@ application.
 Let's begin with a simplified typical registration framework where its components
 and their interconnections are shown in Figure \ref{fig:RegistrationComponents}.
 The basic input data to the registration process are two images: one is defined
-as the \emph{fixed} image $f(\bf{X})$ and the other as the \emph{moving} image
-$m(\bf{X})$, where $\bf{X}$ represents a position in N-dimensional space.
+as the \emph{fixed} image $f(\textbf{X})$ and the other as the \emph{moving} image
+$m(\textbf{X})$, where $\textbf{X}$ represents a position in N-dimensional space.
 Registration is treated as an optimization problem with the goal of finding the
 spatial mapping that will bring the moving image into alignment with the fixed image.
 
@@ -37,7 +37,7 @@ metric, an interpolator and an optimizer.}
 \label{fig:RegistrationComponents}
 \end{figure}
 
-The \emph{transform} component $T(\bf{X})$ represents the spatial mapping of
+The \emph{transform} component $T(\textbf{X})$ represents the spatial mapping of
 points from the fixed image space to points in the moving image space. The
 \emph{interpolator} is used to evaluate moving image intensities at non-grid
 positions. The \emph{metric} component $S(f,m \circ T)$ provides a measure of

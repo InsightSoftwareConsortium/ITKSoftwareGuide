@@ -20,11 +20,11 @@
 The paradigm of the level set is that it is a numerical method for tracking
 the evolution of contours and surfaces. Instead of manipulating the contour
 directly, the contour is embedded as the zero level set of a higher
-dimensional function called the level-set function, $\psi(\bf{X},t)$. The
+dimensional function called the level-set function, $\psi(\textbf{X},t)$. The
 level-set function is then evolved under the control of a differential
 equation.  At any time, the evolving contour can be obtained by extracting
-the zero level-set $\Gamma(\bf{X},t) =
-\{\psi(\bf{X},t) = 0\}$ from the output.  The main advantages of using level
+the zero level-set $\Gamma(\textbf{X},t) =
+\{\psi(\textbf{X},t) = 0\}$ from the output.  The main advantages of using level
 sets is that arbitrarily complex shapes can be modeled and topological
 changes such as merging and splitting are handled implicitly.
 
@@ -73,7 +73,7 @@ parameter.  If the input image pixel types do not match the numerical type,
 those inputs will be cast to an image of appropriate type when the filter is
 executed.
 
-Most filters require two images as input, an initial model $\psi(\bf{X},
+Most filters require two images as input, an initial model $\psi(\textbf{X},
 t=0)$, and a \emph{feature image}, which is either the image you wish to
 segment or some preprocessed version.  You must specify the isovalue that
 represents the surface $\Gamma$ in your initial model. The single image
