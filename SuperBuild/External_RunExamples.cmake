@@ -35,6 +35,8 @@ if( NOT USE_SYSTEM_ITK)
   set(${proj}_DEPENDENCIES ITK)
 else()
   set(${proj}_DEPENDENCIES "")
+  find_package(ITK 5 REQUIRED ITKReview )
+  include(${ITK_USE_FILE})
 endif()
 
 # Include dependent projects if any
