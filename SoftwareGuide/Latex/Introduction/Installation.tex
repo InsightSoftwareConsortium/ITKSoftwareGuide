@@ -582,7 +582,8 @@ specify the individual ITK modules in the \code{COMPONENTS} argument in the
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
-find_package(ITK REQUIRED COMPONENTS Module1 Module2)
+set(MINIMUM_ITK_VERSION 5.4)
+find_package(ITK \${MINIMUM_ITK_VERSION} REQUIRED COMPONENTS Module1 Module2)
 include(\${ITK_USE_FILE})
 \end{minted}
 \normalsize
@@ -591,7 +592,8 @@ e.g.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
-find_package(ITK REQUIRED
+set(MINIMUM_ITK_VERSION 5.4)
+find_package(ITK \${MINIMUM_ITK_VERSION} REQUIRED
   COMPONENTS
     MorphologicalContourInterpolation
     ITKSmoothing
@@ -654,7 +656,8 @@ The \code{CMakeLists.txt} file contains the following lines:
 \begin{minted}[linenos=false]{cmake}
 project(HelloWorld)
 
-find_package(ITK REQUIRED)
+set(MINIMUM_ITK_VERSION 5.4)
+find_package(ITK \${MINIMUM_ITK_VERSION} REQUIRED)
 include(${ITK_USE_FILE})
 
 add_executable(HelloWorld HelloWorld.cxx)
