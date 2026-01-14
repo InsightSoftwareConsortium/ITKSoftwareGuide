@@ -21,7 +21,7 @@ endforeach()
 #
 # First make a directory to store generated images
 set(ART_GENERATED_FOLDER "${SoftwareGuide_BINARY_DIR}/Art/Generated" )
-make_directory( "${ART_GENERATED_FOLDER}" )
+file(MAKE_DIRECTORY "${ART_GENERATED_FOLDER}" )
 
 #
 # Rebuild the Software Guide figures
