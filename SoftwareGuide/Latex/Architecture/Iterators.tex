@@ -450,7 +450,7 @@ Neighborhood iterators use the same operators defined in
 Section~\ref{sec:IteratorsInterface} and the same code constructs as normal
 iterators for looping through an
 image. Figure~\ref{fig:NeighborhoodIteratorFig1} shows a neighborhood iterator
-moving through an iteration region.  This iterator defines a $3x3$ neighborhood
+moving through an iteration region.  This iterator defines a 3$\times$3 neighborhood
 around each pixel that it visits. The \emph{center} of the neighborhood
 iterator is always positioned over its current index and all other neighborhood
 pixel indices are referenced as offsets from the center index.  The pixel
@@ -460,7 +460,7 @@ area, or \emph{extent}, of the iterator can be dereferenced.
 \begin{figure}
 \centering
 \includegraphics[width=0.6\textwidth]{NeighborhoodIteratorFig1.eps}
-\itkcaption[Neighborhood iterator]{Path of a $3x3$ neighborhood
+\itkcaption[Neighborhood iterator]{Path of a 3$\times$3 neighborhood
 iterator through a 2D image region.  The extent of the neighborhood is
 indicated by the hashing around the iterator position. Pixels that lie within
 this extent are accessible through the iterator.  An arrow denotes a single
@@ -540,7 +540,7 @@ Sets the value of the pixel at position \code{i} to \code{p}.
 
 Another way to think about a pixel location in a neighborhood is as an
 ND offset from the neighborhood center.  The upper-left-forward corner
-of a $3x3x3$ neighborhood, for example, can be described by offset
+of a 3$\times$3$\times$3 neighborhood, for example, can be described by offset
 $(-1, -1, -1)$.  The bottom-right-back corner of the same neighborhood
 is at offset $(1, 1, 1)$.  In
 Figure~\ref{fig:NeighborhoodIteratorFig2}, the offset from center is
