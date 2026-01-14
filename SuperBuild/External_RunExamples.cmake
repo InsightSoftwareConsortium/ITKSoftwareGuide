@@ -31,7 +31,12 @@ if(DEFINED ${extProjName}_DIR AND NOT EXISTS ${${extProjName}_DIR})
 endif()
 
 # Set dependency list
-set(${proj}_DEPENDENCIES ITK)
+if( NOT USE_SYSTEM_ITK)
+  set(${proj}_DEPENDENCIES ITK)
+else()
+  set(${proj}_DEPENDENCIES "")
+endif()
+
 # Include dependent projects if any
 SlicerMacroCheckExternalProjectDependency(${proj})
 
