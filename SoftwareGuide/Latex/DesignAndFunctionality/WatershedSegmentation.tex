@@ -87,8 +87,7 @@ ITK because we want to consider the output of multi-scale differential
 operators, and the $f$ in question will therefore have floating point
 values. The bottom-up strategy starts with seeds at the local minima in the
 image and grows regions outward and upward at discrete intensity levels
-(equivalent to a sequence of morphological operations and sometimes called {\em
-morphological watersheds} \cite{Serra1982}.) This limits the accuracy by
+(equivalent to a sequence of morphological operations and sometimes called \emph{morphological watersheds} \cite{Serra1982}.) This limits the accuracy by
 enforcing a set of discrete gray levels on the image.
 
 \begin{figure}
@@ -109,7 +108,7 @@ threshold (this helps to minimize oversegmentation of the image).  The
 initial segmentation is passed to a second sub-filter that generates a
 hierarchy of basins to a user-specified maximum watershed depth.  The
 relabeler object at the end of the mini-pipeline uses the hierarchy and the
-initial segmentation to produce an output image at any scale {\em below} the
+initial segmentation to produce an output image at any scale \emph{below} the
 user-specified maximum.  Data objects are cached in the mini-pipeline so that
 changing watershed depths only requires a (fast) relabeling of the basic
 segmentation.  The three parameters that control the filter are shown in

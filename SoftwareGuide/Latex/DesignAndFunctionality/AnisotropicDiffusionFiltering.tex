@@ -36,8 +36,7 @@ derivatives.  The function $c(|\nabla g|)$ is a fuzzy cutoff that reduces the
 conductance at areas of large $|\nabla g|$, and can be any one of a number of
 functions.  The literature has shown \begin{equation} c(|\nabla g|) =
 e^{-\frac{|\nabla g|^{2}}{2k^{2}}} \end{equation} to be quite effective.
-Notice that conductance term introduces a free parameter $k$, the {\em
-conductance parameter}, that controls the sensitivity of the process to edge
+Notice that conductance term introduces a free parameter $k$, the \emph{conductance parameter}, that controls the sensitivity of the process to edge
 contrast.  Thus, anisotropic diffusion entails two free parameters: the
 conductance parameter, $k$, and the time parameter, $t$, that is analogous to
 $\sigma$, the effective width of the filter when using Gaussian kernels.
@@ -63,9 +62,8 @@ images, an image processing technique that can be used on vector-valued medical
 data (such as the color cryosection data of the Visible Human Project).
 
 For a vector-valued input $\vec{F}:U \mapsto \Re^{m}$ the process takes the
-form \begin{equation} \vec{F}_{t} = \nabla \cdot c({\cal D}\vec{F}) \vec{F},
-\label{eq:vector_diff} \end{equation} where ${\cal D}\vec{F}$ is a {\em
-dissimilarity} measure of $\vec{F}$, a generalization of the gradient magnitude
+form \begin{equation} \vec{F}_{t} = \nabla \cdot c(\mathcal{D}\vec{F}) \vec{F},
+\label{eq:vector_diff} \end{equation} where $\mathcal{D}\vec{F}$ is a \emph{dissimilarity} measure of $\vec{F}$, a generalization of the gradient magnitude
 to vector-valued images, that can incorporate linear and nonlinear coordinate
 transformations on the range of $\vec{F}$.  In this way, the smoothing of the
 multiple images associated with vector-valued data is coupled through the
