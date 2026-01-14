@@ -6,14 +6,14 @@ the software. The adopted Git-based \textbf{branchy workflow} is an efficient
 and flexible model to develop modern software.
 
 
-\section{Git Setup}
+\section{Git Setup}%
 \label{sec:Git Setup}
 
 Visit the main \href{https://www.git-scm.com/download}{Git download site}, and
 depending on your operating system, follow the guidelines.
 
 
-\subsection{Windows}
+\subsection{Windows}%
 \label{subsec:Windows}
 
 Git comes in two flavors on Windows:
@@ -28,7 +28,7 @@ on disk (the repository formats are compatible but the ``stat cache'' of the
 work tree is not unless \code{core.filemode} is false).
 
 
-\subsubsection{Git for Windows}
+\subsubsection{Git for Windows}%
 \label{subsubsec:GitForWindows}
 
 Download the ``git for windows'' executable from the
@@ -46,7 +46,7 @@ choose the \code{core.autocrlf=true} option. Launch the \code{Git Bash} tool to
 get a command line shell with Git.
 
 
-\subsubsection{Cygwin}
+\subsubsection{Cygwin}%
 \label{subsubsec:Cygwin}
 
 Install the following packages:
@@ -59,10 +59,10 @@ Install the following packages:
 Launch a Cygwin command prompt to get a command line shell with Git.
 
 
-\subsection{macOS}
+\subsection{macOS}%
 \label{subsec:macOS}
 
-\subsubsection{Xcode 4}
+\subsubsection{Xcode 4}%
 \label{subsubsec:Xcode4}
 
 If you have Xcode 4 installed, you already have git installed.
@@ -79,14 +79,14 @@ git version 1.7.4.4
 \end{minted}
 
 
-\subsubsection{OS X Installer}
+\subsubsection{OS X Installer}%
 \label{subsubsec:OSXInstaller}
 
 Download an installer from
 \href{https://code.google.com/archive/p/git-osx-installer/}{code.google.com}.
 
 
-\subsubsection{MacPorts}
+\subsubsection{MacPorts}%
 \label{subsubsec:MacPorts}
 
 Enter these commands:
@@ -97,7 +97,7 @@ sudo port install git-core +doc
 \end{minted}
 
 
-\subsection{Linux}
+\subsection{Linux}%
 \label{subsec:Linux}
 
 Popular Linux distributions already come with packages for Git. Typically the packages are called:
@@ -108,10 +108,10 @@ Popular Linux distributions already come with packages for Git. Typically the pa
 \end{itemize}
 
 
-\section{Workflow}
+\section{Workflow}%
 \label{sec:Workflow}
 
-\subsection{A Primer}
+\subsection{A Primer}%
 \label{subsec:APrimer}
 
 This primer details a possible workflow for using Git and ITK. There are many
@@ -165,14 +165,14 @@ and killed by wolves in unrelated incidents on the same night.
 \end{quote}
 
 
-\subsection{A Topic}
+\subsection{A Topic}%
 \label{subsec:ATopic}
 
 This workflow is based on the branchy development workflow documented by
 \href{https://git-scm.com/docs/gitworkflows}{Git help workflows}.
 
 
-\subsubsection{Motivation}
+\subsubsection{Motivation}%
 \label{subsubsec:Motivation}
 
 The primary goal of this workflow is to make release preparation and maintenance
@@ -190,7 +190,7 @@ page~\pageref{par:HistoryShape}).
 \end{itemize}
 
 
-\subsubsection{Design}
+\subsubsection{Design}%
 \label{subsubsec:Design}
 
 The design of this workflow is based on the observation that meeting the
@@ -217,7 +217,7 @@ preparation, development edge)
 \end{itemize}
 
 
-\subsubsection{Notation}
+\subsubsection{Notation}%
 \label{subsubsec:Notation}
 
 This chapter uses Git Directed Acyclic Graphs (DAG) to depict commit history:
@@ -302,7 +302,7 @@ Integration branches generally consist of a sequence of merge commits:
 \end{figure}
 
 
-\subsubsection{Published Branches}
+\subsubsection{Published Branches}%
 \label{subsubsec:PublishedBranches}
 
 We publish an \textit{integration} branch for each stage of development:
@@ -317,7 +317,7 @@ Topic branches are not published directly; their names exist only in each
 developer's local repositories.
 
 
-\subsubsection{Development}
+\subsubsection{Development}%
 \label{subsubsec:Development}
 
 We cover below the steps to take during each phase of development.
@@ -1146,7 +1146,7 @@ page~\pageref{subpar:RemoteEndHungUpUnexpectedly} and
 Section~\ref{subpar:NonFastForward} on page~\pageref{subpar:NonFastForward} to
 resolve any conflict that may arise when publishing the change.
 
-\subsubsection{Discussion}
+\subsubsection{Discussion}%
 \label{subpar:Discussion}
 
 \paragraph{History Shape}
@@ -1348,7 +1348,7 @@ reason. This is rare, so bring up the reason on your project discussion forum
 first. Never merge \textbf{release} into a topic under any circumstances!!!
 
 
-\subsubsection{Troubleshooting}
+\subsubsection{Troubleshooting}%
 \label{subsubsec:Troubleshooting}
 
 Here we document problems one might encounter while following the workflow
@@ -2009,7 +2009,7 @@ git branch -d topic
 %pre-commit hook. The fix was to add "--no-ff" arg when merging the topic.
 
 
-\subsubsection{Conflicts}
+\subsubsection{Conflicts}%
 \label{subsubsec:Conflicts}
 
 This section documents conflict resolution in a topic-based branchy workflow.
@@ -2727,11 +2727,11 @@ Finally, \textbf{master} may be merged cleanly into \textbf{release}:
 \end{figure}
 
 
-\subsection{Publish}
+\subsection{Publish}%
 \label{subsec:Publish}
 
 
-\subsubsection{Push Access}
+\subsubsection{Push Access}%
 \label{subsubsec:PushAccess}
 
 Authorized developers may publish work directly to a \href{public.kitware.com}
@@ -2854,7 +2854,7 @@ repositories use an \code{update} hook to check commit as documented in
 Section~\ref{subsec:Hooks} on page~\pageref{subsec:Hooks}.
 
 
-\subsubsection{Patches}
+\subsubsection{Patches}%
 \label{subsubsec:Patches}
 
 Git allows anyone to be a first-class developer on any published project. One
@@ -2967,10 +2967,10 @@ git commit --author='Contributor Name <contributor@theirdomain.com>'
 \end{minted}
 
 
-\subsection{Hooks}
+\subsection{Hooks}%
 \label{subsec:Hooks}
 
-\subsubsection{Setup}
+\subsubsection{Setup}%
 \label{subsubsec:Setup}
 
 The \code{git commit} command creates local commits. A separate \code{git push}
@@ -3029,7 +3029,7 @@ cd ../..
 where \code{<repo>.git} is the name of your project repository.
 
 
-\subsubsection{Local}
+\subsubsection{Local}%
 \label{subsubsec:Local}
 
 The above sequences maintain the following local \code{hooks} in your
@@ -3153,7 +3153,7 @@ Furthermore, since commits are not published automatically it is easy to allow
 the commit to complete and then fix it with \code{git commit --amend}.
 
 
-\subsubsection{Server}
+\subsubsection{Server}%
 \label{subsubsec:Server}
 
 Many \url{public.kitware.com} repositories have server-side \code{hooks}.
@@ -3179,10 +3179,10 @@ in \code{git help config}).
 pushed.
 \end{itemize}
 
-\subsection{TipsAndTricks}
+\subsection{TipsAndTricks}%
 \label{subsec:TipsAndTricks}
 
-\subsubsection{Editor support}
+\subsubsection{Editor support}%
 \label{subsubsec:EditorSupport}
 
 Emacs users: if you put this line in your \code{.emacs} file:
@@ -3195,7 +3195,7 @@ Git will automatically wrap your commit messages, which is what good Git
 etiquette requires.
 
 
-\subsubsection{Shell Customization}
+\subsubsection{Shell Customization}%
 \label{subsubsec:ShellCustomization}
 
 \paragraph{Bash Completion}

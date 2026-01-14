@@ -10,7 +10,7 @@ correct filters. Finally, a section on multi-threading describes what
 you must do in order to take advantage of shared memory parallel
 processing.
 
-\section{Terminology}
+\section{Terminology}%
 \label{sec:Terminology}
 
 The following is some basic terminology for the discussion that follows.
@@ -101,7 +101,7 @@ information.
         \index{pipeline!information}
 \end{itemize}
 
-\section{Overview of Filter Creation}
+\section{Overview of Filter Creation}%
 \label{sec:OverviewFilterCreation}
 \index{filter!overview of creation}
 
@@ -181,7 +181,7 @@ section describes these methods.
 
 
 
-\section{Streaming Large Data}
+\section{Streaming Large Data}%
 \label{sec:StreamingLargeData}
 \index{pipeline!streaming large data}
 
@@ -212,7 +212,7 @@ by class developers. The purpose of this chapter is to describe the pipeline
 execution process in detail, with a focus on data streaming.
 
 
-\subsection{Overview of Pipeline Execution}
+\subsection{Overview of Pipeline Execution}%
 \label{sec:OverviewPipelineExecution}
 \index{pipeline!overview of execution}
 
@@ -296,7 +296,7 @@ section describes the specifics of these methods, and when to override
 them. Examples are provided along the way to illustrate concepts.
 
 
-\subsection{Details of Pipeline Execution}
+\subsection{Details of Pipeline Execution}%
 \label{sec:DetailsPipelineExecution}
 \index{pipeline!execution details}
 
@@ -317,7 +317,7 @@ The \code{DataObject::Update()} method in turn invokes three other methods:
         \item \code{DataObject::UpdateOutputData()}
 \end{itemize}
 
-\subsubsection{UpdateOutputInformation()}
+\subsubsection{UpdateOutputInformation()}%
 \label{sec:UpdateOutputInformation}
 \index{pipeline!UpdateOutputInformation}
 
@@ -356,7 +356,7 @@ takes an input image and shrinks it by some integral value. The result is that
 the spacing and LargestPossibleRegion of the output will be different to that
 of the input. Thus, \code{GenerateOutputInformation()} is overloaded.
 
-\subsubsection{PropagateRequestedRegion()}
+\subsubsection{PropagateRequestedRegion()}%
 \label{sec:PropagateRequestedRegion}
 \index{pipeline!PropagateRequestedRegion}
 
@@ -427,7 +427,7 @@ region because a kernel is required to compute the gradient at a pixel. Hence
 the input needs to be ``padded out'' so the filter has enough data to compute
 the gradient at each output pixel.
 
-\subsubsection{UpdateOutputData()}
+\subsubsection{UpdateOutputData()}%
 \label{sec:UpdateOutputData}
 \index{pipeline!UpdateOutputData}
 
@@ -462,7 +462,7 @@ only write the \code{GenerateData()} method (non-threaded) or
 next section.
 
 
-\section{Threaded Filter Execution}
+\section{Threaded Filter Execution}%
 \label{sec:ThreadedFilterExecution}
 \index{pipeline!ThreadedFilterExecution}
 

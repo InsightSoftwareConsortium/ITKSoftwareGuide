@@ -14,7 +14,7 @@ interface common to most ITK image iterators.
 Sections~\ref{sec:ImageIterators}--\ref{sec:NeighborhoodIterators} document
 specific ITK iterator types and provide examples of how they are used.
 
-\section{Introduction}
+\section{Introduction}%
 \label{sec:IteratorsIntroduction}
 % Further define iterators in the context of generic programming.
 \index{generic programming}
@@ -49,7 +49,7 @@ run much faster, and iterators simplify tasks such as multithreading and
 neighborhood-based image processing.
 
 
-\section{Programming Interface}
+\section{Programming Interface}%
 \label{sec:IteratorsInterface}
 
 \index{Iterators!programming interface|(}
@@ -58,7 +58,7 @@ This section describes the standard ITK image iterator programming interface.
 Some specialized image iterators may deviate from this standard or provide
 additional methods.
 
-\subsection{Creating Iterators}
+\subsection{Creating Iterators}%
 \label{sec:CreatingIterators}
 
 \index{Iterators!construction of}
@@ -97,7 +97,7 @@ for an \doxygen{Image}.
 \end{minted}
 \normalsize
 
-\subsection{Moving Iterators}
+\subsection{Moving Iterators}%
 \label{sec:MovingIterators}
 An iterator is described as \emph{walking} its iteration region.  At any
 time, the iterator will reference, or ``point to'', one pixel location in the
@@ -218,7 +218,7 @@ For efficiency, most ITK image iterators do not perform bounds checking.  It is
 possible to move an iterator outside of its valid iteration region.
 Dereferencing an out-of-bounds iterator will produce undefined results.
 
-\subsection{Accessing Data}
+\subsection{Accessing Data}%
 \label{sec:AccessingData}
 ITK image iterators define two basic methods for reading and writing pixel
 values.
@@ -274,7 +274,7 @@ image. The disadvantage of using \code{Value} is that it cannot support image
 adapters (see Section~\ref{sec:ImageAdaptors} on
 page~\pageref{sec:ImageAdaptors} for more information about image adaptors).
 
-\subsection{Iteration Loops}
+\subsection{Iteration Loops}%
 \label{sec:IterationExample}
 % Now give a pseudo code example for putting all of this together.
 Using the methods described in the previous sections, we can now write a simple
@@ -337,7 +337,7 @@ convenient to write reverse iteration in a \code{while} loop.
 % operator <, operator >, etc.
 
 \index{Iterators!programming interface|)}
-\section{Image Iterators}
+\section{Image Iterators}%
 \label{sec:ImageIterators}
 %Introduction and overview
 This section describes iterators that walk rectilinear image regions and
@@ -355,26 +355,26 @@ tasks more efficient or easier to implement.
 \input{ImageRegionIterator.tex}
 \index{itk::ImageRegionIterator|)}
 
-\subsection{ImageRegionIteratorWithIndex}
+\subsection{ImageRegionIteratorWithIndex}%
 \label{sec:itkImageRegionIteratorWithIndex}
 \index{itk::ImageRegionIteratorWithIndex|(}
 \input{ImageRegionIteratorWithIndex.tex}
 \index{itk::ImageRegionIteratorWithIndex|)}
 
-\subsection{ImageLinearIteratorWithIndex}
+\subsection{ImageLinearIteratorWithIndex}%
 \label{sec:itkImageLinearIteratorWithIndex}
 \index{itk::ImageLinearIteratorWithIndex|(}
 \input{ImageLinearIteratorWithIndex.tex}
 \input{ImageLinearIteratorWithIndex2.tex}
 \index{itk::ImageLinearIteratorWithIndex|)}
 
-\subsection{ImageSliceIteratorWithIndex}
+\subsection{ImageSliceIteratorWithIndex}%
 \label{sec:itkImageSliceIteratorWithIndex}
 \index{itk::ImageSliceIteratorWithIndex|(}
 \input{ImageSliceIteratorWithIndex.tex}
 \index{itk::ImageSliceIteratorWithIndex|)}
 
-\subsection{ImageRandomConstIteratorWithIndex}
+\subsection{ImageRandomConstIteratorWithIndex}%
 \label{sec:itkImageRandomConstIteratorWithIndex}
 \index{itk::Image\-Random\-Const\-Iterator\-With\-Index|(}
 \input{ImageRandomConstIteratorWithIndex}
@@ -423,7 +423,7 @@ tasks more efficient or easier to implement.
 %\index{itk::FloodFilledImageFunctionConditionalIterator|)}
 %\index{Iterators!conditional|)}
 
-\section{Neighborhood Iterators}
+\section{Neighborhood Iterators}%
 \label{sec:NeighborhoodIterators}
 \index{Iterators!neighborhood|(}
 In ITK, a pixel neighborhood is loosely defined as a small set of pixels that
@@ -746,7 +746,7 @@ Each has a const and a non-const version.  The shaped iterator is a refinement
 of the standard NeighborhoodIterator that supports an
 arbitrarily-shaped (non-rectilinear) neighborhood.
 
-\subsection{NeighborhoodIterator}
+\subsection{NeighborhoodIterator}%
 \label{sec:itkNeighborhoodIterator}
 
 \index{NeighborhoodIterator!examples}
@@ -759,30 +759,30 @@ of NeighborhoodIterator.
 
 \index{edge detection}
 \index{Sobel operator}
-\subsubsection{Basic neighborhood techniques: edge detection}
+\subsubsection{Basic neighborhood techniques: edge detection}%
 \label{sec:NeighborhoodExample1}
 \input{NeighborhoodIterators1.tex}
 
 \index{convolution filtering}
 \index{Sobel operator}
-\subsubsection{Convolution filtering: Sobel operator}
+\subsubsection{Convolution filtering: Sobel operator}%
 \label{sec:NeighborhoodExample2}
 \input{NeighborhoodIterators2.tex}
 
-\subsubsection{Optimizing iteration speed}
+\subsubsection{Optimizing iteration speed}%
 \label{sec:NeighborhoodExample3}
 \input{NeighborhoodIterators3.tex}
 
 \index{Gaussian blurring}
-\subsubsection{Separable convolution: Gaussian filtering}
+\subsubsection{Separable convolution: Gaussian filtering}%
 \label{sec:NeighborhoodExample4}
 \input{NeighborhoodIterators4.tex}
 
-\subsubsection{Slicing the neighborhood}
+\subsubsection{Slicing the neighborhood}%
 \label{sec:NeighborhoodExample5}
 \input{NeighborhoodIterators5.tex}
 
-\subsubsection{Random access iteration}
+\subsubsection{Random access iteration}%
 \label{sec:NeighborhoodExample6}
 \input{NeighborhoodIterators6.tex}
 
@@ -796,7 +796,7 @@ of NeighborhoodIterator.
 % Example5: Slicing the neighborhood: gaussian filtering, separable convolution
 % Example6: Advanced Neighborhood Techniques: local minima, local maxima
 
-\subsection{ShapedNeighborhoodIterator}
+\subsection{ShapedNeighborhoodIterator}%
 \label{sec:itkShapedNeighborhoodIterator}
 \index{ShapedNeighborhoodIterator}
 \index{Neighborhood iterators!shaped}
@@ -876,7 +876,7 @@ implement some binary image morphology algorithms (see \cite{Gonzalez1993},
 dilation.
 
 \index{ShapedNeighborhoodIterator!examples of}
-\subsubsection{Shaped neighborhoods: morphological operations}
+\subsubsection{Shaped neighborhoods: morphological operations}%
 \label{sec:ShapedNeighborhoodExample}
 \input{ShapedNeighborhoodIterators1.tex}
 \input{ShapedNeighborhoodIterators2.tex}

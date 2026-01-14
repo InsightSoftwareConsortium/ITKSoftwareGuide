@@ -34,7 +34,7 @@ Note that the Insight Toolkit community has adopted a Coding Style guideline
 for the sake of consistentcy and readability of the code. Such guideline is
 described in Chapter \ref{ch:CodingStyleGuide}.
 
-\section{Name and dependencies}
+\section{Name and dependencies}%
 \label{sec:NameAndDependencies}
 \index{module!top level}
 
@@ -189,7 +189,7 @@ All External and Remote modules should set the \code{EXCLUDE\_FROM\_DEFAULT}
 option.
 
 
-\section{Headers}
+\section{Headers}%
 \label{sec:Headers}
 \index{module!include}
 
@@ -211,7 +211,7 @@ included headers can be found, which tests the module's dependency
 specification per Section~\ref{sec:NameAndDependencies}.
 
 
-\section{Libraries}
+\section{Libraries}%
 \label{sec:Libraries}
 \index{module!src}
 
@@ -264,7 +264,7 @@ have export specifications on their class declarations should not set
 \code{ENABLE\_SHARED}.
 
 
-\section{Tests}
+\section{Tests}%
 \label{sec:Tests}
 \index{module!test}
 
@@ -417,7 +417,7 @@ the test's output and the expected output (i.e., the baseline) is computed. If
 the distance is below a configurable tolerance, the regression test is marked as
 a success.
 
-\section{Wrapping}
+\section{Wrapping}%
 \label{sec:ModuleWrapping}
 \index{module!wrapping}
 
@@ -475,7 +475,7 @@ which submodules should be wrapped first and the order they should be
 wrapped.
 
 
-\subsection{Class wrap files}
+\subsection{Class wrap files}%
 \label{subsec:ClassWrapFiles}
 
 Wrapping specification for classes is written in the module's \code{*.wrap}
@@ -934,7 +934,7 @@ itk_python_expression_add_test(NAME itkWindowedSincInterpolateImageFunctionPytho
 \end{minted}
 
 
-\subsection{Debugging Strategies}
+\subsection{Debugging Strategies}%
 \label{subsec:DebuggingStrategies}
 
 ITK wrappings allow users to make use of ITK classes in other languages for various
@@ -945,7 +945,7 @@ process itself. Fortunately, language-specific tools are available to assist in
 the debugging process. In this section we focus on strategies for investigating
 ITK Python code generated with SWIG.
 
-\subsubsection{Swig Python Architecture}
+\subsubsection{Swig Python Architecture}%
 \label{subsubsec:SwigArchitecture}
 
 ITK 5.x uses SWIG (Simplified Wrapper and Interface Generator) to distill ITK C++
@@ -986,7 +986,7 @@ python -m pip install itk
 \end{minted}
 
 
-\subsubsection{Python Runtime Tracing}
+\subsubsection{Python Runtime Tracing}%
 \label{subsubsec:PythonRuntimeTracing}
 
 ITK Python contains glue behavior to make ITK classes behave in a Pythonic manner,
@@ -1018,7 +1018,7 @@ details of ITK classes in the native binary. A deeper investigation may be neces
 errors in ITK classes.
 
 
-\subsubsection{C++ Runtime Tracing}
+\subsubsection{C++ Runtime Tracing}%
 \label{subsubsec:CppRuntimeTracing}
 
 As discussed in Section~\ref{subsubsec:SwigArchitecture}, SWIG wrapping generates
@@ -1228,7 +1228,7 @@ Core file '/cores/core.1007' (x86_64) was loaded.
 \end{itemize}
 
 
-\section{Third-Party Dependencies}
+\section{Third-Party Dependencies}%
 \label{sec:ThirdParty}
 \index{module!third-party}
 
@@ -1315,7 +1315,7 @@ set(ITKVideoBridgeOpenCV_SYSTEM_INCLUDE_DIRS ${OpenCV_INCLUDE_DIRS})
 set(ITKVideoBridgeOpenCV_SYSTEM_LIBRARY_DIRS ${OpenCV_LIB_DIR})
 \end{minted}
 
-\section{Contributing with a Remote Module}
+\section{Contributing with a Remote Module}%
 \label{sec:ContributingRemoteModules}
 
 For most ITK community members, the modularization of the toolkit is relatively
@@ -1338,7 +1338,7 @@ The source code of a Remote Module can be downloaded by CMake (with a CMake
 variable switch) at ITK CMake configuration time, making it a convenient way to
 distribute modular source code.
 
-\subsection{Policy for Adding and Removing Remote Modules}
+\subsection{Policy for Adding and Removing Remote Modules}%
 \label{subsec:RemoteModuleAddRemovePolicy}
 
 A module can be added to the list of remotes if it satisfies the following
@@ -1369,7 +1369,7 @@ Module names must be \textbf{unique}.
 At no time in the future should a module in the main repository depend on a
 Remote Module.
 
-\subsection{Procedure for Adding a Remote Module}
+\subsection{Procedure for Adding a Remote Module}%
 \label{subsec:ProcedureAddingRemoteModules}
 
 The repository

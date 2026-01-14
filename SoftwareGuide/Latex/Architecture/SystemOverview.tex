@@ -5,7 +5,7 @@ The purpose of this chapter is to provide you with an overview of the
 \emph{Insight Toolkit} system. We recommend that you read this chapter to
 gain an appreciation for the breadth and area of application of ITK.
 
-\section{System Organization}
+\section{System Organization}%
 \label{sec:SystemOrganization}
 
 The Insight Toolkit consists of several subsystems. A brief
@@ -86,13 +86,13 @@ in some cases additional chapters---cover these concepts in more detail.
 \end{description}
 
 
-\section{Essential System Concepts}
+\section{Essential System Concepts}%
 \label{sec:EssentialSystemConcepts}
 
 This section describes some of the core concepts and implementation features
 found in ITK.
 
-\subsection{Generic Programming}
+\subsection{Generic Programming}%
 \label{sec:GenericProgramming}
 
 \index{generic programming}
@@ -130,7 +130,7 @@ complexity may produce difficult to decipher error messages due to even the
 simplest syntax errors. For those unfamiliar with templated code and
 generic programming, we recommend the two books cited above.
 
-\subsection{Include Files and Class Definitions}
+\subsection{Include Files and Class Definitions}%
 \label{sec:IncludeFiles}
 
 In ITK, classes are defined by a maximum of two files: a header file (\code{.h})
@@ -153,7 +153,7 @@ In addition to class headers, there are a few other important header files.
     possible values.
 \end{description}
 
-\subsection{Object Factories}
+\subsection{Object Factories}%
 \label{sec:ObjectFactories}
 
 \index{object factory}
@@ -198,7 +198,7 @@ the use of the \code{New()} method to create a class. Generally the
 \code{itkNewMacro()} found in \code{Modules/Core/Common/include/itkMacro.h}.
 
 
-\subsection{Smart Pointers and Memory Management}
+\subsection{Smart Pointers and Memory Management}%
 \label{sec:SmartPointers}
 
 \index{smart pointer}
@@ -276,7 +276,7 @@ the need for speed and/or memory demands a smaller, faster class. Raw pointers
 are preferred for multi-threaded sections of code.
 
 
-\subsection{Error Handling and Exceptions}
+\subsection{Error Handling and Exceptions}%
 \label{sec:ErrorHandling}
 
 \index{exceptions}
@@ -325,7 +325,7 @@ choose to catch a particular exception and hence a specific ITK error, or you
 can trap \emph{any} ITK exception by catching ExceptionObject.
 
 
-\subsection{Event Handling}
+\subsection{Event Handling}%
 \label{sec:EventHandling}
 
 \index{event handling}
@@ -372,7 +372,7 @@ non-const member functions as well as C-style functions. (Look in
 \code{Command}. If nothing suitable is found, derivation is another
 possibility.)
 
-\subsection{Multi-Threading}
+\subsection{Multi-Threading}%
 \label{sec:MultiThreading}
 
 Multi-threading is handled in ITK through a high-level design
@@ -494,7 +494,7 @@ different instances of a class (and its methods) is a thread-safe operation.
 Invoking methods on the same instance in different threads is to be avoided.
 
 
-\section{Numerics}
+\section{Numerics}%
 \label{sec:Numerics}
 
 \index{VNL}
@@ -559,7 +559,7 @@ directory. In addition, a complete finite element (FEM) package is available,
 primarily to support the deformable registration in ITK.
 
 
-\section{Data Representation}
+\section{Data Representation}%
 \label{sec:DataRepresentationAndAccess}
 
 \index{data object}
@@ -632,7 +632,7 @@ class can be used to represent point clouds or randomly distributed
 landmarks, etc. The PointSet class has no associated topology.
 
 
-\section{Data Processing Pipeline}
+\section{Data Processing Pipeline}%
 \label{sec:DataProcessingPipeline}
 
 \index{data processing pipeline}
@@ -694,7 +694,7 @@ invoked on the writer, the data processing pipeline causes each of these
 filters to execute in order, culminating in writing the final data to a file on disk.
 
 
-\section{Spatial Objects}
+\section{Spatial Objects}%
 \label{sec:SpatialObjectsOverview}
 \index{spatial object}
 
@@ -759,7 +759,7 @@ to register a parametric representation of a heart with an individual's CT
 data or to register two segmentations of a liver.
 
 
-\section{Wrapping}
+\section{Wrapping}%
 \label{sec:Wrapping}
 
 \index{wrapping}

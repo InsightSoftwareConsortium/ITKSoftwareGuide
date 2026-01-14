@@ -1,4 +1,4 @@
-\chapter{Coding Style Guide}
+\chapter{Coding Style Guide}%
 \label{ch:CodingStyleGuide}
 
 This chapter describes the ITK Coding Style. Developers must follow these
@@ -24,7 +24,7 @@ Any contributor's code is subject to style review, and it will likely not be
 accepted until it is consistent with these guidelines.
 
 
-\section{Purpose}
+\section{Purpose}%
 \label{sec:Purpose}
 
 The following document is a description of the accepted coding style for the
@@ -33,7 +33,7 @@ to contribute code to ITK should read and adhere to the standards described
 here.
 
 
-\section{Overview}
+\section{Overview}%
 \label{sec:Overview}
 
 This chapter is organized into the following sections:
@@ -91,7 +91,7 @@ forum is one of the best venues in which to propose changes to these style
 guidelines.
 
 
-\section{System Overview \& Philosophy}
+\section{System Overview \& Philosophy}%
 \label{sec:SystemOverviewPhilosophy}
 
 The following implementation strategies have been adopted by the ITK community.
@@ -120,7 +120,7 @@ code should be documentation.
 Note as well that ITK follows American English spelling and norms.
 
 
-\subsection{Clang Style}
+\subsection{Clang Style}%
 \label{subsec:clangStyle}
 
 ITK has adopted a \code{.clang-format} coding style configuration file so
@@ -132,14 +132,14 @@ ITK has a pre-commit hook to automatically reformat any changed C++ ITK code
 to adhere to the style defined in the \code{.clang-format}.
 
 
-\subsection{Kitware Style}
+\subsection{Kitware Style}%
 \label{subsec:KWStyle}
 
 Kitware Style (\href{https://kitware.github.io/KWStyle/} KWStyle) pre-commit
 hooks enforce a number of policies on any given patch set submitted to ITK.
 
 
-\subsection{Implementation Language}
+\subsection{Implementation Language}%
 \label{subsec:ImplementationLanguage}
 
 The core implementation language is C++. C++ was chosen for its flexibility,
@@ -160,7 +160,7 @@ Additionally, SimpleITK offers interpreted language bindings for Java, C\#, R,
 Tcl, and Ruby.
 
 
-\subsection{Constants}
+\subsection{Constants}%
 \label{subsec:Constants}
 
 ITK does not define constants with \code{\#define} in header files, hence do not
@@ -202,7 +202,7 @@ SetMaskImage(const MaskImageType * input)
 \normalsize
 
 
-\subsection{Generic Programming and the STL}
+\subsection{Generic Programming and the STL}%
 \label{subsec:GenericProgrammingAndSTL}
 
 Compile-time binding using methods of generic programming and template
@@ -221,7 +221,7 @@ conventions; this difference is useful in that it indicates to the community
 member something of a boundary between ITK and STL.
 
 
-\subsection{Portability}
+\subsection{Portability}%
 \label{subsec:Portability}
 
 ITK is designed to build and is systematically tested on a set of target
@@ -250,7 +250,7 @@ ITK is being used by these teams in their benchmarks and validation cycles
 before a version of their compiler is released to the market.
 
 
-\subsection{Multi-Layer Architecture}
+\subsection{Multi-Layer Architecture}%
 \label{subsec:MultiLayerArchitecture}
 
 ITK is designed with a multi-layer architecture in mind. That is, three layers:
@@ -263,7 +263,7 @@ prototyping and smaller-sized application development. Finally, the application
 layer is not directly addressed by ITK other than providing simple examples of
 applications.
 
-\subsection{CMake Build Environment}
+\subsection{CMake Build Environment}%
 \label{subsec:CMakeBuildEnvironment}
 
 The ITK build environment is CMake. CMake is an open-source, advanced
@@ -280,7 +280,7 @@ of CMake in ITK.
 Section~\ref{sec:CMakeStyle} on page~\pageref{sec:CMakeStyle} provides a
 reference to the recommended style of makefiles in ITK.
 
-\subsection{Doxygen Documentation System}
+\subsection{Doxygen Documentation System}%
 \label{subsec:DoxygenDocumentationSystem}
 
 The Doxygen open-source system is used to generate on-line documentation.
@@ -294,7 +294,7 @@ at-sign (\code{@}) style to write the documentation commands (e.g.
 For more information about Doxygen, please visit
 \href{https://www.doxygen.nl/index.html}{https://www.doxygen.nl/index.html}.
 
-\subsection{vnl Math Library}
+\subsection{vnl Math Library}%
 \label{subsec:vnlMathLibrary}
 
 ITK has adopted the vnl -- visual numerics library. Vnl is a portion of the vxl image
@@ -302,7 +302,7 @@ understanding environment. See \href{http://vxl.sourceforge.net/}{http://vxl.sou
 for more information about vxl and vnl.
 
 
-\subsection{Reference Counting}
+\subsection{Reference Counting}%
 \label{subsec:ReferenceCounting}
 
 ITK has adopted reference counting via so-called \doxygen{SmartPointer} to
@@ -329,7 +329,7 @@ See Section~\ref{sec:SmartPointers} on page~\pageref{sec:SmartPointers} for
 further details.
 
 
-\section{Copyright}
+\section{Copyright}%
 \label{sec:Copyright}
 
 ITK has adopted a standard copyright. This copyright should be placed at the
@@ -362,7 +362,7 @@ See Chapter \ref{sec:InsightToolkitLicense} for further details on the ITK
 license.
 
 
-\section{Citations}
+\section{Citations}%
 \label{sec:Citations}
 
 Give credit to others' work. If when writing some piece of code (whether it is a
@@ -453,7 +453,7 @@ Solver<VDimension>::ApplyBC(int dimension, unsigned int matrix)
 \normalsize
 
 
-\section{Naming Conventions}
+\section{Naming Conventions}%
 \label{sec:NamingConventions}
 
 In general, names are constructed by using case change to indicate separate
@@ -485,7 +485,7 @@ whether the name is a
 variations on this theme result as explained in the following subsections.
 
 
-\subsection{ITK}
+\subsection{ITK}%
 \label{subsec:ITK}
 
 The acronym for the NLM Insight Segmentation and Registration Toolkit must
@@ -493,7 +493,7 @@ always be written in capitals, i.e. \code{ITK}, when referring to it, e.g. in
 class documentation.
 
 
-\subsection{Naming Namespaces}
+\subsection{Naming Namespaces}%
 \label{subsec:NamingNamespaces}
 
 Namespaces must be written in lowercase, e.g.
@@ -510,7 +510,7 @@ namespace itk
 \normalsize
 
 
-\subsection{Naming Classes}
+\subsection{Naming Classes}%
 \label{subsec:NamingClasses}
 
 Classes are:
@@ -604,7 +604,7 @@ Example names include:
 \end{itemize}
 
 
-\subsection{Naming Files}
+\subsection{Naming Files}%
 \label{subsec:NamingFiles}
 
 Files should have the same name as the class, with an ``itk'' prepended.
@@ -627,7 +627,7 @@ The class \doxygen{Object}
 \end{itemize}
 
 
-\subsubsection{Naming Tests}
+\subsubsection{Naming Tests}%
 \label{subsubsec:NamingTests}
 
 Following the \code{TestDriver} philosophy, see Section~\ref{sec:Tests} on
@@ -723,11 +723,11 @@ See Section~\ref{sec:Tests} on page~\pageref{sec:Tests} for further details
 about the ITK testing framework.
 
 
-\subsection{Examples}
+\subsection{Examples}%
 \label{subsec:Examples}
 
 
-\subsection{Naming Methods and Functions}
+\subsection{Naming Methods and Functions}%
 \label{subsec:NamingMethodsAndFunctions}
 
 Global functions and class methods, either static or class members, are named
@@ -750,7 +750,7 @@ lines for the sake of readability.
 The definition of the methods should follow this same order.
 
 
-\subsection{Naming Class Data Members}
+\subsection{Naming Class Data Members}%
 \label{NamingClassDataMembers}
 
 Class data members are prepended with \code{m\_} as in \code{m\_Size}. This
@@ -769,7 +769,7 @@ logical order, not alphabetical, and group them by blocks separated by empty
 lines for the sake of readability.
 
 
-\subsection{Naming Enumerations}
+\subsection{Naming Enumerations}%
 \label{subsec:NamingEnums}
 
 ITK uses strongly-typed enumerations through the \code{enum class} keyword.
@@ -884,7 +884,7 @@ else
 \normalsize
 
 
-\subsection{Naming Local Variables}
+\subsection{Naming Local Variables}%
 \label{subsec:NamingLocalVariables}
 
 Local variables begin in lowercase. There is more flexibility in the naming of
@@ -896,7 +896,7 @@ code. Any bread crumbs that you can drop in the way of explanatory variable
 names and comments will go a long way towards helping other community members.
 
 
-\subsubsection{Temporary Variable Naming}
+\subsubsection{Temporary Variable Naming}%
 \label{subsubsec:TemporaryVariableNaming}
 
 Every effort should be made to properly name temporary variables of any type
@@ -946,7 +946,7 @@ m_LevelSetFunction->SetSparseTargetImage(sparseNormalImage);
 \normalsize
 
 
-\subsubsection{Variable Initialization}
+\subsubsection{Variable Initialization}%
 \label{subsubsec:VariableInitialization}
 
 A basic type variable declared and not being assigned immediately within a
@@ -1023,7 +1023,7 @@ region.SetSize(size);
 \normalsize
 
 
-\subsubsection{Control Statement Variable Naming}
+\subsubsection{Control Statement Variable Naming}%
 \label{subsubsec:ControlStatementVariableNaming}
 
 Control statement variables names should be clear and concise. For simple
@@ -1038,7 +1038,7 @@ For iterators, \code{inIt} and \code{outIt} are recommended if both input and
 output structures are involved. Otherwise, \code{it} can be used.
 
 
-\subsubsection{Variable Scope}
+\subsubsection{Variable Scope}%
 \label{subsubsec:VariableScope}
 
 Control statement variables should have a local scope. Hence, instead of
@@ -1077,7 +1077,7 @@ for (unsigned int i = 0; i < ImageDimension; ++i)
 \normalsize
 
 
-\subsection{Naming Template Parameters}
+\subsection{Naming Template Parameters}%
 \label{subsec:NamingTemplateParameters}
 
 Template parameters follow the usual rules with naming except that they should
@@ -1103,7 +1103,7 @@ discovered that this lead to ambiguity in some valid code constructs, and the
 consistently use \code{typename} instead of \code{class}.
 
 
-\subsection{Naming Typedefs}
+\subsection{Naming Typedefs}%
 \label{subsec:NamingTypedefs}
 
 Type aliases are absolutely essential in generic programming. They significantly
@@ -1167,7 +1167,7 @@ All classes should define the \code{Pointer} type alias.
 \end{itemize}
 
 
-\subsection{Naming Constants}
+\subsection{Naming Constants}%
 \label{subsec:NamingConstants}
 
 Constants must start with capital letters, e.g.
@@ -1179,7 +1179,7 @@ constexpr unsigned int CodeAxisField = 14;
 \normalsize
 
 
-\subsection{Using Operators to Pointers}
+\subsection{Using Operators to Pointers}%
 \label{subsec:UsingOperatorsToPointers}
 
 The indirection unary operator (\code{*}) must be placed next to the variable, e.g.
@@ -1218,7 +1218,7 @@ or
 \normalsize
 
 
-\subsection{Using Operators to Arrays}
+\subsection{Using Operators to Arrays}%
 \label{subsec:UsingOperatorsToArrays}
 
 The subscript operator (\code{[]}) must be placed next to the variable, e.g.
@@ -1243,7 +1243,7 @@ GetSplitInternal(unsigned int   dim,
 \normalsize
 
 
-\subsection{Using Underscores}
+\subsection{Using Underscores}%
 \label{subsec:UsingUnderscores}
 
 Do not use undersocres. The only exception is when defining preprocessor
@@ -1251,7 +1251,7 @@ variables and macros (which are discouraged). In this case, underscores are
 allowed to separate words.
 
 
-\subsection{Include Guards}
+\subsection{Include Guards}%
 \label{subsec:Include Guards}
 
 An include guard's case must mimic the one used for a file, with the file
@@ -1284,7 +1284,7 @@ and
 Note that include guards in implementation files are to be used only for templated classes.
 
 
-\subsection{Preprocessor Directives}
+\subsection{Preprocessor Directives}%
 \label{subsec:PreprocessorDirectives}
 
 Some of the worst code contains many preprocessor directives and macros such as
@@ -1309,7 +1309,7 @@ However, if such directives are to be used, they should start in column one,
 regardless of the required indentation level of the code they contain.
 
 
-\subsection{Header Includes}
+\subsection{Header Includes}%
 \label{subsec:HeaderIncludes}
 
 Headers in ITK must be included using quotes (`` '')
@@ -1328,7 +1328,7 @@ Header includes are preferred over forward declarations. Forward declarations
 are only used to prevent circular dependencies.
 
 
-\subsection{Const Correctness}
+\subsection{Const Correctness}%
 \label{subsec:ConstCorrectness}
 
 As a general rule, the \code{const} type qualifier must be used for:
@@ -1376,7 +1376,7 @@ GetUseVectorBasedAlgorithm() const
 \end{itemize}
 
 
-\subsection{Integer Type Specifiers}
+\subsection{Integer Type Specifiers}%
 \label{subsec:IntegerTypeSpecifiers}
 
 Throughout the code base, the built-in type \code{unsigned int} is spelled exactly like that:
@@ -1391,7 +1391,7 @@ For example, ``size\_t'', ``int8\_t'', and ``uintmax\_t'' are preferred to ``std
 ``itkIntTypes.h'' may need to be \code{\#include}d, to ensure that those types are declared within the
 \code{itk} namespace.
 
-\section{Namespaces}
+\section{Namespaces}%
 \label{sec:Namespaces}
 
 All classes should be placed in the \code{itk::} namespace. Additional
@@ -1440,7 +1440,7 @@ originates.
 Note that \code{itk::} should only be used outside the \code{itk::} namespace.
 
 
-\section{Aliasing Template Parameter Typenames}
+\section{Aliasing Template Parameter Typenames}%
 \label{sec:AliasingTemplateParameterTypenames}
 
 The public class typename's should be limited to the types that are required to
@@ -1495,7 +1495,7 @@ public:
 \normalsize
 
 
-\section{Pipelines}
+\section{Pipelines}%
 \label{sec:Pipelines}
 
 The following is a set of useful tips that must be taken into account when
@@ -1549,7 +1549,7 @@ image->FillBuffer(0); // Initialize it to all dark.
 
 \end{itemize}
 
-\section{The auto Keyword}
+\section{The auto Keyword}%
 \label{sec:TheAutoKeyword}
 
 Available since C++11, the \code{auto} keyword specifies that a variable's type
@@ -1577,10 +1577,10 @@ Application or example code that uses ITK, as opposed to the toolkit itself,
 may use \code{auto} more liberally.
 
 
-\section{Initialization and Assignment}
+\section{Initialization and Assignment}%
 \label{sec:IniitalizationAndAssignment}
 
-\subsection{Initialization of member variables}
+\subsection{Initialization of member variables}%
 \label{subsec:InitializationOfMemberVariables}
 
 All member variables must be initialized when they are declared. For such
@@ -1657,7 +1657,7 @@ initialization would cause a significant performance penalty. This is why for
 example \code{FixedArray::m\_InternalArray} and \code{Index::m\_InternalArray}
 do not have a default member initializer.
 
-\subsection{Initializing variables of fixed size array types}
+\subsection{Initializing variables of fixed size array types}%
 \label{subsec:InitializingVariablesOfFixedSizeArrayTypes}
 
 ITK has various fixed size array types, including template instantiations of
@@ -1705,7 +1705,7 @@ auto spacing = MakeFilled<SpacingType>(0.5);
 \end{minted}
 \normalsize
 
-\section{Accessing Members}
+\section{Accessing Members}%
 \label{sec:Accessing Members}
 
 The C++ keyword \code{this} must be used when calling a class' own methods:
@@ -1771,7 +1771,7 @@ InterpolateImageFilter<TInputImage, TOutputImage>::PrintSelf(
 \normalsize
 
 
-\section{Code Layout and Indentation}
+\section{Code Layout and Indentation}%
 \label{sec:CodeLayoutAndIndentation}
 
 The following are the accepted ITK code layout rules and indentation style.
@@ -1779,7 +1779,7 @@ After reading this section, you may wish to visit many of the source files found
 in ITK. This will help crystallize the rules described here.
 
 
-\subsection{General Layout}
+\subsection{General Layout}%
 \label{subsec:GeneralLayout}
 
 \begin{itemize}
@@ -1824,7 +1824,7 @@ two white spaces, and indenting the rest of the body as described in this
 section.
 
 
-\subsection{Class Layout}
+\subsection{Class Layout}%
 \label{subsec:ClassLayout}
 
 Classes are declared (\code{.h}) using the following guidelines:
@@ -2001,7 +2001,7 @@ Note that ITK headers are included first, and system or third party libraries
 follow.
 
 
-\subsection{Method Definition}
+\subsection{Method Definition}%
 \label{subsec:MethodDefinition}
 
 Methods are defined across multiple lines. This is to accommodate the extremely
@@ -2045,11 +2045,11 @@ Due to different line length rules in this text book, the name of the method
 may be split into a separate line.
 
 
-\subsection{Use of Braces}
+\subsection{Use of Braces}%
 \label{subsec:UseOfBraces}
 
 
-\subsubsection{Braces in Control Sequences}
+\subsubsection{Braces in Control Sequences}%
 \label{subsubsec:BracesInControlSequences}
 
 Braces must be used to delimit the scope of an \code{if}, \code{for},
@@ -2120,7 +2120,7 @@ do
 \end{minted}
 \normalsize
 
-\subsubsection{Braces in Arrays}
+\subsubsection{Braces in Arrays}%
 \label{subsubsec:BracesInArrays}
 
 When initializing an array, no space shall be left between the first value and
@@ -2137,7 +2137,7 @@ double   spacing[3] = { 1, 1, 1 };
 \normalsize
 
 
-\subsection{Indentation and Tabs}
+\subsection{Indentation and Tabs}%
 \label{subsec:IndentationAndTabs}
 
 The ITK style bans the use of tabs. Contributors should configure their editors
@@ -2202,7 +2202,7 @@ while (x == y)
 \normalsize
 
 
-\subsection{White Spaces}
+\subsection{White Spaces}%
 \label{subsec:WhiteSpaces}
 
 As a general rule, a single white space should be used to separate every word.
@@ -2302,7 +2302,7 @@ SpecializedFilter<TInputImage, TOutputImage>::SpecializedFilter()
 Trailing white spaces are not allowed in ITK.
 
 
-\subsection{Grouping}
+\subsection{Grouping}%
 \label{subsec:Grouping}
 
 Unnecessary parentheses for grouping hinder reading the code.
@@ -2314,7 +2314,7 @@ As a general principle, these apply to condition expressions, and statements
 where mathematical, logical or bitwise operations are performed.
 
 
-\subsubsection{Conditional Expressions}
+\subsubsection{Conditional Expressions}%
 \label{subsubsec:ConditionalExpressions}
 
 In conditional expressions contained in control statements (e.g. \code{if},
@@ -2353,7 +2353,7 @@ else
 \normalsize
 
 
-\subsubsection{Assignments}
+\subsubsection{Assignments}%
 \label{subsubsec:Assignments}
 
 In assignments, the operator precedence and associativity rules apply to help
@@ -2380,7 +2380,7 @@ sum[dim] += component * weight;
 \normalsize
 
 
-\subsubsection{Return Statements}
+\subsubsection{Return Statements}%
 \label{subsubsec:ReturnStatements}
 
 In \code{return} statements, using parentheses should be avoided when they
@@ -2456,7 +2456,7 @@ Or in:
 \normalsize
 
 
-\subsection{Alignment}
+\subsection{Alignment}%
 \label{subsec:Alignment}
 
 In every ITK file, the following code parts always start in column one:
@@ -2669,7 +2669,7 @@ unsigned int GetSplitInternal( unsigned int dim,
 \normalsize
 
 
-\subsection{Line Splitting Policy}
+\subsection{Line Splitting Policy}%
 \label{subsec:LineSplittingPolicy}
 
 Lines exceeding the recommended line length in ITK must be split in the
@@ -2720,7 +2720,7 @@ centerFixedIndex[k] =
 \end{itemize}
 
 
-\subsection{Empty Lines}
+\subsection{Empty Lines}%
 \label{subsec:EmptyLines}
 
 As a general rule, empty lines should be used to separate code blocks that
@@ -3023,7 +3023,7 @@ the definition of two methods in the implementation file (\code{.cxx},
 \code{.hxx}).
 
 
-\subsection{New Line Character}
+\subsection{New Line Character}%
 \label{subsec:NewLineCharacter}
 
 Use \code{std::endl} to introduce a new line instead of \code{{\textbackslash}n} in string
@@ -3055,7 +3055,7 @@ MinimumMaximumImageCalculator<TInputImage>::PrintSelf(std::ostream & os,
 \normalsize
 
 
-\subsection{End Of File Character}
+\subsection{End Of File Character}%
 \label{subsec:EndOfFileCharacter}
 
 The file must be terminated by a (preferably single) blank line.
@@ -3063,7 +3063,7 @@ This policy is enforced by the KWStyle pre-commit hooks (see Section
 ~\ref{subsec:KWStyle} on page~\pageref{subsec:KWStyle}).
 
 
-\section{Increment/decrement Operators}
+\section{Increment/decrement Operators}%
 \label{sec:IncrementDecrementOperators}
 
 Systematically use the pre-increment(decrement) syntax, instead of the
@@ -3093,7 +3093,7 @@ while (it != m_Container.end())
 \normalsize
 
 
-\section{Trailing Return Types}
+\section{Trailing Return Types}%
 \label{sec:TrailingReturnTypes}
 
 Whenever choosing between a trailing return type (as introduced with C++11) and
@@ -3134,7 +3134,7 @@ FixedArray<TValue, VLength>::Size() const
 \normalsize
 
 
-\section{Empty Arguments in Methods}
+\section{Empty Arguments in Methods}%
 \label{sec:EmptyArgumentInMethods}
 
 The use of the \code{void} keyword is discouraged for methods not requiring
@@ -3158,7 +3158,7 @@ this->methodName();
 \normalsize
 
 
-\section{Ternary Operator}
+\section{Ternary Operator}%
 \label{sec:TernaryOperator}
 
 The use of the ternary operator
@@ -3258,7 +3258,7 @@ for (unsigned int i = 0; j < ImageDimension; ++i)
 And hence, the ternary operator is accepted in such cases.
 
 
-\section{Using Standard Macros}
+\section{Using Standard Macros}%
 \label{sec:UsingStandardMacros}
 
 There are several macros defined in the file \code{itkMacro.h}. These macros
@@ -3371,7 +3371,7 @@ ITK_TRY_EXPECT_NO_EXCEPTION(writer->Update());
 \normalsize
 
 
-\section{Exception Handling}
+\section{Exception Handling}%
 \label{sec:ExceptionHandling}
 
 ITK exceptions are defined in \code{itkExceptionObject.h}. Derived exception
@@ -3487,7 +3487,7 @@ See Section~\ref{sec:ErrorHandling} on page~\pageref{sec:ErrorHandling} for
 details about error handling in ITK.
 
 
-\subsection{Errors in Pipelines}
+\subsection{Errors in Pipelines}%
 \label{subsec:ErrorsInPipelines}
 
 When in a function an element must have a given value, a check must ensure that
@@ -3546,11 +3546,11 @@ checks in performance sections that should never be violated.
 it would be helpful to also add an error message.
 
 
-\section{Messages}
+\section{Messages}%
 \label{sec:Messages}
 
 
-\subsection{Messages in Macros}
+\subsection{Messages in Macros}%
 \label{sec:MessagesInMacros}
 
 Messages written for debugging purposes which are deemed to be appropriate to
@@ -3574,7 +3574,7 @@ itkExceptionMacro(<< "The size of the mask differs from the input image");
 \normalsize
 
 
-\subsection{Messages in Tests}
+\subsection{Messages in Tests}%
 \label{subsec:MessagesInTests}
 
 ITK tests are run automatically, and hence, results are not read by humans.
@@ -3684,11 +3684,11 @@ while (!oIt.IsAtEnd())
 \normalsize
 
 
-\section{Concept Checking}
+\section{Concept Checking}%
 \label{sec:ConceptChecking}
 
 
-\section{Printing Variables}
+\section{Printing Variables}%
 \label{sec:PrintingVariables}
 
 All member variables, regardless of whether they are publicly exposed or not,
@@ -3755,7 +3755,7 @@ MinimumMaximumImageCalculator<TInputImage>::PrintSelf(std::ostream & os,
 \normalsize
 
 
-\section{Checking for Null}
+\section{Checking for Null}%
 \label{sec:CheckingForNull}
 
 ITK's \doxygen{SmartPointer} constructs can be checked against the \code{null}
@@ -3777,14 +3777,14 @@ itkSmartPtr == nullptr;
 
 The latter, being more explicit, is preferred over the former.
 
-\section{Writing Tests}
+\section{Writing Tests}%
 \label{sec:WritingTests}
 
 The following section provides additional rules that apply to writing tests
 in ITK.
 
 
-\subsection{Code Layout in Tests}
+\subsection{Code Layout in Tests}%
 \label{subsec:CodeLayoutInTests}
 
 The following general layout is recommended for ITK unit tests:
@@ -3806,7 +3806,7 @@ to where they are used for the sake of readability. If the test main body uses
 them, they should be put after the input argument number check section.
 
 
-\subsection{Regressions in Tests}
+\subsection{Regressions in Tests}%
 \label{subsec:RegressionsInTests}
 
 Tests should run as long as possible to report as much failures as possible before returning
@@ -3902,7 +3902,7 @@ error output redirection \code{std::cerr << "";}. Care must be taken to
 appropriately add white space for a correct formatting of the message.
 
 
-\subsection{Arguments in Tests}
+\subsection{Arguments in Tests}%
 \label{subsec:ArgumentsInTests}
 
 Tests generally require input arguments, whether the filename of an input image,
@@ -3966,7 +3966,7 @@ if (argc < 3)
 \normalsize
 
 
-\subsection{Testing Enumeration Streaming}
+\subsection{Testing Enumeration Streaming}%
 \label{subsec:TestEnumStreaming}
 
 The enumeration class streaming operator overload needs to be tested, e.g.
@@ -3989,7 +3989,7 @@ for (const auto & ee : allAlgorithm)
 \normalsize
 
 
-\subsection{Test Return Value}
+\subsection{Test Return Value}%
 \label{subsec:TestReturnValue}
 
 Tests must always return a value of type \code{int},
@@ -4025,7 +4025,7 @@ success) or \code{EXIT\_FAILURE} (in case of failure) defined in the
 allowed in ITK.
 
 
-\section{Writing Examples}
+\section{Writing Examples}%
 \label{sec:WritingExamples}
 
 Many ITK examples are used in this software guide to demonstrate ITK's
@@ -4081,7 +4081,7 @@ It is recommended that the \LaTeX comment blocks are aligned to the code for
 the sake of readability.
 
 
-\section{Doxygen Documentation System}
+\section{Doxygen Documentation System}%
 \label{sec:DoxygenDocumentationSystem}
 
 Doxygen is an open-source, powerful system for automatically generating
@@ -4095,7 +4095,7 @@ See more at \href{https://www.stack.nl/~dimitri/doxygen/}
 {https://www.stack.nl/~dimitri/doxygen/}
 
 
-\subsection{General Principles}
+\subsection{General Principles}%
 \label{subsec:GeneralPrinciples}
 
 ITK uses a subset of C-style Doxygen markdown. No other markdown style (e.g. Qt,
@@ -4131,7 +4131,7 @@ Correct English and complete, grammatically correct sentences must be used
 when documenting. Finish the sentences with a period (.).
 
 
-\subsection{Documenting Classes}
+\subsection{Documenting Classes}%
 \label{subsec:DocumentingClasses}
 
 Classes must be documented using the \code{{\textbackslash}class},
@@ -4173,7 +4173,7 @@ For more information, please visit
 Every class must be documented.
 
 
-\subsection{Documenting Methods}
+\subsection{Documenting Methods}%
 \label{subsec:DocumentingMethods}
 
 The method Doxygen documentation must be placed in the header file (\code{.h}).
@@ -4232,7 +4232,7 @@ Self-contained, complete sentences must end with a period.
 Every method must be documented.
 
 
-\subsection{Documenting Data Members}
+\subsection{Documenting Data Members}%
 \label{subsec:DocumentingDataMembers}
 
 Class member variables should be documented through their corresponding
@@ -4290,7 +4290,7 @@ public:
 \normalsize
 
 
-\subsection{Documenting Macros}
+\subsection{Documenting Macros}%
 \label{subsec:DocumentingMacros}
 
 The documentation block in a macro should start in column one, and should be
@@ -4326,7 +4326,7 @@ should have a double indentation, e.g.
 \normalsize
 
 
-\subsection{Documenting Tests}
+\subsection{Documenting Tests}%
 \label{subsec:DocumentingTests}
 
 Generally, an ITK test does not need to have a documentation block stating its
@@ -4355,14 +4355,14 @@ It is recommended to document the body of the test with single-line comment
 style where appropriate.
 
 
-\section{CMake Style}
+\section{CMake Style}%
 \label{sec:CMakeStyle}
 
 For writing CMake scripts, the community member is referred to the standard
 CMake style.
 
 
-\section{Documentation Style}
+\section{Documentation Style}%
 \label{sec:DocumentationStyle}
 
 The Insight Software Consortium has adopted the following guidelines for

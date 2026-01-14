@@ -1,9 +1,9 @@
-\index{itk::Transform}
-
-\index{Vector!Geometrical Concept}
 
 In the Insight Toolkit, \doxygen{Transform} objects encapsulate the mapping of
-points and vectors from an input space to an output space.  If a transform is
+points and vectors from an input space to an output space.%
+\index{itk::Transform}%
+\index{Vector!Geometrical Concept}%
+If a transform is
 invertible, back transform methods are also provided.  Currently, ITK provides
 a variety of transforms from simple translation, rotation and scaling to
 general affine and kernel transforms.  Note that, while in this section we
@@ -13,14 +13,14 @@ will be discussed in detail later. Let's begin by introducing the objects used
 in ITK for representing basic spatial concepts.
 
 
-\subsection{Geometrical Representation}
+\subsection{Geometrical Representation}%
 \label{sec:GeometricalObjects}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{GeometricalObjects.eps}
 \itkcaption[Geometrical representation objects in ITK]{Geometric
-representation objects in ITK.}
+representation objects in ITK.}%
 \label{fig:GeometricalObjects}
 \end{figure}
 
@@ -32,10 +32,9 @@ of using simple arrays of \code{float} or \code{double} in order to represent
 geometrical objects. The use of basic arrays would have blurred the important
 distinction between the different geometrical concepts and would have allowed
 for the innumerable conceptual and programming errors that result from using a
-vector where a point is needed or vice versa.
-
-\index{itk::Point!Concept}
-\index{itk::Vector!Concept}
+vector where a point is needed or vice versa.%
+\index{itk::Point!Concept}%
+\index{itk::Vector!Concept}%
 \index{itk::CovariantVector!Concept}
 
 \begin{table}
@@ -73,11 +72,9 @@ Additional uses of the \doxygen{Point}, \doxygen{Vector} and
 Representation chapter of Book 1.  Each one of these classes behaves
 differently under spatial transformations. It is therefore quite important to
 keep their distinction clear. Figure \ref{fig:GeometricalObjects} illustrates
-the differences between these concepts.
-
-
-\index{itk::Transform!TransformPoint()}
-\index{itk::Transform!TransformVector()}
+the differences between these concepts.%
+\index{itk::Transform!TransformPoint()}%
+\index{itk::Transform!TransformVector()}%
 \index{itk::Transform!TransformCovariantVector()}
 
 Transform classes provide different methods for mapping each one of
@@ -194,12 +191,12 @@ support mathematical operation such as addition, subtraction and multiplication
 by scalars.
 
 
-\subsection{Transform General Properties}
+\subsection{Transform General Properties}%
 \label{sec:TransformGeneralProperties}
 
-\index{itk::Transform!SetParameters()} Each transform class typically has
-several methods for setting its parameters.  For example,
-\doxygen{Euler2DTransform} provides methods for specifying the offset,
+Each transform class typically has several methods for setting its parameters.%
+\index{itk::Transform!SetParameters()}
+For example, \doxygen{Euler2DTransform} provides methods for specifying the offset,
 angle, and the entire rotation matrix.  However, for use in the
 registration framework, the parameters are represented by a flat
 Array of doubles to facilitate communication with generic
@@ -217,10 +214,9 @@ computational time will be when used in a registration method since the
 dimension of the search space will be equal to the number of transform
 parameters.
 
-\index{itk::Transform!GetJacobian()}
-
 Another requirement that the registration framework imposes on the transform
-classes is the computation of their Jacobians. In general, metrics require
+classes is the computation of their Jacobians.\index{itk::Transform!GetJacobian()}
+In general, metrics require
 the knowledge of the Jacobian in order to compute Metric derivatives.
 The Jacobian is a matrix whose elements are the partial derivatives of the
 output point with respect to the array of parameters that defines the
@@ -261,8 +257,8 @@ parameters.
 The following sections describe the main characteristics of the transform
 classes available in ITK.
 
-\subsection{Identity Transform}
-\label{sec:IdentityTransform}
+\subsection{Identity Transform}%
+\label{sec:IdentityTransform}%
 \index{itk::IdentityTransform}
 
 \begin{table}
@@ -281,7 +277,7 @@ Only defined when the input and output space has the same number of dimensions. 
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Identity Transform Characteristics]{Characteristics of the identity transform.
+\itkcaption[Identity Transform Characteristics]{Characteristics of the identity transform.%
 \label{tab:IdentityTransformCharacteristics}}
 \end{table}
 
@@ -293,8 +289,8 @@ characteristics of the identity transform are summarized in
 Table~\ref{tab:IdentityTransformCharacteristics}
 
 
-\subsection{Translation Transform}
-\label{sec:TranslationTransform}
+\subsection{Translation Transform}%
+\label{sec:TranslationTransform}%
 \index{itk::TranslationTransform}
 
 \begin{table}
@@ -314,7 +310,7 @@ Only defined when the input and output space have the same number of dimensions.
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Translation Transform Characteristics]{Characteristics of the TranslationTransform class.
+\itkcaption[Translation Transform Characteristics]{Characteristics of the TranslationTransform class.%
 \label{tab:TranslationTransformCharacteristics}}
 \end{table}
 
@@ -330,8 +326,8 @@ advantage of being fast to compute and having parameters that are easy to
 interpret. The main characteristics of the translation transform are presented
 in Table~\ref{tab:TranslationTransformCharacteristics}.
 
-\subsection{Scale Transform}
-\label{sec:ScaleTransform}
+\subsection{Scale Transform}%
+\label{sec:ScaleTransform}%
 \index{itk::ScaleTransform}
 
 \begin{table}
@@ -353,7 +349,7 @@ Only defined when the input and output space have the same number of dimensions.
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Scale Transform Characteristics]{Characteristics of the ScaleTransform class.
+\itkcaption[Scale Transform Characteristics]{Characteristics of the ScaleTransform class.%
 \label{tab:ScaleTransformCharacteristics}}
 \end{table}
 
@@ -436,8 +432,8 @@ independently. The main characteristics of the scale transform are presented in
 Table~\ref{tab:ScaleTransformCharacteristics}.
 
 
-\subsection{Scale Logarithmic Transform}
-\label{sec:ScaleLogarithmicTransform}
+\subsection{Scale Logarithmic Transform}%
+\label{sec:ScaleLogarithmicTransform}%
 \index{itk::Scale\-Logarithmic\-Transform}
 
 \begin{table}
@@ -463,7 +459,7 @@ to the one of a Vector space.  \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Scale Logarithmic Transform Characteristics]{Characteristics of the ScaleLogarithmicTransform class.
+\itkcaption[Scale Logarithmic Transform Characteristics]{Characteristics of the ScaleLogarithmicTransform class.%
 \label{tab:ScaleLogarithmicTransformCharacteristics}}
 \end{table}
 
@@ -477,8 +473,8 @@ additive variations in the logarithm of the scaling factors.
 
 
 
-\subsection{Euler2DTransform}
-\label{sec:Euler2DTransform}
+\subsection{Euler2DTransform}%
+\label{sec:Euler2DTransform}%
 \index{itk::Euler2DTransform}
 
 \begin{table}
@@ -499,7 +495,7 @@ Only defined for two-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Euler2D Transform Characteristics]{Characteristics of the Euler2DTransform class.
+\itkcaption[Euler2D Transform Characteristics]{Characteristics of the Euler2DTransform class.%
 \label{tab:Euler2DTransformCharacteristics}}
 \end{table}
 
@@ -566,8 +562,8 @@ of the optimizers. The main characteristics of the Euler2DTransform class
 are presented in Table~\ref{tab:Euler2DTransformCharacteristics}.
 
 
-\subsection{CenteredRigid2DTransform}
-\label{sec:CenteredRigid2DTransform}
+\subsection{CenteredRigid2DTransform}%
+\label{sec:CenteredRigid2DTransform}%
 \index{itk::Centered\-Rigid2D\-Transform}
 
 \begin{table}
@@ -588,7 +584,7 @@ Only defined for two-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[CenteredRigid2D Transform Characteristics]{Characteristics of the CenteredRigid2DTransform class.
+\itkcaption[CenteredRigid2D Transform Characteristics]{Characteristics of the CenteredRigid2DTransform class.%
 \label{tab:CenteredRigid2DTransformCharacteristics}}
 \end{table}
 
@@ -662,8 +658,8 @@ after the rotation. The main features of the CenteredRigid2DTransform are
 presented in Table~\ref{tab:CenteredRigid2DTransformCharacteristics}.
 
 
-\subsection{Similarity2DTransform}
-\label{sec:Similarity2DTransform}
+\subsection{Similarity2DTransform}%
+\label{sec:Similarity2DTransform}%
 \index{itk::Similarity2DTransform}
 
 \begin{table}
@@ -686,7 +682,7 @@ Only defined for two-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Similarity2D Transform Characteristics]{Characteristics of the Similarity2DTransform class.
+\itkcaption[Similarity2D Transform Characteristics]{Characteristics of the Similarity2DTransform class.%
 \label{tab:Similarity2DTransformCharacteristics}}
 \end{table}
 
@@ -756,8 +752,8 @@ the rotation angle, then balance the array of scale factors in the optimizer
 and perform another set of iterations updating only the translations.
 
 
-\subsection{QuaternionRigidTransform}
-\label{sec:QuaternionRigidTransform}
+\subsection{QuaternionRigidTransform}%
+\label{sec:QuaternionRigidTransform}%
 \index{itk::Quaternion\-Rigid\-Transform}
 
 \begin{table}
@@ -781,7 +777,7 @@ Only defined for three-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[QuaternionRigid Transform Characteristics]{Characteristics of the QuaternionRigidTransform class.
+\itkcaption[QuaternionRigid Transform Characteristics]{Characteristics of the QuaternionRigidTransform class.%
 \label{tab:QuaternionRigidTransformCharacteristics}}
 \end{table}
 
@@ -811,10 +807,10 @@ and CovariantVector are not affected by the selection of the rotation center.
 
 
 
-\subsection{VersorTransform}
-\label{sec:VersorTransform}
-\index{itk::VersorTransform}
-\index{itk::VersorTransformOptimizer}
+\subsection{VersorTransform}%
+\label{sec:VersorTransform}%
+\index{itk::VersorTransform}%
+\index{itk::VersorTransformOptimizer}%
 \index{itk::Versor!Definition}
 
 \begin{table}
@@ -835,7 +831,7 @@ Only defined for three-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Versor Transform Characteristics]{Characteristics of the Versor Transform
+\itkcaption[Versor Transform Characteristics]{Characteristics of the Versor Transform%
 \label{tab:VersorTransformCharacteristics}}
 \end{table}
 
@@ -869,8 +865,8 @@ optimized, therefore it remains the same during an optimization process. Its
 value is used during the computations for transforming Points and when
 computing the Jacobian.
 
-\subsection{VersorRigid3DTransform}
-\label{sec:VersorRigid3DTransform}
+\subsection{VersorRigid3DTransform}%
+\label{sec:VersorRigid3DTransform}%
 \index{itk::VersorRigid3DTransform}
 
 \begin{table}
@@ -892,7 +888,7 @@ Only defined for three-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Versor Rigid3D Transform Characteristics]{Characteristics of the VersorRigid3DTransform class.
+\itkcaption[Versor Rigid3D Transform Characteristics]{Characteristics of the VersorRigid3DTransform class.%
 \label{tab:VersorRigid3DTransformCharacteristics}}
 \end{table}
 
@@ -920,8 +916,8 @@ transform, as well as the Vector space properties on the translational part of
 the transform.
 
 
-\subsection{Euler3DTransform}
-\label{sec:Euler3DTransform}
+\subsection{Euler3DTransform}%
+\label{sec:Euler3DTransform}%
 \index{itk::Euler3DTransform}
 
 \begin{table}
@@ -945,7 +941,7 @@ Only defined for three-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Euler3D Transform Characteristics]{Characteristics of the Euler3DTransform class.
+\itkcaption[Euler3D Transform Characteristics]{Characteristics of the Euler3DTransform class.%
 \label{tab:Euler3DTransformCharacteristics}}
 \end{table}
 
@@ -970,8 +966,8 @@ a reasonable initialization of the transform angles and only need to correct
 for residual rotations in the order of $10$ or $20$ degrees.
 
 
-\subsection{Similarity3DTransform}
-\label{sec:Similarity3DTransform}
+\subsection{Similarity3DTransform}%
+\label{sec:Similarity3DTransform}%
 \index{itk::Similarity3DTransform}
 
 \begin{table}
@@ -996,7 +992,7 @@ Only defined for three-dimensional input and output spaces. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Similarity3D Transform Characteristics]{Characteristics of the Similarity3DTransform class.
+\itkcaption[Similarity3D Transform Characteristics]{Characteristics of the Similarity3DTransform class.%
 \label{tab:Similarity3DTransformCharacteristics}}
 \end{table}
 
@@ -1017,8 +1013,8 @@ optimizer to work with this transform and when fine tuning the parameters of
 the optimizer.
 
 
-\subsection{Rigid3DPerspectiveTransform}
-\label{sec:Rigid3DPerspectiveTransform}
+\subsection{Rigid3DPerspectiveTransform}%
+\label{sec:Rigid3DPerspectiveTransform}%
 \index{itk::Rigid3D\-Perspective\-Transform}
 
 \begin{table}
@@ -1046,7 +1042,7 @@ dimension from the output space.\\
 \end{tabular}
 \end{center}
 \itkcaption[Rigid3DPerspective Transform Characteristics]{Characteristics of
-the Rigid3DPerspectiveTransform class.
+the Rigid3DPerspectiveTransform class.%
 \label{tab:Rigid3DPerspectiveTransformCharacteristics}}
 \end{table}
 
@@ -1069,8 +1065,8 @@ the same Versor\-Rigid3D\-Tranform\-Optimizer in order to optimize the
 parameters of this class.
 
 
-\subsection{AffineTransform}
-\label{sec:AffineTransform}
+\subsection{AffineTransform}%
+\label{sec:AffineTransform}%
 \index{itk::AffineTransform}
 
 \begin{table}
@@ -1093,7 +1089,7 @@ Only defined when the input and output space have the same dimension. \\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[Affine Transform Characteristics]{Characteristics of the AffineTransform class.
+\itkcaption[Affine Transform Characteristics]{Characteristics of the AffineTransform class.%
 \label{tab:AffineTransformCharacteristics}}
 \end{table}
 
@@ -1181,8 +1177,8 @@ visualization display.
 
 
 
-\subsection{BSplineDeformableTransform}
-\label{sec:BSplineDeformableTransform}
+\subsection{BSplineDeformableTransform}%
+\label{sec:BSplineDeformableTransform}%
 \index{itk::BSpline\-Deformable\-Transform}
 
 \begin{table}
@@ -1206,7 +1202,7 @@ and therefore requiring long computation times.\\
 \hline
 \end{tabular}
 \end{center}
-\itkcaption[BSpline Deformable Transform Characteristics]{Characteristics of the BSplineDeformableTransform class.
+\itkcaption[BSpline Deformable Transform Characteristics]{Characteristics of the BSplineDeformableTransform class.%
 \label{tab:BSplineDeformableTransformCharacteristics}}
 \end{table}
 
@@ -1237,13 +1233,13 @@ following papers~\cite{Rueckert1999,Mattes2001,Mattes2003}.
 
 
 
-\subsection{KernelTransforms}
-\label{sec:KernelTransforms}
-\index{itk::Kernel\-Transforms}
-\index{itk::Elastic\-Body\-Spline\-Kernel\-Transform}
-\index{itk::Elastic\-Body\-Reciprocal\-Spline\-Kernel\-Transform}
-\index{itk::Thin\-Plate\-Spline\-Kernel\-Transform}
-\index{itk::Thin\-Plate\-R2\-LogR\-Spline\-Kernel\-Transform}
+\subsection{KernelTransforms}%
+\label{sec:KernelTransforms}%
+\index{itk::Kernel\-Transforms}%
+\index{itk::Elastic\-Body\-Spline\-Kernel\-Transform}%
+\index{itk::Elastic\-Body\-Reciprocal\-Spline\-Kernel\-Transform}%
+\index{itk::Thin\-Plate\-Spline\-Kernel\-Transform}%
+\index{itk::Thin\-Plate\-R2\-LogR\-Spline\-Kernel\-Transform}%
 \index{itk::Volume\-Spline\-Kernel\-Transform}
 
 Kernel Transforms are a set of Transforms that are also suitable for performing

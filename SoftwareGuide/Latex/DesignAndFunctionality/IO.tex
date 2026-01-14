@@ -1,6 +1,6 @@
 
 
-\chapter{Reading and Writing Images}
+\chapter{Reading and Writing Images}%
 \label{sec:IO}
 
 This chapter describes the toolkit architecture supporting reading and
@@ -10,26 +10,26 @@ be easily extended by the user as new formats become available.
 
 We begin the chapter with some simple examples of file I/O.
 
-\section{Basic Example}
+\section{Basic Example}%
 \label{sec:ImagReadWrite}
 \input{ImageReadWrite.tex}
 
-To better understand the IO architecture, please refer to Figures
-\ref{fig:ImageIOCollaborationDiagram},
-\ref{fig:ImageIOFactoriesUseCases}, and
-\ref{fig:ImageIOFactoriesClassDiagram}.
+To better understand the IO architecture, please refer to
+Figures~\ref{fig:ImageIOCollaborationDiagram},~\ref{fig:ImageIOFactoriesUseCases},
+and~\ref{fig:ImageIOFactoriesClassDiagram}.
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{ImageIOCollaborationDiagram.eps}
 \itkcaption[Collaboration diagram of the ImageIO classes]{Collaboration diagram
-of the ImageIO classes.} \label{fig:ImageIOCollaborationDiagram}
+of the ImageIO classes.}%
+\label{fig:ImageIOCollaborationDiagram}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{ImageIOFactoriesUseCases.eps}
-\itkcaption[Use cases of ImageIO factories] {Use cases of ImageIO factories.}
+\itkcaption[Use cases of ImageIO factories] {Use cases of ImageIO factories.}%
 \label{fig:ImageIOFactoriesUseCases}
 \end{figure}
 
@@ -37,7 +37,7 @@ of the ImageIO classes.} \label{fig:ImageIOCollaborationDiagram}
 \centering
 \includegraphics[width=\textwidth]{ImageIOFactoriesClassDiagram.eps}
 \itkcaption[Class diagram of ImageIO factories] {Class diagram of the ImageIO
-factories.}
+factories.}%
 \label{fig:ImageIOFactoriesClassDiagram}
 \end{figure}
 
@@ -45,11 +45,11 @@ factories.}
 The following section describes the internals of the IO architecture provided
 in the toolkit.
 
-\section{Pluggable Factories}
+\section{Pluggable Factories}%
 \label{sec:ImageIOPluggableFactories}
 
 The principle behind the input/output mechanism used in ITK is known as
-\emph{pluggable-factories} \cite{Gamma1995}. This concept is illustrated in
+\emph{pluggable-factories}~\cite{Gamma1995}. This concept is illustrated in
 the UML diagram in Figure~\ref{fig:ImageIOCollaborationDiagram}. From the
 user's point of view the objects responsible for reading and writing files
 are the \doxygen{ImageFileReader} and \doxygen{ImageFileWriter}
@@ -100,29 +100,29 @@ with the ImageFileReader and ImageFileWriter. It is
 possible, however, to explicitly select the type of ImageIO object
 to use.  This is illustrated by the following example.
 
-\section{Using ImageIO Classes Explicitly}
+\section{Using ImageIO Classes Explicitly}%
 \label{sec:ImageReadExportVTK}
 \input{ImageReadExportVTK.tex}
 
 
-\section{Reading and Writing RGB Images}
+\section{Reading and Writing RGB Images}%
 \label{sec:RGBImagReadWrite}
 \input{RGBImageReadWrite.tex}
 
-\section{Reading, Casting and Writing Images}
+\section{Reading, Casting and Writing Images}%
 \label{sec:ImagReadCastWrite}
 \input{ImageReadCastWrite.tex}
 
-\section{Extracting Regions}
+\section{Extracting Regions}%
 \label{sec:ImagReadRegionOfInterestWrite}
 \input{ImageReadRegionOfInterestWrite.tex}
 
-\section{Extracting Slices}
+\section{Extracting Slices}%
 \label{sec:ImagReadExtractWrite}
 \input{ImageReadExtractWrite.tex}
 
 
-\section{Reading and Writing Vector Images}
+\section{Reading and Writing Vector Images}%
 \label{sec:VectorImagReadWrite}
 
 Images whose pixel type is a Vector, a CovariantVector, an Array, or a Complex
@@ -130,26 +130,26 @@ are quite common in image processing. It is convenient then to describe rapidly
 how those images can be saved into files and how they can be read from those
 files later on.
 
-\subsection{The Minimal Example}
+\subsection{The Minimal Example}%
 \label{VectorImageReadWrite}
 \input{VectorImageReadWrite.tex}
 
-\subsection{Producing and Writing Covariant Images}
+\subsection{Producing and Writing Covariant Images}%
 \label{CovariantVectorImageWrite}
 \input{CovariantVectorImageWrite.tex}
 
-\subsection{Reading Covariant Images}
+\subsection{Reading Covariant Images}%
 \label{CovariantVectorImageRead}
 Let's now take the image that we just created and read it into another program.
 \input{CovariantVectorImageRead.tex}
 
 
-\section{Reading and Writing Complex Images}
+\section{Reading and Writing Complex Images}%
 \label{sec:ComplexImagReadWrite}
 \input{ComplexImageReadWrite.tex}
 
 
-\section{Extracting Components from Vector Images}
+\section{Extracting Components from Vector Images}%
 \label{sec:VectorImageExtractComponent}
 \input{CovariantVectorImageExtractComponent.tex}
 
@@ -163,34 +163,33 @@ dataset. The same practice can be extended to higher dimensions, for example,
 for managing 4D datasets by using sets of files each one containing a 3D image.
 This practice is common in the domain of cardiac imaging, perfusion, functional
 MRI and PET. This section illustrates the functionalities available in ITK for
-dealing with reading and writing series of images.
-
-\index{Series!Reading}
-\index{Series!Writing}
-\index{Image Series!Reading}
+dealing with reading and writing series of images.%
+%
+\index{Series!Reading}%
+\index{Series!Writing}%
+\index{Image Series!Reading}%
 \index{Image Series!Writing}
 
-\subsection{Reading Image Series}
+\subsection{Reading Image Series}%
 \label{sec:ReadingImageSeries}
 \input{ImageSeriesReadWrite.tex}
 
-\subsection{Writing Image Series}
+\subsection{Writing Image Series}%
 \label{sec:WritingImageSeries}
 \input{ImageReadImageSeriesWrite.tex}
 
-\subsection{Reading and Writing Series of RGB Images}
+\subsection{Reading and Writing Series of RGB Images}%
 \label{sec:ReadingWritingRGBImageSeries}
 \input{RGBImageSeriesReadWrite.tex}
 
 
-\section{Reading and Writing DICOM Images}
-\label{sec:ReadingDicomImageSeries2}
-
+\section{Reading and Writing DICOM Images}%
+\label{sec:ReadingDicomImageSeries2}%
 % Small intro to DICOM file format
-\index{DICOM}
-\index{DICOM!Standard}
-\index{DICOM!Series}
-\index{DICOM!Introduction}
+\index{DICOM}%
+\index{DICOM!Standard}%
+\index{DICOM!Series}%
+\index{DICOM!Introduction}%
 
 \subsection{Foreword}
 With the introduction of computed tomography (CT) followed by other digital
@@ -254,26 +253,26 @@ GDCM is now maintained by Mathieu Malaterre and the GDCM community.
 The version distributed with ITK gets updated with major releases of the GDCM
 library.
 
-\subsection{Reading and Writing a 2D Image}
+\subsection{Reading and Writing a 2D Image}%
 \label{DicomImageReadWrite}
 \input{DicomImageReadWrite.tex}
 
-\subsection{Reading a 2D DICOM Series and Writing a Volume}
+\subsection{Reading a 2D DICOM Series and Writing a Volume}%
 \label{DicomSeriesReadImageWrite2}
 \input{DicomSeriesReadImageWrite2.tex}
 
-\subsection{Reading a 2D DICOM Series and Writing a 2D DICOM Series}
-\label{DicomSeriesReadSeriesWrite}
+\subsection{Reading a 2D DICOM Series and Writing a 2D DICOM Series}%
+\label{DicomSeriesReadSeriesWrite}%
 \input{DicomSeriesReadSeriesWrite.tex}
 
-\subsection{Printing DICOM Tags From One Slice}
-\label{DicomImageReadPrintTags}
+\subsection{Printing DICOM Tags From One Slice}%
+\label{DicomImageReadPrintTags}%
 \input{DicomImageReadPrintTags.tex}
 
-\subsection{Printing DICOM Tags From a Series}
-\label{DicomSeriesReadPrintTags}
+\subsection{Printing DICOM Tags From a Series}%
+\label{DicomSeriesReadPrintTags}%
 \input{DicomSeriesReadPrintTags.tex}
 
-\subsection{Changing a DICOM Header}
-\label{DicomImageReadChangeHeaderWrite}
+\subsection{Changing a DICOM Header}%
+\label{DicomImageReadChangeHeaderWrite}%
 \input{DicomImageReadChangeHeaderWrite.tex}

@@ -1,24 +1,21 @@
 
-\index{itk::ObjectToObjectOptimizer}
-\index{itk::Single\-Valued\-NonLinear\-Vnl\-Optimizerv4}
-
-
 \begin{figure}
 \centering
 \includegraphics[width=\textheight,angle=90]{Optimizersv4Hierarchy.eps}
 \itkcaption[Class diagram of the Optimizers hierarchy in ITKv4]{Class diagram of the
-optimizersv4 hierarchy.}
+optimizersv4 hierarchy.}%
 \label{fig:Optimizersv4Hierarchy}
-\end{figure}
+\end{figure}%
+\index{itk::ObjectToObjectOptimizer}%
+\index{itk::Single\-Valued\-NonLinear\-Vnl\-Optimizerv4}
 
 Optimization algorithms are encapsulated as \doxygen{ObjectToObjectOptimizer}
 objects within ITKv4. Optimizers are generic and can be used for applications
 other than registration. Within the registration framework, subclasses of
 \doxygen{SingleValuedNonLinearVnlOptimizerv4} are implemented as a wrap
-around already implemented vnl classes.
-
-\index{itk::ObjectToObjectOptimizer!SetMetric()}
-\index{itk::ObjectToObjectOptimizer!StartOptimization()}
+around already implemented vnl classes.%
+\index{itk::ObjectToObjectOptimizer!SetMetric()}%
+\index{itk::ObjectToObjectOptimizer!StartOptimization()}%
 \index{itk::ObjectToObjectOptimizer!GetCurrentPosition()}
 
 The basic input to an optimizer is a cost function or metric object. In the context
@@ -28,8 +25,9 @@ the optimization algorithm is invoked by \code{StartOptimization()}.
 Once the optimization has finished, the final parameters can be obtained
 using \code{GetCurrentPosition()}.
 
+Some optimizers also allow rescaling of their individual parameters.%
 \index{itk::ObjectToObjectOptimizer!SetScales()}
-Some optimizers also allow rescaling of their individual parameters. This is
+This is
 convenient for normalizing parameter spaces where some parameters have
 different dynamic ranges. For example, the first parameter of
 \doxygen{Euler2DTransform} represents an angle while the last two parameters
@@ -40,9 +38,9 @@ difficult. Rescaling the translation parameters can help to fix this problem.
 Scales are represented as an \doxygen{Array} of doubles and set using
 \code{SetScales()}.
 
-\index{itk::ObjectToObjectOptimizer!SetScalesEstimator()}
 Estimating the scales parameters can also be done automatically using the
-\doxygen{OptimizerParameterScalesEstimatorTemplate} and its subclasses.
+\doxygen{OptimizerParameterScalesEstimatorTemplate} and its subclasses.%
+\index{itk::ObjectToObjectOptimizer!SetScalesEstimator()}
 The scales estimator object is then set to the optimizer via
 \code{SetScalesEstimator()}.
 
@@ -51,21 +49,19 @@ of optimizers available in ITKv4, which are suitable for dealing with cost
 functions that return a single value. These are indeed the most common type
 of cost functions, and are also known as \emph{Single Valued} functions.
 
-The types of single valued optimizers currently available in ITKv4 are:
-
-\index{itk::Gradient\-Descent\-Optimizerv4}
-\index{itk::Regular\-Step\-Gradient\-Descent\-Optimizerv4}
-\index{itk::Gradient\-Descent\-Line\-Search\-Optimizerv4}
-\index{itk::Conjugate\-Gradient\-Line\-Search\-Optimizerv4}
-\index{itk::Multi\-Gradient\-Optimizerv4}
-\index{itk::Quasi\-Newton\-Optimizerv4}
-\index{itk::Amoeba\-Optimizer}
-\index{itk::LBFGS\-Optimizerv4}
-\index{itk::LBFGSB\-Optimizerv4}
-\index{itk::One\-Plus\-One\-Evolutionary\-Optimizerv4}
-\index{itk::Powell\-Optimizerv4}
+The types of single valued optimizers currently available in ITKv4 are:%
+\index{itk::Gradient\-Descent\-Optimizerv4}%
+\index{itk::Regular\-Step\-Gradient\-Descent\-Optimizerv4}%
+\index{itk::Gradient\-Descent\-Line\-Search\-Optimizerv4}%
+\index{itk::Conjugate\-Gradient\-Line\-Search\-Optimizerv4}%
+\index{itk::Multi\-Gradient\-Optimizerv4}%
+\index{itk::Quasi\-Newton\-Optimizerv4}%
+\index{itk::Amoeba\-Optimizer}%
+\index{itk::LBFGS\-Optimizerv4}%
+\index{itk::LBFGSB\-Optimizerv4}%
+\index{itk::One\-Plus\-One\-Evolutionary\-Optimizerv4}%
+\index{itk::Powell\-Optimizerv4}%
 \index{itk::Exhaustive\-Optimizerv4}
-
 
 \begin{itemize}
 

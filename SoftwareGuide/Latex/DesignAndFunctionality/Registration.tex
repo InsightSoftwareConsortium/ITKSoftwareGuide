@@ -33,7 +33,7 @@ spatial mapping that will bring the moving image into alignment with the fixed i
 \includegraphics[width=0.8\textwidth]{RegistrationComponentsDiagram.eps}
 \itkcaption[A Typical Registration Framework Components]{The basic components
 of a typical registration framework are two input images, a transform, a
-metric, an interpolator and an optimizer.}
+metric, an interpolator and an optimizer.}%
 \label{fig:RegistrationComponents}
 \end{figure}
 
@@ -62,7 +62,7 @@ Various ITKv4 registration components are illustrated in Figure
 \centering
 \includegraphics[width=0.8\textwidth]{ITKv4RegistrationComponentsDiagram.eps}
 \itkcaption[Registration Framework Components]{The basic components of the ITKv4
-registration framework.}
+registration framework.}%
 \label{fig:ITKv4RegistrationComponents}
 \end{figure}
 
@@ -83,11 +83,11 @@ better understanding of the behind-the-scenes processes of ITKv4 registration
 framework. First, we begin with some simple registration examples.
 
 
-\section{"Hello World" Registration}
+\section{"Hello World" Registration}%
 \label{sec:IntroductionImageRegistration}
 \input{ImageRegistration1.tex}
 
-\section{Features of the Registration Framework}
+\section{Features of the Registration Framework}%
 \label{sec:FeaturesOfTheRegistrationFramework}
 
 This section presents internals of the registration process in ITKv4.
@@ -117,7 +117,7 @@ Figure~\ref{fig:ImageRegistrationCoordinateSystemsDiagram}.
 \itkcaption[Registration Coordinate Systems]{Different coordinate systems
 involved in the image registration process. Note that the transform being
 optimized is the one mapping from the physical space of the \textbf{virtual}
-image into the physical space of the \textbf{moving} image.}
+image into the physical space of the \textbf{moving} image.}%
 \label{fig:ImageRegistrationCoordinateSystemsDiagram}
 \end{figure}
 
@@ -211,21 +211,20 @@ space. Fortunately in practice there is no need to resample the fixed image
 since the virtual image physical domain is often assumed to be the same as
 physical domain of the fixed image.
 
-\section{Monitoring Registration}
+\section{Monitoring Registration}%
 \label{sec:MonitoringImageRegistration}
 \input{ImageRegistration3.tex}
 
 
 
-\section{Multi-Modality Registration}
+\section{Multi-Modality Registration}%
 \label{sec:MultiModalityRegistration}
 
 Some of the most challenging cases of image registration arise when images of
 different modalities are involved. In such cases, metrics based on direct
 comparison of gray levels are not applicable. It has been extensively shown
 that metrics based on the evaluation of mutual information are well suited for
-overcoming the difficulties of multi-modality registration.
-
+overcoming the difficulties of multi-modality registration.%
 \index{itk::Image\-Registration\-Method!Multi-Modality}
 
 The concept of Mutual Information is derived from Information Theory and its
@@ -236,7 +235,7 @@ provides two different implementations of Mutual Information metrics (see
 section \ref{sec:Metrics} for details). The following example illustrates the
 practical use of one of these metrics.
 
-\subsection{Mattes Mutual Information}
+\subsection{Mattes Mutual Information}%
 \label{sec:MultiModalityRegistrationMattes}
 \input{ImageRegistration4.tex}
 
@@ -261,37 +260,37 @@ accurate results. The following sections describe the main
 characteristics and effects of initializing the center of a
 transform.
 
-\subsection{Rigid Registration in 2D}
+\subsection{Rigid Registration in 2D}%
 \label{sec:RigidRegistrationIn2D}
 \input{ImageRegistration5.tex}
 
-\subsection{Initializing with Image Moments}
+\subsection{Initializing with Image Moments}%
 \label{sec:InitializingRegistrationWithMoments}
 \input{ImageRegistration6.tex}
 
 
 
-\subsection{Similarity Transform in 2D}
+\subsection{Similarity Transform in 2D}%
 \label{sec:SimilarityRegistrationIn2D}
 \input{ImageRegistration7.tex}
 
 
 
-\subsection{Rigid Transform in 3D}
+\subsection{Rigid Transform in 3D}%
 \label{sec:RigidRegistrationIn3D}
 \input{ImageRegistration8.tex}
 
 
 
 
-\subsection{Centered Initialized Affine Transform}
+\subsection{Centered Initialized Affine Transform}%
 \label{sec:CenteredAffineTransform}
 \input{ImageRegistration9.tex}
 
 
 
 
-\section{Multi-Resolution Registration}
+\section{Multi-Resolution Registration}%
 \label{sec:MultiResolutionRegistration}
 Performing image registration using a multi-resolution approach is widely used
 to improve speed, accuracy and robustness. The basic idea is that registration
@@ -319,7 +318,7 @@ way of an example.
 \subsection{Fundamentals}
 \input{MultiResImageRegistration1.tex}
 
-\section{Multi-Stage Registration}
+\section{Multi-Stage Registration}%
 \label{sec:MultiStageRegistration}
 In section \ref{sec:MultiResolutionRegistration} you noticed how to tweak
 component settings between multi-resolution levels and saw how it can benefit the
@@ -363,7 +362,7 @@ features of the components forming the registration framework.
 % objects used by the Transforms.
 \clearpage
 
-\section{Transforms}
+\section{Transforms}%
 \label{sec:Transforms}
 \input{DesignAndFunctionality/Transforms.tex}
 
@@ -373,7 +372,7 @@ features of the components forming the registration framework.
 % section.
 \clearpage
 
-\section{Interpolators}
+\section{Interpolators}%
 \label{sec:Interpolators}
 \input{DesignAndFunctionality/ImageInterpolators.tex}
 
@@ -381,7 +380,7 @@ features of the components forming the registration framework.
 % section.
 \clearpage
 
-\section{Metrics}
+\section{Metrics}%
 \label{sec:Metrics}
 \input{DesignAndFunctionality/ImageMetrics.tex}
 
@@ -389,25 +388,25 @@ features of the components forming the registration framework.
 % section.
 \clearpage
 
-\section{Optimizers}
+\section{Optimizers}%
 \label{sec:Optimizers}
 \input{DesignAndFunctionality/Optimizers.tex}
 
 
 
-\subsection{Registration using the One plus One Evolutionary Optimizer}
+\subsection{Registration using the One plus One Evolutionary Optimizer}%
 \label{sec:RegistrationOnePlusOne}
 \input{ImageRegistration11.tex}
 
 
 
-\subsection{Registration using masks constructed with Spatial objects}
+\subsection{Registration using masks constructed with Spatial objects}%
 \label{sec:RegistrationSpatialObjects}
 \input{ImageRegistration12.tex}
 
 
 
-\subsection{Rigid registrations incorporating prior knowledge}
+\subsection{Rigid registrations incorporating prior knowledge}%
 \label{sec:RegistrationCentered2DTransform}
 \input{ImageRegistration13.tex}
 
@@ -416,7 +415,7 @@ features of the components forming the registration framework.
 % section.
 \clearpage
 
-\section{Deformable Registration}
+\section{Deformable Registration}%
 \label{sec:DeformableRegistration}
 \input{DesignAndFunctionality/DeformableRegistration.tex}
 
@@ -424,11 +423,11 @@ features of the components forming the registration framework.
 % section.
 \clearpage
 
-\section{Demons Deformable Registration}
+\section{Demons Deformable Registration}%
 \label{sec:DemonsDeformableRegistration}
 \input{DesignAndFunctionality/DemonsRegistration.tex}
 
-\section{Visualizing Deformation fields}
+\section{Visualizing Deformation fields}%
 \label{sec:VisualizingDeformationFields}
 \input{DesignAndFunctionality/VisualizingDeformationFieldsUsingParaview.tex}
 
@@ -441,12 +440,12 @@ features of the components forming the registration framework.
 
 
 
-\section{Model Based Registration}
+\section{Model Based Registration}%
 \label{sec:ModelBasedRegistration}
 \input{DesignAndFunctionality/ModelBasedRegistration.tex}
 
 
-\section{Point Set Registration}
+\section{Point Set Registration}%
 \label{sec:PointSetRegistration}
 
 PointSet-to-PointSet registration is a common problem in medical image
@@ -484,7 +483,7 @@ this can be used in ITK.
 
 
 
-\subsection{Point Set Registration in 2D}
+\subsection{Point Set Registration in 2D}%
 \label{sec:PointSetRegistrationIn2D}
 
 \input{IterativeClosestPoint1.tex}
@@ -492,14 +491,14 @@ this can be used in ITK.
 
 
 
-\subsection{Point Set Registration in 3D}
+\subsection{Point Set Registration in 3D}%
 \label{sec:PointSetRegistrationIn3D}
 
 \input{IterativeClosestPoint2.tex}
 
 
 
-\subsection{Point Set to Distance Map Metric}
+\subsection{Point Set to Distance Map Metric}%
 \label{sec:PointSetToDistanceMapMetric}
 
 \input{IterativeClosestPoint3.tex}

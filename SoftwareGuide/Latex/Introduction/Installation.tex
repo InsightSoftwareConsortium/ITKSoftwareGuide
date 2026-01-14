@@ -1,4 +1,4 @@
-\chapter{Configuring and Building ITK}
+\chapter{Configuring and Building ITK}%
 \label{chapter:Installation}
 
 This chapter describes the process for configuring and compiling ITK on your
@@ -43,7 +43,7 @@ for upgrading this old piece of software! Support for different platforms is
 evident on the ITK quality dashboard (see Section \ref{sec:CDash} on page
 \pageref{sec:CDash}).
 
-\section{Obtaining the Software}
+\section{Obtaining the Software}%
 \label{sec:ObtainingTheSoftware}
 \label{sec:DownloadingITK}
 \index{Downloading}
@@ -74,7 +74,7 @@ updating the repository, make sure that the dashboard is \emph{green},
 indicating stable code. (Learn more about the ITK dashboard and quality
 assurance process in Section \ref{sec:CDash} on page \pageref{sec:CDash}.)
 
-\subsection{Downloading Packaged Releases}
+\subsection{Downloading Packaged Releases}%
 \label{sec:DownloadingReleases}
 
 \index{ITK!downloading release}
@@ -94,7 +94,7 @@ Once you unzip or untar the file a directory called
 you will be ready to start the configuration process described in Section
 \ref{sec:CMakeforITK} on page \pageref{sec:CMakeforITK}.
 
-\subsection{Downloading From Git}
+\subsection{Downloading From Git}%
 \label{sec:DownloadingFromGit}
 
 \index{ITK!Git repository}
@@ -122,7 +122,7 @@ Section \ref{sec:CMakeforITK} on page \pageref{sec:CMakeforITK}). First,
 however, we recommend reading the following sections that describe the
 organization of the software and joining the discussion.
 
-\subsection{Data}
+\subsection{Data}%
 \label{sec:Data}
 
 The Insight Toolkit was designed to support the Visible Human Project
@@ -136,7 +136,7 @@ of the following:
 \url{ftp://public.kitware.com/pub/itk/Data/}.
 \end{quote}
 
-\section{Using CMake for Configuring and Building ITK}
+\section{Using CMake for Configuring and Building ITK}%
 \label{sec:UsingCMakeForConfiguringAndBuildingITK}
 
 The challenge of supporting ITK across platforms has been solved through the
@@ -163,7 +163,7 @@ third party library dependencies required, and these dependencies are used
 during compilation unless the use of a system version is requested during CMake
 configuration.
 
-\subsection{Preparing CMake}
+\subsection{Preparing CMake}%
 \label{sec:CMakeforITK}
 
 \index{CMake}
@@ -235,7 +235,7 @@ when no new options appear after a configuration iteration can you be sure that
 the necessary decisions have all been made. At this point build files are
 generated for the current configuration.
 
-\subsection{Configuring ITK}
+\subsection{Configuring ITK}%
 \label{sec:ConfigureITK}
 
 \index{ITK!configuration}
@@ -273,7 +273,7 @@ reflect the latest configuration changes. In addition, the new build files need
 to be reloaded if the project is open in the integrated development environment
 such as Visual Studio or Eclipse.
 
-\subsection{Advanced Module Configuration}
+\subsection{Advanced Module Configuration}%
 \label{sec:ModuleConfiguration}
 
 \index{ITK!advanced configuration}
@@ -423,7 +423,7 @@ Note that \code{BUILD\_EXAMPLES} is \code{OFF} by default, and
 
 \end{itemize}
 
-\subsection{Static and Shared Libraries}
+\subsection{Static and Shared Libraries}%
 \label{sec:StaticSharedLibraries}
 
 ITK libraries can be built as \textit{static libraries}, i.e. files whose
@@ -458,7 +458,7 @@ default value can be disabled only when it is known that template classes are
 not implicitly instantiated and passed across binaries.
 
 
-\subsection{Compiling ITK}
+\subsection{Compiling ITK}%
 \label{sec:BuildITK}
 
 \index{ITK!building}
@@ -478,7 +478,7 @@ about 2400 test programs will be compiled. In this case, you will then need
 to run \code{ctest} to verify that all the components of ITK have been correctly built
 on your system.
 
-\subsection{Installing ITK on Your System}
+\subsection{Installing ITK on Your System}%
 \label{sec:Installation}
 
 \index{ITK!installation}
@@ -502,7 +502,7 @@ much wide application for distributing software developed with ITK. Further
 details on configuring and generating binary packages with CMake can be found in
 the CMake tutorial\footnote{\url{https://cmake.org/cmake-tutorial/}}.
 
-\section{Cross compiling ITK}
+\section{Cross compiling ITK}%
 \label{sec:CrossCompilingITK}
 
 This section describes the procedure to follow to cross compile ITK for
@@ -526,7 +526,7 @@ mkdir ITK-build
 \end{minted}
 \normalsize
 
-\section{Getting Started With ITK}
+\section{Getting Started With ITK}%
 \label{sec:GettingStartedWithITK}
 
 The simplest way to create a new project with ITK is to create two new
@@ -573,7 +573,7 @@ window, run the executable and close the window right away, not giving you time
 to see the output. It is therefore preferable to run the executable from the DOS
 command line by starting the \code{cmd.exe} shell first.
 
-\section{Using ITK as an External Library}
+\section{Using ITK as an External Library}%
 \label{sec:UsingITKAsExternalLibrary}
 
 For a project that uses ITK as an external library, it is recommended to
@@ -641,7 +641,7 @@ Examples\footnote{\url{https://github.com/InsightSoftwareConsortium/ITKSphinxExa
 and ITK Software
 Guide\footnote{\url{https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide}}.
 
-\subsection{Hello World!}
+\subsection{Hello World!}%
 \label{sec:HelloWorldITK}
 
 \index{Hello World}
