@@ -1,4 +1,4 @@
-\chapter{ITK Git Workflow}
+\chapter{ITK Git Workflow}%
 \label{ch:ITKGitWorkflow}
 
 This chapter describes the workflow adopted by the ITK community to develop
@@ -253,8 +253,7 @@ Commit with two parents (merge) &
 %\bottomrule
 \end{tabular}
 \end{center}
-\caption[Git DAG notation]{Git graphs notation.
-\label{tab:GitDAGNotation}}
+\caption[Git DAG notation]{Git graphs notation\label{tab:GitDAGNotation}}.
 \end{table}
 
 Topic branches generally consist of a linear sequence of commits forked off an
@@ -278,7 +277,7 @@ integration branch:
 {right=of C5} % node placement
 {C5}          % target
 \end{tikzpicture}
-\itkcaption{Topic branch.}
+\itkcaption{Topic branch.}%
 \label{fig:TopicBranch}
 \end{figure}
 
@@ -297,7 +296,7 @@ Integration branches generally consist of a sequence of merge commits:
 {right=of C5} % node placement
 {C5}          % target
 \end{tikzpicture}
-\itkcaption{Merge commits into the \code{master} branch.}
+\itkcaption{Merge commits into the \code{master} branch.}%
 \label{fig:MergeCommitsInIntegrationBranch}
 \end{figure}
 
@@ -322,7 +321,7 @@ developer's local repositories.
 
 We cover below the steps to take during each phase of development.
 
-\paragraph{Initial Setup}
+\paragraph{Initial Setup}%
 \label{par:InitialSetup}
 
 These instructions generally provide all arguments to \code{git push} commands.
@@ -338,7 +337,7 @@ to establish this behavior. See the
 details.
 
 
-\paragraph{New Topic}
+\paragraph{New Topic}%
 \label{par:NewTopic}
 
 Create a new topic branch for each separate feature or bug fix. Always start the
@@ -364,7 +363,7 @@ git checkout master
 {right=of C1} % node placement
 {C1}          % target
 \end{tikzpicture}
-\itkcaption{Locate at \code{master}.}
+\itkcaption{Locate at \code{master}.}%
 \label{fig:CheckoutBranch}
 \end{figure}
 
@@ -383,7 +382,7 @@ git pull
 {right=of C2} % node placement
 {C2}          % target
 \end{tikzpicture}
-\itkcaption{Bring most recent changes to \code{master}.}
+\itkcaption{Bring most recent changes to \code{master}.}%
 \label{fig:PullChanges1}
 \end{figure}
 
@@ -409,7 +408,7 @@ git checkout -b topic
 {below=of C2} % node placement
 {C2}          % target
 \end{tikzpicture}
-\itkcaption{Create a local \code{topic} branch.}
+\itkcaption{Create a local \code{topic} branch.}%
 \label{fig:CreateLocalBranch}
 \end{figure}
 
@@ -443,7 +442,7 @@ git commit
 {right=of C3} % node placement
 {C3}          % target
 \end{tikzpicture}
-\itkcaption{Commit changes.}
+\itkcaption{Commit changes.}%
 \label{fig:CommitChanges}
 \end{figure}
 
@@ -471,7 +470,7 @@ git commit
 {right=of C4} % node placement
 {C4}          % target
 \end{tikzpicture}
-\itkcaption{Commit last changes.}
+\itkcaption{Commit last changes.}%
 \label{fig:CommitLastChanges}
 \end{figure}
 
@@ -503,7 +502,7 @@ git pull
 {right=of C4} % node placement
 {C4}          % target
 \end{tikzpicture}
-\itkcaption{Checkout \textit{master} and pull changes.}
+\itkcaption{Checkout \textit{master} and pull changes.}%
 \label{fig:SwitchToMasterAndPull}
 \end{figure}
 
@@ -532,7 +531,7 @@ git merge topic
 {right=of C4} % node placement
 {C4}          % target
 \end{tikzpicture}
-\itkcaption{Merge \code{topic} branch into \code{master}.}
+\itkcaption{Merge \code{topic} branch into \code{master}.}%
 \label{fig:MergeTopicIntoMaster1}
 \end{figure}
 
@@ -569,7 +568,7 @@ git push origin master
 {right=of C4} % node placement
 {C4}          % target
 \end{tikzpicture}
-\itkcaption{Publish the change.}
+\itkcaption{Publish the change.}%
 \label{fig:PushChanges1}
 \end{figure}
 
@@ -579,7 +578,7 @@ Section~\ref{subpar:NonFastForward} on page~\pageref{subpar:NonFastForward} to
 resolve any conflict that may arise when publishing the change.
 
 
-\paragraph{Mature Topic}
+\paragraph{Mature Topic}%
 \label{par:MatureTopic}
 
 When a topic is ready for inclusion in the next release, we merge it into
@@ -610,7 +609,7 @@ git checkout master
 {right=of C4} % node placement
 {C4}          % target
 \end{tikzpicture}
-\itkcaption{Checkout \textit{master}.}
+\itkcaption{Checkout \textit{master}.}%
 \label{fig:SwitchToMaster1}
 \end{figure}
 
@@ -636,7 +635,7 @@ git pull
 {right=of C4} % node placement
 {C4}          % target
 \end{tikzpicture}
-\itkcaption{Pull latest changes into \textit{master}.}
+\itkcaption{Pull latest changes into \textit{master}.}%
 \label{fig:PullChanges2}
 \end{figure}
 
@@ -664,7 +663,7 @@ git merge topic
 {right=of C4} % node placement
 {C4}          % target
 \end{tikzpicture}
-\itkcaption{Merge the \code{topic} branch into master.}
+\itkcaption{Merge the \code{topic} branch into master.}%
 \label{fig:MergeTopicIntoMaster2}
 \end{figure}
 
@@ -692,7 +691,7 @@ git branch -d topic
 {right=of C7} % node placement
 {C7}          % target
 \end{tikzpicture}
-\itkcaption{Delete the local \code{topic} branch.}
+\itkcaption{Delete the local \code{topic} branch.}%
 \label{fig:DeleteLocalBranch1}
 \end{figure}
 
@@ -720,7 +719,7 @@ git push origin master
 {below=of C7} % node placement
 {C7}          % target
 \end{tikzpicture}
-\itkcaption{Publish the change.}
+\itkcaption{Publish the change.}%
 \label{fig:PushChanges2}
 \end{figure}
 
@@ -730,7 +729,7 @@ Section~\ref{subpar:NonFastForward} on page~\pageref{subpar:NonFastForward} to
 resolve any conflict that may arise when publishing the change.
 
 
-\paragraph{Old Topic}
+\paragraph{Old Topic}%
 \label{par:OldTopic}
 
 Sometimes we need to continue work on an old topic that has already been merged
@@ -788,7 +787,7 @@ git checkout -b topic b235725
 {right=of C4} % node placement
 {C4}          % target
 \end{tikzpicture}
-\itkcaption{Local \textit{topic} branch started from a given commit and switch to it.}
+\itkcaption{Local \textit{topic} branch started from a given commit and switch to it.}%
 \label{fig:CreateLocalBranchFromCommitAndSwitchToIt}
 \end{figure}
 
@@ -817,7 +816,7 @@ git commit
 {right=of C8} % node placement
 {C8}          % target
 \end{tikzpicture}
-\itkcaption{Commit files to \textit{topic}.}
+\itkcaption{Commit files to \textit{topic}.}%
 \label{fig:CommitFilesToTopic1}
 \end{figure}
 
@@ -844,7 +843,7 @@ git commit
 {right=of C9} % node placement
 {C9}          % target
 \end{tikzpicture}
-\itkcaption{Further continue developing and commit files to \textit{topic}.}
+\itkcaption{Further continue developing and commit files to \textit{topic}.}%
 \label{fig:CommitFilesToTopic2}
 \end{figure}
 
@@ -873,7 +872,7 @@ git merge topic
 {right=of C9} % node placement
 {C9}          % target
 \end{tikzpicture}
-\itkcaption{Merge into \textit{master}.}
+\itkcaption{Merge into \textit{master}.}%
 \label{fig:MergeTopicIntoMaster3}
 \end{figure}
 
@@ -884,7 +883,7 @@ git push origin master
 \end{minted}
 
 
-\paragraph{Dependent Topic}
+\paragraph{Dependent Topic}%
 \label{par:DependentTopic}
 
 Occasionally you may realize that you need the work from another topic to
@@ -929,7 +928,7 @@ git fetch origin
 {right=of C10} % node placement
 {C10}          % target
 \end{tikzpicture}
-\itkcaption{Fetch the upstream integration branch \textit{other-topic}.}
+\itkcaption{Fetch the upstream integration branch \textit{other-topic}.}%
 \label{fig:FetchUpstreamBranch}
 \end{figure}
 
@@ -970,7 +969,7 @@ git branch other-topic 0a398e5
 {right=of C10} % node placement
 {C10}          % target
 \end{tikzpicture}
-\itkcaption{Create a local branch \textit{other-topic} from commit \textit{0a398e5}.}
+\itkcaption{Create a local branch \textit{other-topic} from commit \textit{0a398e5}.}%
 \label{fig:CreateLocalBranchFromCommit}
 \end{figure}
 
@@ -1004,7 +1003,7 @@ git branch -d other-topic
 {right=of C11} % node placement
 {C11}          % target
 \end{tikzpicture}
-\itkcaption{Merge \textbf{other-branch} into \textit{topic} branch.}
+\itkcaption{Merge \textbf{other-branch} into \textit{topic} branch.}%
 \label{fig:MergeBranch}
 \end{figure}
 
@@ -1027,7 +1026,7 @@ The \textit{topic} branch now looks like this:
 {right=of C11} % node placement
 {C11}          % target
 \end{tikzpicture}
-\itkcaption{\textit{topic} branch shape.}
+\itkcaption{\textit{topic} branch shape.}%
 \label{fig:BranchShape}
 \end{figure}
 
@@ -1039,7 +1038,7 @@ topic'' is very informative about the purpose of the merge. Merging the whole
 integration branch would not be so clear.
 
 
-\paragraph{Merge Integration Branches}
+\paragraph{Merge Integration Branches}%
 \label{par:MergeIntegrationBranches}
 
 Each published integration branch (see Section~\ref{subsubsec:PublishedBranches}
@@ -1075,7 +1074,7 @@ git pull
 {right=of C9} % node placement
 {C9}          % target
 \end{tikzpicture}
-\itkcaption{Update \textit{master} and \textit{release}.}
+\itkcaption{Update \textit{master} and \textit{release}.}%
 \label{fig:UpdateBranches}
 \end{figure}
 
@@ -1104,7 +1103,7 @@ git merge master
 {right=of C10} % node placement
 {C10}          % target
 \end{tikzpicture}
-\itkcaption{Merge \textit{master} into \textit{release}.}
+\itkcaption{Merge \textit{master} into \textit{release}.}%
 \label{fig:MergeMasterIntoRelease}
 \end{figure}
 
@@ -1137,7 +1136,7 @@ git push origin release
 {below=of C10} % node placement
 {C10}          % target
 \end{tikzpicture}
-\itkcaption{Publish to \textit{release}.}
+\itkcaption{Publish to \textit{release}.}%
 \label{fig:PushChangesToRelease1}
 \end{figure}
 
@@ -1149,7 +1148,7 @@ resolve any conflict that may arise when publishing the change.
 \subsubsection{Discussion}%
 \label{subpar:Discussion}
 
-\paragraph{History Shape}
+\paragraph{History Shape}%
 \label{par:HistoryShape}
 
 The history graphs produced by this workflow may look complex compared to the
@@ -1179,7 +1178,7 @@ fully linear history produced by a rebase workflow (used by CVS and Subversion):
 {right=of C16} % node placement
 {C16}          % target
 \end{tikzpicture}
-\itkcaption{Complex history graph in Git.}
+\itkcaption{Complex history graph in Git.}%
 \label{fig:ComplexHistory}
 \end{figure}
 
@@ -1208,7 +1207,7 @@ git log --first-parent topic
 {right=of C14} % node placement
 {C14}          % target
 \end{tikzpicture}
-\itkcaption{Parent commit in \textit{topic} branch.}
+\itkcaption{Parent commit in \textit{topic} branch.}%
 \label{fig:ParentCommitInTopicBranch}
 \end{figure}
 
@@ -1230,7 +1229,7 @@ git log --first-parent master
 {right=of C15} % node placement
 {C15}          % target
 \end{tikzpicture}
-\itkcaption{Parent commit in \textit{master} branch.}
+\itkcaption{Parent commit in \textit{master} branch.}%
 \label{fig:ParentCommitInMasterBranch}
 \end{figure}
 
@@ -1253,7 +1252,7 @@ git log --first-parent release
 {right=of C16} % node placement
 {C16}          % target
 \end{tikzpicture}
-\itkcaption{Parent commit in \textit{release} branch.}
+\itkcaption{Parent commit in \textit{release} branch.}%
 \label{fig:ParentCommitInReleaseBranch}
 \end{figure}
 
@@ -1266,7 +1265,7 @@ Note that achieving the nice separation of branches requires understanding of
 the above development procedure and strict adherence to it.
 
 
-\paragraph{Naming Topics}
+\paragraph{Naming Topics}%
 \label{par:NamingTopics}
 
 This section uses the placeholder \textit{topic} in place of a real topic name.
@@ -1302,13 +1301,13 @@ Merge branch 'topic' into master
 \end{minted}
 
 
-\paragraph{Urge to Merge}
+\paragraph{Urge to Merge}%
 \label{par:UrgeToMerge}
 
 Avoid the ``urge to merge'' from an integration branch into your topic. Keep
 commits on your topic focused on the feature or fix under development.
 
-\paragraph{Habitual Merges}
+\paragraph{Habitual Merges}%
 \label{par:HabitualMerges}
 
 Merge your work with others when you are finished with it by merging into an
@@ -1336,7 +1335,7 @@ you always have the option to throw away the merge attempt and start over with a
 clean tree.
 
 
-\paragraph{Legitimate Merges}
+\paragraph{Legitimate Merges}%
 \label{par:LegitimateMerges}
 
 One reason to merge other work into your topic is when you realize that your
@@ -1354,15 +1353,15 @@ first. Never merge \textbf{release} into a topic under any circumstances!!!
 Here we document problems one might encounter while following the workflow
 instructions above. This is not a general Git troubleshooting page.
 
-\paragraph{Trouble Merging}
+\paragraph{Trouble Merging}%
 \label{par:TroubleMerging}
 
 %TODO: Write this sub-section and link sub-sub-sections from git merge commands above.
 
-\paragraph{Trouble Pushing}
+\paragraph{Trouble Pushing}%
 \label{par:TroublePushing}
 
-\subparagraph{Remote End Hung up Unexpectedly}
+\subparagraph{Remote End Hung up Unexpectedly}%
 \label{subpar:RemoteEndHungUpUnexpectedly}
 
 Pushing may fail with this error:
@@ -1399,7 +1398,7 @@ originally cloned. To push elsewhere, see help for
 \href{https://git-scm.com/docs/git-remote}{git remote}.
 
 
-\subparagraph{Non-Fast-Forward}
+\subparagraph{Non-Fast-Forward}%
 \label{subpar:NonFastForward}
 
 When trying to publish new merge commits on an integration branch, perhaps
@@ -1450,7 +1449,7 @@ reachable from the \textbf{release} you are trying to push:
 {right=of C7} % node placement
 {C7}          % target
 \end{tikzpicture}
-\itkcaption{Unreachable \textit{origin/release} branch.}
+\itkcaption{Unreachable \textit{origin/release} branch.}%
 \label{fig:UnreachableBranch}
 \end{figure}
 
@@ -1511,7 +1510,7 @@ git reset --hard origin/release
 {below=of C7} % node placement
 {C7}          % target
 \end{tikzpicture}
-\itkcaption{Start from latest upstream commit.}
+\itkcaption{Start from latest upstream commit.}%
 \label{fig:StartFromLatestUpstreamCommit}
 \end{figure}
 
@@ -1546,7 +1545,7 @@ git merge topic
 {right=of C7} % node placement
 {C7}          % target
 \end{tikzpicture}
-\itkcaption{Merge the \textit{topic} branch into the local \textit{release} branch.}
+\itkcaption{Merge the \textit{topic} branch into the local \textit{release} branch.}%
 \label{fig:MergeTopicIntoRelease}
 \end{figure}
 
@@ -1588,7 +1587,7 @@ git push origin release
 {below=of C7} % node placement
 {C7}          % target
 \end{tikzpicture}
-\itkcaption{Publish the \textit{release} branch.}
+\itkcaption{Publish the \textit{release} branch.}%
 \label{fig:PushChangesToRelease}
 \end{figure}
 
@@ -1596,7 +1595,7 @@ See \href{https://git-scm.com/docs/git-rerere}{git rerere} to help avoid
 resolving the same conflicts on each merge attempt.
 
 
-\subparagraph{First-Parent Sequence Not Preserved}
+\subparagraph{First-Parent Sequence Not Preserved}%
 \label{subpar:FirstParentSequenceNotPreserved}
 
 One goal of this workflow is to preserve a clean shape of history (see
@@ -1619,7 +1618,7 @@ the branch:
 {right=of C8} % node placement
 {C8}          % target
 \end{tikzpicture}
-\itkcaption{Traversal of the \textit{master} integration branch.}
+\itkcaption{Traversal of the \textit{master} integration branch.}%
 \label{fig:TraversalOfMasterBranch}
 \end{figure}
 
@@ -1652,7 +1651,7 @@ which a \code{first-parent} traversal reaches the old head of the branch:
 {right=of T} % node placement
 {T}          % target
 \end{tikzpicture}
-\itkcaption{Server's integration branch history shape.}
+\itkcaption{Server's integration branch history shape.}%
 \label{fig:IntegrationBranchHistory}
 \end{figure}
 
@@ -1672,7 +1671,7 @@ A first-parent traversal of master from \textit{before} the update
 {right=of A} % node placement
 {A}          % target
 \end{tikzpicture}
-\itkcaption{First parent traversal of \textit{master} before update.}
+\itkcaption{First parent traversal of \textit{master} before update.}%
 \label{fig:FirstParentTraversalBeforeUpdate}
 \end{figure}
 
@@ -1692,7 +1691,7 @@ A first-parent traversal of \textbf{master} from \textit{after} the update sees
 {right=of M} % node placement
 {M}          % target
 \end{tikzpicture}
-\itkcaption{First parent traversal of \textit{master} after update.}
+\itkcaption{First parent traversal of \textit{master} after update.}%
 \label{fig:FirstParentTraversalAfterUpdate}
 \end{figure}
 
@@ -1720,7 +1719,7 @@ The above assumes correct history shape. Now, consider what happens if merge
 {below=of T} % node placement
 {T}          % target
 \end{tikzpicture}
-\itkcaption{Incorrect merge of \code{M} on branch \textit{topic}.}
+\itkcaption{Incorrect merge of \code{M} on branch \textit{topic}.}%
 \label{fig:IncorrectMerge}
 \end{figure}
 
@@ -1744,7 +1743,7 @@ Now a first-parent traversal of \textbf{master} from after the update sees
 {below=of T} % node placement
 {T}          % target
 \end{tikzpicture}
-\itkcaption{First-parent traversal of \textit{master} branch.}
+\itkcaption{First-parent traversal of \textit{master} branch.}%
 \label{fig:FirstParentTraversal}
 \end{figure}
 
@@ -1779,7 +1778,7 @@ wrong$ git checkout master
 {below=of B} % node placement
 {B}          % target
 \end{tikzpicture}
-\itkcaption{Checkout \textit{master}.}
+\itkcaption{Checkout \textit{master}.}%
 \label{fig:SwitchToMaster2}
 \end{figure}
 
@@ -1806,7 +1805,7 @@ wrong$ git commit
 {right=of U} % node placement
 {U}          % target
 \end{tikzpicture}
-\itkcaption{Commit on \textit{master} branch.}
+\itkcaption{Commit on \textit{master} branch.}%
 \label{fig:WrongCommitOnMasterBranch}
 \end{figure}
 
@@ -1833,7 +1832,7 @@ wrong$ git commit
 {right=of T} % node placement
 {T}          % target
 \end{tikzpicture}
-\itkcaption{Additional commit on \textit{master} branch.}
+\itkcaption{Additional commit on \textit{master} branch.}%
 \label{fig:WrongAdditionalCommitOnMasterBranch}
 \end{figure}
 
@@ -1866,7 +1865,7 @@ wrong$ git pull
 {right=of M'} % node placement
 {M'}          % target
 \end{tikzpicture}
-\itkcaption{Pull from upstream.}
+\itkcaption{Pull from upstream.}%
 \label{fig:PullChangesFromUpstream}
 \end{figure}
 
@@ -1909,7 +1908,7 @@ git branch topic 'master^1'
 {below=of T} % node placement
 {T}          % target
 \end{tikzpicture}
-\itkcaption{Create a \textit{topic} branch starting from the first-parent of the incorrect merge.}
+\itkcaption{Create a \textit{topic} branch starting from the first-parent of the incorrect merge.}%
 \label{fig:CreateLocalBranchFromFirstParent}
 \end{figure}
 
@@ -1940,7 +1939,7 @@ git reset --hard origin/master
 {right=of T} % node placement
 {T}          % target
 \end{tikzpicture}
-\itkcaption{Reset the local \textit{master} branch to upstream \textit{master}.}
+\itkcaption{Reset the local \textit{master} branch to upstream \textit{master}.}%
 \label{fig:ResetLocalMasterToUpstreamMaster}
 \end{figure}
 
@@ -1968,7 +1967,7 @@ git merge topic
 {right=of T} % node placement
 {T}          % target
 \end{tikzpicture}
-\itkcaption{Merge the \textit{topic} branch.}
+\itkcaption{Merge the \textit{topic} branch.}%
 \label{fig:MergeTopicIntoMaster4}
 \end{figure}
 
@@ -1995,12 +1994,12 @@ git branch -d topic
 {below=of M} % node placement
 {M}          % target
 \end{tikzpicture}
-\itkcaption{Delete the local \textit{topic} branch.}
+\itkcaption{Delete the local \textit{topic} branch.}%
 \label{fig:DeleteLocalBranch2}
 \end{figure}
 
 
-\subparagraph{Topics Must Be Merged}
+\subparagraph{Topics Must Be Merged}%
 \label{subpar:TopicsMustBeMerged}
 
 %TODO
@@ -2018,7 +2017,7 @@ Whenever two paths of development make different changes to the same initial
 content conflicts may occur when merging the branches.
 
 
-\paragraph{Single Integration Branch}
+\paragraph{Single Integration Branch}%
 \label{par:SingleIntegrationBranch}
 
 Consider two conflicting topic branches, topic and other-topic, with the latter
@@ -2045,7 +2044,7 @@ already merged to \textbf{master}:
 {right=of C7} % node placement
 {C7}          % target
 \end{tikzpicture}
-\itkcaption{Conflicting topic branches.}
+\itkcaption{Conflicting topic branches.}%
 \label{fig:ConflictingTopicBranches1}
 \end{figure}
 
@@ -2057,7 +2056,7 @@ following approaches to resolve the situation:
 \end{itemize}
 
 
-\subparagraph{Topic-to-Single-Branch}
+\subparagraph{Topic-to-Single-Branch}%
 \label{subpar:TopicToSingleBranch}
 
 If one performs the merge in a local work tree it is possible to simply resolve
@@ -2084,12 +2083,12 @@ the conflicts and complete the merge:
 {right=of C7} % node placement
 {C7}          % target
 \end{tikzpicture}
-\itkcaption{Topic-to-single branch resolution approach.}
+\itkcaption{Topic-to-single branch resolution approach.}%
 \label{fig:TopicToSingleBranchResolutionApproach}
 \end{figure}
 
 
-\subparagraph{Branch-to-Topic}
+\subparagraph{Branch-to-Topic}%
 \label{subpar:BranchToTopic}
 
 Since a developer works on a topic branch locally one may simply merge the
@@ -2116,7 +2115,7 @@ conflicting integration branch into the topic and resolve the conflicts:
 {right=of C8} % node placement
 {C8}          % target
 \end{tikzpicture}
-\itkcaption{Branch-to-Topic resolution approach.}
+\itkcaption{Branch-to-Topic resolution approach.}%
 \label{fig:BranchToTopicResolutionApproach}
 \end{figure}
 
@@ -2145,12 +2144,12 @@ the integration branch without allowing a \textit{fast-forward}
 {right=of C8} % node placement
 {C8}          % target
 \end{tikzpicture}
-\itkcaption{Merge disallowing fast-forward (\code{--no-ff}).}
+\itkcaption{Merge disallowing fast-forward (\code{--no-ff}).}%
 \label{fig:MergeDisallowingFF}
 \end{figure}
 
 
-\paragraph{Multiple Integration Branches}
+\paragraph{Multiple Integration Branches}%
 \label{par:MultipleIntegrationBranches}
 
 In a workflow using multiple integration branches one must deal differently with
@@ -2183,7 +2182,7 @@ conflicting topics. Consider two conflicting topic branches, \textit{topic} and
 {right=of C7} % node placement
 {C7}          % target
 \end{tikzpicture}
-\itkcaption{Conflicting topic branches.}
+\itkcaption{Conflicting topic branches.}%
 \label{fig:ConflictingTopicBranches2}
 \end{figure}
 
@@ -2201,7 +2200,7 @@ single-integration-branch case because \textbf{release} may never be merged into
 a topic.
 
 
-\subparagraph{Topic-to-Branch}
+\subparagraph{Topic-to-Branch}%
 \label{subpar:TopicToBranch}
 
 If one performs the merge in a local work tree it is possible to simply resolve
@@ -2233,7 +2232,7 @@ the conflicts and complete the merge:
 {right=of C8} % node placement
 {C8}          % target
 \end{tikzpicture}
-\itkcaption{Merge locally.}
+\itkcaption{Merge locally.}%
 \label{fig:MergeLocally}
 \end{figure}
 
@@ -2266,7 +2265,7 @@ However, the topics eventually must be merged to \textbf{master}. Assume
 {right=of C8} % node placement
 {C8}          % target
 \end{tikzpicture}
-\itkcaption{Merge \textit{topic}.}
+\itkcaption{Merge \textit{topic}.}%
 \label{fig:MergeTopic1}
 \end{figure}
 
@@ -2299,7 +2298,7 @@ same conflicts!
 {right=of C8} % node placement
 {C8}          % target
 \end{tikzpicture}
-\itkcaption{Merge conflict when attempting to merge \textit{other-topic} into \textbf{master}.}
+\itkcaption{Merge conflict when attempting to merge \textit{other-topic} into \textbf{master}.}%
 \label{fig:MergeConflict}
 \end{figure}
 
@@ -2337,7 +2336,7 @@ new \textbf{master} will not merge cleanly into \textbf{release}:
 {right=of ?} % node placement
 {?}          % target
 \end{tikzpicture}
-\itkcaption{\textbf{master} not merging cleanly into \textbf{release} if conflicts have not been resolved.}
+\itkcaption{\textbf{master} not merging cleanly into \textbf{release} if conflicts have not been resolved.}%
 \label{fig:UncleanMerge}
 \end{figure}
 
@@ -2346,7 +2345,7 @@ Then one must resolve conflicts a third time!
 This approach works with manual merging but requires care.
 
 
-\subparagraph{Topic-to-Topic}
+\subparagraph{Topic-to-Topic}%
 \label{subpar:TopicToTopic}
 
 The design (see Section~\ref{subsubsec:Design} on
@@ -2389,7 +2388,7 @@ One may manually merge the conflicting \textit{other-topic} into one's own
 {right=of C8} % node placement
 {C8}          % target
 \end{tikzpicture}
-\itkcaption{Manually merge \textit{other-topic} into \textit{topic}.}
+\itkcaption{Manually merge \textit{other-topic} into \textit{topic}.}%
 \label{fig:ManualMergeTopicIntoTopic}
 \end{figure}
 
@@ -2425,7 +2424,7 @@ Then topic will merge cleanly into \textbf{release}:
 {right=of C9} % node placement
 {C9}          % target
 \end{tikzpicture}
-\itkcaption{Merge into \textit{release}.}
+\itkcaption{Merge into \textit{release}.}%
 \label{fig:MergeChangesIntoRelease}
 \end{figure}
 
@@ -2463,7 +2462,7 @@ merged):
 {right=of C9} % node placement
 {C9}          % target
 \end{tikzpicture}
-\itkcaption{Merge into \textit{master}.}
+\itkcaption{Merge into \textit{master}.}%
 \label{fig:MergeIntoMaster}
 \end{figure}
 
@@ -2498,7 +2497,7 @@ Finally, \textbf{master} may be merged cleanly into \textbf{release}:
 {right=of C11} % node placement
 {C11}          % target
 \end{tikzpicture}
-\itkcaption{Merge \textit{master} into \textit{release}.}
+\itkcaption{Merge \textit{master} into \textit{release}.}%
 \label{fig:MergeIntoRelease1}
 \end{figure}
 
@@ -2508,7 +2507,7 @@ introduced by the conflict resolution commit. See
 the~\ref{subpar:ResolutionTopic} approach to avoid this problem.
 
 
-\subparagraph{Resolution Topic}
+\subparagraph{Resolution Topic}%
 \label{subpar:ResolutionTopic}
 
 The~\ref{subpar:TopicToTopic} approach introduces an artificial topic
@@ -2552,7 +2551,7 @@ One may start a new \textit{resolve/topic/other-topic} branch from
 {right=of C8} % node placement
 {C8}          % target
 \end{tikzpicture}
-\itkcaption{Start conflict resolution branch.}
+\itkcaption{Start conflict resolution branch.}%
 \label{fig:StartConflictResolutionBranch}
 \end{figure}
 
@@ -2594,7 +2593,7 @@ changes from topic through the conflict resolution commit:
 {right=of C9} % node placement
 {C9}          % target
 \end{tikzpicture}
-\itkcaption{Merge into \textit{release}.}
+\itkcaption{Merge into \textit{release}.}%
 \label{fig:MergeIntoRelease2}
 \end{figure}
 
@@ -2636,7 +2635,7 @@ be merged to master first. Assume \textit{topic} is merged first:
 {right=of C9} % node placement
 {C9}          % target
 \end{tikzpicture}
-\itkcaption{Merge \textit{topic} branch.}
+\itkcaption{Merge \textit{topic} branch.}%
 \label{fig:MergeTopic2}
 \end{figure}
 
@@ -2681,7 +2680,7 @@ changes from \textit{other-topic} and the conflict resolution:
 {right=of C9} % node placement
 {C9}          % target
 \end{tikzpicture}
-\itkcaption{Merge conflict resolution branch into \textit{master}.}
+\itkcaption{Merge conflict resolution branch into \textit{master}.}%
 \label{fig:MergeConflictResolutionBranchIntoMaster}
 \end{figure}
 
@@ -2722,7 +2721,7 @@ Finally, \textbf{master} may be merged cleanly into \textbf{release}:
 {right=of C12} % node placement
 {C12}          % target
 \end{tikzpicture}
-\itkcaption{Merge into \textit{release}.}
+\itkcaption{Merge into \textit{release}.}%
 \label{fig:MergeConflictResolutionBranchIntoRelease}
 \end{figure}
 
@@ -2741,7 +2740,7 @@ Note that we may not grant all contributors push access to any given repository.
 The distributed nature of Git allows contributors to retain authorship credit
 even if they do not publish changes directly.
 
-\paragraph{Authentication}
+\paragraph{Authentication}%
 \label{par:Authentication}
 
 All publishers share the \code{git@public.kitware.com} account but each uses a
@@ -2763,7 +2762,7 @@ To request access, fill out the
 Include your SSH public key, \code{id\_rsa.pub}, and a reference to someone our
 administrators may contact to verify your privileges.
 
-\subparagraph{SSH on Windows}
+\subparagraph{SSH on Windows}%
 \label{subpar:SSHOnWindows}
 
 If you are familiar with generating an SSH key on Linux or macOS, you can follow
@@ -2805,7 +2804,7 @@ environment variable that points to the place where the \code{.ssh}
 directory is.
 
 
-\subparagraph{AuthenticationTest}
+\subparagraph{AuthenticationTest}%
 \label{subpar:AuthenticationTest}
 
 When your SSH public key has been installed for \code{git@public.kitware.com},
@@ -2827,7 +2826,7 @@ ssh -v git@public.kitware.com info
 Do not attempt to \code{git push} until the ssh-only test succeeds.
 
 
-\paragraph{Pushing}
+\paragraph{Pushing}%
 \label{subpar:Pushing}
 
 Git automatically configures a new clone to refer to its \textit{origin} through
@@ -2869,7 +2868,7 @@ See these links for more help:
 \end{itemize}
 
 
-\paragraph{Creating Patches}
+\paragraph{Creating Patches}%
 \label{par:CreatingPatches}
 
 Construct your commits on a local topic branch, typically started from the
@@ -2898,7 +2897,7 @@ a raw email message and includes enough information to reconstruct the commit
 message and author.
 
 
-\paragraph{Sending Patches}
+\paragraph{Sending Patches}%
 \label{par:SendingPatches}
 
 The patch files created in the preceding step will be named with the form
@@ -2920,7 +2919,7 @@ git send-email *.patch --to='Some One <someone@somewhere.com>' --cc='Someone Els
 \end{minted}
 
 
-\paragraph{Applying Patches}
+\paragraph{Applying Patches}%
 \label{par:ApplyingPatches}
 
 One may receive patches as attachments in a bug tracker or as attachments to
@@ -3000,7 +2999,7 @@ Choose one of the following methods to install or update the hooks. The hooks
 will then run in the outer repository to enforce some rules on commits.
 
 
-\paragraph{Local Pull}
+\paragraph{Local Pull}%
 \label{par:LocalPull}
 
 Many \href{public.kitware.com} repositories provide a \code{hooks} branch. It
@@ -3014,7 +3013,7 @@ cd ../..
 \end{minted}
 
 
-\paragraph{Direct Pull}
+\paragraph{Direct Pull}%
 \label{par:DirectPull}
 
 If you did not clone from a \href{public.kitware.com} repository you may not
@@ -3037,7 +3036,7 @@ repository. See Git help on
 \href{githooks}{https://git-scm.com/docs/githooks} for more details.
 
 
-\paragraph{pre-commit}
+\paragraph{pre-commit}%
 \label{par:pre-commit}
 
 This runs during \code{git commit}. It checks identity and content of changes:
@@ -3107,7 +3106,7 @@ git config core.whitespace "-blank-at-eol"
 \end{minted}
 
 
-\paragraph{commit-msg}
+\paragraph{commit-msg}%
 \label{par:commit-msg}
 
 This runs during \code{git commit}. It checks the commit message format:
@@ -3159,7 +3158,7 @@ the commit to complete and then fix it with \code{git commit --amend}.
 Many \url{public.kitware.com} repositories have server-side \code{hooks}.
 
 
-\paragraph{Update}
+\paragraph{Update}%
 \label{par:Update}
 
 The update hook runs when someone tries to update a ref on the server by
@@ -3198,7 +3197,7 @@ etiquette requires.
 \subsubsection{Shell Customization}%
 \label{subsubsec:ShellCustomization}
 
-\paragraph{Bash Completion}
+\paragraph{Bash Completion}%
 \label{par:BashCompletion}
 
 Bash users: Git comes with a set of completion options that are very useful. The
@@ -3214,7 +3213,7 @@ source /etc/bash\_completion.d/git
 \end{minted}
 
 
-\paragraph{Bash Prompt}
+\paragraph{Bash Prompt}%
 \label{par:BashPrompt}
 
 If you are using the bash shell, you can customize the prompt to show which Git
@@ -3232,7 +3231,7 @@ export PS1="[\[\e[01;34m\]\W\[\e[31m\]\$(\_\_git\_ps1 " (%s)")\[\e[00m\]]\[\e[00
 For more information on the options, see the comments in the top of the bash
 completion script.
 
-\paragraph{Renaming}
+\paragraph{Renaming}%
 \label{par:Renaming}
 
 Git does not explicitly track renames. The command

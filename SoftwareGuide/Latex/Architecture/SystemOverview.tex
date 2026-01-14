@@ -1,4 +1,4 @@
-\chapter{System Overview}
+\chapter{System Overview}%
 \label{chapter:SystemOverview}
 
 The purpose of this chapter is to provide you with an overview of the
@@ -93,9 +93,8 @@ This section describes some of the core concepts and implementation features
 found in ITK.
 
 \subsection{Generic Programming}%
-\label{sec:GenericProgramming}
-
-\index{generic programming}
+\label{sec:GenericProgramming}%
+\index{generic programming}%
 \index{template}
 
 Generic programming is a method of organizing libraries consisting of
@@ -154,9 +153,8 @@ In addition to class headers, there are a few other important header files.
 \end{description}
 
 \subsection{Object Factories}%
-\label{sec:ObjectFactories}
-
-\index{object factory}
+\label{sec:ObjectFactories}%
+\index{object factory}%
 \index{factory}
 
 Most classes in ITK are instantiated through an \emph{object factory}
@@ -199,8 +197,7 @@ the use of the \code{New()} method to create a class. Generally the
 
 
 \subsection{Smart Pointers and Memory Management}%
-\label{sec:SmartPointers}
-
+\label{sec:SmartPointers}%
 \index{smart pointer}
 
 By their nature, object-oriented systems represent and operate on data through
@@ -217,7 +214,7 @@ excessive memory consumption). This process of allocating and
 releasing memory is known as memory management.
 
 In ITK, memory management is implemented through reference counting. This
-compares to another popular approach---garbage collection---used
+compares to another popular approach---garbage collection---used%
 \index{garbage collection} by many systems, including Java.
 In reference counting, a count of the number of
 references to each instance is kept. When the reference goes to zero, the
@@ -277,9 +274,8 @@ are preferred for multi-threaded sections of code.
 
 
 \subsection{Error Handling and Exceptions}%
-\label{sec:ErrorHandling}
-
-\index{exceptions}
+\label{sec:ErrorHandling}%
+\index{exceptions}%
 \index{error handling}
 
 In general, ITK uses exception handling to manage errors during program
@@ -326,12 +322,11 @@ can trap \emph{any} ITK exception by catching ExceptionObject.
 
 
 \subsection{Event Handling}%
-\label{sec:EventHandling}
-
-\index{event handling}
-\index{Command/Observer design pattern}
-\index{itk::Command}
-\index{ProgressEvent()}
+\label{sec:EventHandling}%
+\index{event handling}%
+\index{Command/Observer design pattern}%
+\index{itk::Command}%
+\index{ProgressEvent()}%
 \index{InvokeEvent()}
 
 Event handling in ITK is implemented using the Subject/Observer design
@@ -495,9 +490,8 @@ Invoking methods on the same instance in different threads is to be avoided.
 
 
 \section{Numerics}%
-\label{sec:Numerics}
-
-\index{VNL}
+\label{sec:Numerics}%
+\index{VNL}%
 \index{numerics}
 
 ITK uses the VNL numerics library to provide resources for numerical
@@ -560,8 +554,7 @@ primarily to support the deformable registration in ITK.
 
 
 \section{Data Representation}%
-\label{sec:DataRepresentationAndAccess}
-
+\label{sec:DataRepresentationAndAccess}%
 \index{data object}
 
 There are two principle types of data represented in ITK: images and
@@ -570,9 +563,7 @@ meshes. This functionality is implemented in the classes
 \doxygen{DataObject}. In ITK, data objects are classes that are meant to
 be passed around the system and may participate in data flow pipelines (see
 Section~\ref{sec:DataProcessingPipeline} on
-page~\pageref{sec:DataProcessingPipeline} for more information).
-
-
+page~\pageref{sec:DataProcessingPipeline} for more information).%
 \index{itk::Image}
 
 \doxygen{Image} represents an \emph{n}-dimensional, regular sampling of
@@ -598,8 +589,7 @@ regions:
 \item \code{BufferedRegion}---the portion of the image retained in memory.
 \item \code{RequestedRegion}---the portion of the region requested by a
 filter or other class when operating on the image.
-\end{enumerate}
-
+\end{enumerate}%
 \index{itk::Mesh}
 
 The \doxygen{Mesh} class represents an \emph{n}-dimensional, unstructured grid. The
@@ -633,14 +623,12 @@ landmarks, etc. The PointSet class has no associated topology.
 
 
 \section{Data Processing Pipeline}%
-\label{sec:DataProcessingPipeline}
-
-\index{data processing pipeline}
-
-\index{process object}
-\index{source}
-\index{reader}
-\index{filter}
+\label{sec:DataProcessingPipeline}%
+\index{data processing pipeline}%
+\index{process object}%
+\index{source}%
+\index{reader}%
+\index{filter}%
 \index{mapper}
 
 While data objects (e.g., images and meshes) are used to represent data,
@@ -650,9 +638,7 @@ produce new data objects. Process objects are classed as
 readers) produce data, filter objects take in data and process it to produce
 new data, and mappers accept data for output either to a file or
 some other system.  Sometimes the term \emph{filter} is used broadly
-to refer to all three types.
-
-\index{streaming}
+to refer to all three types.\index{streaming}
 
 The data processing pipeline ties together data objects (e.g., images and
 meshes) and process objects. The pipeline supports an automatic updating
@@ -695,7 +681,7 @@ filters to execute in order, culminating in writing the final data to a file on 
 
 
 \section{Spatial Objects}%
-\label{sec:SpatialObjectsOverview}
+\label{sec:SpatialObjectsOverview}%
 \index{spatial object}
 
 The ITK spatial object framework supports the philosophy that the task of
@@ -715,7 +701,7 @@ so forth.
 The capabilities provided by the spatial objects framework supports their use
 in object segmentation, registration, surface/volume rendering, and other
 display and analysis functions. The spatial object framework extends the
-concept of a ``scene graph'' \index{scene graph} that is common to computer
+concept of a ``scene graph''\index{scene graph} that is common to computer
 rendering packages so as to support these new functions. With the spatial
 objects framework you can:
 \begin{enumerate}
@@ -760,9 +746,8 @@ data or to register two segmentations of a liver.
 
 
 \section{Wrapping}%
-\label{sec:Wrapping}
-
-\index{wrapping}
+\label{sec:Wrapping}%
+\index{wrapping}%
 \index{Python}
 
 While the core of ITK is implemented in C++, Python bindings can be

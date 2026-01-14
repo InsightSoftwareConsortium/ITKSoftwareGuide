@@ -1,5 +1,5 @@
 
-\chapter{Data Representation}
+\chapter{Data Representation}%
 \label{sec:DataRepresentation}
 
 This chapter introduces the basic classes responsible
@@ -69,7 +69,7 @@ color space because they will be the equivalent of ``negative stimulation'' on
 the human eye. In the context of colorimetry, negative color values are used
 as an artificial construct for color comparison in the sense that
 
-\begin{equation}
+\begin{equation}%
 \label{eqn:ColorSubtraction}
          ColorA = ColorB - ColorC
 \end{equation}
@@ -79,7 +79,7 @@ $ColorC$. However, we must be aware that (at least in emitted light) it is not
 possible to \emph{subtract light}. So when we mention
 Equation~\ref{eqn:ColorSubtraction} we actually mean
 
-\begin{equation}
+\begin{equation}%
 \label{eqn:ColorAddition}
          ColorB = ColorA + ColorC
 \end{equation}
@@ -120,6 +120,7 @@ are available in the RGBPixel class.
 
 The following example illustrates how RGB images can be represented in ITK.
 
+\subsection{RGB Images}%
 \label{sec:DefiningRGBImages}
 \input{RGBImage.tex}
 

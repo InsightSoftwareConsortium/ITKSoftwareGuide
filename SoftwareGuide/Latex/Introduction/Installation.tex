@@ -44,8 +44,8 @@ evident on the ITK quality dashboard (see Section \ref{sec:CDash} on page
 \pageref{sec:CDash}).
 
 \section{Obtaining the Software}%
-\label{sec:ObtainingTheSoftware}
-\label{sec:DownloadingITK}
+\label{sec:ObtainingTheSoftware}%
+\label{sec:DownloadingITK}%
 \index{Downloading}
 
 There are two different ways to access the ITK source code:
@@ -75,8 +75,7 @@ indicating stable code. (Learn more about the ITK dashboard and quality
 assurance process in Section \ref{sec:CDash} on page \pageref{sec:CDash}.)
 
 \subsection{Downloading Packaged Releases}%
-\label{sec:DownloadingReleases}
-
+\label{sec:DownloadingReleases}%
 \index{ITK!downloading release}
 
 ITK can be downloaded without cost from the following web site:
@@ -95,8 +94,7 @@ you will be ready to start the configuration process described in Section
 \ref{sec:CMakeforITK} on page \pageref{sec:CMakeforITK}.
 
 \subsection{Downloading From Git}%
-\label{sec:DownloadingFromGit}
-
+\label{sec:DownloadingFromGit}%
 \index{ITK!Git repository}
 
 Git is a free and open source distributed version control system.  For more
@@ -164,9 +162,8 @@ during compilation unless the use of a system version is requested during CMake
 configuration.
 
 \subsection{Preparing CMake}%
-\label{sec:CMakeforITK}
-
-\index{CMake}
+\label{sec:CMakeforITK}%
+\index{CMake}%
 \index{CMake!downloading}
 
 CMake can be downloaded at no cost from
@@ -194,7 +191,7 @@ terminal-based CMake interface for Linux and CMake GUI for Microsoft Windows.
 \itkcaption[CMake user interface]{CMake user interfaces: at the top is the
 interface based on the \code{curses} library supported by UNIX/Linux systems,
 below is the Microsoft Windows version of the CMake GUI based on the Qt library
-(CMake GUI is also available on UNIX/Linux systems).}
+(CMake GUI is also available on UNIX/Linux systems).}%
 \label{fig:CMakeGUI}
 \end{figure}
 
@@ -236,8 +233,7 @@ the necessary decisions have all been made. At this point build files are
 generated for the current configuration.
 
 \subsection{Configuring ITK}%
-\label{sec:ConfigureITK}
-
+\label{sec:ConfigureITK}%
 \index{ITK!configuration}
 
 Start terminal-based CMake interface \code{ccmake} on Linux and UNIX, or the
@@ -274,9 +270,8 @@ to be reloaded if the project is open in the integrated development environment
 such as Visual Studio or Eclipse.
 
 \subsection{Advanced Module Configuration}%
-\label{sec:ModuleConfiguration}
-
-\index{ITK!advanced configuration}
+\label{sec:ModuleConfiguration}%
+\index{ITK!advanced configuration}%
 \index{ITK!modules}
 
 Following the default configuration introduced in \ref{sec:ConfigureITK},
@@ -318,7 +313,7 @@ that are required by other enabled modules, are disabled.
 \begin{figure}[htb!]
 \centering
 \includegraphics[width=0.8\textwidth]{Configure_ITK_Group.eps}
-\itkcaption[ITK Group Configuration]{CMake GUI shows the ITK Group options.}
+\itkcaption[ITK Group Configuration]{CMake GUI shows the ITK Group options.}%
 \label{fig:ConfigITKGroup}
 \end{figure}
 
@@ -336,7 +331,7 @@ variables are shown disabled for toggling since they are enabled via the
 \centering
 \includegraphics[width=0.8\textwidth]{Configure_ITK_Default.eps}
 \itkcaption[Default ITK Configuration]{CMake GUI for configuring ITK: the
-advanced mode shows options for non-default ITK Modules.}
+advanced mode shows options for non-default ITK Modules.}%
 \label{fig:ConfigITKDefault}
 \end{figure}
 
@@ -459,8 +454,7 @@ not implicitly instantiated and passed across binaries.
 
 
 \subsection{Compiling ITK}%
-\label{sec:BuildITK}
-
+\label{sec:BuildITK}%
 \index{ITK!building}
 
 To initiate the build process after generating the build files on Linux or UNIX,
@@ -479,8 +473,7 @@ to run \code{ctest} to verify that all the components of ITK have been correctly
 on your system.
 
 \subsection{Installing ITK on Your System}%
-\label{sec:Installation}
-
+\label{sec:Installation}%
 \index{ITK!installation}
 
 When the build process is complete an ITK binary distribution package can be
@@ -642,8 +635,7 @@ and ITK Software
 Guide\footnote{\url{https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide}}.
 
 \subsection{Hello World!}%
-\label{sec:HelloWorldITK}
-
+\label{sec:HelloWorldITK}%
 \index{Hello World}
 
 This section provides and explains the contents of the two files which need to

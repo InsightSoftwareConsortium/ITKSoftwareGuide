@@ -1,5 +1,5 @@
 
-\chapter{Spatial Objects}
+\chapter{Spatial Objects}%
 \label{sec:SpatialObjects}
 
 This chapter introduces the basic classes that describe
@@ -74,6 +74,7 @@ be described as a Directed Acyclic Graph (DAG) but effectively as a tree.
 The user is responsible for maintaining the tree structure, no checking is done
 to ensure a cycle-free tree.
 
+\subsection{SpatialObjectHierarchy}%
 \label{sec:SpatialObjectHierarchy}
 \input{SpatialObjectHierarchy.tex}
 
@@ -148,7 +149,8 @@ With ITKv5, the \code{GroupSpatialObject} also replaces the
 \input{SurfaceSpatialObject.tex}
 
 
-\subsection{TubeSpatialObject}
+\subsection{TubeSpatialObject}%
+\label{sec:TubeSpatialObject}
 
 \doxygen{TubeSpatialObject} is a class for the representation
 of tubular structures using SpatialObjects.  In particular, it is intended
@@ -158,7 +160,6 @@ It can also be used to represent airways, nerves, bile ducts, and more.
  The class \doxygen{DTITubeSpatialObject} is derived from this class
 and adds constructs for representing fiber tracts from diffusion tensor images.
 
-\label{sec:TubeSpatialObject}
 \input{TubeSpatialObject.tex}
 
 
