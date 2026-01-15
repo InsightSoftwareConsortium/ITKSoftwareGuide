@@ -3,6 +3,4 @@
 TEXINPUTS=$TEXINPUTS:${ITK_TEXINPUTS}
 export TEXINPUTS
 
-# NOTE: Run 3 times just to get all dependencies resolved. 
 ${LATEX_COMPILER} -shell-escape "$@"
-
