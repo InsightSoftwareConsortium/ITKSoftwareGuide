@@ -232,24 +232,24 @@ This chapter uses Git Directed Acyclic Graphs (DAG) to depict commit history:
 Branch name &
 \begin{tikzpicture}
 \node[DAGref,fill=pink](master){master};
-\end{tikzpicture} \\
+\end{tikzpicture}\\
 Current branch &
 \begin{tikzpicture}
 \node[DAGref,fill=pink](master){*master};
-\end{tikzpicture} \\
+\end{tikzpicture}\\
 Commit with parent in same branch &
 \begin{tikzpicture}
 \gitDAG[grow right sep = 2em, branch down = 3em]{
   {[nodes=placeholder commits] "..."} -- C1
 };
-\end{tikzpicture} \\
+\end{tikzpicture}\\
 Commit with two parents (merge) &
 \begin{tikzpicture}
 \gitDAG[grow right sep = 1em, branch down = 3em]{
   {[nodes=placeholder commits] "..."} -- C1,
   C2; {C2 -- C1}
 };
-\end{tikzpicture} \\
+\end{tikzpicture}\\
 %\bottomrule
 \end{tabular}
 \end{center}
