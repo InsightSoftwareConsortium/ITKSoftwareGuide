@@ -108,9 +108,8 @@ characteristics of a sample. Such sample statistics are very important for
 statistical classification. When we know the form of the sample distributions
 and their parameters (statistics), we can conduct Bayesian classification. In
 ITK, sample mean and covariance calculation algorithms are implemented. Each
-algorithm also has its weighted version (see Section
-\ref{sec:WeightedMeanCovariance}). The weighted versions are used in the
-expectation-maximization parameter estimation process.
+algorithm also has its weighted version (see Section~\ref{sec:WeightedMeanCovariance}).
+The weighted versions are used in the expectation-maximization parameter estimation process.
 
 \subsubsection{Mean and Covariance}%
 \label{sec:MeanCovariance}
@@ -257,8 +256,7 @@ the distribution form of the random variable generation class.
 Many concepts from Information Theory have been used successfully in the domain
 of image processing. This section introduces some of such concepts and
 illustrates how the statistical framework in ITK can be used for computing
-measures that have some relevance in terms of Information Theory
-\cite{Shannon1948,Shannon1949,Kullback1997}.
+measures that have some relevance in terms of Information Theory~\cite{Shannon1948,Shannon1949,Kullback1997}.
 
 
 \subsubsection{Computing Image Entropy}%
@@ -435,6 +433,6 @@ distances by evaluating the influence of its neighboring pixels (based on a MRF
 model) and finally, classifies each pixel to the class which has the minimum
 distance to that pixel (taking the neighborhood influence under consideration).
 The energy function minimization is done using the iterated conditional modes
-(ICM) algorithm \cite{Besag1986}.
+(ICM) algorithm~\cite{Besag1986}.
 
 \input{ScalarImageMarkovRandomField1.tex}

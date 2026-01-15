@@ -27,7 +27,7 @@ image. When a point is mapped from one space to another by a transform, it
 will in general be mapped to a non-grid position. Therefore, interpolation is
 required to evaluate the image intensity at the mapped position.
 
-Figure \ref{fig:ImageOverlapIterator} (left) illustrates the mapping of the
+Figure~\ref{fig:ImageOverlapIterator} (left) illustrates the mapping of the
 fixed image space onto the moving image space. The transform maps points from
 the fixed image coordinate system onto the moving image coordinate system. The
 figure highlights the region of overlap between the two images after the
@@ -35,7 +35,7 @@ mapping. The right side illustrates how an iterator is used to walk through a
 region of the fixed image. Each one of the iterator positions is mapped by the
 transform onto the moving image space in order to find the homologous pixel.
 
-Figure \ref{fig:ImageOverlapInterpolator} presents a detailed view of the
+Figure~\ref{fig:ImageOverlapInterpolator} presents a detailed view of the
 mapping from the fixed image to the moving image. In general, the grid
 positions of the fixed image will not be mapped onto grid positions of the
 moving image.  Interpolation is needed for estimating the intensity of the

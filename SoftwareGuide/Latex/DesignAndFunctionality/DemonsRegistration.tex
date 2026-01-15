@@ -10,8 +10,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 For the problem of intra-modality deformable registration, the Insight
-Toolkit provides an implementation of Thirion's ``demons'' algorithm
-\cite{Thirion1995b,Thirion1998}.
+Toolkit provides an implementation of Thirion's ``demons'' algorithm~\cite{Thirion1995b,Thirion1998}.
 In this implementation, each image is viewed as a set of iso-intensity
 contours.  The main idea is that a regular grid of forces deform an image by
 pushing the contours in the normal direction.  The orientation and magnitude
@@ -25,7 +24,7 @@ of the displacement is derived from the instantaneous optical flow equation:
 In the above equation, $f(\textbf{X})$ is the fixed image, $m(\textbf{X})$
 is the moving image to be registered, and $\textbf{D}(\textbf{X})$ is the displacement
 or optical flow between the images. It is well known in optical flow
-literature that Equation \ref{eqn:OpticalFlow} is insufficient to specify
+literature that Equation~\ref{eqn:OpticalFlow} is insufficient to specify
 $\textbf{D}(\textbf{X})$ locally and is usually determined using some form of
 regularization. For registration, the projection of the vector on the
 direction of the intensity gradient is used:
@@ -53,9 +52,8 @@ value of the pixel spacings. The inclusion of $K$ ensures the force computation 
 invariant to the pixel scaling of the images.
 
 Starting with an initial deformation field $\textbf{D}^{0}(\textbf{X})$, the demons
-algorithm iteratively updates the field using Equation
-\ref{eqn:DemonsDisplacement} such that the field at the $N$-th iteration is
-given by:
+algorithm iteratively updates the field using Equation~\ref{eqn:DemonsDisplacement} such
+that the field at the $N$-th iteration is given by:
 
 \begin{equation}
 \textbf{D}^{N}(\textbf{X}) = \textbf{D}^{N-1}(\textbf{X}) - \frac

@@ -71,7 +71,7 @@ Additional uses of the \doxygen{Point}, \doxygen{Vector} and
 \doxygen{CovariantVector} classes have been discussed in the Data
 Representation chapter of Book 1.  Each one of these classes behaves
 differently under spatial transformations. It is therefore quite important to
-keep their distinction clear. Figure \ref{fig:GeometricalObjects} illustrates
+keep their distinction clear. Figure~\ref{fig:GeometricalObjects} illustrates
 the differences between these concepts.%
 \index{itk::Transform!TransformPoint()}%
 \index{itk::Transform!TransformVector()}%
@@ -837,7 +837,7 @@ Only defined for three-dimensional input and output spaces. \\
 
 
 By definition, a \emph{Versor} is the rotational part of a Quaternion. It can
-also be defined as a \emph{unit-quaternion} \cite{Hamilton1866,Joly1905}.
+also be defined as a \emph{unit-quaternion}~\cite{Hamilton1866,Joly1905}.
 Versors only have three independent components, since they are restricted to
 reside in the space of unit-quaternions. The implementation of versors in the
 toolkit uses a set of three numbers.  These three numbers correspond to the
@@ -857,7 +857,7 @@ The space formed by versor parameters is not a vector space. Standard gradient
 descent algorithms are not appropriate for exploring this parameter space. An
 optimizer specialized for the versor space is available in the toolkit under
 the name of \doxygen{VersorTransformOptimizer}. This optimizer implements
-versor derivatives as originally defined by Hamilton \cite{Hamilton1866}.
+versor derivatives as originally defined by Hamilton~\cite{Hamilton1866}.
 
 The center of rotation can be specified by the user with the
 \code{SetCenter()} method. The center is not part of the parameters to be

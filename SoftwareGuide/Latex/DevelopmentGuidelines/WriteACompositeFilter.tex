@@ -6,7 +6,7 @@ image filtering, an information metric, or a segmentation algorithm.  In the
 previous section, we saw how to write new filters from scratch.  However, it is
 often very useful to be able to make a new filter by combining two or more
 existing filters, which can then be used as a building block in a complex
-pipeline.  This approach follows the Composite pattern \cite{Gamma1995},
+pipeline.  This approach follows the Composite pattern~\cite{Gamma1995},
 whereby the composite filter itself behaves just as a regular filter, providing
 its own (potentially higher level) interface and using other filters (whose
 detail is hidden to users of the class) for the implementation.  This composite

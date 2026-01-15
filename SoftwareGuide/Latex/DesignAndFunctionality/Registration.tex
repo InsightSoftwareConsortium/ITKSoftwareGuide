@@ -11,8 +11,8 @@ another.\label{fig:ImageRegistrationConcept}}
 This chapter introduces ITK's capabilities for performing image
 registration. Image registration is the process of determining the spatial
 transform that maps points from one image to homologous points on a object in
-the second image. This concept is schematically represented in Figure
-\ref{fig:ImageRegistrationConcept}. In ITK, registration is performed within
+the second image. This concept is schematically represented in Figure~\ref{fig:ImageRegistrationConcept}.
+In ITK, registration is performed within
 a framework of pluggable components that can easily be interchanged.  This
 flexibility means that a combinatorial variety of registration methods can be
 created, allowing users to pick and choose the right tools for their specific
@@ -21,7 +21,7 @@ application.
 
 \section{Registration Framework}
 Let's begin with a simplified typical registration framework where its components
-and their interconnections are shown in Figure \ref{fig:RegistrationComponents}.
+and their interconnections are shown in Figure~\ref{fig:RegistrationComponents}.
 The basic input data to the registration process are two images: one is defined
 as the \emph{fixed} image $f(\textbf{X})$ and the other as the \emph{moving} image
 $m(\textbf{X})$, where $\textbf{X}$ represents a position in N-dimensional space.
@@ -54,8 +54,8 @@ This ``sampling domain'' is considered as a new component in the registration
 framework known as \textbf{virtual image} that can be an arbitrary set of physical
 points, not necessarily a uniform grid of points.
 
-Various ITKv4 registration components are illustrated in Figure
-\ref{fig:ITKv4RegistrationComponents}. Boxes with dashed borders show
+Various ITKv4 registration components are illustrated in Figure~\ref{fig:ITKv4RegistrationComponents}.
+Boxes with dashed borders show
 \emph{data objects}, while those with solid borders show \emph{process objects}.
 
 \begin{figure}
@@ -229,10 +229,10 @@ overcoming the difficulties of multi-modality registration.%
 
 The concept of Mutual Information is derived from Information Theory and its
 application to image registration has been proposed in different forms by
-different groups \cite{Collignon1995,Maes97,Viola1997}; a more detailed review
-can be found in \cite{Hajnal2001,Pluim2003}. The Insight Toolkit currently
+different groups~\cite{Collignon1995,Maes97,Viola1997}; a more detailed review
+can be found in~\cite{Hajnal2001,Pluim2003}. The Insight Toolkit currently
 provides two different implementations of Mutual Information metrics (see
-section \ref{sec:Metrics} for details). The following example illustrates the
+section~\ref{sec:Metrics} for details). The following example illustrates the
 practical use of one of these metrics.
 
 \subsection{Mattes Mutual Information}%
@@ -320,7 +320,7 @@ way of an example.
 
 \section{Multi-Stage Registration}%
 \label{sec:MultiStageRegistration}
-In section \ref{sec:MultiResolutionRegistration} you noticed how to tweak
+In section~\ref{sec:MultiResolutionRegistration} you noticed how to tweak
 component settings between multi-resolution levels and saw how it can benefit the
 registration process. That is, the matching metric gets close to the optimal
 value before final parameter adjustments in full resolution.

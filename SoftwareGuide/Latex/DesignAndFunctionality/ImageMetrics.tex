@@ -42,8 +42,8 @@ of the virtual lattice.  For each point, the corresponding fixed and moving
 image positions are computed using the fixed initial transform and the moving
 transform with the specified parameters. Then, the fixed and moving interpolators
 are used to compute the fixed and moving image's intensities at the mapped
-positions. Details on this mapping are illustrated in Figures
-\ref{fig:ImageOverlapIterator} and \ref{fig:ImageOverlapInterpolator} assuming
+positions. Details on this mapping are illustrated in Figures~\ref{fig:ImageOverlapIterator}
+and~\ref{fig:ImageOverlapInterpolator} assuming
 that virtual lattice is the same as the fixed image lattice, which is usually the
 case in practice.
 
@@ -204,7 +204,7 @@ densities must be estimated from the image data. Parzen windows
 In this scheme, the densities are constructed by taking intensity
 samples $S$ from the image and super-positioning kernel functions
 $K(\cdot)$ centered on the elements of $S$ as illustrated in
-Figure \ref{fig:ParzenWindowing}:
+Figure~\ref{fig:ParzenWindowing}:
 
 A variety of functions can be used as the smoothing kernel with the
 requirement that they are smooth, symmetric, have zero mean and
@@ -226,7 +226,7 @@ smoothing parameter will depend on the data and the number of samples used.
 
 \subsubsection{Mattes et al. Implementation}
 The implementation of mutual information metric available in ITKv4 follows
-the method specified by Mattes et al. in \cite{Mattes2001} and is implemented
+the method specified by Mattes et al. in~\cite{Mattes2001} and is implemented
 by the \doxygen{MattesMutualInformationImageToImageMetricv4} class.%
 \index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metricv4}
 
@@ -265,8 +265,7 @@ NMI(A,B) = 1 + \frac{I(A,B)}{H(A,B)} = \frac{H(A) + H(B)}{H(A,B)}
 \end{equation}
 where the entropy of the images, $H(A)$, $H(B)$, the mutual
 information, $I(A,B)$ and the joint entropy $H(A,B)$ are computed as mentioned
-in \ref{sec:MutualInformationMetric}. Details of the implementation may be found in
-\cite{Hajnal2001}.
+in~\ref{sec:MutualInformationMetric}. Details of the implementation may be found in~\cite{Hajnal2001}.
 
 \subsection{Demons metric}%
 \index{itk::Demons\-Image\-To\-Image\-Metricv4}
