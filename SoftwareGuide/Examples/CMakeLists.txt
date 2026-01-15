@@ -37,8 +37,8 @@ set(RUN_EXAMPLES_SCRIPT "${SoftwareGuide_SOURCE_DIR}/Examples/RunExamples.py" CA
 # This is used to convert image formats
 #
 #include(${CMAKE_ROOT}/Modules/FindImageMagick.cmake)
-find_package(ImageMagick REQUIRED)
-if(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
+find_package(ImageMagick 6 COMPONENTS convert REQUIRED)
+if(NOT ImageMagick_convert_EXECUTABLE)
   message("ImageMagick convert utility was not found. Please pass to advanced mode and provide its full path")
 endif()
 
@@ -269,7 +269,7 @@ macro(CONVERT_INPUT_IMG SOME_IMG EPS_IMG IMAGEMAGICK_FLAGS)
   if( NOT DEFINED \${EPS_IMG}_HAS_CUSTOM_COMMAND)
     message(STATUS \"Converting \${SOME_IMG}\")
     execute_process(
-        COMMAND \"${IMAGEMAGICK_CONVERT_EXECUTABLE}\" \${FLAGS} -quality 100 \${EPS_INPUT_CONVERT_FLAGS} \"\${SOME_IMG}\" \${EPS_OUTPUT_CONVERT_FLAGS} \"\${EPS_IMG}\"
+        COMMAND \"${ImageMagick_convert_EXECUTABLE}\" \${FLAGS} -quality 100 \${EPS_INPUT_CONVERT_FLAGS} \"\${SOME_IMG}\" \${EPS_OUTPUT_CONVERT_FLAGS} \"\${EPS_IMG}\"
         OUTPUT_FILE ${CMAKE_CURRENT_BINARY_DIR}/ConvertImagesToEPSOutput.txt
 	ERROR_FILE ${CMAKE_CURRENT_BINARY_DIR}/ConvertImagesToEPSError.txt
 	RESULT_VARIABLE _result
