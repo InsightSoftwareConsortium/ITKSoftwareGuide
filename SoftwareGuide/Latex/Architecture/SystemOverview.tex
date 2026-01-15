@@ -773,7 +773,7 @@ wrapper generator uses a combination of tools to produce language bindings.
 To learn more about the wrapping process, please see the section on module
 wrapping, Section~\ref{sec:ModuleWrapping}.  The wrapping process is orchestrated by a
 number of CMake macros found in the \code{Wrapping} directory. The result of
-the wrapping process is a set of shared libraries (.so in Linux or .dlls on
+the wrapping process is a set of shared libraries (\code{.so} in Linux or \code{.dlls} on
 Windows) that can be used by interpreted languages.
 
 There is almost a direct translation from C++, with the differences being the
@@ -959,7 +959,7 @@ import itk
 On Windows, it is also necessary to add the ITK build directory containing the
 .dll files to your \code{PATH} environmental variable if ITK is built with the
 CMake option \code{BUILD\_SHARED\_LIBS} enabled. For example, the directory
-containing .dll files for an ITK build at
+containing \code{.dll} files for an ITK build at
 \code{C:\textbackslash{}ITK-build} when built with Visual Studio in the
 \code{Release} configuration is
 \code{C:\textbackslash{}ITK-build\textbackslash{}bin\textbackslash{}Release}.
