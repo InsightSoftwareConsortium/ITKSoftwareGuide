@@ -1033,8 +1033,8 @@ ITK or ITK SWIG sources at runtime. Several steps are required to set up and exe
 are generated. Python wrapping must also be enabled.
 This is accomplished by setting the CMake variables
 
-\code{CMAKE\_BUILD\_TYPE:STRING="RelWithDebInfo"} and \code{ITK\_WRAP\_PYTHON:BOOL="On"}.
-Note that the "RelWithDebInfo" build type is strongly encouraged over a "Debug"
+\code{CMAKE\_BUILD\_TYPE:STRING=\shelldblquotes{RelWithDebInfo}} and \code{ITK\_WRAP\_PYTHON:BOOL=\shelldblquotes{ON}}.
+Note that the \shelldblquotes{RelWithDebInfo} build type is strongly encouraged over a \shelldblquotes{Debug}
 build as the former will build against a standard Python distribution.
 See Section~\ref{sec:UsingCMakeForConfiguringAndBuildingITK} for a detailed
 explanation of how to build ITK locally with CMake.
@@ -1062,13 +1062,13 @@ are made available. The \code{os} module can be used to identify the PID of the 
 \begin{itemize}
 
 \item On a Windows operating system, Microsoft Visual Studio 2019 or a similar platform
-can be used for attaching to a running process for debugging. Select "Attach To Process"
-from the Debug menu, choose "Native" code, and then search for the process PID. If
+can be used for attaching to a running process for debugging. Select \enquote{Attach To Process}
+from the Debug menu, choose \enquote{Native} code, and then search for the process PID. If
 debug symbols were generated correctly then ITK modules will appear under the list of
 loaded modules.
 
 In Visual Studio, debugging can be enabled right from the start if the Python script
-is loaded into Visual Studio as part of a "Python Project".
+is loaded into Visual Studio as part of a \enquote{Python Project}.
 Mixed mode debugging needs to be enabled, as per Visual Studio
 documentation\footnote{
 \url{https://docs.microsoft.com/en-us/visualstudio/python/debugging-mixed-mode-c-cpp-python-in-visual-studio}}.
@@ -1139,10 +1139,10 @@ and requirements in order to permit \code{lldb} to attach to Python:
 \begin{itemize}
 
 \item The Python process must be authorized for debugging. MacOS relies on the
-process of "hardened" runtimes to mitigate security concerns, which reduces
+process of \enquote{hardened} runtimes to mitigate security concerns, which reduces
 the ability of debuggers such as \code{lldb} and other processes to attach
 to and intercept the functions of other programs. Python distributions
-are intentionally "hardened" in this way, but additional settings can be
+are intentionally \enquote{hardened} in this way, but additional settings can be
 enabled to allow just-in-time debugging.
 
 \item It may be necessary to enter developer mode to allow Python debugging.

@@ -1420,7 +1420,7 @@ conflicts, but, more importantly, to improve readability.
 
 When declaring or defining members of the \code{itk::} namespace, for example,
 the \code{itk::} namespace prefix should not be added. That is, code within
-\code{namespace itk \{ \ldots \}}" should not use \code{itk::}.
+\code{namespace itk \{ \ldots \}} should not use \code{itk::}.
 
 The \code{::} global namespace should be used when referring to a global
 function, e.g.
@@ -3898,7 +3898,7 @@ allow for easy identification of the magnitude of the error.
 
 When the magnitude of the error needs to be reported, as in the above examples,
 the error message should be split into different lines, all starting with the
-error output redirection \code{std::cerr << "";}. Care must be taken to
+error output redirection \code{std::cerr << \shelldblquotes{};}. Care must be taken to
 appropriately add white space for a correct formatting of the message.
 
 
