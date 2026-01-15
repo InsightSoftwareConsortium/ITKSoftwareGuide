@@ -491,51 +491,51 @@ listed in the second column.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{| l | l |}
-\hline
+\begin{tabular}{ll}
+\toprule
 \textbf{CMake variable} & \textbf{Wrapping shorthand value} \\
-\hline
-\hline
+\midrule
+\midrule
 \code{ITK\_WRAP\_IMAGE\_DIMS} & List of unsigned integers \\
-\hline
+\midrule
 \code{ITK\_WRAP\_VECTOR\_COMPONENTS} & List of unsigned integers \\
-\hline
+\midrule
 \code{ITK\_WRAP\_double} & \code{D} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_float} & \code{F} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_complex\_double} & \code{CD} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_complex\_float} & \code{CF} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_vector\_double} & \code{VD} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_vector\_float} & \code{VF} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_covariate\_vector\_double} & \code{CVD} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_covariate\_vector\_float} & \code{CVF} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_signed\_char} & \code{SC} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_signed\_short} & \code{SS} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_signed\_long} & \code{SL} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_unsigned\_char} & \code{UC} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_unsigned\_short} & \code{US} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_unsigned\_long} & \code{UL} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_rgb\_unsigned\_char} & \code{RGBUC} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_rgb\_unsigned\_short} & \code{RGBUS} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_rgba\_unsigned\_char} & \code{RGBAUC} \\
-\hline
+\midrule
 \code{ITK\_WRAP\_rgba\_unsigned\_short} & \code{RGBAUS} \\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Wrapping Configuration Variables]{CMake wrapping type
@@ -606,49 +606,50 @@ prefix \code{ITKT\_}.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{| l | l | l |}
-\hline
+\begin{tabular}{lll}
+\toprule
 & \textbf{CMake Variable} & \textbf{Value} \\
-\hline
-\hline
-\textbf{Mangling} & ITKM\_B & B \\ \hline
-\textbf{C++ Type} & ITKT\_B & bool \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_UC & UC \\ \hline
-\textbf{C++ Type} & ITKT\_UC & unsigned char \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_US & US \\ \hline
-\textbf{C++ Type} & ITKT\_US & unsigned short \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_UI & UI \\ \hline
-\textbf{C++ Type} & ITKT\_UI & unsigned integer \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_UL & UL \\ \hline
-\textbf{C++ Type} & ITKT\_UL & unsigned long \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_ULL & ULL \\ \hline
-\textbf{C++ Type} & ITKT\_ULL & unsigned long long \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_SC & SC \\ \hline
-\textbf{C++ Type} & ITKT\_SC & signed char \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_SS & SS \\ \hline
-\textbf{C++ Type} & ITKT\_SS & signed short \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_SI & SI \\ \hline
-\textbf{C++ Type} & ITKT\_SI & signed integer \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_SL & SL \\ \hline
-\textbf{C++ Type} & ITKT\_SL & signed long \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_SLL & SLL \\ \hline
-\textbf{C++ Type} & ITKT\_SLL & signed long long \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_F & F \\ \hline
-\textbf{C++ Type} & ITKT\_F & float \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_D & D \\ \hline
-\textbf{C++ Type} & ITKT\_D & double \\ \hline
+\midrule
+\midrule
+\textbf{Mangling} & ITKM\_B & B \\
+\textbf{C++ Type} & ITKT\_B & bool \\
+\midrule
+\textbf{Mangling} & ITKM\_UC & UC \\
+\textbf{C++ Type} & ITKT\_UC & unsigned char \\
+\midrule
+\textbf{Mangling} & ITKM\_US & US \\
+\textbf{C++ Type} & ITKT\_US & unsigned short \\
+\midrule
+\textbf{Mangling} & ITKM\_UI & UI \\
+\textbf{C++ Type} & ITKT\_UI & unsigned integer \\
+\midrule
+\textbf{Mangling} & ITKM\_UL & UL \\
+\textbf{C++ Type} & ITKT\_UL & unsigned long \\
+\midrule
+\textbf{Mangling} & ITKM\_ULL & ULL \\
+\textbf{C++ Type} & ITKT\_ULL & unsigned long long \\
+\midrule
+\textbf{Mangling} & ITKM\_SC & SC \\
+\textbf{C++ Type} & ITKT\_SC & signed char \\
+\midrule
+\textbf{Mangling} & ITKM\_SS & SS \\
+\textbf{C++ Type} & ITKT\_SS & signed short \\
+\midrule
+\textbf{Mangling} & ITKM\_SI & SI \\
+\textbf{C++ Type} & ITKT\_SI & signed integer \\
+\midrule
+\textbf{Mangling} & ITKM\_SL & SL \\
+\textbf{C++ Type} & ITKT\_SL & signed long \\
+\midrule
+\textbf{Mangling} & ITKM\_SLL & SLL \\
+\textbf{C++ Type} & ITKT\_SLL & signed long long \\
+\midrule
+\textbf{Mangling} & ITKM\_F & F \\
+\textbf{C++ Type} & ITKT\_F & float \\
+\midrule
+\textbf{Mangling} & ITKM\_D & D \\
+\textbf{C++ Type} & ITKT\_D & double \\
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Wrapping CMake Mangling Variables for PODs]{CMake wrapping mangling
@@ -660,37 +661,38 @@ their values for plain old datatypes (PODS).}%
 \begin{table}
 \begin{center}
   \small
-  \begin{tabular}{| l | p{0.3\textwidth} | p{0.5\textwidth} |}
-\hline
+  \begin{tabular}{l p{0.3\textwidth} p{0.5\textwidth}}
+\toprule
 & \textbf{CMake Variable} & \textbf{Value} \\
-\hline
-\hline
-\textbf{Mangling} & ITKM\_C\$\{type\} & C\$\{type\} \\ \hline
-\textbf{C++ Type} & ITKT\_C\$\{type\} & std::complex\textless \$\{type\} \textgreater\\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_A\$\{type\} & A\$\{type\} \\ \hline
-\textbf{C++ Type} & ITKT\_A\$\{type\} & itk::Array\textless \$\{type\} \textgreater\\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_FA\$\{ITKM\_\$\{type\}\}\$\{dim\} & FA\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
-\textbf{C++ Type} & ITKT\_FA\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::FixedArray\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_RGB\$\{dim\} & RGB\$\{dim\} \\ \hline
-\textbf{C++ Type} & ITKT\_RGB\$\{dim\} & itk::RGBPixel\textless \$\{dim\} \textgreater\\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_RGBA\$\{dim\} & RGBA\$\{dim\} \\ \hline
-\textbf{C++ Type} & ITKT\_RGBA\$\{dim\} & itk::RGBAPixel\textless \$\{dim\} \textgreater\\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_V\$\{ITKM\_\$\{type\}\}\$\{dim\} & V\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
-\textbf{C++ Type} & ITKT\_V\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::Vector\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_CV\$\{ITKM\_\$\{type\}\}\$\{dim\} & CV\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
-\textbf{C++ Type} & ITKT\_CV\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::CovariantVector\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_VLV\$\{ITKM\_\$\{type\}\}\$\{dim\} & VLV\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
-\textbf{C++ Type} & ITKT\_VLV\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::VariableLengthVector\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_SSRT\$\{ITKM\_\$\{type\}\}\$\{dim\} & SSRT\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
-\textbf{C++ Type} & ITKT\_SSRT\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::SymmetricSecondRankTensor\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
+\midrule
+\midrule
+\textbf{Mangling} & ITKM\_C\$\{type\} & C\$\{type\} \\
+\textbf{C++ Type} & ITKT\_C\$\{type\} & std::complex\textless \$\{type\} \textgreater\\
+\midrule
+\textbf{Mangling} & ITKM\_A\$\{type\} & A\$\{type\} \\
+\textbf{C++ Type} & ITKT\_A\$\{type\} & itk::Array\textless \$\{type\} \textgreater\\
+\midrule
+\textbf{Mangling} & ITKM\_FA\$\{ITKM\_\$\{type\}\}\$\{dim\} & FA\$\{ITKM\_\$\{type\}\}\$\{dim\} \\
+\textbf{C++ Type} & ITKT\_FA\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::FixedArray\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\
+\midrule
+\textbf{Mangling} & ITKM\_RGB\$\{dim\} & RGB\$\{dim\} \\
+\textbf{C++ Type} & ITKT\_RGB\$\{dim\} & itk::RGBPixel\textless \$\{dim\} \textgreater\\
+\midrule
+\textbf{Mangling} & ITKM\_RGBA\$\{dim\} & RGBA\$\{dim\} \\
+\textbf{C++ Type} & ITKT\_RGBA\$\{dim\} & itk::RGBAPixel\textless \$\{dim\} \textgreater\\
+\midrule
+\textbf{Mangling} & ITKM\_V\$\{ITKM\_\$\{type\}\}\$\{dim\} & V\$\{ITKM\_\$\{type\}\}\$\{dim\} \\
+\textbf{C++ Type} & ITKT\_V\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::Vector\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\
+\midrule
+\textbf{Mangling} & ITKM\_CV\$\{ITKM\_\$\{type\}\}\$\{dim\} & CV\$\{ITKM\_\$\{type\}\}\$\{dim\} \\
+\textbf{C++ Type} & ITKT\_CV\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::CovariantVector\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\
+\midrule
+\textbf{Mangling} & ITKM\_VLV\$\{ITKM\_\$\{type\}\}\$\{dim\} & VLV\$\{ITKM\_\$\{type\}\}\$\{dim\} \\
+\textbf{C++ Type} & ITKT\_VLV\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::VariableLengthVector\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\
+\midrule
+\textbf{Mangling} & ITKM\_SSRT\$\{ITKM\_\$\{type\}\}\$\{dim\} & SSRT\$\{ITKM\_\$\{type\}\}\$\{dim\} \\
+\textbf{C++ Type} & ITKT\_SSRT\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::SymmetricSecondRankTensor\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Wrapping CMake Mangling Variables for other ITK pixel types.]{CMake wrapping mangling
@@ -703,43 +705,44 @@ their values for plain old datatypes (PODS).}%
 \begin{table}
 \begin{center}
   \small
-  \begin{tabular}{| l | p{0.3\textwidth} | p{0.5\textwidth} |}
-\hline
+  \begin{tabular}{l p{0.3\textwidth} p{0.5\textwidth}}
+\toprule
 & \textbf{CMake Variable} & \textbf{Value} \\
-\hline
-\hline
-\textbf{Mangling} & ITKM\_O\$\{dim\} & O\$\{dim\} \\ \hline
-\textbf{C++ Type} & ITKT\_O\$\{dim\} & itk::Offset\textless \$\{dim\} \textgreater\\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_CI\$\{ITKM\_\$\{type\}\}\$\{dim\} & CI\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
-\textbf{C++ Type} & ITKT\_CI\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::ContinuousIndex\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_P\$\{ITKM\_\$\{type\}\}\$\{dim\} & P\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
-\textbf{C++ Type} & ITKT\_P\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::Point\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_I\$\{ITKM\_\$\{type\}\}\$\{dim\} & I\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
-\textbf{C++ Type} & ITKT\_I\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::Image\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_VI\$\{ITKM\_\$\{type\}\}\$\{dim\} & VI\$\{ITKM\_\$\{type\}\}\$\{dim\} \\ \hline
-\textbf{C++ Type} & ITKT\_VI\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::VectorImage\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_SO\$\{dim\} & SO\$\{dim\} \\ \hline
-\textbf{C++ Type} & ITKT\_SO\$\{dim\} & itk::SpatialObject\textless \$\{dim\} \textgreater\\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_SE\$\{dim\} & SE\$\{dim\} \\ \hline
-\textbf{C++ Type} & ITKT\_SE\$\{dim\} & itk::FlatStructuringElement\textless \$\{dim\} \textgreater\\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_H\$\{ITKM\_\$\{type\}\} & H\$\{ITKM\_\$\{type\}\} \\ \hline
-\textbf{C++ Type} & ITKT\_H\$\{ITKM\_\$\{type\}\} & itk::Statistics::Histogram\textless \$\{ITKT\$\{type\}\} \textgreater\\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_ST & Depends on platform \\ \hline
-\textbf{C++ Type} & ITKT\_ST & itk::SizeValueType \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_IT & Depends on platform \\ \hline
-\textbf{C++ Type} & ITKT\_IT & itk::IdentifierType \\ \hline
-\\ \hline
-\textbf{Mangling} & ITKM\_OT & Depends on platform\\ \hline
-\textbf{C++ Type} & ITKT\_OT & itk::OffsetValueType \\ \hline
+\midrule
+\midrule
+\textbf{Mangling} & ITKM\_O\$\{dim\} & O\$\{dim\} \\
+\textbf{C++ Type} & ITKT\_O\$\{dim\} & itk::Offset\textless \$\{dim\} \textgreater\\
+\midrule
+\textbf{Mangling} & ITKM\_CI\$\{ITKM\_\$\{type\}\}\$\{dim\} & CI\$\{ITKM\_\$\{type\}\}\$\{dim\} \\
+\textbf{C++ Type} & ITKT\_CI\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::ContinuousIndex\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\
+\midrule
+\textbf{Mangling} & ITKM\_P\$\{ITKM\_\$\{type\}\}\$\{dim\} & P\$\{ITKM\_\$\{type\}\}\$\{dim\} \\
+\textbf{C++ Type} & ITKT\_P\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::Point\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\
+\midrule
+\textbf{Mangling} & ITKM\_I\$\{ITKM\_\$\{type\}\}\$\{dim\} & I\$\{ITKM\_\$\{type\}\}\$\{dim\} \\
+\textbf{C++ Type} & ITKT\_I\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::Image\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\
+\midrule
+\textbf{Mangling} & ITKM\_VI\$\{ITKM\_\$\{type\}\}\$\{dim\} & VI\$\{ITKM\_\$\{type\}\}\$\{dim\} \\
+\textbf{C++ Type} & ITKT\_VI\$\{ITKM\_\$\{type\}\}\$\{dim\} & itk::VectorImage\textless \$\{ITKT\_\$\{type\}\}, \$\{dim\} \textgreater \\
+\midrule
+\textbf{Mangling} & ITKM\_SO\$\{dim\} & SO\$\{dim\} \\
+\textbf{C++ Type} & ITKT\_SO\$\{dim\} & itk::SpatialObject\textless \$\{dim\} \textgreater\\
+\midrule
+\textbf{Mangling} & ITKM\_SE\$\{dim\} & SE\$\{dim\} \\
+\textbf{C++ Type} & ITKT\_SE\$\{dim\} & itk::FlatStructuringElement\textless \$\{dim\} \textgreater\\
+\midrule
+\textbf{Mangling} & ITKM\_H\$\{ITKM\_\$\{type\}\} & H\$\{ITKM\_\$\{type\}\} \\
+\textbf{C++ Type} & ITKT\_H\$\{ITKM\_\$\{type\}\} & itk::Statistics::Histogram\textless \$\{ITKT\$\{type\}\} \textgreater\\
+\midrule
+\textbf{Mangling} & ITKM\_ST & Depends on platform \\
+\textbf{C++ Type} & ITKT\_ST & itk::SizeValueType \\
+\midrule
+\textbf{Mangling} & ITKM\_IT & Depends on platform \\
+\textbf{C++ Type} & ITKT\_IT & itk::IdentifierType \\
+\midrule
+\textbf{Mangling} & ITKM\_OT & Depends on platform\\
+\textbf{C++ Type} & ITKT\_OT & itk::OffsetValueType \\
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Wrapping CMake Mangling Variables for Basic ITK types.]{CMake wrapping mangling

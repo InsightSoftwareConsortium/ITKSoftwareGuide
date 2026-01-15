@@ -39,27 +39,28 @@ vector where a point is needed or vice versa.%
 
 \begin{table}
 \begin{center}
-\begin{tabular}{ | p{0.3\textwidth} | p{ 0.6\textwidth} | }
-\hline
+\begin{tabular}{ p{0.3\textwidth} p{ 0.6\textwidth} }
+\toprule
 \textbf{Class} &
 \textbf{Geometrical concept} \\
-\hline\hline
+\midrule
+\midrule
 \doxygen{Point} &
 Position in space. In $N$-dimensional space it is represented by an array of
 $N$ numbers associated with space coordinates. \\
-\hline
+\midrule
 \doxygen{Vector} &
 Relative position between two points. In $N$-dimensional space it is
 represented by an array of $N$ numbers, each one associated with the distance
 along a coordinate axis. Vectors do not have a position in space. A vector is
 defined as the subtraction of two points.\\
-\hline
+\midrule
 \doxygen{CovariantVector} & Orthogonal direction to a $(N-1)$-dimensional
 manifold in space. For example, in $3D$ it corresponds to the vector orthogonal
 to a surface. This is the appropriate class for representing gradients of
 functions. Covariant vectors do not have a position in space. Covariant vector
 should not be added to Points, nor to Vectors.\\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Geometrical Elementary Objects]{Summary of objects representing
@@ -263,18 +264,19 @@ classes available in ITK.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} |}
-\hline
+\begin{tabular}{ p{3cm} p{1.8cm} p{2.5cm} p{4cm}}
+\toprule
 \textbf{Behavior} &
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline
+\midrule
+\midrule
 Maps every point to itself, every vector to itself and every covariant vector to itself.  &
 0 &
 NA  &
 Only defined when the input and output space has the same number of dimensions. \\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Identity Transform Characteristics]{Characteristics of the identity transform.%
@@ -295,19 +297,20 @@ Table~\ref{tab:IdentityTransformCharacteristics}
 
 \begin{table}
 \begin{center}
-\begin{tabular}{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} |}
-\hline
+\begin{tabular}{ p{3cm} p{1.8cm} p{2.5cm} p{4cm}}
+\toprule
 \textbf{Behavior} &
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline
+\midrule
+\midrule
 Represents a simple translation of points in the input space
 and has no effect on vectors or covariant vectors. &
 Same as the input space dimension. &
 The $i$-th parameter represents the translation in the $i$-th dimension. &
 Only defined when the input and output space have the same number of dimensions. \\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Translation Transform Characteristics]{Characteristics of the TranslationTransform class.%
@@ -332,13 +335,13 @@ in Table~\ref{tab:TranslationTransformCharacteristics}.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} |}
-\hline
+\begin{tabular}{p{3cm} p{1.8cm} p{2.5cm} p{4cm}}
+\toprule
 \textbf{Behavior} &
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline
+\midrule\midrule
 Points are transformed by multiplying each one of their coordinates by the
 corresponding scale factor for the dimension.  Vectors are transformed as
 points.  Covariant vectors are transformed by \emph{dividing} their components
@@ -346,7 +349,7 @@ by the scale factor in the corresponding dimension.  &
 Same as the input space dimension. &
 The $i$-th parameter represents the scaling in the $i$-th dimension. &
 Only defined when the input and output space have the same number of dimensions. \\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Scale Transform Characteristics]{Characteristics of the ScaleTransform class.%
@@ -438,13 +441,14 @@ Table~\ref{tab:ScaleTransformCharacteristics}.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} |}
-\hline
+\begin{tabular}{p{3cm} p{1.8cm} p{2.5cm} p{4cm}}
+\toprule
 \textbf{Behavior} &
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline
+\midrule
+\midrule
 Points are transformed by multiplying each one of their coordinates by the
 corresponding scale factor for the dimension.  Vectors are transformed as
 points.  Covariant vectors are transformed by \emph{dividing} their components
@@ -456,7 +460,7 @@ Only defined when the input and output space have the same number of dimensions.
 The difference between this transform and the ScaleTransform is that here the
 scaling factors are passed as logarithms, in this way their behavior is closer
 to the one of a Vector space.  \\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Scale Logarithmic Transform Characteristics]{Characteristics of the ScaleLogarithmicTransform class.%
@@ -479,20 +483,21 @@ additive variations in the logarithm of the scaling factors.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} |}
-\hline
+\begin{tabular}{p{3cm} p{1.8cm} p{2.5cm} p{4cm}}
+\toprule
 \textbf{Behavior} &
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline
+\midrule
+\midrule
 Represents a $2D$ rotation and a $2D$ translation. Note that the translation
 component has no effect on the transformation of vectors and covariant vectors. &
 3 &
 The first parameter is the angle in radians and the last two parameters
 are the translation in each dimension. &
 Only defined for two-dimensional input and output spaces. \\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Euler2D Transform Characteristics]{Characteristics of the Euler2DTransform class.%
@@ -568,20 +573,21 @@ are presented in Table~\ref{tab:Euler2DTransformCharacteristics}.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} |}
-\hline
+\begin{tabular}{p{3cm} p{1.8cm} p{2.5cm} p{4cm}}
+\toprule
 \textbf{Behavior} &
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline
+\midrule
+\midrule
 Represents a $2D$ rotation around a user-provided center followed by a $2D$ translation.&
 5 &
 The first parameter is the angle in radians. Second and third are the center of
 rotation coordinates and the last two parameters are the translation in each
 dimension. &
 Only defined for two-dimensional input and output spaces. \\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[CenteredRigid2D Transform Characteristics]{Characteristics of the CenteredRigid2DTransform class.%
@@ -664,13 +670,14 @@ presented in Table~\ref{tab:CenteredRigid2DTransformCharacteristics}.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} |}
-\hline
+\begin{tabular}{ p{3cm} p{1.8cm} p{2.5cm} p{4cm}}
+\toprule
 \textbf{Behavior} &
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline
+\midrule
+\midrule
 Represents a $2D$ rotation, homogeneous scaling and a $2D$ translation. Note that
 the translation component has no effect on the transformation of vectors and
 covariant vectors. &
@@ -679,7 +686,7 @@ The first parameter is the scaling factor for all dimensions, the second is the
 angle in radians, and the last two parameters are the translations in $(x,y)$
 respectively. &
 Only defined for two-dimensional input and output spaces. \\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Similarity2D Transform Characteristics]{Characteristics of the Similarity2DTransform class.%
@@ -758,13 +765,14 @@ and perform another set of iterations updating only the translations.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{| p{4cm} | p{1.8cm} | p{2.5cm} | p{3cm} |}
-\hline
+\begin{tabular}{p{4cm} p{1.8cm} p{2.5cm} p{3cm}}
+\toprule
 \textbf{Behavior} &
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline
+\midrule
+\midrule
 Represents a $3D$ rotation and a $3D$ translation. The rotation is specified as a
 quaternion, defined by a set of four numbers $\textbf{q}$.  The relationship
 between quaternion and rotation about vector $\textbf{n}$ by angle $\theta$ is as
@@ -774,7 +782,7 @@ quaternion is not of unit length, scaling will also result. &
 The first four parameters defines the quaternion and the last three parameters
 the translation in each dimension. &
 Only defined for three-dimensional input and output spaces. \\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[QuaternionRigid Transform Characteristics]{Characteristics of the QuaternionRigidTransform class.%
@@ -815,20 +823,21 @@ and CovariantVector are not affected by the selection of the rotation center.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} |}
-\hline
+\begin{tabular}{p{3cm} p{1.8cm} p{2.5cm} p{4cm}}
+\toprule
 \textbf{Behavior} &
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline
+\midrule
+\midrule
 Represents a $3D$ rotation. The rotation is specified by a versor or unit
 quaternion. The rotation is performed around a user-specified center of
 rotation.&
 3 &
 The three parameters define the versor.&
 Only defined for three-dimensional input and output spaces. \\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Versor Transform Characteristics]{Characteristics of the Versor Transform%
@@ -871,13 +880,14 @@ computing the Jacobian.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} |}
-\hline
+\begin{tabular}{p{3cm} p{1.8cm} p{2.5cm} p{4cm}}
+\toprule
 \textbf{Behavior} &
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline
+\midrule
+\midrule
 Represents a $3D$ rotation and a $3D$ translation. The rotation is specified by
 a versor or unit quaternion, while the translation is represented by a vector.
 Users can specify the coordinates of the center of rotation. &
@@ -885,7 +895,7 @@ Users can specify the coordinates of the center of rotation. &
 The first three parameters define the versor and the last three parameters the
 translation in each dimension. &
 Only defined for three-dimensional input and output spaces. \\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Versor Rigid3D Transform Characteristics]{Characteristics of the VersorRigid3DTransform class.%
@@ -922,13 +932,14 @@ the transform.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} |}
-\hline
+\begin{tabular}{p{3cm} p{1.8cm} p{2.5cm} p{4cm}}
+\toprule
 \textbf{Behavior} &
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline
+\midrule
+\midrule
 Represents a rigid rotation in $3D$ space. That is, a rotation followed by a
 $3D$ translation. The rotation is specified by three angles representing
 rotations to be applied around the X, Y and Z axes one after another.  The
@@ -938,7 +949,7 @@ coordinates of the center of rotation. &
 The first three parameters are the rotation angles around X, Y and Z axes, and
 the last three parameters are the translations along each dimension. &
 Only defined for three-dimensional input and output spaces. \\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Euler3D Transform Characteristics]{Characteristics of the Euler3DTransform class.%
@@ -972,13 +983,14 @@ for residual rotations in the order of $10$ or $20$ degrees.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} |}
-\hline
+\begin{tabular}{p{3cm} p{1.8cm} p{2.5cm} p{4cm}}
+\toprule
 \textbf{Behavior} &
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline
+\midrule
+\midrule
 Represents a $3D$ rotation, a $3D$ translation and homogeneous scaling. The
 scaling factor is specified by a scalar, the rotation is specified by a versor,
 and the translation is represented by a vector.  Users can also specify the
@@ -989,7 +1001,7 @@ The first three parameters define the Versor, the next three parameters the
 translation in each dimension, and the last parameter is the isotropic scaling
 factor. &
 Only defined for three-dimensional input and output spaces. \\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Similarity3D Transform Characteristics]{Characteristics of the Similarity3DTransform class.%
@@ -1019,13 +1031,14 @@ the optimizer.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} |}
-\hline
+\begin{tabular}{p{3cm} p{1.8cm} p{2.5cm} p{4cm}}
+\toprule
 \textbf{Behavior} &
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline
+\midrule
+\midrule
 Represents a rigid $3D$ transformation followed by a perspective projection.
 The rotation is specified by a Versor, while the translation is represented by
 a Vector.  Users can specify the coordinates of the center of rotation. They
@@ -1038,7 +1051,7 @@ Translation in each dimension. &
 Only defined for three-dimensional input and two-dimensional output spaces.
 This is one of the few transforms where the input space has a different
 dimension from the output space.\\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Rigid3DPerspective Transform Characteristics]{Characteristics of
@@ -1071,13 +1084,14 @@ parameters of this class.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} |}
-\hline
+\begin{tabular}{p{3cm} p{1.8cm} p{2.5cm} p{4cm}}
+\toprule
 \textbf{Behavior} &
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline
+\midrule
+\midrule
 Represents an affine transform composed of rotation, scaling, shearing and
 translation. The transform is specified by a $N \times N$ matrix and a $N
 \times 1$ vector where $N$ is the space dimension. &
@@ -1086,7 +1100,7 @@ The first $N \times N$ parameters define the matrix in column-major order
 (where the column index varies the fastest).  The last $N$ parameters define
 the translations for each dimension. &
 Only defined when the input and output space have the same dimension. \\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[Affine Transform Characteristics]{Characteristics of the AffineTransform class.%
@@ -1183,13 +1197,14 @@ visualization display.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{ | p{3cm} | p{1.8cm} | p{2.5cm} | p{4cm} |}
-\hline
+\begin{tabular}{p{3cm} p{1.8cm} p{2.5cm} p{4cm}}
+\toprule
 \textbf{Behavior} &
 \textbf{Number of Parameters} &
 \textbf{Parameter Ordering} &
 \textbf{Restrictions} \\
-\hline\hline
+\midrule
+\midrule
 Represents a free-form deformation by providing a deformation field from the
 interpolation of deformations in a coarse grid.
 &
@@ -1199,7 +1214,7 @@ Only defined when the input and output space have the same dimension. This
 transform has the advantage of being able to compute deformable registration. It
 also has the disadvantage of a very high-dimensional parametric space,
 and therefore requiring long computation times.\\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 \itkcaption[BSpline Deformable Transform Characteristics]{Characteristics of the BSplineDeformableTransform class.%
