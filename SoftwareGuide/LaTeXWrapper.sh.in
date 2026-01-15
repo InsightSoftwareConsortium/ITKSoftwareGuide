@@ -3,4 +3,9 @@
 TEXINPUTS=$TEXINPUTS:${ITK_TEXINPUTS}
 export TEXINPUTS
 
+# Prevent console and log outputs from latex from wrapping at 80 characters.
+export max_print_line=10000
+export error_line=254
+export half_error_line=238
+
 ${LATEX_COMPILER} -shell-escape "$@"
