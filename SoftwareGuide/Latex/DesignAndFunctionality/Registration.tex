@@ -560,29 +560,23 @@ accounted for.
 \end{itemize}
 
 
-
 \subsection{General heuristics for parameter fine-tunning}
-
-
-
-
 
 https://public.kitware.com/pipermail/insight-users/2007-March/021435.html
 
 Here is some advice on how to fine tune the parameters
 of the registration process.
 
+\begin{enumerate}
+  \item Set Maximum step length to 0.1 and do not change it until all other parameters are stable.
 
-1) Set Maximum step length to 0.1 and do not change it
-   until all other parameters are stable.
-
-2) Set Minimum step length to 0.001 and do not change it.
+  \item Set Minimum step length to 0.001 and do not change it.
 
    You could interpret these two parameters as if their
    units were radians. So, 0.1 radian = 5.7 degrees.
 
 
-3) Number of histogram bins:
+  \item Number of histogram bins:
 
     First plot the histogram of your image using the
     example program in
@@ -603,15 +597,15 @@ of the registration process.
     us it for your Mutual Information metric.
 
 
-4)  Number of Samples:
+  \item  Number of Samples:
     The trade-off with the number of samples is the following:
 
-    a) computation time of registration is linearly proportional
-       to the number of samples
-                                                                                                                        b) the samples must be enough to significantly populate
-                                                                                                                           the joint histogram.
-                                                                                                                        c) Once the histogram is populated, there is not much
-                                                                                                                           use in adding more samples.
+    \begin{enumerate}
+      \item computation time of registration is linearly proportional to the number of samples
+      \item the samples must be enough to significantly populate the joint histogram.
+      \item Once the histogram is populated, there is not much use in adding more samples.
+    \end{enumerate}
+
 Therefore do the following:
 
 Plot the joint histogram of both images, using the number
@@ -641,7 +635,7 @@ This is just engineering: you figure out what is the minimal
 size of a piece of steel that will support a bridge, and then
 you enlarge it to keep it away from the critical value.
 
-5)  The MOST critical values of the registration process are the
+\item  The MOST critical values of the registration process are the
 scaling parameters that define the proportions between
 the parameters of the transform. In your case, for an Affine
 Transform in 2D, you have 6 parameters. The first four are
@@ -689,6 +683,7 @@ the observer is providing you. For example, plot the metric values,
 and plot the translation coordinates so that you can get a feeling
 of how the registration is behaving.
 
+\end{enumerate}
 
 Note also that image registration is not a science. It is a pure
 engineerig practice, and therefore, there are no correct answers,
