@@ -295,8 +295,8 @@ generally takes the form as illustrated below:
 \end{minted}
 \normalsize
 
-A particular class may throw an exception as demonstrated below (this
-code snippet is taken from \doxygen{ByteSwapper}:
+A particular class may throw an exception as demonstrated below
+(this code snippet is taken from \doxygen{ByteSwapper}):
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
@@ -607,9 +607,9 @@ boundary cells explicitly, to indicate different connectivity from the implied
 neighborhood relationships, or to store information on the boundaries of
 cells.
 
-The mesh is defined in terms of three template parameters: 1) a pixel type
-associated with the points, cells, and cell boundaries; 2) the dimension of
-the points (which in turn limits the maximum dimension of the cells); and 3)
+The mesh is defined in terms of three template parameters: (1) a pixel type
+associated with the points, cells, and cell boundaries; (2) the dimension of
+the points (which in turn limits the maximum dimension of the cells); and (3)
 a ``mesh traits'' template parameter that specifies the types of the
 containers and identifiers used to access the points, cells, and/or
 boundaries. By using the mesh traits carefully, it is possible to create

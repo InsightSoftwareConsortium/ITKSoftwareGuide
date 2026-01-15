@@ -155,8 +155,8 @@ One of the most important decisions that the developer must make is whether
 the filter can stream data; that is, process just a portion of the input to
 produce a portion of the output. Often superclass behavior works well: if the
 filter processes the input using single pixel access, then the default
-behavior is adequate. If not, then the user may have to a) find a more
-specialized superclass to derive from, or b) override one or more methods
+behavior is adequate. If not, then the user may have to (a) find a more
+specialized superclass to derive from, or (b) override one or more methods
 that control how the filter operates during pipeline execution. The next
 section describes these methods.
 
@@ -416,9 +416,9 @@ the gradient at each output pixel.
 \code{Update()} method. The purpose of this method is to determine whether a
 particular filter needs to execute in order to bring its output up to date. (A
 filter executes when its \code{GenerateData()} method is invoked.) Filter
-execution occurs when a) the filter is modified as a result of modifying an
-instance variable; b) the input to the filter changes; c) the input data has
-been released; or d) an invalid RequestedRegion was set previously and the
+execution occurs when (a) the filter is modified as a result of modifying an
+instance variable; (b) the input to the filter changes; (c) the input data has
+been released; or (d) an invalid RequestedRegion was set previously and the
 filter did not produce data. Filters execute in order in the downstream
 direction.  Once a filter executes, all filters downstream of it must also
 execute.
