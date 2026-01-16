@@ -8,7 +8,7 @@
 \itkcaption[Mapping moving image to fixed image in Registration]{ The moving
 image is mapped into the fixed image space under some spatial
 transformation. An iterator walks through the fixed image and its coordinates
-are mapped onto the moving image.}
+are mapped onto the moving image.}%
 \label{fig:ImageOverlapIterator}
 \end{figure}
 
@@ -18,7 +18,7 @@ are mapped onto the moving image.}
  \includegraphics[width=7.5cm]{ImageOverlapInterpolator.eps}
  \caption[Need for interpolation in Registration]{Grid positions of the fixed
 image map to non-grid positions of the moving
-image.  \label{fig:ImageOverlapInterpolator}}
+image.\label{fig:ImageOverlapInterpolator}}
 \end{floatingfigure}
 
 In the registration process, the metric typically compares intensity values
@@ -27,7 +27,7 @@ image. When a point is mapped from one space to another by a transform, it
 will in general be mapped to a non-grid position. Therefore, interpolation is
 required to evaluate the image intensity at the mapped position.
 
-Figure \ref{fig:ImageOverlapIterator} (left) illustrates the mapping of the
+Figure~\ref{fig:ImageOverlapIterator} (left) illustrates the mapping of the
 fixed image space onto the moving image space. The transform maps points from
 the fixed image coordinate system onto the moving image coordinate system. The
 figure highlights the region of overlap between the two images after the
@@ -35,16 +35,15 @@ mapping. The right side illustrates how an iterator is used to walk through a
 region of the fixed image. Each one of the iterator positions is mapped by the
 transform onto the moving image space in order to find the homologous pixel.
 
-Figure \ref{fig:ImageOverlapInterpolator} presents a detailed view of the
+Figure~\ref{fig:ImageOverlapInterpolator} presents a detailed view of the
 mapping from the fixed image to the moving image. In general, the grid
 positions of the fixed image will not be mapped onto grid positions of the
 moving image.  Interpolation is needed for estimating the intensity of the
 moving image at these non-grid positions. The service is provided in ITK by
-interpolator classes that can be plugged into the registration method.
-
-\index{Nearest\-Neighbor\-Interpolate\-Image\-Function}
-\index{Linear\-Interpolate\-Image\-Function}
-\index{BSpline\-Interpolate\-Image\-Function}
+interpolator classes that can be plugged into the registration method.%
+\index{Nearest\-Neighbor\-Interpolate\-Image\-Function}%
+\index{Linear\-Interpolate\-Image\-Function}%
+\index{BSpline\-Interpolate\-Image\-Function}%
 \index{Windowed\-Sinc\-Interpolate\-Image\-Function}
 
 The following interpolators are available:
@@ -60,12 +59,11 @@ In the context of registration, the interpolation method affects the smoothness
 of the optimization search space and the overall computation time. On the other
 hand, interpolations are executed thousands of times in a single optimization
 cycle. Hence, the user has to balance the simplicity of computation with the
-smoothness of the optimization when selecting the interpolation scheme.
-
-\index{itk::InterpolateImageFunction}
-\index{itk::InterpolateImageFunction!SetInputImage()}
-\index{itk::InterpolateImageFunction!Evaluate()}
-\index{itk::InterpolateImageFunction!EvaluateAtContinuousIndex()}
+smoothness of the optimization when selecting the interpolation scheme.%
+\index{itk::InterpolateImageFunction}%
+\index{itk::InterpolateImageFunction!SetInputImage()}%
+\index{itk::InterpolateImageFunction!Evaluate()}%
+\index{itk::InterpolateImageFunction!EvaluateAtContinuousIndex()}%
 \index{itk::InterpolateImageFunction!IsInsideBuffer()}
 
 The basic input to an \doxygen{InterpolateImageFunction} is the image to
@@ -77,8 +75,8 @@ Interpolators provide the method \code{IsInsideBuffer()} that tests whether a
 particular image index or a physical point falls inside the spatial domain for
 which image pixels exist.
 
-\subsection{Nearest Neighbor Interpolation}
-\label{sec:NearestNeighborInterpolation}
+\subsection{Nearest Neighbor Interpolation}%
+\label{sec:NearestNeighborInterpolation}%
 \index{itk::Nearest\-Neighbor\-Interpolate\-Image\-Function}
 The \doxygen{NearestNeighborInterpolateImageFunction} simply uses the
 intensity of the nearest grid position. That is, it assumes that the image
@@ -87,8 +85,8 @@ This interpolation scheme is cheap as it does not require any floating point
 computations.
 
 
-\subsection{Linear Interpolation}
-\label{sec:LinearInterpolation}
+\subsection{Linear Interpolation}%
+\label{sec:LinearInterpolation}%
 \index{itk::Linear\-Interpolate\-Image\-Function}
 
 The \doxygen{LinearInterpolateImageFunction} assumes that intensity varies
@@ -97,8 +95,8 @@ interpolated intensity is spatially continuous. However, the intensity
 gradient will be discontinuous at grid positions.
 
 
-\subsection{B-Spline Interpolation}
-\label{sec:BSplineInterpolation}
+\subsection{B-Spline Interpolation}%
+\label{sec:BSplineInterpolation}%
 \index{itk::BSpline\-Interpolate\-Image\-Function}
 
 \begin{figure}
@@ -108,7 +106,7 @@ gradient will be discontinuous at grid positions.
 BSpline grid and the deformations that are known on those nodes. The right side
 illustrates the region where interpolation is possible when the BSpline is of
 cubic order. The small arrows represent deformation values that were
-interpolated from the grid deformations shown on the left side of the diagram.}
+interpolated from the grid deformations shown on the left side of the diagram.}%
 \label{fig:BSplineInterpolation}
 \end{figure}
 
@@ -137,8 +135,8 @@ especially important when handling unsigned data, as it is possible
 that the interpolated value is negative.
 
 
-\subsection{Windowed Sinc Interpolation}
-\label{sec:WindowedSincInterpolation}
+\subsection{Windowed Sinc Interpolation}%
+\label{sec:WindowedSincInterpolation}%
 \index{itk::Windowed\-Sinc\-Interpolate\-Image\-Function}
 
 The \doxygen{WindowedSincInterpolateImageFunction} is the best possible
@@ -198,13 +196,13 @@ Some of the windows that can be used with this interpolator are
 
 Cosinus window
 \begin{equation}
-w(x) = cos ( \frac{\pi x}{2 m} )
+w(x) = \cos ( \frac{\pi x}{2 m} )
 \end{equation}
 
 
 Hamming window
 \begin{equation}
-w(x) = 0.54 + 0.46 cos ( \frac{\pi x}{m} )
+w(x) = 0.54 + 0.46 \cos ( \frac{\pi x}{m} )
 \end{equation}
 
 
@@ -222,7 +220,7 @@ w(x) = \textrm{sinc} ( \frac{x}{m} )
 
 Blackman window
 \begin{equation}
-w(x) = 0.42 + 0.5 cos(\frac{\pi x}{m}) + 0.08 cos(\frac{2 \pi x}{m})
+w(x) = 0.42 + 0.5 \cos(\frac{\pi x}{m}) + 0.08 \cos(\frac{2 \pi x}{m})
 \end{equation}
 
 

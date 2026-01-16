@@ -9,55 +9,55 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Vector deformation fields may be visualized using ParaView.
-ParaView \cite{ParaviewBook} is an open-source, multi-platform visualization application and uses the Visualization Toolkit as the data processing and rendering engine and has a user interface written using a unique blend of Tcl/Tk and C++. You may download it from https://paraview.org.
+ParaView~\cite{ParaviewBook} is an open-source, multi-platform visualization application and uses the Visualization Toolkit as the data processing and rendering engine and has a user interface written using a unique blend of Tcl/Tk and C++. You may download it from https://paraview.org.
 
 \subsection{Visualizing 2D deformation fields}
 Let us visualize the deformation field obtained from Demons Registration algorithm generated from ITK/Examples/RegistrationITKv4/DeformableRegistration2.cxx.
 
-Load the Deformation field in Paraview. (The deformation field must be capable of handling vector data, such as MetaImages). Paraview shows a color map of the magnitudes of the deformation fields as shown in \ref{fig:ParaviewScreenshot1}.
+Load the Deformation field in Paraview. (The deformation field must be capable of handling vector data, such as MetaImages). Paraview shows a color map of the magnitudes of the deformation fields as shown in~\ref{fig:ParaviewScreenshot1}.
 
-Convert the deformation field to 3D vector data using a {\it Calculator}. The Calculator may be found in the {\it Filter} pull down menu. A screenshot of the calculator tab is shown in Figure \ref{fig:ParaviewScreenshot2}. Although the deformation field is a 2D vector, we will generate a 3D vector with the third component set to 0 since Paraview generates glyphs only for 3D vectors. You may now apply a glyph of arrows to the resulting 3D vector field by using {\it Glyph} on the menu bar. The glyphs obtained will be very dense since a glyph is generated for each point in the data set. To better visualize the deformation field, you may adopt one of the following approaches.
+Convert the deformation field to 3D vector data using a \textit{Calculator}. The Calculator may be found in the \textit{Filter} pull down menu. A screenshot of the calculator tab is shown in Figure~\ref{fig:ParaviewScreenshot2}. Although the deformation field is a 2D vector, we will generate a 3D vector with the third component set to 0 since Paraview generates glyphs only for 3D vectors. You may now apply a glyph of arrows to the resulting 3D vector field by using \textit{Glyph} on the menu bar. The glyphs obtained will be very dense since a glyph is generated for each point in the data set. To better visualize the deformation field, you may adopt one of the following approaches.
 
-Reduce the number of glyphs by reducing the number in {\it Max. Number of Glyphs} to a reasonable amount. This uniformly downsamples the number of glyphs. Alternatively, you may apply a {\it Threshold} filter to the {\it Magnitude} of the vector dataset and then glyph the vector data that lie above the threshold. This eliminates the smaller deformation fields that clutter the display. You may now reduce the number of glyphs to a reasonable value.
+Reduce the number of glyphs by reducing the number in \textit{Max. Number of Glyphs} to a reasonable amount. This uniformly downsamples the number of glyphs. Alternatively, you may apply a \textit{Threshold} filter to the \textit{Magnitude} of the vector dataset and then glyph the vector data that lie above the threshold. This eliminates the smaller deformation fields that clutter the display. You may now reduce the number of glyphs to a reasonable value.
 
-Figure \ref{fig:ParaviewScreenshot3} shows the vector field visualized using Paraview by thresholding the vector magnitudes by 2.1 and restricting the number of glyphs to 100.
+Figure~\ref{fig:ParaviewScreenshot3} shows the vector field visualized using Paraview by thresholding the vector magnitudes by 2.1 and restricting the number of glyphs to 100.
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{ParaviewScreenshot1.eps}
-\itkcaption[Deformation field magnitudes]{Deformation field magnitudes displayed using Paraview}
+\itkcaption[Deformation field magnitudes]{Deformation field magnitudes displayed using Paraview}%
 \label{fig:ParaviewScreenshot1}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.3\textwidth]{ParaviewScreenshot2.eps}
-\itkcaption[Calculator]{Calculators and filters may be used to compute the vector magnitude, compose vectors etc.}
+\itkcaption[Calculator]{Calculators and filters may be used to compute the vector magnitude, compose vectors etc.}%
 \label{fig:ParaviewScreenshot2}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{ParaviewScreenshot3.eps}
-\itkcaption[Visualized Def field]{Deformation field visualized using Paraview after thresholding and subsampling.}
+\itkcaption[Visualized Def field]{Deformation field visualized using Paraview after thresholding and subsampling.}%
 \label{fig:ParaviewScreenshot3}
 \end{figure}
 
 
 
 \subsection{Visualizing 3D deformation fields}
-Let us create a 3D deformation field. We will use Thin Plate Splines to warp a 3D dataset and create a deformation field. We will pick a set of point landmarks and translate them to provide a specification of correspondences at point landmarks. Note that the landmarks have been picked randomly for purposes of illustration and are not intended to portray a true deformation. The landmarks may be used to produce a deformation field in several ways. Most techniques minimize some regularizing functional representing the irregularity of the deformation field, which is usually some function of the spatial derivatives of the field. Here will we use {\it thin plate splines}. Thin plate splines minimize the regularizing functional
+Let us create a 3D deformation field. We will use Thin Plate Splines to warp a 3D dataset and create a deformation field. We will pick a set of point landmarks and translate them to provide a specification of correspondences at point landmarks. Note that the landmarks have been picked randomly for purposes of illustration and are not intended to portray a true deformation. The landmarks may be used to produce a deformation field in several ways. Most techniques minimize some regularizing functional representing the irregularity of the deformation field, which is usually some function of the spatial derivatives of the field. Here will we use \textit{thin plate splines}. Thin plate splines minimize the regularizing functional
 
 \begin{equation}
 I[f(x,y)] = \iint (f^2_{xx} + 2 f^2_{xy} + f^2_{yy}) dx dy
 \end{equation}
 where the subscripts denote partial derivatives of f.
 
-We may now proceed as before to visualize the deformation field using Paraview as shown in Figure \ref{fig:ParaviewScreenshot4}.
+We may now proceed as before to visualize the deformation field using Paraview as shown in Figure~\ref{fig:ParaviewScreenshot4}.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{ParaviewScreenshot4.eps}
-\itkcaption[Visualized Def field4]{3D Deformation field visualized using Paraview.}
+\itkcaption[Visualized Def field4]{3D Deformation field visualized using Paraview.}%
 \label{fig:ParaviewScreenshot4}
 \end{figure}

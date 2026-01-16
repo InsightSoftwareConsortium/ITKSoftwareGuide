@@ -9,8 +9,8 @@
 file(GLOB PNGandJPG_IMAGES *.jpg *.png)
 file(GLOB EPS_IMAGES *.eps)
 
-find_package(ImageMagick REQUIRED)
-if(NOT IMAGEMAGICK_CONVERT_EXECUTABLE)
+find_package(ImageMagick 6 COMPONENTS convert REQUIRED)
+if(NOT ImageMagick_convert_EXECUTABLE)
   message("ImageMagick convert utility was not found. Please pass to advanced mode and provide its full path")
 endif()
 # Convert an image from some file format to EPS for inclusion in Latex using
@@ -30,7 +30,7 @@ foreach(ImageFile ${PNGandJPG_IMAGES})
   set(OutputEPSFile "${OutputEPSFilePath}/${ImageFileNoExt}.eps")
   add_custom_command(
     OUTPUT    ${OutputEPSFile}
-    COMMAND   ${IMAGEMAGICK_CONVERT_EXECUTABLE}
+    COMMAND   ${ImageMagick_convert_EXECUTABLE}
               ${EPS_INPUT_CONVERT_FLAGS}
               ${ImageFile}
               ${EPS_OUTPUT_CONVERT_FLAGS}

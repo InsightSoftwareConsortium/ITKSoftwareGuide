@@ -8,7 +8,7 @@ passed as input to another filter. (See the Data Processing Pipeline section
 in Book 1 for more information.)
 
 
-\section{Thresholding}
+\section{Thresholding}%
 \label{sec:ThresholdingFiltering}
 
 The thresholding operation is used to change or identify pixel values based
@@ -16,12 +16,12 @@ on specifying one or more values (called the \emph{threshold} value). The
 following sections describe how to perform thresholding operations using
 ITK.
 
-\subsection{Binary Thresholding}
+\subsection{Binary Thresholding}%
 \label{sec:BinaryThresholdingImageFilter}
 \input{BinaryThresholdImageFilter.tex}
 
 
-\subsection{General Thresholding}
+\subsection{General Thresholding}%
 \label{sec:ThresholdingImageFilter}
 \input{ThresholdImageFilter.tex}
 
@@ -32,20 +32,20 @@ ITK.
 \input{CannyEdgeDetectionImageFilter.tex}
 
 
-\section{Casting and Intensity Mapping}
+\section{Casting and Intensity Mapping}%
 \label{sec:CastingImageFilters}
 
 The filters discussed in this section perform pixel-wise intensity mappings.
 Casting is used to convert one pixel type to another, while intensity mappings
 also take into account the different intensity ranges of the pixel types.
 
-\subsection{Linear Mappings}
+\subsection{Linear Mappings}%
 \label{sec:IntensityLinearMapping}
 
 \input{CastingImageFilters.tex}
 
 
-\subsection{Non Linear Mappings}
+\subsection{Non Linear Mappings}%
 \label{sec:IntensityNonLinearMapping}
 
 The following filter can be seen as a variant of the casting filters. Its main
@@ -55,7 +55,7 @@ non-linear form.
 \input{SigmoidImageFilter.tex}
 
 
-\section{Gradients}
+\section{Gradients}%
 \label{sec:GradientFiltering}
 
 Computation of gradients is a fairly common operation in image processing. The
@@ -65,31 +65,31 @@ reduce this ambiguity by including the \emph{magnitude} term when
 appropriate. ITK provides filters for computing both the image of gradient
 vectors and the image of magnitudes.
 
-\subsection{Gradient Magnitude}
+\subsection{Gradient Magnitude}%
 \label{sec:GradientMagnitudeImageFilter}
 \input{GradientMagnitudeImageFilter.tex}
 
 
-\subsection{Gradient Magnitude With Smoothing}
+\subsection{Gradient Magnitude With Smoothing}%
 \label{sec:GradientMagnitudeRecursiveGaussianImageFilter}
 \input{GradientMagnitudeRecursiveGaussianImageFilter.tex}
 
 
-\subsection{Derivative Without Smoothing}
+\subsection{Derivative Without Smoothing}%
 \label{sec:DerivativeImageFilter}
 \input{DerivativeImageFilter.tex}
 
 
-\section{Second Order Derivatives}
+\section{Second Order Derivatives}%
 \label{sec:SecondOrderDerivatives}
 
 
-\subsection{Second Order Recursive Gaussian}
+\subsection{Second Order Recursive Gaussian}%
 \label{sec:SecondDerivativeRecursiveGaussian}
 \input{SecondDerivativeRecursiveGaussianImageFilter.tex}
 
 
-\subsection{Laplacian Filters}
+\subsection{Laplacian Filters}%
 \label{sec:LaplacianFilters}
 
 \subsubsection{Laplacian Filter Recursive Gaussian}
@@ -98,7 +98,7 @@ vectors and the image of magnitudes.
 \input{LaplacianRecursiveGaussianImageFilter2.tex}
 
 
-\section{Neighborhood Filters}
+\section{Neighborhood Filters}%
 \label{sec:NeighborhoodFilters}
 
 The concept of locality is frequently encountered in image processing in the
@@ -118,37 +118,37 @@ following section describes some of the more commonly used filters that take
 advantage of this construction. (See the Iterators chapter
 in Book 1 for more information.)
 
-\subsection{Mean Filter}
+\subsection{Mean Filter}%
 \label{sec:MeanFilter}
 \input{MeanImageFilter.tex}
 
 
-\subsection{Median Filter}
+\subsection{Median Filter}%
 \label{sec:MedianFilter}
 \input{MedianImageFilter.tex}
 
 
-\subsection{Mathematical Morphology}
+\subsection{Mathematical Morphology}%
 \label{sec:MathematicalMorphology}
 
 Mathematical morphology has proved to be a powerful resource for image
-processing and analysis \cite{Serra1982}. ITK implements mathematical
+processing and analysis~\cite{Serra1982}. ITK implements mathematical
 morphology filters using NeighborhoodIterators and
 \doxygen{NeighborhoodOperator}s.  The toolkit contains two types of image
 morphology algorithms: filters that operate on binary images and filters that
 operate on grayscale images.
 
-\subsubsection{Binary Filters}
+\subsubsection{Binary Filters}%
 \label{sec:MathematicalMorphologyBinaryFilters}
 \input{MathematicalMorphologyBinaryFilters.tex}
 
 
-\subsubsection{Grayscale Filters}
+\subsubsection{Grayscale Filters}%
 \label{sec:MathematicalMorphologyGrayscaleFilters}
 \input{MathematicalMorphologyGrayscaleFilters.tex}
 
 
-\subsection{Voting Filters}
+\subsection{Voting Filters}%
 \label{sec:VotingFilters}
 
 Voting filters are quite a generic family of filters. In fact, both the Dilate
@@ -174,15 +174,16 @@ their frequency in the neighborhood.
 
 The typical effect of median filtration on a noisy digital image is a dramatic reduction in impulse noise spikes. The filter also tends to preserve brightness differences across signal steps, resulting in reduced blurring of regional boundaries. The filter also tends to preserve the positions of boundaries in an image.
 
-Figure \ref{fig:BinaryMedianImageFilterOutputMultipleIterations} below shows the effect of running the median filter with a 3x3 classical window size
+Figure~\ref{fig:BinaryMedianImageFilterOutputMultipleIterations} below shows the effect of running the median filter
+with a 3$times$3 classical window size
 1, 10 and 50 times. There is a tradeoff in noise reduction and the sharpness of the image when the window size is increased\begin{figure}
   \center
   \includegraphics[width=0.44\textwidth]{BinaryMedianImageFilterOutput1.eps}
   \includegraphics[width=0.44\textwidth]{BinaryMedianImageFilterOutput10.eps}
   \includegraphics[width=0.44\textwidth]{BinaryMedianImageFilterOutput50.eps}
   \itkcaption[Effect of many iterations on the BinaryMedian filter.]{Effect of 1, 10 and 50 iterations of the
-  BinaryMedianImageFilter using a 3x3 window.}
-  \label{fig:BinaryMedianImageFilterOutputMultipleIterations}
+  BinaryMedianImageFilter using a 3$\times$3 window.}%
+\label{fig:BinaryMedianImageFilterOutputMultipleIterations}
 \end{figure}.
 
 
@@ -207,7 +208,7 @@ binary variation of a Level Set filter.
 \input{VotingBinaryIterativeHoleFillingImageFilter.tex}
 
 
-\section{Smoothing Filters}
+\section{Smoothing Filters}%
 \label{sec:SmoothingFilters}
 
 Real image data has a level of uncertainty which is manifested in the
@@ -216,7 +217,7 @@ interpreted as noise and considered an undesirable component of the image
 data. This section describes several methods that can be applied to reduce
 noise on images.
 
-\subsection{Blurring}
+\subsection{Blurring}%
 \label{sec:BlurringFilters}
 
 Blurring is the traditional approach for removing noise from images. It is
@@ -226,70 +227,69 @@ frequencies.  Different kernels attenuate frequencies in different ways. One
 of the most commonly used kernels is the Gaussian. Two implementations of
 Gaussian smoothing are available in the toolkit. The first one is based on a
 traditional convolution while the other is based on the application of IIR
-filters that approximate the convolution with a Gaussian
-\cite{Deriche1990,Deriche1993}.
+filters that approximate the convolution with a Gaussian~\cite{Deriche1990,Deriche1993}.
 
-\subsubsection{Discrete Gaussian}
+\subsubsection{Discrete Gaussian}%
 \label{sec:DiscreteGaussianImageFilter}
 \input{DiscreteGaussianImageFilter.tex}
 
 
-\subsubsection{Binomial Blurring}
+\subsubsection{Binomial Blurring}%
 \label{sec:BinomialBlurImageFilter}
 \input{BinomialBlurImageFilter.tex}
 
 
-\subsubsection{Recursive Gaussian IIR}
+\subsubsection{Recursive Gaussian IIR}%
 \label{sec:RecursiveGaussianImageFilter}
 \input{SmoothingRecursiveGaussianImageFilter.tex}
 
 
-\subsection{Local Blurring}
+\subsection{Local Blurring}%
 \label{sec:BlurringFunctions}
 
 In some cases it is desirable to compute smoothing in restricted regions of the
 image, or to do it using different parameters that are computed locally.  The
 following sections describe options for applying local smoothing in images.
 
-\subsubsection{Gaussian Blur Image Function}
+\subsubsection{Gaussian Blur Image Function}%
 \label{sec:GaussianBlurImageFunction}
 \input{GaussianBlurImageFunction.tex}
 
 
-\subsection{Edge Preserving Smoothing}
+\subsection{Edge Preserving Smoothing}%
 \label{sec:EdgePreservingSmoothingFilters}
 
-\subsubsection{Introduction to Anisotropic Diffusion}
+\subsubsection{Introduction to Anisotropic Diffusion}%
 \label{sec:IntroductionAnisotropicDiffusion}
 \input{DesignAndFunctionality/AnisotropicDiffusionFiltering.tex}
 
 
-\subsubsection{Gradient Anisotropic Diffusion}
+\subsubsection{Gradient Anisotropic Diffusion}%
 \label{sec:GradientAnisotropicDiffusionImageFilter}
 \input{GradientAnisotropicDiffusionImageFilter.tex}
 
 
-\subsubsection{Curvature Anisotropic Diffusion}
+\subsubsection{Curvature Anisotropic Diffusion}%
 \label{sec:CurvatureAnisotropicDiffusionImageFilter}
 \input{CurvatureAnisotropicDiffusionImageFilter.tex}
 
 
-\subsubsection{Curvature Flow}
+\subsubsection{Curvature Flow}%
 \label{sec:CurvatureFlowImageFilter}
 \input{CurvatureFlowImageFilter.tex}
 
 
-\subsubsection{MinMaxCurvature Flow}
+\subsubsection{MinMaxCurvature Flow}%
 \label{sec:MinMaxCurvatureFlowImageFilter}
 \input{MinMaxCurvatureFlowImageFilter.tex}
 
 
-\subsubsection{Bilateral Filter}
+\subsubsection{Bilateral Filter}%
 \label{sec:BilateralImageFilter}
 \input{BilateralImageFilter.tex}
 
 
-\subsection{Edge Preserving Smoothing in Vector Images}
+\subsection{Edge Preserving Smoothing in Vector Images}%
 \label{sec:VectorAnisotropicDiffusion}
 
 Anisotropic diffusion can also be applied to images whose pixels are vectors.
@@ -297,30 +297,30 @@ In this case the diffusion is computed independently for each vector
 component.  The following classes implement versions of anisotropic diffusion
 on vector images.
 
-\subsubsection{Vector Gradient Anisotropic Diffusion}
+\subsubsection{Vector Gradient Anisotropic Diffusion}%
 \label{sec:VectorGradientAnisotropicDiffusionImageFilter}
 \input{VectorGradientAnisotropicDiffusionImageFilter.tex}
 
 
-\subsubsection{Vector Curvature Anisotropic Diffusion}
+\subsubsection{Vector Curvature Anisotropic Diffusion}%
 \label{sec:VectorCurvatureAnisotropicDiffusionImageFilter}
 \input{VectorCurvatureAnisotropicDiffusionImageFilter.tex}
 
 
-\subsection{Edge Preserving Smoothing in Color Images}
+\subsection{Edge Preserving Smoothing in Color Images}%
 \label{sec:ColorAnisotropicDiffusion}
 
-\subsubsection{Gradient Anisotropic Diffusion}
+\subsubsection{Gradient Anisotropic Diffusion}%
 \label{sec:ColorGradientAnisotropicDiffusion}
 \input{RGBGradientAnisotropicDiffusionImageFilter.tex}
 
 
-\subsubsection{Curvature Anisotropic Diffusion}
+\subsubsection{Curvature Anisotropic Diffusion}%
 \label{sec:ColorCurvatureAnisotropicDiffusion}
 \input{RGBCurvatureAnisotropicDiffusionImageFilter.tex}
 
 
-\section{Distance Map}
+\section{Distance Map}%
 \label{sec:DistanceMap}
 
 \input{DanielssonDistanceMapImageFilter.tex}
@@ -328,12 +328,12 @@ on vector images.
 \input{SignedDanielssonDistanceMapImageFilter.tex}
 
 
-\section{Geometric Transformations}
+\section{Geometric Transformations}%
 \label{sec:GeometricalTransformationFilters}
 
-\subsection{Filters You Should be Afraid to Use}
-
+\subsection{Filters You Should be Afraid to Use}%
 \label{sec:ScaryImageFilters}
+
 \subsection{Change Information Image Filter}
 
 This one is the scariest and most dangerous filter in the entire toolkit. You
@@ -350,7 +350,7 @@ patient whose images you may end up processing.
 \input{FlipImageFilter.tex}
 
 
-\subsection{Resample Image Filter}
+\subsection{Resample Image Filter}%
 \label{sec:ResampleImageFilter}
 
 \subsubsection{Introduction}
@@ -376,35 +376,35 @@ patient whose images you may end up processing.
 \input{WarpImageFilter1.tex}
 
 
-\subsubsection{Subsampling and image in the same space}
+\subsubsection{Subsampling and image in the same space}%
 \label{SubsampleVolume}
 \input{SubsampleVolume.tex}
 
 
-\subsubsection{Resampling an Anisotropic image to make it Isotropic}
+\subsubsection{Resampling an Anisotropic image to make it Isotropic}%
 \label{ResampleVolumesToBeIsotropic}
 \input{ResampleVolumesToBeIsotropic.tex}
 
 
-\section{Frequency Domain}
+\section{Frequency Domain}%
 \label{sec:FrequencyDomain}
 
 
-\subsection{Computing a Fast Fourier Transform (FFT)}
+\subsection{Computing a Fast Fourier Transform (FFT)}%
 \label{FFTImageFilter}
 \input{FFTImageFilter.tex}
 
 
-\subsection{Filtering on the Frequency Domain}
+\subsection{Filtering on the Frequency Domain}%
 \label{FFTImageFilterFourierDomainFiltering}
 \input{FFTImageFilterFourierDomainFiltering.tex}
 
 
-\section{Extracting Surfaces}
+\section{Extracting Surfaces}%
 \label{sec:ExtractingSurfaces}
 
-\subsection{Surface extraction}
-\label{sec:SufaceExtraction}
+\subsection{Surface extraction}%
+\label{sec:SufaceExtraction}%
 \index{Surface Extraction}
 
 \input{SurfaceExtraction.tex}

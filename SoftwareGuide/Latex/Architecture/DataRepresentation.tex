@@ -1,12 +1,12 @@
 
-\chapter{Data Representation}
+\chapter{Data Representation}%
 \label{sec:DataRepresentation}
 
 This chapter introduces the basic classes responsible
 for representing data in ITK. The most common classes are
 \doxygen{Image}, \doxygen{Mesh} and \doxygen{PointSet}.
 
-\section{Image}
+\section{Image}%
 \label{sec:ImageSection}
 
 The \doxygen{Image} class follows the spirit of
@@ -24,19 +24,19 @@ hardware. The following example illustrates how an image can be read from
 a file.
 
 
-\subsection{Reading an Image from a File}
+\subsection{Reading an Image from a File}%
 \label{sec:ReadingImageFromFile}
 
 \input{Image2.tex}
 
 
-\subsection{Accessing Pixel Data}
+\subsection{Accessing Pixel Data}%
 \label{sec:AccessingImagePixelData}
 
 \input{Image3.tex}
 
 
-\subsection{Defining Origin and Spacing}
+\subsection{Defining Origin and Spacing}%
 \label{sec:DefiningImageOriginAndSpacing}
 
 \input{Image4.tex}
@@ -69,7 +69,7 @@ color space because they will be the equivalent of ``negative stimulation'' on
 the human eye. In the context of colorimetry, negative color values are used
 as an artificial construct for color comparison in the sense that
 
-\begin{equation}
+\begin{equation}%
 \label{eqn:ColorSubtraction}
          ColorA = ColorB - ColorC
 \end{equation}
@@ -79,7 +79,7 @@ $ColorC$. However, we must be aware that (at least in emitted light) it is not
 possible to \emph{subtract light}. So when we mention
 Equation~\ref{eqn:ColorSubtraction} we actually mean
 
-\begin{equation}
+\begin{equation}%
 \label{eqn:ColorAddition}
          ColorB = ColorA + ColorC
 \end{equation}
@@ -120,55 +120,56 @@ are available in the RGBPixel class.
 
 The following example illustrates how RGB images can be represented in ITK.
 
+\subsection{RGB Images}%
 \label{sec:DefiningRGBImages}
 \input{RGBImage.tex}
 
 
-\subsection{Vector Images}
+\subsection{Vector Images}%
 \label{sec:DefiningVectorImages}
 
 \input{VectorImage.tex}
 
 
-\subsection{Importing Image Data from a Buffer}
+\subsection{Importing Image Data from a Buffer}%
 \label{sec:ImportingImageDataFromABuffer}
 \input{Image5.tex}
 
 
-\section{PointSet}
+\section{PointSet}%
 \label{PointSetSection}
 
-\subsection{Creating a PointSet}
+\subsection{Creating a PointSet}%
 \label{sec:CreatingAPointSet}
 
 \input{PointSet1.tex}
 
 
-\subsection{Getting Access to Points}
+\subsection{Getting Access to Points}%
 \label{sec:GettingAccessToPointsInThePointSet}
 
 \input{PointSet2.tex}
 
 
-\subsection{Getting Access to Data in Points}
+\subsection{Getting Access to Data in Points}%
 \label{sec:GettingAccessToDataInThePointSet}
 
 \input{PointSet3.tex}
 
 
-\subsection{RGB as Pixel Type}
+\subsection{RGB as Pixel Type}%
 \label{sec:PointSetWithRGBAsPixelType}
 
 \input{RGBPointSet.tex}
 
 
-\subsection{Vectors as Pixel Type}
+\subsection{Vectors as Pixel Type}%
 \label{sec:PointSetWithVectorsAsPixelType}
 
 \input{PointSetWithVectors.tex}
 
 
-\subsection{Normals as Pixel Type}
+\subsection{Normals as Pixel Type}%
 \label{sec:PointSetWithCovariantVectorsAsPixelType}
 
 \input{PointSetWithCovariantVectors.tex}
@@ -176,61 +177,61 @@ The following example illustrates how RGB images can be represented in ITK.
 
 \section{Mesh}\label{MeshSection}
 
-\subsection{Creating a Mesh}
+\subsection{Creating a Mesh}%
 \label{sec:CreatingAMesh}
 
 \input{Mesh1.tex}
 
 
-\subsection{Inserting Cells}
+\subsection{Inserting Cells}%
 \label{sec:InsertingCellsInMesh}
 
 \input{Mesh2.tex}
 
 
-\subsection{Managing Data in Cells}
+\subsection{Managing Data in Cells}%
 \label{sec:ManagingCellDataInMesh}
 
 \input{Mesh3.tex}
 
 
-\subsection{Customizing the Mesh}
+\subsection{Customizing the Mesh}%
 \label{sec:CustomizingTheMesh}
 
 \input{MeshTraits.tex}
 
 
-\subsection{Topology and the K-Complex}
+\subsection{Topology and the K-Complex}%
 \label{sec:MeshKComplex}
 
 \input{MeshKComplex.tex}
 
 
-\subsection{Representing a PolyLine}
+\subsection{Representing a PolyLine}%
 \label{sec:MeshPolyLine}
 
 \input{MeshPolyLine.tex}
 
 
-\subsection{Simplifying Mesh Creation}
+\subsection{Simplifying Mesh Creation}%
 \label{sec:AutomaticMesh}
 
 \input{AutomaticMesh.tex}
 
 
-\subsection{Iterating Through Cells}
+\subsection{Iterating Through Cells}%
 \label{sec:MeshCellsIteration}
 
 \input{MeshCellsIteration.tex}
 
 
-\subsection{Visiting Cells}
+\subsection{Visiting Cells}%
 \label{sec:MeshCellVisitor}
 
 \input{MeshCellVisitor.tex}
 
 
-\subsection{More on Visiting Cells}
+\subsection{More on Visiting Cells}%
 \label{sec:MeshCellVisitorMultipleType}
 
 \input{MeshCellVisitor2.tex}
@@ -238,7 +239,7 @@ The following example illustrates how RGB images can be represented in ITK.
 
 \section{Path}\label{PathSection}
 
-\subsection{Creating a PolyLineParametricPath}
+\subsection{Creating a PolyLineParametricPath}%
 \label{sec:CreatingAPolyLineParametricPath}
 
 \input{PolyLineParametricPath1.tex}

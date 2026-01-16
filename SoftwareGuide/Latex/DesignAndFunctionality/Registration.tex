@@ -11,8 +11,8 @@ another.\label{fig:ImageRegistrationConcept}}
 This chapter introduces ITK's capabilities for performing image
 registration. Image registration is the process of determining the spatial
 transform that maps points from one image to homologous points on a object in
-the second image. This concept is schematically represented in Figure
-\ref{fig:ImageRegistrationConcept}. In ITK, registration is performed within
+the second image. This concept is schematically represented in Figure~\ref{fig:ImageRegistrationConcept}.
+In ITK, registration is performed within
 a framework of pluggable components that can easily be interchanged.  This
 flexibility means that a combinatorial variety of registration methods can be
 created, allowing users to pick and choose the right tools for their specific
@@ -21,10 +21,10 @@ application.
 
 \section{Registration Framework}
 Let's begin with a simplified typical registration framework where its components
-and their interconnections are shown in Figure \ref{fig:RegistrationComponents}.
+and their interconnections are shown in Figure~\ref{fig:RegistrationComponents}.
 The basic input data to the registration process are two images: one is defined
-as the \emph{fixed} image $f(\bf{X})$ and the other as the \emph{moving} image
-$m(\bf{X})$, where $\bf{X}$ represents a position in N-dimensional space.
+as the \emph{fixed} image $f(\textbf{X})$ and the other as the \emph{moving} image
+$m(\textbf{X})$, where $\textbf{X}$ represents a position in N-dimensional space.
 Registration is treated as an optimization problem with the goal of finding the
 spatial mapping that will bring the moving image into alignment with the fixed image.
 
@@ -33,11 +33,11 @@ spatial mapping that will bring the moving image into alignment with the fixed i
 \includegraphics[width=0.8\textwidth]{RegistrationComponentsDiagram.eps}
 \itkcaption[A Typical Registration Framework Components]{The basic components
 of a typical registration framework are two input images, a transform, a
-metric, an interpolator and an optimizer.}
+metric, an interpolator and an optimizer.}%
 \label{fig:RegistrationComponents}
 \end{figure}
 
-The \emph{transform} component $T(\bf{X})$ represents the spatial mapping of
+The \emph{transform} component $T(\textbf{X})$ represents the spatial mapping of
 points from the fixed image space to points in the moving image space. The
 \emph{interpolator} is used to evaluate moving image intensities at non-grid
 positions. The \emph{metric} component $S(f,m \circ T)$ provides a measure of
@@ -54,15 +54,15 @@ This ``sampling domain'' is considered as a new component in the registration
 framework known as \textbf{virtual image} that can be an arbitrary set of physical
 points, not necessarily a uniform grid of points.
 
-Various ITKv4 registration components are illustrated in Figure
-\ref{fig:ITKv4RegistrationComponents}. Boxes with dashed borders show
+Various ITKv4 registration components are illustrated in Figure~\ref{fig:ITKv4RegistrationComponents}.
+Boxes with dashed borders show
 \emph{data objects}, while those with solid borders show \emph{process objects}.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{ITKv4RegistrationComponentsDiagram.eps}
 \itkcaption[Registration Framework Components]{The basic components of the ITKv4
-registration framework.}
+registration framework.}%
 \label{fig:ITKv4RegistrationComponents}
 \end{figure}
 
@@ -78,16 +78,16 @@ asks the moving transform to update its parameters based on the outputs of the c
 function. Since the moving transform is shared between metric and optimizer,
 the above process will be repeated till the convergence criteria are met.
 
-Later in section~\ref{sec:FeaturesOfTheRegistrationFramework} you will get a
+Later in Section~\ref{sec:FeaturesOfTheRegistrationFramework} you will get a
 better understanding of the behind-the-scenes processes of ITKv4 registration
 framework. First, we begin with some simple registration examples.
 
 
-\section{"Hello World" Registration}
+\section{\shelldblquotes{Hello World} Registration}%
 \label{sec:IntroductionImageRegistration}
 \input{ImageRegistration1.tex}
 
-\section{Features of the Registration Framework}
+\section{Features of the Registration Framework}%
 \label{sec:FeaturesOfTheRegistrationFramework}
 
 This section presents internals of the registration process in ITKv4.
@@ -117,7 +117,7 @@ Figure~\ref{fig:ImageRegistrationCoordinateSystemsDiagram}.
 \itkcaption[Registration Coordinate Systems]{Different coordinate systems
 involved in the image registration process. Note that the transform being
 optimized is the one mapping from the physical space of the \textbf{virtual}
-image into the physical space of the \textbf{moving} image.}
+image into the physical space of the \textbf{moving} image.}%
 \label{fig:ImageRegistrationCoordinateSystemsDiagram}
 \end{figure}
 
@@ -182,7 +182,7 @@ the inverse transform of the one computed by the ITK registration framework.
 Only those cases may require invoking the \code{GetInverse()}
 method that most transforms offer. Before attempting this,
 read the examples on resampling illustrated in
-section~\ref{sec:GeometricalTransformationFilters} in order to
+Section~\ref{sec:GeometricalTransformationFilters} in order to
 familiarize yourself with the correct interpretation of the transforms.
 
 Now we come back to the situation illustrated in
@@ -211,32 +211,31 @@ space. Fortunately in practice there is no need to resample the fixed image
 since the virtual image physical domain is often assumed to be the same as
 physical domain of the fixed image.
 
-\section{Monitoring Registration}
+\section{Monitoring Registration}%
 \label{sec:MonitoringImageRegistration}
 \input{ImageRegistration3.tex}
 
 
 
-\section{Multi-Modality Registration}
+\section{Multi-Modality Registration}%
 \label{sec:MultiModalityRegistration}
 
 Some of the most challenging cases of image registration arise when images of
 different modalities are involved. In such cases, metrics based on direct
 comparison of gray levels are not applicable. It has been extensively shown
 that metrics based on the evaluation of mutual information are well suited for
-overcoming the difficulties of multi-modality registration.
-
+overcoming the difficulties of multi-modality registration.%
 \index{itk::Image\-Registration\-Method!Multi-Modality}
 
 The concept of Mutual Information is derived from Information Theory and its
 application to image registration has been proposed in different forms by
-different groups \cite{Collignon1995,Maes97,Viola1997}; a more detailed review
-can be found in \cite{Hajnal2001,Pluim2003}. The Insight Toolkit currently
+different groups~\cite{Collignon1995,Maes97,Viola1997}; a more detailed review
+can be found in~\cite{Hajnal2001,Pluim2003}. The Insight Toolkit currently
 provides two different implementations of Mutual Information metrics (see
-section \ref{sec:Metrics} for details). The following example illustrates the
+Section~\ref{sec:Metrics} for details). The following example illustrates the
 practical use of one of these metrics.
 
-\subsection{Mattes Mutual Information}
+\subsection{Mattes Mutual Information}%
 \label{sec:MultiModalityRegistrationMattes}
 \input{ImageRegistration4.tex}
 
@@ -261,37 +260,37 @@ accurate results. The following sections describe the main
 characteristics and effects of initializing the center of a
 transform.
 
-\subsection{Rigid Registration in 2D}
+\subsection{Rigid Registration in 2D}%
 \label{sec:RigidRegistrationIn2D}
 \input{ImageRegistration5.tex}
 
-\subsection{Initializing with Image Moments}
+\subsection{Initializing with Image Moments}%
 \label{sec:InitializingRegistrationWithMoments}
 \input{ImageRegistration6.tex}
 
 
 
-\subsection{Similarity Transform in 2D}
+\subsection{Similarity Transform in 2D}%
 \label{sec:SimilarityRegistrationIn2D}
 \input{ImageRegistration7.tex}
 
 
 
-\subsection{Rigid Transform in 3D}
+\subsection{Rigid Transform in 3D}%
 \label{sec:RigidRegistrationIn3D}
 \input{ImageRegistration8.tex}
 
 
 
 
-\subsection{Centered Initialized Affine Transform}
+\subsection{Centered Initialized Affine Transform}%
 \label{sec:CenteredAffineTransform}
 \input{ImageRegistration9.tex}
 
 
 
 
-\section{Multi-Resolution Registration}
+\section{Multi-Resolution Registration}%
 \label{sec:MultiResolutionRegistration}
 Performing image registration using a multi-resolution approach is widely used
 to improve speed, accuracy and robustness. The basic idea is that registration
@@ -319,9 +318,9 @@ way of an example.
 \subsection{Fundamentals}
 \input{MultiResImageRegistration1.tex}
 
-\section{Multi-Stage Registration}
+\section{Multi-Stage Registration}%
 \label{sec:MultiStageRegistration}
-In section \ref{sec:MultiResolutionRegistration} you noticed how to tweak
+In Section~\ref{sec:MultiResolutionRegistration} you noticed how to tweak
 component settings between multi-resolution levels and saw how it can benefit the
 registration process. That is, the matching metric gets close to the optimal
 value before final parameter adjustments in full resolution.
@@ -363,7 +362,7 @@ features of the components forming the registration framework.
 % objects used by the Transforms.
 \clearpage
 
-\section{Transforms}
+\section{Transforms}%
 \label{sec:Transforms}
 \input{DesignAndFunctionality/Transforms.tex}
 
@@ -373,7 +372,7 @@ features of the components forming the registration framework.
 % section.
 \clearpage
 
-\section{Interpolators}
+\section{Interpolators}%
 \label{sec:Interpolators}
 \input{DesignAndFunctionality/ImageInterpolators.tex}
 
@@ -381,7 +380,7 @@ features of the components forming the registration framework.
 % section.
 \clearpage
 
-\section{Metrics}
+\section{Metrics}%
 \label{sec:Metrics}
 \input{DesignAndFunctionality/ImageMetrics.tex}
 
@@ -389,25 +388,25 @@ features of the components forming the registration framework.
 % section.
 \clearpage
 
-\section{Optimizers}
+\section{Optimizers}%
 \label{sec:Optimizers}
 \input{DesignAndFunctionality/Optimizers.tex}
 
 
 
-\subsection{Registration using the One plus One Evolutionary Optimizer}
+\subsection{Registration using the One plus One Evolutionary Optimizer}%
 \label{sec:RegistrationOnePlusOne}
 \input{ImageRegistration11.tex}
 
 
 
-\subsection{Registration using masks constructed with Spatial objects}
+\subsection{Registration using masks constructed with Spatial objects}%
 \label{sec:RegistrationSpatialObjects}
 \input{ImageRegistration12.tex}
 
 
 
-\subsection{Rigid registrations incorporating prior knowledge}
+\subsection{Rigid registrations incorporating prior knowledge}%
 \label{sec:RegistrationCentered2DTransform}
 \input{ImageRegistration13.tex}
 
@@ -416,7 +415,7 @@ features of the components forming the registration framework.
 % section.
 \clearpage
 
-\section{Deformable Registration}
+\section{Deformable Registration}%
 \label{sec:DeformableRegistration}
 \input{DesignAndFunctionality/DeformableRegistration.tex}
 
@@ -424,11 +423,11 @@ features of the components forming the registration framework.
 % section.
 \clearpage
 
-\section{Demons Deformable Registration}
+\section{Demons Deformable Registration}%
 \label{sec:DemonsDeformableRegistration}
 \input{DesignAndFunctionality/DemonsRegistration.tex}
 
-\section{Visualizing Deformation fields}
+\section{Visualizing Deformation fields}%
 \label{sec:VisualizingDeformationFields}
 \input{DesignAndFunctionality/VisualizingDeformationFieldsUsingParaview.tex}
 
@@ -441,12 +440,12 @@ features of the components forming the registration framework.
 
 
 
-\section{Model Based Registration}
+\section{Model Based Registration}%
 \label{sec:ModelBasedRegistration}
 \input{DesignAndFunctionality/ModelBasedRegistration.tex}
 
 
-\section{Point Set Registration}
+\section{Point Set Registration}%
 \label{sec:PointSetRegistration}
 
 PointSet-to-PointSet registration is a common problem in medical image
@@ -484,7 +483,7 @@ this can be used in ITK.
 
 
 
-\subsection{Point Set Registration in 2D}
+\subsection{Point Set Registration in 2D}%
 \label{sec:PointSetRegistrationIn2D}
 
 \input{IterativeClosestPoint1.tex}
@@ -492,14 +491,14 @@ this can be used in ITK.
 
 
 
-\subsection{Point Set Registration in 3D}
+\subsection{Point Set Registration in 3D}%
 \label{sec:PointSetRegistrationIn3D}
 
 \input{IterativeClosestPoint2.tex}
 
 
 
-\subsection{Point Set to Distance Map Metric}
+\subsection{Point Set to Distance Map Metric}%
 \label{sec:PointSetToDistanceMapMetric}
 
 \input{IterativeClosestPoint3.tex}
@@ -561,29 +560,23 @@ accounted for.
 \end{itemize}
 
 
-
 \subsection{General heuristics for parameter fine-tunning}
-
-
-
-
 
 https://public.kitware.com/pipermail/insight-users/2007-March/021435.html
 
 Here is some advice on how to fine tune the parameters
 of the registration process.
 
+\begin{enumerate}
+  \item Set Maximum step length to 0.1 and do not change it until all other parameters are stable.
 
-1) Set Maximum step length to 0.1 and do not change it
-   until all other parameters are stable.
-
-2) Set Minimum step length to 0.001 and do not change it.
+  \item Set Minimum step length to 0.001 and do not change it.
 
    You could interpret these two parameters as if their
    units were radians. So, 0.1 radian = 5.7 degrees.
 
 
-3) Number of histogram bins:
+  \item Number of histogram bins:
 
     First plot the histogram of your image using the
     example program in
@@ -604,15 +597,15 @@ of the registration process.
     us it for your Mutual Information metric.
 
 
-4)  Number of Samples:
+  \item  Number of Samples:
     The trade-off with the number of samples is the following:
 
-    a) computation time of registration is linearly proportional
-       to the number of samples
-                                                                                                                        b) the samples must be enough to significantly populate
-                                                                                                                           the joint histogram.
-                                                                                                                        c) Once the histogram is populated, there is not much
-                                                                                                                           use in adding more samples.
+    \begin{enumerate}
+      \item computation time of registration is linearly proportional to the number of samples
+      \item the samples must be enough to significantly populate the joint histogram.
+      \item Once the histogram is populated, there is not much use in adding more samples.
+    \end{enumerate}
+
 Therefore do the following:
 
 Plot the joint histogram of both images, using the number
@@ -625,7 +618,7 @@ you have to change the code to print out the values
 of the bins. Then use a plotting program such as gnuplot,
 or Matlab, or even Excel and look at the distribution.
 The number of samples to take must be enough
-for producing the same "appearance" of the joint histogram.
+for producing the same \enquote{appearance} of the joint histogram.
 As an arbitrary rule of thumb you may want to start using
 a high number of samples (80\% - 100\%). And do not
 change it until you have mastered the other parameters
@@ -642,7 +635,7 @@ This is just engineering: you figure out what is the minimal
 size of a piece of steel that will support a bridge, and then
 you enlarge it to keep it away from the critical value.
 
-5)  The MOST critical values of the registration process are the
+\item  The MOST critical values of the registration process are the
 scaling parameters that define the proportions between
 the parameters of the transform. In your case, for an Affine
 Transform in 2D, you have 6 parameters. The first four are
@@ -658,7 +651,7 @@ parameters to the holy esoteric values:
 1.0   /  (  10.0 * pixelspacing[1]  *  imagesize[1]  )
 
 This is telling the optimizer that you consider that rotating
-the image by 57 degrees is as "significant" as translating
+the image by 57 degrees is as \enquote{significant} as translating
 the image by half its physical extent.
 
 Note that esoteric value has included the arbitrary number
@@ -690,6 +683,7 @@ the observer is providing you. For example, plot the metric values,
 and plot the translation coordinates so that you can get a feeling
 of how the registration is behaving.
 
+\end{enumerate}
 
 Note also that image registration is not a science. It is a pure
 engineerig practice, and therefore, there are no correct answers,

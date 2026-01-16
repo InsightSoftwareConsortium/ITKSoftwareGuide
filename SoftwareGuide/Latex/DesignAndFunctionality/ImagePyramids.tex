@@ -1,9 +1,7 @@
-
-\index{itk::Multi\-Resolution\-Pyramid\-Image\-Filter}
-
 In ITK, the \doxygen{MultiResolutionPyramidImageFilter} can be used to create
-a sequence of reduced resolution images from the input image.  The
-down-sampling is performed according to a user defined multi-resolution
+a sequence of reduced resolution images from the input image.%
+\index{itk::Multi\-Resolution\-Pyramid\-Image\-Filter}
+The down-sampling is performed according to a user defined multi-resolution
 schedule. The schedule is specified as an \doxygen{Array2D} of integers,
 containing shrink factors for each multi-resolution level (rows) for each
 dimension (columns). For example,
@@ -20,8 +18,7 @@ In the first (coarsest) level, the image is reduced by a factor of 8
 in the column dimension, factor of 4 in the row dimension and a factor
 of 4 in the slice dimension. In the second level, the image reduced
 by a factor of 4 in the column dimension, 4 in the row dimension and
-2 in the slice dimension.
-
+2 in the slice dimension.%
 \index{itk::Multi\-Resolution\-Pyramid\-Image\-Filter!SetNumberOfLevels()}
 
 The method \code{SetNumberOfLevels()} is used to set the number of
@@ -39,10 +36,9 @@ to 4, the default schedule is then:
 2 2 2
 1 1 1
 \end{verbatim}
-\normalsize
-
-\index{itk::Multi\-Resolution\-Pyramid\-Image\-Filter!GetSchedule()}
-\index{itk::Multi\-Resolution\-Pyramid\-Image\-Filter!SetSchedule()}
+\normalsize%
+\index{itk::Multi\-Resolution\-Pyramid\-Image\-Filter!GetSchedule()}%
+\index{itk::Multi\-Resolution\-Pyramid\-Image\-Filter!SetSchedule()}%
 \index{itk::Multi\-Resolution\-Pyramid\-Image\-Filter!SetStartingShrinkFactors()}
 
 The user can get a copy of the schedule using method \code{GetSchedule()},

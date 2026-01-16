@@ -1,4 +1,4 @@
-\chapter{How To Write A Filter}
+\chapter{How To Write A Filter}%
 \label{chapter:WriteAFilter}
 
 This purpose of this chapter is help developers create their own
@@ -10,107 +10,88 @@ correct filters. Finally, a section on multi-threading describes what
 you must do in order to take advantage of shared memory parallel
 processing.
 
-\section{Terminology}
+\section{Terminology}%
 \label{sec:Terminology}
 
 The following is some basic terminology for the discussion that follows.
-Chapter \ref{chapter:SystemOverview} provides additional background
+Chapter~\ref{chapter:SystemOverview} provides additional background
 information.
 
 \begin{itemize}
         \item The \textbf{data processing pipeline} is a directed graph of
         \textbf{process} and \textbf{data objects}. The pipeline inputs,
-        operators on, and outputs data.
-        \index{data processing pipeline}
-        \index{process object}
-        \index{data object}
+        operators on, and outputs data\index{data processing pipeline}.
 
-        \item A \textbf{filter}, or \textbf{process object}, has one or more
+        \item A \textbf{filter}\index{filter}, or \textbf{process object}\index{process object}, has one or more
         inputs, and one or more outputs.
-        \index{filter}
 
-        \item A \textbf{source}, or source process object, initiates the data
+        \item A \textbf{source}\index{source}, or source process object, initiates the data
         processing pipeline, and has one or more outputs.
-        \index{source}
 
-        \item A \textbf{mapper}, or mapper process object, terminates the
+        \item A \textbf{mapper}\index{mapper}, or mapper process object, terminates the
         data processing pipeline. The mapper has one or more outputs, and may
         write data to disk, interface with a display system, or interface to
         any other system.
-        \index{mapper}
 
-        \item A \textbf{data object} represents and provides access to
+        \item A \textbf{data object}\index{data object} represents and provides access to
         data. In ITK, the data object (ITK class \doxygen{DataObject}) is
         typically of type \doxygen{Image} or \doxygen{Mesh}.
-        \index{data object}
 
-        \item A \textbf{region} (ITK class \doxygen{Region}) represents a
+        \item A \textbf{region}\index{region} (ITK class \doxygen{Region}) represents a
         piece, or subset of the entire data set.
-        \index{region}
 
-        \item An \textbf{image region} (ITK class \doxygen{ImageRegion})
+        \item An \textbf{image region}\index{image region} (ITK class \doxygen{ImageRegion})
         represents a structured portion of data. ImageRegion is implemented
         using the \doxygen{Index} and \doxygen{Size} classes
-        \index{image region}
 
-        \item A \textbf{mesh region} (ITK class \doxygen{MeshRegion})
+        \item A \textbf{mesh region}\index{mesh region} (ITK class \doxygen{MeshRegion})
         represents an unstructured portion of data.
-        \index{mesh region}
 
-        \item The \textbf{LargestPossibleRegion} is the theoretical single,
+        \item The \textbf{LargestPossibleRegion}\index{LargestPossibleRegion} is the theoretical single,
         largest piece (region) that could represent the entire dataset. The
         LargestPossibleRegion is used in the system as the measure of the
         largest possible data size.
-        \index{LargestPossibleRegion}
 
-        \item The \textbf{BufferedRegion} is a contiguous block of memory
+        \item The \textbf{BufferedRegion}\index{BufferedRegion} is a contiguous block of memory
         that is less than or equal to in size to the
         LargestPossibleRegion. The buffered region is what has actually been
         allocated by a filter to hold its output.
-        \index{BufferedRegion}
 
-        \item The \textbf{RequestedRegion} is the piece of the dataset that a
+        \item The \textbf{RequestedRegion}\index{RequestedRegion} is the piece of the dataset that a
         filter is required to produce. The RequestedRegion is less than or
         equal in size to the BufferedRegion. The RequestedRegion may differ
         in size from the BufferedRegion due to performance reasons. The
         RequestedRegion may be set by a user, or by an application that needs
         just a portion of the data.
-        \index{RequestedRegion}
 
-        \item The \textbf{modified time} (represented by ITK class
+        \item The \textbf{modified time}\index{modified time} (represented by ITK class
         \doxygen{TimeStamp}) is a monotonically increasing integer value that
         characterizes a point in time when an object was last modified.
-        \index{modified time}
 
-        \item \textbf{Downstream} is the direction of dataflow, from sources
+        \item \textbf{Downstream}\index{pipeline!downstream} is the direction of dataflow, from sources
         to mappers.
-        \index{pipeline!downstream}
 
-        \item \textbf{Upstream} is the opposite of downstream, from mappers
+        \item \textbf{Upstream}\index{pipeline!upstream} is the opposite of downstream, from mappers
         to sources.
-        \index{pipeline!upstream}
 
-        \item The \textbf{pipeline modified time} for a particular data
+        \item The \textbf{pipeline modified time}\index{pipeline!modified time} for a particular data
         object is the maximum modified time of all upstream data objects and
         process objects.
-        \index{pipeline!modified time}
 
-        \item The term \textbf{information} refers to metadata that
+        \item The term \textbf{information}\index{pipeline!information} refers to metadata that
         characterizes data. For example, index and dimensions are information
         characterizing an image region.
-        \index{pipeline!information}
 \end{itemize}
 
-\section{Overview of Filter Creation}
-\label{sec:OverviewFilterCreation}
+\section{Overview of Filter Creation}%
+\label{sec:OverviewFilterCreation}%
 \index{filter!overview of creation}
 
 \begin{floatingfigure}[rlp]{7cm}
   \centering
   \includegraphics[width=6cm]{DataPipelineOneConnection.eps}
   \caption[Relationship between DataObjects and ProcessObjects]
-{Relationship between DataObject and ProcessObject.
-\label{fig:DataPipeLineOneConnection}}
+{Relationship between DataObject and ProcessObject\label{fig:DataPipeLineOneConnection}}.
 \end{floatingfigure}
 
 
@@ -174,15 +155,15 @@ One of the most important decisions that the developer must make is whether
 the filter can stream data; that is, process just a portion of the input to
 produce a portion of the output. Often superclass behavior works well: if the
 filter processes the input using single pixel access, then the default
-behavior is adequate. If not, then the user may have to a) find a more
-specialized superclass to derive from, or b) override one or more methods
+behavior is adequate. If not, then the user may have to (a) find a more
+specialized superclass to derive from, or (b) override one or more methods
 that control how the filter operates during pipeline execution. The next
 section describes these methods.
 
 
 
-\section{Streaming Large Data}
-\label{sec:StreamingLargeData}
+\section{Streaming Large Data}%
+\label{sec:StreamingLargeData}%
 \index{pipeline!streaming large data}
 
 The data associated with multi-dimensional images is large and becoming larger.
@@ -200,7 +181,7 @@ object). These data objects in turn are consumed by other process objects,
 and so on, until a directed graph of data flow is constructed. Eventually the
 pipeline is terminated by one or more mappers, that may write data to
 storage, or interface with a graphics or other system. This is illustrated in
-figures \ref{fig:DataPipeLineOneConnection} and \ref{fig:DataPipeLine}.
+figures~\ref{fig:DataPipeLineOneConnection} and~\ref{fig:DataPipeLine}.
 
 A significant benefit of this architecture is that the relatively complex
 process of managing pipeline execution is designed into the system. This
@@ -212,8 +193,8 @@ by class developers. The purpose of this chapter is to describe the pipeline
 execution process in detail, with a focus on data streaming.
 
 
-\subsection{Overview of Pipeline Execution}
-\label{sec:OverviewPipelineExecution}
+\subsection{Overview of Pipeline Execution}%
+\label{sec:OverviewPipelineExecution}%
 \index{pipeline!overview of execution}
 
 The pipeline execution process performs several important functions.
@@ -221,7 +202,7 @@ The pipeline execution process performs several important functions.
 \begin{figure}
   \par\centering
   \resizebox{5in}{!}{ \includegraphics{DataPipeline.eps}}
-  \itkcaption[The Data Pipeline]{The Data Pipeline}
+  \itkcaption[The Data Pipeline]{The Data Pipeline}%
   \label{fig:DataPipeLine}
   \par
 \end{figure}
@@ -273,7 +254,7 @@ caching state between each piece to assemble the final output.)
   \par\centering
   \resizebox{5in}{!}{ \includegraphics{DataPipelineUpdate.eps}}
   \itkcaption[Sequence of the Data Pipeline updating mechanism]{Sequence of the
-Data Pipeline updating mechanism}
+Data Pipeline updating mechanism}%
   \label{fig:DataPipeLineUpdate}
   \par
 \end{figure}
@@ -296,8 +277,8 @@ section describes the specifics of these methods, and when to override
 them. Examples are provided along the way to illustrate concepts.
 
 
-\subsection{Details of Pipeline Execution}
-\label{sec:DetailsPipelineExecution}
+\subsection{Details of Pipeline Execution}%
+\label{sec:DetailsPipelineExecution}%
 \index{pipeline!execution details}
 
 Typically pipeline execution is initiated when a process object
@@ -317,8 +298,8 @@ The \code{DataObject::Update()} method in turn invokes three other methods:
         \item \code{DataObject::UpdateOutputData()}
 \end{itemize}
 
-\subsubsection{UpdateOutputInformation()}
-\label{sec:UpdateOutputInformation}
+\subsubsection{UpdateOutputInformation()}%
+\label{sec:UpdateOutputInformation}%
 \index{pipeline!UpdateOutputInformation}
 
 The \code{UpdateOutputInformation()} method first calls the
@@ -356,8 +337,8 @@ takes an input image and shrinks it by some integral value. The result is that
 the spacing and LargestPossibleRegion of the output will be different to that
 of the input. Thus, \code{GenerateOutputInformation()} is overloaded.
 
-\subsubsection{PropagateRequestedRegion()}
-\label{sec:PropagateRequestedRegion}
+\subsubsection{PropagateRequestedRegion()}%
+\label{sec:PropagateRequestedRegion}%
 \index{pipeline!PropagateRequestedRegion}
 
 The \code{PropagateRequestedRegion()} call propagates upstream to
@@ -427,17 +408,17 @@ region because a kernel is required to compute the gradient at a pixel. Hence
 the input needs to be ``padded out'' so the filter has enough data to compute
 the gradient at each output pixel.
 
-\subsubsection{UpdateOutputData()}
-\label{sec:UpdateOutputData}
+\subsubsection{UpdateOutputData()}%
+\label{sec:UpdateOutputData}%
 \index{pipeline!UpdateOutputData}
 
 \code{UpdateOutputData()} is the third and final method as a result of the
 \code{Update()} method. The purpose of this method is to determine whether a
 particular filter needs to execute in order to bring its output up to date. (A
 filter executes when its \code{GenerateData()} method is invoked.) Filter
-execution occurs when a) the filter is modified as a result of modifying an
-instance variable; b) the input to the filter changes; c) the input data has
-been released; or d) an invalid RequestedRegion was set previously and the
+execution occurs when (a) the filter is modified as a result of modifying an
+instance variable; (b) the input to the filter changes; (c) the input data has
+been released; or (d) an invalid RequestedRegion was set previously and the
 filter did not produce data. Filters execute in order in the downstream
 direction.  Once a filter executes, all filters downstream of it must also
 execute.
@@ -462,8 +443,8 @@ only write the \code{GenerateData()} method (non-threaded) or
 next section.
 
 
-\section{Threaded Filter Execution}
-\label{sec:ThreadedFilterExecution}
+\section{Threaded Filter Execution}%
+\label{sec:ThreadedFilterExecution}%
 \index{pipeline!ThreadedFilterExecution}
 
 Filters that can process data in pieces can typically multi-process
@@ -540,8 +521,8 @@ defaults (usually zero) for all parameters. The copy constructor and
 assignment operator should not implemented in order to prevent instantiating
 the filter without the factory methods (above). They should be declared in the
 \code{public} section using the \code{ITK\_DISALLOW\_COPY\_AND\_ASSIGN} macro
-(see Section~\ref{sec:UsingStandardMacros} on page
-\pageref{sec:UsingStandardMacros}).
+(see Section~\ref{sec:UsingStandardMacros}
+on page~\pageref{sec:UsingStandardMacros}).
 
 Finally, the template implementation code (in the \code{.hxx} file) should
 be included, bracketed by a test for manual instantiation, thus:

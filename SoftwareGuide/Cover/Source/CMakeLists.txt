@@ -3,7 +3,7 @@ cmake_policy(VERSION 3.10.2)
  
 project( VWSegmentation )
 
-find_package( ITK REQUIRED )
+find_package( ITK 5 REQUIRED )
 include( ${ITK_USE_FILE} )
 
 set( operations

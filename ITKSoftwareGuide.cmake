@@ -11,7 +11,8 @@ set(CMAKE_MODULE_PATH
   )
 
 #-----------------------------------------------------------------------------
-find_package(ITK REQUIRED)
+set(MINIMUM_ITK_VERSION 5)
+find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED)
 if(Slicer_BUILD_${PROJECT_NAME})
   set(ITK_NO_IO_FACTORY_REGISTER_MANAGER 1) # Incorporate with Slicer nicely
 endif()

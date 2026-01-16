@@ -4,9 +4,9 @@
 %
 %
 
-\subsection{Overview}
-\label{sec:AboutWatersheds}
-\index{Watersheds}
+\subsection{Overview}%
+\label{sec:AboutWatersheds}%
+\index{Watersheds}%
 \index{Watersheds!Overview}
 Watershed segmentation classifies pixels into regions using gradient descent on
 image features and analysis of weak points along region boundaries.  Imagine
@@ -22,8 +22,7 @@ features from different data sets.  The watersheds technique is also more
 flexible in that it does not produce a single image segmentation, but rather a
 hierarchy of segmentations from which a single region or set of regions can be
 extracted a-priori, using a threshold, or interactively, with the help of a
-graphical user interface
-\cite{Yoo1992,Yoo1991}.
+graphical user interface~\cite{Yoo1992,Yoo1991}.
 
 The strategy of watershed segmentation is to treat an image $f$ as a height
 function, i.e.,  the surface formed by graphing $f$ as a function of its
@@ -48,7 +47,7 @@ Figure~\ref{fig:segment}.
 That is, a segment consists of all points in $U$ whose paths of steepest
 descent on the graph of $f$ terminate at the same minimum in $f$.  Thus, there
 are as many segments in an image as there are minima in $f$.  The segment
-boundaries are ``ridges'' \cite{Koenderink1979,Koenderink1993,Eberly1996} in
+boundaries are ``ridges''~\cite{Koenderink1979,Koenderink1993,Eberly1996} in
 the graph of $f$.  In the 1D case ($U \subset \Re$), the watershed boundaries
 are the local maxima of $f$, and the results of the watershed segmentation is
 trivial.  For higher-dimensional image domains, the watershed boundaries are
@@ -79,7 +78,7 @@ measure or combining subtrees within the hierarchy.}
 Previous work has shown the benefit of a user-assisted approach that provides
 a graphical interface to this hierarchy, so that a technician can quickly move
 from the small regions that lie within an area of interest to the union of
-regions that correspond to the anatomical structure \cite{Yoo1991}.
+regions that correspond to the anatomical structure~\cite{Yoo1991}.
 
 There are two different algorithms commonly used to implement watersheds:
 top-down and bottom-up.  The top-down, gradient descent strategy was chosen for
@@ -87,8 +86,7 @@ ITK because we want to consider the output of multi-scale differential
 operators, and the $f$ in question will therefore have floating point
 values. The bottom-up strategy starts with seeds at the local minima in the
 image and grows regions outward and upward at discrete intensity levels
-(equivalent to a sequence of morphological operations and sometimes called {\em
-morphological watersheds} \cite{Serra1982}.) This limits the accuracy by
+(equivalent to a sequence of morphological operations and sometimes called \emph{morphological watersheds}~\cite{Serra1982}.) This limits the accuracy by
 enforcing a set of discrete gray levels on the image.
 
 \begin{figure}
@@ -109,15 +107,15 @@ threshold (this helps to minimize oversegmentation of the image).  The
 initial segmentation is passed to a second sub-filter that generates a
 hierarchy of basins to a user-specified maximum watershed depth.  The
 relabeler object at the end of the mini-pipeline uses the hierarchy and the
-initial segmentation to produce an output image at any scale {\em below} the
+initial segmentation to produce an output image at any scale \emph{below} the
 user-specified maximum.  Data objects are cached in the mini-pipeline so that
 changing watershed depths only requires a (fast) relabeling of the basic
 segmentation.  The three parameters that control the filter are shown in
 Figure~\ref{fig:constructionWatersheds} connected to their relevant
 processing stages.
 
-\subsection{Using the ITK Watershed Filter}
-\label{sec:UsingWatersheds}
+\subsection{Using the ITK Watershed Filter}%
+\label{sec:UsingWatersheds}%
 \index{Watersheds!ImageFilter}
 \input{WatershedSegmentation1.tex}
 

@@ -1,3 +1,4 @@
+\usepackage[T1]{fontenc}
 \usepackage[dvips]{graphicx}
 \usepackage{times}
 \usepackage[table]{xcolor}
@@ -13,6 +14,9 @@
 %\usepackage{siunitx}
 \usepackage[papersize={7.5in,9.25in},margin=1in]{geometry}
 \usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+
+\newcommand{\shelldblquotes}[1]{\textquotedbl{}#1\textquotedbl{}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -94,7 +98,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifitkPrintedVersion
-\usepackage[dvips,
+\usepackage[
 pdfencoding=auto,
 psdextra,
 pdfpagemode={UseOutlines},
@@ -104,7 +108,7 @@ backref,
 colorlinks,linkcolor={black},citecolor={black},urlcolor={black},
 ]{hyperref}
 \else
-\usepackage[dvips,
+\usepackage[
 pdfencoding=auto,
 psdextra,
 pdfpagemode={UseOutlines},

@@ -34,12 +34,12 @@ the strategy used to visit neighboring pixels.
 Several implementations of region growing are available in ITK.  This section
 describes some of the most commonly used.
 
-\subsection{Connected Threshold}
+\subsection{Connected Threshold}%
+\label{sec:ConnectedThreshold}
 
 A simple criterion for including pixels in a growing region is to evaluate
 intensity value inside a specific interval.
 
-\label{sec:ConnectedThreshold}
 \input{ConnectedThresholdImageFilter.tex}
 
 \subsection{Otsu Segmentation}
@@ -49,34 +49,36 @@ we minimize the area under the histogram for one cluster that lies on the other 
 side of the threshold. This is equivalent to minimizing the within class variance
 or equivalently maximizing the between class variance.
 
+\subsubsection{Otsu Threshold}%
 \label{sec:OtsuThreshold}
 \input{OtsuThresholdImageFilter.tex}
 
+\subsubsection{Otsu MultipleThreshold}%
 \label{sec:OtsuMultipleThreshold}
 \input{OtsuMultipleThresholdImageFilter.tex}
 
-\subsection{Neighborhood Connected}
+\subsection{Neighborhood Connected}%
 \label{sec:NeighborhoodConnectedImageFilter}
 \input{NeighborhoodConnectedImageFilter.tex}
 
 
-\subsection{Confidence Connected}
+\subsection{Confidence Connected}%
 \label{sec:ConfidenceConnected}
 \input{ConfidenceConnected.tex}
 \input{DesignAndFunctionality/ConfidenceConnectedOnBrainWeb.tex}
 
 
-\subsection{Isolated Connected}
+\subsection{Isolated Connected}%
 \label{sec:IsolatedConnected}
 \input{IsolatedConnectedImageFilter.tex}
 
 
-\subsection{Confidence Connected in Vector Images}
+\subsection{Confidence Connected in Vector Images}%
 \label{sec:VectorConfidenceConnected}
 \input{VectorConfidenceConnected.tex}
 
 
-\section{Segmentation Based on Watersheds}
+\section{Segmentation Based on Watersheds}%
 \label{sec:WatershedSegmentation}
 \input{DesignAndFunctionality/WatershedSegmentation.tex}
 
@@ -85,7 +87,7 @@ or equivalently maximizing the between class variance.
 % section.
 \clearpage
 
-\section{Level Set Segmentation}
+\section{Level Set Segmentation}%
 \label{sec:LevelSetsSegmentation}
 \input{DesignAndFunctionality/LevelSetsSegmentation.tex}
 
@@ -97,6 +99,6 @@ or equivalently maximizing the between class variance.
 %REMOVED PATENTED: \input{HybridSegmentationMethods.tex}
 
 
-\section{Feature Extraction}
+\section{Feature Extraction}%
 \label{sec:FeatureExtractionMethods}
 \input{DesignAndFunctionality/FeatureExtractionMethods.tex}

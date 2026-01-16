@@ -4,8 +4,6 @@
 %
 %
 
-\index{itk::Image\-To\-Image\-Metricv4}
-
 \begin{floatingfigure}[rlp]{0.5\textwidth}
  \centering
  \includegraphics{ParzenWindowing13.eps}
@@ -13,7 +11,8 @@
 In Parzen windowing, a continuous density function is constructed by
 superimposing kernel functions (Gaussian function in this case) centered on the
 intensity samples obtained from the image.\label{fig:ParzenWindowing}}
-\end{floatingfigure}
+\end{floatingfigure}%
+\index{itk::Image\-To\-Image\-Metricv4}
 
 In ITK, \doxygen{ImageToImageMetricv4} objects quantitatively measure how well
 the transformed moving image fits the fixed image by comparing the gray-scale
@@ -28,10 +27,10 @@ capture range while others require initialization close to the optimal
 position.  In addition, some metrics are only suitable for comparing images
 obtained from the same imaging modality, while others can handle
 inter-modality comparisons.
-Unfortunately, there are no clear-cut rules as to how to choose a metric.
-
-\index{itk::Image\-To\-Image\-Metricv4!GetValue()}
-\index{itk::Image\-To\-Image\-Metricv4!GetDerivatives()}
+Unfortunately, there are no clear-cut rules as to how to choose a metric.%
+%
+\index{itk::Image\-To\-Image\-Metricv4!GetValue()}%
+\index{itk::Image\-To\-Image\-Metricv4!GetDerivatives()}%
 \index{itk::Image\-To\-Image\-Metricv4!GetValueAndDerivatives()}
 
 The matching Metric class controls most parts of the registration process
@@ -43,8 +42,8 @@ of the virtual lattice.  For each point, the corresponding fixed and moving
 image positions are computed using the fixed initial transform and the moving
 transform with the specified parameters. Then, the fixed and moving interpolators
 are used to compute the fixed and moving image's intensities at the mapped
-positions. Details on this mapping are illustrated in Figures
-\ref{fig:ImageOverlapIterator} and \ref{fig:ImageOverlapInterpolator} assuming
+positions. Details on this mapping are illustrated in Figures~\ref{fig:ImageOverlapIterator}
+and~\ref{fig:ImageOverlapInterpolator} assuming
 that virtual lattice is the same as the fixed image lattice, which is usually the
 case in practice.
 
@@ -88,11 +87,11 @@ the following is the list of metrics currently available in ITKv3:
 In the following sections, we describe the ITKv4 metric types in detail.
 You can check ITK descriptions in doxygen for details about ITKv3 metric classes.
 
-For ease of notation, we will refer to the fixed image $f(\bf{X})$
-and transformed moving image $(m \circ T(\bf{X}))$ as images $A$ and $B$.
+For ease of notation, we will refer to the fixed image $f(\textbf{X})$
+and transformed moving image $(m \circ T(\textbf{X}))$ as images $A$ and $B$.
 
-\subsection{Mean Squares Metric}
-\label{sec:MeanSquaresMetricv4}
+\subsection{Mean Squares Metric}%
+\label{sec:MeanSquaresMetricv4}%
 \index{itk::Mean\-Squares\-Image\-To\-Image\-Metricv4}
 
 The \doxygen{MeanSquaresImageToImageMetricv4} computes the mean squared
@@ -117,7 +116,7 @@ homologous point must be the same in both images. Hence, its use is restricted
 to images of the same modality. Additionally, any linear changes in the
 intensity result in a poor match value.
 
-\subsubsection{Exploring a Metric}
+\subsubsection{Exploring a Metric}%
 \label{sec:ExploringAMetric}
 
 Getting familiar with the characteristics of the Metric as a cost function is
@@ -131,8 +130,8 @@ toolkit.
 \input{MeanSquaresImageMetric1.tex}
 
 
-\subsection{Normalized Correlation Metric}
-\label{sec:NormalizedCorrelationMetric}
+\subsection{Normalized Correlation Metric}%
+\label{sec:NormalizedCorrelationMetric}%
 \index{itk::Correlation\-Image\-To\-Image\-Metricv4}
 
 The \doxygen{CorrelationImageToImageMetricv4} computes pixel-wise
@@ -158,7 +157,7 @@ the two images.  This metric produces a cost function with sharp peaks and
 well-defined minima.  On the other hand, it has a relatively small capture radius.
 
 
-\subsection{Mutual Information Metric}
+\subsection{Mutual Information Metric}%
 \label{sec:MutualInformationMetric}
 
 The \doxygen{MattesMutualInformationImageToImageMetricv4} computes the mutual
@@ -191,7 +190,7 @@ However, if there is any dependency, then
 \begin{equation}
 H(A,B)<H(A)+H(B).
 \end{equation}
-The difference is called Mutual Information : \( I(A,B) \)
+The difference is called Mutual Information: \( I(A,B) \)
 \begin{equation}
 I(A,B)=H(A)+H(B)-H(A,B)
 \end{equation}
@@ -205,7 +204,7 @@ densities must be estimated from the image data. Parzen windows
 In this scheme, the densities are constructed by taking intensity
 samples $S$ from the image and super-positioning kernel functions
 $K(\cdot)$ centered on the elements of $S$ as illustrated in
-Figure \ref{fig:ParzenWindowing}:
+Figure~\ref{fig:ParzenWindowing}:
 
 A variety of functions can be used as the smoothing kernel with the
 requirement that they are smooth, symmetric, have zero mean and
@@ -227,17 +226,16 @@ smoothing parameter will depend on the data and the number of samples used.
 
 \subsubsection{Mattes et al. Implementation}
 The implementation of mutual information metric available in ITKv4 follows
-the method specified by Mattes et al. in \cite{Mattes2001} and is implemented
-by the \doxygen{MattesMutualInformationImageToImageMetricv4} class.
-
+the method specified by Mattes et al. in~\cite{Mattes2001} and is implemented
+by the \doxygen{MattesMutualInformationImageToImageMetricv4} class.%
 \index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metricv4}
+
 In this implementation, only one set of intensity samples is drawn from the
 image.  Using this set, the marginal and joint probability density function
 (PDF) is evaluated at discrete positions or bins uniformly spread within the
 dynamic range of the images. Entropy values are then computed by summing over
-the bins.
-
-\index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metricv4!SetNumberOfHistogramBins()}
+the bins.%
+\index{itk::Mattes\-Mutual\-Information\-Image\-To\-Image\-Metricv4!SetNumberOfHistogramBins()}%
 
 The number of spatial samples used is a ratio of the total number of samples
 and is set using the \code{SetMetricSamplingPercentage()} method directly from
@@ -267,10 +265,9 @@ NMI(A,B) = 1 + \frac{I(A,B)}{H(A,B)} = \frac{H(A) + H(B)}{H(A,B)}
 \end{equation}
 where the entropy of the images, $H(A)$, $H(B)$, the mutual
 information, $I(A,B)$ and the joint entropy $H(A,B)$ are computed as mentioned
-in \ref{sec:MutualInformationMetric}. Details of the implementation may be found in
-\cite{Hajnal2001}.
+in~\ref{sec:MutualInformationMetric}. Details of the implementation may be found in~\cite{Hajnal2001}.
 
-\subsection{Demons metric}
+\subsection{Demons metric}%
 \index{itk::Demons\-Image\-To\-Image\-Metricv4}
 
 The implementation of the \doxygen{DemonsImageToImageMetricv4} metric is taken from
@@ -291,7 +288,7 @@ In particular, it's meant to be used with \doxygen{DisplacementFieldTransform}
 and derived classes.
 
 
-\subsection{ANTS neighborhood correlation metric}
+\subsection{ANTS neighborhood correlation metric}%
 \index{itk::ANTS\-Neighborhood\-Correlation\-Image\-To\-Image\-Metricv4}
 
 The \doxygen{ANTSNeighborhoodCorrelationImageToImageMetricv4} metric computes

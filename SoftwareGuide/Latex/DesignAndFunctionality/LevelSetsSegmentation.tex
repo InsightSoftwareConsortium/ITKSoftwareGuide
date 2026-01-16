@@ -20,11 +20,11 @@
 The paradigm of the level set is that it is a numerical method for tracking
 the evolution of contours and surfaces. Instead of manipulating the contour
 directly, the contour is embedded as the zero level set of a higher
-dimensional function called the level-set function, $\psi(\bf{X},t)$. The
+dimensional function called the level-set function, $\psi(\textbf{X},t)$. The
 level-set function is then evolved under the control of a differential
 equation.  At any time, the evolving contour can be obtained by extracting
-the zero level-set $\Gamma(\bf{X},t) =
-\{\psi(\bf{X},t) = 0\}$ from the output.  The main advantages of using level
+the zero level-set $\Gamma(\textbf{X},t) =
+\{\psi(\textbf{X},t) = 0\}$ from the output.  The main advantages of using level
 sets is that arbitrarily complex shapes can be modeled and topological
 changes such as merging and splitting are handled implicitly.
 
@@ -34,7 +34,7 @@ equation.  In a typical approach, a contour is initialized by a user and is
 then evolved until it fits the form of an anatomical structure in the image.
 Many different implementations and variants of this basic concept have been
 published in the literature. An overview of the field has been made by
-Sethian \cite{Sethian1996}.
+Sethian~\cite{Sethian1996}.
 
 The following sections introduce practical examples of some
 of the level set segmentation methods available in ITK.  The remainder of this
@@ -46,7 +46,7 @@ more effectively.
 Each filter makes use of a generic level-set equation to compute the update to
 the solution $\psi$ of the partial differential equation.
 
-\begin{equation}
+\begin{equation}%
 \label{eqn:LevelSetEquation}
 \frac{d}{dt}\psi = -\alpha \mathbf{A}(\mathbf{x})\cdot\nabla\psi - \beta
   P(\mathbf{x})\mid\nabla\psi\mid +
@@ -73,7 +73,7 @@ parameter.  If the input image pixel types do not match the numerical type,
 those inputs will be cast to an image of appropriate type when the filter is
 executed.
 
-Most filters require two images as input, an initial model $\psi(\bf{X},
+Most filters require two images as input, an initial model $\psi(\textbf{X},
 t=0)$, and a \emph{feature image}, which is either the image you wish to
 segment or some preprocessed version.  You must specify the isovalue that
 represents the surface $\Gamma$ in your initial model. The single image
@@ -124,35 +124,35 @@ full resolution using the results at each intermediate scale as the
 initialization for the next scale.
 
 
-\subsection{Fast Marching Segmentation}
+\subsection{Fast Marching Segmentation}%
 \label{sec:FastMarchingImageFilter}
 \input{FastMarchingImageFilter.tex}
 
 
-\subsection{Shape Detection Segmentation}
+\subsection{Shape Detection Segmentation}%
 \label{sec:ShapeDetectionLevelSetFilter}
 \input{ShapeDetectionLevelSetFilter.tex}
 
 
-\subsection{Geodesic Active Contours Segmentation}
+\subsection{Geodesic Active Contours Segmentation}%
 \label{sec:GeodesicActiveContourImageFilter}
 \input{GeodesicActiveContourImageFilter.tex}
 
 
-\subsection{Threshold Level Set Segmentation}
+\subsection{Threshold Level Set Segmentation}%
 \label{sec:ThresholdSegmentationLevelSetImageFilter}
 \input{ThresholdSegmentationLevelSetImageFilter.tex}
 
 
-\subsection{Canny-Edge Level Set Segmentation}
+\subsection{Canny-Edge Level Set Segmentation}%
 \label{sec:CannySegmentationLevelSetImageFilter}
 \input{CannySegmentationLevelSetImageFilter.tex}
 
 
-\subsection{Laplacian Level Set Segmentation}
+\subsection{Laplacian Level Set Segmentation}%
 \label{sec:LaplacianSegmentationLevelSetImageFilter}
 \input{LaplacianSegmentationLevelSetImageFilter.tex}
 
-\subsection{Geodesic Active Contours Segmentation With Shape Guidance}
+\subsection{Geodesic Active Contours Segmentation With Shape Guidance}%
 \label{sec:GeodesicActiveContourShapePriorLevelSetImageFilter}
 \input{GeodesicActiveContourShapePriorLevelSetImageFilter.tex}

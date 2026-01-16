@@ -1,4 +1,4 @@
-\chapter{Configuring and Building ITK}
+\chapter{Configuring and Building ITK}%
 \label{chapter:Installation}
 
 This chapter describes the process for configuring and compiling ITK on your
@@ -40,12 +40,12 @@ in ITK for the date at which the document was generated:
 
 If you are currently using an outdated compiler this may be an excellent excuse
 for upgrading this old piece of software! Support for different platforms is
-evident on the ITK quality dashboard (see Section \ref{sec:CDash} on page
-\pageref{sec:CDash}).
+evident on the ITK quality dashboard (see Section~\ref{sec:CDash}
+on page~\pageref{sec:CDash}).
 
-\section{Obtaining the Software}
-\label{sec:ObtainingTheSoftware}
-\label{sec:DownloadingITK}
+\section{Obtaining the Software}%
+\label{sec:ObtainingTheSoftware}%
+\label{sec:DownloadingITK}%
 \index{Downloading}
 
 There are two different ways to access the ITK source code:
@@ -65,18 +65,16 @@ There are two different ways to access the ITK source code:
 This software guide assumes that you are using the current released version of
 ITK, available on the ITK web site. If you are a new user, we recommend the
 released version of the software. It is more consistent
-than the code available from the Git repository (see Section
-\ref{sec:DownloadingFromGit}).  When working from the
-repository, please be aware of the ITK quality testing dashboard. The Insight
+than the code available from the Git repository (see Section~\ref{sec:DownloadingFromGit}).
+When working from the repository, please be aware of the ITK quality testing dashboard. The Insight
 Toolkit is heavily tested using the open-source CDash regression testing
 system\footnote{\url{https://open.cdash.org/index.php?project=Insight}}. Before
 updating the repository, make sure that the dashboard is \emph{green},
 indicating stable code. (Learn more about the ITK dashboard and quality
-assurance process in Section \ref{sec:CDash} on page \pageref{sec:CDash}.)
+assurance process in Section~\ref{sec:CDash} on page~\pageref{sec:CDash}.)
 
-\subsection{Downloading Packaged Releases}
-\label{sec:DownloadingReleases}
-
+\subsection{Downloading Packaged Releases}%
+\label{sec:DownloadingReleases}%
 \index{ITK!downloading release}
 
 ITK can be downloaded without cost from the following web site:
@@ -91,17 +89,16 @@ systems.
 
 Once you unzip or untar the file a directory called
 \code{InsightToolkit-\ITKVERSIONMAJORMINORPATCH} will be created in your disk and
-you will be ready to start the configuration process described in Section
-\ref{sec:CMakeforITK} on page \pageref{sec:CMakeforITK}.
+you will be ready to start the configuration process described in
+Section~\ref{sec:CMakeforITK} on page~\pageref{sec:CMakeforITK}.
 
-\subsection{Downloading From Git}
-\label{sec:DownloadingFromGit}
-
+\subsection{Downloading From Git}%
+\label{sec:DownloadingFromGit}%
 \index{ITK!Git repository}
 
 Git is a free and open source distributed version control system.  For more
-information about Git please see Section \ref{sec:GitRepository} on page
-\pageref{sec:GitRepository}. (Note: please make sure that you access the
+information about Git please see Section~\ref{sec:GitRepository}
+on page~\pageref{sec:GitRepository}. (Note: please make sure that you access the
 software via Git only when the ITK quality dashboard indicates that the code
 is stable.)
 
@@ -118,11 +115,11 @@ git pull
 \end{minted}
 
 Once you obtain the software you are ready to configure and compile it (see
-Section \ref{sec:CMakeforITK} on page \pageref{sec:CMakeforITK}). First,
+Section~\ref{sec:CMakeforITK} on page~\pageref{sec:CMakeforITK}). First,
 however, we recommend reading the following sections that describe the
 organization of the software and joining the discussion.
 
-\subsection{Data}
+\subsection{Data}%
 \label{sec:Data}
 
 The Insight Toolkit was designed to support the Visible Human Project
@@ -136,7 +133,7 @@ of the following:
 \url{ftp://public.kitware.com/pub/itk/Data/}.
 \end{quote}
 
-\section{Using CMake for Configuring and Building ITK}
+\section{Using CMake for Configuring and Building ITK}%
 \label{sec:UsingCMakeForConfiguringAndBuildingITK}
 
 The challenge of supporting ITK across platforms has been solved through the
@@ -163,10 +160,9 @@ third party library dependencies required, and these dependencies are used
 during compilation unless the use of a system version is requested during CMake
 configuration.
 
-\subsection{Preparing CMake}
-\label{sec:CMakeforITK}
-
-\index{CMake}
+\subsection{Preparing CMake}%
+\label{sec:CMakeforITK}%
+\index{CMake}%
 \index{CMake!downloading}
 
 CMake can be downloaded at no cost from
@@ -182,9 +178,9 @@ minimum version of CMake has been evolving along with the version of ITK. For
 example, the current version of ITK (\ITKVERSIONMAJORMINORPATCH) requires the minimum
 CMake version to be 3.9.5.
 
-CMake provides a terminal-based interface (Figure \ref{fig:CMakeGUI})
+CMake provides a terminal-based interface (Figure~\ref{fig:CMakeGUI})
 on platforms support the \code{curses} library. For most platforms CMake also
-provides a GUI based on the Qt library. Figure \ref{fig:CMakeGUI} shows the
+provides a GUI based on the Qt library. Figure~\ref{fig:CMakeGUI} shows the
 terminal-based CMake interface for Linux and CMake GUI for Microsoft Windows.
 
 \begin{figure}[htb!]
@@ -194,7 +190,7 @@ terminal-based CMake interface for Linux and CMake GUI for Microsoft Windows.
 \itkcaption[CMake user interface]{CMake user interfaces: at the top is the
 interface based on the \code{curses} library supported by UNIX/Linux systems,
 below is the Microsoft Windows version of the CMake GUI based on the Qt library
-(CMake GUI is also available on UNIX/Linux systems).}
+(CMake GUI is also available on UNIX/Linux systems).}%
 \label{fig:CMakeGUI}
 \end{figure}
 
@@ -218,7 +214,7 @@ ccmake ../ITK
 \normalsize
 
 In the GUI version of CMake (\code{cmake-gui}) the source and binary directories
-are specified in the appropriate input fields (Figure \ref{fig:CMakeGUI}) and
+are specified in the appropriate input fields (Figure~\ref{fig:CMakeGUI}) and
 the application will request a confirmation to create a new binary directory if
 it does not exist.
 
@@ -235,9 +231,8 @@ when no new options appear after a configuration iteration can you be sure that
 the necessary decisions have all been made. At this point build files are
 generated for the current configuration.
 
-\subsection{Configuring ITK}
-\label{sec:ConfigureITK}
-
+\subsection{Configuring ITK}%
+\label{sec:ConfigureITK}%
 \index{ITK!configuration}
 
 Start terminal-based CMake interface \code{ccmake} on Linux and UNIX, or the
@@ -273,13 +268,12 @@ reflect the latest configuration changes. In addition, the new build files need
 to be reloaded if the project is open in the integrated development environment
 such as Visual Studio or Eclipse.
 
-\subsection{Advanced Module Configuration}
-\label{sec:ModuleConfiguration}
-
-\index{ITK!advanced configuration}
+\subsection{Advanced Module Configuration}%
+\label{sec:ModuleConfiguration}%
+\index{ITK!advanced configuration}%
 \index{ITK!modules}
 
-Following the default configuration introduced in \ref{sec:ConfigureITK},
+Following the default configuration introduced in~\ref{sec:ConfigureITK},
 the majority of the toolkit will be built. The modern modular structure of the
 toolkit makes it possible to customize the ITK library by choosing which modules
 to include in the build. ITK was officially modularized in version 4.0.0
@@ -289,8 +283,8 @@ regular/internal modules and many remote modules, while new ITK modules are
 being developed.
 
 \code{ITK\_BUILD\_DEFAULT\_MODULES} is the CMake option to build all default
-modules in the toolkit, by default this option is \code{ON} as shown in Figure
-\ref{fig:CMakeGUI}. The default modules include most internal ITK modules except
+modules in the toolkit, by default this option is \code{ON} as shown in
+Figure~\ref{fig:CMakeGUI}. The default modules include most internal ITK modules except
 the ones that depend on external third party libraries (such as
 \code{ITKVtkGlue}, \code{ITKVideoBridgeOpenCV}, \code{ITKVideoBridgeVXL}, etc.)
 and several modules containing legacy code (\code{ITKReview},
@@ -310,7 +304,7 @@ relationships or similar functionalities stay in one subdirectory. Currently
 there are 11 groups (excluding the External and Remote groups). The CMake
 \code{ITKGroup\_\{group name\}} options are created for the convenient enabling
 or disabling of multiple modules at once. The \code{ITKGroup\_Core} group is
-selected by default as shown in Figure \ref{fig:ConfigITKGroup}. When a group is
+selected by default as shown in Figure~\ref{fig:ConfigITKGroup}. When a group is
 selected, all modules in the group and their depending modules are enabled. When
 a group variable is set to \code{OFF}, all modules in the group, except the ones
 that are required by other enabled modules, are disabled.
@@ -318,7 +312,7 @@ that are required by other enabled modules, are disabled.
 \begin{figure}[htb!]
 \centering
 \includegraphics[width=0.8\textwidth]{Configure_ITK_Group.eps}
-\itkcaption[ITK Group Configuration]{CMake GUI shows the ITK Group options.}
+\itkcaption[ITK Group Configuration]{CMake GUI shows the ITK Group options.}%
 \label{fig:ConfigITKGroup}
 \end{figure}
 
@@ -327,8 +321,8 @@ specific modules to be included in your ITK library, you can certainly skip the
 Group options and use the \code{Module\_\{module name\}} options only. Whatever
 modules you select, their dependent modules are automatically enabled. In the
 advanced mode of the CMake GUI, you can manually toggle the build of the
-non-default modules via the \code{Module\_\{module name\}} variables. In Figure
-\ref{fig:ConfigITKDefault} all default modules' \code{Module\_\{module name\}}
+non-default modules via the \code{Module\_\{module name\}} variables. In
+Figure~\ref{fig:ConfigITKDefault} all default modules' \code{Module\_\{module name\}}
 variables are shown disabled for toggling since they are enabled via the
 \code{ITK\_BUILD\_DEFAULT\_MODULES} set to \code{ON} variable.
 
@@ -336,7 +330,7 @@ variables are shown disabled for toggling since they are enabled via the
 \centering
 \includegraphics[width=0.8\textwidth]{Configure_ITK_Default.eps}
 \itkcaption[Default ITK Configuration]{CMake GUI for configuring ITK: the
-advanced mode shows options for non-default ITK Modules.}
+advanced mode shows options for non-default ITK Modules.}%
 \label{fig:ConfigITKDefault}
 \end{figure}
 
@@ -356,7 +350,7 @@ default module.
 
 To find out why a particular module is enabled, check the CMake configuration
 messages where the information about enabling or disabling the modules is
-displayed (Figure \ref{fig:ConfigITKDefault}); these messages are sorted in
+displayed (Figure~\ref{fig:ConfigITKDefault}); these messages are sorted in
 alphabetical order by module names.
 
 Those who prefer to build ITK using the command line are referred to the online
@@ -379,7 +373,7 @@ also be accomplished by
 cmake ../ITK-build
 \end{minted}
 
-\item \textbf{Example 2}: Enable specific group(s) of modules.
+\item \textbf{Example 2}: Enable specific group of modules.
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
 cmake -DITK_BUILD_DEFAULT_MODULES:BOOL=OFF
@@ -423,7 +417,7 @@ Note that \code{BUILD\_EXAMPLES} is \code{OFF} by default, and
 
 \end{itemize}
 
-\subsection{Static and Shared Libraries}
+\subsection{Static and Shared Libraries}%
 \label{sec:StaticSharedLibraries}
 
 ITK libraries can be built as \textit{static libraries}, i.e. files whose
@@ -458,9 +452,8 @@ default value can be disabled only when it is known that template classes are
 not implicitly instantiated and passed across binaries.
 
 
-\subsection{Compiling ITK}
-\label{sec:BuildITK}
-
+\subsection{Compiling ITK}%
+\label{sec:BuildITK}%
 \index{ITK!building}
 
 To initiate the build process after generating the build files on Linux or UNIX,
@@ -478,9 +471,8 @@ about 2400 test programs will be compiled. In this case, you will then need
 to run \code{ctest} to verify that all the components of ITK have been correctly built
 on your system.
 
-\subsection{Installing ITK on Your System}
-\label{sec:Installation}
-
+\subsection{Installing ITK on Your System}%
+\label{sec:Installation}%
 \index{ITK!installation}
 
 When the build process is complete an ITK binary distribution package can be
@@ -502,7 +494,7 @@ much wide application for distributing software developed with ITK. Further
 details on configuring and generating binary packages with CMake can be found in
 the CMake tutorial\footnote{\url{https://cmake.org/cmake-tutorial/}}.
 
-\section{Cross compiling ITK}
+\section{Cross compiling ITK}%
 \label{sec:CrossCompilingITK}
 
 This section describes the procedure to follow to cross compile ITK for
@@ -526,7 +518,7 @@ mkdir ITK-build
 \end{minted}
 \normalsize
 
-\section{Getting Started With ITK}
+\section{Getting Started With ITK}%
 \label{sec:GettingStartedWithITK}
 
 The simplest way to create a new project with ITK is to create two new
@@ -573,7 +565,7 @@ window, run the executable and close the window right away, not giving you time
 to see the output. It is therefore preferable to run the executable from the DOS
 command line by starting the \code{cmd.exe} shell first.
 
-\section{Using ITK as an External Library}
+\section{Using ITK as an External Library}%
 \label{sec:UsingITKAsExternalLibrary}
 
 For a project that uses ITK as an external library, it is recommended to
@@ -582,7 +574,8 @@ specify the individual ITK modules in the \code{COMPONENTS} argument in the
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
-find_package(ITK REQUIRED COMPONENTS Module1 Module2)
+set(MINIMUM_ITK_VERSION 5.4)
+find_package(ITK \${MINIMUM_ITK_VERSION} REQUIRED COMPONENTS Module1 Module2)
 include(\${ITK_USE_FILE})
 \end{minted}
 \normalsize
@@ -591,7 +584,8 @@ e.g.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
-find_package(ITK REQUIRED
+set(MINIMUM_ITK_VERSION 5.4)
+find_package(ITK \${MINIMUM_ITK_VERSION} REQUIRED
   COMPONENTS
     MorphologicalContourInterpolation
     ITKSmoothing
@@ -639,9 +633,8 @@ Examples\footnote{\url{https://github.com/InsightSoftwareConsortium/ITKSphinxExa
 and ITK Software
 Guide\footnote{\url{https://github.com/InsightSoftwareConsortium/ITKSoftwareGuide}}.
 
-\subsection{Hello World!}
-\label{sec:HelloWorldITK}
-
+\subsection{Hello World!}%
+\label{sec:HelloWorldITK}%
 \index{Hello World}
 
 This section provides and explains the contents of the two files which need to
@@ -654,7 +647,8 @@ The \code{CMakeLists.txt} file contains the following lines:
 \begin{minted}[linenos=false]{cmake}
 project(HelloWorld)
 
-find_package(ITK REQUIRED)
+set(MINIMUM_ITK_VERSION 5.4)
+find_package(ITK \${MINIMUM_ITK_VERSION} REQUIRED)
 include(${ITK_USE_FILE})
 
 add_executable(HelloWorld HelloWorld.cxx)
@@ -681,10 +675,10 @@ projects can be found in the CMake tutorial\footnote{
 \url{https://cmake.org/cmake-tutorial/}} and CMake online
 documentation\footnote{\url{https://cmake.org/documentation/}}.
 
-\input HelloWorld.tex
+\input{HelloWorld.tex}
 
 By this point you have successfully configured and compiled ITK, and created
 your first simple program! If you have experienced any difficulties while
 following the instructions provided in this section, please join the community
 discussion (see Section~\ref{sec:JoinDiscussion} on
-page \pageref{sec:JoinDiscussion}) and post questions there.
+page~\pageref{sec:JoinDiscussion}) and post questions there.

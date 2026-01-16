@@ -10,29 +10,28 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 For the problem of intra-modality deformable registration, the Insight
-Toolkit provides an implementation of Thirion's ``demons'' algorithm
-\cite{Thirion1995b,Thirion1998}.
+Toolkit provides an implementation of Thirion's ``demons'' algorithm~\cite{Thirion1995b,Thirion1998}.
 In this implementation, each image is viewed as a set of iso-intensity
 contours.  The main idea is that a regular grid of forces deform an image by
 pushing the contours in the normal direction.  The orientation and magnitude
 of the displacement is derived from the instantaneous optical flow equation:
 
 \begin{equation}
-\bf{D}(\bf{X}) \cdot \nabla f(\bf{X}) = - \left(m(\bf{X}) - f(\bf{X}) \right)
+\textbf{D}(\textbf{X}) \cdot \nabla f(\textbf{X}) = - \left(m(\textbf{X}) - f(\textbf{X}) \right)
 \label{eqn:OpticalFlow}
 \end{equation}
 
-In the above equation, $f(\bf{X})$ is the fixed image, $m(\bf{X})$
-is the moving image to be registered, and $\bf{D}(\bf{X})$ is the displacement
+In the above equation, $f(\textbf{X})$ is the fixed image, $m(\textbf{X})$
+is the moving image to be registered, and $\textbf{D}(\textbf{X})$ is the displacement
 or optical flow between the images. It is well known in optical flow
-literature that Equation \ref{eqn:OpticalFlow} is insufficient to specify
-$\bf{D}(\bf{X})$ locally and is usually determined using some form of
+literature that Equation~\ref{eqn:OpticalFlow} is insufficient to specify
+$\textbf{D}(\textbf{X})$ locally and is usually determined using some form of
 regularization. For registration, the projection of the vector on the
 direction of the intensity gradient is used:
 
 \begin{equation}
-\bf{D}(\bf{X}) = - \frac
-{\left(  m(\bf{X}) - f(\bf{X}) \right) \nabla f(\bf{X})}
+\textbf{D}(\textbf{X}) = - \frac
+{\left(  m(\textbf{X}) - f(\textbf{X}) \right) \nabla f(\textbf{X})}
 {\left\|  \nabla f \right\|^2 }
 \end{equation}
 
@@ -41,9 +40,9 @@ resulting in large displacement values. To overcome this problem, Thirion
 re-normalizes the equation such that:
 
 \begin{equation}
-\bf{D}(\bf{X}) = - \frac
-{\left(  m(\bf{X}) - f(\bf{X}) \right) \nabla f(\bf{X})}
-{\left\|  \nabla f \right\|^2 + \left(  m(\bf{X}) - f(\bf{X}) \right)^2 / K }
+\textbf{D}(\textbf{X}) = - \frac
+{\left(  m(\textbf{X}) - f(\textbf{X}) \right) \nabla f(\textbf{X})}
+{\left\|  \nabla f \right\|^2 + \left(  m(\textbf{X}) - f(\textbf{X}) \right)^2 / K }%
 \label{eqn:DemonsDisplacement}
 \end{equation}
 
@@ -52,26 +51,25 @@ between intensities and gradients. This factor is computed as the mean squared
 value of the pixel spacings. The inclusion of $K$ ensures the force computation is
 invariant to the pixel scaling of the images.
 
-Starting with an initial deformation field $\bf{D}^{0}(\bf{X})$, the demons
-algorithm iteratively updates the field using Equation
-\ref{eqn:DemonsDisplacement} such that the field at the $N$-th iteration is
-given by:
+Starting with an initial deformation field $\textbf{D}^{0}(\textbf{X})$, the demons
+algorithm iteratively updates the field using Equation~\ref{eqn:DemonsDisplacement} such
+that the field at the $N$-th iteration is given by:
 
 \begin{equation}
-\bf{D}^{N}(\bf{X}) = \bf{D}^{N-1}(\bf{X}) - \frac
-{\left(  m(\bf{X}+ \bf{D}^{N-1}(\bf{X}))
-- f(\bf{X}) \right) \nabla f(\bf{X})}
+\textbf{D}^{N}(\textbf{X}) = \textbf{D}^{N-1}(\textbf{X}) - \frac
+{\left(  m(\textbf{X}+ \textbf{D}^{N-1}(\textbf{X}))
+- f(\textbf{X}) \right) \nabla f(\textbf{X})}
 {\left\|  \nabla f \right\|^2 + \left(
-m(\bf{X}+ \bf{D}^{N-1}(\bf{X}) )
- - f(\bf{X}) \right)^2 }
+m(\textbf{X}+ \textbf{D}^{N-1}(\textbf{X}) )
+ - f(\textbf{X}) \right)^2 }%
 \label{eqn:DemonsUpdateEquation}
 \end{equation}
 
 Reconstruction of the deformation field is an ill-posed problem where
 matching the fixed and moving images has many solutions. For example, since
 each image pixel is free to move independently, it is possible that all
-pixels of one particular value in $m(\bf{X})$ could map to a single image
-pixel in $f(\bf{X})$ of the same value. The resulting deformation field may
+pixels of one particular value in $m(\textbf{X})$ could map to a single image
+pixel in $f(\textbf{X})$ of the same value. The resulting deformation field may
 be unrealistic for real-world applications. An option to solve for the field
 uniquely is to enforce an elastic-like behavior, smoothing the deformation
 field with a Gaussian filter between iterations.
@@ -79,7 +77,7 @@ field with a Gaussian filter between iterations.
 In ITK, the demons algorithm is implemented as part of the finite difference
 solver (FDS) framework and its use is demonstrated in the following example.
 
-\subsection{Asymmetrical Demons Deformable Registration}
+\subsection{Asymmetrical Demons Deformable Registration}%
 \label{sec:AsymmetricalDemonsDeformableRegistration}
 \input{DeformableRegistration2.tex}
 
@@ -89,15 +87,15 @@ in the force calculation during one iteration of the PDE update. The equation
 used in this case is
 
 \begin{equation}
-\bf{D}(\bf{X}) = - \frac
-{2 \left(  m(\bf{X}) - f(\bf{X}) \right) \left(  \nabla f(\bf{X}) +  \nabla g(\bf{X}) \right) }
-{\left\|  \nabla f + \nabla g \right\|^2 + \left(  m(\bf{X}) - f(\bf{X}) \right)^2 / K }
+\textbf{D}(\textbf{X}) = - \frac
+{2 \left(  m(\textbf{X}) - f(\textbf{X}) \right) \left(  \nabla f(\textbf{X}) +  \nabla g(\textbf{X}) \right) }
+{\left\|  \nabla f + \nabla g \right\|^2 + \left(  m(\textbf{X}) - f(\textbf{X}) \right)^2 / K }%
 \label{eqn:DemonsDisplacement2}
 \end{equation}
 
 The following example illustrates the use of this deformable registration
 method.
 
-\subsection{Symmetrical Demons Deformable Registration}
+\subsection{Symmetrical Demons Deformable Registration}%
 \label{sec:SymmetricalDemonsDeformableRegistration}
 \input{DeformableRegistration3.tex}

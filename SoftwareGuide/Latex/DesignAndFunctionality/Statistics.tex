@@ -1,4 +1,4 @@
-\chapter{Statistics}
+\chapter{Statistics}%
 \label{sec:StaisticsFramework}
 
 This chapter introduces the statistics functionalities in Insight. The
@@ -12,7 +12,7 @@ The statistics subsystem mainly consists of three parts: data container
 classes, statistical algorithms, and the classification framework. In this
 chapter, we will discuss each major part in that order.
 
-\section{Data Containers}
+\section{Data Containers}%
 \label{sec:StatisticsDataContainer}
 
 An \subdoxygen{Statistics}{Sample} object is a data container of elements
@@ -30,12 +30,12 @@ FixedArray itself.
   \protect\label{fig:SampleInheritanceTree}
 \end{figure}
 
-\subsection{Sample Interface}
+\subsection{Sample Interface}%
 \label{sec:SampleInterface}
 \input{ListSample.tex}
 
 
-\subsection{Sample Adaptors}
+\subsection{Sample Adaptors}%
 \label{sec:SampleAdaptors}
 
 There are two adaptor classes that provide the common
@@ -47,12 +47,12 @@ describe how to create an
 \subdoxygen{Statistics}{ImageToListSampleAdaptor} and then an
 \subdoxygen{Statistics}{PointSetToListSampleAdaptor} object.
 
-\subsubsection{ImageToListSampleAdaptor}
+\subsubsection{ImageToListSampleAdaptor}%
 \label{sec:ImageToListSampleAdaptor}
 \input{ImageToListSampleAdaptor.tex}
 
 
-\subsubsection{PointSetToListSampleAdaptor}
+\subsubsection{PointSetToListSampleAdaptor}%
 \label{sec:PointSetToListSampleAdaptor}
 
 \input{PointSetToListSampleAdaptor.tex}
@@ -60,32 +60,32 @@ describe how to create an
 \input{PointSetToAdaptor.tex}
 
 
-\subsection{Histogram}
+\subsection{Histogram}%
 \label{sec:Histogram}
 \input{Histogram.tex}
 
 
-\subsection{Subsample}
+\subsection{Subsample}%
 \label{sec:Subsample}
 \input{Subsample.tex}
 
 
-\subsection{MembershipSample}
+\subsection{MembershipSample}%
 \label{sec:MembershipSample}
 \input{MembershipSample.tex}
 
 
-\subsection{MembershipSampleGenerator}
+\subsection{MembershipSampleGenerator}%
 \label{sec:MembershipSampleGenerator}
 \input{MembershipSampleGenerator.tex}
 
 
-\subsection{K-d Tree}
+\subsection{K-d Tree}%
 \label{sec:KdTree}
 \input{KdTree.tex}
 
 
-\section{Algorithms and Functions}
+\section{Algorithms and Functions}%
 \label{sec:StatisticsAlgorithmsFunctions}
 
 In the previous section, we described the data containers in the ITK
@@ -99,7 +99,7 @@ distance between two measurement vectors, we call it a function, while if we
 implemented a class (\subdoxygen{Statistics}{MeanCalculator}) to calculate
 the mean of a sample, we call it an algorithm.
 
-\subsection{Sample Statistics}
+\subsection{Sample Statistics}%
 \label{sec:SampleStatistics}
 
 We will show how to get sample statistics such as means and covariance from
@@ -108,25 +108,24 @@ characteristics of a sample. Such sample statistics are very important for
 statistical classification. When we know the form of the sample distributions
 and their parameters (statistics), we can conduct Bayesian classification. In
 ITK, sample mean and covariance calculation algorithms are implemented. Each
-algorithm also has its weighted version (see Section
-\ref{sec:WeightedMeanCovariance}). The weighted versions are used in the
-expectation-maximization parameter estimation process.
+algorithm also has its weighted version (see Section~\ref{sec:WeightedMeanCovariance}).
+The weighted versions are used in the expectation-maximization parameter estimation process.
 
-\subsubsection{Mean and Covariance}
+\subsubsection{Mean and Covariance}%
 \label{sec:MeanCovariance}
 \input{SampleStatistics.tex}
 
 
-\subsubsection{Weighted Mean and Covariance}
+\subsubsection{Weighted Mean and Covariance}%
 \label{sec:WeightedMeanCovariance}
 \input{WeightedSampleStatistics.tex}
 
 
-\subsection{Sample Generation}
+\subsection{Sample Generation}%
 \label{sec:SampleGeneration}
 
 
-\subsubsection{SampleToHistogramFilter}
+\subsubsection{SampleToHistogramFilter}%
 \label{sec:SampleToHistogramFilter}
 \input{SampleToHistogramFilter.tex}
 
@@ -136,7 +135,7 @@ expectation-maximization parameter estimation process.
 %REMOVED
 %REMOVED \input{ListSampleToHistogramGenerator.tex}
 
-\subsubsection{NeighborhoodSampler}
+\subsubsection{NeighborhoodSampler}%
 \label{sec:NeighborhoodSampler}
 \input{NeighborhoodSampler.tex}
 
@@ -146,12 +145,12 @@ expectation-maximization parameter estimation process.
 %REMOVED
 %REMOVED \input{SampleToHistogramProjectionFilter.tex}
 
-\subsection{Sample Sorting}
+\subsection{Sample Sorting}%
 \label{sec:SampleSorting}
 \input{SampleSorting.tex}
 
 
-\subsection{Probability Density Functions}
+\subsection{Probability Density Functions}%
 \label{sec:ProbabilityDensityFunctions}
 
 The probability density function (PDF) for a specific distribution returns
@@ -161,20 +160,20 @@ different distributions require different sets of distribution
 parameters. Before calling the \code{Evaluate()} method, make sure to set the
 proper values for the distribution parameters.
 
-\subsubsection{Gaussian Distribution}
+\subsubsection{Gaussian Distribution}%
 \label{sec:GaussianMembershipFunction}
 \input{GaussianMembershipFunction.tex}
 
 
-\subsection{Distance Metric}
+\subsection{Distance Metric}%
 \label{sec:DistanceMetric}
 
-\subsubsection{Euclidean Distance}
+\subsubsection{Euclidean Distance}%
 \label{sec:EuclideanDistanceMetric}
 \input{EuclideanDistanceMetric.tex}
 
 
-\subsection{Decision Rules}
+\subsection{Decision Rules}%
 \label{sec:DecisionRules}
 
 A decision rule is a function that returns the index of one data element in a
@@ -196,22 +195,22 @@ The argument type for the \code{Evaluate()} method is
 For a project that uses a decision rule, it must link the \code{itkCommon}
 library. Decision rules are not templated classes.
 
-\subsubsection{Maximum Decision Rule}
+\subsubsection{Maximum Decision Rule}%
 \label{sec:MaximumDecisionRule}
 \input{MaximumDecisionRule.tex}
 
 
-\subsubsection{Minimum Decision Rule}
+\subsubsection{Minimum Decision Rule}%
 \label{sec:MinimumDecisionRule}
 \input{MinimumDecisionRule.tex}
 
 
-\subsubsection{Maximum Ratio Decision Rule}
+\subsubsection{Maximum Ratio Decision Rule}%
 \label{sec:MaximumRatioDecisionRule}
 
 \input{MaximumRatioDecisionRule.tex}
 
-\subsection{Random Variable Generation}
+\subsection{Random Variable Generation}%
 \label{sec:RandomVariableGeneration}
 
 A random variable generation class returns a variate when the
@@ -219,51 +218,49 @@ A random variable generation class returns a variate when the
 for ``enough'' times, the set of variates we will get follows
 the distribution form of the random variable generation class.
 
-\subsubsection{Normal (Gaussian) Distribution}
+\subsubsection{Normal (Gaussian) Distribution}%
 \label{sec:NormalVariateGeneration}
 \input{NormalVariateGenerator.tex}
 
 
-\section{Statistics applied to Images}
+\section{Statistics applied to Images}%
 \label{sec:StatisticsAppliedToImages}
 
-\subsection{Image Histograms}
+\subsection{Image Histograms}%
 \label{sec:ImageHistogram}
 
 
-\subsubsection{Scalar Image Histogram with Adaptor}
+\subsubsection{Scalar Image Histogram with Adaptor}%
 \label{sec:ScalarImageHistogramAdaptor}
 \input{ImageHistogram1.tex}
 
 
-\subsubsection{Scalar Image Histogram with Generator}
+\subsubsection{Scalar Image Histogram with Generator}%
 \label{sec:ScalarImageHistogramGenerator}
 \input{ImageHistogram2.tex}
 
 
-\subsubsection{Color Image Histogram with Generator}
+\subsubsection{Color Image Histogram with Generator}%
 \label{sec:ColorImageHistogramGenerator}
 \input{ImageHistogram3.tex}
 
 
-\subsubsection{Color Image Histogram Writing}
+\subsubsection{Color Image Histogram Writing}%
 \label{sec:ColorImageHistogramGeneratorWriting}
 \input{ImageHistogram4.tex}
 
 
-\subsection{Image Information Theory}
+\subsection{Image Information Theory}%
 \label{sec:ImageInformationTheory}
 
 Many concepts from Information Theory have been used successfully in the domain
 of image processing. This section introduces some of such concepts and
 illustrates how the statistical framework in ITK can be used for computing
-measures that have some relevance in terms of Information Theory
-\cite{Shannon1948,Shannon1949,Kullback1997}.
+measures that have some relevance in terms of Information Theory~\cite{Shannon1948,Shannon1949,Kullback1997}.
 
 
-\subsubsection{Computing Image Entropy}
-\label{sec:ComputingImageEntropy}
-
+\subsubsection{Computing Image Entropy}%
+\label{sec:ComputingImageEntropy}%
 \index{Entropy!What's wrong in images}
 
 The concept of Entropy has been introduced into image processing as a crude
@@ -347,12 +344,12 @@ statistics framework.
 
 \input{ImageEntropy1.tex}
 
-\subsubsection{Computing Images Mutual Information}
+\subsubsection{Computing Images Mutual Information}%
 \label{sec:ComputingImagesMutualInformation}
 \input{ImageMutualInformation1.tex}
 
 
-\section{Classification}
+\section{Classification}%
 \label{sec:Classification}
 
 In statistical classification, each object is represented by $d$ features (a
@@ -367,7 +364,7 @@ illustrates this general framework.
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.7\textwidth]{DudaClassifier.eps}
-  \itkcaption[Simple conceptual classifier]{Simple conceptual classifier.}
+  \itkcaption[Simple conceptual classifier]{Simple conceptual classifier.}%
   \label{fig:simple}
 \end{figure}
 
@@ -403,27 +400,27 @@ scores suggest a ``winner'', a measurement vector can be flagged as ill-defined.
 Such a rejection scheme can avoid risks of assigning a class label
 without a proper win margin.
 
-\subsection{k-d Tree Based k-Means Clustering}
+\subsection{k-d Tree Based k-Means Clustering}%
 \label{sec:KdTreeBasedKMeansClustering}
 \input{KdTreeBasedKMeansClustering.tex}
 
 
-\subsection{K-Means Classification}
+\subsection{K-Means Classification}%
 \label{sec:KMeansClassifier}
 \input{ScalarImageKmeansClassifier.tex}
 
 
-\subsection{Bayesian Plug-In Classifier}
+\subsection{Bayesian Plug-In Classifier}%
 \label{sec:BayesianPluginClassifier}
 \input{BayesianPluginClassifier.tex}
 
 
-\subsection{Expectation Maximization Mixture Model Estimation}
+\subsection{Expectation Maximization Mixture Model Estimation}%
 \label{sec:ExpectationMaximizationMixtureModelEstimation}
 \input{ExpectationMaximizationMixtureModelEstimator.tex}
 
 
-\subsection{Classification using Markov Random Field}
+\subsection{Classification using Markov Random Field}%
 \label{sec:MarkovRandomField}
 
 Markov Random Fields are probabilistic models that use the correlation between
@@ -436,6 +433,6 @@ distances by evaluating the influence of its neighboring pixels (based on a MRF
 model) and finally, classifies each pixel to the class which has the minimum
 distance to that pixel (taking the neighborhood influence under consideration).
 The energy function minimization is done using the iterated conditional modes
-(ICM) algorithm \cite{Besag1986}.
+(ICM) algorithm~\cite{Besag1986}.
 
 \input{ScalarImageMarkovRandomField1.tex}

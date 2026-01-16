@@ -1,11 +1,11 @@
-\chapter{System Overview}
+\chapter{System Overview}%
 \label{chapter:SystemOverview}
 
 The purpose of this chapter is to provide you with an overview of the
 \emph{Insight Toolkit} system. We recommend that you read this chapter to
 gain an appreciation for the breadth and area of application of ITK.
 
-\section{System Organization}
+\section{System Organization}%
 \label{sec:SystemOrganization}
 
 The Insight Toolkit consists of several subsystems. A brief
@@ -22,7 +22,7 @@ in some cases additional chapters---cover these concepts in more detail.
 
   \item[Numerics.] ITK uses VXL's VNL numerics libraries. These are
         easy-to-use C++ wrappers around the Netlib Fortran numerical
-        analysis routines \footnote{\url{https://www.netlib.org}}.
+        analysis routines\footnote{\url{https://www.netlib.org}}.
 
   \item[Data Representation and Access.] Two principal classes are
         used to represent data: the \doxygen{Image} and \doxygen{Mesh}
@@ -86,27 +86,26 @@ in some cases additional chapters---cover these concepts in more detail.
 \end{description}
 
 
-\section{Essential System Concepts}
+\section{Essential System Concepts}%
 \label{sec:EssentialSystemConcepts}
 
 This section describes some of the core concepts and implementation features
 found in ITK.
 
-\subsection{Generic Programming}
-\label{sec:GenericProgramming}
-
-\index{generic programming}
+\subsection{Generic Programming}%
+\label{sec:GenericProgramming}%
+\index{generic programming}%
 \index{template}
 
 Generic programming is a method of organizing libraries consisting of
-generic---or reusable---software components \cite{Musser1996}. The idea is to
+generic---or reusable---software components~\cite{Musser1996}. The idea is to
 make software that is capable of ``plugging together'' in an efficient,
 adaptable manner. The essential ideas of generic programming are
 \emph{containers} to hold data, \emph{iterators} to access the data, and
 \emph{generic algorithms} that use containers and iterators to create
 efficient, fundamental algorithms such as sorting. Generic programming is
 implemented in C++ with the \emph{template} programming mechanism and the
-use of the STL Standard Template Library \cite{Austern1999}.
+use of the STL Standard Template Library~\cite{Austern1999}.
 
 C++ templating is a programming technique allowing users to write software in
 terms of one or more unknown types \code{T}. To create executable code, the
@@ -130,7 +129,7 @@ complexity may produce difficult to decipher error messages due to even the
 simplest syntax errors. For those unfamiliar with templated code and
 generic programming, we recommend the two books cited above.
 
-\subsection{Include Files and Class Definitions}
+\subsection{Include Files and Class Definitions}%
 \label{sec:IncludeFiles}
 
 In ITK, classes are defined by a maximum of two files: a header file (\code{.h})
@@ -153,10 +152,9 @@ In addition to class headers, there are a few other important header files.
     possible values.
 \end{description}
 
-\subsection{Object Factories}
-\label{sec:ObjectFactories}
-
-\index{object factory}
+\subsection{Object Factories}%
+\label{sec:ObjectFactories}%
+\index{object factory}%
 \index{factory}
 
 Most classes in ITK are instantiated through an \emph{object factory}
@@ -198,9 +196,8 @@ the use of the \code{New()} method to create a class. Generally the
 \code{itkNewMacro()} found in \code{Modules/Core/Common/include/itkMacro.h}.
 
 
-\subsection{Smart Pointers and Memory Management}
-\label{sec:SmartPointers}
-
+\subsection{Smart Pointers and Memory Management}%
+\label{sec:SmartPointers}%
 \index{smart pointer}
 
 By their nature, object-oriented systems represent and operate on data through
@@ -217,7 +214,7 @@ excessive memory consumption). This process of allocating and
 releasing memory is known as memory management.
 
 In ITK, memory management is implemented through reference counting. This
-compares to another popular approach---garbage collection---used
+compares to another popular approach---garbage collection---used%
 \index{garbage collection} by many systems, including Java.
 In reference counting, a count of the number of
 references to each instance is kept. When the reference goes to zero, the
@@ -276,10 +273,9 @@ the need for speed and/or memory demands a smaller, faster class. Raw pointers
 are preferred for multi-threaded sections of code.
 
 
-\subsection{Error Handling and Exceptions}
-\label{sec:ErrorHandling}
-
-\index{exceptions}
+\subsection{Error Handling and Exceptions}%
+\label{sec:ErrorHandling}%
+\index{exceptions}%
 \index{error handling}
 
 In general, ITK uses exception handling to manage errors during program
@@ -299,8 +295,8 @@ generally takes the form as illustrated below:
 \end{minted}
 \normalsize
 
-A particular class may throw an exception as demonstrated below (this
-code snippet is taken from \doxygen{ByteSwapper}:
+A particular class may throw an exception as demonstrated below
+(this code snippet is taken from \doxygen{ByteSwapper}):
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cpp}
@@ -325,17 +321,16 @@ choose to catch a particular exception and hence a specific ITK error, or you
 can trap \emph{any} ITK exception by catching ExceptionObject.
 
 
-\subsection{Event Handling}
-\label{sec:EventHandling}
-
-\index{event handling}
-\index{Command/Observer design pattern}
-\index{itk::Command}
-\index{ProgressEvent()}
+\subsection{Event Handling}%
+\label{sec:EventHandling}%
+\index{event handling}%
+\index{Command/Observer design pattern}%
+\index{itk::Command}%
+\index{ProgressEvent()}%
 \index{InvokeEvent()}
 
 Event handling in ITK is implemented using the Subject/Observer design
-pattern \cite{Gamma1995} (sometimes referred to as the Command/Observer
+pattern~\cite{Gamma1995} (sometimes referred to as the Command/Observer
 design pattern). In this approach, objects indicate that they are watching
 for a particular event---invoked by a particular instance---by registering
 with the instance that they are watching. For example, filters in ITK
@@ -372,7 +367,7 @@ non-const member functions as well as C-style functions. (Look in
 \code{Command}. If nothing suitable is found, derivation is another
 possibility.)
 
-\subsection{Multi-Threading}
+\subsection{Multi-Threading}%
 \label{sec:MultiThreading}
 
 Multi-threading is handled in ITK through a high-level design
@@ -494,10 +489,9 @@ different instances of a class (and its methods) is a thread-safe operation.
 Invoking methods on the same instance in different threads is to be avoided.
 
 
-\section{Numerics}
-\label{sec:Numerics}
-
-\index{VNL}
+\section{Numerics}%
+\label{sec:Numerics}%
+\index{VNL}%
 \index{numerics}
 
 ITK uses the VNL numerics library to provide resources for numerical
@@ -535,8 +529,8 @@ The VNL numerics library includes classes for:
     functions either with or without user-supplied derivatives.
 
     \item[Standardized functions and constants.] Class \code{vnl\_math}
-    defines constants (pi, e, eps...) and simple functions (sqr, abs,
-    rnd...). Class \code{numeric\_limits} is from the ISO standard
+    defines constants (pi, e, eps\ldots) and simple functions (sqr, abs,
+    rnd\ldots). Class \code{numeric\_limits} is from the ISO standard
     document, and provides a way to access basic limits of a
     type. For example \code{numeric\_limits<short>::max()} returns the maximum
     value of a short.
@@ -559,9 +553,8 @@ directory. In addition, a complete finite element (FEM) package is available,
 primarily to support the deformable registration in ITK.
 
 
-\section{Data Representation}
-\label{sec:DataRepresentationAndAccess}
-
+\section{Data Representation}%
+\label{sec:DataRepresentationAndAccess}%
 \index{data object}
 
 There are two principle types of data represented in ITK: images and
@@ -570,9 +563,7 @@ meshes. This functionality is implemented in the classes
 \doxygen{DataObject}. In ITK, data objects are classes that are meant to
 be passed around the system and may participate in data flow pipelines (see
 Section~\ref{sec:DataProcessingPipeline} on
-page~\pageref{sec:DataProcessingPipeline} for more information).
-
-
+page~\pageref{sec:DataProcessingPipeline} for more information).%
 \index{itk::Image}
 
 \doxygen{Image} represents an \emph{n}-dimensional, regular sampling of
@@ -598,8 +589,7 @@ regions:
 \item \code{BufferedRegion}---the portion of the image retained in memory.
 \item \code{RequestedRegion}---the portion of the region requested by a
 filter or other class when operating on the image.
-\end{enumerate}
-
+\end{enumerate}%
 \index{itk::Mesh}
 
 The \doxygen{Mesh} class represents an \emph{n}-dimensional, unstructured grid. The
@@ -617,9 +607,9 @@ boundary cells explicitly, to indicate different connectivity from the implied
 neighborhood relationships, or to store information on the boundaries of
 cells.
 
-The mesh is defined in terms of three template parameters: 1) a pixel type
-associated with the points, cells, and cell boundaries; 2) the dimension of
-the points (which in turn limits the maximum dimension of the cells); and 3)
+The mesh is defined in terms of three template parameters: (1) a pixel type
+associated with the points, cells, and cell boundaries; (2) the dimension of
+the points (which in turn limits the maximum dimension of the cells); and (3)
 a ``mesh traits'' template parameter that specifies the types of the
 containers and identifiers used to access the points, cells, and/or
 boundaries. By using the mesh traits carefully, it is possible to create
@@ -632,15 +622,13 @@ class can be used to represent point clouds or randomly distributed
 landmarks, etc. The PointSet class has no associated topology.
 
 
-\section{Data Processing Pipeline}
-\label{sec:DataProcessingPipeline}
-
-\index{data processing pipeline}
-
-\index{process object}
-\index{source}
-\index{reader}
-\index{filter}
+\section{Data Processing Pipeline}%
+\label{sec:DataProcessingPipeline}%
+\index{data processing pipeline}%
+\index{process object}%
+\index{source}%
+\index{reader}%
+\index{filter}%
 \index{mapper}
 
 While data objects (e.g., images and meshes) are used to represent data,
@@ -650,9 +638,7 @@ produce new data objects. Process objects are classed as
 readers) produce data, filter objects take in data and process it to produce
 new data, and mappers accept data for output either to a file or
 some other system.  Sometimes the term \emph{filter} is used broadly
-to refer to all three types.
-
-\index{streaming}
+to refer to all three types.\index{streaming}
 
 The data processing pipeline ties together data objects (e.g., images and
 meshes) and process objects. The pipeline supports an automatic updating
@@ -694,8 +680,8 @@ invoked on the writer, the data processing pipeline causes each of these
 filters to execute in order, culminating in writing the final data to a file on disk.
 
 
-\section{Spatial Objects}
-\label{sec:SpatialObjectsOverview}
+\section{Spatial Objects}%
+\label{sec:SpatialObjectsOverview}%
 \index{spatial object}
 
 The ITK spatial object framework supports the philosophy that the task of
@@ -715,7 +701,7 @@ so forth.
 The capabilities provided by the spatial objects framework supports their use
 in object segmentation, registration, surface/volume rendering, and other
 display and analysis functions. The spatial object framework extends the
-concept of a ``scene graph'' \index{scene graph} that is common to computer
+concept of a ``scene graph''\index{scene graph} that is common to computer
 rendering packages so as to support these new functions. With the spatial
 objects framework you can:
 \begin{enumerate}
@@ -759,10 +745,9 @@ to register a parametric representation of a heart with an individual's CT
 data or to register two segmentations of a liver.
 
 
-\section{Wrapping}
-\label{sec:Wrapping}
-
-\index{wrapping}
+\section{Wrapping}%
+\label{sec:Wrapping}%
+\index{wrapping}%
 \index{Python}
 
 While the core of ITK is implemented in C++, Python bindings can be
@@ -788,7 +773,7 @@ wrapper generator uses a combination of tools to produce language bindings.
 To learn more about the wrapping process, please see the section on module
 wrapping, Section~\ref{sec:ModuleWrapping}.  The wrapping process is orchestrated by a
 number of CMake macros found in the \code{Wrapping} directory. The result of
-the wrapping process is a set of shared libraries (.so in Linux or .dlls on
+the wrapping process is a set of shared libraries (\code{.so} in Linux or \code{.dlls} on
 Windows) that can be used by interpreted languages.
 
 There is almost a direct translation from C++, with the differences being the
@@ -974,7 +959,7 @@ import itk
 On Windows, it is also necessary to add the ITK build directory containing the
 .dll files to your \code{PATH} environmental variable if ITK is built with the
 CMake option \code{BUILD\_SHARED\_LIBS} enabled. For example, the directory
-containing .dll files for an ITK build at
+containing \code{.dll} files for an ITK build at
 \code{C:\textbackslash{}ITK-build} when built with Visual Studio in the
 \code{Release} configuration is
 \code{C:\textbackslash{}ITK-build\textbackslash{}bin\textbackslash{}Release}.
