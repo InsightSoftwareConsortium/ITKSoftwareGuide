@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 3.10.2 FATAL_ERROR)
 cmake_policy(VERSION 3.10.2)
- 
-project( VWSegmentation )
 
-find_package( ITK 5 REQUIRED )
-include( ${ITK_USE_FILE} )
+project(VWSegmentation)
+
+find_package(ITK 6 REQUIRED)
 
 set( operations
   VWHistogramRGB
@@ -23,5 +22,5 @@ set( operations
 
 foreach( operation ${operations} )
   add_executable( ${operation} ${operation}.cxx )
-  target_link_libraries( ${operation} ${ITK_LIBRARIES} )
+  target_link_libraries( ${operation} ${ITK_INTERFACE_LIBRARIES} )
 endforeach()
