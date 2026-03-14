@@ -644,17 +644,18 @@ be created for your new project. These two files can be found in the
 The \code{CMakeLists.txt} file contains the following lines:
 
 % CMake looks similar to bash with regards to formatting.
-\begin{minted}[linenos=false]{cmake}
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
 project(HelloWorld)
 
-set(MINIMUM_ITK_VERSION 5.4)
+set(MINIMUM_ITK_VERSION 6.0)
 find_package(ITK \${MINIMUM_ITK_VERSION} REQUIRED)
-include(${ITK_USE_FILE})
+itk_generate_factory_registration()
 
 add_executable(HelloWorld HelloWorld.cxx)
-
-target_link_libraries(HelloWorld ${ITK_LIBRARIES})
+target_link_libraries(HelloWorld ${ITK_INTERFACE_LIBRARIES})
 \end{minted}
+\normalsize
 
 The first line defines the name of your project as it appears in Visual Studio
 or Eclipse; this line will have no effect with UNIX/Linux Makefiles. The second
@@ -663,9 +664,9 @@ strategy for finding ITK fails, CMake will report an error which can be
 corrected by providing the location of the directory where ITK was compiled or
 installed on your system. In this case the path to the ITK's binary/installation
 directory needs to be specified as the value of the \code{ITK\_DIR} CMake
-variable. The line \code{include(\$\{USE\_ITK\_FILE\})} loads the
-\code{UseITK.cmake} file which contains the configuration information about the
-specified ITK build. The line starting with \code{add\_executable} call defines
+variable. The line \code{itk\_generate\_factory\_registration()} generates configuration
+to enable input-output factory class registration in the subsequent executable.
+The line starting with \code{add\_executable} call defines
 as its first argument the name of the executable that will be produced
 as result of this project. The remaining argument(s) of \code{add\_executable}
 are the names of the source files to be compiled. Finally, the
