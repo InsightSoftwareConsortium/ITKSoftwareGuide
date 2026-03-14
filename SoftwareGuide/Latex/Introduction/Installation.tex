@@ -575,8 +575,8 @@ specify the individual ITK modules in the \code{COMPONENTS} argument in the
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
 set(MINIMUM_ITK_VERSION 5.4)
-find_package(ITK \${MINIMUM_ITK_VERSION} REQUIRED COMPONENTS Module1 Module2)
-include(\${ITK_USE_FILE})
+find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED COMPONENTS Module1 Module2)
+include(${ITK_USE_FILE})
 \end{minted}
 \normalsize
 
@@ -585,14 +585,14 @@ e.g.
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
 set(MINIMUM_ITK_VERSION 5.4)
-find_package(ITK \${MINIMUM_ITK_VERSION} REQUIRED
+find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED
   COMPONENTS
     MorphologicalContourInterpolation
     ITKSmoothing
     ITKIOImageBase
     ITKIONRRD
     )
-include(\${ITK_USE_FILE})
+include(${ITK_USE_FILE})
 \end{minted}
 \normalsize
 
@@ -605,7 +605,7 @@ an ITK application project using CMake:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
 ExternalProject_Add(ITK
-      GIT_REPOSITORY \${git_protocol}://github.com/InsightSoftwareConsortium/ITK.git"
+      GIT_REPOSITORY https://github.com/InsightSoftwareConsortium/ITK.git"
       GIT_TAG "<tag id>" # specify the commit id or the tag id
       SOURCE_DIR <ITK source tree path>
       BINARY_DIR <ITK build tree path>
@@ -649,7 +649,7 @@ The \code{CMakeLists.txt} file contains the following lines:
 project(HelloWorld)
 
 set(MINIMUM_ITK_VERSION 6.0)
-find_package(ITK \${MINIMUM_ITK_VERSION} REQUIRED)
+find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED)
 itk_generate_factory_registration()
 
 add_executable(HelloWorld HelloWorld.cxx)
