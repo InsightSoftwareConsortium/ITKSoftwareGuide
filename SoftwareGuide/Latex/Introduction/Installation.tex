@@ -574,9 +574,11 @@ specify the individual ITK modules in the \code{COMPONENTS} argument in the
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
-set(MINIMUM_ITK_VERSION 5.4)
+set(MINIMUM_ITK_VERSION 6.0)
 find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED COMPONENTS Module1 Module2)
-include(${ITK_USE_FILE})
+
+add_executable(Example Example.cxx)
+target_link_libraries(Example ITK::Module1 ITK::Module2)
 \end{minted}
 \normalsize
 
@@ -584,7 +586,7 @@ e.g.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
-set(MINIMUM_ITK_VERSION 5.4)
+set(MINIMUM_ITK_VERSION 6.0)
 find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED
   COMPONENTS
     MorphologicalContourInterpolation
@@ -592,9 +594,54 @@ find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED
     ITKIOImageBase
     ITKIONRRD
     )
-include(${ITK_USE_FILE})
+
+add_executable(Example Example.cxx)
+target_link_libraries(Example
+    ITK::MorphologicalContourInterpolation
+    ITK::ITKSmoothing
+    ITK::ITKIOImageBase
+    ITK::ITKIONRRD
+    )
+# or
+target_link_libraries(Example ${ITK_INTERFACE_LIBRARIES})
 \end{minted}
 \normalsize
+
+ITK uses factory registration to load IO formats and pluggable components at runtime.
+ITK 6 uses meta-modules that simplify factory registration by grouping related modules together.
+
+Factory meta-modules include:
+
+\begin{description}
+  \item[ITKImageIO] All image IO modules (JPEG, PNG, NIFTI, DICOM, etc.).
+  \item[ITKMeshIO] All mesh IO modules.
+  \item[ITKTransformIO] Transform IO modules.
+  \item[ITKFFTImageFilterInit] FFT implementations.
+\end{description}
+
+To register all factories:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+set(MINIMUM_ITK_VERSION 6.0)
+find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED
+  COMPONENTS
+    MorphologicalContourInterpolation
+    ITKSmoothing
+    ITKIOImageBase
+    ITKIONRRD
+    )
+itk_generate_factory_registration()
+
+add_executable(Example Example.cxx)
+target_link_libraries(Example ${ITK_INTERFACE_LIBRARIES} ITK::ITKImageIO)
+\end{minted}
+\normalsize
+
+The \code{itk\_generate\_factory\_registration()} macro must be called before adding executables.
+The CMake macro generates registration code for the IO modules and factory-enabled components from
+the modules loaded in \code{find\_package()}. The meta-module must be linked to the target to
+include and enable the generated registration code.
 
 If you would like to use the CMake ExternalProject
 Module\footnote{\url{https://cmake.org/cmake/help/latest/module/ExternalProject.html}}
