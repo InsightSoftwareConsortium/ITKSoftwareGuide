@@ -575,10 +575,14 @@ specify the individual ITK modules in the \code{COMPONENTS} argument in the
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
 set(MINIMUM_ITK_VERSION 6.0)
-find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED COMPONENTS Module1 Module2)
+find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED
+  COMPONENTS
+    ITKCommon
+    ITKSmoothing
+  )
 
 add_executable(Example Example.cxx)
-target_link_libraries(Example ITK::Module1 ITK::Module2)
+target_link_libraries(Example ITK::ITKCommonModule ITK::ITKSmoothingModule)
 \end{minted}
 \normalsize
 
@@ -593,15 +597,15 @@ find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED
     ITKSmoothing
     ITKIOImageBase
     ITKIONRRD
-    )
+  )
 
 add_executable(Example Example.cxx)
 target_link_libraries(Example
-    ITK::MorphologicalContourInterpolation
-    ITK::ITKSmoothing
-    ITK::ITKIOImageBase
-    ITK::ITKIONRRD
-    )
+  ITK::MorphologicalContourInterpolationModule
+  ITK::ITKSmoothingModule
+  ITK::ITKIOImageBaseModule
+  ITK::ITKIONRRDModule
+  )
 # or
 target_link_libraries(Example ${ITK_INTERFACE_LIBRARIES})
 \end{minted}
