@@ -51,13 +51,13 @@ on page~\pageref{sec:CDash}).
 There are two different ways to access the ITK source code:
 \begin{description}
   \item[Periodic releases]{Official releases are available on the ITK web
-    site\footnote{\url{https://itk.org/ITK/resources/software.html}}.
+    site\footnote{\url{https://docs.itk.org/en/latest/download.html}}.
     They are released twice a year,
     and announced on the ITK web pages and discussion.
     However, they may not provide the latest and greatest features of the
     toolkit.}
   \item[Continuous repository checkout]{Direct access to the Git source code
-    repository\footnote{\url{https://itk.org/ITK.git}} provides immediate
+    repository\footnote{\url{https://github.com/InsightSoftwareConsortium/ITK.git}} provides immediate
     availability to the latest toolkit additions. But, on any given day the
     source code may not be stable as compared to the official releases.}
 \end{description}
@@ -79,7 +79,7 @@ assurance process in Section~\ref{sec:CDash} on page~\pageref{sec:CDash}.)
 
 ITK can be downloaded without cost from the following web site:
 \begin{center}
-  \url{https://www.itk.org/ITK/resources/software.html}
+  \url{https://docs.itk.org/en/latest/download.html}
 \end{center}
 
 On the web page, choose the tarball that better fits your system. The options are
@@ -104,7 +104,7 @@ is stable.)
 
 Access ITK via Git using the following commands (under a Git Bash shell):
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{bash}
-git clone git://itk.org/ITK.git
+git clone https://github.com/InsightSoftwareConsortium/ITK
 \end{minted}
 
 This will trigger the download of the software into a directory named
@@ -129,7 +129,7 @@ Medicine at \url{https://www.nlm.nih.gov/research/visible/visible_human.html}.
 Another source of data can be obtained from the ITK Web site at either
 of the following:
 \begin{quote}
-\url{https://www.itk.org/ITK/resources/links.html} \\
+\url{https://docs.itk.org/en/latest/download.html} \\
 \url{ftp://public.kitware.com/pub/itk/Data/}.
 \end{quote}
 
@@ -574,9 +574,15 @@ specify the individual ITK modules in the \code{COMPONENTS} argument in the
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
-set(MINIMUM_ITK_VERSION 5.4)
-find_package(ITK \${MINIMUM_ITK_VERSION} REQUIRED COMPONENTS Module1 Module2)
-include(\${ITK_USE_FILE})
+set(MINIMUM_ITK_VERSION 6.0)
+find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED
+  COMPONENTS
+    ITKCommon
+    ITKSmoothing
+  )
+
+add_executable(Example Example.cxx)
+target_link_libraries(Example ITK::ITKCommonModule ITK::ITKSmoothingModule)
 \end{minted}
 \normalsize
 
@@ -584,17 +590,63 @@ e.g.
 
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
-set(MINIMUM_ITK_VERSION 5.4)
-find_package(ITK \${MINIMUM_ITK_VERSION} REQUIRED
+set(MINIMUM_ITK_VERSION 6.0)
+find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED
   COMPONENTS
     MorphologicalContourInterpolation
     ITKSmoothing
     ITKIOImageBase
     ITKIONRRD
-    )
-include(\${ITK_USE_FILE})
+  )
+
+add_executable(Example Example.cxx)
+target_link_libraries(Example
+  ITK::MorphologicalContourInterpolationModule
+  ITK::ITKSmoothingModule
+  ITK::ITKIOImageBaseModule
+  ITK::ITKIONRRDModule
+  )
+# or
+target_link_libraries(Example ${ITK_INTERFACE_LIBRARIES})
 \end{minted}
 \normalsize
+
+ITK uses factory registration to load IO formats and pluggable components at runtime.
+ITK 6 uses meta-modules that simplify factory registration by grouping related modules together.
+
+Factory meta-modules include:
+
+\begin{description}
+  \item[ITKImageIO] All image IO modules (JPEG, PNG, NIFTI, DICOM, etc.).
+  \item[ITKMeshIO] All mesh IO modules.
+  \item[ITKTransformIO] Transform IO modules.
+  \item[ITKFFTImageFilterInit] FFT implementations.
+\end{description}
+
+To register all factories:
+
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
+set(MINIMUM_ITK_VERSION 6.0)
+find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED
+  COMPONENTS
+    MorphologicalContourInterpolation
+    ITKSmoothing
+    ITKImageIO
+    )
+itk_generate_factory_registration(ImageIO)
+
+add_executable(Example Example.cxx)
+target_link_libraries(Example ${ITK_INTERFACE_LIBRARIES} ITK::ITKImageIO)
+\end{minted}
+\normalsize
+
+The \code{itk\_generate\_factory\_registration()} macro must be called before adding executables.
+The CMake macro generates registration code for all the IO modules and factory-enabled components from
+the modules loaded in \code{find\_package()}. The \code{ITKImageIO}
+meta-module and \code{ITK::ITKImageIO} meta-interface target bring in all ITK
+image IO modules available in the build. The meta-interface target must be linked to the target to
+include and enable the generated registration code.
 
 If you would like to use the CMake ExternalProject
 Module\footnote{\url{https://cmake.org/cmake/help/latest/module/ExternalProject.html}}
@@ -605,7 +657,7 @@ an ITK application project using CMake:
 \small
 \begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
 ExternalProject_Add(ITK
-      GIT_REPOSITORY \${git_protocol}://github.com/InsightSoftwareConsortium/ITK.git"
+      GIT_REPOSITORY https://github.com/InsightSoftwareConsortium/ITK.git"
       GIT_TAG "<tag id>" # specify the commit id or the tag id
       SOURCE_DIR <ITK source tree path>
       BINARY_DIR <ITK build tree path>
@@ -644,17 +696,18 @@ be created for your new project. These two files can be found in the
 The \code{CMakeLists.txt} file contains the following lines:
 
 % CMake looks similar to bash with regards to formatting.
-\begin{minted}[linenos=false]{cmake}
+\small
+\begin{minted}[baselinestretch=1,fontsize=\footnotesize,linenos=false,bgcolor=ltgray]{cmake}
 project(HelloWorld)
 
-set(MINIMUM_ITK_VERSION 5.4)
-find_package(ITK \${MINIMUM_ITK_VERSION} REQUIRED)
-include(${ITK_USE_FILE})
+set(MINIMUM_ITK_VERSION 6.0)
+find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED)
+itk_generate_factory_registration()
 
 add_executable(HelloWorld HelloWorld.cxx)
-
-target_link_libraries(HelloWorld ${ITK_LIBRARIES})
+target_link_libraries(HelloWorld ${ITK_INTERFACE_LIBRARIES})
 \end{minted}
+\normalsize
 
 The first line defines the name of your project as it appears in Visual Studio
 or Eclipse; this line will have no effect with UNIX/Linux Makefiles. The second
@@ -663,9 +716,9 @@ strategy for finding ITK fails, CMake will report an error which can be
 corrected by providing the location of the directory where ITK was compiled or
 installed on your system. In this case the path to the ITK's binary/installation
 directory needs to be specified as the value of the \code{ITK\_DIR} CMake
-variable. The line \code{include(\$\{USE\_ITK\_FILE\})} loads the
-\code{UseITK.cmake} file which contains the configuration information about the
-specified ITK build. The line starting with \code{add\_executable} call defines
+variable. The line \code{itk\_generate\_factory\_registration()} generates configuration
+to enable input-output factory class registration in the subsequent executable.
+The line starting with \code{add\_executable} call defines
 as its first argument the name of the executable that will be produced
 as result of this project. The remaining argument(s) of \code{add\_executable}
 are the names of the source files to be compiled. Finally, the

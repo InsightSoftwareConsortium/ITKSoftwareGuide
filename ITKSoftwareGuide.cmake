@@ -16,7 +16,6 @@ find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED)
 if(Slicer_BUILD_${PROJECT_NAME})
   set(ITK_NO_IO_FACTORY_REGISTER_MANAGER 1) # Incorporate with Slicer nicely
 endif()
-include(${ITK_USE_FILE})
 
 if( NOT IS_DIRECTORY "${ITK_SOURCE_DIR}" )
   message(FATAL_ERROR "ITK source directory is not set :${ITK_SOURCE_DIR}:")
