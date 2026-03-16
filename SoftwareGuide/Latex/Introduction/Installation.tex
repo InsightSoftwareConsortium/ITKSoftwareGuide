@@ -642,8 +642,10 @@ target_link_libraries(Example ${ITK_INTERFACE_LIBRARIES} ITK::ITKImageIO)
 \normalsize
 
 The \code{itk\_generate\_factory\_registration()} macro must be called before adding executables.
-The CMake macro generates registration code for the IO modules and factory-enabled components from
-the modules loaded in \code{find\_package()}. The meta-module must be linked to the target to
+The CMake macro generates registration code for all the IO modules and factory-enabled components from
+the modules loaded in \code{find\_package()}. The \code{ITKImageIO}
+meta-module and \code{ITK::ITKImageIO} meta-interface target bring in all ITK
+image IO modules available in the build. The meta-interface target must be linked to the target to
 include and enable the generated registration code.
 
 If you would like to use the CMake ExternalProject
