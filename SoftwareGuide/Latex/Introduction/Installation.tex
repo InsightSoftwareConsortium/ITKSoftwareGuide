@@ -632,10 +632,9 @@ find_package(ITK ${MINIMUM_ITK_VERSION} REQUIRED
   COMPONENTS
     MorphologicalContourInterpolation
     ITKSmoothing
-    ITKIOImageBase
-    ITKIONRRD
+    ITKImageIO
     )
-itk_generate_factory_registration()
+itk_generate_factory_registration(ImageIO)
 
 add_executable(Example Example.cxx)
 target_link_libraries(Example ${ITK_INTERFACE_LIBRARIES} ITK::ITKImageIO)
