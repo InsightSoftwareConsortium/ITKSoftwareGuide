@@ -15,12 +15,17 @@
 \itkFullVersiontrue
 
 % Define command to make reference to on-line Doxygen documentation
-\newcommand{\doxygen}[1]{
+\newcommand{\itkref}[1]{
 \href{https://www.itk.org/Doxygen/html/classitk_1_1#1.html}{\code{itk::#1}}}
 
 % Define command to make reference to on-line Doxygen documentation
-\newcommand{\subdoxygen}[2]{
+\newcommand{\itksubref}[2]{
 \href{https://www.itk.org/Doxygen/html/classitk_1_1#1_1_1#2.html}{\code{itk::#1::#2}}}
+
+% Deprecated spellings of \itkref / \itksubref, kept for ITK branches that
+% still use them in their Software Guide example blocks.
+\newcommand{\doxygen}[1]{\itkref{#1}}
+\newcommand{\subdoxygen}[2]{\itksubref{#1}{#2}}
 
 % Define command for the standard comment introducing classes with similar functionalities
 \newcommand{\relatedClasses}{
