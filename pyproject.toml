@@ -37,7 +37,6 @@ cmd = '''cmake \
   -S. \
   -GNinja \
   -DCMAKE_BUILD_TYPE:STRING=MinSizeRel \
-  -DSuperBuild_ITKSoftwareGuide_USE_GIT_PROTOCOL:BOOL=OFF \
   -DCMAKE_C_COMPILER_LAUNCHER:STRING=ccache \
   -DCMAKE_CXX_COMPILER_LAUNCHER:STRING=ccache'''
 description = "Configure the ITK Software Guide SuperBuild (builds ITK in Phase I)"
