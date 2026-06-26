@@ -1,5 +1,4 @@
-cmake_minimum_required(VERSION 3.10.2 FATAL_ERROR)
-cmake_policy(VERSION 3.10.2)
+cmake_minimum_required(VERSION 3.22.1 FATAL_ERROR)
 
 project(VWSegmentation)
 
@@ -22,5 +21,5 @@ set( operations
 
 foreach( operation ${operations} )
   add_executable( ${operation} ${operation}.cxx )
-  target_link_libraries( ${operation} ${ITK_INTERFACE_LIBRARIES} )
+  target_link_libraries( ${operation} ${ITK_LIBRARIES} )
 endforeach()

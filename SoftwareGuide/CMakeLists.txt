@@ -25,7 +25,6 @@
 # in PNG/XFIG/JPEG/EPS format.
 #
 cmake_minimum_required(VERSION 3.22.1 FATAL_ERROR)
-cmake_policy(VERSION 3.22.1)
 
 project(SoftwareGuide C)
 

@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.22.1 FATAL_ERROR)
-cmake_policy(VERSION 3.22.1)
 
 project(Examples C)
 
@@ -46,10 +45,7 @@ endif()
 
 #
 # Find Python executable
-find_package(PythonInterp)
-if( NOT PYTHONINTERP_FOUND )
-  message(FATAL_ERROR "Python executable was not found")
-endif()
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
 set(PYTHONCXXPARSER ${SoftwareGuide_SOURCE_DIR}/Examples/ParseCxxExamples.py)
 if( NOT EXISTS ${PYTHONCXXPARSER} )
   message(FATAL_ERROR "Missing script: ${SoftwareGuide_SOURCE_DIR}/Examples/ParseCxxExamples.py")
@@ -80,10 +76,10 @@ find_path(ITK_EXECUTABLES_DIR
   )
 
 message(STATUS "PRE_RUN_PYTHON ART GENERATION.")
-message(STATUS "Running: ${PYTHON_EXECUTABLE} ${RUN_EXAMPLES_SCRIPT} --itkSource ${ITK_SOURCE_DIR} --itkBuildDir ${ITK_BINARY_DIR} --itkExecDir ${ITK_EXECUTABLES_DIR} --SWGuidBaseOutput ${SoftwareGuide_BINARY_DIR} "
+message(STATUS "Running: ${Python3_EXECUTABLE} ${RUN_EXAMPLES_SCRIPT} --itkSource ${ITK_SOURCE_DIR} --itkBuildDir ${ITK_BINARY_DIR} --itkExecDir ${ITK_EXECUTABLES_DIR} --SWGuidBaseOutput ${SoftwareGuide_BINARY_DIR} "
   )
 add_custom_target(RunExamples ALL
-  COMMAND ${PYTHON_EXECUTABLE}
+  COMMAND ${Python3_EXECUTABLE}
   ${RUN_EXAMPLES_SCRIPT}
   --itkSource ${ITK_SOURCE_DIR}
   --itkBuildDir ${ITK_BINARY_DIR}
@@ -300,7 +296,7 @@ foreach(example ${ITK_EXAMPLES_SRCS})
   set(TEX_FILE ${SoftwareGuide_BINARY_DIR}/Examples/${TEX_FILE_BASE}.tex)
   add_custom_command(
     OUTPUT    ${TEX_FILE}
-    COMMAND   ${PYTHON_EXECUTABLE}
+    COMMAND   ${Python3_EXECUTABLE}
     ARGS      ${PYTHONCXXPARSER} ${example} ${TEX_FILE}
     DEPENDS   ${PYTHONCXXPARSER} ${example} ${${TEX_FILE_BASE}-DEPS}
   )
