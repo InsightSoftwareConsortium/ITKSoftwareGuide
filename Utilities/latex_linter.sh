@@ -1,4 +1,4 @@
-#!/usr/bin/evn bash
+#!/usr/bin/env bash
 
 # https://www.nongnu.org/chktex/ChkTeX.pdf
 
