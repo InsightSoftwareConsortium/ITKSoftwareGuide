@@ -9,10 +9,9 @@
 file(GLOB PNGandJPG_IMAGES *.jpg *.png)
 file(GLOB EPS_IMAGES *.eps)
 
-find_package(ImageMagick 6 COMPONENTS convert REQUIRED)
-if(NOT ImageMagick_convert_EXECUTABLE)
-  message("ImageMagick convert utility was not found. Please pass to advanced mode and provide its full path")
-endif()
+# ImageMagick 7: resolve the unified 'magick' driver. Its 'convert' subcommand
+# accepts the legacy operator-before-input ordering (e.g. -flip) used below.
+find_program(ImageMagick_convert_EXECUTABLE NAMES magick REQUIRED)
 # Convert an image from some file format to EPS for inclusion in Latex using
 # ImageMagick. This image is an input image. A separate macro is necessary
 # because input images do not have any dependencies
@@ -30,7 +29,7 @@ foreach(ImageFile ${PNGandJPG_IMAGES})
   set(OutputEPSFile "${OutputEPSFilePath}/${ImageFileNoExt}.eps")
   add_custom_command(
     OUTPUT    ${OutputEPSFile}
-    COMMAND   ${ImageMagick_convert_EXECUTABLE}
+    COMMAND   ${ImageMagick_convert_EXECUTABLE} convert
               ${EPS_INPUT_CONVERT_FLAGS}
               ${ImageFile}
               ${EPS_OUTPUT_CONVERT_FLAGS}
