@@ -1,0 +1,37 @@
+# .pre-commit-config.yaml
+# See https://pre-commit.com ; install with: pixi run -e pre-commit pre-commit-install
+# Skip a hook for one commit with: SKIP=<id> git commit ...
+
+default_stages: [pre-commit]
+exclude: '^(XFigOriginals/|.*/Art/|.*\.(eps|fig|dia|gnup|jpg|jpeg|png|pdf))$'
+
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v5.0.0
+  hooks:
+   - id: trailing-whitespace
+   - id: end-of-file-fixer
+   - id: check-added-large-files
+     args: ['--maxkb=1024']
+   - id: check-merge-conflict
+   - id: check-case-conflict
+   - id: mixed-line-ending
+
+- repo: local
+  hooks:
+   # LaTeX lint (advisory) — migrated from Utilities/latex_linter.sh.
+   # Runs per staged .tex file; prints findings but never blocks the commit.
+   - id: chktex
+     name: 'chktex (LaTeX lint, advisory)'
+     entry: Utilities/Hooks/chktex-lint.sh
+     language: system
+     files: '\.tex$'
+     verbose: true
+
+   # Enforce the ITK commit-message prefix (BUG:/COMP:/DOC:/ENH:/PERF:/STYLE:/WIP:).
+   # Reuses the authoritative native hook so the rule lives in one place.
+   - id: commit-prefix
+     name: 'commit message prefix'
+     entry: Utilities/Hooks/commit-msg
+     language: system
+     stages: [commit-msg]
