@@ -11,13 +11,9 @@ include(CTest)
 include(${CMAKE_CURRENT_SOURCE_DIR}/Common.cmake)
 
 #-----------------------------------------------------------------------------
-# Git protocole option
+# External project clones use https (the git:// protocol was retired by GitHub).
 #-----------------------------------------------------------------------------
-option(${CMAKE_PROJECT_NAME}_USE_GIT_PROTOCOL "If behind a firewall turn this off to use http instead." OFF)
-set(git_protocol "git")
-if(NOT ${CMAKE_PROJECT_NAME}_USE_GIT_PROTOCOL)
-  set(git_protocol "http")
-endif()
+set(git_protocol "https")
 
 find_package(Git REQUIRED)
 
@@ -40,30 +36,12 @@ endif()
 # For earlier versions, we nullify the update state to prevent updates and
 # undesirable rebuild.
 option(FORCE_EXTERNAL_BUILDS "Force rebuilding of external project (if they are updated)" OFF)
-if(CMAKE_VERSION VERSION_LESS 2.8.9 OR NOT FORCE_EXTERNAL_BUILDS)
+if(NOT FORCE_EXTERNAL_BUILDS)
   set(cmakeversion_external_update UPDATE_COMMAND)
   set(cmakeversion_external_update_value "" )
 else()
   set(cmakeversion_external_update LOG_UPDATE )
   set(cmakeversion_external_update_value 1)
-endif()
-
-#-----------------------------------------------------------------------------
-# Platform check
-#-----------------------------------------------------------------------------
-
-set(PLATFORM_CHECK true)
-
-if(PLATFORM_CHECK)
-  # See CMake/Modules/Platform/Darwin.cmake)
-  #   6.x == Mac OSX 10.2 (Jaguar)
-  #   7.x == Mac OSX 10.3 (Panther)
-  #   8.x == Mac OSX 10.4 (Tiger)
-  #   9.x == Mac OSX 10.5 (Leopard)
-  #  10.x == Mac OSX 10.6 (Snow Leopard)
-  if (DARWIN_MAJOR_VERSION LESS "9")
-    message(FATAL_ERROR "Only Mac OSX >= 10.5 are supported !")
-  endif()
 endif()
 
 #-----------------------------------------------------------------------------

@@ -82,7 +82,7 @@ if(NOT ( DEFINED "${extProjName}_DIR" OR ( DEFINED "USE_SYSTEM_${extProjName}" A
   # HACK This code fixes a loony problem with HDF5 -- it doesn't
   #      link properly if -fopenmp is used.
   string(REPLACE "-fopenmp" "" ITK_CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-  string(REPLACE "-fopenmp" "" ITK_CMAKE_CXX_FLAGS "${CMAKE_CX_FLAGS}")
+  string(REPLACE "-fopenmp" "" ITK_CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
   string(REPLACE ";" "^^" CMAKE_JOB_POOLS_ARG "${CMAKE_JOB_POOLS}")
 

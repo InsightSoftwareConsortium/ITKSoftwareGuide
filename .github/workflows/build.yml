@@ -53,7 +53,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake -GNinja -DCMAKE_BUILD_TYPE=MinSizeRel -DSuperBuild_ITKSoftwareGuide_USE_GIT_PROTOCOL:BOOL=OFF ..
+        cmake -GNinja -DCMAKE_BUILD_TYPE=MinSizeRel ..
         ninja
         cp ./ITKSoftwareGuide-build/SoftwareGuide/Latex/ITKSoftwareGuide-Book1.pdf ../InsightSoftwareGuide-Book1.pdf
         cp ./ITKSoftwareGuide-build/SoftwareGuide/Latex/ITKSoftwareGuide-Book2.pdf ../InsightSoftwareGuide-Book2.pdf
