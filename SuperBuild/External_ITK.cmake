@@ -19,7 +19,7 @@ ProjectDependancyPush(CACHED_proj ${proj})
 # SlicerMacroCheckExternalProjectDependency
 set(extProjName ITK) #The find_package known name
 set(proj      ITK) #This local name
-set(${extProjName}_REQUIRED_VERSION 4)  #If a required version is necessary, then set this, else leave blank
+set(${extProjName}_REQUIRED_VERSION 6)  #If a required version is necessary, then set this, else leave blank
 
 #if(${USE_SYSTEM_${extProjName}})
 #  unset(${extProjName}_DIR CACHE)

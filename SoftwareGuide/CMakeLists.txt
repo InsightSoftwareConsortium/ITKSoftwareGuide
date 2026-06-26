@@ -31,7 +31,7 @@ project(SoftwareGuide C)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake ${CMAKE_MODULE_PATH})
 
-find_package(ITK 5 REQUIRED)
+find_package(ITK 6 REQUIRED)
 
 set(PDF_QUALITY_LEVEL "Screen" CACHE STRING "PDF Quality. Options are: Screen, Printer, PrePress")
 #
