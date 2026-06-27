@@ -50,6 +50,25 @@ cmd = '''CCACHE_BASE_DIR="$PWD/build" cmake --build build'''
 description = "Build the ITK Software Guide; PDFs land in build/ITKSoftwareGuide-build/SoftwareGuide/Latex/"
 depends-on = ["configure"]
 
+# Pinned-release track: build against a fixed ITK release tag in a separate
+# tree (build-release-v6/) so it never clobbers the default build.
+[tool.pixi.feature.dev.tasks.configure-release-v6]
+cmd = '''cmake \
+  -Bbuild-release-v6 \
+  -S. \
+  -GNinja \
+  -DCMAKE_BUILD_TYPE:STRING=MinSizeRel \
+  -DITK_GIT_TAG:STRING=v6.0b02 \
+  -DCMAKE_C_COMPILER_LAUNCHER:STRING=ccache \
+  -DCMAKE_CXX_COMPILER_LAUNCHER:STRING=ccache'''
+description = "Configure the SuperBuild against the pinned ITK v6.0b02 release tag"
+outputs = ["build-release-v6/CMakeFiles/"]
+
+[tool.pixi.feature.dev.tasks.build-release-v6]
+cmd = '''CCACHE_BASE_DIR="$PWD/build-release-v6" cmake --build build-release-v6'''
+description = "Build the ITK Software Guide against the pinned ITK v6.0b02 release; PDFs land in build-release-v6/ITKSoftwareGuide-build/SoftwareGuide/Latex/"
+depends-on = ["configure-release-v6"]
+
 [tool.pixi.environments]
 build = ["dev", "latex"]
 pre-commit = ["pre-commit"]
