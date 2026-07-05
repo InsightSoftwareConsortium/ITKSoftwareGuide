@@ -51,3 +51,8 @@ add_custom_target(SoftwareGuideArt
   ALL
   DEPENDS ${EPS_DEPS}
   )
+
+# Expose the generated EPS figures so the Latex book DVI commands can depend on
+# them directly, preventing a parallel-build race where LaTeX runs before the
+# figures exist.
+set(EPS_DEPS "${EPS_DEPS}" PARENT_SCOPE)
