@@ -58,14 +58,8 @@ in some cases additional chapters---cover these concepts in more detail.
         anatomical priors in both segmentation and registration methods.
 
   \item[Registration Framework.] A flexible framework for registration
-        supports four different types of registration: image registration,
-        multiresolution registration, PDE-based registration, and FEM (finite
-        element method) registration.
-
-  \item[FEM Framework.] ITK includes a subsystem for solving general
-        FEM problems, in particular non-rigid registration. The FEM package
-        includes mesh definition (nodes and elements), loads, and boundary
-        conditions.
+        supports several different types of registration: image registration,
+        multiresolution registration, and PDE-based registration.
 
   \item[Level Set Framework.] The level set framework is a set of
         classes for creating filters to solve partial differential equations
@@ -549,8 +543,7 @@ ITK also provides additional numerics functionality. A suite of optimizers, that
 use VNL under the hood and integrate with the registration framework
 are available. A large collection of statistics functions---not available from
 VNL---are also provided in the \code{Insight/Numerics/Statistics}
-directory. In addition, a complete finite element (FEM) package is available,
-primarily to support the deformable registration in ITK.
+directory.
 
 
 \section{Data Representation}%
